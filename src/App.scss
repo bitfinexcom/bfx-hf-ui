@@ -1,0 +1,28 @@
+.hfui__wrapper {
+  padding: 6px;
+
+  display: flex;
+  flex-direction: row;
+
+  font-family: Roboto, sans;
+  font-size: 12px;
+}
+
+.hfui__sidebar, .hfui__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  > * {
+    margin-top: 10px;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}
+
+.hfui__sidebar {
+  margin-right: 10px;
+  max-width: 400px;
+}
