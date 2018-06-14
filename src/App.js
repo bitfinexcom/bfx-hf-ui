@@ -91,10 +91,10 @@ export default class App extends React.Component {
           </div>
 
           <div className='pt-navbar-group pt-align-right'>
-            <button className='pt-button pt-minimal pt-icon-home pt-active'>Overview</button>
+            <button className='pt-button pt-minimal pt-icon-home'>Overview</button>
             <button className='pt-button pt-minimal pt-icon-function'>Algo Orders</button>
             <button className='pt-button pt-minimal pt-icon-play'>Execution</button>
-            <button className='pt-button pt-minimal pt-icon-series-derived'>Backtesting</button>
+            <button className='pt-button pt-minimal pt-icon-series-derived pt-active'>Backtesting</button>
             <button className='pt-button pt-minimal pt-icon-cog'>Settings</button>
           </div>
         </div>
