@@ -1,5 +1,5 @@
 import React from 'react'
-import './App.css'
+import './hfui.css'
 
 import BacktestInfo from './components/BacktestInfo'
 import BacktestTrades from './components/BacktestTrades'
@@ -7,7 +7,7 @@ import Chart from './components/Chart'
 import Navbar from './ui/Navbar'
 
 // TODO: Extract data manipulation, use redux
-export default class App extends React.Component {
+export default class HFUI extends React.Component {
   state = {
     candleData: [],
     tradeData: [],
