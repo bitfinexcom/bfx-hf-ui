@@ -31,8 +31,11 @@ export default class HFTable extends React.PureComponent {
 
             gridStyle={{ outline: 'none' }}
           >
-            {columns.map(c => (
-              <Column {...c} />
+            {columns.map((c = {}) => (
+              <Column
+                key={c.dataKey}
+                {...c}
+              />
             ))}
           </Table>
         )}

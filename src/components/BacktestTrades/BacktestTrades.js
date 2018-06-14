@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import Panel from '../../ui/Panel'
 import Table from '../../ui/Table'

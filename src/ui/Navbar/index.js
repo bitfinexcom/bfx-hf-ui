@@ -8,7 +8,7 @@ export default class Navbar extends React.PureComponent {
       <div className='pt-navbar'>
         <div className='pt-navbar-group pt-align-left'>
           <div className='pt-navbar-header'>
-            <img src='/HF-logo.png' height='50' />
+            <img src='/HF-logo.png' height='50' alt='HF' />
           </div>
         </div>
 
