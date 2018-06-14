@@ -1,0 +1,28 @@
+.panel__wrapper {
+  padding: 0;
+  color: #fff;
+
+  border-top: 1px solid #294d69;
+  border-bottom: 1px solid #122533;
+
+  padding-top: 16px;
+  padding-bottom: 16px;
+
+  &:first-child {
+    border-top: none;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.panel__header {
+  color: #989898;
+  margin-bottom: 5px;
+}
+
+.panel__content {
+  border: 1px solid #294d69;
+  background: #30404d;
+}

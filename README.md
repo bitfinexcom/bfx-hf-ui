@@ -1,1 +1,5 @@
-# honey-framework-ui
+# HF UI
+
+```bash
+npm run start
+```

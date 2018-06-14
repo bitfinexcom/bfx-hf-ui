@@ -1,0 +1,74 @@
+.ReactVirtualized__Table__headerRow {
+  background: #30404d;
+  border-bottom: 1px solid #1f2a32;
+}
+
+.ReactVirtualized__Table__headerColumn {
+  font-weight: normal;
+
+  > * {
+    height: 20px !important;
+    line-height: 24px;
+    font-size: 11px;
+  }
+
+  &:first-child {
+    padding-left: 10px;
+  }
+
+  padding-right: 10px;
+}
+
+.ReactVirtualized__Table__headerTruncatedText {
+  margin-right: 4px;
+}
+
+.ReactVirtualized__Table__row {
+  border-bottom: 1px solid #1f2a32;
+  background: #293742;
+  color: #ccc;
+
+  &:hover {
+    cursor: pointer;
+    background: #232f38;
+  }
+}
+
+.ReactVirtualized__Table__rowColumn {
+  border-right: 1px solid #1f2a32;
+  padding-right: 10px;
+
+  &:first-child {
+    padding-left: 10px;
+  }
+}
+
+.ReactVirtualized__Table__headerColumn:first-of-type,
+.ReactVirtualized__Table__rowColumn:first-of-type {
+  margin-left: 0 !important;
+}
+
+.ReactVirtualized__Table__headerColumn:last-of-type,
+.ReactVirtualized__Table__rowColumn:last-of-type {
+  margin-right: 0 !important;
+}
+
+.table__wrapper {
+  overflow: hidden;
+  padding: 0;
+  height: 300px;
+
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    // background-color: rgba(0, 0, 0, 0.2);
+    background: #30404d;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+}
