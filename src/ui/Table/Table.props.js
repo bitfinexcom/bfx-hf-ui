@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { getSortedData } from './Table.helpers'
 
 export const propTypes = {
   data: PropTypes.array,
@@ -14,4 +15,6 @@ export const defaultProps = {
   rowHeight: 24,
   headerHeight: 24,
   onRowClick: () => {},
+  sortedDataPostProcessor: () => {},
+  getSortedData, // NOTE: useful default
 }
