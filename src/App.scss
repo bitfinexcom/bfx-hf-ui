@@ -1,5 +1,5 @@
 .hfui__wrapper {
-  padding: 6px;
+  padding: 0 32px;
 
   display: flex;
   flex-direction: row;
@@ -13,16 +13,9 @@
   flex-direction: column;
   flex: 1;
 
-  > * {
-    margin-top: 10px;
-
-    &:first-child {
-      margin-top: 0;
-    }
-  }
+  margin: 0 10px;
 }
 
 .hfui__sidebar {
-  margin-right: 10px;
   max-width: 400px;
 }

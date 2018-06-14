@@ -1,17 +1,34 @@
 import React from 'react'
+import ClassNames from 'classnames'
+import { propTypes, defaultProps } from './index.props'
 import './style.css'
 
 export default class Panel extends React.PureComponent {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
   render () {
-    const { label, children, style } = this.props
+    const {
+      children, label, headerStyle, contentStyle, style, headerClassName,
+      contentClassName, className
+    } = this.props
 
     return (
-      <div className='panel__wrapper'>
-        <div className='panel__header'>
+      <div
+        style={style}
+        className={ClassNames('panel__wrapper', className)}
+      >
+        <div
+          style={headerStyle}
+          className={ClassNames('panel__header', headerClassName)}
+        >
           <p>{label}</p>
         </div>
 
-        <div className='panel__content' style={style}>
+        <div
+          style={contentStyle}
+          className={ClassNames('panel__content', contentClassName)}
+        >
           {children}
         </div>
       </div>

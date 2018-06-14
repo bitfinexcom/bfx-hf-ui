@@ -1,11 +1,9 @@
 import React from 'react'
 import './App.css'
 
-import Status from './components/Status'
-import StrategyTrades from './components/StrategyTrades'
+import BacktestInfo from './components/BacktestInfo'
+import BacktestTrades from './components/BacktestTrades'
 import Chart from './components/Chart'
-
-import mockCandleData from './util/mock_candle_data.json'
 
 // TODO: Extract data manipulation, use redux
 export default class App extends React.Component {
@@ -105,12 +103,12 @@ export default class App extends React.Component {
 
         <div className='hfui__wrapper'>
           <div className='hfui__sidebar'>
-            <Status />
+            <BacktestInfo candles={candleData} trades={stratTradeData} />
           </div>
 
           <div className='hfui__content'>
             <Chart candles={candleData} trades={stratTradeData} />
-            <StrategyTrades trades={stratTradeData} />
+            <BacktestTrades trades={stratTradeData} />
           </div>
         </div>
       </div>

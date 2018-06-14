@@ -1,17 +1,24 @@
 import React from 'react'
 import { Annotate } from 'react-stockcharts/lib/annotation'
 import { timeFormat } from 'd3-time-format'
+import _isArray from 'lodash/isArray'
 
 import Annotation from './annotation'
 import tradeCandleMTSMap from '../../../util/trade_candle_mts_map'
 
-export default class BuyOrderAnnotation extends React.PureComponent {
-
+/**
+ * Renders buy order entry icons based on a list of candles & strategy
+ * trades/orders. An internal map of candle timestamps is updated when the
+ * dataset changes.
+ *
+ * TODO: Refactor out UNSAFE_*
+ */
+export default class BuyOrderAnnotation extends React.Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      mtsMap: tradeCandleMTSMap(props.trades, props.candles)
+      mtsMap: this.getMTSMap(props)
     }
   }
 
@@ -20,9 +27,16 @@ export default class BuyOrderAnnotation extends React.PureComponent {
 
     if (trades !== this.props.trades || candles !== this.props.candles) {
       this.setState(() => ({
-        mtsMap: tradeCandleMTSMap(trades, candles)
+        mtsMap: this.getMTSMap(nextProps)
       }))
     }
+  }
+
+  getMTSMap (props = this.props) {
+    const { candles } = props
+    const trades = props.trades.filter(({ trade }) => trade.amount > 0)
+
+    return tradeCandleMTSMap(trades, candles)
   }
 
   render () {
@@ -31,8 +45,9 @@ export default class BuyOrderAnnotation extends React.PureComponent {
     return (
       <Annotate
         with={Annotation}
-        when={d => !!mtsMap[+d.date]}
+        when={d => _isArray(mtsMap[+d.date])}
         usingProps={{
+          mtsMap,
           fontSize: 36,
           fontFamily: 'Glyphicons Halflings',
           fill: '#00FF00',
@@ -41,9 +56,6 @@ export default class BuyOrderAnnotation extends React.PureComponent {
           tooltip: d => timeFormat('%B')(d.date),
           x: ({ xScale, xAccessor, datum }) => xScale(xAccessor(datum)),
           y: ({ datum, yScale }) => {
-            const { mts } = datum
-            const trade = trades.find(t => t.mts === mts)
-
             return yScale(datum.high)
           },
         }}

@@ -4,23 +4,34 @@ import {
 
 import React from 'react'
 import CaretUpIcon from '../../../ui/Icons/CaretUpIcon'
+import { labelForStrategyTradeAnnotation } from '../Chart.helpers'
 
+/**
+ * Renders multiple caret-up icons, one for each order within the current candle
+ * specified via 'datum'
+ */
 export default class BuyOrder extends LabelAnnotation {
-  render () {
-    const { xAccessor, xScale, yScale, className, opacity, rotate } = this.props
-    const { xPos, yPos, fill, tooltip } = helper(this.props, xAccessor, xScale, yScale)
+  static propTypes = LabelAnnotation.propTypes
+  static defaultProps = LabelAnnotation.defaultProps
 
-    return (
-      <g className={className}>
-        <title>{tooltip}</title>
+  render () {
+    const {
+      xAccessor, xScale, yScale, className, opacity, mtsMap, datum
+    } = this.props
+    const { xPos, fill } = helper(this.props, xAccessor, xScale, yScale)
+    const orders = mtsMap[datum.mts]
+
+    return orders.map(o => (
+      <g className={className} key={o.trade.mts}>
+        <title>{labelForStrategyTradeAnnotation(o)}</title>
         <CaretUpIcon
           x={xPos}
-          y={yPos}
+          y={yScale(o.trade.price)}
           fill={fill}
           opacity={opacity}
           onClick={this.handleClick}
         />
       </g>
-    )
+    ))
   }
 }

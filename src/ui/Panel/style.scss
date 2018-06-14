@@ -1,10 +1,23 @@
 .panel__wrapper {
-  padding: 0 10px 10px 10px;
-
+  padding: 0;
   color: #fff;
+
+  border-top: 1px solid #294d69;
+  border-bottom: 1px solid #122533;
+
+  padding-top: 16px;
+  padding-bottom: 16px;
+
+  &:first-child {
+    border-top: none;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
 }
 
 .panel__header {
-  border-bottom: 1px solid rgba(100, 100, 100, 0.5);
+  color: #989898;
   margin-bottom: 5px;
 }

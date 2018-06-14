@@ -4,7 +4,7 @@ import { Table, Column, Cell } from '@blueprintjs/table'
 
 import Panel from '../../ui/Panel'
 
-export default class StrategyTrades extends React.PureComponent {
+export default class BacktestTrades extends React.PureComponent {
   static propTypes = {
     trades: PropTypes.array
   }
@@ -17,7 +17,7 @@ export default class StrategyTrades extends React.PureComponent {
     const { trades } = this.props
 
     return (
-      <Panel label='Strategy Trades'>
+      <Panel label='Backtest Trades'>
         <Table numRows={trades.length}>
           <Column
             name='Created'

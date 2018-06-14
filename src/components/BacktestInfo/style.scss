@@ -1,0 +1,23 @@
+.btinfo ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.btinfo-row {
+  display: flex;
+  flex-direction: row;
+
+  p {
+    margin-bottom: 5px;
+  }
+}
+
+.btinfo-row__value {
+  flex: 1;
+}
+
+.btinfo-row__label {
+  width: 120px;
+  margin-right: 10px;
+  opacity: 0.5;
+}
