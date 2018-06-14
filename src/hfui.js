@@ -30,6 +30,7 @@ export default class HFUI extends React.Component {
       console.log('HF data server ws open')
 
       ws.send(JSON.stringify(['bt.results']))
+      ws.send(JSON.stringify(['sub', 'bt.results']))
     }
 
     ws.onmessage = ({ data }) => {
