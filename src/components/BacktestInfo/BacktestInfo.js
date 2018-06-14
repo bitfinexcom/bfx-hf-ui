@@ -44,17 +44,17 @@ export default class BacktestInfo extends React.PureComponent {
           />
           <BacktestInfoRow label='Candles' value={candles.length} />
           <BacktestInfoRow label='Strategy Trades' value={trades.length} />
-          <br />
+          <BacktestInfoRow className='btinfo-row--no-border' />
           <BacktestInfoRow label='Opens' value={opens.length} />
           <BacktestInfoRow label='Gains' value={gains.length} />
           <BacktestInfoRow label='Losses' value={losses.length} />
-          <br />
+          <BacktestInfoRow className='btinfo-row--no-border' />
           <BacktestInfoRow label='Max Gain' value={prepareAmount(maxGain)} />
           <BacktestInfoRow label='Max Loss' value={prepareAmount(maxLoss)} />
           <BacktestInfoRow label='Total Gain' value={prepareAmount(totalGain)} />
           <BacktestInfoRow label='Total Loss' value={prepareAmount(totalLoss)} />
           <BacktestInfoRow label='Total Fees' value={prepareAmount(totalFees)} />
-          <br />
+          <BacktestInfoRow className='btinfo-row--no-border' />
           <BacktestInfoRow label='P/L' value={prepareAmount(pl)} />
         </ul>
       </Panel>

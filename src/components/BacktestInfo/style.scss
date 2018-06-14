@@ -1,14 +1,27 @@
-.btinfo ul {
-  list-style-type: none;
-  padding: 0;
+.btinfo {
+  padding: 2px 0;
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
 }
 
 .btinfo-row {
   display: flex;
   flex-direction: row;
+  border-bottom: 1px solid #2a343c;
+  padding: 0 10px;
+  line-height: 20px;
+  height: 20px;
 
   p {
-    margin-bottom: 5px;
+    margin-bottom: 0;
+  }
+
+  &:last-child {
+    border-bottom: 0;
   }
 }
 
@@ -20,4 +33,8 @@
   width: 120px;
   margin-right: 10px;
   opacity: 0.5;
+}
+
+.btinfo-row--no-border {
+  border: none;
 }
