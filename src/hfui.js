@@ -6,6 +6,10 @@ import BacktestTrades from './components/BacktestTrades'
 import Chart from './components/Chart'
 import Navbar from './ui/Navbar'
 
+import {
+  Route
+} from 'react-router-dom'
+
 // TODO: Extract data manipulation, use redux
 export default class HFUI extends React.Component {
   state = {
@@ -118,7 +122,7 @@ export default class HFUI extends React.Component {
 
     return (
       <div>
-        <Navbar />
+        <Route component={Navbar} />
 
         <div className='hfui__wrapper'>
           <div className='hfui__sidebar'>
