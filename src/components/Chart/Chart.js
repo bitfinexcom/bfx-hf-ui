@@ -29,27 +29,54 @@ class HFChart extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
 
+  state = {}
+
+  static getDerivedStateFromProps (nextProps, prevState) {
+    const { dataMTS, candles } = nextProps
+
+    if (dataMTS !== prevState.dataMTS && !_isEmpty(candles)) {
+      const xScaleProvider = discontinuousTimeScaleProvider
+        .inputDateAccessor(c => c.date)
+
+      const {
+        data, xScale, displayXAccessor, xAccessor
+      } = xScaleProvider(candles.map(({ c }) => ({
+        date: new Date(c.mts),
+        volume: c.vol,
+        ...c
+      })))
+
+      return {
+        dataMTS,
+        data,
+        xScale,
+        xAccessor,
+        displayXAccessor,
+      }
+    }
+
+    return null
+  }
+
   render () {
-    const { candles, trades, ratio } = this.props
+    const { candles, trades, ratio, focusTrade } = this.props
+    const { data, xScale, xAccessor, displayXAccessor } = this.state
 
     if (_isEmpty(candles)) {
       return null
     }
 
-    const xScaleProvider = discontinuousTimeScaleProvider
-      .inputDateAccessor(c => c.date)
-
-		const {
-      data, xScale, displayXAccessor, xAccessor
-    } = xScaleProvider(candles.map(({ c }) => ({
-      date: new Date(c.mts),
-      volume: c.vol,
-      ...c
-    })))
-
 		const start = xAccessor(data[Math.max(0, data.length - 1000)])
 		const end = xAccessor(_last(data))
-    const xExtents = [start, end]
+    let xExtents = [start, end]
+
+    if (focusTrade) {
+      const { mts } = focusTrade.trade
+      const candleWidth = data[1].mts - data[0].mts
+      const i = data.findIndex(c => mts > c.mts && (mts - c.mts) <= candleWidth)
+
+      xExtents = [i - 500, i + 500]
+    }
 
     return (
       <Panel

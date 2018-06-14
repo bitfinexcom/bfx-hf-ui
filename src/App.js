@@ -13,8 +13,11 @@ export default class App extends React.Component {
     this.state = {
       candleData: [],
       tradeData: [],
-      stratTradeData: []
+      stratTradeData: [],
+      dataMTS: null
     }
+
+    this.onSelectTrade = this.onSelectTrade.bind(this)
   }
 
   componentDidMount () {
@@ -54,8 +57,24 @@ export default class App extends React.Component {
           break
         }
 
+        case 'bt.candles': {
+          btCandleData = [
+            ...btCandleData,
+            ...payload
+          ]
+          break
+        }
+
         case 'bt.trade': {
           btTradeData.push(payload)
+          break
+        }
+
+        case 'bt.trades': {
+          btTradeData = [
+            ...btTradeData,
+            ...payload
+          ]
           break
         }
 
@@ -64,11 +83,20 @@ export default class App extends React.Component {
           break
         }
 
+        case 'bt.strat.trades': {
+          btStrategyTradeData = [
+            ...btStrategyTradeData,
+            ...payload
+          ]
+          break
+        }
+
         case 'bt.end': {
           this.setState(() => ({
             candleData: btCandleData,
             tradeData: btTradeData,
-            stratTradeData: btStrategyTradeData
+            stratTradeData: btStrategyTradeData,
+            dataMTS: Date.now()
           }))
           break
         }
@@ -80,8 +108,12 @@ export default class App extends React.Component {
     }
   }
 
+  onSelectTrade (selectedTrade) {
+    this.setState(() => ({ selectedTrade }))
+  }
+
   render () {
-    const { candleData, stratTradeData } = this.state
+    const { candleData, stratTradeData, selectedTrade, dataMTS } = this.state
 
     return (
       <div className='pt-dark'>
@@ -107,8 +139,17 @@ export default class App extends React.Component {
           </div>
 
           <div className='hfui__content'>
-            <Chart candles={candleData} trades={stratTradeData} />
-            <BacktestTrades trades={stratTradeData} />
+            <Chart
+              candles={candleData}
+              trades={stratTradeData}
+              focusTrade={selectedTrade}
+              dataMTS={dataMTS}
+            />
+
+            <BacktestTrades
+              trades={stratTradeData}
+              onSelectTrade={this.onSelectTrade}
+            />
           </div>
         </div>
       </div>

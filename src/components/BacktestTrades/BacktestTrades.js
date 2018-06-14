@@ -6,11 +6,24 @@ import Panel from '../../ui/Panel'
 
 export default class BacktestTrades extends React.PureComponent {
   static propTypes = {
+    onSelectTrade: PropTypes.func,
     trades: PropTypes.array
   }
 
   static defaultProps = {
+    onSelectTrade: () => {},
     trades: []
+  }
+
+  constructor (props) {
+    super(props)
+
+    this.onSelectionChange = this.onSelectionChange.bind(this)
+  }
+
+  onSelectionChange (selection) {
+    const { trades, onSelectTrade } = this.props
+    onSelectTrade(trades[selection[0].rows[0]])
   }
 
   render () {
@@ -18,7 +31,11 @@ export default class BacktestTrades extends React.PureComponent {
 
     return (
       <Panel label='Backtest Trades'>
-        <Table numRows={trades.length}>
+        <Table
+          numRows={trades.length}
+          enableMultipleSelection={false}
+          onSelection={this.onSelectionChange}
+        >
           <Column
             name='Created'
             cellRenderer={i => <Cell>{new Date(trades[i].trade.mts).toLocaleString()}</Cell>}
