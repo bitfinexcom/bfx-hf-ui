@@ -1,5 +1,7 @@
+import React from 'react'
 import prepareAmount from '../../util/precision/prepare_amount'
 import preparePrice from '../../util/precision/prepare_price'
+import FormatPL from '../../ui/Format/pl'
 
 export default [{
   width: 200,
@@ -31,12 +33,16 @@ export default [{
   dataKey: 'trade.fee',
   cellRenderer: ({ rowData = {} }) => prepareAmount(rowData.trade.fee),
 }, {
-  width: 100,
+  width: 200,
   label: 'P/L',
   dataKey: 'trade.pl',
   className: 'table__cell-alignright',
   headerClassName: 'table__cell-alignright',
-  cellRenderer: ({ rowData = {} }) => prepareAmount(rowData.trade.pl),
+  cellRenderer: ({ rowData = {} }) => (
+    <FormatPL v={rowData.trade.pl}>
+      {prepareAmount(rowData.trade.pl)}
+    </FormatPL>
+  ),
 }, {
   width: 200,
   flexGrow: 1,
