@@ -18,7 +18,13 @@ export default class FormatPL extends React.PureComponent {
 
     return (
       <span
-        className={ClassNames(v < 0 ? 'format-pl__loss' : 'format-pl__gain', className)}
+        className={ClassNames(className, v === 0
+          ? 'format-pl__be'
+          : v > 0
+            ? 'format-pl__gain'
+            : 'format-pl__loss'
+        )}
+
         {...props}
       >{children || v}</span>
     )
