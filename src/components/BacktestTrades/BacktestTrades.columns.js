@@ -46,7 +46,7 @@ export default [{
 }, {
   width: 200,
   flexGrow: 1,
-  label: 'Order Status',
-  dataKey: 'order.status',
-  cellRenderer: ({ rowData = {} }) => rowData.order.status || '',
+  label: 'Label',
+  dataKey: 'trade.label',
+  cellRenderer: ({ rowData = {} }) => rowData.trade.label || '',
 }]
