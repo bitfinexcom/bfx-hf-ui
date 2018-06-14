@@ -4,19 +4,19 @@ import './App.css'
 import BacktestInfo from './components/BacktestInfo'
 import BacktestTrades from './components/BacktestTrades'
 import Chart from './components/Chart'
+import Navbar from './ui/Navbar'
 
 // TODO: Extract data manipulation, use redux
 export default class App extends React.Component {
+  state = {
+    candleData: [],
+    tradeData: [],
+    stratTradeData: [],
+    dataMTS: null
+  }
+
   constructor(props) {
     super(props)
-
-    this.state = {
-      candleData: [],
-      tradeData: [],
-      stratTradeData: [],
-      dataMTS: null
-    }
-
     this.onSelectTrade = this.onSelectTrade.bind(this)
   }
 
@@ -116,22 +116,8 @@ export default class App extends React.Component {
     const { candleData, stratTradeData, selectedTrade, dataMTS } = this.state
 
     return (
-      <div className='pt-dark'>
-        <div className='pt-navbar'>
-          <div className='pt-navbar-group pt-align-left'>
-            <div className='pt-navbar-header'>Honey Framework UI</div>
-          </div>
-
-          <div className='pt-navbar-group pt-align-right'>
-            <button className='pt-button pt-minimal pt-icon-home'>Overview</button>
-            <button className='pt-button pt-minimal pt-icon-function'>Algo Orders</button>
-            <button className='pt-button pt-minimal pt-icon-play'>Execution</button>
-            <button className='pt-button pt-minimal pt-icon-series-derived pt-active'>Backtesting</button>
-            <button className='pt-button pt-minimal pt-icon-cog'>Settings</button>
-          </div>
-        </div>
-
-        <br />
+      <div>
+        <Navbar />
 
         <div className='hfui__wrapper'>
           <div className='hfui__sidebar'>
