@@ -1,41 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { propTypes, defaultProps } from './index.props'
 
 import './style.css'
 
 export default class Navbar extends React.PureComponent {
 
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      'overview' : {
-        label: 'Overview',
-        icon: 'home',
-        homepage: true
-      },
-      'algo-orders': {
-        label: 'Algo Orders',
-        icon: 'function'
-      },
-      'execution': {
-        label: 'Executuion',
-        icon: 'play'
-      },
-      'backtesting': {
-        label: 'Backtesting',
-        icon: 'series-derived'
-      },
-      'settings':{
-        label: 'Settings',
-        icon:'cog'
-      }
-    }
-  }
+  static propTypes = propTypes
+  static defaultProps = defaultProps
 
   render () {
-    let buttons = Object.keys(this.state).map((key) => {
-      let item = this.state[key]
+    const buttons = Object.keys(this.props.buttons).map((key) => {
+      let item = this.props.buttons[key]
       let page = this.props.location.pathname.substr(1)
 
       let classes = [
@@ -45,7 +21,7 @@ export default class Navbar extends React.PureComponent {
         'pt-icon-' + item.icon
       ]
 
-      let isHomePage = item.homepage && page === ""
+      const isHomePage = (item.homepage && page === "")
 
       if(key === page || isHomePage){ 
         classes.push('pt-active')
