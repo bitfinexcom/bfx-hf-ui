@@ -9,5 +9,6 @@ import '@blueprintjs/table/lib/css/table.css'
 import HFUI from './hfui'
 import registerServiceWorker from './registerServiceWorker'
 
-ReactDOM.render(<HFUI />, document.getElementById('root'))
+ReactDOM.render(<HFUI />, document.getElementById('root'));
+
 registerServiceWorker()

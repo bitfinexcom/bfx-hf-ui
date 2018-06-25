@@ -1,9 +1,41 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { propTypes, defaultProps } from './index.props'
 
 import './style.css'
 
 export default class Navbar extends React.PureComponent {
+
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
   render () {
+    const buttons = Object.keys(this.props.buttons).map((key) => {
+      let item = this.props.buttons[key]
+      let page = this.props.location.pathname.substr(1)
+
+      let classes = [
+        item.slug,
+        'pt-button',
+        'pt-minimal',
+        'pt-icon-' + item.icon
+      ]
+
+      const isHomePage = (item.homepage && page === "")
+
+      if(key === page || isHomePage){ 
+        classes.push('pt-active')
+      }
+
+      classes = classes.join(' ')
+
+      return (
+        <Link to={"/"+key} key={key}>
+          <button className={classes}>{item.label}</button>
+        </Link>
+      )
+    })
+
     return (
       <div className='pt-navbar'>
         <div className='pt-navbar-group pt-align-left'>
@@ -13,11 +45,7 @@ export default class Navbar extends React.PureComponent {
         </div>
 
         <div className='pt-navbar-group pt-align-right'>
-          <button className='pt-button pt-minimal pt-icon-home'>Overview</button>
-          <button className='pt-button pt-minimal pt-icon-function'>Algo Orders</button>
-          <button className='pt-button pt-minimal pt-icon-play'>Execution</button>
-          <button className='pt-button pt-minimal pt-icon-series-derived pt-active'>Backtesting</button>
-          <button className='pt-button pt-minimal pt-icon-cog'>Settings</button>
+          {buttons}
         </div>
       </div>
     )
