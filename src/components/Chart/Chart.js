@@ -1,6 +1,5 @@
 import React from 'react'
 import { AutoSizer } from 'react-virtualized'
-import ClassNames from 'classnames'
 import _last from 'lodash/last'
 import _isEmpty from 'lodash/isEmpty'
 import _sample from 'lodash/sample'
@@ -97,16 +96,17 @@ class HFChart extends React.PureComponent {
     // Add padding for indicators that render below the main chart
     const externalIndicators = indicators.filter(i => i.ui.position === 'external')
     const extraIndicatorHeight = externalIndicators.length * 155
+    const height = 500 + (externalIndicators.length * 155)
 
     return (
       <Panel
         label='Backtest Results'
-        contentClassName={ClassNames('chart__wrapper', {
-          large: !_isEmpty(externalIndicators)
-        })}
+        contentClassName='chart__wrapper'
       >
-        <AutoSizer>
-          {({ width, height }) => width > 0 && height > 0 && (
+        <AutoSizer
+          disableHeight
+        >
+          {({ width }) => width > 0 && (
             <ChartCanvas
               height={height}
               width={width}
