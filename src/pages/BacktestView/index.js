@@ -1,34 +1,38 @@
 import React from 'react'
 import './index.css'
 
+import BacktestList from '../../components/BacktestList'
 import BacktestInfo from '../../components/BacktestInfo'
 import BacktestTrades from '../../components/BacktestTrades'
+import TradeContext from '../../components/TradeContext'
 import Chart from '../../components/Chart'
+
+import HFI from 'bfx-honey-framework/lib/indicators'
+
+const indicatorClassById = _id => Object.values(HFI).find(i => i.id === _id)
 
 // TODO: Extract data manipulation, use redux
 export default class BacktestView extends React.Component {
   state = {
     candleData: [],
     tradeData: [],
-    stratTradeData: [],
-    dataMTS: null
+    btData: [],
   }
 
   constructor(props) {
     super(props)
+
     this.onSelectTrade = this.onSelectTrade.bind(this)
+    this.onSelectBT = this.onSelectBT.bind(this)
   }
 
   componentDidMount () {
     const ws = new WebSocket('ws://localhost:8899')
-    let btCandleData = []
-    let btTradeData = []
-    let btStrategyTradeData = []
 
     ws.onopen = () => {
       console.log('HF data server ws open')
 
-      ws.send(JSON.stringify(['bt.results']))
+      ws.send(JSON.stringify(['get.bt.all']))
     }
 
     ws.onmessage = ({ data }) => {
@@ -41,62 +45,49 @@ export default class BacktestView extends React.Component {
         console.error(e)
       }
 
-      const [type, payload = {}] = msg
+      const [type, payload = []] = msg
 
       switch (type) {
-        case 'bt.start': {
-          btCandleData = []
-          btTradeData = []
-          btStrategyTradeData = []
-          break
-        }
+        case 'data.bt.all': {
+          const [ btData = [], btTradeData, btCandleData ] = payload
+          let activeBT = (btData.sort((a, b) => b.id - a.id) || [])[0] || null
+          let indicators = []
 
-        case 'bt.candle': {
-          btCandleData.push(payload)
-          break
-        }
+          // TODO: Extract, computes indicator values
+          if (activeBT) {
+            const indicatorModels = []
 
-        case 'bt.candles': {
-          btCandleData = [
-            ...btCandleData,
-            ...payload
-          ]
-          break
-        }
+            indicators = activeBT.indicators
+            indicators.forEach((i = {}) => {
+              const { id, key } = i
+              const IClass = indicatorClassById(id)
 
-        case 'bt.trade': {
-          btTradeData.push(payload)
-          break
-        }
+              if (IClass) {
+                indicatorModels.push({
+                  i: new IClass(i.args),
+                  key,
+                })
+              }
+            })
 
-        case 'bt.trades': {
-          btTradeData = [
-            ...btTradeData,
-            ...payload
-          ]
-          break
-        }
+            // Very basic, attach indicator values to candles
+            btCandleData.forEach(({ c }) => {
+              indicatorModels.forEach(m => {
+                m.i.add(c.close)
+                c[m.key] = m.i.v()
+              })
+            })
+          }
 
-        case 'bt.strat.trade': {
-          btStrategyTradeData.push(payload)
-          break
-        }
-
-        case 'bt.strat.trades': {
-          btStrategyTradeData = [
-            ...btStrategyTradeData,
-            ...payload
-          ]
-          break
-        }
-
-        case 'bt.end': {
-          this.setState(() => ({
-            candleData: btCandleData,
+          this.setState({
+            indicators,
+            activeBT, // Removes the need for a list, for now
+            btData,
             tradeData: btTradeData,
-            stratTradeData: btStrategyTradeData,
+            candleData: btCandleData,
             dataMTS: Date.now()
-          }))
+          })
+
           break
         }
 
@@ -111,26 +102,46 @@ export default class BacktestView extends React.Component {
     this.setState(() => ({ selectedTrade }))
   }
 
+  onSelectBT (activeBT) {
+    this.setState(() => ({ activeBT }))
+  }
+
   render () {
-    const { candleData, stratTradeData, selectedTrade, dataMTS } = this.state
+    const {
+      candleData, selectedTrade, dataMTS, indicators, activeBT, btData
+    } = this.state
+
+    const { trades } = (activeBT || {})
 
     return (
       <div className='hfui__wrapper'>
         <div className='hfui__sidebar'>
-          <BacktestInfo candles={candleData} trades={stratTradeData} />
+          <BacktestList
+            bts={btData}
+            onSelect={this.onSelectBT}
+          />
+
+          <BacktestInfo
+            candles={candleData}
+            trades={trades}
+            bt={activeBT}
+          />
+
+          {selectedTrade && <TradeContext trade={selectedTrade} />}
         </div>
 
         <div className='hfui__content'>
           <Chart
             candles={candleData}
-            trades={stratTradeData}
+            trades={trades}
             focusTrade={selectedTrade}
             dataMTS={dataMTS}
+            indicators={indicators}
           />
 
           <BacktestTrades
-            trades={stratTradeData}
-            onSelectTrade={this.onSelectTrade}
+            trades={trades}
+            onSelect={this.onSelectTrade}
           />
         </div>
       </div>

@@ -1,52 +1,49 @@
 import React from 'react'
 import prepareAmount from '../../util/precision/prepare_amount'
 import preparePrice from '../../util/precision/prepare_price'
-import FormatPL from '../../ui/Format/pl'
+import FormatPL from '../../ui/Format/PL'
+import FormatAmount from '../../ui/Format/Amount'
 
 export default [{
   width: 200,
   label: 'Created',
-  dataKey: 'trade.mts',
+  dataKey: 'mts',
   cellRenderer: ({ rowData = {} }) => (
-    new Date(rowData.trade.mts).toLocaleString()
+    new Date(rowData.mts).toLocaleString()
   )
 }, {
   width: 80,
   label: 'Symbol',
-  dataKey: 'trade.symbol',
-  cellRenderer: ({ rowData = {} }) => rowData.trade.symbol,
-}, {
-  width: 100,
-  label: 'Price',
-  dataKey: 'trade.price',
-  className: 'table__cell-alignright',
-  headerClassName: 'table__cell-alignright',
-  cellRenderer: ({ rowData = {} }) => preparePrice(rowData.trade.price),
+  dataKey: 'symbol',
+  cellRenderer: ({ rowData = {} }) => rowData.symbol,
 }, {
   width: 100,
   label: 'Amount',
-  dataKey: 'trade.amount',
-  cellRenderer: ({ rowData = {} }) => prepareAmount(rowData.trade.amount),
+  dataKey: 'amount',
+  className: 'table__cell-alignright',
+  headerClassName: 'table__cell-alignright',
+  cellRenderer: ({ rowData = {} }) => <FormatAmount v={rowData.amount} />
+}, {
+  width: 100,
+  label: 'Price',
+  dataKey: 'price',
+  cellRenderer: ({ rowData = {} }) => preparePrice(rowData.price),
 }, {
   width: 100,
   label: 'Fee',
-  dataKey: 'trade.fee',
-  cellRenderer: ({ rowData = {} }) => prepareAmount(rowData.trade.fee),
+  dataKey: 'fee',
+  cellRenderer: ({ rowData = {} }) => prepareAmount(-1 * rowData.fee),
 }, {
-  width: 200,
+  width: 100,
   label: 'P/L',
-  dataKey: 'trade.pl',
+  dataKey: 'pl',
   className: 'table__cell-alignright',
   headerClassName: 'table__cell-alignright',
-  cellRenderer: ({ rowData = {} }) => (
-    <FormatPL v={rowData.trade.pl}>
-      {prepareAmount(rowData.trade.pl)}
-    </FormatPL>
-  ),
+  cellRenderer: ({ rowData = {} }) => <FormatPL v={rowData.pl} />
 }, {
   width: 200,
   flexGrow: 1,
   label: 'Label',
-  dataKey: 'trade.label',
-  cellRenderer: ({ rowData = {} }) => rowData.trade.label || '',
+  dataKey: 'label',
+  cellRenderer: ({ rowData = {} }) => rowData.label || '',
 }]

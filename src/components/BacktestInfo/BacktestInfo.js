@@ -16,7 +16,7 @@ import prepareAmount from '../../util/precision/prepare_amount'
 
 export default class BacktestInfo extends React.PureComponent {
   render () {
-    const { candles, trades } = this.props
+    const { bt, candles= [], trades = [] } = this.props
 
     if (_isEmpty(candles)) {
       return null
@@ -25,27 +25,27 @@ export default class BacktestInfo extends React.PureComponent {
     const firstCandle = candles[0]
     const lastCandle = _last(candles)
 
-    const opens  = trades.filter(t => t.trade.pl === 0)
-    const closed = trades.filter(t => t.trade.pl !== 0)
+    const opens  = trades.filter(t => t.pl === 0)
+    const closed = trades.filter(t => t.pl !== 0)
 
-    const shorts = closed.filter(t => t.trade.amount < 0)
-    const longs = closed.filter(t => t.trade.amount > 0)
+    const shorts = closed.filter(t => t.amount < 0)
+    const longs = closed.filter(t => t.amount > 0)
 
-    const losses = closed.filter(t => t.trade.pl < 0)
-    const gains = closed.filter(t => t.trade.pl > 0)
+    const losses = closed.filter(t => t.pl < 0)
+    const gains = closed.filter(t => t.pl > 0)
     
-    const gainsShorts = shorts.filter(t => t.trade.pl > 0).length / shorts.length
-    const gainsLongs = longs.filter(t => t.trade.pl > 0).length / longs.length
+    const gainsShorts = shorts.filter(t => t.pl > 0).length / shorts.length
+    const gainsLongs = longs.filter(t => t.pl > 0).length / longs.length
 
-    const maxGain = _max(gains.map(c => c.trade.pl))
-    const maxLoss = _min(losses.map(c => c.trade.pl))
+    const maxGain = _max(gains.map(c => c.pl))
+    const maxLoss = _min(losses.map(c => c.pl))
 
-    const totalGain = gains.reduce(((prev, curr) => prev + curr.trade.pl), 0)
-    const totalLoss = losses.reduce(((prev, curr) => prev + curr.trade.pl), 0)
+    const totalGain = gains.reduce(((prev, curr) => prev + curr.pl), 0)
+    const totalLoss = losses.reduce(((prev, curr) => prev + curr.pl), 0)
     const profitFactor = ( totalGain / Math.abs(totalLoss) ).toFixed(2)
-    const totalFees = trades.reduce(((prev, curr) => prev + curr.trade.fee), 0)
+    const totalFees = trades.reduce(((prev, curr) => prev + curr.fee), 0)
 
-    const pl = trades.reduce(((prev, curr) => prev + curr.trade.pl), 0)
+    const pl = trades.reduce(((prev, curr) => prev + curr.pl), 0)
 
     // calculate Draw Down
     const peakValue = maxProfit(trades)
@@ -56,6 +56,11 @@ export default class BacktestInfo extends React.PureComponent {
     return (
       <Panel label='Backtest Info' contentClassName='btinfo'>
         <ul>
+          <BacktestInfoRow
+            label='ID'
+            value={bt.bt_id}
+          />
+
           <BacktestInfoRow
             label='Period Start'
             value={new Date(firstCandle.c.mts).toLocaleString()}

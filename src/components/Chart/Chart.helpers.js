@@ -9,8 +9,8 @@ import preparePrice from '../../util/precision/prepare_price'
  * @param {Object} stratTrade.order - executed order model
  * @return {string} label
  */
-export const labelForStrategyTradeAnnotation = ({ trade = {}, order = {} } = {}) => [
-  `${trade.amount > 0 ? 'Buy' : 'Sell'}`,
-  `${prepareAmount(trade.amount)} @ ${preparePrice(trade.price)}`,
-  order.status || ''
+export const labelForStrategyTradeAnnotation = ({ label, amount, price } = {}) => [
+  `${amount > 0 ? 'Buy' : 'Sell'}`,
+  `${prepareAmount(amount)} @ ${preparePrice(price)}`,
+  label
 ].join(' ')

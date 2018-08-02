@@ -34,7 +34,7 @@ export default class BuyOrderAnnotation extends React.Component {
 
   getMTSMap (props = this.props) {
     const { candles } = props
-    const trades = props.trades.filter(({ trade }) => trade.amount > 0)
+    const trades = props.trades.filter(({ amount }) => amount > 0)
 
     return tradeCandleMTSMap(trades, candles)
   }

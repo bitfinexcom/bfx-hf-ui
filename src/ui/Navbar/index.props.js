@@ -9,14 +9,13 @@ export const defaultProps = {
     'overview' : {
       label: 'Overview',
       icon: 'home',
-      homepage: true
     },
     'algo-orders': {
       label: 'Algo Orders',
       icon: 'function'
     },
     'execution': {
-      label: 'Executuion',
+      label: 'Execution',
       icon: 'play'
     },
     'backtesting': {

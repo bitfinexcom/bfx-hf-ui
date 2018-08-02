@@ -1,52 +1,34 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { propTypes, defaultProps } from './index.props'
+import ClassNames from 'classnames'
 
 import './style.css'
 
 export default class Navbar extends React.PureComponent {
-
   static propTypes = propTypes
   static defaultProps = defaultProps
 
   render () {
-    const buttons = Object.keys(this.props.buttons).map((key) => {
-      let item = this.props.buttons[key]
-      let page = this.props.location.pathname.substr(1)
-
-      let classes = [
-        item.slug,
-        'pt-button',
-        'pt-minimal',
-        'pt-icon-' + item.icon
-      ]
-
-      const isHomePage = (item.homepage && page === "")
-
-      if(key === page || isHomePage){ 
-        classes.push('pt-active')
-      }
-
-      classes = classes.join(' ')
-
-      return (
-        <Link to={"/"+key} key={key}>
-          <button className={classes}>{item.label}</button>
-        </Link>
-      )
-    })
-
     return (
-      <div className='pt-navbar'>
-        <div className='pt-navbar-group pt-align-left'>
-          <div className='pt-navbar-header'>
-            <img src='/HF-logo.png' height='50' alt='HF' />
-          </div>
-        </div>
+      <div className='navbar__wrapper'>
+        {Object.keys(this.props.buttons).map((key) => {
+          const item = this.props.buttons[key]
+          const page = this.props.location.pathname.substr(1)
 
-        <div className='pt-navbar-group pt-align-right'>
-          {buttons}
-        </div>
+          return (
+            <Link to={"/"+key} key={key}>
+              <button
+                className={ClassNames({
+                  [`pt-button pt-icon-${item.icon}`]: !!item.icon,
+                  active: key === page
+                })}
+              >{item.label}</button>
+            </Link>
+          )
+        })}
+
+        <div className='navbar__wrapper-right'>HF</div>
       </div>
     )
   }

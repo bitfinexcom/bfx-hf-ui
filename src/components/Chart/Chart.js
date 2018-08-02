@@ -1,12 +1,16 @@
 import React from 'react'
 import { AutoSizer } from 'react-virtualized'
+import ClassNames from 'classnames'
 import _last from 'lodash/last'
 import _isEmpty from 'lodash/isEmpty'
+import _sample from 'lodash/sample'
 
 import { format } from 'd3-format'
 import { timeFormat } from 'd3-time-format'
 import { ChartCanvas, Chart } from 'react-stockcharts'
-import { BarSeries, CandlestickSeries } from 'react-stockcharts/lib/series'
+import {
+  BarSeries, CandlestickSeries, LineSeries, BollingerSeries, RSISeries
+} from 'react-stockcharts/lib/series'
 import { XAxis, YAxis } from 'react-stockcharts/lib/axes'
 import {
 	CrossHairCursor,
@@ -15,15 +19,26 @@ import {
 } from 'react-stockcharts/lib/coordinates'
 
 import { discontinuousTimeScaleProvider } from 'react-stockcharts/lib/scale'
-import { OHLCTooltip } from 'react-stockcharts/lib/tooltip'
+import {
+  SingleValueTooltip, OHLCTooltip, RSITooltip
+} from 'react-stockcharts/lib/tooltip'
+
 import { fitWidth } from 'react-stockcharts/lib/helper'
 
 import BuyOrderAnnotation from './BuyOrderAnnotation'
 import SellOrderAnnotation from './SellOrderAnnotation'
+import EventAnnotation from './EventAnnotation'
 import { propTypes, defaultProps } from './Chart.props'
 import Panel from '../../ui/Panel'
+import ColorScheme from 'color-scheme'
 
 import './style.css'
+
+// TODO: Refactor, this is just a PoC
+const scheme = new ColorScheme()
+scheme.from_hue(21)
+scheme.scheme('analogic')
+const colors = scheme.colors()
 
 class HFChart extends React.PureComponent {
   static propTypes = propTypes
@@ -32,7 +47,7 @@ class HFChart extends React.PureComponent {
   state = {}
 
   static getDerivedStateFromProps (nextProps, prevState) {
-    const { dataMTS, candles } = nextProps
+    const { dataMTS, candles, indicators } = nextProps
 
     if (dataMTS !== prevState.dataMTS && !_isEmpty(candles)) {
       const xScaleProvider = discontinuousTimeScaleProvider
@@ -52,6 +67,7 @@ class HFChart extends React.PureComponent {
         xScale,
         xAccessor,
         displayXAccessor,
+        indicators,
       }
     }
 
@@ -60,9 +76,9 @@ class HFChart extends React.PureComponent {
 
   render () {
     const { candles, trades, ratio, focusTrade } = this.props
-    const { data, xScale, xAccessor, displayXAccessor } = this.state
+    const { data, xScale, xAccessor, displayXAccessor, indicators } = this.state
 
-    if (_isEmpty(candles)) {
+    if (_isEmpty(data)) {
       return null
     }
 
@@ -71,17 +87,23 @@ class HFChart extends React.PureComponent {
     let xExtents = [start, end]
 
     if (focusTrade) {
-      const { mts } = focusTrade.trade
+      const { mts } = focusTrade
       const candleWidth = data[1].mts - data[0].mts
       const i = data.findIndex(c => mts > c.mts && (mts - c.mts) <= candleWidth)
 
       xExtents = [i - 500, i + 500]
     }
 
+    // Add padding for indicators that render below the main chart
+    const externalIndicators = indicators.filter(i => i.ui.position === 'external')
+    const extraIndicatorHeight = externalIndicators.length * 155
+
     return (
       <Panel
         label='Backtest Results'
-        contentClassName='chart__wrapper'
+        contentClassName={ClassNames('chart__wrapper', {
+          large: !_isEmpty(externalIndicators)
+        })}
       >
         <AutoSizer>
           {({ width, height }) => width > 0 && height > 0 && (
@@ -89,9 +111,15 @@ class HFChart extends React.PureComponent {
               height={height}
               width={width}
               ratio={ratio}
-              margin={{ left: 50, right: 50, top: 10, bottom: 30 }}
+              margin={{
+                left: 50,
+                right: 50,
+                top: 10,
+                bottom: 20 + (extraIndicatorHeight || 30)
+              }}
+
               type='hybrid'
-              seriesName='Test Series'
+              seriesName='HFC'
               data={data}
               xScale={xScale}
               xAccessor={xAccessor}
@@ -124,6 +152,34 @@ class HFChart extends React.PureComponent {
                   displayFormat={format('.2f')}
                 />
 
+                {indicators.filter(i =>
+                  i.ui.position === 'overlay' && i.ui.type === 'line'
+                ).map(i =>
+                  <LineSeries
+                    yAccessor={d => d[i.key]}
+                    stroke={i.ui.stroke || `#${_sample(colors)}`}
+                    strokeDasharray="Solid"
+                    key={i.key}
+                  />
+                )}
+
+                {indicators.filter(i =>
+                  i.ui.position === 'overlay' && i.ui.type === 'bbands'
+                ).map(i =>
+                  <BollingerSeries
+                    yAccessor={d => d[i.key]}
+
+                    stroke={i.ui.stroke || {
+                      top: "#0000ff",
+                      middle: "#0000aa",
+                      bottom: "#0000ff",
+                    }}
+
+                    fill={i.ui.fill || "#333333"}
+                    key={i.key}
+                  />
+                )}
+
                 <CandlestickSeries
                   fill={d => d.close > d.open ? '#3c9d37' : '#990f0f'}
                   stroke={d => d.close > d.open ? '#49bf43' : '#cc1414'}
@@ -140,6 +196,14 @@ class HFChart extends React.PureComponent {
                 <SellOrderAnnotation
                   trades={trades}
                   candles={candles}
+                />
+
+                {/* placeholder for event system */}
+                <EventAnnotation
+                  when={d => false}
+                  height={height}
+                  yOffset={30}
+                  stroke="#ff0000"
                 />
               </Chart>
 
@@ -175,6 +239,74 @@ class HFChart extends React.PureComponent {
                   fill={d => (d.close > d.open ? '#6BA583' : '#FF0000')}
                 />
               </Chart>
+
+              {externalIndicators.map((i, n) =>
+                <Chart
+                  id={3 + n}
+                  yExtents={d => d[i.key]}
+                  height={125}
+                  origin={(w, h) => [0, 30 + h + (n * 145)]}
+                  key={n}
+                >
+                  <XAxis
+                    axisAt="bottom"
+                    orient="bottom"
+                    showTicks={false}
+                    outerTickSize={0}
+                  />
+
+                  <YAxis
+                    axisAt="right"
+                    orient="right"
+                    ticks={5}
+                    stroke='#CCCCCC'
+                    tickStroke='#CCCCCC'
+                  />
+
+                  <MouseCoordinateY
+                    at="right"
+                    orient="right"
+                    displayFormat={format(".2f")}
+                  />
+
+                  {n === externalIndicators.length - 1 && (
+                    <XAxis
+                      axisAt='bottom'
+                      orient='bottom'
+                      tickStroke='#AAAAAA'
+                      stroke='#AAAAAA'
+                      ticks={5}
+                    />
+                  )}
+
+                  {i.ui.type === 'line' && [
+                    <LineSeries
+                      yAccessor={d => d[i.key]}
+                      stroke={i.ui.stroke || `#${_sample(colors)}`}
+                      strokeDasharray="Solid"
+                    />
+                  ,
+                    <SingleValueTooltip
+                      yAccessor={d => d[i.key]}
+                      yLabel={i.name}
+                      yDisplayFormat={format(".2f")}
+                      origin={[-20, 15]}
+                      valueFill="#ffffff"
+                    />
+                  ]}
+
+                  {i.ui.type === 'rsi' && [
+                    <RSISeries yAccessor={d => d[i.key]} />,
+                    <RSITooltip
+                      origin={[-20, 15]}
+                      yAccessor={d => d[i.key]}
+                      options={{
+                        windowSize: i.args[0],
+                      }}
+                    />
+                  ]}
+                </Chart>
+              )}
 
               <CrossHairCursor
                 stroke='#EEEEEE'

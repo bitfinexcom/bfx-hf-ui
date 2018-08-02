@@ -22,11 +22,11 @@ export default class BuyOrder extends LabelAnnotation {
     const orders = mtsMap[datum.mts]
 
     return orders.map(o => (
-      <g className={className} key={o.trade.mts}>
+      <g className={className} key={o.mts}>
         <title>{labelForStrategyTradeAnnotation(o)}</title>
         <CaretUpIcon
           x={xPos}
-          y={yScale(o.trade.price)}
+          y={yScale(o.price)}
           fill={fill}
           opacity={opacity}
           onClick={this.handleClick}

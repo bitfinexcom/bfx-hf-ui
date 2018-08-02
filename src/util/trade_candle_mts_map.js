@@ -14,20 +14,17 @@ export default (trades = [], candles = []) => {
   const candleWidth = candles[1].c.mts - candles[0].c.mts
   const mtsMap = {}
 
-  trades.map(({ trade = {}, order }) => ({
-    order,
-    trade: {
-      ...trade,
-      candleMTS: trade.mts - (trade.mts % candleWidth),
-    }
-  })).forEach(({ trade = {}, order }) => {
+  trades.map(trade => ({
+    ...trade,
+    candleMTS: trade.mts - (trade.mts % candleWidth),
+  })).forEach((trade) => {
     const { candleMTS } = trade
 
     if(!mtsMap[candleMTS]) {
       mtsMap[candleMTS] = []
     }
 
-    mtsMap[candleMTS].push({ trade, order })
+    mtsMap[candleMTS].push(trade)
   })
 
   return mtsMap

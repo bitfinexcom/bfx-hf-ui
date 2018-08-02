@@ -1,9 +1,30 @@
-.pt-navbar-group, .pt-navbar {
-  height: 64px;
+.navbar__wrapper {
+  padding: 0 32px;
+  background: #00355f;
+
+  a:hover {
+    text-decoration: none !important;
+  }
+
+  button, .pt-button {
+    font-size: 12px;
+    font-family: Roboto, sans;
+    color: #fff;
+
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+
+    &:hover, &.active {
+      background: rgba(0, 0, 0, 0.1);
+      box-shadow: none;
+    }
+  }
 }
 
-.pt-navbar button {
-  font-size: 12px;
-  font-family: Roboto, sans;
-  border-radius: 0;
+.navbar__wrapper-right {
+  float: right;
+  line-height: 30px;
+  color: #001534;
 }

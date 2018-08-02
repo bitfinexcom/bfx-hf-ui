@@ -1,11 +1,11 @@
 import React from 'react'
-
 import Panel from '../../ui/Panel'
 import Table from '../../ui/Table'
-import BacktestTradesColumns from './BacktestTrades.columns'
-import { propTypes, defaultProps } from './BacktestTrades.props'
 
-export default class BacktestTrades extends React.PureComponent {
+import BacktestListColumns from './BacktestList.columns'
+import { propTypes, defaultProps } from './BacktestList.props'
+
+export default class BacktestList extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
 
@@ -20,16 +20,16 @@ export default class BacktestTrades extends React.PureComponent {
   }
 
   render () {
-    const { trades } = this.props
+    const { bts } = this.props
 
     return (
-      <Panel label='Backtest Trades' contentClassName='table__wrapper'>
+      <Panel label='Backtests' contentClassName='table__wrapper small'>
         <Table
-          data={trades}
-          columns={BacktestTradesColumns}
+          data={bts}
+          columns={BacktestListColumns}
           onRowClick={this.onRowClick}
-          defaultSortBy='mts'
-          defaultSortDirection='ASC'
+          defaultSortBy='id'
+          defaultSortDirection='DESC'
         />
       </Panel>
     )
