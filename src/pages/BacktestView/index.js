@@ -33,6 +33,7 @@ export default class BacktestView extends React.Component {
       console.log('HF data server ws open')
 
       ws.send(JSON.stringify(['get.bt.all']))
+      ws.send(JSON.stringify(['get.candle_chunks']))
     }
 
     ws.onmessage = ({ data }) => {
@@ -48,6 +49,39 @@ export default class BacktestView extends React.Component {
       const [type, payload = []] = msg
 
       switch (type) {
+        case 'data.candle_chunks': {
+          const chunks = payload.sort((a, b) => a.from - b.from)
+          const continousChunks = []
+          let startChunk = 0
+          let lastTo = null
+
+          for (let i = 0; i < chunks.length; i += 1) {
+            if (lastTo === null || chunks[i].from === lastTo) {
+              lastTo = chunks[i].to
+            } else {
+              continousChunks.push({
+                chunks: chunks.slice(startChunk, i),
+                from: chunks[startChunk].from,
+                to: chunks[i - 1].to
+              })
+
+              startChunk = i
+              lastTo = null
+            }
+          }
+
+          if (lastTo !== null) {
+            continousChunks.push({
+              chunks: chunks.slice(startChunk),
+              from: chunks[startChunk].from,
+              to: lastTo
+            })
+          }
+
+          console.log({ continousChunks })
+          break
+        }
+
         case 'data.bt.all': {
           const [ btData = [], btTradeData, btCandleData ] = payload
           let activeBT = (btData.sort((a, b) => b.id - a.id) || [])[0] || null
