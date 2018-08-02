@@ -284,9 +284,11 @@ class HFChart extends React.PureComponent {
                       yAccessor={d => d[i.key]}
                       stroke={i.ui.stroke || `#${_sample(colors)}`}
                       strokeDasharray="Solid"
+                      key={i.key}
                     />
                   ,
                     <SingleValueTooltip
+                      key={`${i.key}-tooltip`}
                       yAccessor={d => d[i.key]}
                       yLabel={i.name}
                       yDisplayFormat={format(".2f")}
@@ -296,8 +298,12 @@ class HFChart extends React.PureComponent {
                   ]}
 
                   {i.ui.type === 'rsi' && [
-                    <RSISeries yAccessor={d => d[i.key]} />,
+                    <RSISeries
+                      key={i.key}
+                      yAccessor={d => d[i.key]}
+                    />,
                     <RSITooltip
+                      key={`${i.key}-tooltip`}
                       origin={[-20, 15]}
                       yAccessor={d => d[i.key]}
                       options={{
