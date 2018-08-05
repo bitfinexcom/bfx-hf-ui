@@ -6,13 +6,13 @@ import BacktestInfo from '../../components/BacktestInfo'
 import BacktestTrades from '../../components/BacktestTrades'
 import TradeContext from '../../components/TradeContext'
 import Chart from '../../components/Chart'
+import BTHeaderBar from '../../components/BTHeaderBar'
 
 import HFI from 'bfx-honey-framework/lib/indicators'
 
 const indicatorClassById = _id => Object.values(HFI).find(i => i.id === _id)
 
-// TODO: Extract data manipulation, use redux
-export default class BacktestView extends React.Component {
+export default class BacktestingView extends React.Component {
   state = {
     candleData: [],
     tradeData: [],
@@ -107,10 +107,19 @@ export default class BacktestView extends React.Component {
             // Very basic, attach indicator values to candles
             btCandleData.forEach(({ c }) => {
               indicatorModels.forEach(m => {
-                m.i.add(c.close)
-                c[m.key] = m.i.v()
+                const dt = m.i.getDataType()
+                const dk = m.i.getDataKey()
+
+                if (dt === '*' || dt === 'candle') {
+                  m.i.add(dk === '*' ? c : c[dk])
+                  c[m.key] = m.i.v()
+                } else {
+                  c[m.key] = 0
+                }
               })
             })
+
+            console.log(indicatorModels)
           }
 
           this.setState({
@@ -147,8 +156,12 @@ export default class BacktestView extends React.Component {
 
     const { trades } = (activeBT || {})
 
-    return (
-      <div className='hfui__wrapper'>
+    return [
+      <div className='bp3-dark' key='btheaderbar'>
+        <BTHeaderBar />
+      </div>
+    ,
+      <div className='hfui__wrapper' key='btwrapper'>
         <div className='hfui__sidebar'>
           <BacktestList
             bts={btData}
@@ -179,6 +192,6 @@ export default class BacktestView extends React.Component {
           />
         </div>
       </div>
-    )
+    ]
   }
 }

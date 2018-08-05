@@ -10,17 +10,19 @@ export default class Navbar extends React.PureComponent {
   static defaultProps = defaultProps
 
   render () {
+    const { buttons, location } = this.props
+
     return (
       <div className='navbar__wrapper'>
-        {Object.keys(this.props.buttons).map((key) => {
-          const item = this.props.buttons[key]
-          const page = this.props.location.pathname.substr(1)
+        {Object.keys(buttons).map((key) => {
+          const item = buttons[key]
+          const page = location.pathname.substr(1)
 
           return (
-            <Link to={"/"+key} key={key}>
+            <Link to={`/${key}`} key={key}>
               <button
                 className={ClassNames({
-                  [`pt-button pt-icon-${item.icon}`]: !!item.icon,
+                  [`bp3-button bp3-icon-${item.icon}`]: !!item.icon,
                   active: key === page
                 })}
               >{item.label}</button>

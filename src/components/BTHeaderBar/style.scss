@@ -1,0 +1,22 @@
+.btheaderbar__wrapper {
+  width: 100%;
+
+  ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+
+    li {
+      margin-right: 10px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .bp3-control-group {
+    display: flex;
+    flex-direction: row;
+  }
+}
