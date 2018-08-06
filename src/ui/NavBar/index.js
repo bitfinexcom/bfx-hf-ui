@@ -5,7 +5,7 @@ import ClassNames from 'classnames'
 
 import './style.css'
 
-export default class Navbar extends React.PureComponent {
+export default class NavBar extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
 

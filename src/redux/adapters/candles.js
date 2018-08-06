@@ -1,5 +1,4 @@
-
-// TODO: Depends on API response format
-export default function candlesAdapter(data = [], opts) {
-  throw new Error('nope')
+// NOTE: No transform
+export default function candlesAdapter(data = {}) {
+  return data
 }

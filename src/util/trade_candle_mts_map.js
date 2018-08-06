@@ -11,7 +11,7 @@ export default (trades = [], candles = []) => {
     throw new Error('at least 2 candles are needed to retrieve spacing')
   }
 
-  const candleWidth = candles[1].c.mts - candles[0].c.mts
+  const candleWidth = candles[1].mts - candles[0].mts
   const mtsMap = {}
 
   trades.map(trade => ({

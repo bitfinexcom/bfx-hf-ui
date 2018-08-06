@@ -1,4 +1,5 @@
 import _toUpper from 'lodash/toUpper'
+import _isString from 'lodash/isString'
 import types from '../constants/ws'
 
 function error(payload) {
@@ -11,16 +12,17 @@ function error(payload) {
 function send(payload) {
   return {
     type: types.SEND,
-    payload,
+    payload: _isString(payload)
+      ? payload
+      : JSON.stringify(payload),
   }
 }
 
-function connect(destination = '', autoAuth = false) {
+function connect(destination = '') {
   return {
     type: types.CONNECT,
     payload: {
       destination,
-      autoAuth,
     },
   }
 }

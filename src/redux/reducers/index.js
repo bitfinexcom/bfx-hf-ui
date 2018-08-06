@@ -8,8 +8,6 @@ import candles from './candles'
 const reducers = (optionalReducers) => combineReducers({
   socket,
   data,
-  trades,
-  candles,
 
   ...optionalReducers,
 })

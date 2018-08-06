@@ -46,36 +46,45 @@ class HFChart extends React.PureComponent {
   state = {}
 
   static getDerivedStateFromProps (nextProps, prevState) {
-    const { dataMTS, candles, indicators } = nextProps
+    const { dataKey, candles, indicators } = nextProps
 
-    if (dataMTS !== prevState.dataMTS && !_isEmpty(candles)) {
-      const xScaleProvider = discontinuousTimeScaleProvider
-        .inputDateAccessor(c => c.date)
-
-      const {
-        data, xScale, displayXAccessor, xAccessor
-      } = xScaleProvider(candles.map(({ c }) => ({
-        date: new Date(c.mts),
-        volume: c.vol,
-        ...c
-      })))
-
-      return {
-        dataMTS,
-        data,
-        xScale,
-        xAccessor,
-        displayXAccessor,
-        indicators,
-      }
+    if (
+      (dataKey === prevState.dataKey) &&
+      (candles.length === prevState.candles.length)
+    ) {
+      return null
     }
 
-    return null
+    const candleArr = Object
+      .keys(candles)
+      .sort((a, b) => b - a)
+      .map(mts => ({
+        date: new Date(+mts),
+        volume: candles[mts].vol,
+        ...candles[mts]
+      }))
+
+    const xScaleProvider = discontinuousTimeScaleProvider
+      .inputDateAccessor(c => c.date)
+
+    const {
+      data, xScale, displayXAccessor, xAccessor
+    } = xScaleProvider(candleArr)
+
+    return {
+      dataKey,
+      data,
+      xScale,
+      xAccessor,
+      displayXAccessor,
+      indicators,
+      candles: candleArr
+    }
   }
 
   render () {
-    const { candles, trades, ratio, focusTrade } = this.props
-    const { data, xScale, xAccessor, displayXAccessor, indicators } = this.state
+    const { trades, ratio, focusTrade } = this.props
+    const { candles, data, xScale, xAccessor, displayXAccessor, indicators } = this.state
 
     if (_isEmpty(data)) {
       return null

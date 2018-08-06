@@ -7,6 +7,10 @@ import BacktestTrades from '../../components/BacktestTrades'
 import TradeContext from '../../components/TradeContext'
 import Chart from '../../components/Chart'
 import BTHeaderBar from '../../components/BTHeaderBar'
+import BTNewContent from '../../components/BTNewContent'
+import BTHistoricalContent from '../../components/BTHistoricalContent'
+import BTNewSidebar from '../../components/BTNewSidebar'
+import BTHistoricalSidebar from '../../components/BTHistoricalSidebar'
 
 import HFI from 'bfx-honey-framework/lib/indicators'
 
@@ -14,9 +18,10 @@ const indicatorClassById = _id => Object.values(HFI).find(i => i.id === _id)
 
 export default class BacktestingView extends React.Component {
   state = {
-    candleData: [],
-    tradeData: [],
-    btData: [],
+    selectedSymbol: 'tBTCUSD',
+    selectedTF: '1m',
+    selectedMode: 'new',
+    selectedRange: [null, null],
   }
 
   constructor(props) {
@@ -24,9 +29,31 @@ export default class BacktestingView extends React.Component {
 
     this.onSelectTrade = this.onSelectTrade.bind(this)
     this.onSelectBT = this.onSelectBT.bind(this)
+
+    this.onSelectSymbol = this.onSelectSymbol.bind(this)
+    this.onSelectTF = this.onSelectTF.bind(this)
+    this.onSelectMode = this.onSelectMode.bind(this)
+    this.onSelectRange = this.onSelectRange.bind(this)
+  }
+
+  onSelectSymbol (selectedSymbol) {
+    this.setState(() => ({ selectedSymbol }))
+  }
+
+  onSelectTF (selectedTF) {
+    this.setState(() => ({ selectedTF }))
+  }
+
+  onSelectMode (selectedMode) {
+    this.setState(() => ({ selectedMode }))
+  }
+
+  onSelectRange (selectedRange) {
+    this.setState(() => ({ selectedRange }))
   }
 
   componentDidMount () {
+    /*
     const ws = new WebSocket('ws://localhost:8899')
 
     ws.onopen = () => {
@@ -139,6 +166,7 @@ export default class BacktestingView extends React.Component {
         }
       }
     }
+    */
   }
 
   onSelectTrade (selectedTrade) {
@@ -151,6 +179,14 @@ export default class BacktestingView extends React.Component {
 
   render () {
     const {
+      selectedSymbol,
+      selectedTF,
+      selectedMode,
+      selectedRange,
+    } = this.state
+
+    // TODO: Remove
+    const {
       candleData, selectedTrade, dataMTS, indicators, activeBT, btData
     } = this.state
 
@@ -158,39 +194,35 @@ export default class BacktestingView extends React.Component {
 
     return [
       <div className='bp3-dark' key='btheaderbar'>
-        <BTHeaderBar />
+        <BTHeaderBar
+          selectedSymbol={selectedSymbol}
+          selectedTF={selectedTF}
+          selectedMode={selectedMode}
+          selectedRange={selectedRange}
+
+          onSelectMarket={this.onSelectMarket}
+          onSelectTF={this.onSelectTF}
+          onSelectMode={this.onSelectMode}
+          onSelectRange={this.onSelectRange}
+        />
       </div>
     ,
       <div className='hfui__wrapper' key='btwrapper'>
-        <div className='hfui__sidebar'>
-          <BacktestList
-            bts={btData}
-            onSelect={this.onSelectBT}
-          />
+        {selectedMode === 'new' ? (
+          <BTNewSidebar />
+        ) : (
+          <BTHistoricalSidebar />
+        )}
 
-          <BacktestInfo
-            candles={candleData}
-            trades={trades}
-            bt={activeBT}
+        {selectedMode === 'new' ? (
+          <BTNewContent
+            symbol={selectedSymbol}
+            range={selectedRange}
+            tf={selectedTF}
           />
-
-          {selectedTrade && <TradeContext trade={selectedTrade} />}
-        </div>
-
-        <div className='hfui__content'>
-          <Chart
-            candles={candleData}
-            trades={trades}
-            focusTrade={selectedTrade}
-            dataMTS={dataMTS}
-            indicators={indicators}
-          />
-
-          <BacktestTrades
-            trades={trades}
-            onSelect={this.onSelectTrade}
-          />
-        </div>
+        ) : (
+          <BTHistoricalContent />
+        )}
       </div>
     ]
   }
