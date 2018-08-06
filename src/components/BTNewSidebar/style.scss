@@ -1,0 +1,98 @@
+.btui__sidebar {
+  padding-left: 30px;
+}
+
+.btui__indicator_list {
+  display: flex;
+  flex-direction: column;
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin-bottom: 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+
+      &:last-child {
+        margin-bottom: 0;
+        border-bottom: none;
+
+        .bp3-popover-wrapper {
+          margin: -5px auto 5px auto;
+          text-align: center;
+          display: block;
+        }
+      }
+
+      &:first-child:last-child .bp3-popover-wrapper {
+        margin-top: 0;
+      }
+    }
+  }
+
+  .bp3-card {
+    display: flex;
+    flex-direction: row;
+    padding: 5px 20px 10px 20px;
+    border: none;
+    box-shadow: none;
+
+    h5 {
+      min-width: 75px;
+      margin: 5px 0 10px 0;
+    }
+
+    > * {
+      padding-right: 10px;
+      padding-left: 10px;
+      border-left: 1px solid rgba(0, 0, 0, 0.3);
+
+      &:first-child {
+        border-left: none;
+        padding-left: 0;
+      }
+
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+
+    .btui__sidebar_mods {
+      padding-top: 5px;
+    }
+
+    .bp3-button, .bp3-checkbox {
+      font-size: 11px;
+    }
+
+    .bp3-button {
+      padding: 0 10px;
+      min-height: 20px;
+      line-height: 17px;
+      margin-bottom: 10px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .bp3-icon {
+        width: 10px;
+      }
+    }
+  }
+
+  .btui__sidebar_inputs {
+    input {
+      margin-bottom: 5px;
+      font-size: 12px;
+      height: 25px;
+      line-height: 25px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

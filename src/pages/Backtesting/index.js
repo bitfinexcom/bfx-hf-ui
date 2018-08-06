@@ -1,17 +1,9 @@
 import React from 'react'
-
-import BacktestList from '../../components/BacktestList'
-import BacktestInfo from '../../components/BacktestInfo'
-import BacktestTrades from '../../components/BacktestTrades'
-import TradeContext from '../../components/TradeContext'
-import Chart from '../../components/Chart'
-import BTHeaderBar from '../../components/BTHeaderBar'
-import BTNewContent from '../../components/BTNewContent'
-import BTHistoricalContent from '../../components/BTHistoricalContent'
-import BTNewSidebar from '../../components/BTNewSidebar'
-import BTHistoricalSidebar from '../../components/BTHistoricalSidebar'
-
 import HFI from 'bfx-honey-framework/lib/indicators'
+
+import BTHeaderBar from '../../components/BTHeaderBar'
+import BTHistoricalView from './BTHistoricalView'
+import BTNewView from './BTNewView'
 
 const indicatorClassById = _id => Object.values(HFI).find(i => i.id === _id)
 
@@ -189,8 +181,6 @@ export default class BacktestingView extends React.Component {
       candleData, selectedTrade, dataMTS, indicators, activeBT, btData
     } = this.state
 
-    const { trades } = (activeBT || {})
-
     return [
       <div className='bp3-dark' key='btheaderbar'>
         <BTHeaderBar
@@ -208,19 +198,13 @@ export default class BacktestingView extends React.Component {
     ,
       <div className='hfui__wrapper' key='btwrapper'>
         {selectedMode === 'new' ? (
-          <BTNewSidebar />
-        ) : (
-          <BTHistoricalSidebar />
-        )}
-
-        {selectedMode === 'new' ? (
-          <BTNewContent
+          <BTNewView
             symbol={selectedSymbol}
             range={selectedRange}
             tf={selectedTF}
           />
         ) : (
-          <BTHistoricalContent />
+          <BTHistoricalView />
         )}
       </div>
     ]

@@ -57,7 +57,7 @@ class HFChart extends React.PureComponent {
 
     const candleArr = Object
       .keys(candles)
-      .sort((a, b) => b - a)
+      .sort((a, b) => a - b)
       .map(mts => ({
         date: new Date(+mts),
         volume: candles[mts].vol,
