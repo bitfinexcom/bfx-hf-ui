@@ -1,5 +1,4 @@
 import React from 'react'
-import './index.css'
 
 import BacktestList from '../../components/BacktestList'
 import BacktestInfo from '../../components/BacktestInfo'
