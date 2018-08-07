@@ -1,8 +1,92 @@
 import React from 'react'
-import Chart from '../Chart'
+import _find from 'lodash/find'
+import _isFinite from 'lodash/isFinite'
+import _isObject from 'lodash/isObject'
+import { NonIdealState } from '@blueprintjs/core'
+
 import candleWidth from 'bfx-honey-framework/lib/util/candles/width'
+import HFI from 'bfx-honey-framework/lib/indicators'
+
+import Chart from '../Chart'
+import ID from '../../util/id'
+
+const indicatorClassById = _id => (
+  Object.values(HFI).find(i => i.id === _id)
+)
 
 export default class BTNewContent extends React.PureComponent {
+  state = {}
+
+  static getDerivedStateFromProps (nextProps, prevState) {
+    const { dataKey, candles, indicators } = nextProps
+
+    if (prevState && dataKey === prevState.dataKey) {
+      return null
+    }
+
+    const candleArr = Object
+      .keys(candles)
+      .sort((a, b) => a - b)
+      .map(mts => ({
+        date: new Date(+mts),
+        volume: candles[mts].vol,
+        ...candles[mts]
+      }))
+
+    const indicatorData = {}
+    const indicatorModels = []
+
+    // Note that new data is only computed for clean/saved indicators
+    indicators
+      .filter(i => !i.dirty && i.created)
+      .forEach((i = {}) => {
+        const { id, key } = i
+        const args = i.args.map(a => +a.value)
+        const IClass = indicatorClassById(id)
+
+        // Requires that all args are finite
+        // TODO: Refactor if other arg types are ever required
+        if (IClass && !_find(args, a => !_isFinite(a))) {
+          indicatorData[key] = {}
+          indicatorModels.push({
+            i: new IClass(args),
+            key,
+          })
+        }
+      })
+
+    // Copy over any previous data for dirty indicators
+    indicators
+      .filter(i => i.dirty && i.created)
+      .forEach(i => {
+        indicatorData[i.key] = prevState.indicatorData[i.key]
+      })
+
+    candleArr.forEach((c, i) => {
+      indicatorModels.forEach(m => {
+        const dt = m.i.getDataType()
+        const dk = m.i.getDataKey()
+        let v = 0
+
+        // NOTE: Only candles are supported
+        if (dt === '*' || dt === 'candle') {
+          m.i.add(dk === '*' ? c : c[dk])
+          v = m.i.v()
+        }
+
+        indicatorData[m.key][c.mts] = _isFinite(v) || _isObject(v)
+          ? v
+          : 0
+      })
+    })
+
+    return {
+      indicatorData,
+      candles: candleArr,
+      dataKey: ID(),
+    }
+  }
+
   componentDidMount () {
     this.handleSync()
   }
@@ -31,8 +115,6 @@ export default class BTNewContent extends React.PureComponent {
 
     const nCandles = Math.floor(((+to) - (+from)) / candleWidth(tf))
 
-    console.log({ from, to, nCandles })
-
     if (nCandles !== candles.length) {
       console.warn(`have incomplete candles: ${nCandles} !== ${candles.length} (${symbol}, ${tf})`)
 
@@ -41,25 +123,34 @@ export default class BTNewContent extends React.PureComponent {
   }
 
   render () {
-    const { range, symbol, tf, candles } = this.props
+    const { indicatorData, candles, dataKey } = this.state
+    const { range, indicators } = this.props
     const [ from, to ] = range
 
     if (from === null || to === null) {
-      return <h1>incomplete range</h1>
-    } else if (candles.lenth === 0) {
-      return <h1>no data</h1>
+      return (
+        <NonIdealState
+          title='No Range Selected'
+          icon='series-derived'
+        />
+      )
+    } else if (candles.length === 0) {
+      return (
+        <NonIdealState
+          title='No Data For Range'
+        />
+      )
     }
 
     return (
-      <div className='hfui__content'>
-        <Chart
-          candles={candles}
-          trades={[]}
-          focusTrade={null}
-          dataKey={`${symbol}:${tf}:${+from}:${+to}`}
-          indicators={[]}
-        />
-      </div>
+      <Chart
+        candles={candles}
+        trades={[]}
+        focusTrade={null}
+        dataKey={dataKey}
+        indicators={indicators}
+        indicatorData={indicatorData}
+      />
     )
   }
 }

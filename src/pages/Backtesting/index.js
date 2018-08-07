@@ -5,8 +5,6 @@ import BTHeaderBar from '../../components/BTHeaderBar'
 import BTHistoricalView from './BTHistoricalView'
 import BTNewView from './BTNewView'
 
-const indicatorClassById = _id => Object.values(HFI).find(i => i.id === _id)
-
 export default class BacktestingView extends React.Component {
   state = {
     selectedSymbol: 'tBTCUSD',
@@ -182,7 +180,7 @@ export default class BacktestingView extends React.Component {
     } = this.state
 
     return [
-      <div className='bp3-dark' key='btheaderbar'>
+      <div key='btheaderbar'>
         <BTHeaderBar
           selectedSymbol={selectedSymbol}
           selectedTF={selectedTF}

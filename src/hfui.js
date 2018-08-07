@@ -8,7 +8,7 @@ import BacktestingView from './pages/Backtesting'
 export default class HFUI extends React.Component {
   render () {
     return (
-      <div>
+      <div className='bp3-dark'>
         <Route component={NavBar} />
         <Switch>
           <Route path="/" component={BacktestingView} />

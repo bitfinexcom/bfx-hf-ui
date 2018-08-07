@@ -22,7 +22,7 @@ export default class NavBar extends React.PureComponent {
             <Link to={`/${key}`} key={key}>
               <button
                 className={ClassNames({
-                  [`bp3-button bp3-icon-${item.icon}`]: !!item.icon,
+                  [`navbar-button bp3-button bp3-icon-${item.icon}`]: !!item.icon,
                   active: key === page
                 })}
               >{item.label}</button>

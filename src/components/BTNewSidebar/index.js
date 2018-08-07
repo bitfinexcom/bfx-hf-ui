@@ -1,11 +1,15 @@
 import React from 'react'
 import _includes from 'lodash/includes'
+import _sample from 'lodash/sample'
 import { Select } from '@blueprintjs/select'
 import {
   Checkbox, Button, Card, Elevation, Alignment, MenuItem
 } from '@blueprintjs/core'
+
 import HFI from 'bfx-honey-framework/lib/indicators'
 
+import ID from '../../util/id'
+import IndicatorCard from '../IndicatorCard'
 import Panel from '../../ui/Panel'
 import './style.css'
 
@@ -20,7 +24,9 @@ const indicatorList = Object.values(HFI).map(({
   args
 }))
 
+// TODO: Handle edge case where A-Z is not enough (wrap around w/ AA, AB, etc)
 const keyForNewIndicator = (indicators, i) => {
+  const keys = indicators.map(i => i.key)
   const { id } = i
   let suffix = 64 // 'A' - 1
   let key
@@ -28,7 +34,7 @@ const keyForNewIndicator = (indicators, i) => {
   do {
     suffix += 1
     key = `${id}${String.fromCharCode(suffix)}`
-  } while (!!indicators[key])
+  } while (_includes(keys, key))
 
   return key
 }
@@ -41,81 +47,46 @@ export default class BTNewSidebar extends React.PureComponent {
   }
 
   onAddIndicator (i) {
-    const { indicators, onIndicatorUpdate } = this.props
+    const { indicators, onIndicatorAdded, colors } = this.props
     const key = keyForNewIndicator(indicators, i)
 
-    onIndicatorUpdate(key, i)
+    i._id = ID()
+    i.key = key
+    i.dirty = true    // unsaved changes
+    i.created = false // saved at least once
+    i.enabled = false
+    i.color = `#${_sample(colors)}`
+
+    onIndicatorAdded(i)
   }
 
   render () {
-    const { indicators = {} } = this.props
-    const keys = Object.keys(indicators)
-
-    console.log(indicators)
+    const {
+      colors,
+      indicators,
+      onIndicatorSaved,
+      onIndicatorUpdated,
+      onIndicatorDeleted
+    } = this.props
 
     return (
-      <div className='hfui__sidebar btui__sidebar bp3-dark'>
+      <div className='hfui__sidebar btui__sidebar'>
         <Panel
           contentClassName='btui__indicator_list'
           label='Indicators'
         >
           <ul>
-            {keys.map(key => {
-              const i = indicators[key]
-
-              return (
-                <li key={key}>
-                  <Card elevation={Elevation.ZERO}>
-                    <div>
-                      <h5>{i.label}</h5>
-
-                      <Button
-                        text='Color'
-                        rightIcon='refresh'
-                      />
-                    </div>
-
-                    <div className='btui__sidebar_inputs'>
-                      {i.args.map(arg =>
-                        <input
-                          className='bp3-input bp3-fill'
-                          type='text'
-                          placeholder={arg.label}
-                          dir='auto'
-                        />
-                      )}
-
-                      <input
-                        className='bp3-input bp3-fill'
-                        type='text'
-                        placeholder='Key'
-                        value={key}
-                        dir='auto'
-                      />
-                    </div>
-
-                    <div className='btui__sidebar_mods'>
-                      <Checkbox
-                        checked={true}
-                        label='Enabled'
-                        alignIndicator={Alignment.LEFT}
-                      />
-
-                      <Button
-                        text='Delete'
-                        icon='trash'
-                      />
-
-                      <Button
-                        text='Save'
-                        icon='floppy-disk'
-                        disabled
-                      />
-                    </div>
-                  </Card>
-                </li>
-              )
-            })}
+            {indicators.map(i => (
+              <li key={i._id}>
+                <IndicatorCard
+                  i={i}
+                  colors={colors}
+                  onSave={i => onIndicatorSaved(i)}
+                  onUpdate={i => onIndicatorUpdated(i)}
+                  onDelete={i => onIndicatorDeleted(i)}
+                />
+              </li>
+            ))}
 
             <li>
               <Select

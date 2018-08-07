@@ -29,15 +29,8 @@ import SellOrderAnnotation from './SellOrderAnnotation'
 import EventAnnotation from './EventAnnotation'
 import { propTypes, defaultProps } from './Chart.props'
 import Panel from '../../ui/Panel'
-import ColorScheme from 'color-scheme'
 
 import './style.css'
-
-// TODO: Refactor, this is just a PoC
-const scheme = new ColorScheme()
-scheme.from_hue(21)
-scheme.scheme('analogic')
-const colors = scheme.colors()
 
 class HFChart extends React.PureComponent {
   static propTypes = propTypes
@@ -46,7 +39,7 @@ class HFChart extends React.PureComponent {
   state = {}
 
   static getDerivedStateFromProps (nextProps, prevState) {
-    const { dataKey, candles, indicators } = nextProps
+    const { dataKey, candles } = nextProps
 
     if (
       (dataKey === prevState.dataKey) &&
@@ -55,21 +48,12 @@ class HFChart extends React.PureComponent {
       return null
     }
 
-    const candleArr = Object
-      .keys(candles)
-      .sort((a, b) => a - b)
-      .map(mts => ({
-        date: new Date(+mts),
-        volume: candles[mts].vol,
-        ...candles[mts]
-      }))
-
     const xScaleProvider = discontinuousTimeScaleProvider
       .inputDateAccessor(c => c.date)
 
     const {
       data, xScale, displayXAccessor, xAccessor
-    } = xScaleProvider(candleArr)
+    } = xScaleProvider(candles)
 
     return {
       dataKey,
@@ -77,14 +61,13 @@ class HFChart extends React.PureComponent {
       xScale,
       xAccessor,
       displayXAccessor,
-      indicators,
-      candles: candleArr
+      candles,
     }
   }
 
   render () {
-    const { trades, ratio, focusTrade } = this.props
-    const { candles, data, xScale, xAccessor, displayXAccessor, indicators } = this.state
+    const { trades, ratio, focusTrade, indicators, indicatorData } = this.props
+    const { candles, data, xScale, xAccessor, displayXAccessor } = this.state
 
     if (_isEmpty(data)) {
       return null
@@ -165,8 +148,8 @@ class HFChart extends React.PureComponent {
                   i.ui.position === 'overlay' && i.ui.type === 'line'
                 ).map(i =>
                   <LineSeries
-                    yAccessor={d => d[i.key]}
-                    stroke={i.ui.stroke || `#${_sample(colors)}`}
+                    yAccessor={d => indicatorData[i.key][d.mts]}
+                    stroke={i.color}
                     strokeDasharray="Solid"
                     key={i.key}
                   />
@@ -176,7 +159,7 @@ class HFChart extends React.PureComponent {
                   i.ui.position === 'overlay' && i.ui.type === 'bbands'
                 ).map(i =>
                   <BollingerSeries
-                    yAccessor={d => d[i.key]}
+                    yAccessor={d => indicatorData[i.key][d.mts]}
 
                     stroke={i.ui.stroke || {
                       top: "#0000ff",
@@ -252,9 +235,9 @@ class HFChart extends React.PureComponent {
               {externalIndicators.map((i, n) =>
                 <Chart
                   id={3 + n}
-                  yExtents={d => d[i.key]}
+                  yExtents={d => indicatorData[i.key][d.mts]}
                   height={125}
-                  origin={(w, h) => [0, 30 + h + (n * 145)]}
+                  origin={(w, h) => [0, 20 + h + (n * 145)]}
                   key={n}
                 >
                   <XAxis
@@ -290,16 +273,16 @@ class HFChart extends React.PureComponent {
 
                   {i.ui.type === 'line' && [
                     <LineSeries
-                      yAccessor={d => d[i.key]}
-                      stroke={i.ui.stroke || `#${_sample(colors)}`}
+                      yAccessor={d => indicatorData[i.key][d.mts]}
+                      stroke={i.color}
                       strokeDasharray="Solid"
                       key={i.key}
                     />
                   ,
                     <SingleValueTooltip
                       key={`${i.key}-tooltip`}
-                      yAccessor={d => d[i.key]}
-                      yLabel={i.name}
+                      yAccessor={d => indicatorData[i.key][d.mts]}
+                      yLabel={i.label}
                       yDisplayFormat={format(".2f")}
                       origin={[-20, 15]}
                       valueFill="#ffffff"
@@ -309,14 +292,14 @@ class HFChart extends React.PureComponent {
                   {i.ui.type === 'rsi' && [
                     <RSISeries
                       key={i.key}
-                      yAccessor={d => d[i.key]}
+                      yAccessor={d => indicatorData[i.key][d.mts]}
                     />,
                     <RSITooltip
                       key={`${i.key}-tooltip`}
                       origin={[-20, 15]}
-                      yAccessor={d => d[i.key]}
+                      yAccessor={d => indicatorData[i.key][d.mts]}
                       options={{
-                        windowSize: i.args[0],
+                        windowSize: +i.args[0].value,
                       }}
                     />
                   ]}
