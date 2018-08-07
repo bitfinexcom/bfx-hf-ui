@@ -1,6 +1,7 @@
 import React from 'react'
 import _includes from 'lodash/includes'
 import _sample from 'lodash/sample'
+import _cloneDeep from 'lodash/cloneDeep'
 import { Select } from '@blueprintjs/select'
 import {
   Checkbox, Button, Card, Elevation, Alignment, MenuItem
@@ -46,7 +47,8 @@ export default class BTNewSidebar extends React.PureComponent {
     this.onAddIndicator = this.onAddIndicator.bind(this)
   }
 
-  onAddIndicator (i) {
+  onAddIndicator (iTemplate) {
+    const i = _cloneDeep(iTemplate)
     const { indicators, onIndicatorAdded, colors } = this.props
     const key = keyForNewIndicator(indicators, i)
 

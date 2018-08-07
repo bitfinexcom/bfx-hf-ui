@@ -45,7 +45,7 @@ export default class BTNewView extends React.PureComponent {
   onIndicatorUpdated (i) {
     this.setState(state => {
       const is = [ ...state.indicators ]
-      const n =_findIndex(is, indicator => indicator._id === i._id)
+      const n = _findIndex(is, indicator => indicator._id === i._id)
 
       if (n === -1) {
         console.error('updated unknown indicator: ', i._id)

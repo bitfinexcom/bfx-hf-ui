@@ -13,7 +13,7 @@ export default class IndicatorCard extends React.PureComponent {
     onSave(i)
   }
 
-  onArgChange (i, arg, index, e) {
+  onArgChange (i, index, e) {
     const { onUpdate } = this.props
     const { value } = e.target
 
@@ -74,7 +74,7 @@ export default class IndicatorCard extends React.PureComponent {
         <div className='btui__sidebar_inputs'>
           {i.args.map((arg, index) =>
             <input
-              onChange={this.onArgChange.bind(this, i, arg, index)}
+              onChange={this.onArgChange.bind(this, i, index)}
               className='bp3-input bp3-fill'
               placeholder={arg.label}
               value={arg.value || ''}
