@@ -36,7 +36,9 @@ class HFChart extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
 
-  state = {}
+  state = {
+    candles: [],
+  }
 
   static getDerivedStateFromProps (nextProps, prevState) {
     const { dataKey, candles } = nextProps

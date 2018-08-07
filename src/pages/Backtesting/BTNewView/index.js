@@ -4,6 +4,7 @@ import ColorScheme from 'color-scheme'
 
 import BTNewSidebar from '../../../components/BTNewSidebar'
 import BTNewContent from '../../../components/BTNewContent'
+import GenStrategy from '../../../util/gen_strategy'
 import ID from '../../../util/id'
 
 export default class BTNewView extends React.PureComponent {
@@ -17,6 +18,7 @@ export default class BTNewView extends React.PureComponent {
     this.state = {
       dataKey: ID(),
       indicators: [],
+      strategy: GenStrategy(),
       colors: scheme.colors()
     }
 
@@ -24,6 +26,17 @@ export default class BTNewView extends React.PureComponent {
     this.onIndicatorSaved = this.onIndicatorSaved.bind(this)
     this.onIndicatorUpdated = this.onIndicatorUpdated.bind(this)
     this.onIndicatorDeleted = this.onIndicatorDeleted.bind(this)
+    this.onSaveStrategyMethod = this.onSaveStrategyMethod.bind(this)
+    this.onEvalStrategy = this.onEvalStrategy.bind(this)
+  }
+
+  onSaveStrategyMethod (key, content) {
+    this.setState(state => ({
+      strategy: {
+        ...state.strategy,
+        [key]: content
+      }
+    }))
   }
 
   onIndicatorAdded (i) {
@@ -80,15 +93,22 @@ export default class BTNewView extends React.PureComponent {
     })
   }
 
+  onEvalStrategy () {
+    const { strategy, indicators } = this.state
+    console.log('req eval')
+    console.log({ strategy, indicators })
+  }
+
   render () {
     const { symbol, range, tf } = this.props
-    const { dataKey, colors, indicators } = this.state
+    const { dataKey, colors, indicators, strategy } = this.state
     const activeIndicators = indicators.filter(i => (
       i.created && i.enabled
     ))
 
     return [
       <BTNewSidebar
+        key='sidebar'
         indicators={indicators}
         colors={colors}
         onIndicatorAdded={this.onIndicatorAdded}
@@ -97,10 +117,16 @@ export default class BTNewView extends React.PureComponent {
         onIndicatorDeleted={this.onIndicatorDeleted}
       />
     ,
-      <div className='hfui__content'>
+      <div
+        className='hfui__content'
+        key='content'
+      >
         <BTNewContent
-          dataKey={dataKey}
+          onEvalStrategy={this.onEvalStrategy}
+          onSaveStrategyMethod={this.onSaveStrategyMethod}
           indicators={activeIndicators}
+          strategy={strategy}
+          dataKey={dataKey}
           symbol={symbol}
           range={range}
           tf={tf}

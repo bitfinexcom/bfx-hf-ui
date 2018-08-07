@@ -8,7 +8,10 @@ import candleWidth from 'bfx-honey-framework/lib/util/candles/width'
 import HFI from 'bfx-honey-framework/lib/indicators'
 
 import Chart from '../Chart'
+import StrategyEditor from '../StrategyEditor'
 import ID from '../../util/id'
+
+import './style.css'
 
 const indicatorClassById = _id => (
   Object.values(HFI).find(i => i.id === _id)
@@ -122,7 +125,7 @@ export default class BTNewContent extends React.PureComponent {
     }
   }
 
-  render () {
+  renderChart () {
     const { indicatorData, candles, dataKey } = this.state
     const { range, indicators } = this.props
     const [ from, to ] = range
@@ -151,6 +154,27 @@ export default class BTNewContent extends React.PureComponent {
         indicators={indicators}
         indicatorData={indicatorData}
       />
+    )
+  }
+
+  renderEditor () {
+    const { strategy, onSaveStrategyMethod, onEvalStrategy } = this.props
+
+    return (
+      <StrategyEditor
+        strategy={strategy}
+        onEval={onEvalStrategy}
+        onSaveMethod={onSaveStrategyMethod}
+      />
+    )
+  }
+
+  render () {
+    return (
+      <div className='bt_new_content'>
+        {this.renderChart()}
+        {this.renderEditor()}
+      </div>
     )
   }
 }
