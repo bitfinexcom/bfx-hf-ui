@@ -66,7 +66,7 @@ export default class IndicatorCard extends React.PureComponent {
             className='indicator_card_color_btn'
             onClick={this.onCycleColor.bind(this, i)}
             style={{
-              borderColor: i.color,
+              borderColor: i.color
             }}
           />
         </div>

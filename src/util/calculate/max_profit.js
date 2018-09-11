@@ -7,9 +7,9 @@
 export default (trades) => {
   let peak = Number.NEGATIVE_INFINITY
 
-  trades.reduce((balance, trade)=>{
+  trades.reduce((balance, trade) => {
     balance += trade.pl
-    
+
     peak = Math.max(balance, peak)
 
     return balance

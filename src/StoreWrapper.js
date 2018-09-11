@@ -7,17 +7,17 @@ import { configureStore } from './redux'
 
 const config = {
   development: true,
-  sagas,
+  sagas
 }
 
 const optionalReducers = { router: routerReducer }
 const store = configureStore(
   config,
-  optionalReducers,
+  optionalReducers
 )
 
 export default class StoreWrapper extends React.PureComponent {
-  render() {
+  render () {
     return (
       <Provider store={store}>
         {this.props.children}

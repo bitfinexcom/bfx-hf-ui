@@ -5,11 +5,11 @@ import FormatPL from '../../ui/Format/PL'
 export default [{
   width: 50,
   label: '#',
-  dataKey: 'id',
+  dataKey: 'id'
 }, {
   width: 200,
   label: 'ID',
-  dataKey: 'bt_id',
+  dataKey: 'bt_id'
 }, {
   width: 70,
   label: 'Trades',

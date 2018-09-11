@@ -3,11 +3,9 @@ import _includes from 'lodash/includes'
 import _sample from 'lodash/sample'
 import _cloneDeep from 'lodash/cloneDeep'
 import { Select } from '@blueprintjs/select'
-import {
-  Checkbox, Button, Card, Elevation, Alignment, MenuItem
-} from '@blueprintjs/core'
+import { Button, MenuItem } from '@blueprintjs/core'
 
-import HFI from 'bfx-honey-framework/lib/indicators'
+import HFI from 'bfx-hf-indicators'
 
 import ID from '../../util/id'
 import IndicatorCard from '../IndicatorCard'
@@ -15,15 +13,17 @@ import Panel from '../../ui/Panel'
 import './style.css'
 
 // Pick static data from the indicators for the UI list
-const indicatorList = Object.values(HFI).map(({
-  label, humanLabel, id, ui, args,
-}) => ({
-  label,
-  humanLabel,
-  id,
-  ui,
-  args
-}))
+const indicatorList = Object.values(HFI)
+  .filter(({ label }) => !!label)
+  .map(({
+    label, humanLabel, id, ui, args
+  }) => ({
+    label,
+    humanLabel,
+    id,
+    ui,
+    args
+  }))
 
 // TODO: Handle edge case where A-Z is not enough (wrap around w/ AA, AB, etc)
 const keyForNewIndicator = (indicators, i) => {
@@ -54,10 +54,14 @@ export default class BTNewSidebar extends React.PureComponent {
 
     i._id = ID()
     i.key = key
-    i.dirty = true    // unsaved changes
+    i.dirty = true // unsaved changes
     i.created = false // saved at least once
     i.enabled = false
     i.color = `#${_sample(colors)}`
+
+    i.args.forEach((arg) => {
+      arg.value = arg.default
+    })
 
     onIndicatorAdded(i)
   }
@@ -94,7 +98,7 @@ export default class BTNewSidebar extends React.PureComponent {
               <Select
                 items={indicatorList}
                 onItemSelect={this.onAddIndicator}
-                itemPredicate={(q, i) => 
+                itemPredicate={(q, i) =>
                   _includes(i.label, q) || _includes(i.humanLabel, q)
                 }
 

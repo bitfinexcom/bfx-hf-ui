@@ -77,7 +77,7 @@ const socketMiddleware = function () {
           console.warn('[socket.send] socket connection offline')
           return -1
         }
-        
+
         return socket.send(
           _isString(action.payload)
             ? action.payload

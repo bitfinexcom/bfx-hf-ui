@@ -1,9 +1,4 @@
-import React from 'react'
-import prepareAmount from '../../util/precision/prepare_amount'
-import preparePrice from '../../util/precision/prepare_price'
-import FormatPL from '../../ui/Format/PL'
-import FormatAmount from '../../ui/Format/Amount'
-
+/* // Example
 export default [{
   width: 200,
   label: 'Created',
@@ -47,3 +42,4 @@ export default [{
   dataKey: 'label',
   cellRenderer: ({ rowData = {} }) => rowData.label || ''
 }]
+*/

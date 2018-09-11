@@ -8,7 +8,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
 
   return {
     symbols,
-    tfs,
+    tfs
   }
 }
 

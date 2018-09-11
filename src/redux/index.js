@@ -9,13 +9,13 @@ import socketMiddleware from './middleware/ws'
 
 const sagaMiddleware = createSagaMiddleware()
 
-export function configureStore(
+export function configureStore (
   options = {},
   optionalReducers = {},
   optionalMiddleware = null
 ) {
   const {
-    development = false,
+    development = false
   } = options
 
   let middleware = [socketMiddleware(), sagaMiddleware]
@@ -28,7 +28,7 @@ export function configureStore(
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
     : compose
 
-  const sagas = options.sagas ? options.sagas : function* saga() {}
+  const sagas = options.sagas ? options.sagas : function * saga () {}
 
   const enhancers = composeEnhancers(
     applyMiddleware(...middleware)
@@ -37,7 +37,7 @@ export function configureStore(
   const store = createStore(
     reducer(optionalReducers),
     {},
-    enhancers,
+    enhancers
   )
 
   sagaMiddleware.run(sagas)
@@ -45,7 +45,7 @@ export function configureStore(
   return store
 }
 
-export function runSaga(sagas) {
+export function runSaga (sagas) {
   console.log('runSaga is deprecated: it is already run in configureStore')
 }
 

@@ -1,13 +1,18 @@
 import { connect } from 'react-redux'
-import BTNewContent from './BTNewContent'
+import BTHistoricalContent from './BTHistoricalContent'
 import DataActions from '../../redux/actions/data'
 import getCandles from '../../redux/selectors/candles'
 
 const mapStateToProps = (state = {}, ownProps = {}) => {
   const { data = {} } = state
-  const { symbol, tf, range } = ownProps
+  const { bt } = ownProps
+
+  if (!bt) {
+    return {}
+  }
 
   // TODO: Filter against range
+  const { symbol, tf } = bt
   const candles = getCandles(state, symbol, tf, 'trade')
 
   return {
@@ -21,4 +26,4 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(BTNewContent)
+export default connect(mapStateToProps, mapDispatchToProps)(BTHistoricalContent)

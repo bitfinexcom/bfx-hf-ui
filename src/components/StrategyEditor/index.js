@@ -112,6 +112,7 @@ export default class StrategyEditor extends React.PureComponent {
           <ul className='strategy_editor__sidebar'>
             {strategyMethods.map(m =>
               <li
+                key={m}
                 onClick={this.onSelectMethod.bind(this, m)}
                 className={ClassNames({
                   active: m === activeMethod

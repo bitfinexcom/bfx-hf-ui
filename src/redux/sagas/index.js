@@ -3,7 +3,7 @@ import {
   messageQueueSaga, connectionSaga, initSaga
 } from './ws'
 
-export default function* rootSaga() {
+export default function * rootSaga () {
   yield fork(messageQueueSaga)
   yield fork(initSaga)
   yield fork(connectionSaga)

@@ -44,7 +44,7 @@ export default class BTNewView extends React.PureComponent {
       dataKey: ID(),
       indicators: [
         ...state.indicators,
-        i,
+        i
       ]
     }))
   }
@@ -69,7 +69,7 @@ export default class BTNewView extends React.PureComponent {
 
       return {
         dataKey: ID(),
-        indicators: is,
+        indicators: is
       }
     })
   }
@@ -77,7 +77,7 @@ export default class BTNewView extends React.PureComponent {
   onIndicatorDeleted (i) {
     this.setState(state => {
       const is = [ ...state.indicators ]
-      const n =_findIndex(is, indicator => indicator._id === i._id)
+      const n = _findIndex(is, indicator => indicator._id === i._id)
 
       if (n === -1) {
         console.error('deleted unknown indicator: ', i._id)
@@ -88,7 +88,7 @@ export default class BTNewView extends React.PureComponent {
 
       return {
         dataKey: ID(),
-        indicators: is,
+        indicators: is
       }
     })
   }
@@ -115,8 +115,7 @@ export default class BTNewView extends React.PureComponent {
         onIndicatorSaved={this.onIndicatorSaved}
         onIndicatorUpdated={this.onIndicatorUpdated}
         onIndicatorDeleted={this.onIndicatorDeleted}
-      />
-    ,
+      />,
       <div
         className='hfui__content'
         key='content'

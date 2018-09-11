@@ -15,7 +15,7 @@ import _get from 'lodash/get'
  */
 export const getSortedData = (args = {}) => {
   const {
-    data, sortBy, sortDirection, columns,
+    data, sortBy, sortDirection, columns
   } = args
 
   const transformers = getTransformers(columns)
@@ -82,7 +82,7 @@ export const getSortFunctions = (columns = []) => {
   return sortFunctions
 }
 
-export function sortData(args = {}, props = {}) {
+export function sortData (args = {}, props = {}) {
   const { getSortedData, sortedDataPostProcessor } = props
   const sortedData = getSortedData(args)
 

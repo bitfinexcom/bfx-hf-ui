@@ -30,9 +30,11 @@
     "standard": "^10.0.2"
   },
   "dependencies": {
-    "@blueprintjs/core": "^3.1.0",
-    "@blueprintjs/datetime": "^3.1.0",
-    "@blueprintjs/select": "^3.1.0",
+    "bfx-hf-util": "bitfinexcom/bfx-hf-util",
+    "bfx-hf-indicators": "bitfinexcom/bfx-hf-indicators",
+    "@blueprintjs/core": "3.1.0",
+    "@blueprintjs/datetime": "3.1.0",
+    "@blueprintjs/select": "3.1.0",
     "bignumber.js": "^7.2.1",
     "classnames": "^2.2.6",
     "codemirror": "^5.39.2",

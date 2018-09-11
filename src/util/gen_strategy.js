@@ -9,5 +9,5 @@ export default () => ({
   onPositionUpdate: '',
   onPositionClose: '',
   onStart: '',
-  onStop: '',
+  onStop: ''
 })

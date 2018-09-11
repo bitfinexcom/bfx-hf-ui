@@ -2,7 +2,6 @@ import React from 'react'
 import { AutoSizer } from 'react-virtualized'
 import _last from 'lodash/last'
 import _isEmpty from 'lodash/isEmpty'
-import _sample from 'lodash/sample'
 
 import { format } from 'd3-format'
 import { timeFormat } from 'd3-time-format'
@@ -243,24 +242,24 @@ class HFChart extends React.PureComponent {
                   key={n}
                 >
                   <XAxis
-                    axisAt="bottom"
-                    orient="bottom"
+                    axisAt='bottom'
+                    orient='bottom'
                     showTicks={false}
                     outerTickSize={0}
                   />
 
                   <YAxis
-                    axisAt="right"
-                    orient="right"
+                    axisAt='right'
+                    orient='right'
                     ticks={5}
                     stroke='#CCCCCC'
                     tickStroke='#CCCCCC'
                   />
 
                   <MouseCoordinateY
-                    at="right"
-                    orient="right"
-                    displayFormat={format(".2f")}
+                    at='right'
+                    orient='right'
+                    displayFormat={format('.2f')}
                   />
 
                   {n === externalIndicators.length - 1 && (
@@ -273,11 +272,20 @@ class HFChart extends React.PureComponent {
                     />
                   )}
 
+                  {i.ui.type === 'lines' && i.ui.lines.map(key => (
+                    <LineSeries
+                      yAccessor={d => indicatorData[i.key][d.mts][key]}
+                      stroke={i.color}
+                      strokeDasharray='Solid'
+                      key={`${i.key}-${key}`}
+                    />
+                  ))}
+ 
                   {i.ui.type === 'line' && [
                     <LineSeries
                       yAccessor={d => indicatorData[i.key][d.mts]}
                       stroke={i.color}
-                      strokeDasharray="Solid"
+                      strokeDasharray='Solid'
                       key={i.key}
                     />
                   ,
@@ -285,9 +293,9 @@ class HFChart extends React.PureComponent {
                       key={`${i.key}-tooltip`}
                       yAccessor={d => indicatorData[i.key][d.mts]}
                       yLabel={i.label}
-                      yDisplayFormat={format(".2f")}
+                      yDisplayFormat={format('.2f')}
                       origin={[-20, 15]}
-                      valueFill="#ffffff"
+                      valueFill='#ffffff'
                     />
                   ]}
 

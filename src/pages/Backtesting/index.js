@@ -1,5 +1,4 @@
 import React from 'react'
-import HFI from 'bfx-honey-framework/lib/indicators'
 
 import BTHeaderBar from '../../components/BTHeaderBar'
 import BTHistoricalView from './BTHistoricalView'
@@ -10,10 +9,12 @@ export default class BacktestingView extends React.Component {
     selectedSymbol: 'tBTCUSD',
     selectedTF: '1m',
     selectedMode: 'new',
-    selectedRange: [null, null],
+
+    // Default to last day
+    selectedRange: [new Date(Date.now() - (24 * 60 * 60 * 1000)), new Date()],
   }
 
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.onSelectTrade = this.onSelectTrade.bind(this)
@@ -55,11 +56,6 @@ export default class BacktestingView extends React.Component {
       selectedTF,
       selectedMode,
       selectedRange,
-    } = this.state
-
-    // TODO: Remove
-    const {
-      candleData, selectedTrade, dataMTS, indicators, activeBT, btData
     } = this.state
 
     return [

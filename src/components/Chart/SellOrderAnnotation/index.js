@@ -57,7 +57,7 @@ export default class SellOrderAnnotation extends React.Component {
           x: ({ xScale, xAccessor, datum }) => xScale(xAccessor(datum)),
           y: ({ datum, yScale }) => {
             return yScale(datum.high)
-          },
+          }
         }}
       />
     )

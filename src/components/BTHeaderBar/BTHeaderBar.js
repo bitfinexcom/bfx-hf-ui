@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import _isFinite from 'lodash/isFinite'
 import { propTypes, defaultProps } from './index.props'
 import { DateRangeInput } from '@blueprintjs/datetime'
@@ -16,12 +15,8 @@ export default class BTHeaderBar extends React.PureComponent {
     const {
       onSelectMode,
       onSelectRange,
-
-      selectedSymbol,
-      selectedTF,
       selectedMode,
       selectedRange,
-
       symbols,
       tfs,
     } = this.props
