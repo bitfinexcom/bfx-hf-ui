@@ -1,36 +1,69 @@
 .indicator_card__wrapper {
   display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.indicator_card__label {
+  display: flex;
+  flex-direction: row;
+  padding: 0 20px 0 20px;
+  line-height: 25px;
+  font-size: 11px;
+  background: rgba(0, 0, 0, 0.2);
+  margin-bottom: 5px;
+
+  .bp3-control-indicator {
+    margin-top: 4px !important;
+  }
+
+  .bp3-control {
+    margin: 0;
+  }
+
+  h5 {
+    margin: 0;
+    width: 100%;
+  }
+}
+
+.indicator_card__mods {
+  width: 150px;
+  flex-grow: 1;
+}
+
+.indicator_card__input {
+  display: flex;
+  flex-direction: row;
+  line-height: 30px;
+
+  p {
+    width: 200px;
+    margin: 0;
+  }
+
+  input {
+    height: 24px;
+    padding: 2px 10px;
+    margin: 0;
+  }
+}
+
+.indicator_card__container {
+  display: flex;
   flex-direction: row;
   padding: 5px 20px 10px 20px;
   border: none !important;
   box-shadow: none !important;
 
-  h5 {
-    min-width: 75px;
-    margin: 5px 0 10px 0;
-  }
-
-  > * {
-    padding-right: 10px;
-    padding-left: 10px;
-    border-left: 1px solid rgba(0, 0, 0, 0.3);
-
-    &:first-child {
-      border-left: none;
-      padding-left: 0;
-    }
-
-    &:last-child {
-      padding-right: 0;
-    }
-  }
-
-  .btui__sidebar_mods {
-    padding-top: 5px;
-  }
-
   .bp3-button, .bp3-checkbox {
     font-size: 11px;
+  }
+
+  .bp3-button, .bp3-control-indicator {
+    background-image: none !important;
+    background: #3b4d67 !important;
+    background-color: #3b4d67 !important;
   }
 
   .bp3-button {

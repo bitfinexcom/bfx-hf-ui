@@ -57,63 +57,70 @@ export default class IndicatorCard extends React.PureComponent {
         elevation={Elevation.ZERO}
         className='indicator_card__wrapper'
       >
-        <div>
+        <div className='indicator_card__label'>
           <h5>{i.label}</h5>
-
-          <Button
-            text='Color'
-            rightIcon='refresh'
-            className='indicator_card_color_btn'
-            onClick={this.onCycleColor.bind(this, i)}
-            style={{
-              borderColor: i.color
-            }}
-          />
-        </div>
-
-        <div className='btui__sidebar_inputs'>
-          {i.args.map((arg, index) =>
-            <input
-              onChange={this.onArgChange.bind(this, i, index)}
-              className='bp3-input bp3-fill'
-              placeholder={arg.label}
-              value={arg.value || ''}
-              key={index}
-              type='text'
-              dir='auto'
-            />
-          )}
-
-          <input
-            onChange={this.onKeyChange.bind(this, i)}
-            className='bp3-input bp3-fill'
-            placeholder='Key'
-            value={i.key}
-            type='text'
-            dir='auto'
-          />
-        </div>
-
-        <div className='btui__sidebar_mods'>
           <Checkbox
             label='Enabled'
             checked={i.enabled}
-            alignIndicator={Alignment.LEFT}
+            alignIndicator={Alignment.RIGHT}
             onChange={this.onEnabledChange.bind(this, i)}
           />
+        </div>
 
-          <Button
-            text='Delete'
-            icon='trash'
-            onClick={this.onDelete.bind(this, i)}
-          />
+        <div className='indicator_card__container'>
+          <div className='indicator_card__mods'>
+            <Button
+              text='Color'
+              rightIcon='refresh'
+              className='indicator_card_color_btn'
+              onClick={this.onCycleColor.bind(this, i)}
+              style={{
+                borderColor: i.color
+              }}
+            />
 
-          <Button
-            text='Save'
-            icon='floppy-disk'
-            disabled={!i.dirty}
-            onClick={this.onSave.bind(this, i)}
-          />
+            <Button
+              text='Delete'
+              icon='trash'
+              onClick={this.onDelete.bind(this, i)}
+            />
+
+            <Button
+              text='Save'
+              icon='floppy-disk'
+              disabled={!i.dirty}
+              onClick={this.onSave.bind(this, i)}
+            />
+          </div>
+
+          <div className='indicator_card__inputs'>
+            {i.args.map((arg, index) =>
+              <div className='indicator_card__input'>
+                <p>{arg.label}</p>
+                <input
+                  onChange={this.onArgChange.bind(this, i, index)}
+                  className='bp3-input bp3-fill'
+                  placeholder={arg.label}
+                  value={arg.value || ''}
+                  key={index}
+                  type='text'
+                  dir='auto'
+                />
+              </div>
+            )}
+
+            <div className='indicator_card__input'>
+              <p>Key</p>
+              <input
+                onChange={this.onKeyChange.bind(this, i)}
+                className='bp3-input bp3-fill'
+                placeholder='Key'
+                value={i.key}
+                type='text'
+                dir='auto'
+              />
+            </div>
+          </div>
         </div>
       </Card>
     )

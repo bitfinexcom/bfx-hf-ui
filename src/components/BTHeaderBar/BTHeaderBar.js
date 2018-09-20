@@ -7,6 +7,21 @@ import { MenuItem, Button, ButtonGroup } from '@blueprintjs/core'
 
 import './style.css'
 
+const TimeFrames = {
+  '1m': '1 Minute',
+  '5m': '5 Minutes',
+  '15m': '15 Minutes',
+  '30m': '30 Minutes',
+  '1h': '1 Hour',
+  '3h': '3 Hours',
+  '6h': '6 Hours',
+  '12h': '12 Hours',
+  '1D': '1 Day',
+  '7D': '7 Days',
+  '14D': '14 Days',
+  '1M': '1 Month',
+}
+
 export default class BTHeaderBar extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -15,8 +30,12 @@ export default class BTHeaderBar extends React.PureComponent {
     const {
       onSelectMode,
       onSelectRange,
+      onSelectTF,
+      onSelectSymbol,
       selectedMode,
       selectedRange,
+      selectedSymbol,
+      selectedTF,
       symbols,
       tfs,
     } = this.props
@@ -30,12 +49,14 @@ export default class BTHeaderBar extends React.PureComponent {
                 icon='database'
                 active={selectedMode === 'historical'}
                 onClick={() => onSelectMode('historical')}
+                minimal
               >Historical</Button>
 
               <Button
                 rightIcon='series-add'
                 active={selectedMode === 'new'}
                 onClick={() => onSelectMode('new')}
+                minimal
               >New</Button>
             </ButtonGroup>
           </li>
@@ -53,8 +74,9 @@ export default class BTHeaderBar extends React.PureComponent {
           <li>
             <Select
               items={symbols}
-              onItemSelect={() => {}}
-              itemPredicate={(query, item) => true}
+              onItemSelect={onSelectSymbol}
+              inputProps={{ value: selectedSymbol }}
+              itemPredicate={(query, item) => item.indexOf(query) !== -1}
               itemRenderer={(item, { handleClick, modifiers }) => {
                 if (modifiers.filtered) {
                   return null
@@ -72,7 +94,7 @@ export default class BTHeaderBar extends React.PureComponent {
               }}
             >
               <Button
-                text='BTC/USD'
+                text={selectedSymbol}
                 rightIcon='double-caret-vertical'
               />
             </Select>
@@ -80,7 +102,7 @@ export default class BTHeaderBar extends React.PureComponent {
           <li>
             <Select
               items={tfs}
-              onItemSelect={() => {}}
+              onItemSelect={onSelectTF}
               itemPredicate={(query, item) => true}
               itemRenderer={(item, { handleClick, modifiers }) => {
                 if (modifiers.filtered) {
@@ -92,14 +114,14 @@ export default class BTHeaderBar extends React.PureComponent {
                     active={modifiers.active}
                     key={item}
                     label={item}
-                    text={item}
+                    text={TimeFrames[item]}
                     onClick={handleClick}
                   />
                 )
               }}
             >
               <Button
-                text='1 Minute'
+                text={TimeFrames[selectedTF]}
                 rightIcon='double-caret-vertical'
               />
             </Select>

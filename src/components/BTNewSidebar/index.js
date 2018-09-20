@@ -2,6 +2,7 @@ import React from 'react'
 import _includes from 'lodash/includes'
 import _sample from 'lodash/sample'
 import _cloneDeep from 'lodash/cloneDeep'
+import _isFinite from 'lodash/isFinite'
 import { Select } from '@blueprintjs/select'
 import { Button, MenuItem } from '@blueprintjs/core'
 
@@ -60,7 +61,9 @@ export default class BTNewSidebar extends React.PureComponent {
     i.color = `#${_sample(colors)}`
 
     i.args.forEach((arg) => {
-      arg.value = arg.default
+      if (_isFinite(arg.default)) {
+        arg.value = arg.default + ''
+      }
     })
 
     onIndicatorAdded(i)

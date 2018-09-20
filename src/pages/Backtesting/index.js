@@ -6,7 +6,7 @@ import BTNewView from './BTNewView'
 
 export default class BacktestingView extends React.Component {
   state = {
-    selectedSymbol: 'tBTCUSD',
+    selectedSymbol: 'tETHUSD',
     selectedTF: '1m',
     selectedMode: 'new',
 
@@ -66,7 +66,7 @@ export default class BacktestingView extends React.Component {
           selectedMode={selectedMode}
           selectedRange={selectedRange}
 
-          onSelectMarket={this.onSelectMarket}
+          onSelectSymbol={this.onSelectSymbol}
           onSelectTF={this.onSelectTF}
           onSelectMode={this.onSelectMode}
           onSelectRange={this.onSelectRange}

@@ -6,8 +6,11 @@ import _isObject from 'lodash/isObject'
 import HFI from 'bfx-hf-indicators'
 
 import Chart from '../Chart'
+import PLChart from '../PLChart'
 import BacktestTrades from '../BacktestTrades'
 import ID from '../../util/id'
+
+import './style.css'
 
 const indicatorClassById = _id => (
   Object.values(HFI).find(i => i.id === _id)
@@ -15,6 +18,13 @@ const indicatorClassById = _id => (
 
 export default class BTHistoricalContent extends React.PureComponent {
   state = {}
+
+  constructor (props) {
+    super(props)
+
+    this.onPLChartClick = this.onPLChartClick.bind(this)
+    this.onSelectTrade = this.onSelectTrade.bind(this)
+  }
 
   static getDerivedStateFromProps (nextProps, prevState) {
     const { dataKey, bt = {}, candles = [] } = nextProps
@@ -62,8 +72,6 @@ export default class BTHistoricalContent extends React.PureComponent {
         })
       */
 
-      console.log(indicators)
-
       candleArr.forEach((c, i) => {
         indicatorModels.forEach(m => {
           const dt = m.i.getDataType()
@@ -90,6 +98,20 @@ export default class BTHistoricalContent extends React.PureComponent {
     }
   }
 
+  onPLChartClick (item) {
+    this.setState(() => ({
+      focusMTS: +item.date,
+      dataKey: ID()
+    }))
+  }
+
+  onSelectTrade (trade) {
+    this.setState(() => ({
+      focusMTS: trade.mts,
+      dataKey: ID()
+    }))
+  }
+
   componentDidUpdate (prevProps) {
     const { bt } = this.props
 
@@ -106,8 +128,8 @@ export default class BTHistoricalContent extends React.PureComponent {
   }
 
   render () {
-    const { bt, syncCandles } = this.props
-    const { indicatorData, candles, dataKey } = this.state
+    const { bt } = this.props
+    const { indicatorData, candles, focusMTS, dataKey } = this.state
 
     if (!bt) {
       return <p>No Backtest Selected</p>
@@ -119,12 +141,35 @@ export default class BTHistoricalContent extends React.PureComponent {
       key: i.key,
     }))
 
+    const plTrades = []
+
+    trades.forEach((trade, i) => {
+      const plTrade = {
+        date: new Date(+trade.mts),
+        ...trade,
+      }
+
+      plTrade.pl = i === 0
+        ? trade.pl
+        : plTrades[i - 1].pl + trade.pl
+
+      plTrades.push(plTrade)
+    })
+
     return (
       <div className='hfui__content'>
+        <div className='historicalstats__container'>
+          <PLChart
+            trades={plTrades}
+            dataMTS={dataKey}
+            onClick={this.onPLChartClick}
+          />
+        </div>
+
         <Chart
           candles={candles}
           trades={trades}
-          focusTrade={null}
+          focusMTS={focusMTS}
           dataMTS={dataKey}
           indicators={indicators}
           indicatorData={indicatorData}

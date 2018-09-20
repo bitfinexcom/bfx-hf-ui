@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  background: #293742;
+  background: #122738;
 }
 
 .hfui__wrapper {
@@ -25,4 +25,8 @@ body {
 
 .hfui__sidebar {
   max-width: 400px;
+}
+
+.bp3-card {
+  background: rgba(0, 0, 0, 0.1) !important;
 }

@@ -67,7 +67,7 @@ class HFChart extends React.PureComponent {
   }
 
   render () {
-    const { trades, ratio, focusTrade, indicators, indicatorData } = this.props
+    const { trades, ratio, focusMTS, indicators, indicatorData } = this.props
     const { candles, data, xScale, xAccessor, displayXAccessor } = this.state
 
     if (_isEmpty(data)) {
@@ -78,10 +78,9 @@ class HFChart extends React.PureComponent {
 		const end = xAccessor(_last(data))
     let xExtents = [start, end]
 
-    if (focusTrade) {
-      const { mts } = focusTrade
+    if (focusMTS) {
       const candleWidth = data[1].mts - data[0].mts
-      const i = data.findIndex(c => mts > c.mts && (mts - c.mts) <= candleWidth)
+      const i = data.findIndex(c => focusMTS > c.mts && (focusMTS - c.mts) <= candleWidth)
 
       xExtents = [i - 500, i + 500]
     }
@@ -145,6 +144,24 @@ class HFChart extends React.PureComponent {
                   displayFormat={format('.2f')}
                 />
 
+                <BuyOrderAnnotation
+                  trades={trades}
+                  candles={candles}
+                />
+
+                <SellOrderAnnotation
+                  trades={trades}
+                  candles={candles}
+                />
+
+                {/* placeholder for event system */}
+                <EventAnnotation
+                  when={d => false}
+                  height={height}
+                  yOffset={30}
+                  stroke="#ff0000"
+                />
+
                 {indicators.filter(i =>
                   i.ui.position === 'overlay' && i.ui.type === 'line'
                 ).map(i =>
@@ -180,24 +197,6 @@ class HFChart extends React.PureComponent {
                 />
 
                 <OHLCTooltip forChart={1} origin={[-40, 10]} />
-
-                <BuyOrderAnnotation
-                  trades={trades}
-                  candles={candles}
-                />
-
-                <SellOrderAnnotation
-                  trades={trades}
-                  candles={candles}
-                />
-
-                {/* placeholder for event system */}
-                <EventAnnotation
-                  when={d => false}
-                  height={height}
-                  yOffset={30}
-                  stroke="#ff0000"
-                />
               </Chart>
 
               <Chart
@@ -229,7 +228,7 @@ class HFChart extends React.PureComponent {
 
                 <BarSeries
                   yAccessor={d => d.vol}
-                  fill={d => (d.close > d.open ? '#6BA583' : '#FF0000')}
+                  fill={d => (d.close > d.open ? 'rgba(0, 255, 0, 0.5)' : 'rgba(255, 0, 0, 0.5)')}
                 />
               </Chart>
 
