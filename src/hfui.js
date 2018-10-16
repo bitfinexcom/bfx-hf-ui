@@ -1,25 +1,24 @@
 import React from 'react'
+import { Switch, Route } from 'react-router-dom'
 
-import Navbar from './ui/Navbar'
-import BacktestView from './pages/BacktestView'
+import NavBar from './ui/NavBar'
+import StatusBar from './ui/StatusBar'
+import BacktestingView from './pages/Backtesting'
+import SettingsView from './pages/Settings'
 
-import {
-  BrowserRouter as Router,
-  Route
-} from 'react-router-dom'
-
-// TODO: Extract data manipulation, use redux
 export default class HFUI extends React.Component {
-
   render () {
     return (
-      <Router>
-        <div>
-          <Route component={Navbar} />
+      <div className='bp3-dark'>
+        <Route component={NavBar} />
 
-          <Route path="/" component={BacktestView} />
-        </div>
-      </Router>
+        <Switch>
+          <Route path='/backtesting' component={BacktestingView} />
+          <Route path='/settings' component={SettingsView} />
+        </Switch>
+
+        <Route component={StatusBar} />
+      </div>
     )
   }
 }

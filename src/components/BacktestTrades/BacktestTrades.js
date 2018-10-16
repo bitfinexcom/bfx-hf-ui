@@ -15,8 +15,8 @@ export default class BacktestTrades extends React.PureComponent {
   }
 
   onRowClick ({ rowData = {} } = {}) {
-    const { onSelectTrade } = this.props
-    onSelectTrade(rowData)
+    const { onSelect } = this.props
+    onSelect(rowData)
   }
 
   render () {
@@ -28,6 +28,8 @@ export default class BacktestTrades extends React.PureComponent {
           data={trades}
           columns={BacktestTradesColumns}
           onRowClick={this.onRowClick}
+          defaultSortBy='mts'
+          defaultSortDirection='ASC'
         />
       </Panel>
     )

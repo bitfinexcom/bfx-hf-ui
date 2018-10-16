@@ -1,31 +1,30 @@
 import PropTypes from 'prop-types'
 
 export const propTypes = {
-  buttons: PropTypes.object,
+  buttons: PropTypes.object
 }
 
 export const defaultProps = {
   buttons: {
-    'overview' : {
+    'overview': {
       label: 'Overview',
-      icon: 'home',
-      homepage: true
+      icon: 'home'
     },
     'algo-orders': {
       label: 'Algo Orders',
       icon: 'function'
     },
     'execution': {
-      label: 'Executuion',
+      label: 'Execution',
       icon: 'play'
     },
     'backtesting': {
       label: 'Backtesting',
       icon: 'series-derived'
     },
-    'settings':{
+    'settings': {
       label: 'Settings',
-      icon:'cog'
+      icon: 'cog'
     }
   }
 }

@@ -1,0 +1,25 @@
+.statusbar__wrapper {
+  padding: 0 32px;
+  background: #001c32;
+  color: #eee;
+
+  z-index: 9999;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+
+  font-size: 12px;
+  height: 30px;
+  line-height: 30px;
+
+  .bp3-spinner {
+    margin-right: 10px;
+    margin-top: -3px;
+  }
+}
+
+.statusbar__wrapper-right {
+  float: right;
+  line-height: 30px;
+}

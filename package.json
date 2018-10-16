@@ -30,19 +30,29 @@
     "standard": "^10.0.2"
   },
   "dependencies": {
-    "@blueprintjs/core": "^2.3.1",
-    "@blueprintjs/table": "^2.1.1",
+    "bfx-hf-util": "bitfinexcom/bfx-hf-util",
+    "bfx-hf-indicators": "bitfinexcom/bfx-hf-indicators",
+    "@blueprintjs/core": "3.1.0",
+    "@blueprintjs/datetime": "3.1.0",
+    "@blueprintjs/select": "3.1.0",
     "bignumber.js": "^7.2.1",
     "classnames": "^2.2.6",
+    "codemirror": "^5.39.2",
+    "color-scheme": "^1.0.1",
     "d3": "^5.4.0",
     "node-sass-chokidar": "^1.3.0",
     "react": "^16.4.0",
+    "react-codemirror2": "^5.1.0",
     "react-dom": "^16.4.0",
+    "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
+    "react-router-redux": "^5.0.0-alpha.6",
     "react-scripts": "1.1.4",
     "react-stockcharts": "^0.7.7",
     "react-transition-group": "^2.3.1",
-    "react-virtualized": "^9.19.1"
+    "react-virtualized": "^9.19.1",
+    "redux": "^4.0.0",
+    "redux-saga": "^0.16.0"
   }
 }

@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ClassNames from 'classnames'
+import _isFinite from 'lodash/isFinite'
+import prepareAmount from '../../../util/precision/prepare_amount'
+import './style.css'
 
-import './pl.css'
-
-export default class FormatPL extends React.PureComponent {
+export default class FormatAmount extends React.PureComponent {
   static propTypes = {
     v: PropTypes.number.isRequired,
   }
@@ -19,14 +20,14 @@ export default class FormatPL extends React.PureComponent {
     return (
       <span
         className={ClassNames(className, v === 0
-          ? 'format-pl__be'
+          ? 'format-amount__be'
           : v > 0
-            ? 'format-pl__gain'
-            : 'format-pl__loss'
+            ? 'format-amount__buy'
+            : 'format-amount__sell'
         )}
 
         {...props}
-      >{children || v}</span>
+      >{_isFinite(v) ? prepareAmount(v) : children}</span>
     )
   }
 }

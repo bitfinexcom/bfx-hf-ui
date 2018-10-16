@@ -58,6 +58,10 @@
   padding: 0;
   height: 300px;
 
+  &.small {
+    height: 150px;
+  }
+
   ::-webkit-scrollbar-track {
     background-color: transparent;
   }
@@ -71,4 +75,8 @@
   ::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0, 0.3);
   }
+}
+
+.table__cell-alignright {
+  text-align: right;
 }
