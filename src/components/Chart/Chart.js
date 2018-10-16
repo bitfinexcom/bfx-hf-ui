@@ -174,6 +174,17 @@ class HFChart extends React.PureComponent {
                 )}
 
                 {indicators.filter(i =>
+                  i.ui.position === 'overlay' && i.ui.type === 'lines'
+                ).map(i => i.ui.lines.map(key => (
+                  <LineSeries
+                    yAccessor={d => indicatorData[i.key][d.mts][key]}
+                    stroke={i.color}
+                    strokeDasharray='Solid'
+                    key={`${i.key}-${key}`}
+                  />
+                )))}
+
+                {indicators.filter(i =>
                   i.ui.position === 'overlay' && i.ui.type === 'bbands'
                 ).map(i =>
                   <BollingerSeries
