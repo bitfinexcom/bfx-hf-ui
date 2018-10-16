@@ -23,7 +23,7 @@ function reducer (state = getInitialState(), action = {}) {
         return state
       }
 
-      return _keyBy(btArray, 'id')
+      return _keyBy(btArray, 'bt_id')
     }
 
     default: {

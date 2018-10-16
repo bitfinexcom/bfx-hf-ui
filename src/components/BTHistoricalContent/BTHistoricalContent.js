@@ -124,7 +124,7 @@ export default class BTHistoricalContent extends React.PureComponent {
     const { bt, syncCandles } = this.props
     const { symbol, tf, from, to } = bt
 
-    syncCandles(symbol, tf, [from, to])
+    syncCandles(symbol, tf, [new Date(from), new Date(to)])
   }
 
   render () {
