@@ -1,14 +1,14 @@
-import WSActions from './ws'
+import WSDSActions from './ws-data-server'
 
 function syncCandles (symbol, tf, range) {
   const from = +range[0]
   const to = +range[1]
 
-  return WSActions.send(['get.candles', symbol, tf, 'trade', from, to])
+  return WSDSActions.send(['get.candles', symbol, tf, 'trade', from, to])
 }
 
 function getBTs () {
-  return WSActions.send(['get.bts'])
+  return WSDSActions.send(['get.bts'])
 }
 
 export default {

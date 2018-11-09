@@ -1,8 +1,8 @@
 import _isArray from 'lodash/isArray'
 import _isString from 'lodash/isString'
 
-import types from '../constants/ws'
-import actions from '../actions/ws'
+import types from '../constants/ws-bfx'
+import actions from '../actions/ws-bfx'
 
 const socketMiddleware = function () {
   let socket = null

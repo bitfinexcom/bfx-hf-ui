@@ -1,14 +1,14 @@
 import { delay } from 'redux-saga'
-import { put, call, select, takeEvery } from 'redux-saga/effects'
-import WSActions from '../actions/ws'
-import WSTypes from '../constants/ws'
+import { fork, put, call, select, takeEvery } from 'redux-saga/effects'
+import WSDSActions from '../actions/ws-data-server'
+import WSDSTypes from '../constants/ws-data-server'
 
 const CHECK_EVERY = 4000
 const WSS_URL = 'ws://localhost:8899'
 
 function getState (state = {}) {
-  const { socket = {} } = state
-  return socket
+  const { socketDS = {} } = state
+  return socketDS
 }
 
 function checkConnection (socket = {}) {
@@ -17,7 +17,7 @@ function checkConnection (socket = {}) {
 }
 
 function * onConnection () {
-  yield put({ type: 'FLUSH_QUEUE' })
+  yield put({ type: WSDSTypes.FLUSH_QUEUE })
 }
 
 // place every outgoing message in a queue if connection is offline
@@ -27,7 +27,7 @@ function * messageQueueWorker (action = {}) {
     status
   } = yield select(getState)
 
-  if (action.type !== 'FLUSH_QUEUE') {
+  if (action.type !== WSDSTypes.FLUSH_QUEUE) {
     queue = [...queue, action]
   }
 
@@ -36,8 +36,8 @@ function * messageQueueWorker (action = {}) {
   }
 
   yield (queue || []).map(function * (queuedAction) {
-    if (queuedAction.type === WSTypes.BUFF_SEND) {
-      queuedAction.type = WSTypes.SEND
+    if (queuedAction.type === WSDSTypes.BUFF_SEND) {
+      queuedAction.type = WSDSTypes.SEND
     }
 
     yield put(queuedAction)
@@ -53,7 +53,7 @@ export function * connectionSaga () {
     const isOffline = checkConnection(socket)
 
     if (isOffline) {
-      const connectAction = WSActions.connect(WSS_URL)
+      const connectAction = WSDSActions.connect(WSS_URL)
       yield put(connectAction)
     }
 
@@ -62,10 +62,16 @@ export function * connectionSaga () {
 }
 
 export function * messageQueueSaga () {
-  yield takeEvery(WSTypes.BUFF_SEND, messageQueueWorker)
-  yield takeEvery('FLUSH_QUEUE', messageQueueWorker)
+  yield takeEvery(WSDSTypes.BUFF_SEND, messageQueueWorker)
+  yield takeEvery(WSDSTypes.FLUSH_QUEUE, messageQueueWorker)
 }
 
 export function * initSaga () {
-  yield takeEvery(WSTypes.CONNECTED, onConnection)
+  yield takeEvery(WSDSTypes.CONNECTED, onConnection)
+}
+
+export function * WSDSSaga () {
+  yield fork(messageQueueSaga)
+  yield fork(initSaga)
+  yield fork(connectionSaga)
 }

@@ -1,10 +1,10 @@
 import { fork } from 'redux-saga/effects'
-import {
-  messageQueueSaga, connectionSaga, initSaga
-} from './ws'
+import { WSDSSaga } from './ws-data-server'
+import { WSBFXSaga } from './ws-bfx'
+import restSaga from './rest'
 
 export default function * rootSaga () {
-  yield fork(messageQueueSaga)
-  yield fork(initSaga)
-  yield fork(connectionSaga)
+  yield fork(WSDSSaga)
+  yield fork(WSBFXSaga)
+  yield fork(restSaga)
 }

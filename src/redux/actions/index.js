@@ -1,3 +1,3 @@
-import ws from './ws'
+import ws from './ws-data-server'
 
 export default { ws }

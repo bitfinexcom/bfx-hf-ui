@@ -1,3 +1,5 @@
+import 'babel-polyfill'
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { ConnectedRouter } from 'react-router-redux'
@@ -14,7 +16,7 @@ import 'codemirror/theme/material.css'
 
 import 'codemirror/mode/javascript/javascript'
 
-import HFUI from './hfui'
+import HFUI from './components/HFUI'
 import registerServiceWorker from './registerServiceWorker'
 import StoreWrapper from './StoreWrapper'
 

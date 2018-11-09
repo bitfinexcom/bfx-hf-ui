@@ -4,6 +4,7 @@
   "engines": {
     "node": ">=6"
   },
+  "main": "build/index.html",
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
@@ -30,12 +31,14 @@
     "standard": "^10.0.2"
   },
   "dependencies": {
-    "bfx-hf-util": "bitfinexcom/bfx-hf-util",
-    "bfx-hf-indicators": "bitfinexcom/bfx-hf-indicators",
     "@blueprintjs/core": "3.1.0",
     "@blueprintjs/datetime": "3.1.0",
     "@blueprintjs/select": "3.1.0",
+    "axios": "^0.18.0",
+    "bfx-hf-indicators": "bitfinexcom/bfx-hf-indicators",
+    "bfx-hf-util": "bitfinexcom/bfx-hf-util",
     "bignumber.js": "^7.2.1",
+    "bitfinex-api-node": "^2.0.2",
     "classnames": "^2.2.6",
     "codemirror": "^5.39.2",
     "color-scheme": "^1.0.1",

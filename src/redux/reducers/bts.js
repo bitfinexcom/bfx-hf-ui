@@ -16,7 +16,7 @@ function reducer (state = getInitialState(), action = {}) {
   }
 
   switch (type) {
-    case 'DATA.BTS_MESSAGE': {
+    case 'DS_DATA.BTS_MESSAGE': {
       const [, btArray] = payload
 
       if (btArray.length === 0) {

@@ -23,7 +23,7 @@ function reducer (state = getInitialState(), action = {}) {
   }
 
   switch (type) {
-    case 'DATA.SYNC.START_MESSAGE': {
+    case 'DS_DATA.SYNC.START_MESSAGE': {
       const k = syncKey(payload)
       const total = _last(payload)
 
@@ -39,7 +39,7 @@ function reducer (state = getInitialState(), action = {}) {
       }
     }
 
-    case 'DATA.SYNC.TICK_MESSAGE': {
+    case 'DS_DATA.SYNC.TICK_MESSAGE': {
       const k = syncKey(payload)
       const curr = _last(payload)
       const s = state.syncs[k]
@@ -60,7 +60,7 @@ function reducer (state = getInitialState(), action = {}) {
       }
     }
 
-    case 'DATA.SYNC.END_MESSAGE': {
+    case 'DS_DATA.SYNC.END_MESSAGE': {
       const k = syncKey(payload)
       const syncs = { ...state.syncs }
       delete syncs[k]
@@ -71,7 +71,7 @@ function reducer (state = getInitialState(), action = {}) {
       }
     }
 
-    case 'DATA.CANDLES_MESSAGE': {
+    case 'DS_DATA.CANDLES_MESSAGE': {
       const [, symbol, tf, type, from, to, candles] = payload
 
       if (candles.length === 0) {

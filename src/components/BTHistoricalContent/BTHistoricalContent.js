@@ -30,6 +30,8 @@ export default class BTHistoricalContent extends React.PureComponent {
     const { dataKey, bt = {}, candles = [] } = nextProps
     const { indicators = [] } = bt
 
+    console.log(bt)
+
     if (prevState && dataKey === prevState.dataKey) {
       return null
     }

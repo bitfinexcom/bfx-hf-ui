@@ -1,4 +1,4 @@
-import WSTypes from '../constants/ws'
+import WSTypes from '../constants/ws-data-server'
 
 const initialState = () => ({
   status: 'offline',

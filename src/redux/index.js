@@ -5,7 +5,8 @@ import reducer from './reducers'
 import constants from './constants'
 import actions from './actions'
 import selectors from './selectors'
-import socketMiddleware from './middleware/ws'
+import dataSocketMiddleware from './middleware/ws-data-server'
+import bfxSocketMiddleware from './middleware/ws-bfx'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -18,7 +19,11 @@ export function configureStore (
     development = false
   } = options
 
-  let middleware = [socketMiddleware(), sagaMiddleware]
+  let middleware = [
+    dataSocketMiddleware(),
+    bfxSocketMiddleware(),
+    sagaMiddleware
+  ]
 
   if (optionalMiddleware) {
     middleware = [...middleware, ...optionalMiddleware]

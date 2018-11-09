@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux'
 
 import data from './data'
-import socket from './ws'
+import socketDS from './ws-data-server'
+import socketBFX from './ws-bfx'
 
 const reducers = (optionalReducers) => combineReducers({
-  socket,
+  socketBFX,
+  socketDS,
   data,
 
   ...optionalReducers

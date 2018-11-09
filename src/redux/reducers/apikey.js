@@ -3,16 +3,17 @@ function getInitialState () {
 }
 
 function reducer (state = getInitialState(), action = {}) {
-  const { type, payload = [] } = action
+  const { type, payload = {} } = action
+
+  console.log(type)
 
   switch (type) {
-    case 'DS_DATA.MARKETS_MESSAGE': {
-      const [, symbols, tfs] = payload
+    case 'API_KEY_GET_RES': {
+      return payload
+    }
 
-      return {
-        symbols,
-        tfs
-      }
+    case 'API_KEY_POST_RES': {
+      return payload
     }
 
     default: {

@@ -21,6 +21,7 @@ import {
   SingleValueTooltip, OHLCTooltip, RSITooltip
 } from 'react-stockcharts/lib/tooltip'
 
+// import { PriceCoordinate } from "react-stockcharts/lib/coordinates"
 import { fitWidth } from 'react-stockcharts/lib/helper'
 
 import BuyOrderAnnotation from './BuyOrderAnnotation'
@@ -88,11 +89,11 @@ class HFChart extends React.PureComponent {
     // Add padding for indicators that render below the main chart
     const externalIndicators = indicators.filter(i => i.ui.position === 'external')
     const extraIndicatorHeight = externalIndicators.length * 155
-    const height = 500 + (externalIndicators.length * 155)
+    const height = 700 + (externalIndicators.length * 155)
 
     return (
       <Panel
-        label='Backtest Results'
+        label='Chart'
         contentClassName='chart__wrapper'
       >
         <AutoSizer
@@ -153,6 +154,23 @@ class HFChart extends React.PureComponent {
                   trades={trades}
                   candles={candles}
                 />
+
+                {/*
+                <PriceCoordinate
+                  at="right"
+                  orient="right"
+                  price={220}
+                  lineStroke="#00FF00"
+                  lineOpacity={1}
+                  stroke="#3490DC"
+                  strokeWidth={1}
+                  fill="#FFFFFF"
+                  textFill="#22292F"
+                  arrowWidth={7}
+                  strokeDasharray="ShortDash"
+                  displayFormat={format(".2f")}
+                />
+                */}
 
                 {/* placeholder for event system */}
                 <EventAnnotation
@@ -302,7 +320,7 @@ class HFChart extends React.PureComponent {
                     <SingleValueTooltip
                       key={`${i.key}-tooltip`}
                       yAccessor={d => indicatorData[i.key][d.mts]}
-                      yLabel={i.label}
+                      yLabel={i.key}
                       yDisplayFormat={format('.2f')}
                       origin={[-20, 15]}
                       valueFill='#ffffff'
