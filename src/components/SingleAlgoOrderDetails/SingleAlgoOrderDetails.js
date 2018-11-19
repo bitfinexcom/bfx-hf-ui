@@ -10,8 +10,6 @@ export default class SingleAlgoOrderDetails extends React.PureComponent {
     const [,,, state = {}] = ao
     const { args = {} } = state
 
-    console.log(args)
-
     return [
       <Panel label='Algo Order Details' key='details'>
         <ul className='hf-ui-ao-args-list'>

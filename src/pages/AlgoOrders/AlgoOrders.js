@@ -60,7 +60,7 @@ export default class AlgoOrdersView extends React.Component {
   }
 
   renderChart () {
-    const { allCandles } = this.props
+    const { allCandles, orders } = this.props
     const { selectedTF, selectedSymbol, selectedRange } = this.state
     const [ from, to ] = selectedRange
 
@@ -94,6 +94,7 @@ export default class AlgoOrdersView extends React.Component {
 
     return (
       <Chart
+        orders={orders.filter(o => o[3] === selectedSymbol)}
         candles={candles}
         trades={[]}
         focusTrade={null}

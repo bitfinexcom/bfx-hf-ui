@@ -21,7 +21,7 @@ import {
   SingleValueTooltip, OHLCTooltip, RSITooltip
 } from 'react-stockcharts/lib/tooltip'
 
-// import { PriceCoordinate } from "react-stockcharts/lib/coordinates"
+import { PriceCoordinate } from "react-stockcharts/lib/coordinates"
 import { fitWidth } from 'react-stockcharts/lib/helper'
 
 import BuyOrderAnnotation from './BuyOrderAnnotation'
@@ -68,7 +68,10 @@ class HFChart extends React.PureComponent {
   }
 
   render () {
-    const { trades, ratio, focusMTS, indicators, indicatorData } = this.props
+    const {
+      trades, ratio, focusMTS, indicators, indicatorData, orders
+    } = this.props
+
     const { candles, data, xScale, xAccessor, displayXAccessor } = this.state
 
     if (_isEmpty(data)) {
@@ -155,22 +158,22 @@ class HFChart extends React.PureComponent {
                   candles={candles}
                 />
 
-                {/*
-                <PriceCoordinate
-                  at="right"
-                  orient="right"
-                  price={220}
-                  lineStroke="#00FF00"
-                  lineOpacity={1}
-                  stroke="#3490DC"
-                  strokeWidth={1}
-                  fill="#FFFFFF"
-                  textFill="#22292F"
-                  arrowWidth={7}
-                  strokeDasharray="ShortDash"
-                  displayFormat={format(".2f")}
-                />
-                */}
+                {orders.map(o => (
+                  <PriceCoordinate
+                    at="right"
+                    orient="right"
+                    price={o[16]}
+                    lineStroke="#00FF00"
+                    lineOpacity={1}
+                    stroke="#3490DC"
+                    strokeWidth={1}
+                    fill="#FFFFFF"
+                    textFill="#22292F"
+                    arrowWidth={7}
+                    strokeDasharray="ShortDash"
+                    displayFormat={format(".2f")}
+                  />
+                ))}
 
                 {/* placeholder for event system */}
                 <EventAnnotation
