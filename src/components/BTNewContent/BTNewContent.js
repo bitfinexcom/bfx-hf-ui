@@ -91,7 +91,9 @@ export default class BTNewContent extends React.PureComponent {
   }
 
   componentDidMount () {
-    this.handleSync()
+    setTimeout(() => {
+      this.handleSync()
+    }, 5000)
   }
 
   componentDidUpdate (prevProps) {
@@ -140,7 +142,7 @@ export default class BTNewContent extends React.PureComponent {
     } else if (candles.length === 0) {
       return (
         <NonIdealState
-          title='No Data For Range'
+          title='Loading Candles...'
         />
       )
     }
@@ -158,7 +160,12 @@ export default class BTNewContent extends React.PureComponent {
   }
 
   renderEditor () {
+    const { candles } = this.state
     const { strategy, onSaveStrategyMethod, onEvalStrategy } = this.props
+
+    if (candles.length === 0) {
+      return null
+    }
 
     return (
       <StrategyEditor

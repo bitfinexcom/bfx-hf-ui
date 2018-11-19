@@ -5,8 +5,6 @@ function getInitialState () {
 function reducer (state = getInitialState(), action = {}) {
   const { type, payload = {} } = action
 
-  console.log(type)
-
   switch (type) {
     case 'API_KEY_GET_RES': {
       return payload

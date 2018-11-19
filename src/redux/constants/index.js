@@ -1,3 +1,3 @@
-import wsDataServer from './ws-data-server'
+import wsHFServer from './ws-hf-server'
 
-export default { wsDataServer }
+export default { wsHFServer }

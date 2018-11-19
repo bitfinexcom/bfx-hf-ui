@@ -95,7 +95,7 @@ export default class IndicatorCard extends React.PureComponent {
 
           <div className='indicator_card__inputs'>
             {i.args.map((arg, index) =>
-              <div className='indicator_card__input'>
+              <div className='indicator_card__input' key={index}>
                 <p>{arg.label}</p>
                 <input
                   onChange={this.onArgChange.bind(this, i, index)}

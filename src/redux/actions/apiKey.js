@@ -1,5 +1,3 @@
-'use strict'
-
 const load = () => {
   return {
     type: 'REST',

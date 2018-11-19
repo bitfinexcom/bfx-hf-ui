@@ -1,9 +1,14 @@
 .hfui-algo-orders {
   padding: 0;
   flex-direction: column;
+  padding-bottom: 50px;
 
   .btheaderbar__wrapper {
     width: 100%;
+  }
+
+  .bp3-non-ideal-state {
+    margin: 100px 0;
   }
 }
 

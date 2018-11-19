@@ -1,17 +1,20 @@
 import React from 'react'
 import { NonIdealState } from '@blueprintjs/core'
 import BTHeaderBar from '../../components/BTHeaderBar'
+import AlgoOrderTable from '../../components/AlgoOrderTable'
+import SingleAlgoOrderDetails from '../../components/SingleAlgoOrderDetails'
 import Chart from '../../components/Chart'
 import Panel from '../../ui/Panel'
 import './style.css'
 
 export default class AlgoOrdersView extends React.Component {
   state = {
-    selectedSymbol: 'tETHUSD',
+    selectedAO: null,
+    selectedSymbol: 'tBTCUSD',
     selectedTF: '1m',
 
     // Default to last day
-    selectedRange: [new Date(Date.now() - (24 * 60 * 60 * 1000)), new Date()],
+    selectedRange: [new Date(Date.now() - (7 * 24 * 60 * 60 * 1000)), new Date()],
   }
 
   constructor(props) {
@@ -20,10 +23,15 @@ export default class AlgoOrdersView extends React.Component {
     this.onSelectSymbol = this.onSelectSymbol.bind(this)
     this.onSelectTF = this.onSelectTF.bind(this)
     this.onSelectRange = this.onSelectRange.bind(this)
+    this.onSelectAO = this.onSelectAO.bind(this)
   }
 
   componentDidMount () {
     this.handleSync()
+  }
+
+  onSelectAO (selectedAO) {
+    this.setState(() => ({ selectedAO }))
   }
 
   onSelectSymbol (selectedSymbol) {
@@ -79,7 +87,7 @@ export default class AlgoOrdersView extends React.Component {
     if (candles.length === 0) {
       return (
         <NonIdealState
-          title='No Data For Range'
+          title='Loading Candles...'
         />
       )
     }
@@ -94,7 +102,10 @@ export default class AlgoOrdersView extends React.Component {
   }
 
   render () {
-    const { selectedRange, selectedTF, selectedSymbol } = this.state
+    const { algoOrders, orders } = this.props
+    const {
+      selectedRange, selectedTF, selectedSymbol, selectedAO
+    } = this.state
 
     return (
       <div className='hfui__wrapper hfui-algo-orders'>
@@ -120,6 +131,19 @@ export default class AlgoOrdersView extends React.Component {
             <div className='hfui-chart-wrapper'>
               {this.renderChart()}
             </div>
+
+            <AlgoOrderTable
+              onSelect={this.onSelectAO}
+              algoOrders={algoOrders}
+              orders={orders}
+            />
+
+            {selectedAO && (
+              <SingleAlgoOrderDetails
+                ao={selectedAO}
+                orders={orders}
+              />
+            )}
           </div>
         </div>
       </div>

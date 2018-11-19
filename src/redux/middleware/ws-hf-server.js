@@ -1,8 +1,8 @@
 import _isArray from 'lodash/isArray'
 import _isString from 'lodash/isString'
 
-import types from '../constants/ws-bfx'
-import actions from '../actions/ws-bfx'
+import types from '../constants/ws-hf-server'
+import actions from '../actions/ws-hf-server'
 
 const socketMiddleware = function () {
   let socket = null
@@ -55,6 +55,10 @@ const socketMiddleware = function () {
 
     switch (type) {
       case types.CONNECT: {
+        if (socket !== null) {
+          socket.close()
+        }
+
         socket = new window.WebSocket(payload.destination)
         socket.onmessage = onMessage(socket, store)
         socket.onclose = onClose(socket, store)

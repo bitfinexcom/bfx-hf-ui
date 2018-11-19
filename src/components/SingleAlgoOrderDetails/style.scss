@@ -1,0 +1,23 @@
+.hf-ui-ao-args-list {
+  list-style-type: none;
+  padding: 0 10px;
+  margin: 5px 0;
+
+  li {
+    font-family: monospace;
+    margin-right: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 30px;
+
+    div {
+      display: inline-block;
+      vertical-align: middle;
+
+      &:first-child {
+        margin-right: 3px;
+        opacity: 0.6;
+      }
+    }
+  }
+}

@@ -93,11 +93,7 @@ export default class BTNewView extends React.PureComponent {
     })
   }
 
-  onEvalStrategy () {
-    const { strategy, indicators } = this.state
-    console.log('req eval')
-    console.log({ strategy, indicators })
-  }
+  onEvalStrategy () {}
 
   render () {
     const { symbol, range, tf } = this.props

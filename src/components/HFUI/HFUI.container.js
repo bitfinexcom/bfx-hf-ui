@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import APIKeyActions from '../../redux/actions/apiKey'
-import WSBFXActions from '../../redux/actions/ws-bfx'
+import WSHFActions from '../../redux/actions/ws-hf-server'
 import HFUI from './HFUI'
 
 const mapStateToProps = (state = {}, ownProps = {}) => {
@@ -22,8 +23,8 @@ const mapDispatchToProps = dispatch => ({
   },
 
   cycleBFXConnection: () => {
-    dispatch(WSBFXActions.cycleConnection())
+    dispatch(WSHFActions.cycleConnection())
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(HFUI)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HFUI))

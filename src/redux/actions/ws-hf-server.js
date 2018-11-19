@@ -1,6 +1,6 @@
 import _toUpper from 'lodash/toUpper'
 import _isString from 'lodash/isString'
-import types from '../constants/ws-bfx'
+import types from '../constants/ws-hf-server'
 
 function error (payload) {
   return {
@@ -45,22 +45,28 @@ function disconnected () {
   }
 }
 
-function data (payload = []) {
-  const [ chanId, msg ] = payload
+function data (msg = []) {
+  let [ scope, payload ] = msg
+  let [ type ] = payload
+
+  if (type === 'bfx') {
+    payload = payload[1]
+    type = `bfx_${payload[1]}`
+  }
 
   return {
-    type: _toUpper(`BFX_${msg}_MESSAGE`),
+    type: _toUpper(`HF_${scope}_${type}_MESSAGE`),
     payload
   }
 }
 
-const cycleConnection = () => {
+function cycleConnection () {
   return {
     type: 'REST',
     meta: {
       url: '/reconnect-bfx',
       method: 'POST',
-      handler: 'BFX_WS',
+      handler: 'WS_HF_SERVER',
     },
 
     payload: {}
@@ -68,12 +74,12 @@ const cycleConnection = () => {
 }
 
 export default {
-  cycleConnection,
   data,
   error,
   connect,
   connected,
   disconnect,
   disconnected,
+  cycleConnection,
   send
 }

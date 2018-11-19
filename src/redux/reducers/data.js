@@ -5,7 +5,8 @@ import trades from './trades'
 import candles from './candles'
 import markets from './markets'
 import bts from './bts'
-import bfx from './bfx-data'
+import bfx from './bfx_data'
+import algoOrders from './algo_orders'
 
 const reducers = combineReducers({
   bfx,
@@ -13,6 +14,7 @@ const reducers = combineReducers({
   trades,
   candles,
   markets,
+  algoOrders,
   bts,
 })
 

@@ -5,8 +5,8 @@ import _keyBy from 'lodash/keyBy'
 import adapter from '../adapters/candles'
 
 const syncKey = (msg = []) => {
-  const [, symbol, tf, type, from, to] = msg
-  return `${symbol}:${tf}:${type}:${from}:${to}`
+  const [, symbol, tf, from, to] = msg
+  return `${symbol}:${tf}:${from}:${to}`
 }
 
 function getInitialState () {
@@ -23,44 +23,19 @@ function reducer (state = getInitialState(), action = {}) {
   }
 
   switch (type) {
-    case 'DS_DATA.SYNC.START_MESSAGE': {
+    case 'HF_DS_DATA.SYNC.START_MESSAGE': {
       const k = syncKey(payload)
-      const total = _last(payload)
 
       return {
         ...state,
         syncs: {
           ...state.syncs,
-          [k]: {
-            curr: 0,
-            total
-          }
+          [k]: true
         }
       }
     }
 
-    case 'DS_DATA.SYNC.TICK_MESSAGE': {
-      const k = syncKey(payload)
-      const curr = _last(payload)
-      const s = state.syncs[k]
-
-      if (!s) {
-        return state
-      }
-
-      return {
-        ...state,
-        syncs: {
-          ...state.syncs,
-          [k]: {
-            total: s.total,
-            curr: s.curr + 1 // ignore server curr, as they can be OoO
-          }
-        }
-      }
-    }
-
-    case 'DS_DATA.SYNC.END_MESSAGE': {
+    case 'HF_DS_DATA.SYNC.END_MESSAGE': {
       const k = syncKey(payload)
       const syncs = { ...state.syncs }
       delete syncs[k]
@@ -71,7 +46,7 @@ function reducer (state = getInitialState(), action = {}) {
       }
     }
 
-    case 'DS_DATA.CANDLES_MESSAGE': {
+    case 'HF_DS_DATA.CANDLES_MESSAGE': {
       const [, symbol, tf, type, from, to, candles] = payload
 
       if (candles.length === 0) {

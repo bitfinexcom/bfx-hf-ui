@@ -35,7 +35,7 @@ export default class HFUI extends React.Component {
 
     if (_isEmpty(apiKeyCombo)) {
       return (
-        <div className='bp3-dark hfui'>
+        <div className='bp3-dark hfui loading'>
           <Spinner
             intent={Intent.PRIMARY}
             size={Spinner.SIZE_LARGE}

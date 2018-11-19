@@ -89,7 +89,7 @@ class HFChart extends React.PureComponent {
     // Add padding for indicators that render below the main chart
     const externalIndicators = indicators.filter(i => i.ui.position === 'external')
     const extraIndicatorHeight = externalIndicators.length * 155
-    const height = 700 + (externalIndicators.length * 155)
+    const height = 500 + (externalIndicators.length * 155)
 
     return (
       <Panel

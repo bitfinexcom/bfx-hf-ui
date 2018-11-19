@@ -4,7 +4,6 @@ import DataActions from '../../redux/actions/data'
 import getCandles from '../../redux/selectors/candles'
 
 const mapStateToProps = (state = {}, ownProps = {}) => {
-  const { data = {} } = state
   const { bt } = ownProps
 
   if (!bt) {

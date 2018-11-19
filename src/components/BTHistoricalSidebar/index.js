@@ -5,7 +5,6 @@ export default class BTHistoricalSidebar extends React.PureComponent {
   render () {
     const {
       bts,
-      selectedBT,
       onSelectBT
     } = this.props
 
