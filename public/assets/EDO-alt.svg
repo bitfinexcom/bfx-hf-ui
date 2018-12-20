@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="841.889px" height="595.281px" viewBox="0 0 841.889 595.281" enable-background="new 0 0 841.889 595.281"
+	 xml:space="preserve">
+<path fill="gray" d="M332.513,527.848l50.296,50.563c15.838,15.837,41.516,15.837,57.354,0l50.564-50.563l-79.241-79.242L332.513,527.848z"/>
+<rect fill="gray" x="481.019" y="121.134" transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 1042.0354 -77.327)" width="112.027" height="112.027"/>
+<path fill="gray" d="M517.349,502.029l184.033-184.032c15.836-15.838,15.836-41.515,0-57.354l-50.564-50.565l-212.71,212.71L517.349,502.029z"/>
+<rect fill="gray" x="215.932" y="292.043" transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 871.0953 335.2943)" width="300.348" height="112.027"/>
+<path fill="gray" d="M136.51,331.666l50.563,50.564l79.599-79.242l-79.241-79.241l-50.564,50.564
+	C120.932,290.052,120.772,315.728,136.51,331.666z"/>
+<path fill="gray" d="M503.86,65.354L453.295,14.7c-15.838-15.835-41.515-15.835-57.353,0L211.91,198.733l79.241,79.241L503.86,65.354z"/>
+</svg>

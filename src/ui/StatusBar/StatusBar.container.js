@@ -2,8 +2,8 @@ import { connect } from 'react-redux'
 import StatusBar from './StatusBar'
 
 const mapStateToProps = (state = {}, ownProps = {}) => {
-  const { data = {} } = state
-  const { candles = {} } = data
+  const { dataHF = {} } = state
+  const { candles = {} } = dataHF
   const { syncs = {} } = candles
 
   return { syncs }

@@ -1,5 +1,5 @@
-const load = () => {
-  return {
+export default {
+  load: () => ({
     type: 'REST',
     meta: {
       url: '/api-key',
@@ -8,11 +8,9 @@ const load = () => {
     },
 
     payload: {}
-  }
-}
+  }),
 
-const submit = ({ key, secret } = {}) => {
-  return {
+  submit: ({ key, secret } = {}) => ({
     type: 'REST',
     meta: {
       url: '/api-key',
@@ -24,7 +22,5 @@ const submit = ({ key, secret } = {}) => {
       key,
       secret
     }
-  }
+  })
 }
-
-export default { load, submit }

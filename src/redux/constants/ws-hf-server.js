@@ -1,4 +1,5 @@
 export default {
+  CALC: 'WS_HF_CALC',
   ERROR: 'WS_HF_ERROR',
   SEND: 'WS_HF_SEND',
   BUFF_SEND: 'WS_HF_BUFF_SEND',

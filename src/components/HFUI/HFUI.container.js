@@ -5,8 +5,8 @@ import WSHFActions from '../../redux/actions/ws-hf-server'
 import HFUI from './HFUI'
 
 const mapStateToProps = (state = {}, ownProps = {}) => {
-  const { data = {} } = state
-  const { apiKey = {} } = data
+  const { dataHF = {} } = state
+  const { apiKey = {} } = dataHF
 
   return {
     apiKeyCombo: apiKey
@@ -14,6 +14,10 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
 }
 
 const mapDispatchToProps = dispatch => ({
+  loadInitialSettings: () => {
+    dispatch({ type: 'GET_SETTINGS' })
+  },
+
   loadAPIKey: () => {
     dispatch(APIKeyActions.load())
   },

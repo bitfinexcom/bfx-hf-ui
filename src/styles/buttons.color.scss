@@ -1,0 +1,343 @@
+@import "./variables.scss";
+
+.light-theme {
+
+  .btn-tiny {
+    .fa {
+      color: $grayscale4;
+    }
+    &.active .fa {
+      color: $bfx-blue;
+    }
+  }
+
+  .btn-red.btn-trans {
+    background-color: transparent;
+    border-color: $bfx-red;
+    color: $bfx-red;
+    &:hover {
+      background-color: $bfx-red;
+    }
+  }
+
+  .mini-toggle {
+    .mini-toggle-btn {
+      color: $grayscale5;
+      border: 1px solid darken($grayscale4, 1%);
+      &:hover {
+        background-color: $bfx-blue;
+        border-color: $bfx-blue;
+        color: $white;
+      }
+      &.active {
+        background-color: $grayscale2;
+        border-color: $grayscale3;
+        color: $grayscale8;
+      }
+    }
+  }
+
+  .ultra-tiny-btn {
+    border: 1px solid $grayscale5;
+    .fa {
+      color: $grayscale6;
+    }
+    &:hover {
+      background-color: darken($grayscale4, 5%);
+      border: 1px solid $grayscale7;
+      .fa {
+        color: $grayscale7;
+      }
+    }
+    &.no-hover:hover {
+      cursor: default;
+      background-color: $white;
+      border: 1px solid $grayscale5;
+      .fa {
+        color: $grayscale6;
+      }
+    }
+    &.bfx-blue {
+      border: 1px solid $bfx-blue;
+      .fa {
+        color: $bfx-blue;
+      }
+    }
+  }
+
+  .btn-group {
+    border-bottom: 1px solid #ccc;
+    background-color: $white;
+    .col {
+      .btn, .btn-flat {
+        color: darken($bfx-blue, 10%);
+        &.active {
+          background-color: $button-color;
+          color: $white;
+          &:hover {
+            background-color: $button-color;
+          }
+        }
+        &:hover {
+          background-color: lighten($button-color, 44%);
+        }
+      }
+    }
+  }
+
+  .btn-flat:hover {
+    background-color: $grayscale2;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+  }
+
+  .btn-green {
+    background-color: $bfx-green;
+    color: $white;
+    &:hover {
+      background-color: lighten($bfx-green, 4%);
+      color: $white;
+    }
+  }
+
+  .btn-grey {
+    background-color: $grayscale4;
+    color: $grayscale16;
+    &:hover {
+      background-color: lighten($grayscale4, 2%);
+      color: $grayscale16;
+    }
+    &.btn-muted {
+      color: $grayscale6 !important;
+      &:hover {
+        color: $grayscale8 !important;
+      }
+    }
+  }
+
+  .btn-light-grey {
+    background-color: $grayscale3;
+    color: $grayscale7;
+    &:hover {
+      background-color: $grayscale3;
+      color: $grayscale6;
+    }
+  }
+
+  .btn-clear {
+    background-color: $grayscale2;
+    color: $grayscale7;
+    i.fa { color: $grayscale5; }
+    &:hover {
+      background-color: $grayscale3;
+      color: $grayscale6;
+      i.fa { color: $grayscale7; }
+    }
+  }
+
+  .btn-red {
+    background-color: $error-color;
+    color: $white;
+    &:hover {
+      background-color: lighten($error-color, 4%);
+      color: $white;
+    }
+  }
+} // light theme end
+
+.dark-theme {
+
+  .btn-tiny {
+    .fa {
+      color: darken($semi-muted-dark, 30%);
+    }
+    &.active .fa {
+      color: $bfx-blue;
+    }
+  }
+
+  .btn-red.btn-trans {
+    background-color: transparent;
+    border-color: $bfx-red-dark;
+    color: $bfx-red-dark;
+    &:hover {
+      background-color: $bfx-red-dark;
+    }
+  }
+
+  .mini-toggle {
+    .mini-toggle-btn {
+      color: $grayscale8;
+      border: 1px solid lighten($grayscale10, 6%);
+      &:hover {
+        background-color: $bfx-blue-dark-btn;
+        border-color: $bfx-blue-dark-btn;
+        color: $grayscale4;
+      }
+      &.active {
+        background-color: $bfx-black1;
+        border-color: lighten($grayscale10, 6%);
+        color: $grayscale7;
+      }
+    }
+  }
+
+  .ultra-tiny-btn {
+    border: 1px solid $grayscale9;
+    .fa {
+      color: $grayscale8;
+    }
+    &:hover {
+      background-color: $grayscale10;
+      border: 1px solid $grayscale8;
+      .fa {
+        color: $grayscale7;
+      }
+    }
+    &.bfx-blue {
+      border: 1px solid $dark-blue-subtle;
+      .fa {
+        color: $dark-blue-subtle;
+      }
+    }
+  }
+
+  .btn-group {
+    border-bottom: 1px solid $dark-border-color;
+    background-color: $bfx-black1;
+    .col {
+      .btn, .btn-flat {
+        color: $grayscale5;
+        &.active {
+          background-color: darken($bfx-blue-dark-btn, 20%);
+          color: $grayscale5;
+          &:hover {
+            background-color: darken($bfx-blue-dark-btn, 20%);
+          }
+        }
+        &:hover {
+          background-color: darken($bfx-blue-dark-btn, 27%);
+        }
+      }
+    }
+  }
+
+  .btn {
+    background-color: darken($button-color, 28%);
+    color: $grayscale4;
+    &:hover {
+      background-color: darken($button-color, 25%);
+      color: lighten($grayscale5, 4%);
+    }
+  }
+
+  .btn-green {
+    background-color: $bfx-green-dark-btn;
+    color: lighten(desaturate($bfx-green, 35%), 30%);
+    &:hover {
+      background-color: lighten($bfx-green-dark-btn, 2%);
+      color: lighten(desaturate($bfx-green, 35%), 30%);
+    }
+  }
+
+  .btn-grey {
+    background-color: lighten($bfx-black3, 9%);
+    color: $grayscale6 !important;
+    &:hover {
+      background-color: lighten($bfx-black3, 11%);
+      color: $grayscale6 !important;
+    }
+    &.btn-muted {
+      color: $grayscale8 !important;
+      &:hover {
+        color: $grayscale6 !important;
+      }
+    }
+  }
+
+  .btn-light-grey {
+    background-color: $bfx-black1;
+    color: $grayscale6;
+    &:hover {
+      background-color: lighten($bfx-black1, 1%);
+      color: $grayscale5;
+    }
+  }
+
+  .btn-clear {
+    background-color: $muted-button-color-dark;
+    color: $muted-dark;
+    border: none;
+    &:hover {
+      background-color: lighten($muted-button-color-dark, 2%);
+      color: $text-color-dark;
+    }
+  }
+
+  .btn-red {
+    background-color: darken($bfx-red, 33%);
+    color: lighten(desaturate($bfx-red, 35%), 20%);
+    &:hover {
+      background-color: darken($bfx-red, 31%);
+      color: lighten(desaturate($bfx-red, 35%), 20%);
+    }
+  }
+
+  button.btn:disabled {
+    background-color: $grayscale9 !important;
+    .fa {
+      color: $grayscale4;
+    }
+  }
+} // dark theme end
+
+.dark-theme.black-theme {
+
+  .btn {
+    background-color: darken($button-color, 38%);
+    color: $text-color-black;
+    &:hover {
+      background-color: darken($button-color, 25%);
+      color: lighten($grayscale5, 4%);
+    }
+  }
+
+  .btn-green {
+    background-color: darken($bfx-green-dark-btn, 19%);
+    color: darken(desaturate($bfx-green, 35%), 3%);
+    &:hover {
+      background-color: darken($bfx-green-dark-btn, 15%);
+      color: darken(desaturate($bfx-green, 35%), 3%);
+    }
+  }
+
+  .btn-red {
+    background-color: darken(desaturate($bfx-red, 15%), 44%);
+    color: lighten(desaturate($bfx-red, 35%), 2%);
+    &:hover {
+      background-color: darken(desaturate($bfx-red, 15%), 40%);
+      color: lighten(desaturate($bfx-red, 35%), 2%);
+    }
+  }
+
+  .btn-clear {
+    background-color: $muted-button-color-black;
+    color: $muted-black;
+    border: none;
+    &:hover {
+      background-color: lighten($muted-button-color-black, 2%);
+      color: $text-color-black;
+    }
+  }
+
+  .btn-light-grey {
+    background-color: lighten($muted-button-color-black,3%);
+    color: $text-color-black;
+    &:hover {
+      background-color: $grayscale7;
+      color: $grayscale9;
+    }
+  }
+
+} // black theme end

@@ -1,0 +1,78 @@
+@import "./variables.scss";
+
+.__react-tooltip {
+  max-width: 300px;
+  text-align: center;
+  text-transform: initial;
+}
+
+.__react_component_tooltip {
+  font-size: 12px !important;
+  padding: 4px 12px !important;
+  &.show {
+    opacity: 1 !important;
+  }
+}
+
+.tooltipster-light {
+  border-radius: 3px;
+  a {
+    border-left: 1px solid $grayscale8;
+  }
+}
+
+.tooltipster-light .tooltipster-content {
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+  padding: 6px 8px;
+  white-space: pre-line;
+}
+
+.tooltipster-light-advanced {
+  .tooltipster-content {
+    padding: 0;
+  }
+}
+
+.tooltipster-dark {
+  border-radius: 2px;
+  border: none;
+}
+
+.tooltipster-dark .tooltipster-content {
+  font-size: 11px;
+  line-height: 16px;
+  padding: 4px 13px;
+  white-space: pre-line;
+}
+
+.order-tooltip-row {
+  position: relative;
+  height: 18px;
+  padding-right: 55px;
+  padding-left: 6px;
+  div {
+    float: left;
+    padding: 4px 2px;
+  }
+  a {
+    position: absolute;
+    right: 0;
+    height: 18px;
+    line-height: 18px;
+    width: 25px;
+    text-align: center;
+    &:first-of-type {
+      right: 26px;
+    }
+    &:last-of-type {
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+  }
+}
+
+.tooltipster-arrow-top {
+  top: 1px !important;
+}

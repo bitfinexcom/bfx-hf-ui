@@ -6,8 +6,8 @@ export const propTypes = {
 
 export const defaultProps = {
   buttons: {
-    'overview': {
-      label: 'Overview',
+    '': {
+      label: 'Trading',
       icon: 'home'
     },
     'algo-orders': {

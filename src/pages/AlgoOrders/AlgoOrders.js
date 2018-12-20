@@ -1,10 +1,11 @@
 import React from 'react'
 import { NonIdealState } from '@blueprintjs/core'
+import { TIME_FRAME_WIDTHS } from 'bfx-hf-util'
+
 import BTHeaderBar from '../../components/BTHeaderBar'
 import AlgoOrderTable from '../../components/AlgoOrderTable'
 import SingleAlgoOrderDetails from '../../components/SingleAlgoOrderDetails'
 import Chart from '../../components/Chart'
-import Panel from '../../ui/Panel'
 import './style.css'
 
 export default class AlgoOrdersView extends React.Component {
@@ -24,6 +25,7 @@ export default class AlgoOrdersView extends React.Component {
     this.onSelectTF = this.onSelectTF.bind(this)
     this.onSelectRange = this.onSelectRange.bind(this)
     this.onSelectAO = this.onSelectAO.bind(this)
+    this.onLoadMoreCandles = this.onLoadMoreCandles.bind(this)
   }
 
   componentDidMount () {
@@ -44,6 +46,29 @@ export default class AlgoOrdersView extends React.Component {
 
   onSelectRange (selectedRange) {
     this.setState(() => ({ selectedRange }))
+  }
+
+  onLoadMoreCandles (count) {
+    const { syncCandles } = this.props
+    const { selectedTF, selectedSymbol, selectedRange } = this.state
+    const cWidth = TIME_FRAME_WIDTHS[selectedTF]
+
+    if (!cWidth) {
+      return
+    }
+
+    const syncRange = [
+      new Date(selectedRange[0] - (cWidth * count * 2)),
+      selectedRange[0]
+    ]
+
+    const newRange = [
+      new Date(selectedRange[0] - (cWidth * count * 2)),
+      selectedRange[1]
+    ]
+
+    this.setState(() => ({ selectedRange: newRange }))
+    syncCandles(selectedSymbol, selectedTF, syncRange)
   }
 
   handleSync () {
@@ -94,6 +119,7 @@ export default class AlgoOrdersView extends React.Component {
 
     return (
       <Chart
+        onLoadMore={this.onLoadMoreCandles}
         orders={orders.filter(o => o[3] === selectedSymbol)}
         candles={candles}
         trades={[]}
@@ -122,10 +148,6 @@ export default class AlgoOrdersView extends React.Component {
 
         <div className='hfui-algo-orders__content'>
           <div className='hfui-sidebar'>
-            <div className='hfui-order-form'>
-              <Panel label='Order Form'>
-              </Panel>
-            </div>
           </div>
 
           <div className='hfui-algo-orders__main'>

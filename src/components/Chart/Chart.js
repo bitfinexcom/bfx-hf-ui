@@ -32,24 +32,65 @@ import Panel from '../../ui/Panel'
 
 import './style.css'
 
-class HFChart extends React.PureComponent {
+class HFChart extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
 
-  state = {
-    candles: [],
-  }
+  constructor (props) {
+    super(props)
 
-  static getDerivedStateFromProps (nextProps, prevState) {
-    const { dataKey, candles } = nextProps
+    this.state = {
+      candles: [],
+      focus: null,
+      prevFocusMTS: null,
+      lastDomain: null,
 
-    if (
-      (dataKey === prevState.dataKey) &&
-      (candles.length === prevState.candles.length)
-    ) {
-      return null
+      ...HFChart.genChartData([])
     }
 
+    this.onLoadMore = this.onLoadMore.bind(this)
+    this.onChartEvent = this.onChartEvent.bind(this)
+    this.chartRef = null
+  }
+
+  componentWillUnmount () {
+    if (this.chartRef.unsubscribe) {
+      this.chartRef.unsubscribe('chart-events')
+    }
+  }
+
+  shouldComponentUpdate (nextProps, nextState) {
+    if (nextState.lastDomain !== this.state.lastDomain) {
+      return false // don't re-render on domain update (pan)
+    }
+
+    return true
+  }
+
+  onChartEvent (type, moreProps, state = {}) {
+    if (type !== 'pan') {
+      return
+    }
+
+    const { xScale } = moreProps
+
+    this.setState(() => ({
+      lastDomain: xScale.domain()
+    }))
+  }
+
+  onLoadMore (start, end) {
+    if (Math.ceil(start) === end) {
+      return
+    }
+
+    const rowsToDownload = end - Math.ceil(start)
+    const { onLoadMore } = this.props
+
+    onLoadMore(rowsToDownload)
+  }
+
+  static genChartData (candles = []) {
     const xScaleProvider = discontinuousTimeScaleProvider
       .inputDateAccessor(c => c.date)
 
@@ -58,21 +99,58 @@ class HFChart extends React.PureComponent {
     } = xScaleProvider(candles)
 
     return {
-      dataKey,
       data,
       xScale,
-      xAccessor,
       displayXAccessor,
+      xAccessor
+    }
+  }
+
+  static getDerivedStateFromProps (nextProps, prevState) {
+    const { focusMTS, dataKey, candles } = nextProps
+    let focus = focusMTS && focusMTS !== prevState.prevFocusMTS
+      ? { type: 'mts', v: focusMTS } // focusMTS changed
+      : prevState.focus
+
+    if (
+      (dataKey === prevState.dataKey) &&
+      (candles.length === prevState.candles.length)
+    ) {
+      return { focus }
+    } else if (candles.length > prevState.candles.length) {
+      if (prevState.candles.length === 0) {
+        focus = { type: 'index', v: candles.length - 1 }
+      } else {
+        const candleDelta = candles.length - prevState.candles.length
+
+        focus = {
+          type: 'domain',
+          v: [
+            prevState.lastDomain[0] + candleDelta,
+            prevState.lastDomain[1] + candleDelta,
+          ]
+        }
+      }
+    }
+
+    return {
+      focus,
+      prevFocusMTS: focusMTS,
+      dataKey,
       candles,
+
+      ...HFChart.genChartData(candles)
     }
   }
 
   render () {
     const {
-      trades, ratio, focusMTS, indicators, indicatorData, orders
+      trades, ratio, indicators, indicatorData, orders
     } = this.props
 
-    const { candles, data, xScale, xAccessor, displayXAccessor } = this.state
+    const {
+      candles, data, xScale, xAccessor, displayXAccessor, focus
+    } = this.state
 
     if (_isEmpty(data)) {
       return null
@@ -82,11 +160,19 @@ class HFChart extends React.PureComponent {
 		const end = xAccessor(_last(data))
     let xExtents = [start, end]
 
-    if (focusMTS) {
-      const candleWidth = data[1].mts - data[0].mts
-      const i = data.findIndex(c => focusMTS > c.mts && (focusMTS - c.mts) <= candleWidth)
+    if (focus) {
+      if (focus.type === 'mts') {
+        const candleWidth = data[1].mts - data[0].mts
+        const i = data.findIndex(c => {
+          return focus.v > c.mts && (focus.v - c.mts) <= candleWidth
+        })
 
-      xExtents = [i - 500, i + 500]
+        xExtents = [i - 500, i]
+      } else if (focus.type === 'domain') {
+        xExtents = focus.v
+      } else {
+        xExtents = [focus.v - 250, focus.v + 250]
+      }
     }
 
     // Add padding for indicators that render below the main chart
@@ -96,7 +182,6 @@ class HFChart extends React.PureComponent {
 
     return (
       <Panel
-        label='Chart'
         contentClassName='chart__wrapper'
       >
         <AutoSizer
@@ -114,6 +199,19 @@ class HFChart extends React.PureComponent {
                 bottom: 20 + (extraIndicatorHeight || 30)
               }}
 
+              ref={(chart) => {
+                if (this.chartRef !== null) { // clean up old ref
+                  this.chartRef.unsubscribe('chart-events')
+                }
+
+                if (chart !== null) {
+                  this.chartRef = chart
+                  this.chartRef.subscribe('chart-events', {
+                    listener: this.onChartEvent
+                  })
+                }
+              }}
+
               type='hybrid'
               seriesName='HFC'
               data={data}
@@ -121,6 +219,7 @@ class HFChart extends React.PureComponent {
               xAccessor={xAccessor}
               displayXAccessor={displayXAccessor}
               xExtents={xExtents}
+              onLoadMore={this.onLoadMore}
             >
               <Chart
                 id={1}
@@ -160,6 +259,7 @@ class HFChart extends React.PureComponent {
 
                 {orders.map(o => (
                   <PriceCoordinate
+                    key={o[2]}
                     at="right"
                     orient="right"
                     price={o[16]}

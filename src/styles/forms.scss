@@ -1,0 +1,97 @@
+input {
+  border: 1px solid #384952;
+  background: #2c3940;
+  padding: 0 8px;
+  margin: 0 0 15px 0;
+  width: 100%;
+  outline: none;
+  transition: all .3s;
+  color: inherit;
+}
+
+input[type=text],
+input[type=password],
+input[type=email] {
+  height: 30px;
+}
+
+[type="checkbox"]:not(:checked),
+[type="checkbox"]:checked {
+  position: absolute;
+  left: -9999px;
+  visibility: hidden;
+}
+
+[type="checkbox"].filled-in:not(:checked)+label:before {
+  width: 0;
+  height: 0;
+  border: 3px solid transparent;
+  top: 10px;
+  left: 6px;
+  transform: rotateZ(37deg);
+  transform-origin: 100% 100%;
+}
+
+[type="checkbox"].filled-in:checked+label:before {
+  top: 0;
+  left: -2px;
+  width: 8px;
+  height: 13px;
+  transform: rotateZ(37deg);
+}
+
+[type="checkbox"]:checked+label:before {
+  top: -4px;
+  left: -3px;
+  width: 8px;
+  height: 13px;
+  border-top: 2px solid transparent;
+  border-left: 2px solid transparent;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(40deg);
+  backface-visibility: hidden;
+  transform-origin: 100% 100%;
+  z-index: 9;
+}
+
+[type="checkbox"].filled-in+label:after {
+  border-radius: 2px;
+}
+
+[type="checkbox"].filled-in:not(:checked)+label:after {
+  height: 20px;
+  width: 20px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid #52575a;
+  top: 0;
+  z-index: 0;
+}
+
+[type="checkbox"].filled-in+label:before,
+[type="checkbox"].filled-in+label:after {
+  content: '';
+  left: 0;
+  position: absolute;
+  transition: border .25s, background-color .25s, width .20s .1s, height .20s .1s, top .20s .1s, left .20s .1s;
+}
+
+[type="checkbox"] + label {
+  position: relative;
+  display: inline-block;
+}
+
+.faux-select {
+  position: relative;
+}
+
+.faux-select:after {
+  content: "\f0dc";
+  font-family: 'FontAwesome';
+  font-size: 12px;
+  top: 6px;
+  right: 6px;
+  padding: 0 0 2px;
+  position: absolute;
+  pointer-events: none;
+}

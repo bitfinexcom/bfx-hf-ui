@@ -1,7 +1,8 @@
 body {
   margin: 0;
   padding: 0;
-  background: #122738;
+  background: #0a0f14;
+  color: #c4c7c9 !important;
 }
 
 .hfui__wrapper {
@@ -30,3 +31,85 @@ body {
 .bp3-card {
   background: rgba(0, 0, 0, 0.1) !important;
 }
+
+.ajax span {
+  color: #7E8486;
+}
+
+.show-soft {
+  opacity: 0.75;
+}
+
+.show-smaller {
+  font-size: 80%;
+}
+
+.themed-border {
+  border-color: #11181c !important;
+}
+
+.small-emph {
+  color: #DBDFE3 !important;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 85%;
+  letter-spacing: 0.5px;
+}
+
+.trailing-zeros {
+  opacity: 0.4;
+}
+
+#sidebar .form-sidebar-wrap {
+  color: #A4A9AC;
+}
+
+.footer__wrapper {
+  opacity: 0.6;
+  font-size: 10px;
+  padding-top: 6px;
+  display: flex;
+  flex-direction: row-reverse;
+  text-transform: uppercase;
+}
+
+@import "~bfxft/src/styles/bitfinex/variables.scss";
+
+@import "~bfx-ui-components/src/ui/_ui.scss";
+
+@import "~bfx-ui-components/src/format/OrderIcon.scss";
+@import "~bfx-ui-components/src/format/OrderStatus.scss";
+@import "~bfx-ui-components/src/format/Pair.scss";
+@import "~bfx-ui-components/src/format/PrettyDate.scss";
+@import "~bfx-ui-components/src/ui/Table/Table.scss";
+@import "~bfx-ui-components/src/ui/Table.virtual/Table.virtual.scss";
+
+@import "~bfx-ui-components/src/OrderForm/_OrderFormCalculator.scss";
+@import "~bfx-ui-components/src/OrderForm/_OrderFormHeaderControls.scss";
+@import "~bfx-ui-components/src/OrderForm/fields/fields.scss";
+@import "~bfx-ui-components/src/OrderForm/_OrderForm.scss";
+@import "~bfx-ui-components/src/OrderForm/_OrderForm.FundingOptions.scss";
+@import "~bfx-ui-components/src/OrderForm/_OrderFormPreview.scss";
+@import "~bfx-ui-components/src/OrderForm/_OrderFormSection.scss";
+@import "~bfx-ui-components/src/OrderForm/_OrderFormSectionRow.scss";
+@import "~bfx-ui-components/src/OrderForm/_OrderFormActionButton.scss";
+
+@import "~bfx-ui-components/src/MainTicker/_MainTicker.scss";
+@import "~bfx-ui-components/src/TickerList/_TickerList.scss";
+@import "~bfx-ui-components/src/Balances/_Balances.scss";
+@import "~bfx-ui-components/src/Summary/_Summary.scss";
+@import "~bfx-ui-components/src/Orders/_Orders.scss";
+@import "~bfx-ui-components/src/OrderHistory/_OrderHistory.scss";
+
+@import "./styles/variables.scss";
+@import "./styles/collapsible.scss";
+@import "./styles/panel.scss";
+@import "./styles/tickerlist.scss";
+@import "./styles/forms.scss";
+@import "./styles/virtualized.scss";
+@import "./styles/text.scss";
+@import "./styles/icons.scss";
+@import "./styles/tooltips.scss";
+@import "./styles/buttons.scss";
+@import "./styles/buttons.color.scss";
+@import "./styles/balances.scss";

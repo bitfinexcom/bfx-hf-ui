@@ -6,7 +6,6 @@ import socketHF from './ws-hf-server'
 const reducers = (optionalReducers) => combineReducers({
   socketHF,
   data,
-
   ...optionalReducers
 })
 

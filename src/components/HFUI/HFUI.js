@@ -9,6 +9,7 @@ import StatusBar from '../../ui/StatusBar'
 import BacktestingView from '../../pages/Backtesting'
 import SettingsView from '../../pages/Settings'
 import AlgoOrdersView from '../../pages/AlgoOrders'
+import TradingView from '../../pages/Trading'
 
 import './style.css'
 
@@ -20,7 +21,9 @@ export default class HFUI extends React.Component {
   }
 
   componentDidMount () {
-    const { loadAPIKey, cycleBFXConnection } = this.props
+    const { loadInitialSettings, loadAPIKey, cycleBFXConnection } = this.props
+
+    loadInitialSettings()
     loadAPIKey()
     cycleBFXConnection()
   }
@@ -57,10 +60,12 @@ export default class HFUI extends React.Component {
     }
 
     return (
-      <div className='bp3-dark hfui'>
+      <div className='hfui ticker-side dark-theme'>
         <Route component={NavBar} />
 
         <Switch>
+          <Route exact path='/' component={TradingView} />
+          <Route path='/t/:sym' component={TradingView} />
           <Route path='/algo-orders' component={AlgoOrdersView} />
           <Route path='/backtesting' component={BacktestingView} />
           <Route path='/settings' component={SettingsView} />

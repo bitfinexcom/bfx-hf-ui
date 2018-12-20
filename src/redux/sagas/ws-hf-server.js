@@ -1,5 +1,5 @@
 import { delay } from 'redux-saga'
-import { fork, put, call, select, takeEvery } from 'redux-saga/effects'
+import { put, call, select, takeEvery } from 'redux-saga/effects'
 import WSHFActions from '../actions/ws-hf-server'
 import WSHFTypes from '../constants/ws-hf-server'
 
@@ -46,32 +46,19 @@ function * messageQueueWorker (action = {}) {
   queue = []
 }
 
-// reconnect if websocket connection is offline
-export function * connectionSaga () {
+export function * WSHFSaga () {
+  yield takeEvery(WSHFTypes.BUFF_SEND, messageQueueWorker)
+  yield takeEvery(WSHFTypes.FLUSH_QUEUE, messageQueueWorker)
+  yield takeEvery(WSHFTypes.CONNECTED, onConnection)
+
   while (true) {
     const socket = yield select(getState)
     const isOffline = checkConnection(socket)
 
     if (isOffline) {
-      const connectAction = WSHFActions.connect(WSS_URL)
-      yield put(connectAction)
+      yield put(WSHFActions.connect(WSS_URL))
     }
 
     yield call(delay, CHECK_EVERY)
   }
-}
-
-export function * messageQueueSaga () {
-  yield takeEvery(WSHFTypes.BUFF_SEND, messageQueueWorker)
-  yield takeEvery(WSHFTypes.FLUSH_QUEUE, messageQueueWorker)
-}
-
-export function * initSaga () {
-  yield takeEvery(WSHFTypes.CONNECTED, onConnection)
-}
-
-export function * WSHFSaga () {
-  yield fork(messageQueueSaga)
-  yield fork(initSaga)
-  yield fork(connectionSaga)
 }

@@ -1,49 +1,12 @@
-import _isArray from 'lodash/isArray'
 import _isString from 'lodash/isString'
 
-import types from '../constants/ws-hf-server'
-import actions from '../actions/ws-hf-server'
+import WSHFTypes from '../constants/ws-hf-server'
+import onWSOpen from './ws-hf/on_open'
+import onWSClose from './ws-hf/on_close'
+import onWSMessage from './ws-hf/on_message'
 
-const socketMiddleware = function () {
+export default () => {
   let socket = null
-
-  const onOpen = (ws, store) => (e) => {
-    store.dispatch(actions.connected())
-  }
-
-  const onClose = (ws, store) => (e) => {
-    store.dispatch(actions.disconnected())
-  }
-
-  const onMessage = (ws, store) => (e = {}) => {
-    const { data = '' } = e
-    let payload
-
-    try {
-      payload = JSON.parse(data)
-    } catch (e) {
-      console.error('[wss] error parsing JSON: ', e)
-      return
-    }
-
-    if (!_isArray(payload)) {
-      console.error('[wss] recv invalid ws payload: ', payload)
-      return
-    }
-
-    const [ msg ] = payload
-
-    switch (msg) {
-      case 'error': {
-        console.error('[wss] error ', payload)
-        return store.dispatch(actions.error(payload))
-      }
-
-      default: {
-        return store.dispatch(actions.data(payload))
-      }
-    }
-  }
 
   return store => next => (action = {}) => {
     if (!action) {
@@ -54,27 +17,55 @@ const socketMiddleware = function () {
     const { type, payload = {} } = action
 
     switch (type) {
-      case types.CONNECT: {
+      case WSHFTypes.CONNECT: {
         if (socket !== null) {
           socket.close()
         }
 
         socket = new window.WebSocket(payload.destination)
-        socket.onmessage = onMessage(socket, store)
-        socket.onclose = onClose(socket, store)
-        socket.onopen = onOpen(socket, store)
+        socket.onmessage = onWSMessage(socket, store)
+        socket.onclose = onWSClose(socket, store)
+        socket.onopen = onWSOpen(socket, store)
         return socket
       }
 
-      case types.DISCONNECT: {
-        if (socket != null) {
-          socket.close()
+      case WSHFTypes.CALC: {
+        if (socket === null) {
+          return
         }
-        socket = null
+
+        const { channels } = payload
+
+        socket.send(JSON.stringify(['ds', ['bfx', [
+          0, 'calc', null, channels
+        ]]]))
+
         return
       }
 
-      case types.SEND: {
+      case WSHFTypes.DISCONNECT: {
+        // NOTE: I cannot find the source of the disconnect action, this is
+        //       temporary until it is removed/fixed
+        console.warn('recv ws disconnect action, ignoring...')
+        return
+
+        /*
+
+        if (socket !== null) {
+          socket.close()
+        }
+
+        socket = null
+        return
+        */
+      }
+
+      case WSHFTypes.DISCONNECTED: {
+        console.info('[wss] disconnected')
+        return
+      }
+
+      case WSHFTypes.SEND: {
         console.info('[wss] send', action.payload)
 
         if (!socket) {
@@ -95,5 +86,3 @@ const socketMiddleware = function () {
     }
   }
 }
-
-export default socketMiddleware

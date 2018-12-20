@@ -1,0 +1,32 @@
+.hfui-trading {
+  padding: 0;
+  flex-direction: row;
+
+  .bp3-non-ideal-state {
+    margin: 100px 0;
+  }
+}
+
+.hfui-trading__sidebar,
+.hfui-trading__content {
+  padding-bottom: 30px;
+}
+
+.hfui-trading__sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+  padding: 10px 10px 30px 10px;
+
+  > * {
+    margin-bottom: 10px;
+  }
+}
+
+.hfui-trading__content {
+  padding-right: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex: 1;
+}

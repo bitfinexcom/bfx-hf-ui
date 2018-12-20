@@ -3,7 +3,6 @@ import MarketDataTable from './MarketDataTable'
 import getMarkets from '../../redux/selectors/markets'
 
 const mapStateToProps = (state = {}, ownProps = {}) => {
-  const { data = {} } = state
   const availableMarkets = getMarkets(state)
 
   return {

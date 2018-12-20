@@ -3,8 +3,8 @@ import AlgoOrdersView from './AlgoOrders'
 import DataActions from '../../redux/actions/data'
 
 const mapStateToProps = (state = {}, ownProps = {}) => {
-  const { data = {} } = state
-  const { bfx = {}, candles = {}, algoOrders = [] } = data
+  const { dataHF = {} } = state
+  const { bfx = {}, candles = {}, algoOrders = [] } = dataHF
   const { orders = [] } = bfx
 
   return {
@@ -16,9 +16,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
 
 const mapDispatchToProps = dispatch => ({
   syncCandles: (symbol, tf, range) => {
-    setTimeout(() => {
-      dispatch(DataActions.syncCandles(symbol, tf, range))
-    }, 5000)
+    dispatch(DataActions.syncCandles(symbol, tf, range))
   }
 })
 

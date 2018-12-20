@@ -6,8 +6,8 @@
   },
   "main": "build/index.html",
   "scripts": {
-    "build-css": "node-sass-chokidar src/ -o src/",
-    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+    "build-css": "node-sass-chokidar src/ -o src/ --importer=node_modules/node-sass-tilde-importer",
+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive --importer=node_modules/node-sass-tilde-importer",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
@@ -28,7 +28,8 @@
     "BTC"
   ],
   "devDependencies": {
-    "standard": "^10.0.2"
+    "standard": "^10.0.2",
+    "node-sass-tilde-importer": "^1.0.2"
   },
   "dependencies": {
     "@blueprintjs/core": "3.1.0",

@@ -1,0 +1,139 @@
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Grayscale
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+$white: #fff;
+$grayscale0: $white;   //   lightest
+$grayscale1: #FBFCFE;  //  |
+$grayscale2: #F5F6F7;  //  |
+$grayscale3: #E6EAEB;  //  |
+$grayscale4: #DBDFE3;  //  |
+$grayscale5: #BFC3C6;  //  |
+$grayscale6: #A4A9AC;  //  |
+$grayscale7: #7E8486;  //  |
+$grayscale8: #646B6E;  //  |
+$grayscale9: #485054;  //  |
+$grayscale10: #253135; //  |
+$grayscale11: #212D31;//   |
+$grayscale12: #1B272B;//   |
+$grayscale13: #152023;//   |
+$grayscale14: #111B1E;//   |
+$grayscale15: #0C171A; // \|/
+$grayscale16: #040C0F; //  ˘ Darkest
+$black: #000;
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  COLORS
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+$red-dark: rgb(247,4,4);
+$blue-dark: rgb(33,4,247);
+$orange-dark: rgb(247,142,4);
+$purple-dark: rgb(247,4,236);
+$green-dark: rgb(139,195,74);
+$teal-dark: rgb(74,193,195);
+$gold-dark: rgb(221,226,47);
+$pink-dark: rgb(224,75,176);
+
+// Yellows
+$bfx-yellow: #F9DD65;
+
+// Blues
+$bfx-blue: #5B91B2;
+$bfx-blue-dark: darken($bfx-blue, 40%);
+$nav-blue: #041824;
+$secondary-color: $bfx-blue !default;
+$bfx-blue-light: #f3f8fb;
+$bfx-blue-dark-btn: darken($bfx-blue, 10%);
+$link-color: saturate($bfx-blue, 15%);
+
+// Greens
+$bfx-green: #97C653;
+$bfx-green-dark: desaturate(darken($bfx-green, 10%), 15%);
+$bfx-green-dark-btn: desaturate(darken($bfx-green, 25%), 10%);
+$bfx-new-green: darken(desaturate($bfx-green, 15%), 25%);
+
+// Reds
+$bfx-red: desaturate(#EC5159, 15%);
+$bfx-red-dark: desaturate(darken($bfx-red, 10%), 35%);
+$error-color: $bfx-red !default;
+
+// Functional colors
+$body-bg: #EFEFEF;
+$bg-blue: #E6EAEC;
+$dark-border-color: #242627;
+$world-black: #07171F;
+
+// Blacks
+$bfx-black1: #2c3940; //  |  lightest
+$bfx-black2: #1b262d; //
+$bfx-black3: #121b21; // \|/ darkest
+$bfx-black4: #0c1218; //  ˘
+
+$semi-muted-light: $grayscale8;
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  Responsive break points
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+$break-small: 320px;
+$break-mid: 667px;
+$break-large: 1200px;
+
+/* - - - -  MISC - - - - */
+
+$light-subtle-border: darken($grayscale2, 3%);
+$border-rad: 3px;
+
+// ----- THEME COLORS
+
+// DARK
+$page-bg-dark: $bfx-black1; // page bg
+$secondary-bg-dark: $bfx-black2; // collapsibles bgs
+$dark-form-input-bg: lighten($page-bg-dark, 2%);
+$thid-bg-dark: $dark-form-input-bg; // line under collapsibles headers
+$subtle-border-dark: lighten($bfx-black1, 5%);
+$dark-form-input-border: lighten($bfx-black1, 6%);
+$text-color-dark: lighten($grayscale6, 12%); // general text color, table text color
+$text-color-bright-dark: lighten($text-color-dark, 15%); // general text color, brigher
+$semi-muted-dark: $grayscale6; // order book rows, slightly muted
+$semi-muted-more-dark: darken($semi-muted-dark, 10%); // table row header text
+$medium-muted-dark: darken($semi-muted-dark, 20%); // table row header text darker
+$medium-more-muted-dark: darken($semi-muted-dark, 36%); // table row header text darker
+$muted-dark: darken($semi-muted-dark, 55%); // even darker text
+$text-color-emph-dark: lighten($text-color-dark, 5%); // table rows on hover text color, etc
+$dark-subtle-border: darken($secondary-bg-dark, 1%); // border of collapsibles, etc
+$muted-button-color-dark: darken($page-bg-dark, 5%);
+$dark-blue-subtle: darken(desaturate($bfx-blue, 7%), 7%);
+
+// BLACK
+$page-bg-black: darken($bfx-black3, 1%); // page bg
+$secondary-bg-black: $black; // collapsibles bgs
+$black-form-input-bg: lighten($page-bg-black, 2%);
+$subtle-border-black: lighten($bfx-black3, 1%); // line under collapsible headers
+$thid-bg-black: darken($dark-form-input-bg, 14%); // input bg color, etc
+$black-form-input-border: darken($dark-form-input-border, 15%);
+$text-color-black: darken($grayscale7, 1%);
+$text-color-bright-black: lighten($text-color-black, 15%); // general text color, brigher
+$semi-muted-black: darken($text-color-black, 4%);
+$semi-muted-more-black: darken($text-color-black, 10%);
+$medium-muted-black: darken($semi-muted-black, 20%); // table row header text darker
+$medium-more-muted-black: darken($semi-muted-black, 36%); // table row header text darker
+$medium-muted-black: darken($semi-muted-black, 20%); // table row header text darker
+$muted-black: darken($semi-muted-black, 30%); // even darker text
+$text-color-emph-black: lighten($text-color-black, 7%);
+$black-subtle-border: darken($secondary-bg-black, 1%);
+$muted-button-color-black: darken($page-bg-black, 1%);
+$black-blue-subtle: darken(desaturate($bfx-blue, 12%), 17%);
+
+/*** Buttons ***/
+$button-bg-color-disabled: #DFDFDF !default;
+$button-color: $secondary-color !default;
+$button-color-disabled: #9F9F9F !default;
+$button-color-flat: #343434 !default;
+$button-color-raised: #fff !default;
+$button-floating-size: 37px !default;
+$button-height: 36px !default;
+$button-font-size-shared: 1.3rem !default;
+$button-large-icon-font-size: 1.6rem !default;
+$button-line-height: 36px !default;
