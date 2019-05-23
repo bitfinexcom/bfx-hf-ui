@@ -1,2 +1,5 @@
 let lastID = Date.now()
-module.exports = () => lastID++
+module.exports = () => {
+  lastID += 1
+  return lastID
+}

@@ -2,7 +2,7 @@ import React from 'react'
 import ClassNames from 'classnames'
 
 export default class BacktestInfoRow extends React.PureComponent {
-  render () {
+  render() {
     const { className, label, value } = this.props
 
     return (

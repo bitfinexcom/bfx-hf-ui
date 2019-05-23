@@ -17,13 +17,13 @@ import './style.css'
 const indicatorList = Object.values(HFI)
   .filter(({ label }) => !!label)
   .map(({
-    label, humanLabel, id, ui, args
+    label, humanLabel, id, ui, args,
   }) => ({
     label,
     humanLabel,
     id,
     ui,
-    args
+    args,
   }))
 
 // TODO: Handle edge case where A-Z is not enough (wrap around w/ AA, AB, etc)
@@ -42,13 +42,13 @@ const keyForNewIndicator = (indicators, i) => {
 }
 
 export default class BTNewSidebar extends React.PureComponent {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.onAddIndicator = this.onAddIndicator.bind(this)
   }
 
-  onAddIndicator (iTemplate) {
+  onAddIndicator(iTemplate) {
     const i = _cloneDeep(iTemplate)
     const { indicators, onIndicatorAdded, colors } = this.props
     const key = keyForNewIndicator(indicators, i)
@@ -62,20 +62,20 @@ export default class BTNewSidebar extends React.PureComponent {
 
     i.args.forEach((arg) => {
       if (_isFinite(arg.default)) {
-        arg.value = arg.default + ''
+        arg.value = `${arg.default}`
       }
     })
 
     onIndicatorAdded(i)
   }
 
-  render () {
+  render() {
     const {
       colors,
       indicators,
       onIndicatorSaved,
       onIndicatorUpdated,
-      onIndicatorDeleted
+      onIndicatorDeleted,
     } = this.props
 
     return (
@@ -101,8 +101,7 @@ export default class BTNewSidebar extends React.PureComponent {
               <Select
                 items={indicatorList}
                 onItemSelect={this.onAddIndicator}
-                itemPredicate={(q, i) =>
-                  _includes(i.label, q) || _includes(i.humanLabel, q)
+                itemPredicate={(q, i) => _includes(i.label, q) || _includes(i.humanLabel, q)
                 }
 
                 itemRenderer={(i, { handleClick, modifiers }) => {

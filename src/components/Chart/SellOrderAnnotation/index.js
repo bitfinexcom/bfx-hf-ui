@@ -14,32 +14,32 @@ import tradeCandleMTSMap from '../../../util/trade_candle_mts_map'
  * TODO: Refactor out UNSAFE_*
  */
 export default class SellOrderAnnotation extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {
-      mtsMap: this.getMTSMap(props)
+      mtsMap: this.getMTSMap(props),
     }
   }
 
-  UNSAFE_componentWillReceiveProps (nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { trades, candles } = nextProps
 
     if (trades !== this.props.trades || candles !== this.props.candles) {
       this.setState(() => ({
-        mtsMap: this.getMTSMap(nextProps)
+        mtsMap: this.getMTSMap(nextProps),
       }))
     }
   }
 
-  getMTSMap (props = this.props) {
+  getMTSMap(props = this.props) {
     const { candles } = props
     const trades = props.trades.filter(({ amount }) => amount < 0)
 
     return tradeCandleMTSMap(trades, candles)
   }
 
-  render () {
+  render() {
     const { mtsMap } = this.state
 
     return (
@@ -55,9 +55,7 @@ export default class SellOrderAnnotation extends React.Component {
           text: '\u2191',
           tooltip: d => timeFormat('%B')(d.date),
           x: ({ xScale, xAccessor, datum }) => xScale(xAccessor(datum)),
-          y: ({ datum, yScale }) => {
-            return yScale(datum.high)
-          }
+          y: ({ datum, yScale }) => yScale(datum.high),
         }}
       />
     )

@@ -8,7 +8,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
   const { apiKey = {} } = data
 
   return {
-    apiKeyCombo: apiKey
+    apiKeyCombo: apiKey,
   }
 }
 
@@ -23,7 +23,7 @@ const mapDispatchToProps = dispatch => ({
 
   cycleBFXConnection: () => {
     dispatch(WSBFXActions.cycleConnection())
-  }
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HFUI)

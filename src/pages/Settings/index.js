@@ -6,11 +6,9 @@ export default class SettingsView extends React.Component {
     super(props)
   }
 
-  render () {
+  render() {
     return (
-      <div className='hfui__wrapper'>
-
-      </div>
+      <div className='hfui__wrapper' />
     )
   }
 }

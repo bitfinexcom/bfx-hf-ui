@@ -13,24 +13,24 @@ import AlgoOrdersView from '../../pages/AlgoOrders'
 import './style.css'
 
 export default class HFUI extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.onSubmitKeys = this.onSubmitKeys.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const { loadAPIKey, cycleBFXConnection } = this.props
     loadAPIKey()
     cycleBFXConnection()
   }
 
-  onSubmitKeys ({ key, secret } = {}) {
+  onSubmitKeys({ key, secret } = {}) {
     const { submitAPIKey } = this.props
     submitAPIKey({ key, secret })
   }
 
-  render () {
+  render() {
     const { apiKeyCombo = {} } = this.props
 
     if (_isEmpty(apiKeyCombo)) {

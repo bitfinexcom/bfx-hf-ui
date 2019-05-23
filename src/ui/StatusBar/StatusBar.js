@@ -10,9 +10,10 @@ import './style.css'
 
 export default class StatusBar extends React.PureComponent {
   static propTypes = propTypes
+
   static defaultProps = defaultProps
 
-  renderSyncStatus () {
+  renderSyncStatus() {
     const { syncs = {} } = this.props
 
     if (_isEmpty(syncs)) {
@@ -38,12 +39,20 @@ export default class StatusBar extends React.PureComponent {
     return (
       <p>
         <Spinner size={15} />
-        Syncing {sym} ({curr}/{total})
+        Syncing
+        {' '}
+        {sym}
+        {' '}
+(
+        {curr}
+/
+        {total}
+)
       </p>
     )
   }
 
-  render () {
+  render() {
     return (
       <div className='statusbar__wrapper'>
         {this.renderSyncStatus()}

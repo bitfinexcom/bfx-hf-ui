@@ -2,7 +2,7 @@ import WSTypes from '../constants/ws-data-server'
 
 const initialState = () => ({
   status: 'offline',
-  lastActivity: null
+  lastActivity: null,
 })
 
 export default function (state = initialState(), action = {}) {
@@ -13,7 +13,7 @@ export default function (state = initialState(), action = {}) {
     case WSTypes.CONNECT: {
       return {
         ...state,
-        status: 'connecting'
+        status: 'connecting',
       }
     }
 
@@ -21,14 +21,14 @@ export default function (state = initialState(), action = {}) {
       return {
         ...state,
         status: 'online',
-        lastActivity
+        lastActivity,
       }
     }
 
     case WSTypes.DISCONNECT: {
       return {
         ...state,
-        status: 'disconnecting'
+        status: 'disconnecting',
       }
     }
 
@@ -36,7 +36,7 @@ export default function (state = initialState(), action = {}) {
       return {
         ...state,
         status: 'offline',
-        lastActivity: null
+        lastActivity: null,
       }
     }
 
@@ -44,7 +44,7 @@ export default function (state = initialState(), action = {}) {
       return {
         ...state,
         status: 'online',
-        lastActivity
+        lastActivity,
       }
     }
 

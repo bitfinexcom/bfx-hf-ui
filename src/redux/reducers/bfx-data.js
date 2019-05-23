@@ -9,7 +9,7 @@ export default function (state = initialState(), action = {}) {
     case 'BFX_OS_MESSAGE': {
       return {
         ...state,
-        orders: payload[2]
+        orders: payload[2],
       }
     }
 

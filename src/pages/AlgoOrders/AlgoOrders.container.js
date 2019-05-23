@@ -14,7 +14,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
 const mapDispatchToProps = dispatch => ({
   syncCandles: (symbol, tf, range) => {
     dispatch(DataActions.syncCandles(symbol, tf, range))
-  }
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AlgoOrdersView)

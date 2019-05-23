@@ -9,13 +9,13 @@ const syncKey = (msg = []) => {
   return `${symbol}:${tf}:${type}:${from}:${to}`
 }
 
-function getInitialState () {
+function getInitialState() {
   return {
-    syncs: {}
+    syncs: {},
   }
 }
 
-function reducer (state = getInitialState(), action = {}) {
+function reducer(state = getInitialState(), action = {}) {
   const { type, payload = [] } = action
 
   if (!_isArray(payload)) {
@@ -33,9 +33,9 @@ function reducer (state = getInitialState(), action = {}) {
           ...state.syncs,
           [k]: {
             curr: 0,
-            total
-          }
-        }
+            total,
+          },
+        },
       }
     }
 
@@ -54,9 +54,9 @@ function reducer (state = getInitialState(), action = {}) {
           ...state.syncs,
           [k]: {
             total: s.total,
-            curr: s.curr + 1 // ignore server curr, as they can be OoO
-          }
-        }
+            curr: s.curr + 1, // ignore server curr, as they can be OoO
+          },
+        },
       }
     }
 
@@ -67,7 +67,7 @@ function reducer (state = getInitialState(), action = {}) {
 
       return {
         ...state,
-        syncs
+        syncs,
       }
     }
 
@@ -85,8 +85,8 @@ function reducer (state = getInitialState(), action = {}) {
       const marketData = state[key] || {}
 
       if (
-        _isObject(marketData[startMTS]) ||
-        _isObject(marketData[endMTS])
+        _isObject(marketData[startMTS])
+        || _isObject(marketData[endMTS])
       ) {
         console.warn(`received duplicate candles: ${from} - ${to}`)
       }
@@ -96,8 +96,8 @@ function reducer (state = getInitialState(), action = {}) {
 
         [key]: {
           ...marketData,
-          ...(_keyBy(data, c => c.mts + ''))
-        }
+          ...(_keyBy(data, c => `${c.mts}`)),
+        },
       }
     }
 

@@ -1,30 +1,32 @@
 import { delay } from 'redux-saga'
-import { fork, put, call, select, takeEvery } from 'redux-saga/effects'
+import {
+  fork, put, call, select, takeEvery,
+} from 'redux-saga/effects'
 import WSDSActions from '../actions/ws-data-server'
 import WSDSTypes from '../constants/ws-data-server'
 
 const CHECK_EVERY = 4000
 const WSS_URL = 'ws://localhost:8899'
 
-function getState (state = {}) {
+function getState(state = {}) {
   const { socketDS = {} } = state
   return socketDS
 }
 
-function checkConnection (socket = {}) {
+function checkConnection(socket = {}) {
   const { status } = socket
   return status === 'offline'
 }
 
-function * onConnection () {
+function* onConnection() {
   yield put({ type: WSDSTypes.FLUSH_QUEUE })
 }
 
 // place every outgoing message in a queue if connection is offline
 let queue = []
-function * messageQueueWorker (action = {}) {
+function* messageQueueWorker(action = {}) {
   const {
-    status
+    status,
   } = yield select(getState)
 
   if (action.type !== WSDSTypes.FLUSH_QUEUE) {
@@ -35,7 +37,7 @@ function * messageQueueWorker (action = {}) {
     return
   }
 
-  yield (queue || []).map(function * (queuedAction) {
+  yield (queue || []).map(function* (queuedAction) {
     if (queuedAction.type === WSDSTypes.BUFF_SEND) {
       queuedAction.type = WSDSTypes.SEND
     }
@@ -47,7 +49,7 @@ function * messageQueueWorker (action = {}) {
 }
 
 // reconnect if websocket connection is offline
-export function * connectionSaga () {
+export function* connectionSaga() {
   while (true) {
     const socket = yield select(getState)
     const isOffline = checkConnection(socket)
@@ -61,16 +63,16 @@ export function * connectionSaga () {
   }
 }
 
-export function * messageQueueSaga () {
+export function* messageQueueSaga() {
   yield takeEvery(WSDSTypes.BUFF_SEND, messageQueueWorker)
   yield takeEvery(WSDSTypes.FLUSH_QUEUE, messageQueueWorker)
 }
 
-export function * initSaga () {
+export function* initSaga() {
   yield takeEvery(WSDSTypes.CONNECTED, onConnection)
 }
 
-export function * WSDSSaga () {
+export function* WSDSSaga() {
   yield fork(messageQueueSaga)
   yield fork(initSaga)
   yield fork(connectionSaga)

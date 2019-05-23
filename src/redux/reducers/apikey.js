@@ -1,8 +1,8 @@
-function getInitialState () {
+function getInitialState() {
   return {}
 }
 
-function reducer (state = getInitialState(), action = {}) {
+function reducer(state = getInitialState(), action = {}) {
   const { type, payload = {} } = action
 
   console.log(type)

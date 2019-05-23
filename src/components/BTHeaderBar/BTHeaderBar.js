@@ -1,9 +1,9 @@
 import React from 'react'
 import _isFinite from 'lodash/isFinite'
-import { propTypes, defaultProps } from './index.props'
 import { DateRangeInput } from '@blueprintjs/datetime'
 import { Select } from '@blueprintjs/select'
 import { MenuItem, Button, ButtonGroup } from '@blueprintjs/core'
+import { propTypes, defaultProps } from './index.props'
 
 import './style.css'
 
@@ -24,9 +24,10 @@ const TimeFrames = {
 
 export default class BTHeaderBar extends React.PureComponent {
   static propTypes = propTypes
+
   static defaultProps = defaultProps
 
-  render () {
+  render() {
     const {
       onSelectMode,
       onSelectRange,
@@ -51,14 +52,18 @@ export default class BTHeaderBar extends React.PureComponent {
                   active={selectedMode === 'historical'}
                   onClick={() => onSelectMode('historical')}
                   minimal
-                >Historical</Button>
+                >
+Historical
+                </Button>
 
                 <Button
                   rightIcon='series-add'
                   active={selectedMode === 'new'}
                   onClick={() => onSelectMode('new')}
                   minimal
-                >New</Button>
+                >
+New
+                </Button>
               </ButtonGroup>
             </li>
           )}

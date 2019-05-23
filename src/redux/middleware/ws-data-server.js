@@ -31,7 +31,7 @@ const socketMiddleware = function () {
       return
     }
 
-    const [ msg ] = payload
+    const [msg] = payload
 
     switch (msg) {
       case 'error': {
@@ -81,7 +81,7 @@ const socketMiddleware = function () {
         return socket.send(
           _isString(action.payload)
             ? action.payload
-            : JSON.stringify(action.payload)
+            : JSON.stringify(action.payload),
         )
       }
 

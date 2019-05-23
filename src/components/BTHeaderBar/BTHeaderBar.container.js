@@ -8,12 +8,12 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
 
   return {
     symbols,
-    tfs
+    tfs,
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  dispatch
+  dispatch,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BTHeaderBar)

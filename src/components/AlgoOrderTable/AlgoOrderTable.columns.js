@@ -4,10 +4,10 @@ export default [{
   dataKey: 'mts',
   cellRenderer: ({ rowData = {} }) => (
     new Date(rowData.mts).toLocaleString()
-  )
+  ),
 }, {
   width: 80,
   label: 'Symbol',
   dataKey: 'symbol',
-  cellRenderer: ({ rowData = {} }) => rowData.symbol
+  cellRenderer: ({ rowData = {} }) => rowData.symbol,
 }]

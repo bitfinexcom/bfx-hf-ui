@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default class MarketDataTable extends React.PureComponent {
-  render () {
+  render() {
     const { availableMarkets } = this.props
 
     console.log(availableMarkets)

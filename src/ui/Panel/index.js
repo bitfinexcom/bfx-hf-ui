@@ -5,12 +5,13 @@ import './style.css'
 
 export default class Panel extends React.PureComponent {
   static propTypes = propTypes
+
   static defaultProps = defaultProps
 
-  render () {
+  render() {
     const {
       children, label, headerStyle, contentStyle, style, headerClassName,
-      contentClassName, className
+      contentClassName, className,
     } = this.props
 
     return (

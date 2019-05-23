@@ -7,7 +7,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
   const availableMarkets = getMarkets(state)
 
   return {
-    availableMarkets
+    availableMarkets,
   }
 }
 

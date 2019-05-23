@@ -2,55 +2,55 @@ import _toUpper from 'lodash/toUpper'
 import _isString from 'lodash/isString'
 import types from '../constants/ws-data-server'
 
-function error (payload) {
+function error(payload) {
   return {
     type: types.ERROR,
-    payload
+    payload,
   }
 }
 
-function send (payload) {
+function send(payload) {
   return {
     type: types.BUFF_SEND,
     payload: _isString(payload)
       ? payload
-      : JSON.stringify(payload)
+      : JSON.stringify(payload),
   }
 }
 
-function connect (destination = '') {
+function connect(destination = '') {
   return {
     type: types.CONNECT,
     payload: {
-      destination
-    }
+      destination,
+    },
   }
 }
 
-function disconnect () {
+function disconnect() {
   return {
-    type: types.DISCONNECT
+    type: types.DISCONNECT,
   }
 }
 
-function connected () {
+function connected() {
   return {
-    type: types.CONNECTED
+    type: types.CONNECTED,
   }
 }
 
-function disconnected () {
+function disconnected() {
   return {
-    type: types.DISCONNECTED
+    type: types.DISCONNECTED,
   }
 }
 
-function data (payload = []) {
-  const [ msg ] = payload
+function data(payload = []) {
+  const [msg] = payload
 
   return {
     type: _toUpper(`DS_${msg}_MESSAGE`),
-    payload
+    payload,
   }
 }
 
@@ -61,5 +61,5 @@ export default {
   connected,
   disconnect,
   disconnected,
-  send
+  send,
 }
