@@ -1,10 +1,12 @@
 import axios from 'axios'
 import _toUpper from 'lodash/toUpper'
-import { takeEvery, put, call, select } from 'redux-saga/effects'
+import {
+  takeEvery, put, call, select,
+} from 'redux-saga/effects'
 
 axios.defaults.baseURL = 'http://localhost:9987'
 
-function getState (state) {
+function getState(state) {
   return state
 }
 
@@ -23,7 +25,7 @@ function getBFXFTType (meta = {}) {
     : '?'
 }
 
-function* onREST (action = {}) {
+function* onREST(action = {}) {
   const { dataHF = {} } = yield select(getState)
   const { user } = dataHF
   const {
@@ -42,8 +44,8 @@ function* onREST (action = {}) {
         headers: {
           'api-token': user.apiToken,
           'api-user-id': user.apiID,
-        }
-      })
+        },
+      }),
     })
 
     const { error, data } = res

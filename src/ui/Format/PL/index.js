@@ -14,8 +14,10 @@ export default class FormatPL extends React.PureComponent {
     v: 0,
   }
 
-  render () {
-    const { v, className, children, ...props } = this.props
+  render() {
+    const {
+      v, className, children, ...props
+    } = this.props
 
     return (
       <span
@@ -23,11 +25,12 @@ export default class FormatPL extends React.PureComponent {
           ? 'format-pl__be'
           : v > 0
             ? 'format-pl__gain'
-            : 'format-pl__loss'
-        )}
+            : 'format-pl__loss')}
 
         {...props}
-      >{_isFinite(v) ? preparePrice(v) : children}</span>
+      >
+        {_isFinite(v) ? preparePrice(v) : children}
+      </span>
     )
   }
 }

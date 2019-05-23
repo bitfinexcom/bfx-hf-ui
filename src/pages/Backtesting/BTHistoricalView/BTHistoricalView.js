@@ -6,28 +6,28 @@ import ID from '../../../util/id'
 
 export default class BTHistoricalView extends React.Component {
   state = {
-    dataKey: ID()
+    dataKey: ID(),
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.onSelectBT = this.onSelectBT.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const { getBTs } = this.props
     getBTs()
   }
 
-  onSelectBT (selectedBT) {
+  onSelectBT(selectedBT) {
     this.setState(() => ({
       selectedBT,
       dataKey: ID(),
     }))
   }
 
-  render () {
+  render() {
     const { bts = {} } = this.props
     const { selectedBT, dataKey } = this.state
 
@@ -43,7 +43,7 @@ export default class BTHistoricalView extends React.Component {
         key='content'
         bt={selectedBT}
         dataKey={dataKey}
-      />
+      />,
     ]
   }
 }

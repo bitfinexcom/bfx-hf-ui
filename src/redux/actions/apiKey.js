@@ -1,26 +1,26 @@
-export default {
-  load: () => ({
-    type: 'REST',
-    meta: {
-      url: '/api-key',
-      method: 'GET',
-      handler: 'API_KEY',
-    },
+const load = () => ({
+  type: 'REST',
+  meta: {
+    url: '/api-key',
+    method: 'GET',
+    handler: 'API_KEY',
+  },
 
-    payload: {}
-  }),
+  payload: {},
+})
 
-  submit: ({ key, secret } = {}) => ({
-    type: 'REST',
-    meta: {
-      url: '/api-key',
-      method: 'POST',
-      handler: 'API_KEY',
-    },
+const submit = ({ key, secret } = {}) => ({
+  type: 'REST',
+  meta: {
+    url: '/api-key',
+    method: 'POST',
+    handler: 'API_KEY',
+  },
 
-    payload: {
-      key,
-      secret
-    }
-  })
-}
+  payload: {
+    key,
+    secret,
+  },
+})
+
+export default { load, submit }

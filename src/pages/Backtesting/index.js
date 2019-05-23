@@ -14,7 +14,7 @@ export default class BacktestingView extends React.Component {
     selectedRange: [new Date(Date.now() - (24 * 60 * 60 * 1000)), new Date()],
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.onSelectTrade = this.onSelectTrade.bind(this)
@@ -26,31 +26,31 @@ export default class BacktestingView extends React.Component {
     this.onSelectRange = this.onSelectRange.bind(this)
   }
 
-  onSelectSymbol (selectedSymbol) {
+  onSelectSymbol(selectedSymbol) {
     this.setState(() => ({ selectedSymbol }))
   }
 
-  onSelectTF (selectedTF) {
+  onSelectTF(selectedTF) {
     this.setState(() => ({ selectedTF }))
   }
 
-  onSelectMode (selectedMode) {
+  onSelectMode(selectedMode) {
     this.setState(() => ({ selectedMode }))
   }
 
-  onSelectRange (selectedRange) {
+  onSelectRange(selectedRange) {
     this.setState(() => ({ selectedRange }))
   }
 
-  onSelectTrade (selectedTrade) {
+  onSelectTrade(selectedTrade) {
     this.setState(() => ({ selectedTrade }))
   }
 
-  onSelectBT (activeBT) {
+  onSelectBT(activeBT) {
     this.setState(() => ({ activeBT }))
   }
 
-  render () {
+  render() {
     const {
       selectedSymbol,
       selectedTF,
@@ -71,8 +71,7 @@ export default class BacktestingView extends React.Component {
           onSelectMode={this.onSelectMode}
           onSelectRange={this.onSelectRange}
         />
-      </div>
-    ,
+      </div>,
       <div className='hfui__wrapper' key='btwrapper'>
         {selectedMode === 'new' ? (
           <BTNewView
@@ -83,7 +82,7 @@ export default class BacktestingView extends React.Component {
         ) : (
           <BTHistoricalView />
         )}
-      </div>
+      </div>,
     ]
   }
 }

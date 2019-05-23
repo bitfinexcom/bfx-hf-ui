@@ -7,18 +7,18 @@ import { format } from 'd3-format'
 import { timeFormat } from 'd3-time-format'
 import { ChartCanvas, Chart } from 'react-stockcharts'
 import {
-  BarSeries, CandlestickSeries, LineSeries, BollingerSeries, RSISeries
+  BarSeries, CandlestickSeries, LineSeries, BollingerSeries, RSISeries,
 } from 'react-stockcharts/lib/series'
 import { XAxis, YAxis } from 'react-stockcharts/lib/axes'
 import {
-	CrossHairCursor,
-	MouseCoordinateX,
-	MouseCoordinateY
+  CrossHairCursor,
+  MouseCoordinateX,
+  MouseCoordinateY,
 } from 'react-stockcharts/lib/coordinates'
 
 import { discontinuousTimeScaleProvider } from 'react-stockcharts/lib/scale'
 import {
-  SingleValueTooltip, OHLCTooltip, RSITooltip
+  SingleValueTooltip, OHLCTooltip, RSITooltip,
 } from 'react-stockcharts/lib/tooltip'
 
 import { PriceCoordinate } from "react-stockcharts/lib/coordinates"
@@ -34,6 +34,7 @@ import './style.css'
 
 class HFChart extends React.Component {
   static propTypes = propTypes
+
   static defaultProps = defaultProps
 
   constructor (props) {
@@ -95,7 +96,7 @@ class HFChart extends React.Component {
       .inputDateAccessor(c => c.date)
 
     const {
-      data, xScale, displayXAccessor, xAccessor
+      data, xScale, displayXAccessor, xAccessor,
     } = xScaleProvider(candles)
 
     return {
@@ -156,8 +157,8 @@ class HFChart extends React.Component {
       return null
     }
 
-		const start = xAccessor(data[Math.max(0, data.length - 1000)])
-		const end = xAccessor(_last(data))
+    const start = xAccessor(data[Math.max(0, data.length - 1000)])
+    const end = xAccessor(_last(data))
     let xExtents = [start, end]
 
     if (focus) {
@@ -196,7 +197,7 @@ class HFChart extends React.Component {
                 left: 50,
                 right: 50,
                 top: 10,
-                bottom: 20 + (extraIndicatorHeight || 30)
+                bottom: 20 + (extraIndicatorHeight || 30),
               }}
 
               ref={(chart) => {
@@ -280,23 +281,19 @@ class HFChart extends React.Component {
                   when={d => false}
                   height={height}
                   yOffset={30}
-                  stroke="#ff0000"
+                  stroke='#ff0000'
                 />
 
-                {indicators.filter(i =>
-                  i.ui.position === 'overlay' && i.ui.type === 'line'
-                ).map(i =>
+                {indicators.filter(i => i.ui.position === 'overlay' && i.ui.type === 'line').map(i => (
                   <LineSeries
                     yAccessor={d => indicatorData[i.key][d.mts]}
                     stroke={i.color}
-                    strokeDasharray="Solid"
+                    strokeDasharray='Solid'
                     key={i.key}
                   />
-                )}
+                ))}
 
-                {indicators.filter(i =>
-                  i.ui.position === 'overlay' && i.ui.type === 'lines'
-                ).map(i => i.ui.lines.map(key => (
+                {indicators.filter(i => i.ui.position === 'overlay' && i.ui.type === 'lines').map(i => i.ui.lines.map(key => (
                   <LineSeries
                     yAccessor={d => indicatorData[i.key][d.mts][key]}
                     stroke={i.color}
@@ -305,27 +302,25 @@ class HFChart extends React.Component {
                   />
                 )))}
 
-                {indicators.filter(i =>
-                  i.ui.position === 'overlay' && i.ui.type === 'bbands'
-                ).map(i =>
+                {indicators.filter(i => i.ui.position === 'overlay' && i.ui.type === 'bbands').map(i => (
                   <BollingerSeries
                     yAccessor={d => indicatorData[i.key][d.mts]}
 
                     stroke={i.ui.stroke || {
-                      top: "#0000ff",
-                      middle: "#0000aa",
-                      bottom: "#0000ff",
+                      top: '#0000ff',
+                      middle: '#0000aa',
+                      bottom: '#0000ff',
                     }}
 
-                    fill={i.ui.fill || "#333333"}
+                    fill={i.ui.fill || '#333333'}
                     key={i.key}
                   />
-                )}
+                ))}
 
                 <CandlestickSeries
-                  fill={d => d.close > d.open ? '#3c9d37' : '#990f0f'}
-                  stroke={d => d.close > d.open ? '#49bf43' : '#cc1414'}
-                  wickStroke={d => d.close > d.open ? '#49bf43' : '#cc1414'}
+                  fill={d => (d.close > d.open ? '#3c9d37' : '#990f0f')}
+                  stroke={d => (d.close > d.open ? '#49bf43' : '#cc1414')}
+                  wickStroke={d => (d.close > d.open ? '#49bf43' : '#cc1414')}
                 />
 
                 <OHLCTooltip forChart={1} origin={[-40, 10]} />
@@ -364,7 +359,7 @@ class HFChart extends React.Component {
                 />
               </Chart>
 
-              {externalIndicators.map((i, n) =>
+              {externalIndicators.map((i, n) => (
                 <Chart
                   id={3 + n}
                   yExtents={d => indicatorData[i.key][d.mts]}
@@ -394,13 +389,13 @@ class HFChart extends React.Component {
                   />
 
                   {n === externalIndicators.length - 1 && (
-                    <XAxis
-                      axisAt='bottom'
-                      orient='bottom'
-                      tickStroke='#AAAAAA'
-                      stroke='#AAAAAA'
-                      ticks={5}
-                    />
+                  <XAxis
+                    axisAt='bottom'
+                    orient='bottom'
+                    tickStroke='#AAAAAA'
+                    stroke='#AAAAAA'
+                    ticks={5}
+                  />
                   )}
 
                   {i.ui.type === 'lines' && i.ui.lines.map(key => (
@@ -411,15 +406,14 @@ class HFChart extends React.Component {
                       key={`${i.key}-${key}`}
                     />
                   ))}
- 
+
                   {i.ui.type === 'line' && [
                     <LineSeries
                       yAccessor={d => indicatorData[i.key][d.mts]}
                       stroke={i.color}
                       strokeDasharray='Solid'
                       key={i.key}
-                    />
-                  ,
+                    />,
                     <SingleValueTooltip
                       key={`${i.key}-tooltip`}
                       yAccessor={d => indicatorData[i.key][d.mts]}
@@ -427,7 +421,7 @@ class HFChart extends React.Component {
                       yDisplayFormat={format('.2f')}
                       origin={[-20, 15]}
                       valueFill='#ffffff'
-                    />
+                    />,
                   ]}
 
                   {i.ui.type === 'rsi' && [
@@ -442,10 +436,10 @@ class HFChart extends React.Component {
                       options={{
                         windowSize: +i.args[0].value,
                       }}
-                    />
+                    />,
                   ]}
                 </Chart>
-              )}
+              ))}
 
               <CrossHairCursor
                 stroke='#EEEEEE'

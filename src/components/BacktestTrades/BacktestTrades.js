@@ -7,19 +7,20 @@ import { propTypes, defaultProps } from './BacktestTrades.props'
 
 export default class BacktestTrades extends React.PureComponent {
   static propTypes = propTypes
+
   static defaultProps = defaultProps
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.onRowClick = this.onRowClick.bind(this)
   }
 
-  onRowClick ({ rowData = {} } = {}) {
+  onRowClick({ rowData = {} } = {}) {
     const { onSelect } = this.props
     onSelect(rowData)
   }
 
-  render () {
+  render() {
     const { trades } = this.props
 
     return (

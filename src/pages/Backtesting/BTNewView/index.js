@@ -8,7 +8,7 @@ import GenStrategy from '../../../util/gen_strategy'
 import ID from '../../../util/id'
 
 export default class BTNewView extends React.PureComponent {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     const scheme = new ColorScheme()
@@ -19,7 +19,7 @@ export default class BTNewView extends React.PureComponent {
       dataKey: ID(),
       indicators: [],
       strategy: GenStrategy(),
-      colors: scheme.colors()
+      colors: scheme.colors(),
     }
 
     this.onIndicatorAdded = this.onIndicatorAdded.bind(this)
@@ -30,34 +30,34 @@ export default class BTNewView extends React.PureComponent {
     this.onEvalStrategy = this.onEvalStrategy.bind(this)
   }
 
-  onSaveStrategyMethod (key, content) {
+  onSaveStrategyMethod(key, content) {
     this.setState(state => ({
       strategy: {
         ...state.strategy,
-        [key]: content
-      }
+        [key]: content,
+      },
     }))
   }
 
-  onIndicatorAdded (i) {
+  onIndicatorAdded(i) {
     this.setState(state => ({
       dataKey: ID(),
       indicators: [
         ...state.indicators,
-        i
-      ]
+        i,
+      ],
     }))
   }
 
-  onIndicatorSaved (i) { // TODO:
+  onIndicatorSaved(i) { // TODO:
     i.dirty = false
     i.created = true
     this.onIndicatorUpdated(i)
   }
 
-  onIndicatorUpdated (i) {
-    this.setState(state => {
-      const is = [ ...state.indicators ]
+  onIndicatorUpdated(i) {
+    this.setState((state) => {
+      const is = [...state.indicators]
       const n = _findIndex(is, indicator => indicator._id === i._id)
 
       if (n === -1) {
@@ -69,14 +69,14 @@ export default class BTNewView extends React.PureComponent {
 
       return {
         dataKey: ID(),
-        indicators: is
+        indicators: is,
       }
     })
   }
 
-  onIndicatorDeleted (i) {
-    this.setState(state => {
-      const is = [ ...state.indicators ]
+  onIndicatorDeleted(i) {
+    this.setState((state) => {
+      const is = [...state.indicators]
       const n = _findIndex(is, indicator => indicator._id === i._id)
 
       if (n === -1) {
@@ -88,16 +88,18 @@ export default class BTNewView extends React.PureComponent {
 
       return {
         dataKey: ID(),
-        indicators: is
+        indicators: is,
       }
     })
   }
 
   onEvalStrategy () {}
 
-  render () {
+  render() {
     const { symbol, range, tf } = this.props
-    const { dataKey, colors, indicators, strategy } = this.state
+    const {
+      dataKey, colors, indicators, strategy,
+    } = this.state
     const activeIndicators = indicators.filter(i => (
       i.created && i.enabled
     ))
@@ -126,7 +128,7 @@ export default class BTNewView extends React.PureComponent {
           range={range}
           tf={tf}
         />
-      </div>
+      </div>,
     ]
   }
 }

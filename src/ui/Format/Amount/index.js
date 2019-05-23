@@ -14,8 +14,10 @@ export default class FormatAmount extends React.PureComponent {
     v: 0,
   }
 
-  render () {
-    const { v, className, children, ...props } = this.props
+  render() {
+    const {
+      v, className, children, ...props
+    } = this.props
 
     return (
       <span
@@ -23,11 +25,12 @@ export default class FormatAmount extends React.PureComponent {
           ? 'format-amount__be'
           : v > 0
             ? 'format-amount__buy'
-            : 'format-amount__sell'
-        )}
+            : 'format-amount__sell')}
 
         {...props}
-      >{_isFinite(v) ? prepareAmount(v) : children}</span>
+      >
+        {_isFinite(v) ? prepareAmount(v) : children}
+      </span>
     )
   }
 }

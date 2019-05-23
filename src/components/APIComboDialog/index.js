@@ -1,13 +1,15 @@
 import React from 'react'
-import { Button, Card, Elevation, InputGroup } from "@blueprintjs/core"
+import {
+  Button, Card, Elevation, InputGroup,
+} from '@blueprintjs/core'
 
 export default class APIComboDialog extends React.Component {
   state = {
     key: '',
-    secret: ''
+    secret: '',
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.onKeyChange = this.onKeyChange.bind(this)
@@ -15,26 +17,26 @@ export default class APIComboDialog extends React.Component {
     this.onSubmit = this.onSubmit.bind(this)
   }
 
-  onKeyChange (e) {
+  onKeyChange(e) {
     const { value } = e.target
 
     this.setState(() => ({ key: value }))
   }
 
-  onSecretChange (e) {
+  onSecretChange(e) {
     const { value } = e.target
 
     this.setState(() => ({ secret: value }))
   }
 
-  onSubmit () {
+  onSubmit() {
     const { key, secret } = this.state
     const { onSubmit } = this.props
 
     onSubmit({ key, secret })
   }
 
-  render () {
+  render() {
     const { key, secret } = this.state
 
     return (
@@ -56,7 +58,9 @@ export default class APIComboDialog extends React.Component {
           <br />
           <Button
             onClick={this.onSubmit}
-          >Submit</Button>
+          >
+Submit
+          </Button>
         </Card>
       </div>
     )

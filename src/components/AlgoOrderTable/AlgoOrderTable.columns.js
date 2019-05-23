@@ -12,7 +12,7 @@ export default [{
   dataKey: 'mts',
   cellRenderer: ({ rowData = {} }) => (
     new Date(rowData.mts).toLocaleString()
-  )
+  ),
 }, {
   width: 80,
   label: 'Symbol',
@@ -35,5 +35,5 @@ export default [{
   cellRenderer: ({ rowData = {} }) => [
     <Icon icon='play' key={'play'} />,
     <Icon icon='pause' key={'pause'} />
-  ]
+  ],
 }]

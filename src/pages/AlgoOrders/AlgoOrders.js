@@ -28,7 +28,7 @@ export default class AlgoOrdersView extends React.Component {
     this.onLoadMoreCandles = this.onLoadMoreCandles.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.handleSync()
   }
 
@@ -40,11 +40,11 @@ export default class AlgoOrdersView extends React.Component {
     this.setState(() => ({ selectedSymbol }))
   }
 
-  onSelectTF (selectedTF) {
+  onSelectTF(selectedTF) {
     this.setState(() => ({ selectedTF }))
   }
 
-  onSelectRange (selectedRange) {
+  onSelectRange(selectedRange) {
     this.setState(() => ({ selectedRange }))
   }
 
@@ -74,7 +74,7 @@ export default class AlgoOrdersView extends React.Component {
   handleSync () {
     const { syncCandles } = this.props
     const { selectedSymbol, selectedRange, selectedTF } = this.state
-    const [ from, to ] = selectedRange
+    const [from, to] = selectedRange
 
     // Incomplete/invalid range
     if (from === null || to === null || (+from) > (+to)) {
@@ -87,7 +87,7 @@ export default class AlgoOrdersView extends React.Component {
   renderChart () {
     const { allCandles, orders } = this.props
     const { selectedTF, selectedSymbol, selectedRange } = this.state
-    const [ from, to ] = selectedRange
+    const [from, to] = selectedRange
 
     if (from === null || to === null) {
       return (
@@ -106,7 +106,7 @@ export default class AlgoOrdersView extends React.Component {
       .map(mts => ({
         date: new Date(+mts),
         volume: candleData[mts].vol,
-        ...candleData[mts]
+        ...candleData[mts],
       }))
 
     if (candles.length === 0) {
@@ -130,9 +130,7 @@ export default class AlgoOrdersView extends React.Component {
 
   render () {
     const { algoOrders, orders } = this.props
-    const {
-      selectedRange, selectedTF, selectedSymbol, selectedAO
-    } = this.state
+    const { selectedRange, selectedTF, selectedSymbol, selectedAO } = this.state
 
     return (
       <div className='hfui__wrapper hfui-algo-orders'>

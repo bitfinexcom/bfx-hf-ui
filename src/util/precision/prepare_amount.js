@@ -1,5 +1,3 @@
 import setPrecision from './set_precision'
 
-export default (price = 0) => {
-  return setPrecision(price, 8)
-}
+export default (price = 0) => setPrecision(price, 8)

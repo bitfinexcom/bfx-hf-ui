@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default class CaretUpIcon extends React.PureComponent {
-  render () {
+  render() {
     const { x, y } = this.props
 
     return (

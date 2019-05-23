@@ -9,18 +9,18 @@ import hfSocketMiddleware from './middleware/ws-hf-server'
 
 const sagaMiddleware = createSagaMiddleware()
 
-export function configureStore (
+export function configureStore(
   options = {},
   optionalReducers = {},
-  optionalMiddleware = null
+  optionalMiddleware = null,
 ) {
   const {
-    development = false
+    development = false,
   } = options
 
   let middleware = [
     hfSocketMiddleware(),
-    sagaMiddleware
+    sagaMiddleware,
   ]
 
   if (optionalMiddleware) {
@@ -31,16 +31,16 @@ export function configureStore (
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
     : compose
 
-  const sagas = options.sagas ? options.sagas : function * saga () {}
+  const sagas = options.sagas ? options.sagas : function* saga() {}
 
   const enhancers = composeEnhancers(
-    applyMiddleware(...middleware)
+    applyMiddleware(...middleware),
   )
 
   const store = createStore(
     reducer(optionalReducers),
     {},
-    enhancers
+    enhancers,
   )
 
   sagaMiddleware.run(sagas)
@@ -48,7 +48,7 @@ export function configureStore (
   return store
 }
 
-export function runSaga (sagas) {
+export function runSaga() {
   console.log('runSaga is deprecated: it is already run in configureStore')
 }
 
@@ -57,5 +57,5 @@ export default {
   actions,
   constants,
   runSaga,
-  selectors
+  selectors,
 }

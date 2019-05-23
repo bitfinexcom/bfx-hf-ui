@@ -6,12 +6,12 @@ import _isEmpty from 'lodash/isEmpty'
 import { format } from 'd3-format'
 import { timeFormat } from 'd3-time-format'
 import { ChartCanvas, Chart } from 'react-stockcharts'
-import { LineSeries  } from 'react-stockcharts/lib/series'
+import { LineSeries } from 'react-stockcharts/lib/series'
 import { XAxis, YAxis } from 'react-stockcharts/lib/axes'
 import {
-	CrossHairCursor,
-	MouseCoordinateX,
-	MouseCoordinateY
+  CrossHairCursor,
+  MouseCoordinateX,
+  MouseCoordinateY,
 } from 'react-stockcharts/lib/coordinates'
 
 import { discontinuousTimeScaleProvider } from 'react-stockcharts/lib/scale'
@@ -22,17 +22,16 @@ import { ClickCallback } from 'react-stockcharts/lib/interactive'
 import Panel from '../../ui/Panel'
 
 class PLChart extends React.PureComponent {
-
   state = {
     trades: [],
   }
 
-  static getDerivedStateFromProps (nextProps, prevState) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     const { dataKey, trades } = nextProps
 
     if (
-      (dataKey === prevState.dataKey) &&
-      (trades.length === prevState.trades.length)
+      (dataKey === prevState.dataKey)
+      && (trades.length === prevState.trades.length)
     ) {
       return null
     }
@@ -41,7 +40,7 @@ class PLChart extends React.PureComponent {
       .inputDateAccessor(t => t.date)
 
     const {
-      data, xScale, displayXAccessor, xAccessor
+      data, xScale, displayXAccessor, xAccessor,
     } = xScaleProvider(trades)
 
     return {
@@ -54,16 +53,18 @@ class PLChart extends React.PureComponent {
     }
   }
 
-  render () {
+  render() {
     const { ratio, onClick } = this.props
-    const { data, xScale, xAccessor, displayXAccessor } = this.state
+    const {
+      data, xScale, xAccessor, displayXAccessor,
+    } = this.state
 
     if (_isEmpty(data)) {
       return null
     }
 
-		const start = xAccessor(data[Math.max(0, data.length - 1000)])
-		const end = xAccessor(_last(data))
+    const start = xAccessor(data[Math.max(0, data.length - 1000)])
+    const end = xAccessor(_last(data))
     const xExtents = [start, end]
     const height = 250
 
@@ -84,7 +85,7 @@ class PLChart extends React.PureComponent {
                 left: 50,
                 right: 50,
                 top: 10,
-                bottom: 50
+                bottom: 50,
               }}
 
               type='hybrid'
@@ -143,7 +144,7 @@ class PLChart extends React.PureComponent {
 
                 {onClick && (
                   <ClickCallback
-                    onClick={(props, e) => { onClick(props.currentItem)}}
+                    onClick={(props, e) => { onClick(props.currentItem) }}
                   />
                 )}
               </Chart>

@@ -9,15 +9,17 @@ export default class EventAnnotation extends React.Component {
     when: PropTypes.func.isRequired,
     height: PropTypes.number.isRequired,
     yOffset: PropTypes.number.isRequired,
-    stroke: PropTypes.string
+    stroke: PropTypes.string,
   }
 
   static defaultProps = {
-    stroke: '#FFFFFF'
+    stroke: '#FFFFFF',
   }
 
-  render () {
-    const { when, height, yOffset, stroke } = this.props
+  render() {
+    const {
+      when, height, yOffset, stroke,
+    } = this.props
 
     return (
       <Annotate
@@ -29,9 +31,7 @@ export default class EventAnnotation extends React.Component {
           stroke,
           opacity: 0.8,
           x: ({ xScale, xAccessor, datum }) => xScale(xAccessor(datum)),
-          y: ({ datum, yScale }) => {
-            return yScale(datum.high)
-          },
+          y: ({ datum, yScale }) => yScale(datum.high),
         }}
       />
     )

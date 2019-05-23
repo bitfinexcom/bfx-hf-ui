@@ -1,17 +1,18 @@
 import {
-  default as LabelAnnotation, helper
+  default as LabelAnnotation, helper,
 } from 'react-stockcharts/lib/annotation/LabelAnnotation'
 
 import React from 'react'
 
 export default class Event extends LabelAnnotation {
   static propTypes = LabelAnnotation.propTypes
+
   static defaultProps = LabelAnnotation.defaultProps
 
-  render () {
+  render() {
     const {
       xAccessor, xScale, yScale, className, opacity, label, height, yOffset,
-      stroke
+      stroke,
     } = this.props
 
     const { xPos } = helper(this.props, xAccessor, xScale, yScale)

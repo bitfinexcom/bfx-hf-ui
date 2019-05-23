@@ -10,7 +10,7 @@ export default function (state = initialState(), action = {}) {
 
       return {
         ...state,
-        orders: payload[2]
+        orders: payload[2],
       }
     }
 

@@ -2,11 +2,11 @@ import _keyBy from 'lodash/keyBy'
 import _isArray from 'lodash/isArray'
 import adapter from '../adapters/trades'
 
-function getInitialState () {
+function getInitialState() {
   return {}
 }
 
-function reducer (state = getInitialState(), action = {}) {
+function reducer(state = getInitialState(), action = {}) {
   const { type, payload = [] } = action
 
   switch (type) {
@@ -23,8 +23,8 @@ function reducer (state = getInitialState(), action = {}) {
         ...state,
         [key]: {
           ...(state[key] || {}),
-          ...(_keyBy(data, t => t.id + ''))
-        }
+          ...(_keyBy(data, t => `${t.id}`)),
+        },
       }
     }
 

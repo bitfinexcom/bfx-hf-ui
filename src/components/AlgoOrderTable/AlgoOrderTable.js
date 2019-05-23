@@ -14,9 +14,10 @@ const ALGO_NAMES = {
 
 export default class AlgoOrderTable extends React.PureComponent {
   static propTypes = propTypes
+
   static defaultProps = defaultProps
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.onRowClick = this.onRowClick.bind(this)
   }

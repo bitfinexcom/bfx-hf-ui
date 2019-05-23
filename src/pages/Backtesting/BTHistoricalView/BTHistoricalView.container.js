@@ -7,14 +7,14 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
   const bts = getBTs(state)
 
   return {
-    bts
+    bts,
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   getBTs: () => {
     dispatch(DataActions.getBTs())
-  }
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BTHistoricalView)

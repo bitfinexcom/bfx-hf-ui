@@ -4,6 +4,4 @@
  * @param {Number} normalized percentage ( 0..1 )
  * @return {String} percentage
  */
-export default (normalized) => {
-  return (normalized * 100).toFixed(2)
-}
+export default normalized => (normalized * 100).toFixed(2)
