@@ -1,0 +1,30 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb"
+  ],
+  "rules": {
+    "jsx-quotes": ["error", "prefer-single"],
+    "semi": [1, "never"],
+    "max-len": 0,
+    "import/no-named-as-default": 0,
+    "import/no-named-as-default-member": 0,
+    "no-underscore-dangle": 0,
+    "no-console": 0,
+    "no-empty-function": 0
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": [
+          "node_modules",
+          "src"
+        ]
+      }
+    }
+  },
+  "env": {
+    "browser": true,
+    "jest": true
+  }
+}
