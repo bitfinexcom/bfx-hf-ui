@@ -30,8 +30,8 @@ function reducer(state = getInitialState(), action = {}) {
         ...state,
         syncs: {
           ...state.syncs,
-          [k]: true
-        }
+          [k]: true,
+        },
       }
     }
 

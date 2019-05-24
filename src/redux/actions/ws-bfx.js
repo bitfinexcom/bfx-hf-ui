@@ -46,10 +46,9 @@ function disconnected() {
 }
 
 function data(payload = []) {
-  const [chanId, msg] = payload
-
+  // [chanId, msg] = payload
   return {
-    type: _toUpper(`BFX_${msg}_MESSAGE`),
+    type: _toUpper(`BFX_${payload[1]}_MESSAGE`),
     payload,
   }
 }
