@@ -1,8 +1,5 @@
-import _isObject from 'lodash/isObject'
 import _isArray from 'lodash/isArray'
-import _last from 'lodash/last'
 import _keyBy from 'lodash/keyBy'
-import adapter from '../adapters/bts'
 
 function getInitialState() {
   return {}

@@ -41,7 +41,6 @@ function reducer(state = getInitialState(), action = {}) {
 
     case 'DS_DATA.SYNC.TICK_MESSAGE': {
       const k = syncKey(payload)
-      const curr = _last(payload)
       const s = state.syncs[k]
 
       if (!s) {
