@@ -11,8 +11,6 @@ import SettingsView from '../../pages/Settings'
 import AlgoOrdersView from '../../pages/AlgoOrders'
 import TradingView from '../../pages/Trading'
 
-import './style.css'
-
 export default class HFUI extends React.Component {
   constructor(props) {
     super(props)

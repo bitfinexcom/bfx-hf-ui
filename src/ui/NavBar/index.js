@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom'
 import ClassNames from 'classnames'
 import { propTypes, defaultProps } from './index.props'
 
-import './style.css'
-
 export default class NavBar extends React.PureComponent {
   static propTypes = propTypes
 

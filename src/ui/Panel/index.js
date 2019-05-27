@@ -1,7 +1,6 @@
 import React from 'react'
 import ClassNames from 'classnames'
 import { propTypes, defaultProps } from './index.props'
-import './style.css'
 
 export default class Panel extends React.PureComponent {
   static propTypes = propTypes

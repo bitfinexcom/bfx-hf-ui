@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import ClassNames from 'classnames'
 import _isFinite from 'lodash/isFinite'
 import prepareAmount from '../../../util/precision/prepare_amount'
-import './style.css'
 
 export default class FormatAmount extends React.PureComponent {
   static propTypes = {

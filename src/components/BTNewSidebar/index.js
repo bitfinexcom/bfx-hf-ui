@@ -11,7 +11,6 @@ import HFI from 'bfx-hf-indicators'
 import ID from '../../util/id'
 import IndicatorCard from '../IndicatorCard'
 import Panel from '../../ui/Panel'
-import './style.css'
 
 // Pick static data from the indicators for the UI list
 const indicatorList = Object.values(HFI)

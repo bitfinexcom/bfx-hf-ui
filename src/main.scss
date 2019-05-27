@@ -127,3 +127,13 @@ html {
 @import "./styles/buttons.color.scss";
 @import "./styles/balances.scss";
 @import "./styles/tables.scss";
+
+// UI
+@import "./ui/NavBar/_NavBar.scss";
+@import "./ui/Panel/_Panel.scss";
+@import "./ui/StatusBar/_StatusBar.scss";
+@import "./ui/Table/_Table.scss";
+@import "./ui/NavBar/_NavBar.scss";
+
+// Pages
+@import "./pages/AlgoOrders/_AlgoOrders.scss";

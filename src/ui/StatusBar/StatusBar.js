@@ -5,8 +5,6 @@ import { Spinner } from '@blueprintjs/core'
 
 import { propTypes, defaultProps } from './index.props'
 
-import './style.css'
-
 export default class StatusBar extends React.PureComponent {
   static propTypes = propTypes
 

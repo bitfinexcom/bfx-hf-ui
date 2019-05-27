@@ -5,8 +5,6 @@ import { Select } from '@blueprintjs/select'
 import { MenuItem, Button, ButtonGroup } from '@blueprintjs/core'
 import { propTypes, defaultProps } from './index.props'
 
-import './style.css'
-
 const TimeFrames = {
   '1m': '1 Minute',
   '5m': '5 Minutes',

@@ -10,7 +10,6 @@ import tradeVolume from '../../util/calculate/trade_volume'
 
 import Panel from '../../ui/Panel'
 import BacktestInfoRow from './BacktestInfoRow'
-import './style.css'
 
 import prepareAmount from '../../util/precision/prepare_amount'
 

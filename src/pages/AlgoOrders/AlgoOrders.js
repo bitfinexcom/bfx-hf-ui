@@ -6,7 +6,6 @@ import BTHeaderBar from '../../components/BTHeaderBar'
 import AlgoOrderTable from '../../components/AlgoOrderTable'
 import SingleAlgoOrderDetails from '../../components/SingleAlgoOrderDetails'
 import Chart from '../../components/Chart'
-import './style.css'
 
 export default class AlgoOrdersView extends React.Component {
   state = {

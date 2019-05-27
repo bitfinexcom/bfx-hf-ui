@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 import ClassNames from 'classnames'
 import _isFinite from 'lodash/isFinite'
 import preparePrice from '../../../util/precision/prepare_price'
-import './style.css'
-
 export default class FormatPL extends React.PureComponent {
   static propTypes = {
     v: PropTypes.number.isRequired,

@@ -10,8 +10,6 @@ import PLChart from '../PLChart'
 import BacktestTrades from '../BacktestTrades'
 import ID from '../../util/id'
 
-import './style.css'
-
 const indicatorClassById = _id => (
   Object.values(HFI).find(i => i.id === _id)
 )

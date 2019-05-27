@@ -3,7 +3,6 @@ import ClassNames from 'classnames'
 import { UnControlled as CodeMirror } from 'react-codemirror2'
 
 import Panel from '../../ui/Panel'
-import './style.css'
 
 export default class StrategyEditor extends React.PureComponent {
   state = {

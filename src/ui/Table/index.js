@@ -4,7 +4,6 @@ import { defaultProps, propTypes } from './Table.props'
 import { sortData } from './Table.helpers'
 
 import 'react-virtualized/styles.css'
-import './style.css'
 
 export default class HFTable extends React.PureComponent {
   static propTypes = propTypes

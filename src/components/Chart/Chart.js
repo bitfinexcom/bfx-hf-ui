@@ -30,9 +30,7 @@ import EventAnnotation from './EventAnnotation'
 import { propTypes, defaultProps } from './Chart.props'
 import Panel from '../../ui/Panel'
 
-import './style.css'
-
-class HFChart extends React.Component {
+class HFChart extends React.PureComponent {
   static propTypes = propTypes
 
   static defaultProps = defaultProps

@@ -6,7 +6,7 @@ import { ConnectedRouter } from 'react-router-redux'
 import { createBrowserHistory } from 'history'
 
 // import './webapp-bfx.css'
-import './index.css'
+import './main.css'
 import '@blueprintjs/icons/lib/css/blueprint-icons.css'
 import '@blueprintjs/core/lib/css/blueprint.css'
 import '@blueprintjs/datetime/lib/css/blueprint-datetime.css'

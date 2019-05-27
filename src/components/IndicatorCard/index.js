@@ -4,8 +4,6 @@ import {
   Checkbox, Button, Card, Elevation, Alignment,
 } from '@blueprintjs/core'
 
-import './style.css'
-
 export default class IndicatorCard extends React.PureComponent {
   onCycleColor(i) { // TODO: color scheme management
     const { onSave, colors } = this.props
