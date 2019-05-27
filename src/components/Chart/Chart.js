@@ -167,7 +167,7 @@ class HFChart extends React.Component {
           return focus.v > c.mts && (focus.v - c.mts) <= candleWidth
         })
 
-        xExtents = [i - 500, i]
+        xExtents = [i - 250, i + 250]
       } else if (focus.type === 'domain') {
         xExtents = focus.v
       } else {

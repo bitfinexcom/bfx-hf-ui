@@ -1,4 +1,4 @@
-input {
+input, input.bp3-input {
   border: 1px solid #384952;
   background: #2c3940;
   padding: 0 8px;
@@ -7,6 +7,7 @@ input {
   outline: none;
   transition: all .3s;
   color: inherit;
+  border-radius: 0;
 }
 
 input[type=text],

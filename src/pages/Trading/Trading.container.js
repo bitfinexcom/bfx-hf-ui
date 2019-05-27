@@ -7,6 +7,8 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
   const { bfx = {}, candles = {}, algoOrders = [] } = dataHF
   const { orders = [] } = bfx
 
+  console.log(dataHF)
+
   return {
     allCandles: candles,
     algoOrders,

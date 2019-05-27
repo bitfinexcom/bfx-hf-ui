@@ -65,18 +65,22 @@ export default () => {
         return
       }
 
+      // bfxft ws integration
+      case 'WS_SEND':
       case WSHFTypes.SEND: {
-        console.info('[wss] send', action.payload)
-
         if (!socket) {
           console.warn('[socket.send] socket connection offline')
           return -1
         }
 
+        const payload = type === 'WS_SEND'
+          ? ['ds', ['bfx', action.payload.message]]
+          : action.payload
+
         return socket.send(
-          _isString(action.payload)
-            ? action.payload
-            : JSON.stringify(action.payload)
+          _isString(payload)
+            ? payload
+            : JSON.stringify(payload)
         )
       }
 

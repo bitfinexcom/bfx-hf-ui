@@ -5,9 +5,9 @@ import getCandles from '../../redux/selectors/candles'
 
 const mapStateToProps = (state = {}, ownProps = {}) => {
   const { symbol, tf } = ownProps
-
-  // TODO: Filter against range
   const candles = getCandles(state, symbol, tf, 'trade')
+
+  console.log({ symbol, tf })
 
   return {
     candles

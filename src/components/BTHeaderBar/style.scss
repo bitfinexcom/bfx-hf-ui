@@ -1,7 +1,14 @@
 .btheaderbar__wrapper {
   width: 100%;
-  background: #122738;
   border-bottom: 1px solid #0d1e2b;
+
+  .bp3-button-text {
+    color: #fff;
+  }
+
+  input {
+    margin: 0;
+  }
 
   ul {
     list-style-type: none;
@@ -36,5 +43,9 @@
   .bp3-control-group {
     display: flex;
     flex-direction: row;
+  }
+
+  .bp3-input-group {
+    border-radius: 0 !important;
   }
 }

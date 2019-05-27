@@ -5,6 +5,10 @@ body {
   color: #c4c7c9 !important;
 }
 
+html {
+  font-size: 15px;
+}
+
 .hfui__wrapper {
   // NOTE: 30px bottom padding for fixed status bar
   padding: 0 32px 30px 0;
@@ -73,6 +77,12 @@ body {
   text-transform: uppercase;
 }
 
+.footer__inner {
+  margin-left: 4px;
+  padding-left: 10px;
+  border-left: 1px solid;
+}
+
 @import "~bfxft/src/styles/bitfinex/variables.scss";
 
 @import "~bfx-ui-components/src/ui/_ui.scss";
@@ -100,6 +110,9 @@ body {
 @import "~bfx-ui-components/src/Summary/_Summary.scss";
 @import "~bfx-ui-components/src/Orders/_Orders.scss";
 @import "~bfx-ui-components/src/OrderHistory/_OrderHistory.scss";
+@import "~bfx-ui-components/src/Trades/_Trades.scss";
+@import "~bfx-ui-components/src/Book/_Book.scss";
+@import "~bfx-ui-components/src/Book/_FullBook.scss";
 
 @import "./styles/variables.scss";
 @import "./styles/collapsible.scss";
@@ -113,3 +126,4 @@ body {
 @import "./styles/buttons.scss";
 @import "./styles/buttons.color.scss";
 @import "./styles/balances.scss";
+@import "./styles/tables.scss";

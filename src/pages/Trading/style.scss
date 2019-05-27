@@ -30,3 +30,19 @@
   width: 100%;
   flex: 1;
 }
+
+.hfui-trading__split-content {
+  display: flex;
+  flex-direction: row;
+}
+
+.hfui-trading__split-main {
+  min-width: 550px;
+  flex: 2 1 0%;
+  padding-right: 5px;
+}
+
+.hfui-trading__split-alt {
+  min-width: 220px;
+  flex: 1 1 0%;
+}

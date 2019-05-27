@@ -10,6 +10,8 @@ import Summary from 'bfx-ui-components/dist/Summary'
 import Positions from 'bfx-ui-components/dist/Positions'
 import Orders from 'bfx-ui-components/dist/Orders'
 import OrderHistory from 'bfx-ui-components/dist/OrderHistory'
+import Book from 'bfx-ui-components/dist/Book'
+import Trades from 'bfx-ui-components/dist/Trades'
 
 import Chart from '../../components/Chart'
 import './style.css'
@@ -181,6 +183,18 @@ export default class AlgoOrdersView extends React.Component {
 
           <div className='hfui-trading__order-history'>
             <OrderHistory pair='tBTCUSD' />
+          </div>
+
+          <div className='hfui-trading__split-content'>
+            <div className='hfui-trading__split-main'>
+              <Book
+                symbol='tBTCUSD'
+                isFunding={false}
+              />
+            </div>
+            <div className='hfui-trading__split-alt'>
+              <Trades pair='tBTCUSD' />
+            </div>
           </div>
         </div>
       </div>

@@ -151,6 +151,7 @@ export default class BTNewContent extends React.PureComponent {
       <Chart
         candles={candles}
         trades={[]}
+        orders={[]}
         focusTrade={null}
         dataKey={dataKey}
         indicators={indicators}
