@@ -137,3 +137,14 @@ html {
 
 // Pages
 @import "./pages/AlgoOrders/_AlgoOrders.scss";
+
+// TODO remove when moved to bfx-ui-components
+@import "./components/StrategyEditor/_StrategyEditor.scss";
+@import "./components/IndicatorCard/_IndicatorCard.scss";
+@import "./components/HFUI/_HFUI.scss";
+@import "./components/Chart/_Chart.scss";
+@import "./components/BTNewSidebar/_BTNewSidebar.scss";
+@import "./components/BTNewContent/_BTNewContent.scss";
+@import "./components/BTHistoricalContent/_BTHistoricalContent.scss";
+@import "./components/BTHeaderBar/_BTHeaderBar.scss";
+@import "./components/BacktestInfo/_BacktestInfo.scss";
