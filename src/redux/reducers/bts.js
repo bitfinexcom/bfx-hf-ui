@@ -1,11 +1,11 @@
 import _isArray from 'lodash/isArray'
 import _keyBy from 'lodash/keyBy'
 
-function getInitialState () {
+function getInitialState() {
   return {}
 }
 
-function reducer (state = getInitialState(), action = {}) {
+function reducer(state = getInitialState(), action = {}) {
   const { type, payload = [] } = action
 
   if (!_isArray(payload)) {

@@ -8,9 +8,11 @@ import preparePrice from '../../util/precision/prepare_price'
  * @param {Object} trade
  * @return {string} label
  */
-export const labelForStrategyTradeAnnotation = ({ label, amount, price, pl } = {}) => [
+export const labelForStrategyTradeAnnotation = ({
+  label, amount, price, pl,
+} = {}) => [
   `${amount > 0 ? 'Buy' : 'Sell'}`,
   `${prepareAmount(amount)} @ ${preparePrice(price)}`,
   _isFinite(pl) && pl > 0 ? ` | P/L ${pl}` : '',
-  label
+  label,
 ].join(' ')

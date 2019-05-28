@@ -10,14 +10,14 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
   console.log({ symbol, tf })
 
   return {
-    candles
+    candles,
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   syncCandles: (symbol, tf, range) => {
     dispatch(DataActions.syncCandles(symbol, tf, range))
-  }
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BTNewContent)

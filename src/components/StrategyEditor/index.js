@@ -3,7 +3,6 @@ import ClassNames from 'classnames'
 import { UnControlled as CodeMirror } from 'react-codemirror2'
 
 import Panel from '../../ui/Panel'
-import './style.css'
 
 export default class StrategyEditor extends React.PureComponent {
   state = {
@@ -14,7 +13,7 @@ export default class StrategyEditor extends React.PureComponent {
     dirty: false,
   }
 
-  static getDerivedStateFromProps (nextProps, prevState) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     const { strategy } = nextProps
     const strategyMethods = Object.keys(strategy)
     const dataKey = strategyMethods.join('|')
@@ -30,14 +29,14 @@ export default class StrategyEditor extends React.PureComponent {
     }
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.onContentChange = this.onContentChange.bind(this)
     this.onSave = this.onSave.bind(this)
   }
 
-  onContentChange (editor, data, editorContent) {
+  onContentChange(editor, data, editorContent) {
     const { activeMethod } = this.state
     const { strategy } = this.props
 
@@ -47,7 +46,7 @@ export default class StrategyEditor extends React.PureComponent {
     }))
   }
 
-  onSave () {
+  onSave() {
     const { activeMethod, editorContent } = this.state
     const { onSaveMethod } = this.props
 
@@ -64,7 +63,7 @@ export default class StrategyEditor extends React.PureComponent {
     })
   }
 
-  onSelectMethod (m) {
+  onSelectMethod(m) {
     const { dirty, editorContent, activeMethod } = this.state
     const { strategy } = this.props
 
@@ -84,7 +83,7 @@ export default class StrategyEditor extends React.PureComponent {
     })
   }
 
-  render () {
+  render() {
     const { onEval } = this.props
     const {
       strategyMethods, editorContent, activeMethod, unsavedBuffers, dirty,
@@ -100,31 +99,35 @@ export default class StrategyEditor extends React.PureComponent {
             className='bp3-button bp3-icon-floppy-disk bp3-minimal'
             disabled={!dirty && !unsavedBuffers[activeMethod]}
             onClick={this.onSave}
-          >Save</button>
+          >
+Save
+          </button>
 
           <button
             className='bp3-button bp3-icon-play bp3-minimal'
             onClick={onEval}
-          >Eval</button>
+          >
+Eval
+          </button>
         </div>
 
         <div className='strategy_editor__content'>
           <ul className='strategy_editor__sidebar'>
-            {strategyMethods.map(m =>
+            {strategyMethods.map(m => (
               <li
                 key={m}
                 onClick={this.onSelectMethod.bind(this, m)}
                 className={ClassNames({
-                  active: m === activeMethod
+                  active: m === activeMethod,
                 })}
               >
                 <p>{m}</p>
 
                 {(unsavedBuffers[m] || (m === activeMethod && dirty)) && (
-                  <p>M</p>
+                <p>M</p>
                 )}
               </li>
-            )}
+            ))}
           </ul>
 
           <div className='strategy_editor__editor'>

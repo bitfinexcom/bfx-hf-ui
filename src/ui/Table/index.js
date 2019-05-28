@@ -4,10 +4,10 @@ import { defaultProps, propTypes } from './Table.props'
 import { sortData } from './Table.helpers'
 
 import 'react-virtualized/styles.css'
-import './style.css'
 
 export default class HFTable extends React.PureComponent {
   static propTypes = propTypes
+
   static defaultProps = defaultProps
 
   state = {
@@ -19,9 +19,8 @@ export default class HFTable extends React.PureComponent {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { defaultSortBy, defaultSortDirection, data } = nextProps
-    const seedSortingChanged =
-      (defaultSortBy !== prevState.seedSortBy) ||
-      (defaultSortDirection !== prevState.seedSortDirection)
+    const seedSortingChanged = (defaultSortBy !== prevState.seedSortBy)
+      || (defaultSortDirection !== prevState.seedSortDirection)
 
     if (data === prevState.seedData && !seedSortingChanged) {
       return null
@@ -49,7 +48,7 @@ export default class HFTable extends React.PureComponent {
     }
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.onSort = this.onSort.bind(this)
@@ -92,8 +91,10 @@ export default class HFTable extends React.PureComponent {
     }))
   }
 
-  render () {
-    const { columns, onRowClick, rowHeight, headerHeight } = this.props
+  render() {
+    const {
+      columns, onRowClick, rowHeight, headerHeight,
+    } = this.props
     const { data, sortBy, sortDirection } = this.state
 
     return (

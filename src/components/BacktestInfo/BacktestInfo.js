@@ -10,12 +10,11 @@ import tradeVolume from '../../util/calculate/trade_volume'
 
 import Panel from '../../ui/Panel'
 import BacktestInfoRow from './BacktestInfoRow'
-import './style.css'
 
 import prepareAmount from '../../util/precision/prepare_amount'
 
 export default class BacktestInfo extends React.PureComponent {
-  render () {
+  render() {
     const { bt, candles = [], trades = [] } = this.props
 
     if (_isEmpty(candles)) {
@@ -81,8 +80,8 @@ export default class BacktestInfo extends React.PureComponent {
 
           <BacktestInfoRow className='btinfo-row--no-border' />
 
-          <BacktestInfoRow label='Longs ( % won )' value={longs.length + ' ( ' + percent(gainsLongs) + ' % )'} />
-          <BacktestInfoRow label='Shorts ( % won )' value={shorts.length + ' ( ' + percent(gainsShorts) + ' % )'} />
+          <BacktestInfoRow label='Longs ( % won )' value={`${longs.length} ( ${percent(gainsLongs)} % )`} />
+          <BacktestInfoRow label='Shorts ( % won )' value={`${shorts.length} ( ${percent(gainsShorts)} % )`} />
 
           <BacktestInfoRow className='btinfo-row--no-border' />
 
@@ -91,9 +90,9 @@ export default class BacktestInfo extends React.PureComponent {
           <BacktestInfoRow label='Total Gain' value={prepareAmount(totalGain)} />
           <BacktestInfoRow label='Total Loss' value={prepareAmount(totalLoss)} />
           <BacktestInfoRow label='Total Fees' value={prepareAmount(totalFees)} />
-          <BacktestInfoRow label='Drawdown' value={drawdown + ' %'} />
+          <BacktestInfoRow label='Drawdown' value={`${drawdown} %`} />
           <BacktestInfoRow label='Profit Factor' value={profitFactor} />
-          <BacktestInfoRow label='Voume' value={volume + ' USD'} />
+          <BacktestInfoRow label='Voume' value={`${volume} USD`} />
 
           <BacktestInfoRow className='btinfo-row--no-border' />
 

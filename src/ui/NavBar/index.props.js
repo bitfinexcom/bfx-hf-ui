@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 
 export const propTypes = {
-  buttons: PropTypes.object
+  buttons: PropTypes.object,
 }
 
 export const defaultProps = {
@@ -12,19 +12,19 @@ export const defaultProps = {
     },
     'algo-orders': {
       label: 'Algo Orders',
-      icon: 'function'
+      icon: 'function',
     },
-    'execution': {
+    execution: {
       label: 'Execution',
-      icon: 'play'
+      icon: 'play',
     },
-    'backtesting': {
+    backtesting: {
       label: 'Backtesting',
-      icon: 'series-derived'
+      icon: 'series-derived',
     },
-    'settings': {
+    settings: {
       label: 'Settings',
-      icon: 'cog'
-    }
-  }
+      icon: 'cog',
+    },
+  },
 }

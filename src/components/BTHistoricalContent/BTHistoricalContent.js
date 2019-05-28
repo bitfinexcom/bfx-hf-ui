@@ -10,8 +10,6 @@ import PLChart from '../PLChart'
 import BacktestTrades from '../BacktestTrades'
 import ID from '../../util/id'
 
-import './style.css'
-
 const indicatorClassById = _id => (
   Object.values(HFI).find(i => i.id === _id)
 )
@@ -19,14 +17,14 @@ const indicatorClassById = _id => (
 export default class BTHistoricalContent extends React.PureComponent {
   state = {}
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.onPLChartClick = this.onPLChartClick.bind(this)
     this.onSelectTrade = this.onSelectTrade.bind(this)
   }
 
-  static getDerivedStateFromProps (nextProps, prevState) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     const { dataKey, bt = {}, candles = [] } = nextProps
     const { indicators = [] } = bt
 
@@ -40,7 +38,7 @@ export default class BTHistoricalContent extends React.PureComponent {
       .map(mts => ({
         date: new Date(+mts),
         volume: candles[mts].vol,
-        ...candles[mts]
+        ...candles[mts],
       }))
 
     const indicatorData = {}
@@ -73,7 +71,7 @@ export default class BTHistoricalContent extends React.PureComponent {
       */
 
       candleArr.forEach((c, i) => {
-        indicatorModels.forEach(m => {
+        indicatorModels.forEach((m) => {
           const dt = m.i.getDataType()
           const dk = m.i.getDataKey()
           let v = 0
@@ -98,21 +96,21 @@ export default class BTHistoricalContent extends React.PureComponent {
     }
   }
 
-  onPLChartClick (item) {
+  onPLChartClick(item) {
     this.setState(() => ({
       focusMTS: +item.date,
-      dataKey: ID()
+      dataKey: ID(),
     }))
   }
 
-  onSelectTrade (trade) {
+  onSelectTrade(trade) {
     this.setState(() => ({
       focusMTS: trade.mts,
-      dataKey: ID()
+      dataKey: ID(),
     }))
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate(prevProps) {
     const { bt } = this.props
 
     if (bt !== prevProps.bt) {
@@ -120,16 +118,20 @@ export default class BTHistoricalContent extends React.PureComponent {
     }
   }
 
-  handleSync () {
+  handleSync() {
     const { bt, syncCandles } = this.props
-    const { symbol, tf, from, to } = bt
+    const {
+      symbol, tf, from, to,
+    } = bt
 
     syncCandles(symbol, tf, [new Date(from), new Date(to)])
   }
 
-  render () {
+  render() {
     const { bt } = this.props
-    const { indicatorData, candles, focusMTS, dataKey } = this.state
+    const {
+      indicatorData, candles, focusMTS, dataKey,
+    } = this.state
 
     if (!bt) {
       return <p>No Backtest Selected</p>

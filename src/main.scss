@@ -127,3 +127,24 @@ html {
 @import "./styles/buttons.color.scss";
 @import "./styles/balances.scss";
 @import "./styles/tables.scss";
+
+// UI
+@import "./ui/NavBar/_NavBar.scss";
+@import "./ui/Panel/_Panel.scss";
+@import "./ui/StatusBar/_StatusBar.scss";
+@import "./ui/Table/_Table.scss";
+@import "./ui/NavBar/_NavBar.scss";
+
+// Pages
+@import "./pages/AlgoOrders/_AlgoOrders.scss";
+
+// TODO remove when moved to bfx-ui-components
+@import "./components/StrategyEditor/_StrategyEditor.scss";
+@import "./components/IndicatorCard/_IndicatorCard.scss";
+@import "./components/HFUI/_HFUI.scss";
+@import "./components/Chart/_Chart.scss";
+@import "./components/BTNewSidebar/_BTNewSidebar.scss";
+@import "./components/BTNewContent/_BTNewContent.scss";
+@import "./components/BTHistoricalContent/_BTHistoricalContent.scss";
+@import "./components/BTHeaderBar/_BTHeaderBar.scss";
+@import "./components/BacktestInfo/_BacktestInfo.scss";

@@ -6,7 +6,7 @@ export const propTypes = {
   columns: PropTypes.array,
   rowHeight: PropTypes.number,
   headerHeight: PropTypes.number,
-  onRowClick: PropTypes.func
+  onRowClick: PropTypes.func,
 }
 
 export const defaultProps = {
@@ -16,5 +16,5 @@ export const defaultProps = {
   headerHeight: 24,
   onRowClick: () => {},
   sortedDataPostProcessor: () => {},
-  getSortedData // NOTE: useful default
+  getSortedData, // NOTE: useful default
 }

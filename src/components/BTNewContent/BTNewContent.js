@@ -11,8 +11,6 @@ import Chart from '../Chart'
 import StrategyEditor from '../StrategyEditor'
 import ID from '../../util/id'
 
-import './style.css'
-
 const indicatorClassById = _id => (
   Object.values(HFI).find(i => i.id === _id)
 )
@@ -20,7 +18,7 @@ const indicatorClassById = _id => (
 export default class BTNewContent extends React.PureComponent {
   state = {}
 
-  static getDerivedStateFromProps (nextProps, prevState) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     const { dataKey, candles, indicators } = nextProps
 
     if (prevState && dataKey === prevState.dataKey) {
@@ -33,7 +31,7 @@ export default class BTNewContent extends React.PureComponent {
       .map(mts => ({
         date: new Date(+mts),
         volume: candles[mts].vol,
-        ...candles[mts]
+        ...candles[mts],
       }))
 
     const indicatorData = {}
@@ -61,12 +59,12 @@ export default class BTNewContent extends React.PureComponent {
     // Copy over any previous data for dirty indicators
     indicators
       .filter(i => i.dirty && i.created)
-      .forEach(i => {
+      .forEach((i) => {
         indicatorData[i.key] = prevState.indicatorData[i.key]
       })
 
     candleArr.forEach((c, i) => {
-      indicatorModels.forEach(m => {
+      indicatorModels.forEach((m) => {
         const dt = m.i.getDataType()
         const dk = m.i.getDataKey()
         let v = 0
@@ -96,22 +94,24 @@ export default class BTNewContent extends React.PureComponent {
     }, 5000)
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate(prevProps) {
     const { symbol, range, tf } = prevProps
 
     if (
-      (symbol !== this.props.symbol) ||
-      (tf !== this.props.tf) ||
-      (range[0] !== this.props.range[0]) ||
-      (range[1] !== this.props.range[1])
+      (symbol !== this.props.symbol)
+      || (tf !== this.props.tf)
+      || (range[0] !== this.props.range[0])
+      || (range[1] !== this.props.range[1])
     ) {
       this.handleSync()
     }
   }
 
-  handleSync () {
-    const { candles, symbol, range, tf, syncCandles } = this.props
-    const [ from, to ] = range
+  handleSync() {
+    const {
+      candles, symbol, range, tf, syncCandles,
+    } = this.props
+    const [from, to] = range
 
     // Incomplete/invalid range
     if (from === null || to === null || (+from) > (+to)) {
@@ -127,10 +127,10 @@ export default class BTNewContent extends React.PureComponent {
     }
   }
 
-  renderChart () {
+  renderChart() {
     const { indicatorData, candles, dataKey } = this.state
     const { range, indicators } = this.props
-    const [ from, to ] = range
+    const [from, to] = range
 
     if (from === null || to === null) {
       return (
@@ -139,7 +139,7 @@ export default class BTNewContent extends React.PureComponent {
           icon='series-derived'
         />
       )
-    } else if (candles.length === 0) {
+    } if (candles.length === 0) {
       return (
         <NonIdealState
           title='Loading Candles...'
@@ -177,7 +177,7 @@ export default class BTNewContent extends React.PureComponent {
     )
   }
 
-  render () {
+  render() {
     return (
       <div className='bt_new_content'>
         {this.renderChart()}

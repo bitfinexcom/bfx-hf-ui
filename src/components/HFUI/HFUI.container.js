@@ -9,7 +9,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
   const { apiKey = {} } = dataHF
 
   return {
-    apiKeyCombo: apiKey
+    apiKeyCombo: apiKey,
   }
 }
 
@@ -28,7 +28,7 @@ const mapDispatchToProps = dispatch => ({
 
   cycleBFXConnection: () => {
     dispatch(WSHFActions.cycleConnection())
-  }
+  },
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HFUI))

@@ -5,13 +5,12 @@ import { Spinner } from '@blueprintjs/core'
 
 import { propTypes, defaultProps } from './index.props'
 
-import './style.css'
-
 export default class StatusBar extends React.PureComponent {
   static propTypes = propTypes
+
   static defaultProps = defaultProps
 
-  renderSyncStatus () {
+  renderSyncStatus() {
     const { syncs = {} } = this.props
 
     if (_isEmpty(syncs)) {
@@ -34,7 +33,7 @@ export default class StatusBar extends React.PureComponent {
     )
   }
 
-  render () {
+  render() {
     return (
       <div className='statusbar__wrapper'>
         {this.renderSyncStatus()}

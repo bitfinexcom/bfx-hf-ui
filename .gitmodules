@@ -1,0 +1,9 @@
+[submodule "src/local_modules/bfx-ui-components"]
+	path = src/local_modules/bfx-ui-components
+	url = https://github.com/bitfinexcom/bfx-ui-components.git
+[submodule "src/local_modules/bfxft"]
+	path = src/local_modules/bfxft
+	url = https://github.com/bitfinexcom/bfxft.git
+[submodule "src/local_modules/bfxuilib"]
+	path = src/local_modules/bfxuilib
+	url = https://github.com/bitfinexcom/bfxuilib.git

@@ -16,7 +16,7 @@ export default (trades = [], candles = []) => {
 
   trades.map(trade => ({
     ...trade,
-    candleMTS: trade.mts - (trade.mts % candleWidth)
+    candleMTS: trade.mts - (trade.mts % candleWidth),
   })).forEach((trade) => {
     const { candleMTS } = trade
 

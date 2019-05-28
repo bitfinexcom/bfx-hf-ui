@@ -27,13 +27,13 @@ const optionalMiddleware = [
 const store = configureStore(
   config,
   optionalReducers,
-  optionalMiddleware
+  optionalMiddleware,
 )
 
 window._store = store
 
 export default class StoreWrapper extends React.PureComponent {
-  render () {
+  render() {
     return (
       <Provider store={store}>
         {this.props.children}

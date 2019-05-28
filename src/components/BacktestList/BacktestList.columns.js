@@ -5,16 +5,16 @@ import FormatPL from '../../ui/Format/PL'
 export default [{
   width: 50,
   label: '#',
-  dataKey: 'id'
+  dataKey: 'id',
 }, {
   width: 200,
   label: 'ID',
-  dataKey: 'bt_id'
+  dataKey: 'bt_id',
 }, {
   width: 70,
   label: 'Trades',
   dataKey: 'length',
-  cellRenderer: ({ rowData = {} }) => rowData.trades.length
+  cellRenderer: ({ rowData = {} }) => rowData.trades.length,
 }, {
   width: 70,
   label: 'P/L',
@@ -23,5 +23,5 @@ export default [{
   headerClassName: 'table__cell-alignright',
   cellRenderer: ({ rowData = {} }) => (
     <FormatPL v={_sum(rowData.trades.map(t => t.pl))} />
-  )
+  ),
 }]

@@ -1,12 +1,9 @@
 import React from 'react'
-// import MarketDataTable from '../../components/MarketDataTable'
 
 export default class SettingsView extends React.Component {
-  render () {
+  render() {
     return (
-      <div className='hfui__wrapper'>
-
-      </div>
+      <div className='hfui__wrapper' />
     )
   }
 }

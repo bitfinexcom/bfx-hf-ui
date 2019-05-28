@@ -1,15 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { propTypes, defaultProps } from './index.props'
 import ClassNames from 'classnames'
-
-import './style.css'
+import { propTypes, defaultProps } from './index.props'
 
 export default class NavBar extends React.PureComponent {
   static propTypes = propTypes
+
   static defaultProps = defaultProps
 
-  render () {
+  render() {
     const { buttons, location } = this.props
 
     return (
@@ -23,9 +22,11 @@ export default class NavBar extends React.PureComponent {
               <button
                 className={ClassNames({
                   [`navbar-button bp3-button bp3-icon-${item.icon}`]: !!item.icon,
-                  active: key === page
+                  active: key === page,
                 })}
-              >{item.label}</button>
+              >
+                {item.label}
+              </button>
             </Link>
           )
         })}
