@@ -1,5 +1,5 @@
 import _isArray from 'lodash/isArray'
-import bfxDataActions from 'bfxuilib/dist/redux/actions/data.actions'
+// import bfxDataActions from 'bfxuilib/dist/redux/actions/data.actions'
 
 import WSHFActions from '../../actions/ws-hf-server'
 
@@ -37,7 +37,7 @@ export default (ws, store) => (e = {}) => {
 
         // Handle auth sub mock action
         if (action.type === 'WSS_AUTH_RESPONSE') {
-          store.dispatch(bfxDataActions.subscribed(action.payload))
+          // store.dispatch(bfxDataActions.subscribed(action.payload))
         }
 
         return

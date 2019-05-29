@@ -1,0 +1,50 @@
+.hfui_dashboardview__infoheader {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 32px;
+
+  & > *:last-child {
+    width: 100%;
+  }
+}
+
+.hfui_dashboardview__infoheader-info {
+  margin: 0 32px 0 0;
+  padding: 24px 32px 0 0;
+  list-style-type: none;
+  width: 300px;
+
+  li {
+    width: 100%;
+    margin-bottom: 4px;
+
+    & > * {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .hfui_dashboardview__infoheader-infolabel {
+    margin-right: 8px;
+    opacity: 0.5;
+  }
+}
+
+.hfui_dashboardview__infoheader-status {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: block;
+
+  &.gray {
+    background: #ccc;
+  }
+
+  &.green {
+    background: #0f0;
+  }
+}

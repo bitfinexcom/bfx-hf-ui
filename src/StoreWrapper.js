@@ -1,8 +1,8 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-import { routerReducer } from 'react-router-redux'
-import { configureStore } from 'bfxuilib/dist/redux'
-// import { configureStore } from './redux'
+import { routerReducer, routerMiddleware } from 'react-router-redux'
+// import { configureStore } from 'bfxuilib/dist/redux'
+import { configureStore } from './redux'
 
 import sagas from './redux/sagas'
 import dataReducer from './redux/reducers/data'
@@ -21,7 +21,8 @@ const optionalReducers = {
 }
 
 const optionalMiddleware = [
-  hfSocketMiddleware()
+  hfSocketMiddleware(),
+  routerMiddleware(),
 ]
 
 const store = configureStore(

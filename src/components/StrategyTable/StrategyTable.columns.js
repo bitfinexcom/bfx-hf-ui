@@ -2,7 +2,7 @@ import React from 'react'
 import { Icon } from '@blueprintjs/core'
 
 export default [{
-  width: 200,
+  width: 300,
   label: 'Name',
   dataKey: 'name',
   cellRenderer: ({ rowData = {} }) => rowData.name

@@ -1,24 +1,14 @@
 .panel__wrapper {
   padding: 0;
-  color: #fff;
-
-  border-top: 1px solid #294d69;
-  border-bottom: 1px solid #122533;
-
-  padding-bottom: 10px;
-
-  &:first-child {
-    border-top: none;
-  }
-
-  &:last-child {
-    border-bottom: none;
-  }
 }
 
 .panel__header {
   color: #989898;
   margin-bottom: 5px;
+
+  &.upper {
+    text-transform: uppercase;
+  }
 }
 
 .panel__content {

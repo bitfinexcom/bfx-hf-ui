@@ -72,7 +72,7 @@ export default class BacktestingView extends React.Component {
           onSelectRange={this.onSelectRange}
         />
       </div>,
-      <div className='hfui__wrapper' key='btwrapper'>
+      <div className='hfui_view__wrapper' key='btwrapper'>
         {selectedMode === 'new' ? (
           <BTNewView
             symbol={selectedSymbol}
