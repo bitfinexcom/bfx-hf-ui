@@ -54,7 +54,7 @@ class PLChart extends React.PureComponent {
   }
 
   render() {
-    const { ratio, onClick } = this.props
+    const { ratio, onClick, label } = this.props
     const {
       data, xScale, xAccessor, displayXAccessor,
     } = this.state
@@ -70,8 +70,9 @@ class PLChart extends React.PureComponent {
 
     return (
       <Panel
-        label='Backtest P/L'
+        label={label || 'P/L'}
         contentClassName='chart__wrapper'
+        upperLabel
       >
         <AutoSizer
           disableHeight
