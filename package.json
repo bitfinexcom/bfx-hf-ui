@@ -9,7 +9,7 @@
     "build-css": "node-sass-chokidar src/ -o src/ --importer=node_modules/node-sass-tilde-importer",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive --importer=node_modules/node-sass-tilde-importer",
     "start": "react-scripts start",
-    "build": "build-css && react-scripts build",
+    "build": "npm run build-css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.js"
