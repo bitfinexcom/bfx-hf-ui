@@ -8,27 +8,29 @@ export const defaultProps = {
   buttons: {
     '': {
       label: 'Dashboard',
-      icon: 'home'
+      enabled: true,
+      icon: 'home',
     },
     'algo-orders': {
       label: 'Algo Orders',
+      enabled: true,
       icon: 'function',
     },
-    strategies: {
-      label: 'Strategies',
-      icon: 'function',
-    },
-    backtesting: {
-      label: 'Backtesting',
-      icon: 'series-derived',
-    },
-    execution: {
-      label: 'Execution',
-      icon: 'play',
-    },
-    settings: {
-      label: 'Settings',
-      icon: 'cog',
-    },
+    // strategies: {
+    //   label: 'Strategies',
+    //   icon: 'function',
+    // },
+    // backtesting: {
+    //   label: 'Backtesting',
+    //   icon: 'series-derived',
+    // },
+    // execution: {
+    //   label: 'Execution',
+    //   icon: 'play',
+    // },
+    // settings: {
+    //   label: 'Settings',
+    //   icon: 'cog',
+    // },
   },
 }
