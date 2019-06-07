@@ -8,7 +8,9 @@
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/ --importer=node_modules/node-sass-tilde-importer",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive --importer=node_modules/node-sass-tilde-importer",
+    "start-server": "node scripts/start-server.js",
     "start": "react-scripts start",
+    "dev": "concurrently --kill-others \"npm run start-server\" \"npm run start\"",
     "build": "npm run build-css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
