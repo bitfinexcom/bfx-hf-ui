@@ -1,14 +1,16 @@
 import _toUpper from 'lodash/toUpper'
 import _isString from 'lodash/isString'
 import _isObject from 'lodash/isObject'
-import bfxDataActions from 'bfxuilib/dist/redux/actions/data.actions'
-import bfxWSSActions from 'bfxuilib/dist/redux/actions/websocket.actions'
+// import bfxDataActions from 'bfxuilib/dist/redux/actions/data.actions'
+// import bfxWSSActions from 'bfxuilib/dist/redux/actions/websocket.actions'
 import WSHFTypes from '../constants/ws-hf-server'
 
+/*
 const isHB = (payload = []) => {
   const [, secondPart, thirdPart] = payload
   return (secondPart === 'hb' || thirdPart === 'hb')
 }
+*/
 
 export default {
   error: (payload) => ({
@@ -56,6 +58,7 @@ export default {
 
     if (_isObject(payload) && payload.event) {
       switch (payload.event) {
+        /*
         case 'subscribed': {
           return bfxDataActions.subscribed(payload)
         }
@@ -77,6 +80,7 @@ export default {
         case 'conf': {
           return bfxWSSActions.info(payload)
         }
+        */
 
         default: {
           return null
@@ -84,9 +88,13 @@ export default {
       }
     }
 
+    return null
+
+    /*
     return (isHB(payload))
       ? bfxDataActions.hb(payload)
       : bfxDataActions.wss(payload)
+      */
   },
 
   recvDataServer: (payload = []) => {

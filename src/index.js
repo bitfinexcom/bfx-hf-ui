@@ -26,6 +26,7 @@ window.APP = {
 }
 
 // Handle legacy webapp ajax navigation in components
+// TODO: remove?
 document.querySelector('body').addEventListener('click', (e) => {
   let target = e.target
 

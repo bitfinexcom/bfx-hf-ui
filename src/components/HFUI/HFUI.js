@@ -1,15 +1,15 @@
 import React from 'react'
-import { Spinner, Intent } from '@blueprintjs/core'
+// import { Spinner, Intent } from '@blueprintjs/core'
 import { Switch, Route } from 'react-router-dom'
-import _isEmpty from 'lodash/isEmpty'
+// import _isEmpty from 'lodash/isEmpty'
 
-import APIComboDialog from '../APIComboDialog'
-import NavBar from '../../ui/NavBar'
+// import APIComboDialog from '../APIComboDialog'
+import SideNavBar from '../../ui/SideNavBar'
 import StatusBar from '../../ui/StatusBar'
 import BacktestingView from '../../pages/Backtesting'
 import SettingsView from '../../pages/Settings'
 import AlgoOrdersView from '../../pages/AlgoOrders'
-import TradingView from '../../pages/Trading'
+import DashboardView from '../../pages/Dashboard'
 
 export default class HFUI extends React.Component {
   constructor(props) {
@@ -32,6 +32,9 @@ export default class HFUI extends React.Component {
   }
 
   render() {
+    console.log('!!! NOTE: API key/secret enforcer disabled !!!')
+
+    /*
     const { apiKeyCombo = {} } = this.props
 
     if (_isEmpty(apiKeyCombo)) {
@@ -56,18 +59,20 @@ export default class HFUI extends React.Component {
         </div>
       )
     }
+    */
 
     return (
-      <div className='hfui ticker-side dark-theme'>
-        <Route component={NavBar} />
+      <div className='hfui'>
+        <div className='hfui_content__wrapper'>
+          <Route component={SideNavBar} />
 
-        <Switch>
-          <Route exact path='/' component={TradingView} />
-          <Route path='/t/:sym' component={TradingView} />
-          <Route path='/algo-orders' component={AlgoOrdersView} />
-          <Route path='/backtesting' component={BacktestingView} />
-          <Route path='/settings' component={SettingsView} />
-        </Switch>
+          <Switch>
+            <Route path='/' component={DashboardView} />
+            <Route path='/algo-orders' component={AlgoOrdersView} />
+            <Route path='/backtesting' component={BacktestingView} />
+            <Route path='/settings' component={SettingsView} />
+          </Switch>
+        </div>
 
         <Route component={StatusBar} />
       </div>

@@ -10,7 +10,7 @@ function syncCandles(symbol, tf, range) {
 }
 
 function getBTs() {
-  return WSDSActions.send(['ds', ['get.bts']])
+  return WSHFActions.send(['ds', ['get.bts']])
 }
 
 export default {

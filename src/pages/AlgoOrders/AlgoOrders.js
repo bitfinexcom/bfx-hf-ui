@@ -132,7 +132,7 @@ export default class AlgoOrdersView extends React.Component {
     const { selectedRange, selectedTF, selectedSymbol, selectedAO } = this.state
 
     return (
-      <div className='hfui__wrapper hfui-algo-orders'>
+      <div className='hfui_view__wrapper hfui-algo-orders'>
         <BTHeaderBar
           selectedSymbol={selectedSymbol}
           selectedTF={selectedTF}
