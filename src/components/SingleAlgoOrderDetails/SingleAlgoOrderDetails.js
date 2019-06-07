@@ -2,8 +2,6 @@ import React from 'react'
 import Panel from '../../ui/Panel'
 import OrderTable from '../OrderTable'
 
-import './style.css'
-
 export default class SingleAlgoOrderDetails extends React.PureComponent {
   render () {
     const { ao = [], orders } = this.props
