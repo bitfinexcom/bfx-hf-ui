@@ -74,7 +74,7 @@ export default (code = '-') => {
       return 'order_cancel'
 
     case 'hb':
-      return 'hearthbeat'
+      return 'heartbeat'
 
     default:
       return null
