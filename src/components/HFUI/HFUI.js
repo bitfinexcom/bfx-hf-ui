@@ -65,13 +65,8 @@ export default class HFUI extends React.Component {
       <div className='hfui'>
         <div className='hfui_content__wrapper'>
           <Route component={SideNavBar} />
-
-          <Switch>
-            <Route path='/' component={DashboardView} />
-            <Route path='/algo-orders' component={AlgoOrdersView} />
-            <Route path='/backtesting' component={BacktestingView} />
-            <Route path='/settings' component={SettingsView} />
-          </Switch>
+          <Route exact path='/' component={DashboardView} />
+          <Route path='/algo-orders' component={AlgoOrdersView} />
         </div>
 
         <Route component={StatusBar} />
