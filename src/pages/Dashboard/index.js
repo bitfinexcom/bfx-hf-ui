@@ -28,6 +28,15 @@ export default class DashboardView extends React.Component {
 
     const algoOrders = [
       [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
+      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
+      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
+      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
+      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
+      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
+      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
+      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
+      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
+      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))]
     ]
 
     const strategies = [
@@ -35,6 +44,21 @@ export default class DashboardView extends React.Component {
       [0, 'EMA Cross A', true, +(new Date(Date.now() - (24 * 60 * 60 * 1000)))],
       [1, 'EMA Cross B', false, +(new Date(Date.now() - (48 * 60 * 60 * 1000)))],
       [2, 'Bollinger EMA Trend Follower', true, +(new Date(Date.now() - (300 * 60 * 60 * 1000)))],
+      [0, 'EMA Cross A', true, +(new Date(Date.now() - (24 * 60 * 60 * 1000)))],
+      [1, 'EMA Cross B', false, +(new Date(Date.now() - (48 * 60 * 60 * 1000)))],
+      [2, 'Bollinger EMA Trend Follower', true, +(new Date(Date.now() - (300 * 60 * 60 * 1000)))],
+      [0, 'EMA Cross A', true, +(new Date(Date.now() - (24 * 60 * 60 * 1000)))],
+      [1, 'EMA Cross B', false, +(new Date(Date.now() - (48 * 60 * 60 * 1000)))],
+      [2, 'Bollinger EMA Trend Follower', true, +(new Date(Date.now() - (300 * 60 * 60 * 1000)))],
+      [0, 'EMA Cross A', true, +(new Date(Date.now() - (24 * 60 * 60 * 1000)))],
+      [1, 'EMA Cross B', false, +(new Date(Date.now() - (48 * 60 * 60 * 1000)))],
+      [2, 'Bollinger EMA Trend Follower', true, +(new Date(Date.now() - (300 * 60 * 60 * 1000)))],
+      [0, 'EMA Cross A', true, +(new Date(Date.now() - (24 * 60 * 60 * 1000)))],
+      [1, 'EMA Cross B', false, +(new Date(Date.now() - (48 * 60 * 60 * 1000)))],
+      [2, 'Bollinger EMA Trend Follower', true, +(new Date(Date.now() - (300 * 60 * 60 * 1000)))],
+      [0, 'EMA Cross A', true, +(new Date(Date.now() - (24 * 60 * 60 * 1000)))],
+      [1, 'EMA Cross B', false, +(new Date(Date.now() - (48 * 60 * 60 * 1000)))],
+      [2, 'Bollinger EMA Trend Follower', true, +(new Date(Date.now() - (300 * 60 * 60 * 1000)))]
     ]
 
     const plTrades = []
