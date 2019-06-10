@@ -1,5 +1,7 @@
 import React from 'react'
 import { Icon } from '@blueprintjs/core'
+import Switch from 'react-switch'
+
 
 export default [{
   width: 200,
@@ -27,14 +29,14 @@ export default [{
   width: 120,
   label: 'Status',
   dataKey: 'status',
-  cellRenderer: ({ rowData = {} }) => rowData.status
+  cellRenderer: ({ rowData = {} }) => rowData.status 
 }, {
   width: 120,
   label: 'Actions',
   dataKey: 'gid',
   cellRenderer: ({ rowData = {} }) => (
     rowData.status === 'ACTIVE'
-      ? <Icon icon='pause' key={'pause'} />
-      : <Icon icon='play' key={'play'} />
+      ? <Switch checked={true} height={14} width={28} onColor='#0F0' />
+      : <Switch checked={false} height={14} width={28} offColor='#C1C2C3' />
   ),
 }]

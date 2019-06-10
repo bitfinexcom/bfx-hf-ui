@@ -2,6 +2,7 @@ import React from 'react'
 import _uniq from 'lodash/uniq'
 import _isEmpty from 'lodash/isEmpty'
 import { Spinner } from '@blueprintjs/core'
+import { version } from '../../../package.json';
 
 import { propTypes, defaultProps } from './index.props'
 
@@ -37,6 +38,7 @@ export default class StatusBar extends React.PureComponent {
     return (
       <div className='statusbar__wrapper'>
         {this.renderSyncStatus()}
+        v{version}
       </div>
     )
   }
