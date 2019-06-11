@@ -5,6 +5,16 @@
     "node": ">=6"
   },
   "main": "build/index.html",
+  "build": {
+    "appId": "bfx.hf.ui",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories":{
+      "buildResources": "public"
+    }
+  },
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/ --importer=node_modules/node-sass-tilde-importer",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive --importer=node_modules/node-sass-tilde-importer",
@@ -15,7 +25,9 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.js",
-    "electron-dev": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron ./public/electron.js\""
+    "electron-dev": "concurrently \"BROWSER=none npm run dev\" \"wait-on http://localhost:3000 && electron ./public/electron.js\"",
+    "electron-pack": "build public/electron.js",
+    "preelectron-pack": "npm build"
   },
   "author": "Cris Mihalache <cris.m@bitfinex.com> (https://www.bitfinex.com)",
   "license": "Apache-2.0",
