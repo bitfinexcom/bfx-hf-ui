@@ -1,30 +1,62 @@
+const { app, BrowserWindow, protocol } = require('electron')
+const path = require('path')
+const url = require('url')
+const { fork } = require('child_process')
 
-const electron = require('electron');
-const app = electron.app;
-const BrowserWindow = electron.BrowserWindow;
+const env = {
+  ...process.env,
+  ELECTRON_VERSION: process.versions.electron,
+}
+const serverPath = path.join(__dirname, '../scripts/start-server.js')
+let ipc = null
 
-const path = require('path');
-const url = require('url');
-const isDev = require('electron-is-dev');
-
-let mainWindow;
-
-function createWindow() {
-  mainWindow = new BrowserWindow({width: 900, height: 680});
-  mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
-  mainWindow.on('closed', () => mainWindow = null);
+const runServer = () => {
+  ipc = fork(serverPath, [], {
+    env,
+    cwd: process.cwd(),
+    silent: false,
+  })
 }
 
-app.on('ready', createWindow);
+let mainWindow
+
+function createWindow() {
+  mainWindow = new BrowserWindow({ width: 800, height: 600 })
+
+  mainWindow.loadURL(url.format({
+    pathname: 'index.html',
+    protocol: 'file',
+    slashes: true,
+  }))
+
+  mainWindow.on('closed', () => {
+    mainWindow = null
+  })
+}
+
+app.on('ready', () => {
+  protocol.interceptFileProtocol('file', (request, callback) => {
+    try {
+      runServer()
+    } catch (err) {
+      return console.log(err)
+    }
+    const url = request.url.substr(7) /* all urls start with 'file://' */
+    callback({ path: path.normalize(`${__dirname}/${url}`) })
+  }, (err) => {
+    if (err) console.error('Failed to register protocol')
+  })
+  createWindow()
+})
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
-    app.quit();
+    app.quit()
   }
-});
+})
 
 app.on('activate', () => {
   if (mainWindow === null) {
-    createWindow();
+    createWindow()
   }
-});
+})

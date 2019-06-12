@@ -61,11 +61,15 @@ export default class HFUI extends React.Component {
     }
     */
 
+    /*
+      <Route exact path='/index.html' component={DashboardView} />  used for an electron app
+    */
     return (
       <div className='hfui'>
         <div className='hfui_content__wrapper'>
           <Route component={SideNavBar} />
           <Route exact path='/' component={DashboardView} />
+          <Route exact path='/index.html' component={DashboardView} /> 
           <Route path='/algo-orders' component={AlgoOrdersView} />
         </div>
 
