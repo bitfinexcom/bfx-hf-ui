@@ -35,12 +35,12 @@ function createWindow() {
 }
 
 app.on('ready', () => {
+  try {
+    runServer()
+  } catch (err) {
+    return console.log(err)
+  }
   protocol.interceptFileProtocol('file', (request, callback) => {
-    try {
-      runServer()
-    } catch (err) {
-      return console.log(err)
-    }
     const url = request.url.substr(7) /* all urls start with 'file://' */
     callback({ path: path.normalize(`${__dirname}/${url}`) })
   }, (err) => {
