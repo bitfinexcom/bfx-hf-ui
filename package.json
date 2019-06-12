@@ -4,15 +4,34 @@
   "engines": {
     "node": ">=6"
   },
-  "main": "build/index.html",
+  "main": "./build/electron.js",
+  "homepage": "./",
   "build": {
-    "appId": "bfx.hf.ui",
-    "files": [
-      "build/**/*",
-      "node_modules/**/*"
-    ],
-    "directories":{
-      "buildResources": "public"
+    "asar": true,
+    "appId": "com.bfx-hf-ui",
+    "mac": {
+      "hardenedRuntime": true,
+      "artifactName": "${productName}-${version}-${arch}-${os}.${ext}",
+      "category": "public.app-category.productivity",
+      "target": [
+        "dmg"
+      ]
+    },
+    "dmg": {
+      "iconSize": 100,
+      "contents": [
+        {
+          "x": 380,
+          "y": 280,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 110,
+          "y": 280,
+          "type": "file"
+        }
+      ]
     }
   },
   "scripts": {
@@ -26,8 +45,9 @@
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.js",
     "electron-dev": "concurrently \"BROWSER=none npm run dev\" \"wait-on http://localhost:3000 && electron ./public/electron.js\"",
-    "electron-pack": "build public/electron.js",
-    "preelectron-pack": "npm build"
+    "electron": "electron ./build/electron.js",
+    "pack": "electron-builder --dir",
+    "dist": "build"
   },
   "author": "Cris Mihalache <cris.m@bitfinex.com> (https://www.bitfinex.com)",
   "license": "Apache-2.0",
@@ -50,14 +70,14 @@
     "cjs-loader": "^0.1.0",
     "concurrently": "^4.1.0",
     "cors": "^2.8.5",
-    "electron": "^5.0.3",
-    "electron-builder": "^20.43.0",
+    "electron": "4.2.4",
+    "electron-builder": "20.41.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.13.0",
-    "express": "^4.17.0",
+    "express": "^4.17.1",
     "express-request-proxy": "^2.2.2",
     "leveldown": "^5.1.0",
     "levelup": "^4.0.1",
@@ -77,6 +97,7 @@
     "bfx-hf-util": "bitfinexcom/bfx-hf-util",
     "bignumber.js": "^7.2.1",
     "bitfinex-api-node": "^2.0.2",
+    "child_process": "^1.0.2",
     "classnames": "^2.2.6",
     "codemirror": "^5.39.2",
     "color-scheme": "^1.0.1",
