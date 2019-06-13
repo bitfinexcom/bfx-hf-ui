@@ -14,4 +14,19 @@ npm run start
 npm run dev
 ```
 
+## Electron 
+
+Will run electron app in production mode
+```
+ npm run electron 
+```
+Will run electron app in dev mode
+```
+ npm run electron-dev
+ ```
+ Will package project for distribution
+ ```
+ npm run dist 
+ ```
+
 open `localhost:3000`
