@@ -7,6 +7,8 @@ import { Select } from '@blueprintjs/select'
 import { Button, MenuItem } from '@blueprintjs/core'
 
 import HFI from 'bfx-hf-indicators'
+import { defaultProps, propTypes } from './BTNewSidebar.props'
+
 
 import ID from '../../util/id'
 import IndicatorCard from '../IndicatorCard'
@@ -27,7 +29,7 @@ const indicatorList = Object.values(HFI)
 
 // TODO: Handle edge case where A-Z is not enough (wrap around w/ AA, AB, etc)
 const keyForNewIndicator = (indicators, i) => {
-  const keys = indicators.map(i => i.key)
+  const keys = indicators.map(item => item.key)
   const { id } = i
   let suffix = 64 // 'A' - 1
   let key
@@ -41,6 +43,10 @@ const keyForNewIndicator = (indicators, i) => {
 }
 
 export default class BTNewSidebar extends React.PureComponent {
+  static defaultProps = defaultProps
+
+  static propTypes = propTypes
+
   constructor(props) {
     super(props)
 
@@ -61,6 +67,7 @@ export default class BTNewSidebar extends React.PureComponent {
 
     i.args.forEach((arg) => {
       if (_isFinite(arg.default)) {
+        /* eslint-disable-next-line */
         arg.value = `${arg.default}`
       }
     })
@@ -89,9 +96,9 @@ export default class BTNewSidebar extends React.PureComponent {
                 <IndicatorCard
                   i={i}
                   colors={colors}
-                  onSave={i => onIndicatorSaved(i)}
-                  onUpdate={i => onIndicatorUpdated(i)}
-                  onDelete={i => onIndicatorDeleted(i)}
+                  onSave={() => onIndicatorSaved(i)}
+                  onUpdate={() => onIndicatorUpdated(i)}
+                  onDelete={() => onIndicatorDeleted(i)}
                 />
               </li>
             ))}
