@@ -9,13 +9,9 @@ const ALGO_NAMES = {
   'bfx-accumulate_distribute': 'Accumulate/Distribute',
   'bfx-ping_pong': 'Ping/Pong',
   'bfx-iceberg': 'Iceberg',
-  'bfx-twap': 'TWAP'
+  'bfx-twap': 'TWAP',
 }
-const algoOrders = [
-      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-      [42, 'bfx-iceberg', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-    ]
+
 export default class AlgoOrderTable extends React.PureComponent {
   static propTypes = propTypes
 
@@ -26,12 +22,12 @@ export default class AlgoOrderTable extends React.PureComponent {
     this.onRowClick = this.onRowClick.bind(this)
   }
 
-  onRowClick ({ index } = {}) {
+  onRowClick({ index } = {}) {
     const { onSelect, algoOrders } = this.props
     onSelect(algoOrders[index])
   }
 
-  render () {
+  render() {
     const { algoOrders, orders } = this.props
     const orderObjects = algoOrders.map(ao => ({
       gid: ao[0],
@@ -39,7 +35,7 @@ export default class AlgoOrderTable extends React.PureComponent {
       mts: ao[4],
       status: ao[2] ? 'ACTIVE' : 'STOPPED',
       orderCount: orders.filter(o => o[1] === +ao[0]).length,
-      symbol: (orders.find(o => o[1] === +ao[0]) || {})[3] || ''
+      symbol: (orders.find(o => o[1] === +ao[0]) || {})[3] || '',
     }))
 
     return (
