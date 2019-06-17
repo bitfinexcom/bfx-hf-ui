@@ -30,9 +30,9 @@ const orders = [
 test('Link changes the class when hovered', () => {
   const component = renderer.create(
     <AlgoOrderTable
-        algoOrders={algoOrders}
-        orders={orders}
-      />,
+      algoOrders={algoOrders}
+      orders={orders}
+    />,
   )
   const tree = component.toJSON()
   expect(tree).toMatchSnapshot()
