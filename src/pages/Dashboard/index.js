@@ -3,7 +3,7 @@ import PLChart from '../../components/PLChart'
 import StrategyTable from '../../components/StrategyTable'
 import AlgoOrderTable from '../../components/AlgoOrderTable'
 
-export default class DashboardView extends React.Component {
+export default class DashboardView extends React.PureComponent {
   render() {
     // mock data for design
     const orders = [
@@ -36,7 +36,7 @@ export default class DashboardView extends React.Component {
       [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
       [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
       [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))]
+      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
     ]
 
     const strategies = [
@@ -58,7 +58,7 @@ export default class DashboardView extends React.Component {
       [2, 'Bollinger EMA Trend Follower', true, +(new Date(Date.now() - (300 * 60 * 60 * 1000)))],
       [0, 'EMA Cross A', true, +(new Date(Date.now() - (24 * 60 * 60 * 1000)))],
       [1, 'EMA Cross B', false, +(new Date(Date.now() - (48 * 60 * 60 * 1000)))],
-      [2, 'Bollinger EMA Trend Follower', true, +(new Date(Date.now() - (300 * 60 * 60 * 1000)))]
+      [2, 'Bollinger EMA Trend Follower', true, +(new Date(Date.now() - (300 * 60 * 60 * 1000)))],
     ]
 
     const plTrades = []

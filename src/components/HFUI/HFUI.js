@@ -39,7 +39,7 @@ export default class HFUI extends React.Component {
   }
 
   render() {
-    console.log('!!! NOTE: API key/secret enforcer disabled !!!')
+    console.log('%c !!! NOTE: API key/secret enforcer disabled !!!', 'color: white; background: red;')
 
     /*
     const { apiKeyCombo = {} } = this.props

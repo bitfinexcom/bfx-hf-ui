@@ -49,7 +49,7 @@ export function configureStore(
 }
 
 export function runSaga() {
-  console.log('runSaga is deprecated: it is already run in configureStore')
+  console.log('%c runSaga is deprecated: it is already run in configureStore', 'color:white;background:orange;')
 }
 
 export default {

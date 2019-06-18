@@ -6,7 +6,7 @@ import tickerSaga from './tickers'
 */
 
 export default function * rootSaga () {
-  console.log('!!! NOTE: sagas temporarily disabled for dev !!!')
+  console.log('%c !!! NOTE: sagas temporarily disabled for dev !!!', 'color:white;background:red;')
 
   /*
   yield fork(WSHFSaga)
