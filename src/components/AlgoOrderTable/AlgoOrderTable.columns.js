@@ -1,5 +1,8 @@
 import React from 'react'
 import Switch from 'react-switch'
+
+
+
 export default [{
   width: 200,
   label: 'Name',
@@ -31,7 +34,16 @@ export default [{
   width: 120,
   label: 'Actions',
   dataKey: 'gid',
-  cellRenderer: ({ rowData = {} }) => (
-     <Switch checked={rowData.status === 'ACTIVE' ? true : false} height={14} width={28} onColor='#0F0' offColor='#C1C2C3' />
-  ),
+  cellRenderer: ({ rowData = {}, rowIndex }) => {
+    const store = window._store
+
+    return <Switch
+      onChange={() => store.dispatch({type: 'CHANGE_STATUS', index: rowIndex})}
+      checked={rowData.status === 'ACTIVE'}
+      height={14}
+      width={28}
+      onColor='#0F0'
+      offColor='#C1C2C3'
+    />
+},
 }]

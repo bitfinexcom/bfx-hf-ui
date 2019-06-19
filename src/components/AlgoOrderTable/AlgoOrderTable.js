@@ -12,7 +12,7 @@ const ALGO_NAMES = {
   'bfx-twap': 'TWAP',
 }
 
-export default class AlgoOrderTable extends React.PureComponent {
+export default class AlgoOrderTable extends React.Component {
   static propTypes = propTypes
 
   static defaultProps = defaultProps
@@ -20,6 +20,20 @@ export default class AlgoOrderTable extends React.PureComponent {
   constructor(props) {
     super(props)
     this.onRowClick = this.onRowClick.bind(this)
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const {algoOrders} = this.props;
+
+    const isSame = nextProps.algoOrders.every((row, indexRow) => {
+      return row.every((value, indexValue) => {
+        return value === algoOrders[indexRow][indexValue]
+      })
+    })
+
+    console.log('====isSame', isSame)
+
+    return !isSame
   }
 
   onRowClick({ index } = {}) {

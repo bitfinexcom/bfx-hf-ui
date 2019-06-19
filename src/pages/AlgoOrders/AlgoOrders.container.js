@@ -3,9 +3,11 @@ import AlgoOrdersView from './AlgoOrders'
 import DataActions from '../../redux/actions/data'
 
 const mapStateToProps = (state = {}, ownProps = {}) => {
-  const { dataHF = {} } = state
-  const { bfx = {}, candles = {}, algoOrders = [] } = dataHF
+  const { dataHF = {}, table = {} } = state
+  const { bfx = {}, candles = {}, } = dataHF
   const { orders = [] } = bfx
+
+  const { algoOrders = [] } = table
 
   return {
     allCandles: candles,
