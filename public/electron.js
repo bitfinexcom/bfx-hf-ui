@@ -1,7 +1,15 @@
-const { app, BrowserWindow, protocol } = require('electron')
+const {
+  app, BrowserWindow, protocol, Menu,
+} = require('electron')
 const path = require('path')
 const url = require('url')
 const { fork } = require('child_process')
+const { clipboard } = require('electron')
+
+const keyCodes = {
+  V: 86,
+}
+
 
 const env = {
   ...process.env,
@@ -34,12 +42,35 @@ function createWindow() {
   })
 }
 
+
+const template = [{
+  label: 'Application',
+  submenu: [
+    { label: 'About Application', selector: 'orderFrontStandardAboutPanel:' },
+    { type: 'separator' },
+    { label: 'Quit', accelerator: 'Command+Q', click() { app.quit() } },
+  ],
+}, {
+  label: 'Edit',
+  submenu: [
+    { label: 'Undo', accelerator: 'CmdOrCtrl+Z', selector: 'undo:' },
+    { label: 'Redo', accelerator: 'Shift+CmdOrCtrl+Z', selector: 'redo:' },
+    { type: 'separator' },
+    { label: 'Cut', accelerator: 'CmdOrCtrl+X', selector: 'cut:' },
+    { label: 'Copy', accelerator: 'CmdOrCtrl+C', selector: 'copy:' },
+    { label: 'Paste', accelerator: 'CmdOrCtrl+V', selector: 'paste:' },
+    { label: 'Select All', accelerator: 'CmdOrCtrl+A', selector: 'selectAll:' },
+  ],
+},
+]
+
 app.on('ready', () => {
   try {
     runServer()
   } catch (err) {
     return console.log(err)
   }
+  Menu.setApplicationMenu(Menu.buildFromTemplate(template))
   protocol.interceptFileProtocol('file', (request, callback) => {
     const url = request.url.substr(7) /* all urls start with 'file://' */
     callback({ path: path.normalize(`${__dirname}/${url}`) })
