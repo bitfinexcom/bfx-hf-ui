@@ -4,6 +4,10 @@ import StrategyTable from '../../components/StrategyTable'
 import AlgoOrderTable from '../../components/AlgoOrderTable'
 
 export default class DashboardView extends React.PureComponent {
+
+  constructor (props) { 
+    super(props);
+  }
   render() {
     // mock data for design
     const orders = [
@@ -26,18 +30,6 @@ export default class DashboardView extends React.PureComponent {
       [null, 42, null, 'tLEOUSD'],
     ]
 
-    const algoOrders = [
-      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-    ]
 
     const strategies = [
       // [gid, name, status, created]
@@ -140,7 +132,6 @@ export default class DashboardView extends React.PureComponent {
         />
 
         <AlgoOrderTable
-          algoOrders={algoOrders}
           orders={orders}
         />
       </div>

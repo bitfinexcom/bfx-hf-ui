@@ -1,22 +1,11 @@
 function getInitialState() {
   return {
-    algoOrders: [
-      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-    ],
+    algoOrders: [[]],
   }
 }
 
 function reducer(state = getInitialState(), action = {}) {
-  const { type } = action
+  const { type, payload = {} } = action
 
   switch (type) {
     case 'CHANGE_STATUS': {
@@ -25,13 +14,41 @@ function reducer(state = getInitialState(), action = {}) {
 
       return {
         ...state,
-        algoOrders: algoOrders.map((order, index) => orderIndex === index
-              ? [
-                ...order.slice(0, 2),
-                !order[2],
-                ...order.slice(3),
-              ]
-              : [...order]),
+        algoOrders: algoOrders.map((order, index) => (orderIndex === index
+          ? [
+            ...order.slice(0, 2),
+            !order[2],
+            ...order.slice(3),
+          ]
+          : [...order])),
+      }
+    }
+
+    case 'GET_ALGO_DATA': {
+      const algoOrders = [
+        [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
+        [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
+        [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
+        [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
+        [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
+        [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
+        [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
+        [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
+        [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
+        [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
+      ]
+      return {
+        ...state,
+        algoOrders,
+      }
+    }
+
+    case 'RECEIVE_ALGO_DATA': {
+      const { data: algoOrders } = payload
+
+      return {
+        ...state,
+        algoOrders,
       }
     }
 

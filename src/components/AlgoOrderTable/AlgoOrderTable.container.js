@@ -20,6 +20,9 @@ const mapDispatchToProps = dispatch => ({
   changeStatus: (index) => {
     dispatch(TableActions.changeStatus(index))
   },
+  getTableData: () => {
+    dispatch(TableActions.getAlgoData())
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AlgoOrderTableView)

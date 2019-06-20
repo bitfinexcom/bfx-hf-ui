@@ -22,16 +22,22 @@ export default class AlgoOrderTable extends React.Component {
     this.onRowClick = this.onRowClick.bind(this)
   }
 
+  componentDidMount() {
+    const { getTableData, algoOrders } = this.props
+    console.log(this.props)
+    // we can change this latter, if we need fetch data on each comonent mount
+    const firstElementInRow = algoOrders[0][0]
+    if (firstElementInRow === undefined) {
+      getTableData()
+    }
+  }
+
   shouldComponentUpdate(nextProps, nextState) {
-    const {algoOrders} = this.props;
+    const { algoOrders } = this.props
 
-    const isSame = nextProps.algoOrders.every((row, indexRow) => {
-      return row.every((value, indexValue) => {
-        return value === algoOrders[indexRow][indexValue]
-      })
-    })
-
-    console.log('====isSame', isSame)
+    const isSame = nextProps.algoOrders.every((row, indexRow) => row.every((value, indexValue) => {
+      return value === algoOrders[indexRow][indexValue]
+    }))
 
     return !isSame
   }

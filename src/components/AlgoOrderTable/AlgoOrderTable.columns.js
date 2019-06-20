@@ -1,7 +1,9 @@
 import React from 'react'
 import Switch from 'react-switch'
 
+let store = null
 
+window.addEventListener('load', ()=> store = window._store )
 
 export default [{
   width: 200,
@@ -35,7 +37,7 @@ export default [{
   label: 'Actions',
   dataKey: 'gid',
   cellRenderer: ({ rowData = {}, rowIndex }) => {
-    const store = window._store
+    
 
     return <Switch
       onChange={() => store.dispatch({type: 'CHANGE_STATUS', index: rowIndex})}

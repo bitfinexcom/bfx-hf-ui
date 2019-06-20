@@ -5,6 +5,23 @@ function changeStatus(index) {
   }
 }
 
+function getAlgoData() {
+  return {
+    type: 'GET_ALGO_DATA',
+  }
+}
+
+function receiveAlgoData() {
+  return {
+    type: 'RECEIVE_ALGO_DATA',
+    payload: {
+      data: []
+    }
+  }
+}
+
 export default {
   changeStatus,
+  getAlgoData,
+  receiveAlgoData,
 }
