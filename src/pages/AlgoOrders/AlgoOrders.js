@@ -1,6 +1,6 @@
 import React from 'react'
 import AlgoOrderTable from '../../components/AlgoOrderTable'
-
+import AlgoOrderForm from '../../components/AlgoOrderForm'
 
 const orders = [
   // all we care about is gid & symbol for rendering ([_, gid, _, symbol])
@@ -27,14 +27,18 @@ export default class AlgoOrdersView extends React.Component {
   state = {}
 
   render() {
-   const { algoOrders } = this.props
-   console.log(algoOrders)
+    const { algoOrders } = this.props
+    console.log(algoOrders)
     return (
       <div className='hfui_view__wrapper'>
         <h1>Algo Orders</h1>
         <AlgoOrderTable
           algoOrders={algoOrders}
-          orders={orders} />
+          orders={orders}
+        />
+        <div>
+          <AlgoOrderForm />
+        </div>
       </div>
     )
   }
