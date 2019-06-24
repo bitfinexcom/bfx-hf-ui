@@ -59,3 +59,19 @@ input[type='submit'] {
 }
 
 
+.hfui__add-order-btn {
+    border: none;
+    background: #0F0;
+    color: white;
+    padding: 5px 10px 5px 10px;
+    margin-top: '15px';
+    text-transform: 'uppercase';
+    outline: none;
+}
+
+.hfui__add-order-btn:active {
+    outline: none;
+}
+button:focus { 
+    outline: 0;
+}

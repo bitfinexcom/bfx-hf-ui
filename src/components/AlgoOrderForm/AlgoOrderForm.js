@@ -20,14 +20,7 @@ const customStyles = {
   },
 }
 
-const buttonStyles = {
-  border: 'none',
-  background: '#0F0',
-  color: '#FFF',
-  padding: '5px 10px 5px 10px',
-  marginTop: '15px',
-  textTransform: 'uppercase',
-}
+
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 
 
@@ -81,7 +74,7 @@ export default class ModalForm extends PureComponent {
   render() {
     return (
       <div>
-        <button style={buttonStyles} onClick={this.openModal}>Create Algo Order</button>
+        <button className="hfui__add-order-btn" onClick={this.openModal}>Create Algo Order</button>
         <Modal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
@@ -106,7 +99,7 @@ export default class ModalForm extends PureComponent {
                 <input type='file' size='60' onChange={e => this.handleFile(e)} />
             </label>
 
-            <input name='algo_order_submit' type='submit' value='Submit' style={buttonStyles} />
+            <input name='algo_order_submit' type='submit' value='Submit' className='hfui__add-order-btn' />
           </form>
         </Modal>
       </div>
