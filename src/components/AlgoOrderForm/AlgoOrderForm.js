@@ -42,6 +42,7 @@ export default class ModalForm extends PureComponent {
 
   openModal() {
     this.setState({ modalIsOpen: true })
+    this.setState({ fileName: '' })
   }
 
 
