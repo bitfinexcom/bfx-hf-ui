@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import Modal from 'react-modal'
 import { Icon } from '@blueprintjs/core'
-
+import {NotificationManager} from 'react-notifications'
 
 const customStyles = {
   content: {
@@ -60,6 +60,24 @@ export default class ModalForm extends PureComponent {
     if (e.target.files[0]) { this.setState({ fileName: e.target.files[0].name }) }
   }
 
+  handleSubmit(e) { 
+    e.preventDefault()
+    const {algoName, algoDesc} = e.target
+    
+    /* POST data to HF server (this is pseudo-code)
+
+      const options = {
+        name: algoName.value,
+        description: algoDesc.value,
+        file: this.state.file,
+      }
+      axios.('POST','some-back-url', options)
+
+    */
+
+    NotificationManager.success('Algo order Succesfuly added!','Success!')
+    this.setState({modalIsOpen: false})
+  }
   render() {
     return (
       <div>
@@ -79,9 +97,9 @@ export default class ModalForm extends PureComponent {
             onClick={this.closeModal}
           />
           <div>Create Algo Order</div>
-          <form className='hfui_modal-algo-form'>
-            <input name='algo_order_name' type='text' placeholder='Name of algo order' />
-            <input name='algo_order_description' type='text' placeholder='Short description' />
+          <form className='hfui_modal-algo-form' onSubmit={e => this.handleSubmit(e)}>
+            <input name='algoName' type='text' placeholder='Name of algo order' />
+            <input name='algoDesc' type='text' placeholder='Short description' />
             <label>
                 <div className="button">{'Upload File'}</div>
                 <div className="filesContainer">{this.state.fileName || ' '}</div>
