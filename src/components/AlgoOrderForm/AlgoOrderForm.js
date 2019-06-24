@@ -67,9 +67,10 @@ export default class ModalForm extends PureComponent {
       axios.('POST','some-back-url', options)
 
     */
-
-    NotificationManager.success('Algo order Succesfuly added!','Success!')
-    this.setState({modalIsOpen: false})
+    const store = window._store
+    store.dispatch({ type: 'ADD_ALGO_ORDER', payload: { algoOrder: [42, 'bfx-ping_pong', true, null, 1561361614648] } }, )
+    NotificationManager.success('Algo order Succesfuly added!', 'Success!')
+    this.setState({ modalIsOpen: false })
   }
   render() {
     return (

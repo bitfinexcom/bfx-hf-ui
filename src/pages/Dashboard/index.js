@@ -28,11 +28,25 @@ export default class DashboardView extends React.PureComponent {
       [null, 42, null, 'tLEOUSD'],
       [null, 42, null, 'tLEOUSD'],
       [null, 42, null, 'tLEOUSD'],
+      [null, 42, null, 'tLEOUSD'],
+      [null, 42, null, 'tLEOUSD'],
+      [null, 42, null, 'tLEOUSD'],
+      [null, 42, null, 'tLEOUSD'],
+      [null, 42, null, 'tLEOUSD'],
+      [null, 42, null, 'tLEOUSD'],
+      [null, 42, null, 'tLEOUSD'],
+      [null, 42, null, 'tLEOUSD'],
+      [null, 42, null, 'tLEOUSD'],
+      [null, 42, null, 'tLEOUSD'],
+      [null, 42, null, 'tLEOUSD'],
     ]
 
 
     const strategies = [
       // [gid, name, status, created]
+      [0, 'EMA Cross A', true, +(new Date(Date.now() - (24 * 60 * 60 * 1000)))],
+      [1, 'EMA Cross B', false, +(new Date(Date.now() - (48 * 60 * 60 * 1000)))],
+      [2, 'Bollinger EMA Trend Follower', true, +(new Date(Date.now() - (300 * 60 * 60 * 1000)))],
       [0, 'EMA Cross A', true, +(new Date(Date.now() - (24 * 60 * 60 * 1000)))],
       [1, 'EMA Cross B', false, +(new Date(Date.now() - (48 * 60 * 60 * 1000)))],
       [2, 'Bollinger EMA Trend Follower', true, +(new Date(Date.now() - (300 * 60 * 60 * 1000)))],

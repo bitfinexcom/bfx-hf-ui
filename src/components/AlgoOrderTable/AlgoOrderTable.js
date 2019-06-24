@@ -33,7 +33,12 @@ export default class AlgoOrderTable extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    const newAlgoOrders = nextProps.algoOrders
     const { algoOrders } = this.props
+    
+    if(newAlgoOrders.length !== algoOrders.length) {
+      return true
+    }
 
     const isSame = nextProps.algoOrders.every((row, indexRow) => row.every((value, indexValue) => {
       return value === algoOrders[indexRow][indexValue]
@@ -43,6 +48,7 @@ export default class AlgoOrderTable extends React.Component {
   }
 
   onRowClick({ index } = {}) {
+    console.log(index)
     const { onSelect, algoOrders } = this.props
     onSelect(algoOrders[index])
   }

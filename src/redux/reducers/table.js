@@ -12,6 +12,7 @@ function reducer(state = getInitialState(), action = {}) {
       const { index: orderIndex } = action
       const { algoOrders } = state
 
+      console.log(orderIndex)
       return {
         ...state,
         algoOrders: algoOrders.map((order, index) => (orderIndex === index
@@ -49,6 +50,18 @@ function reducer(state = getInitialState(), action = {}) {
       return {
         ...state,
         algoOrders,
+      }
+    }
+
+    case 'ADD_ALGO_ORDER': {
+      console.log(state)
+      const algoOrders = [...state.algoOrders] || []
+      const { algoOrder = [] } = payload
+      algoOrders.unshift(algoOrder)
+
+      return {
+        ...state,
+        algoOrders: [...algoOrders],
       }
     }
 
