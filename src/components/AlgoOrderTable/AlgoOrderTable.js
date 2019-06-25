@@ -4,6 +4,8 @@ import Panel from '../../ui/Panel'
 import Table from '../../ui/Table'
 import AlgoOrderTableColumns from './AlgoOrderTable.columns'
 import { propTypes, defaultProps } from './AlgoOrderTable.props'
+import CodeEditor from '../CodeEditor'
+
 
 const ALGO_NAMES = {
   'bfx-accumulate_distribute': 'Accumulate/Distribute',
@@ -17,14 +19,12 @@ export default class AlgoOrderTable extends React.Component {
 
   static defaultProps = defaultProps
 
-  constructor(props) {
-    super(props)
-    this.onRowClick = this.onRowClick.bind(this)
+  state = {
+    editorOpened: false
   }
 
   componentDidMount() {
     const { getTableData, algoOrders } = this.props
-    console.log(this.props)
     // we can change this latter, if we need fetch data on each comonent mount
     const firstElementInRow = algoOrders[0][0]
     if (firstElementInRow === undefined) {
@@ -48,9 +48,9 @@ export default class AlgoOrderTable extends React.Component {
   }
 
   onRowClick({ index } = {}) {
-    console.log(index)
-    const { onSelect, algoOrders } = this.props
+    const { onSelect, algoOrders, toggleEditor, editorOpened } = this.props
     onSelect(algoOrders[index])
+    toggleEditor(!editorOpened)
   }
 
   render() {
@@ -69,7 +69,7 @@ export default class AlgoOrderTable extends React.Component {
         <Table
           data={orderObjects}
           columns={AlgoOrderTableColumns}
-          onRowClick={this.onRowClick}
+          onRowClick={e=> this.onRowClick(e)}
           defaultSortBy='mts'
           defaultSortDirection='ASC'
         />

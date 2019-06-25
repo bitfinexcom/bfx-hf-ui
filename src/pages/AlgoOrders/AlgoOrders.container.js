@@ -8,11 +8,13 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
   const { orders = [] } = bfx
 
   const { algoOrders = [] } = table
+  const { editorOpened } = state.editor
 
   return {
     allCandles: candles,
     algoOrders,
     orders,
+    editorOpened,
   }
 }
 

@@ -1,9 +1,7 @@
 import React from 'react'
 import Switch from 'react-switch'
 
-let store = null
-
-window.addEventListener('load', ()=> store = window._store )
+import { store } from '../../StoreWrapper'
 
 export default [{
   width: 200,
@@ -40,7 +38,7 @@ export default [{
     
 
     return <Switch
-      onChange={() => store.dispatch({type: 'CHANGE_STATUS', index: rowIndex})}
+      onChange={() => store.dispatch({ type: 'CHANGE_STATUS', index: rowIndex })}
       checked={rowData.status === 'ACTIVE'}
       height={14}
       width={28}

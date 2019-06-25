@@ -1,7 +1,7 @@
 import React from 'react'
 import AlgoOrderTable from '../../components/AlgoOrderTable'
 import AlgoOrderForm from '../../components/AlgoOrderForm'
-
+import CodeEditor from '../../components/CodeEditor'
 const orders = [
   // all we care about is gid & symbol for rendering ([_, gid, _, symbol])
   [null, 0, null, 'tBTCUSD'],
@@ -38,6 +38,9 @@ export default class AlgoOrdersView extends React.Component {
         />
         <div>
           <AlgoOrderForm />
+        </div>
+        <div>
+          <CodeEditor />
         </div>
       </div>
     )

@@ -1,7 +1,10 @@
 import React, { PureComponent } from 'react'
 import Modal from 'react-modal'
 import { Icon } from '@blueprintjs/core'
-import {NotificationManager} from 'react-notifications'
+import { NotificationManager } from 'react-notifications'
+
+import { store } from '../../StoreWrapper'
+
 
 const customStyles = {
   content: {
@@ -25,39 +28,30 @@ const customStyles = {
 
 
 export default class ModalForm extends PureComponent {
-  constructor() {
-    super()
+  state = {
+    modalIsOpen: false,
+    fileName: '',
+  }
 
-    this.state = {
-      modalIsOpen: false,
+  toggleModal() {
+    const { modalIsOpen } = this.state
+    this.setState({  
+      modalIsOpen: !modalIsOpen,
+      fileName: '',
+    })
+  }
+
+  handleFile(e) {  
+    if (e.target.files[0]) {
+      const { name } = e.target.files[0]
+      this.setState({ fileName: name })
     }
-    this.fileName = ''
-    this.openModal = this.openModal.bind(this)
-    this.closeModal = this.closeModal.bind(this)
   }
 
-  componentDidMount() {
-    this.setState({ fileName: this.fileName })
-  }
-
-  openModal() {
-    this.setState({ modalIsOpen: true })
-    this.setState({ fileName: '' })
-  }
-
-
-  closeModal() {
-    this.setState({ modalIsOpen: false })
-  }
-
-  handleFile(e) {
-    if (e.target.files[0]) { this.setState({ fileName: e.target.files[0].name }) }
-  }
-
-  handleSubmit(e) { 
+  handleSubmit(e) {
     e.preventDefault()
-    const {algoName, algoDesc} = e.target
-    
+    const { algoName, algoDesc } = e.target
+
     /* POST data to HF server (this is pseudo-code)
 
       const options = {
@@ -68,17 +62,24 @@ export default class ModalForm extends PureComponent {
       axios.('POST','some-back-url', options)
 
     */
-    const store = window._store
-    store.dispatch({ type: 'ADD_ALGO_ORDER', payload: { algoOrder: [42, 'bfx-ping_pong', false, null, 1561361614648] } }, )
+
+    store.dispatch({
+      type: 'ADD_ALGO_ORDER',
+      payload: {
+        algoOrder: [42, 'bfx-ping_pong', false, null, 1561361614648],
+      },
+    })
     NotificationManager.success('Algo order Succesfuly added!', 'Success!')
-    this.setState({ modalIsOpen: false })
+    this.toggleModal()
   }
+
   render() {
+    const { modalIsOpen, fileName } = this.state || {}
     return (
       <div>
-        <button className="hfui__add-order-btn" onClick={this.openModal}>Create Algo Order</button>
+        <button className='hfui__add-order-btn' onClick={() => this.toggleModal()}>Create Algo Order</button>
         <Modal
-          isOpen={this.state.modalIsOpen}
+          isOpen={modalIsOpen}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal}
           style={customStyles}
@@ -89,16 +90,16 @@ export default class ModalForm extends PureComponent {
             className='hfui__close-modal-button'
             icon='cross'
             key='cross'
-            onClick={this.closeModal}
+            onClick={() => this.toggleModal()}
           />
           <div>Create Algo Order</div>
           <form className='hfui_modal-algo-form' onSubmit={e => this.handleSubmit(e)}>
             <input name='algoName' type='text' placeholder='Name of algo order' />
             <input name='algoDesc' type='text' placeholder='Short description' />
             <label>
-                <div className="button">{'Upload File'}</div>
-                <div className="filesContainer">{this.state.fileName || ' '}</div>
-                <input type='file' size='60' onChange={e => this.handleFile(e)} />
+              <div className='button'>Upload File</div>
+              <div className='filesContainer'>{fileName}</div>
+              <input type='file' size='60' onChange={e => this.handleFile(e)} />
             </label>
 
             <input name='algo_order_submit' type='submit' value='Submit' className='hfui__add-order-btn' />
