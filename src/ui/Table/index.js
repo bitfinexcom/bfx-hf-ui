@@ -93,7 +93,7 @@ export default class HFTable extends React.PureComponent {
 
   render() {
     const {
-      columns, onRowClick, rowHeight, headerHeight,
+      columns, onRowClick, rowHeight, headerHeight, onRowDoubleClick
     } = this.props
     const { data, sortBy, sortDirection } = this.state
 
@@ -109,7 +109,7 @@ export default class HFTable extends React.PureComponent {
             rowGetter={({ index }) => data[index]}
             rowCount={data.length}
             onRowClick={onRowClick}
-
+            onRowDoubleClick={onRowDoubleClick}
             headerHeight={headerHeight}
             disableHeader={false}
 

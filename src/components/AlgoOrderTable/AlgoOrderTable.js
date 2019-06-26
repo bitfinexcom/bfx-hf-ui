@@ -49,6 +49,13 @@ export default class AlgoOrderTable extends React.Component {
       onSelect, algoOrders, toggleEditor, editorOpened,
     } = this.props
     onSelect(algoOrders[index])
+  }
+
+  onRowDoubleClick() {
+    console.log('true')
+    const {
+      toggleEditor, editorOpened,
+    } = this.props
     toggleEditor(!editorOpened)
   }
 
@@ -69,6 +76,7 @@ export default class AlgoOrderTable extends React.Component {
           data={orderObjects}
           columns={AlgoOrderTableColumns}
           onRowClick={e => this.onRowClick(e)}
+          onRowDoubleClick={() => this.onRowDoubleClick()}
           defaultSortBy='mts'
           defaultSortDirection='ASC'
         />
