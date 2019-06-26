@@ -1,5 +1,7 @@
 .hfui__close-modal-button { 
-    float: right;
+    position: absolute;
+    top: 2%;
+    right: 2%;
 }
 
 
@@ -11,4 +13,8 @@ button:focus {
     float: right;
     margin:  10px 15px 0px 0px;
     padding: 10px 30px 10px 30px;
+}
+
+.hfui__code-editor {
+    display: none;
 }

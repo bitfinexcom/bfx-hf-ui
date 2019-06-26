@@ -52,7 +52,6 @@ export default class AlgoOrderTable extends React.Component {
   }
 
   onRowDoubleClick() {
-    console.log('true')
     const {
       toggleEditor, editorOpened,
     } = this.props

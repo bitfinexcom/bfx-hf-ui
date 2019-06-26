@@ -28,7 +28,6 @@ export default class AlgoOrdersView extends React.Component {
 
   render() {
     const { algoOrders } = this.props
-    console.log(algoOrders)
     return (
       <div className='hfui_view__wrapper'>
         <h1>Algo Orders</h1>

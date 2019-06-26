@@ -41,8 +41,6 @@ export default class CodeEditor extends React.Component {
     }
 
     onChange(code) {
-      console.log(this.code, code)
-      console.log(typeof code)
       this.code = code
     }
 
