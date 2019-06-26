@@ -4,7 +4,6 @@ import Panel from '../../ui/Panel'
 import Table from '../../ui/Table'
 import AlgoOrderTableColumns from './AlgoOrderTable.columns'
 import { propTypes, defaultProps } from './AlgoOrderTable.props'
-import CodeEditor from '../CodeEditor'
 
 
 const ALGO_NAMES = {
@@ -20,7 +19,7 @@ export default class AlgoOrderTable extends React.Component {
   static defaultProps = defaultProps
 
   state = {
-    editorOpened: false
+    editorOpened: false,
   }
 
   componentDidMount() {
@@ -35,20 +34,20 @@ export default class AlgoOrderTable extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     const newAlgoOrders = nextProps.algoOrders
     const { algoOrders } = this.props
-    
-    if(newAlgoOrders.length !== algoOrders.length) {
+
+    if (newAlgoOrders.length !== algoOrders.length) {
       return true
     }
 
-    const isSame = nextProps.algoOrders.every((row, indexRow) => row.every((value, indexValue) => {
-      return value === algoOrders[indexRow][indexValue]
-    }))
+    const isSame = nextProps.algoOrders.every((row, indexRow) => row.every((value, indexValue) => value === algoOrders[indexRow][indexValue]))
 
     return !isSame
   }
 
   onRowClick({ index } = {}) {
-    const { onSelect, algoOrders, toggleEditor, editorOpened } = this.props
+    const {
+      onSelect, algoOrders, toggleEditor, editorOpened,
+    } = this.props
     onSelect(algoOrders[index])
     toggleEditor(!editorOpened)
   }
@@ -69,7 +68,7 @@ export default class AlgoOrderTable extends React.Component {
         <Table
           data={orderObjects}
           columns={AlgoOrderTableColumns}
-          onRowClick={e=> this.onRowClick(e)}
+          onRowClick={e => this.onRowClick(e)}
           defaultSortBy='mts'
           defaultSortDirection='ASC'
         />

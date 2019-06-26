@@ -15,8 +15,8 @@ function receiveAlgoData() {
   return {
     type: 'RECEIVE_ALGO_DATA',
     payload: {
-      data: []
-    }
+      data: [],
+    },
   }
 }
 

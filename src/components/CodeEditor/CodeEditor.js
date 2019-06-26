@@ -3,6 +3,7 @@ import React from 'react'
 import Modal from 'react-modal'
 import MonacoEditor from 'react-monaco-editor'
 import { Icon } from '@blueprintjs/core'
+import axios from 'axios'
 
 const customStyles = {
   content: {
@@ -23,6 +24,12 @@ const customStyles = {
 
 export default class CodeEditor extends React.Component {
 
+    
+
+    componentDidMount () {
+        this.code = ''
+    }
+
     editorDidMount = (editor) => {
       // eslint-disable-next-line no-console
       this.editor = editor
@@ -31,6 +38,23 @@ export default class CodeEditor extends React.Component {
     toggleModal() {
       const { editorOpened, toggleEditor } = this.props
       toggleEditor(!editorOpened)
+    }
+
+    onChange(code) {
+      console.log(this.code, code)
+      console.log(typeof code)
+      this.code = code
+    }
+
+    saveCode() {
+        axios({
+            method: 'POST',
+            url: 'save_order_definition/',
+            params: {
+                code: this.code,
+            },
+        })
+        this.toggleModal()
     }
 
     render() {
@@ -45,7 +69,7 @@ export default class CodeEditor extends React.Component {
       return (
         <Modal
           isOpen={editorOpened}
-          contentLabel='Example Modal'
+          contentLabel='Code Editor'
           style={customStyles}
         >
           <div>
@@ -63,11 +87,16 @@ export default class CodeEditor extends React.Component {
               language='javascript'
               value={code}
               options={options}
-              onChange={this.onChange}
+              onChange={(code) => this.onChange(code)}
               theme='vs-dark'
               editorDidMount={this.editorDidMount}
             />
+            <button 
+            className='hfui__add-order-btn hfui__btn-right' 
+            onClick={() => this.saveCode()}
+            >Save</button>
           </div>
+          
         </Modal>
       )
     }
