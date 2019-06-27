@@ -4,6 +4,7 @@ import _isEmpty from 'lodash/isEmpty'
 import { Spinner } from '@blueprintjs/core'
 import { version } from '../../../package.json'
 
+
 import { propTypes, defaultProps } from './index.props'
 
 export default class StatusBar extends React.PureComponent {

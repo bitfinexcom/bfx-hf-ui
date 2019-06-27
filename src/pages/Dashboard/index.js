@@ -16,7 +16,6 @@ export default class DashboardView extends React.PureComponent {
       ...new Array(20).fill([null, 42, null, 'tLEOUSD']),
     ]
 
-
     const strategies = [
       // [gid, name, status, created]
       [0, 'EMA Cross A', true, +(new Date(Date.now() - (24 * 60 * 60 * 1000)))],
