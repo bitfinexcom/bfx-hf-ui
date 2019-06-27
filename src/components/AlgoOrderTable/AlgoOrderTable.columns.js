@@ -1,8 +1,12 @@
 import React from 'react'
 import Switch from 'react-switch'
+import { Icon } from '@blueprintjs/core'
 
 import { store } from '../../StoreWrapper'
 
+const openEditor = () => {
+  store.dispatch({ type: 'TOGGLE_EDITOR', payload: { editorOpened: true } })
+}
 export default [{
   width: 200,
   label: 'Name',
@@ -46,4 +50,9 @@ export default [{
       offColor='#C1C2C3'
     />
 },
+},{
+  width: 120,
+  label: 'Edit',
+  dataKey: 'edit',
+  cellRenderer: () => <Icon icon='edit' key='edit' onClick={() => { openEditor() }} />,
 }]

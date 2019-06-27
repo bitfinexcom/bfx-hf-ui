@@ -51,13 +51,6 @@ export default class AlgoOrderTable extends React.Component {
     onSelect(algoOrders[index])
   }
 
-  onRowDoubleClick() {
-    const {
-      toggleEditor, editorOpened,
-    } = this.props
-    toggleEditor(!editorOpened)
-  }
-
   render() {
     const { algoOrders, orders } = this.props
     const orderObjects = algoOrders.map(ao => ({
@@ -75,7 +68,6 @@ export default class AlgoOrderTable extends React.Component {
           data={orderObjects}
           columns={AlgoOrderTableColumns}
           onRowClick={e => this.onRowClick(e)}
-          onRowDoubleClick={() => this.onRowDoubleClick()}
           defaultSortBy='mts'
           defaultSortDirection='ASC'
         />
