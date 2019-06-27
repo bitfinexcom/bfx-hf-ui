@@ -5,7 +5,6 @@ import Table from '../../ui/Table'
 import AlgoOrderTableColumns from './AlgoOrderTable.columns'
 import { propTypes, defaultProps } from './AlgoOrderTable.props'
 
-
 const ALGO_NAMES = {
   'bfx-accumulate_distribute': 'Accumulate/Distribute',
   'bfx-ping_pong': 'Ping/Pong',
@@ -31,7 +30,7 @@ export default class AlgoOrderTable extends React.Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps) {
     const newAlgoOrders = nextProps.algoOrders
     const { algoOrders } = this.props
 
@@ -46,7 +45,7 @@ export default class AlgoOrderTable extends React.Component {
 
   onRowClick({ index } = {}) {
     const {
-      onSelect, algoOrders, toggleEditor, editorOpened,
+      onSelect, algoOrders,
     } = this.props
     onSelect(algoOrders[index])
   }

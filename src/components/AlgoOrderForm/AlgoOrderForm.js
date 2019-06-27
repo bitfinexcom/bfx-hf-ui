@@ -5,7 +5,6 @@ import { NotificationManager } from 'react-notifications'
 
 import { store } from '../../StoreWrapper'
 
-
 const customStyles = {
   content: {
     top: '40%',
@@ -23,10 +22,6 @@ const customStyles = {
   },
 }
 
-
-// Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
-
-
 export default class ModalForm extends PureComponent {
   state = {
     modalIsOpen: false,
@@ -35,13 +30,13 @@ export default class ModalForm extends PureComponent {
 
   toggleModal() {
     const { modalIsOpen } = this.state
-    this.setState({  
+    this.setState({
       modalIsOpen: !modalIsOpen,
       fileName: '',
     })
   }
 
-  handleFile(e) {  
+  handleFile(e) {
     if (e.target.files[0]) {
       const { name } = e.target.files[0]
       this.setState({ fileName: name })
@@ -77,7 +72,14 @@ export default class ModalForm extends PureComponent {
     const { modalIsOpen, fileName } = this.state || {}
     return (
       <div>
-        <button className='hfui__add-order-btn' onClick={() => this.toggleModal()}>Create Algo Order</button>
+        <button
+          type='button'
+          className='hfui__add-order-btn'
+          onClick={() => this.toggleModal()
+         }
+        >
+          Create Algo Order
+        </button>
         <Modal
           isOpen={modalIsOpen}
           onAfterOpen={this.afterOpenModal}
@@ -85,7 +87,6 @@ export default class ModalForm extends PureComponent {
           style={customStyles}
           contentLabel='Example Modal'
         >
-
           <Icon
             className='hfui__close-modal-button'
             icon='cross'
@@ -101,7 +102,6 @@ export default class ModalForm extends PureComponent {
               <div className='filesContainer'>{fileName}</div>
               <input type='file' size='60' onChange={e => this.handleFile(e)} />
             </label>
-
             <input name='algo_order_submit' type='submit' value='Submit' className='hfui__add-order-btn' />
           </form>
         </Modal>

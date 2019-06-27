@@ -4,7 +4,7 @@ import EditorActions from '../../redux/actions/editor'
 
 import CodeEditorView from './CodeEditor'
 
-const mapStateToProps = (state = {}, ownProps = {}) => {
+const mapStateToProps = (state = {}) => {
   const { editorOpened = false, code = '' } = state.editor
 
   return {

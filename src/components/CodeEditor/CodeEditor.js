@@ -23,79 +23,80 @@ const customStyles = {
 }
 
 export default class CodeEditor extends React.Component {
+  componentDidMount() {
+    this.code = ''
+  }
 
-    
+  onChange(code) {
+    this.code = code
+  }
 
-    componentDidMount () {
-        this.code = ''
+  editorDidMount = (editor) => {
+    // eslint-disable-next-line no-console
+    this.editor = editor
+  }
+
+  toggleModal() {
+    const { editorOpened, toggleEditor } = this.props
+    toggleEditor(!editorOpened)
+  }
+
+
+  saveCode() {
+    axios({
+      method: 'POST',
+      url: 'save_order_definition/',
+      params: {
+        code: this.code,
+      },
+    })
+    this.toggleModal()
+  }
+
+  render() {
+    const options = {
+      selectOnLineNumbers: true,
+      roundedSelection: false,
+      readOnly: false,
+      cursorStyle: 'line',
+      automaticLayout: false,
     }
-
-    editorDidMount = (editor) => {
-      // eslint-disable-next-line no-console
-      this.editor = editor
-    }
-
-    toggleModal() {
-      const { editorOpened, toggleEditor } = this.props
-      toggleEditor(!editorOpened)
-    }
-
-    onChange(code) {
-      this.code = code
-    }
-
-    saveCode() {
-        axios({
-            method: 'POST',
-            url: 'save_order_definition/',
-            params: {
-                code: this.code,
-            },
-        })
-        this.toggleModal()
-    }
-
-    render() {
-      const options = {
-        selectOnLineNumbers: true,
-        roundedSelection: false,
-        readOnly: false,
-        cursorStyle: 'line',
-        automaticLayout: false,
-      }
-      const { editorOpened, code = '' } = this.props
-      return (
-        <Modal
-          isOpen={editorOpened}
-          contentLabel='Code Editor'
-          style={customStyles}
-        >
-          <div>
-            <Icon
-              className='hfui__close-modal-button'
-              icon='cross'
-              key='cross'
-              onClick={() => this.toggleModal()}
-            />
-          </div>
-          <hr />
-          <div>
-            <MonacoEditor
-              height='500'
-              language='javascript'
-              value={code}
-              options={options}
-              onChange={(code) => this.onChange(code)}
-              theme='vs-dark'
-              editorDidMount={this.editorDidMount}
-            />
-            <button 
-            className='hfui__add-order-btn hfui__btn-right' 
+    const { editorOpened, code = '' } = this.props
+    return (
+      <Modal
+        isOpen={editorOpened}
+        contentLabel='Code Editor'
+        style={customStyles}
+      >
+        <div>
+          <Icon
+            className='hfui__close-modal-button'
+            icon='cross'
+            key='cross'
+            onClick={() => this.toggleModal()}
+          />
+        </div>
+        <hr />
+        <div>
+          <MonacoEditor
+            height='500'
+            language='javascript'
+            value={code}
+            options={options}
+            onChange={code => this.onChange(code)}
+            theme='vs-dark'
+            editorDidMount={this.editorDidMount}
+          />
+          <button
+            type='button'
+            className='hfui__add-order-btn hfui__btn-right'
             onClick={() => this.saveCode()}
-            >Save</button>
-          </div>
-          
-        </Modal>
-      )
-    }
+          >
+          Save
+          </button>
+        </div>
+
+      </Modal>
+    )
+  }
 }
