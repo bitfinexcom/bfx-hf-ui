@@ -53,7 +53,7 @@ function reducer(state = getInitialState(), action = {}) {
     }
 
     case 'ADD_ALGO_ORDER': {
-      const algoOrders = [...state.algoOrders] || []
+      const algoOrders = [...state.algoOrders]
       const { algoOrder = [] } = payload
       algoOrders.unshift(algoOrder)
 

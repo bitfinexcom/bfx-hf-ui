@@ -4,10 +4,6 @@ import StrategyTable from '../../components/StrategyTable'
 import AlgoOrderTable from '../../components/AlgoOrderTable'
 
 export default class DashboardView extends React.PureComponent {
-
-  constructor (props) { 
-    super(props);
-  }
   render() {
     // mock data for design
     const orders = [
@@ -17,28 +13,7 @@ export default class DashboardView extends React.PureComponent {
       [null, 0, null, 'tBTCUSD'],
       [null, 0, null, 'tBTCUSD'],
       // note strat (1) is stopped
-      [null, 2, null, 'tLEOUSD'],
-      [null, 2, null, 'tLEOUSD'],
-      [null, 42, null, 'tLEOUSD'],
-      [null, 42, null, 'tLEOUSD'],
-      [null, 42, null, 'tLEOUSD'],
-      [null, 42, null, 'tLEOUSD'],
-      [null, 42, null, 'tLEOUSD'],
-      [null, 42, null, 'tLEOUSD'],
-      [null, 42, null, 'tLEOUSD'],
-      [null, 42, null, 'tLEOUSD'],
-      [null, 42, null, 'tLEOUSD'],
-      [null, 42, null, 'tLEOUSD'],
-      [null, 42, null, 'tLEOUSD'],
-      [null, 42, null, 'tLEOUSD'],
-      [null, 42, null, 'tLEOUSD'],
-      [null, 42, null, 'tLEOUSD'],
-      [null, 42, null, 'tLEOUSD'],
-      [null, 42, null, 'tLEOUSD'],
-      [null, 42, null, 'tLEOUSD'],
-      [null, 42, null, 'tLEOUSD'],
-      [null, 42, null, 'tLEOUSD'],
-      [null, 42, null, 'tLEOUSD'],
+      ...new Array(20).fill([null, 42, null, 'tLEOUSD']),
     ]
 
 
