@@ -10,7 +10,6 @@ const keyCodes = {
   V: 86,
 }
 
-
 const env = {
   ...process.env,
   ELECTRON_VERSION: process.versions.electron,
@@ -42,7 +41,6 @@ function createWindow() {
   })
 }
 
-
 const template = [{
   label: 'Application',
   submenu: [
@@ -64,13 +62,8 @@ const template = [{
 },
 ]
 
-app.on('ready', () => {
-  try {
-    runServer()
-  } catch (err) {
-    return console.log(err)
-  }
   Menu.setApplicationMenu(Menu.buildFromTemplate(template))
+
   protocol.interceptFileProtocol('file', (request, callback) => {
     const url = request.url.substr(7) /* all urls start with 'file://' */
     callback({ path: path.normalize(`${__dirname}/${url}`) })

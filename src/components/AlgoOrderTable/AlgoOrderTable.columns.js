@@ -37,6 +37,7 @@ export default [{
   width: 120,
   label: 'Actions',
   dataKey: 'gid',
+
   cellRenderer: ({ rowData = {}, rowIndex }) => {
     
 

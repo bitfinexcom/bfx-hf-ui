@@ -13,6 +13,7 @@ const ALGO_NAMES = {
 }
 
 export default class AlgoOrderTable extends React.Component {
+
   static propTypes = propTypes
 
   static defaultProps = defaultProps

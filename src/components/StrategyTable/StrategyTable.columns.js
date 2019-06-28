@@ -33,6 +33,6 @@ export default [{
   label: 'Actions',
   dataKey: 'gid',
   cellRenderer: ({ rowData = {} }) => (
-     <Switch  checked={rowData.status === 'ACTIVE' ? true : false} height={14} width={28} onColor='#0F0' />
+     <Switch  checked={rowData.status === 'ACTIVE'} height={14} width={28} onColor='#0F0' />
   ),
 }]
