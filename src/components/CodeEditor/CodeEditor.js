@@ -6,7 +6,6 @@ import { Icon } from '@blueprintjs/core'
 import axios from 'axios'
 
 import { defaultProps, propTypes } from './CodeEditor.props'
-import { stat } from 'fs-extra-p';
 
 const customStyles = {
   content: {

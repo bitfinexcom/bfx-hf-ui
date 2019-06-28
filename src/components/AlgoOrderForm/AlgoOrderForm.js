@@ -100,7 +100,7 @@ export default class ModalForm extends PureComponent {
             <label>
               <div className='button'>Upload File</div>
               <div className='filesContainer'>{fileName}</div>
-              <input type='file' size='60' onChange={e => this.handleFile(e)} />
+              <input type='file' accept='.js' size='60' onChange={e => this.handleFile(e)} />
             </label>
             <input name='algo_order_submit' type='submit' value='Submit' className='hfui__add-order-btn' />
           </form>
