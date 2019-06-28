@@ -5,6 +5,9 @@ import MonacoEditor from 'react-monaco-editor'
 import { Icon } from '@blueprintjs/core'
 import axios from 'axios'
 
+import { defaultProps, propTypes } from './CodeEditor.props'
+import { stat } from 'fs-extra-p';
+
 const customStyles = {
   content: {
     top: '50%',
@@ -23,6 +26,10 @@ const customStyles = {
 }
 
 export default class CodeEditor extends React.Component {
+  static defaultProps = defaultProps
+
+  static propTypes = propTypes
+
   componentDidMount() {
     this.code = ''
   }
