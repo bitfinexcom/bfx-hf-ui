@@ -20,6 +20,12 @@
     },
     "mac": {
       "icon": "build/icon.png"
+    },
+    "win": {
+      "icon": "build/icon.png"
+    },
+    "linux": {
+      "icon": "build/icon.png"
     }
   },
   "scripts": {
@@ -35,7 +41,7 @@
     "electron-dev": "concurrently \"BROWSER=none npm run dev\" \"wait-on http://localhost:3000 && electron ./public/electron.js\"",
     "electron": "electron .",
     "pack": "electron-builder --dir",
-    "dist": "build --mac --win -c.extraMetadata.main=build/electron.js --publish never"
+    "dist": "build --mac --win --linux -c.extraMetadata.main=build/electron.js --publish never"
   },
   "author": "Cris Mihalache <cris.m@bitfinex.com> (https://www.bitfinex.com)",
   "license": "Apache-2.0",
