@@ -66,6 +66,9 @@
   "devDependencies": {
     "bfx-hf-data-server": "git+https://github.com/bitfinexcom/bfx-hf-data-server.git",
     "bfx-hf-server": "https://github.com/bitfinexcom/bfx-hf-server.git",
+    "bfx-hf-ext-plugin-bitfinex": "git+https://github.com/bitfinexcom/bfx-hf-ext-plugin-bitfinex.git",
+    "bfx-hf-models-adapter-lowdb": "git+https://github.com/bitfinexcom/bfx-hf-models-adapter-lowdb.git",
+    "bfx-hf-models": "git+https://github.com/bitfinexcom/bfx-hf-models.git",
     "cjs": "0.0.11",
     "cjs-loader": "^0.1.0",
     "concurrently": "^4.1.0",
