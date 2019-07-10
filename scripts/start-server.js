@@ -77,7 +77,7 @@ const run = async () => {
   app.get('/api-key', async (req, res) => {
     const creds = await Credential.get(CRED_KEY)
     if (!creds) {
-      return res.status(500).json({ error: `Unable to find api credentials for id ${CRED_KEY}` })
+      return res.status(200).json({ error: `Unable to find api credentials for id ${CRED_KEY}` })
     }
     return res.json({
       key: creds.key,
@@ -103,9 +103,10 @@ const run = async () => {
         secret,
       })
     } catch (error) {
+      console.log(error)
       return res.status(500).json({ error: error.message })
     }
-    await startHFServer()
+    startHFServer()
     return res.json({ key, secret })
   })
 
@@ -149,7 +150,7 @@ const run = async () => {
     return res.json(data)
   })
 
-  startHFServer()
+  await startHFServer()
   app.listen(API_PORT)
 
   debug(`server listening on port ${API_PORT}`)

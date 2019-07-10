@@ -1,13 +1,11 @@
 import React from 'react'
-// import { Spinner, Intent } from '@blueprintjs/core'
-import { Switch, Route } from 'react-router-dom'
-// import _isEmpty from 'lodash/isEmpty'
+import { Spinner, Intent } from '@blueprintjs/core'
+import { Route } from 'react-router-dom'
+import _isEmpty from 'lodash/isEmpty'
 
-// import APIComboDialog from '../APIComboDialog'
+import APIComboDialog from '../APIComboDialog'
 import SideNavBar from '../../ui/SideNavBar'
 import StatusBar from '../../ui/StatusBar'
-import BacktestingView from '../../pages/Backtesting'
-import SettingsView from '../../pages/Settings'
 import AlgoOrdersView from '../../pages/AlgoOrders'
 import DashboardView from '../../pages/Dashboard'
 
@@ -32,9 +30,6 @@ export default class HFUI extends React.Component {
   }
 
   render() {
-    console.log('!!! NOTE: API key/secret enforcer disabled !!!')
-
-    /*
     const { apiKeyCombo = {} } = this.props
 
     if (_isEmpty(apiKeyCombo)) {
@@ -59,7 +54,6 @@ export default class HFUI extends React.Component {
         </div>
       )
     }
-    */
 
     /*
       <Route exact path='/index.html' component={DashboardView} />  used for an electron app
