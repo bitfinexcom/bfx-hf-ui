@@ -7,31 +7,25 @@
   "main": "./build/electron.js",
   "homepage": "./",
   "build": {
-    "asar": true,
+    "productName": "The Honey Framework",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*",
+      "src/**/*"
+    ],
+    "asar": false,
     "appId": "com.bfx-hf-ui",
-    "mac": {
-      "hardenedRuntime": true,
-      "artifactName": "${productName}-${version}-${arch}-${os}.${ext}",
-      "category": "public.app-category.productivity",
-      "target": [
-        "dmg"
-      ]
+    "directories": {
+      "buildResources": "public"
     },
-    "dmg": {
-      "iconSize": 100,
-      "contents": [
-        {
-          "x": 380,
-          "y": 280,
-          "type": "link",
-          "path": "/Applications"
-        },
-        {
-          "x": 110,
-          "y": 280,
-          "type": "file"
-        }
-      ]
+    "mac": {
+      "icon": "build/icon.png"
+    },
+    "win": {
+      "icon": "build/icon.png"
+    },
+    "linux": {
+      "icon": "build/icon.png"
     }
   },
   "scripts": {
@@ -44,10 +38,10 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.js",
-    "electron-dev": "concurrently \"BROWSER=none npm run dev\" \"wait-on http://localhost:3000 && electron ./public/electron.js\"",
+    "electron-dev": "concurrently \"BROWSER=none npm run start-server\"  & electron .",
     "electron": "electron .",
     "pack": "electron-builder --dir",
-    "dist": "build"
+    "dist": "build --mac --win --linux -c.extraMetadata.main=build/electron.js --publish never"
   },
   "author": "Cris Mihalache <cris.m@bitfinex.com> (https://www.bitfinex.com)",
   "license": "Apache-2.0",
@@ -82,6 +76,7 @@
     "@blueprintjs/core": "3.1.0",
     "@blueprintjs/datetime": "3.1.0",
     "@blueprintjs/select": "3.1.0",
+    "dotenv": "8.0.0",
     "axios": "^0.18.0",
     "bfx-hf-ext-plugin-bitfinex": "git+https://github.com/bitfinexcom/bfx-hf-ext-plugin-bitfinex.git",
     "bfx-hf-indicators": "bitfinexcom/bfx-hf-indicators",

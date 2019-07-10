@@ -16,6 +16,7 @@ const runServer = () => {
     cwd: process.cwd(),
     silent: false,
   })
+  console.log('server')
 }
 
 let mainWindow
@@ -28,7 +29,7 @@ function createWindow() {
     protocol: 'file',
     slashes: true,
   }))
-
+  console.log('client')
   mainWindow.on('closed', () => {
     mainWindow = null
   })
@@ -46,7 +47,7 @@ app.on('ready', () => {
   }, (err) => {
     if (err) console.error('Failed to register protocol')
   })
-  createWindow()
+  setTimeout(createWindow, 5000) // TODO: Remake await until server starts
 })
 
 app.on('window-all-closed', () => {
