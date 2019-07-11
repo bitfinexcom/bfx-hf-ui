@@ -1,22 +1,12 @@
 const { app, BrowserWindow, protocol } = require('electron')
 const path = require('path')
 const url = require('url')
-const { fork } = require('child_process')
+
+require('../scripts/start-server') // run server
 
 const env = {
   ...process.env,
   ELECTRON_VERSION: process.versions.electron,
-}
-const serverPath = path.join(__dirname, '../scripts/start-server.js')
-let ipc = null
-
-const runServer = () => {
-  ipc = fork(serverPath, [], {
-    env,
-    cwd: process.cwd(),
-    silent: false,
-  })
-  console.log('server')
 }
 
 let mainWindow
@@ -36,18 +26,13 @@ function createWindow() {
 }
 
 app.on('ready', () => {
-  try {
-    runServer()
-  } catch (err) {
-    return console.log(err)
-  }
   protocol.interceptFileProtocol('file', (request, callback) => {
     const url = request.url.substr(7) /* all urls start with 'file://' */
     callback({ path: path.normalize(`${__dirname}/${url}`) })
   }, (err) => {
     if (err) console.error('Failed to register protocol')
   })
-  setTimeout(createWindow, 5000) // TODO: Remake await until server starts
+  createWindow()
 })
 
 app.on('window-all-closed', () => {

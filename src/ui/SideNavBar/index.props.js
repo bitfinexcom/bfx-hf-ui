@@ -6,11 +6,11 @@ export const propTypes = {
 
 export const defaultProps = {
   buttons: {
-    '': {
-      label: 'Dashboard',
-      enabled: true,
-      icon: 'home',
-    },
+    // '': {
+    //   label: 'Dashboard',
+    //   enabled: true,
+    //   icon: 'home',
+    // },
     'algo-orders': {
       label: 'Algo Orders',
       enabled: true,

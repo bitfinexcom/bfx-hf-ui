@@ -11,7 +11,8 @@
     "files": [
       "build/**/*",
       "node_modules/**/*",
-      "src/**/*"
+      "src/**/*",
+      "scripts/**/*"
     ],
     "asar": false,
     "appId": "com.bfx-hf-ui",
@@ -69,7 +70,6 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.13.0",
     "node-sass-tilde-importer": "^1.0.2",
-    "socks-proxy-agent": "^4.0.2",
     "standard": "^10.0.2"
   },
   "dependencies": {
@@ -78,6 +78,7 @@
     "@blueprintjs/select": "3.1.0",
     "dotenv": "8.0.0",
     "axios": "^0.18.0",
+    "socks-proxy-agent": "^4.0.2",
     "bfx-hf-ext-plugin-bitfinex": "git+https://github.com/bitfinexcom/bfx-hf-ext-plugin-bitfinex.git",
     "bfx-hf-indicators": "bitfinexcom/bfx-hf-indicators",
     "bfx-hf-models": "git+https://github.com/bitfinexcom/bfx-hf-models.git",
