@@ -7,7 +7,7 @@ import APIComboDialog from '../APIComboDialog'
 import SideNavBar from '../../ui/SideNavBar'
 import StatusBar from '../../ui/StatusBar'
 import AlgoOrdersView from '../../pages/AlgoOrders'
-import DashboardView from '../../pages/Dashboard'
+
 
 export default class HFUI extends React.Component {
   constructor(props) {
