@@ -19,7 +19,6 @@ function createWindow() {
     protocol: 'file',
     slashes: true,
   }))
-  console.log('client')
   mainWindow.on('closed', () => {
     mainWindow = null
   })

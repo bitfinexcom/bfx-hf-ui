@@ -44,7 +44,7 @@
     "pack": "electron-builder --dir",
     "dist": "build --mac --win --linux -c.extraMetadata.main=build/electron.js --publish never"
   },
-  "author": "Cris Mihalache <cris.m@bitfinex.com> (https://www.bitfinex.com)",
+  "author": "Bitfinex",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/bitfinexcom/honey-framework-ui/issues"
