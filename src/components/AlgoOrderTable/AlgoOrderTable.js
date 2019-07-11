@@ -11,11 +11,7 @@ const ALGO_NAMES = {
   'bfx-iceberg': 'Iceberg',
   'bfx-twap': 'TWAP'
 }
-const algoOrders = [
-      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-      [42, 'bfx-iceberg', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-      [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
-    ]
+
 export default class AlgoOrderTable extends React.PureComponent {
   static propTypes = propTypes
 

@@ -3,6 +3,9 @@ import AlgoOrderTable from '../../components/AlgoOrderTable'
 
 const algoOrders = [
   [42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
+  [42, 'bfx-iceberg', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
+  [42, 'bfx-twap', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
+  [42, 'bfx-accumulate_distribute', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))],
 ]
 const orders = [
   // all we care about is gid & symbol for rendering ([_, gid, _, symbol])
