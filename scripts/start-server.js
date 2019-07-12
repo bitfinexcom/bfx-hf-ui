@@ -60,6 +60,7 @@ const run = async () => {
         url: REST_URL,
       })
       hfServer = new HFServer({
+        db: hfDb,
         apiKey: creds.key,
         apiSecret: creds.secret,
         transform: true,
