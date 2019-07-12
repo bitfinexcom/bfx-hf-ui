@@ -1,7 +1,7 @@
 
 .ReactVirtualized__Table__headerRow {
   text-align: center;
-  background: #161E24;
+  background: #1b262d;
   border-bottom: 0.2px solid #2C3B46;
 }
 
@@ -18,10 +18,7 @@
 
   &:first-child {
     text-align: center;
-    padding-left: 10px;
   }
-
-  padding-right: 10px;
 }
 
 .ReactVirtualized__Table__headerTruncatedText {
@@ -35,21 +32,15 @@
     font-size: 13px;
   }
   
-  background: #161E24;
+  background: #1b262d;
+  padding-top: 10px;
+  padding-bottom: 10px;
   color: #ccc;
   text-align: center;
   border-bottom: 0.2px solid #2C3B46;
   &:hover {
     cursor: pointer;
     background: #232f38;
-  }
-}
-
-.ReactVirtualized__Table__rowColumn {
-  
-
-  &:first-child {
-    padding-left: 10px;
   }
 }
 
