@@ -10,7 +10,7 @@ import StatusBar from '../../ui/StatusBar'
 // import BacktestingView from '../../pages/Backtesting'
 // import SettingsView from '../../pages/Settings'
 import AlgoOrdersView from '../../pages/AlgoOrders'
-import DashboardView from '../../pages/Dashboard'
+
 
 import { defaultProps, propTypes } from './HFUI.props'
 
@@ -76,8 +76,7 @@ export default class HFUI extends React.Component {
         <div className='hfui_content__wrapper'>
           <NotificationContainer />
           <Route component={SideNavBar} />
-          <Route exact path='/' component={DashboardView} />
-          <Route exact path='/index.html' component={DashboardView} />
+          <Route exact path='/index.html' component={AlgoOrdersView} />
           <Route path='/algo-orders' component={AlgoOrdersView} />
         </div>
 
