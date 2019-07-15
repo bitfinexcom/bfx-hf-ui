@@ -4,7 +4,7 @@ import _isFinite from 'lodash/isFinite'
 import _isObject from 'lodash/isObject'
 import { NonIdealState } from '@blueprintjs/core'
 
-import { candleWidth } from 'bfx-hf-util'
+// import { candleWidth } from 'bfx-hf-util'
 import HFI from 'bfx-hf-indicators'
 
 import Chart from '../Chart'
@@ -118,7 +118,7 @@ export default class BTNewContent extends React.PureComponent {
       return
     }
 
-    const nCandles = Math.floor(((+to) - (+from)) / candleWidth(tf))
+    const nCandles = Math.floor(((+to) - (+from)) / 1 /* candleWidth(tf) */)
 
     if (nCandles !== candles.length) {
       console.warn(`have incomplete candles: ${nCandles} !== ${candles.length} (${symbol}, ${tf})`)

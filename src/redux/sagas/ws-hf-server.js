@@ -3,6 +3,8 @@ import { put, call, select, takeEvery } from 'redux-saga/effects'
 import WSHFActions from '../actions/ws-hf-server'
 import WSHFTypes from '../constants/ws-hf-server'
 
+import { NotificationManager } from 'react-notifications'
+
 const CHECK_EVERY = 4000
 const WSS_URL = 'ws://localhost:10000'
 
@@ -17,6 +19,8 @@ function checkConnection (socket = {}) {
 }
 
 function * onConnection () {
+  NotificationManager.success('Socket Connected')
+  console.log('socket connected')
   yield put({ type: WSHFTypes.FLUSH_QUEUE })
 }
 
