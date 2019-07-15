@@ -26,7 +26,7 @@ function reducer(state = getInitialState(), action = {}) {
 
     case 'GET_ALGO_DATA': {
       const algoOrders = [
-        ...new Array(10).fill([42, 'bfx-ping_pong', true, null, +(new Date(Date.now() - (4 * 60 * 60 * 1000)))]),
+        ...new Array(10).fill([42, 'bfx-ping_pong', true, null, 'Default']),
       ]
       return {
         ...state,

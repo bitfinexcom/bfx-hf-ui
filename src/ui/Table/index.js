@@ -93,7 +93,7 @@ export default class HFTable extends React.PureComponent {
 
   render() {
     const {
-      columns, onRowClick, rowHeight, headerHeight, onRowDoubleClick
+      columns, onRowClick, rowHeight, headerHeight, onRowDoubleClick, maxWidth,
     } = this.props
     const { data, sortBy, sortDirection } = this.state
 
@@ -103,7 +103,7 @@ export default class HFTable extends React.PureComponent {
           <Table
             autoHeight={false}
             height={height}
-            width={width}
+            width={maxWidth && width > maxWidth ? maxWidth : width}
 
             rowHeight={rowHeight}
             rowGetter={({ index }) => data[index]}

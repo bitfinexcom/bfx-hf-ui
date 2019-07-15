@@ -63,12 +63,12 @@ export default class AlgoOrderTable extends React.Component {
     }))
 
     return (
-      <Panel label='Algo Orders' contentClassName='table__wrapper'>
+      <Panel label='Order definitions' contentClassName='table__wrapper'>
         <Table
           data={orderObjects}
           columns={AlgoOrderTableColumns}
           onRowClick={e => this.onRowClick(e)}
-          defaultSortBy='mts'
+          maxWidth={850}
           defaultSortDirection='ASC'
         />
       </Panel>

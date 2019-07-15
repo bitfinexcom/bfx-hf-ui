@@ -1,7 +1,7 @@
 
 .ReactVirtualized__Table__headerRow {
   text-align: center;
-  background: #161E24;
+  background: #1b262d;
   border-bottom: 0.2px solid #2C3B46;
 }
 
@@ -35,7 +35,9 @@
     font-size: 13px;
   }
   
-  background: #161E24;
+  background: #1b262d;
+  padding-top: 10px;
+  padding-bottom: 10px;
   color: #ccc;
   text-align: center;
   border-bottom: 0.2px solid #2C3B46;
@@ -76,7 +78,7 @@
   ::-webkit-scrollbar {
     width: 10px;
     // background-color: rgba(0, 0, 0, 0.2);
-    background: #161E24;
+    background: #1b262d;
   }
 
   ::-webkit-scrollbar-thumb {
