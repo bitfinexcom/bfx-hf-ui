@@ -28,23 +28,21 @@ export default class AlgoOrderTable extends React.PureComponent {
   }
 
   render () {
-    const { algoOrders, orders } = this.props
+    const { algoOrders } = this.props
     const orderObjects = algoOrders.map(ao => ({
       gid: ao[0],
       name: ALGO_NAMES[ao[1]],
       mts: ao[4],
-      status: ao[2] ? 'ACTIVE' : 'STOPPED',
-      orderCount: orders.filter(o => o[1] === +ao[0]).length,
-      symbol: (orders.find(o => o[1] === +ao[0]) || {})[3] || ''
+      status: ao[2] ? 'ACTIVE' : 'STOPPED'
     }))
 
     return (
-      <Panel label='Algo Orders' contentClassName='table__wrapper'>
+      <Panel label='Order definitions' contentClassName='table__wrapper'>
         <Table
           data={orderObjects}
           columns={AlgoOrderTableColumns}
           onRowClick={this.onRowClick}
-          defaultSortBy='mts'
+          maxWidth={850}
           defaultSortDirection='ASC'
         />
       </Panel>
