@@ -18,10 +18,7 @@
 
   &:first-child {
     text-align: center;
-    padding-left: 10px;
   }
-
-  padding-right: 10px;
 }
 
 .ReactVirtualized__Table__headerTruncatedText {
@@ -44,14 +41,6 @@
   &:hover {
     cursor: pointer;
     background: #232f38;
-  }
-}
-
-.ReactVirtualized__Table__rowColumn {
-  
-
-  &:first-child {
-    padding-left: 10px;
   }
 }
 

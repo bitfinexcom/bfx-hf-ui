@@ -51,15 +51,15 @@ export default class AlgoOrderTable extends React.Component {
     onSelect(algoOrders[index])
   }
 
-  render() {
-    const { algoOrders, orders } = this.props
+
+  render () {
+    const { algoOrders } = this.props
+    
     const orderObjects = algoOrders.map(ao => ({
       gid: ao[0],
       name: ALGO_NAMES[ao[1]],
       mts: ao[4],
-      status: ao[2] ? 'ACTIVE' : 'STOPPED',
-      orderCount: orders.filter(o => o[1] === +ao[0]).length,
-      symbol: (orders.find(o => o[1] === +ao[0]) || {})[3] || '',
+      status: ao[2] ? 'ACTIVE' : 'STOPPED'
     }))
 
     return (
@@ -67,7 +67,7 @@ export default class AlgoOrderTable extends React.Component {
         <Table
           data={orderObjects}
           columns={AlgoOrderTableColumns}
-          onRowClick={e => this.onRowClick(e)}
+          onRowClick={this.onRowClick}
           maxWidth={850}
           defaultSortDirection='ASC'
         />

@@ -3,26 +3,12 @@ import AlgoOrderTable from '../../components/AlgoOrderTable'
 import AlgoOrderForm from '../../components/AlgoOrderForm'
 import CodeEditor from '../../components/CodeEditor'
 
-const orders = [
-  // all we care about is gid & symbol for rendering ([_, gid, _, symbol])
-  [null, 0, null, 'tBTCUSD'],
-  [null, 0, null, 'tBTCUSD'],
-  [null, 0, null, 'tBTCUSD'],
-  [null, 0, null, 'tBTCUSD'],
-  // note strat (1) is stopped
-  [null, 2, null, 'tLEOUSD'],
-  [null, 2, null, 'tLEOUSD'],
-  [null, 42, null, 'tLEOUSD'],
-  [null, 42, null, 'tLEOUSD'],
-  [null, 42, null, 'tLEOUSD'],
-  [null, 42, null, 'tLEOUSD'],
-  [null, 42, null, 'tLEOUSD'],
-  [null, 42, null, 'tLEOUSD'],
-  [null, 42, null, 'tLEOUSD'],
-  [null, 42, null, 'tLEOUSD'],
-  [null, 42, null, 'tLEOUSD'],
+const algoOrders = [
+  [42, 'bfx-ping_pong', true, null, 'Default'],
+  [42, 'bfx-iceberg', true, null, 'Default'],
+  [42, 'bfx-twap', true, null, 'Default'],
+  [42, 'bfx-accumulate_distribute', true, null, 'Default'],
 ]
-
 
 export default class AlgoOrdersView extends React.Component {
   state = {}
@@ -35,14 +21,7 @@ export default class AlgoOrdersView extends React.Component {
         <h1>Algo Orders</h1>
         <AlgoOrderTable
           algoOrders={algoOrders}
-          orders={orders}
         />
-        <div>
-          <AlgoOrderForm />
-        </div>
-        <div>
-          <CodeEditor />
-        </div>
       </div>
     )
   }
