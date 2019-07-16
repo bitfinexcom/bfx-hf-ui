@@ -85,7 +85,11 @@ const run = async () => {
       secret: creds.secret,
     })
   })
+  app.post('/v2/getAlgos', async (req, res) => {
+    const data = await restAPI.orderHistory()
 
+    return res.json(data)
+  })
   app.post('/api-key', async (req, res) => {
     const { key, secret } = req.body
 

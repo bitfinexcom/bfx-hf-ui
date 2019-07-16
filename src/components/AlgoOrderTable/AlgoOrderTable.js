@@ -28,6 +28,7 @@ export default class AlgoOrderTable extends React.Component {
     const firstElementInRow = algoOrders[0][0]
     if (firstElementInRow === undefined) {
       getTableData()
+      console.log('got data')
     }
   }
 
