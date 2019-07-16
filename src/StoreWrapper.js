@@ -25,7 +25,7 @@ const optionalMiddleware = [
   routerMiddleware(),
 ]
 
-const store = configureStore(
+export const store = configureStore(
   config,
   optionalReducers,
   optionalMiddleware,

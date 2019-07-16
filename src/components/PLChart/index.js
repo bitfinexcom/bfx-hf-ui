@@ -62,6 +62,7 @@ class PLChart extends React.PureComponent {
     if (_isEmpty(data)) {
       return null
     }
+    console.log('%c ChartData: ', 'color:white;background:blue;', data)
 
     const start = xAccessor(data[Math.max(0, data.length - 1000)])
     const end = xAccessor(_last(data))
@@ -77,10 +78,13 @@ class PLChart extends React.PureComponent {
         <AutoSizer
           disableHeight
         >
+         
           {({ width }) => width > 0 && (
+           
             <ChartCanvas
+              
               height={height}
-              width={width}
+              width={width < 100 ? 200 : width}
               ratio={ratio}
               margin={{
                 left: 50,

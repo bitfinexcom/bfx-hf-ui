@@ -24,7 +24,6 @@ html, body, #root {
 
 @import "./pages/AlgoOrders/_AlgoOrders.scss";
 
-
 @import "./components/StrategyEditor/_StrategyEditor.scss";
 @import "./components/IndicatorCard/_IndicatorCard.scss";
 @import "./components/HFUI/_HFUI.scss";
@@ -35,3 +34,6 @@ html, body, #root {
 @import "./components/BTHeaderBar/_BTHeaderBar.scss";
 @import "./components/BacktestInfo/_BacktestInfo.scss";
 @import "./components/SingleAlgoOrderDetails/_SingleAlgoOrderDetails.scss";
+@import "./components/Notification/_Notifications.scss";
+@import "./components/AlgoOrderForm/_AlgoOrderForm.scss";
+@import "./components/CodeEditor/_CodeEditor.scss";

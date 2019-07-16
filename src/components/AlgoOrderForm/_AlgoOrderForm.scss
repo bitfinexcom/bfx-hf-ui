@@ -1,0 +1,78 @@
+.hfui__close-modal-button { 
+    float: right;
+}
+
+.hfui_modal-algo-form input, label{
+    display: block;
+    width: 100%;
+    margin-top: 10px ;
+    float: left;
+    margin-top: 20px;
+}
+
+.hfui_modal-algo-form label { 
+    display: block;
+    height: 30px;
+    margin-right: 0px;
+    padding-right: 0px;
+}
+
+label { 
+    background: #c1c2c3;
+    color: white;
+}
+
+
+input[type="file"] {
+    display: none;
+}
+
+.button {
+    width: 30%;
+    height: 100%;
+    display: block;
+    float: left;
+    margin: auto;
+    text-align: center;
+    justify-content: center;
+    margin-top: 1%;
+}
+.filesContainer{
+    float: right;
+    width:70%;
+    height: 100%;
+    display: block;
+    background: white;
+    color: #c1c2c3;
+    text-align: center;
+    padding-top: 1%;
+}
+input[type='text'], input[type='submit'] {
+    padding: 5px 10px 5px 10px;
+}
+
+input[type='submit'] { 
+    max-width: 30%;
+    margin-left: 33%;
+    margin-top: 30px;
+    text-transform:uppercase;
+}
+
+
+.hfui__add-order-btn {
+    border: none;
+    background: #0F0;
+    color: white;
+    padding: 5px 10px 5px 10px;
+    margin-top: '15px';
+    text-transform: 'uppercase';
+    outline: none;
+}
+
+.hfui__add-order-btn:active {
+    outline: none;
+}
+
+button:focus { 
+    outline: 0;
+}
