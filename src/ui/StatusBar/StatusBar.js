@@ -38,6 +38,7 @@ export default class StatusBar extends React.PureComponent {
   }
 
   render() {
+    const { status } = this.props
     return (
       <div className='statusbar__wrapper'>
         {this.renderSyncStatus()}
@@ -48,7 +49,8 @@ export default class StatusBar extends React.PureComponent {
             {version}
           </span>
           <div className='statusbar__right'>
-            <div className='statusbar_indicator red' />
+            
+            <div className={`statusbar_indicator ${status}`} />
           </div>
         </div>
       </div>

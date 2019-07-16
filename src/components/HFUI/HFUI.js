@@ -2,6 +2,7 @@ import React from 'react'
 import { Spinner, Intent } from '@blueprintjs/core'
 import { Route, Redirect } from 'react-router-dom'
 import _isEmpty from 'lodash/isEmpty'
+import { NotificationContainer } from 'react-notifications'
 
 import APIComboDialog from '../APIComboDialog'
 import SideNavBar from '../../ui/SideNavBar'
@@ -61,6 +62,7 @@ export default class HFUI extends React.Component {
     return (
       <div className='hfui'>
         <div className='hfui_content__wrapper'>
+          <NotificationContainer />
           <Route component={SideNavBar} />
           <Redirect exact from='/' to='/algo-orders' />
           <Route path='/algo-orders' component={AlgoOrdersView} />
