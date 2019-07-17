@@ -72,7 +72,7 @@ export default () => {
           console.warn('[socket.send] socket connection offline')
           return -1
         }
-
+        
         const payload = type === 'WS_SEND'
           ? ['ds', ['bfx', action.payload.message]]
           : action.payload

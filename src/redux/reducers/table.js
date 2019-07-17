@@ -1,6 +1,6 @@
 function getInitialState() {
   return {
-    algoOrders: [[]],
+    algoOrders: [],
   }
 }
 
@@ -21,16 +21,6 @@ function reducer(state = getInitialState(), action = {}) {
             ...order.slice(3),
           ]
           : [...order])),
-      }
-    }
-
-    case 'GET_ALGO_DATA': {
-      const algoOrders = [
-        ...new Array(10).fill([42, 'bfx-ping_pong', true, null, 'Default']),
-      ]
-      return {
-        ...state,
-        algoOrders,
       }
     }
 

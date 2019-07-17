@@ -25,10 +25,11 @@ export default class AlgoOrderTable extends React.Component {
   componentDidMount() {
     const { getTableData, algoOrders } = this.props
     // we can change this latter, if we need fetch data on each comonent mount
-    const firstElementInRow = algoOrders[0][0]
-    if (firstElementInRow === undefined) {
-      getTableData()
-      console.log('got data')
+    if (algoOrders[0]) {
+      const firstElementInRow = algoOrders[0][0]
+      if (firstElementInRow === undefined) {
+        getTableData()
+      }
     }
   }
 
@@ -55,7 +56,7 @@ export default class AlgoOrderTable extends React.Component {
 
   render () {
     const { algoOrders } = this.props
-    
+
     const orderObjects = algoOrders.map(ao => ({
       gid: ao[0],
       name: ALGO_NAMES[ao[1]],

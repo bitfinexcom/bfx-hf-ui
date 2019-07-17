@@ -26,10 +26,13 @@ export default (ws, store) => (e = {}) => {
       console.error('[wss] error ', payload)
       return store.dispatch(WSHFActions.error(payload))
     }
-
+    case 'as': {
+      const [as, response] = payload
+      const [, data] = response
+      store.dispatch({ type: 'RECEIVE_ALGO_DATA', payload: data })
+    }
     case 'ds': { // data server
       const [ type ] = msg
-
       if (type === 'bfx') {
         const action = WSHFActions.recvBitfinex(msg)
 
