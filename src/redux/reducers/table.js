@@ -5,7 +5,7 @@ function getInitialState() {
 }
 
 function reducer(state = getInitialState(), action = {}) {
-  const { type, payload = {} } = action
+  const { type, payload = [] } = action
 
   switch (type) {
     case 'CHANGE_STATUS': {
@@ -25,8 +25,7 @@ function reducer(state = getInitialState(), action = {}) {
     }
 
     case 'RECEIVE_ALGO_DATA': {
-      const { data: algoOrders } = payload
-
+      const  algoOrders = payload
       return {
         ...state,
         algoOrders,

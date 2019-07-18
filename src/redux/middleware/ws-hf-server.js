@@ -8,7 +8,7 @@ import onWSMessage from './ws-hf/on_message'
 export default () => {
   let socket = null
 
-  return store => next => (action = {}) => {
+  return store => next => (action = {type: 'undefined'}) => {
     if (!action) {
       console.warn('WSS Middleware received strange action', action)
       return

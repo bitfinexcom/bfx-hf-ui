@@ -34,7 +34,6 @@ const requestProxy = require('express-request-proxy')
 const {
   SOCKS_PROXY_URL, REST_URL, WS_URL,
 } = process.env
-
 const API_PORT = process.env.API_PORT || '9987'
 
 const run = async () => {

@@ -8,6 +8,7 @@ const socketMiddleware = function () {
   let socket = null
 
   const onOpen = (ws, store) => (e) => {
+    console.log('opened data')
     store.dispatch(actions.connected())
   }
 
@@ -18,7 +19,7 @@ const socketMiddleware = function () {
   const onMessage = (ws, store) => (e = {}) => {
     const { data = '' } = e
     let payload
-
+    console.log('data', e)
     try {
       payload = JSON.parse(data)
     } catch (e) {

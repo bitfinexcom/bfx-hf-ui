@@ -34,6 +34,7 @@ function disconnect() {
 }
 
 function connected() {
+  console.log('connected bfx')
   return {
     type: types.CONNECTED,
   }
@@ -47,6 +48,7 @@ function disconnected() {
 
 function data(payload = []) {
   // [chanId, msg] = payload
+  console.log(payload)
   return {
     type: _toUpper(`BFX_${payload[1]}_MESSAGE`),
     payload,

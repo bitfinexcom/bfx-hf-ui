@@ -54,6 +54,7 @@ export default {
    * @return {Object|null} action
    */
   recvBitfinex: (msg = []) => {
+    console.log(msg)
     const payload = msg[1]
 
     if (_isObject(payload) && payload.event) {

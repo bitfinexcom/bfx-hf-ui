@@ -6,7 +6,7 @@ import WSHFActions from '../../actions/ws-hf-server'
 export default (ws, store) => (e = {}) => {
   const { data = '' } = e
   let payload
-
+  console.log(e)
   try {
     payload = JSON.parse(data)
   } catch (e) {
@@ -20,7 +20,7 @@ export default (ws, store) => (e = {}) => {
   }
 
   const [ scope, msg ] = payload
-
+  
   switch (scope) {
     case 'error': {
       console.error('[wss] error ', payload)
@@ -34,7 +34,7 @@ export default (ws, store) => (e = {}) => {
     case 'ds': { // data server
       const [ type ] = msg
       if (type === 'bfx') {
-        const action = WSHFActions.recvBitfinex(msg)
+        const action = WSHFActions.recvBitfinex(msg) || {}
 
         store.dispatch(action)
 
