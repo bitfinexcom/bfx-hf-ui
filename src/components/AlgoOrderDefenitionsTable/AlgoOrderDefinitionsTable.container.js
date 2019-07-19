@@ -21,9 +21,6 @@ const mapDispatchToProps = dispatch => ({
   changeStatus: (index) => {
     dispatch(TableActions.changeStatus(index))
   },
-  getTableData: () => {
-    dispatch({ type: 'WS_SEND', payload: 'get.aos' })
-  },
   toggleEditor: (flag) => {
     dispatch(EditorActions.toggleEditor(flag))
   },

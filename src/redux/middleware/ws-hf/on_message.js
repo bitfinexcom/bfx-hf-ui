@@ -4,9 +4,9 @@ import _isArray from 'lodash/isArray'
 import WSHFActions from '../../actions/ws-hf-server'
 
 export default (ws, store) => (e = {}) => {
+
   const { data = '' } = e
   let payload
-  console.log(e)
   try {
     payload = JSON.parse(data)
   } catch (e) {
@@ -33,9 +33,16 @@ export default (ws, store) => (e = {}) => {
     }
     case 'ds': { // data server
       const [ type ] = msg
+      const data = msg[1] ? msg[1][2] : null
+      if(Array.isArray(data) && data) {
+        const event = data[1]
+        event === 'ucm-submit-bfx-res-req' 
+        ? store.dispatch({ type: 'WS_HF_SEND', payload:['as', ['get.aos', 'get.aos']] })
+        : null
+      }
       if (type === 'bfx') {
-        const action = WSHFActions.recvBitfinex(msg) || {}
-
+        const action = WSHFActions.recvBitfinex(msg)
+        
         store.dispatch(action)
 
         // Handle auth sub mock action

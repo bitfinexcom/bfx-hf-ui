@@ -22,16 +22,7 @@ export default class AlgoOrderTable extends React.Component {
     editorOpened: false,
   }
 
-  componentDidMount() {
-    const { getTableData, algoOrders } = this.props
-    // we can change this latter, if we need fetch data on each comonent mount
-    if (algoOrders[0]) {
-      const firstElementInRow = algoOrders[0][0]
-      if (firstElementInRow === undefined) {
-        getTableData()
-      }
-    }
-  }
+
 
   shouldComponentUpdate(nextProps) {
     const newAlgoOrders = nextProps.algoOrders

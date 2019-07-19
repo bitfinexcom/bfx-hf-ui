@@ -5,12 +5,11 @@ import _isObject from 'lodash/isObject'
 // import bfxWSSActions from 'bfxuilib/dist/redux/actions/websocket.actions'
 import WSHFTypes from '../constants/ws-hf-server'
 
-/*
-const isHB = (payload = []) => {
-  const [, secondPart, thirdPart] = payload
-  return (secondPart === 'hb' || thirdPart === 'hb')
-}
-*/
+
+// const isHB = (payload = []) => {
+//   const [, secondPart, thirdPart] = payload
+//   return (secondPart === 'hb' || thirdPart === 'hb')
+// }
 
 export default {
   error: (payload) => ({
@@ -54,7 +53,6 @@ export default {
    * @return {Object|null} action
    */
   recvBitfinex: (msg = []) => {
-    console.log(msg)
     const payload = msg[1]
 
     if (_isObject(payload) && payload.event) {
@@ -84,18 +82,21 @@ export default {
         */
 
         default: {
-          return null
+          return {
+            type: 'mock'
+          }
         }
       }
     }
 
-    return null
+    return {
+      type: 'mock'
+    }
 
-    /*
-    return (isHB(payload))
-      ? bfxDataActions.hb(payload)
-      : bfxDataActions.wss(payload)
-      */
+    
+    // return (isHB(payload))
+    //   ? bfxDataActions.hb(payload)
+    //   : bfxDataActions.wss(payload)
   },
 
   recvDataServer: (payload = []) => {

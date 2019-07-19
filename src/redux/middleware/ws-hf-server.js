@@ -76,7 +76,7 @@ export default () => {
         const payload = type === 'WS_SEND'
           ? ['ds', ['bfx', action.payload.message]]
           : action.payload
-
+          
         return socket.send(
           _isString(payload)
             ? payload
