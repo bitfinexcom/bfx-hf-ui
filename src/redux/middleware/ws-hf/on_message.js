@@ -37,25 +37,21 @@ export default (ws, store) => (e = {}) => {
       if(Array.isArray(data) && data) {
         const event = data[1]
         event === 'ucm-submit-bfx-res-req' 
-        ? store.dispatch({ type: 'WS_HF_SEND', payload:['as', ['get.aos', 'get.aos']] })
+        ? store.dispatch(WSHFActions.send(['as', ['get.aos', 'get.aos']]))
         : null
       }
       if (type === 'bfx') {
         const action = WSHFActions.recvBitfinex(msg)
-        
         store.dispatch(action)
-
         // Handle auth sub mock action
         if (action.type === 'WSS_AUTH_RESPONSE') {
           // store.dispatch(bfxDataActions.subscribed(action.payload))
         }
-
         return
       } else {
         return store.dispatch(WSHFActions.recvDataServer(msg))
       }
     }
-
     default: {
       return store.dispatch(WSHFActions.data(payload))
     }
