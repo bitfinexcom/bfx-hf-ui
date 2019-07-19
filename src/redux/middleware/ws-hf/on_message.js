@@ -4,7 +4,6 @@ import _isArray from 'lodash/isArray'
 import WSHFActions from '../../actions/ws-hf-server'
 
 export default (ws, store) => (e = {}) => {
-
   const { data = '' } = e
   let payload
   try {
@@ -19,26 +18,27 @@ export default (ws, store) => (e = {}) => {
     return
   }
 
-  const [ scope, msg ] = payload
-  
+  const [scope, msg] = payload
+
   switch (scope) {
     case 'error': {
       console.error('[wss] error ', payload)
       return store.dispatch(WSHFActions.error(payload))
     }
     case 'as': {
-      const [as, response] = payload
-      const [, data] = response
-      store.dispatch({ type: 'RECEIVE_ALGO_DATA', payload: data })
+      const [, response] = payload
+      const [, algoData] = response
+      store.dispatch({ type: 'RECEIVE_ALGO_DATA', payload: algoData })
+      return
     }
     case 'ds': { // data server
-      const [ type ] = msg
-      const data = msg[1] ? msg[1][2] : null
-      if(Array.isArray(data) && data) {
-        const event = data[1]
-        event === 'ucm-submit-bfx-res-req' 
-        ? store.dispatch(WSHFActions.send(['as', ['get.aos', 'get.aos']]))
-        : null
+      const [type] = msg
+      const response = msg[1] ? msg[1][2] : null
+      if (Array.isArray(data) && data) {
+        const event = response[1]
+        if (event === 'ucm-submit-bfx-res-req') {
+          store.dispatch(WSHFActions.send(['as', ['get.aos', 'get.aos']]))
+        }
       }
       if (type === 'bfx') {
         const action = WSHFActions.recvBitfinex(msg)
@@ -48,13 +48,12 @@ export default (ws, store) => (e = {}) => {
           // store.dispatch(bfxDataActions.subscribed(action.payload))
         }
         return
-      } else {
-        return store.dispatch(WSHFActions.recvDataServer(msg))
       }
+      store.dispatch(WSHFActions.recvDataServer(msg))
+      return
     }
     default: {
-      return store.dispatch(WSHFActions.data(payload))
+      store.dispatch(WSHFActions.data(payload))
     }
   }
 }
-
