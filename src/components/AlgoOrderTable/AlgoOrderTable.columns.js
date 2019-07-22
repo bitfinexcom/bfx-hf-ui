@@ -45,12 +45,17 @@ export default [{
   dataKey: 'gid',
   cellRenderer: ({ rowData = {}, rowIndex }) => {
     return <Switch
-      onChange={() => store.dispatch({ type: 'CHANGE_STATUS', index: rowIndex })}
-      checked={rowData.status === 'ACTIVE'}
-      height={14}
-      width={28}
-      onColor='#0F0'
-      offColor='#C1C2C3'
+    onChange={() =>{ 
+      const method = rowData.status === 'ACTIVE' ? 'stop.ao' : 'start.ao'
+      store.dispatch({ type: 'CHANGE_STATUS', index: rowIndex })
+      store.dispatch({type:'WS_HF_SEND', payload:['as', [method, rowData.gid]] })
+      
+    }}
+    checked={rowData.status === 'ACTIVE'}
+    height={14}
+    width={28}
+    onColor='#0F0'
+    offColor='#C1C2C3'
     />
   
   }

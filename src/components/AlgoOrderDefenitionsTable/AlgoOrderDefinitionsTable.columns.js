@@ -45,7 +45,10 @@ export default [{
   dataKey: 'gid',
   cellRenderer: ({ rowData = {}, rowIndex }) => {
     return <Switch
-      onChange={() => store.dispatch({ type: 'CHANGE_STATUS', index: rowIndex })}
+      onChange={() =>{ 
+        console.log(rowData)
+        store.dispatch({ type: 'CHANGE_STATUS', index: rowIndex })
+      }}
       checked={rowData.status === 'ACTIVE'}
       height={14}
       width={28}

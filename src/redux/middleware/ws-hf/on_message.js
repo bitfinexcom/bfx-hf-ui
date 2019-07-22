@@ -2,7 +2,7 @@ import _isArray from 'lodash/isArray'
 // import bfxDataActions from 'bfxuilib/dist/redux/actions/data.actions'
 
 import WSHFActions from '../../actions/ws-hf-server'
-
+import axios from 'axios'
 export default (ws, store) => (e = {}) => {
   const { data = '' } = e
   let payload
@@ -29,6 +29,7 @@ export default (ws, store) => (e = {}) => {
       const [, response] = payload
       const [, algoData] = response
       store.dispatch({ type: 'RECEIVE_ALGO_DATA', payload: algoData })
+      axios.get('/get-active-orders').then(data => console.log(data))
       return
     }
     case 'ds': { // data server
@@ -37,7 +38,7 @@ export default (ws, store) => (e = {}) => {
       if (Array.isArray(data) && data) {
         const event = response[1]
         if (event === 'ucm-submit-bfx-res-req') {
-          store.dispatch(WSHFActions.send(['as', ['get.aos', 'get.aos']]))
+          store.dispatch(WSHFActions.send(['as', ['get.orders']]))
         }
       }
       if (type === 'bfx') {

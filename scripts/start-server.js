@@ -142,7 +142,15 @@ const run = async () => {
 
     return res.json(data)
   })
-
+  app.get('/get-active-orders', async (req, res) => {
+    try {
+      const orders = await restAPI.activeOrders()
+      debug(orders)
+      res.send(orders)
+    } catch (e) {
+      res.send(e)
+    }
+  })
   app.post('/v2/auth/r/orders/:sym/hist', async (req, res) => {
     if (restAPI === null) {
       return res.status(503).json({ error: 'REST API unavailable' })
