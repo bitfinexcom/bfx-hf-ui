@@ -46,19 +46,11 @@ export default class AlgoOrderTable extends React.Component {
 
 
   render () {
-    const { algoOrders } = this.props
-
-    const orderObjects = algoOrders.map(ao => ({
-      gid: ao[0],
-      name: ALGO_NAMES[ao[1]],
-      mts: ao[4],
-      status: ao[2] ? 'ACTIVE' : 'STOPPED'
-    }))
 
     return (
-      <Panel label='Algo Orders' contentClassName='table__wrapper'>
+      <Panel label='Orders' contentClassName='table__wrapper'>
         <Table
-          data={orderObjects}
+          data={[]}
           columns={AlgoOrderDefinitionsTableColumns}
           onRowClick={this.onRowClick}
           maxWidth={850}
