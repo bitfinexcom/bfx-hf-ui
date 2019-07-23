@@ -25,10 +25,19 @@ function reducer(state = getInitialState(), action = {}) {
     }
 
     case 'RECEIVE_ALGO_DATA': {
-      const  algoOrders = payload
+      const algoOrders = payload
       return {
         ...state,
         algoOrders,
+      }
+    }
+
+    case 'RECEIVE_ORDERS': {
+      const orders = payload
+
+      return {
+        ...state,
+        orders,
       }
     }
 

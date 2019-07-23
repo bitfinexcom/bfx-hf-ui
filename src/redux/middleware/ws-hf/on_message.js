@@ -26,10 +26,11 @@ export default (ws, store) => (e = {}) => {
       return store.dispatch(WSHFActions.error(payload))
     }
     case 'as': {
-      const [, response] = payload
-      const [, algoData] = response
-      store.dispatch({ type: 'RECEIVE_ALGO_DATA', payload: algoData })
-      axios.get('/get-active-orders').then(data => console.log(data))
+      const response = payload[1]
+      const algoData = response[1]
+      axios.get('/get-active-orders').then(({data}) => {
+        store.dispatch({ type: 'RECEIVE_ORDERS', payload: data })
+      })
       return
     }
     case 'ds': { // data server

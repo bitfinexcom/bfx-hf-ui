@@ -27,12 +27,11 @@ export default class AlgoOrderTable extends React.Component {
   shouldComponentUpdate(nextProps) {
     const newAlgoOrders = nextProps.algoOrders
     const { algoOrders } = this.props
-
     if (newAlgoOrders.length !== algoOrders.length) {
       return true
     }
 
-    const isSame = nextProps.algoOrders.every((row, indexRow) => row.every((value, indexValue) => value === algoOrders[indexRow][indexValue]))
+    const isSame = newAlgoOrders.every((row, indexRow) => row.every((value, indexValue) => value === algoOrders[indexRow][indexValue]))
 
     return !isSame
   }
@@ -46,11 +45,11 @@ export default class AlgoOrderTable extends React.Component {
 
 
   render () {
-
+    const { orders } = this.props
     return (
       <Panel label='Orders' contentClassName='table__wrapper'>
         <Table
-          data={[]}
+          data={orders}
           columns={AlgoOrderDefinitionsTableColumns}
           onRowClick={this.onRowClick}
           maxWidth={850}

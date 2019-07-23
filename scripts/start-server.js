@@ -49,14 +49,14 @@ const run = async () => {
     if (hfServer) {
       hfServer.close()
     }
-
+    debug(SOCKS_PROXY_URL)
     const creds = await Credential.get(CRED_KEY)
     if (creds) {
       restAPI = new RESTv2({
         apiKey: creds.key,
         apiSecret: creds.secret,
         agent: SOCKS_PROXY_URL ? new SocksProxyAgent(SOCKS_PROXY_URL) : null,
-        url: REST_URL,
+        url: 'https://test.bitfinex.com/',
       })
       hfServer = new HFServer({
         db: hfDb,
@@ -68,8 +68,8 @@ const run = async () => {
         dsPort: 8899,
         port: 10000,
         agent: SOCKS_PROXY_URL ? new SocksProxyAgent(SOCKS_PROXY_URL) : null,
-        restURL: REST_URL,
-        wsURL: WS_URL,
+        restURL: 'https://test.bitfinex.com/',
+        wsURL: 'https://test.bitfinex.com/ws/2',
       })
     }
   }
@@ -143,11 +143,13 @@ const run = async () => {
     return res.json(data)
   })
   app.get('/get-active-orders', async (req, res) => {
+    if (restAPI === null) {
+      return res.status(503).json({ error: 'REST API unavailable' })
+    }
     try {
       const orders = await restAPI.activeOrders()
-      debug(orders)
       res.send(orders)
-    } catch (e) {
+    } catch(e) {
       res.send(e)
     }
   })
