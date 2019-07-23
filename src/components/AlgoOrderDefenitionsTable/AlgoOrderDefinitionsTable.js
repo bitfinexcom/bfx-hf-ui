@@ -26,7 +26,10 @@ export default class AlgoOrderTable extends React.Component {
 
   shouldComponentUpdate(nextProps) {
     const newAlgoOrders = nextProps.algoOrders
-    const { algoOrders } = this.props
+    const { algoOrders, orders } = this.props
+    if (orders.length || nextProps.orders.length) {
+      return true
+    }
     if (newAlgoOrders.length !== algoOrders.length) {
       return true
     }
@@ -46,10 +49,20 @@ export default class AlgoOrderTable extends React.Component {
 
   render () {
     const { orders } = this.props
+    const orderObjects = orders.map(ao => (
+      {gid: ao[0],
+      name: ALGO_NAMES[ao[1]],
+      mts: ao[4],
+      amount: ao[3].args.amount,
+      orderType: ao[3].args.orderType,
+      ccy: ao[3].args.symbol,
+      price: ao[3].args.price,
+      status: ao[2] ? 'ACTIVE' : 'STOPPED',
+    }))
     return (
       <Panel label='Orders' contentClassName='table__wrapper'>
         <Table
-          data={orders}
+          data={orderObjects}
           columns={AlgoOrderDefinitionsTableColumns}
           onRowClick={this.onRowClick}
           maxWidth={850}

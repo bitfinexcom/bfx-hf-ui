@@ -25,7 +25,7 @@ function reducer(state = getInitialState(), action = {}) {
     }
 
     case 'RECEIVE_ALGO_DATA': {
-      const algoOrders = payload
+       const algoOrders = payload
       return {
         ...state,
         algoOrders,
@@ -34,7 +34,7 @@ function reducer(state = getInitialState(), action = {}) {
 
     case 'RECEIVE_ORDERS': {
       const orders = payload
-
+      console.log(orders)
       return {
         ...state,
         orders,

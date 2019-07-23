@@ -19,7 +19,6 @@ export default (ws, store) => (e = {}) => {
   }
 
   const [scope, msg] = payload
-
   switch (scope) {
     case 'error': {
       console.error('[wss] error ', payload)
@@ -28,20 +27,16 @@ export default (ws, store) => (e = {}) => {
     case 'as': {
       const response = payload[1]
       const algoData = response[1]
-      axios.get('/get-active-orders').then(({data}) => {
-        store.dispatch({ type: 'RECEIVE_ORDERS', payload: data })
-      })
+      const [ event, orders ] = response
+      if(event === 'data.aos') {
+        store.dispatch({ type: 'RECEIVE_ORDERS', payload: orders })
+      }
       return
     }
     case 'ds': { // data server
       const [type] = msg
       const response = msg[1] ? msg[1][2] : null
-      if (Array.isArray(data) && data) {
-        const event = response[1]
-        if (event === 'ucm-submit-bfx-res-req') {
-          store.dispatch(WSHFActions.send(['as', ['get.orders']]))
-        }
-      }
+     
       if (type === 'bfx') {
         const action = WSHFActions.recvBitfinex(msg)
         store.dispatch(action)

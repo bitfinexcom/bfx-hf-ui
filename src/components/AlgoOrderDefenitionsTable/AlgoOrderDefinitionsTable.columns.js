@@ -21,7 +21,30 @@ export default [{
     }
     return new Date(rowData.mts).toLocaleString()
   },
+}, {
+  width: 300,
+  label: 'Type',
+  dataKey: 'type',
+  cellRenderer: ({ rowData = {} }) => {
+    return rowData.orderType
+  },
+}, {
+  width: 300,
+  label: 'Amount',
+  dataKey: 'amount',
+  cellRenderer: ({ rowData = {} }) => {
+    return rowData.amount
+  },
 },
+{
+  width: 300,
+  label: 'CCY',
+  dataKey: 'ccy',
+  cellRenderer: ({ rowData = {} }) => {
+    return rowData.ccy
+  },
+},
+
 /* {
   width: 80,
   label: 'Symbol',
@@ -44,17 +67,6 @@ export default [{
   label: 'Actions',
   dataKey: 'gid',
   cellRenderer: ({ rowData = {}, rowIndex }) => {
-    return <Switch
-      onChange={() =>{ 
-        console.log(rowData)
-        store.dispatch({ type: 'CHANGE_STATUS', index: rowIndex })
-      }}
-      checked={rowData.status === 'ACTIVE'}
-      height={14}
-      width={28}
-      onColor='#0F0'
-      offColor='#C1C2C3'
-    />
-  
+    return rowData.status
   }
 }]
