@@ -26,17 +26,14 @@ export default (ws, store) => (e = {}) => {
     }
     case 'as': {
       const response = payload[1]
-      const algoData = response[1]
-      const [ event, orders ] = response
-      if(event === 'data.aos') {
+      const [event, orders] = response
+      if (event === 'data.aos') {
         store.dispatch({ type: 'RECEIVE_ORDERS', payload: orders })
       }
       return
     }
     case 'ds': { // data server
       const [type] = msg
-      const response = msg[1] ? msg[1][2] : null
-     
       if (type === 'bfx') {
         const action = WSHFActions.recvBitfinex(msg)
         store.dispatch(action)

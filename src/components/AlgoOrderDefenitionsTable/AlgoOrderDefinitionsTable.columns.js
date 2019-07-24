@@ -11,17 +11,19 @@ export default [{
   label: 'Name',
   dataKey: 'name',
   cellRenderer: ({ rowData = {} }) => rowData.name,
-}, {
-  width: 300,
-  label: 'Created',
-  dataKey: 'mts',
-  cellRenderer: ({ rowData = {} }) => {
-    if (typeof rowData.mts === 'string') {
-      return rowData.mts
-    }
-    return new Date(rowData.mts).toLocaleString()
-  },
-}, {
+},
+/*{
+*  width: 300,
+*  label: 'Created',
+*  dataKey: 'mts',
+*  cellRenderer: ({ rowData = {} }) => {
+*    if (typeof rowData.mts === 'string') {
+*      return rowData.mts
+*    }
+*    return new Date(rowData.mts).toLocaleString()
+*  },
+}, */
+ {
   width: 300,
   label: 'Type',
   dataKey: 'type',

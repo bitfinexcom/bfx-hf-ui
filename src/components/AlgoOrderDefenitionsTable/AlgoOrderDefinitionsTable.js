@@ -26,8 +26,9 @@ export default class AlgoOrderTable extends React.Component {
 
   shouldComponentUpdate(nextProps) {
     const newAlgoOrders = nextProps.algoOrders
+    const newOrders = nextProps.orders
     const { algoOrders, orders } = this.props
-    if (orders.length || nextProps.orders.length) {
+    if (orders.length !== newOrders.length) {
       return true
     }
     if (newAlgoOrders.length !== algoOrders.length) {
