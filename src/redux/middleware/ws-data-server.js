@@ -19,7 +19,6 @@ const socketMiddleware = function () {
   const onMessage = (ws, store) => (e = {}) => {
     const { data = '' } = e
     let payload
-    console.log('data', e)
     try {
       payload = JSON.parse(data)
     } catch (e) {

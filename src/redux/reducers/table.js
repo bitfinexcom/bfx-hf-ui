@@ -34,7 +34,6 @@ function reducer(state = getInitialState(), action = {}) {
 
     case 'RECEIVE_ORDERS': {
       const orders = payload
-      console.log(orders)
       return {
         ...state,
         orders,

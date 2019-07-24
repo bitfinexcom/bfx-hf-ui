@@ -34,7 +34,6 @@ function disconnect() {
 }
 
 function connected() {
-  console.log('connected bfx')
   return {
     type: types.CONNECTED,
   }
