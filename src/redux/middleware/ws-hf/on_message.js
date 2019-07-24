@@ -28,6 +28,7 @@ export default (ws, store) => (e = {}) => {
       const response = payload[1]
       const [event, orders] = response
       if (event === 'data.aos') {
+        console.log(msg)
         store.dispatch({ type: 'RECEIVE_ORDERS', payload: orders })
       }
       return

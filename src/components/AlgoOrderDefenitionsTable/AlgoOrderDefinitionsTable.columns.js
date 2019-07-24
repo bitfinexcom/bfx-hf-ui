@@ -12,63 +12,53 @@ export default [{
   dataKey: 'name',
   cellRenderer: ({ rowData = {} }) => rowData.name,
 },
-/*{
-*  width: 300,
-*  label: 'Created',
-*  dataKey: 'mts',
-*  cellRenderer: ({ rowData = {} }) => {
-*    if (typeof rowData.mts === 'string') {
-*      return rowData.mts
-*    }
-*    return new Date(rowData.mts).toLocaleString()
-*  },
-}, */
- {
+{
+  width: 300,
+  label: 'Created',
+  dataKey: 'mts',
+  cellRenderer: ({ rowData = {} }) => {
+    const timestamp = +rowData.mts / 1000
+    return new Date(timestamp).toLocaleString()
+  },
+},
+{
   width: 300,
   label: 'Type',
   dataKey: 'type',
-  cellRenderer: ({ rowData = {} }) => {
-    return rowData.orderType
-  },
+  cellRenderer: ({ rowData = {} }) => rowData.orderType,
 }, {
   width: 300,
   label: 'Amount',
   dataKey: 'amount',
-  cellRenderer: ({ rowData = {} }) => {
-    return rowData.amount
-  },
+  cellRenderer: ({ rowData = {} }) => rowData.amount,
 },
 {
   width: 300,
   label: 'CCY',
   dataKey: 'ccy',
-  cellRenderer: ({ rowData = {} }) => {
-    return rowData.ccy
-  },
+  cellRenderer: ({ rowData = {} }) => rowData.ccy,
 },
 
 /* {
-  width: 80,
-  label: 'Symbol',
-  dataKey: 'symbol',
-  cellRenderer: ({ rowData = {} }) => rowData.symbol,
-}, {
-  width: 120,
-  label: 'Order Count',
-  dataKey: 'orderCount',
-  cellRenderer: ({ rowData = {} }) => rowData.orderCount,
-}, {
-  width: 120,
-  label: 'Status',
-  dataKey: 'status',
-  cellRenderer: ({ rowData = {} }) => rowData.status,
-}, 
+*  width: 80,
+*  label: 'Symbol',
+*  dataKey: 'symbol',
+*  cellRenderer: ({ rowData = {} }) => rowData.symbol,
+*}, {
+*  width: 120,
+*  label: 'Order Count',
+*  dataKey: 'orderCount',
+*  cellRenderer: ({ rowData = {} }) => rowData.orderCount,
+*}, {
+*  width: 120,
+*  label: 'Status',
+*  dataKey: 'status',
+*  cellRenderer: ({ rowData = {} }) => rowData.status,
+*},
 */
 {
   width: 300,
-  label: 'Actions',
-  dataKey: 'gid',
-  cellRenderer: ({ rowData = {}, rowIndex }) => {
-    return rowData.status
-  }
+  label: 'Status',
+  dataKey: 'status',
+  cellRenderer: ({ rowData = {} }) => rowData.status,
 }]
