@@ -45,13 +45,8 @@ export default class AlgoOrderTable extends React.Component {
 
 
   render () {
-    // const { algoOrders } = this.props
-    const algoOrders = [
-      [42, 'bfx-ping_pong', true, null, 'Default'],
-      [42, 'bfx-iceberg', true, null, 'Default'],
-      [42, 'bfx-twap', true, null, 'Default'],
-      [42, 'bfx-accumulate_distribute', true, null, 'Default'],
-    ]
+    const { algoOrders } = this.props
+   
     const orderObjects = algoOrders.map(ao => ({
       gid: ao[0],
       name: ALGO_NAMES[ao[1]],

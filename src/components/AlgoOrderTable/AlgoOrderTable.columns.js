@@ -49,7 +49,6 @@ export default [{
       const method = rowData.status === 'ACTIVE' ? 'stop.ao' : 'start.ao'
       store.dispatch({ type: 'CHANGE_STATUS', index: rowIndex })
       store.dispatch({type:'WS_HF_SEND', payload:['as', [method, rowData.gid]] })
-      
     }}
     checked={rowData.status === 'ACTIVE'}
     height={14}

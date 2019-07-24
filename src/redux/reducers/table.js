@@ -1,6 +1,11 @@
 function getInitialState() {
   return {
-    algoOrders: [],
+    algoOrders: [
+      [42, 'bfx-ping_pong', true, null, 'Default'],
+      [42, 'bfx-iceberg', true, null, 'Default'],
+      [42, 'bfx-twap', true, null, 'Default'],
+      [42, 'bfx-accumulate_distribute', true, null, 'Default'],
+    ],
   }
 }
 
