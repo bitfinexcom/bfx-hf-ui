@@ -13,7 +13,6 @@ const ALGO_NAMES = {
 }
 
 export default class AlgoOrderTable extends React.Component {
-
   static propTypes = propTypes
 
   static defaultProps = defaultProps
@@ -44,14 +43,14 @@ export default class AlgoOrderTable extends React.Component {
   }
 
 
-  render () {
+  render() {
     const { algoOrders } = this.props
-   
+
     const orderObjects = algoOrders.map(ao => ({
       gid: ao[0],
       name: ALGO_NAMES[ao[1]],
       mts: ao[4],
-      status: ao[2] ? 'ACTIVE' : 'STOPPED'
+      status: ao[2] ? 'ACTIVE' : 'STOPPED',
     }))
 
     return (

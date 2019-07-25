@@ -33,7 +33,14 @@ export default (ws, store) => (e = {}) => {
       return
     }
     case 'ds': { // data server
-      const [type] = msg
+      const [ type ] = msg
+      const data = msg[1] ? msg[1][2] : null
+      if(Array.isArray(data) && data) {
+        const event = data[1]
+        event === 'ucm-submit-bfx-res-req' 
+        ? store.dispatch(WSHFActions.send(['as', ['get.aos', 'get.aos']]))
+        : null
+      }
       if (type === 'bfx') {
         const action = WSHFActions.recvBitfinex(msg)
         store.dispatch(action)
