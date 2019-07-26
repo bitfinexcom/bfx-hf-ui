@@ -8,16 +8,18 @@ import APIComboDialog from '../APIComboDialog'
 import SideNavBar from '../../ui/SideNavBar'
 import StatusBar from '../../ui/StatusBar'
 import AlgoOrdersView from '../../pages/AlgoOrders'
-
+import { propTypes } from './HFUI.props'
 
 export default class HFUI extends React.Component {
+  static propTypes = propTypes
+
   constructor(props) {
     super(props)
 
     this.onSubmitKeys = this.onSubmitKeys.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const { loadInitialSettings, loadAPIKey, cycleBFXConnection } = this.props
 
     loadInitialSettings()

@@ -13,16 +13,9 @@ const ALGO_NAMES = {
 }
 
 export default class AlgoOrderTable extends React.Component {
-
   static propTypes = propTypes
 
   static defaultProps = defaultProps
-
-  state = {
-    editorOpened: false,
-  }
-
-
 
   shouldComponentUpdate(nextProps) {
     const newAlgoOrders = nextProps.algoOrders
@@ -40,18 +33,19 @@ export default class AlgoOrderTable extends React.Component {
     return !isSame
   }
 
-  render () {
+  render() {
     const { orders } = this.props
     const orderObjects = orders.map(ao => (
-      {gid: ao[0],
-      name: ALGO_NAMES[ao[1]],
-      mts: ao[0],
-      amount: ao[3].args.amount,
-      orderType: ao[3].args.orderType,
-      ccy: ao[3].args.symbol,
-      price: ao[3].args.price,
-      status: ao[2] ? 'ACTIVE' : 'STOPPED',
-    }))
+      {
+        gid: ao[0],
+        name: ALGO_NAMES[ao[1]],
+        mts: ao[0],
+        amount: ao[3].args.amount,
+        orderType: ao[3].args.orderType,
+        ccy: ao[3].args.symbol,
+        price: ao[3].args.price,
+        status: ao[2] ? 'ACTIVE' : 'STOPPED',
+      }))
     return (
       <Panel label='Orders' contentClassName='table__wrapper'>
         <Table

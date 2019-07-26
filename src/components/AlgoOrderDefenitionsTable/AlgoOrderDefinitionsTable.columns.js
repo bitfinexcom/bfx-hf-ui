@@ -3,9 +3,9 @@ import Switch from 'react-switch'
 import { Icon } from '@blueprintjs/core'
 import { store } from '../../StoreWrapper'
 
-const openEditor = () => {
-  store.dispatch({ type: 'TOGGLE_EDITOR', payload: { editorOpened: true } })
-}
+// const openEditor = () => {
+//   store.dispatch({ type: 'TOGGLE_EDITOR', payload: { editorOpened: true } })
+// }
 export default [{
   width: 300,
   label: 'Name',
