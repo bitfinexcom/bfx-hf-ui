@@ -1,8 +1,9 @@
 import _isArray from 'lodash/isArray'
 // import bfxDataActions from 'bfxuilib/dist/redux/actions/data.actions'
 
-import WSHFActions from '../../actions/ws-hf-server'
 import axios from 'axios'
+import WSHFActions from '../../actions/ws-hf-server'
+
 export default (ws, store) => (e = {}) => {
   const { data = '' } = e
   let payload
@@ -33,13 +34,13 @@ export default (ws, store) => (e = {}) => {
       return
     }
     case 'ds': { // data server
-      const [ type ] = msg
+      const [type] = msg
       const data = msg[1] ? msg[1][2] : null
-      if(Array.isArray(data) && data) {
+      if (Array.isArray(data) && data) {
         const event = data[1]
-        event === 'ucm-submit-bfx-res-req' 
-        ? store.dispatch(WSHFActions.send(['as', ['get.aos', 'get.aos']]))
-        : null
+        if (event === 'ucm-submit-bfx-res-req') {
+          store.dispatch(WSHFActions.send(['as', ['get.aos']]))
+        }
       }
       if (type === 'bfx') {
         const action = WSHFActions.recvBitfinex(msg)
