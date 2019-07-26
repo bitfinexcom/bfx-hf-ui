@@ -42,10 +42,9 @@ export default class AlgoOrderTable extends React.Component {
     onSelect(algoOrders[index])
   }
 
-
   render() {
     const { algoOrders } = this.props
-
+    
     const orderObjects = algoOrders.map(ao => ({
       gid: ao[0],
       name: ALGO_NAMES[ao[1]],
