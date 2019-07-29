@@ -84,6 +84,7 @@ const run = async () => {
       secret: creds.secret,
     })
   })
+  
   app.post('/api-key', async (req, res) => {
     const { key, secret } = req.body
 
