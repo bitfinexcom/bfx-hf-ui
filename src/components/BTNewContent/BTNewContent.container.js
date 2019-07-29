@@ -7,7 +7,6 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
   const { symbol, tf } = ownProps
   const candles = getCandles(state, symbol, tf, 'trade')
 
-  console.log({ symbol, tf })
 
   return {
     candles,

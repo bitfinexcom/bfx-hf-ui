@@ -17,6 +17,7 @@ function checkConnection (socket = {}) {
 }
 
 function * onConnection () {
+
   yield put({ type: WSHFTypes.FLUSH_QUEUE })
 }
 

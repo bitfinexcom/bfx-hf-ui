@@ -1,5 +1,5 @@
 import WSTypes from '../constants/ws-hf-server'
-
+import  { NotificationManager } from 'react-notifications'
 const initialState = () => ({
   status: 'offline',
   lastActivity: null,
@@ -8,7 +8,6 @@ const initialState = () => ({
 export default function (state = initialState(), action = {}) {
   const { type } = action
   const lastActivity = Date.now()
-
   switch (type) {
     case WSTypes.CONNECT: {
       return {
@@ -18,6 +17,9 @@ export default function (state = initialState(), action = {}) {
     }
 
     case WSTypes.CONNECTED: {
+      setTimeout(function() {
+        NotificationManager.success('', 'HF socket connected!')
+      }, 0)
       return {
         ...state,
         status: 'online',
@@ -33,6 +35,7 @@ export default function (state = initialState(), action = {}) {
     }
 
     case WSTypes.DISCONNECTED: {
+      NotificationManager.error('', 'HF socket disconnected!')
       return {
         ...state,
         status: 'offline',

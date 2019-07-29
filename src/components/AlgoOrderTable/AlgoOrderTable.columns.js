@@ -1,13 +1,16 @@
 import React from 'react'
-import { Icon } from '@blueprintjs/core'
 import Switch from 'react-switch'
+import { Icon } from '@blueprintjs/core'
+import { store } from '../../StoreWrapper'
 
-
+const openEditor = () => {
+  store.dispatch({ type: 'TOGGLE_EDITOR', payload: { editorOpened: true } })
+}
 export default [{
   width: 300,
   label: 'Name',
   dataKey: 'name',
-  cellRenderer: ({ rowData = {} }) => rowData.name
+  cellRenderer: ({ rowData = {} }) => rowData.name,
 }, {
   width: 300,
   label: 'Created',
@@ -20,18 +23,17 @@ export default [{
   },
 }, {
   width: 300,
-  label: 'Status',
-  dataKey: 'status',
-  cellRenderer: ({ rowData = {} }) => rowData.status 
-},
-// {
-//   width: 120,
-//   label: 'Actions',
-//   dataKey: 'gid',
-//   cellRenderer: ({ rowData = {} }) => (
-//     rowData.status === 'ACTIVE'
-//       ? <Switch checked={true} height={14} width={28} onColor='#0F0' />
-//       : <Switch checked={false} height={14} width={28} offColor='#C1C2C3' />
-//   ),
-// }
-]
+  label: 'Actions',
+  dataKey: 'gid',
+  cellRenderer: ({ rowData = {}, rowIndex }) => {
+    return <Switch
+      onChange={() => store.dispatch({ type: 'CHANGE_STATUS', index: rowIndex })}
+      checked={rowData.status === 'ACTIVE'}
+      height={14}
+      width={28}
+      onColor='#0F0'
+      offColor='#C1C2C3'
+    />
+  
+  }
+}]

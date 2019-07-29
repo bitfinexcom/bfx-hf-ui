@@ -70,7 +70,7 @@ export default class HFTable extends React.PureComponent {
     const prevSortBy = this.state.sortBy
     const prevSortDirection = this.state.sortDirection
     const direction = sortDirection || defaultSortDirection
-
+    const { data, columns } = this.props
     if (prevSortBy === sortBy && prevSortDirection === direction) { // skip
       return
     }
@@ -84,8 +84,8 @@ export default class HFTable extends React.PureComponent {
       ...stateSortSettings,
 
       data: sortData({
-        data: this.props.data,
-        columns: this.props.columns,
+        data,
+        columns,
         ...stateSortSettings,
       }, this.props),
     }))
@@ -93,7 +93,7 @@ export default class HFTable extends React.PureComponent {
 
   render() {
     const {
-      columns, onRowClick, rowHeight, headerHeight, maxWidth,
+      columns, onRowClick, rowHeight, headerHeight, onRowDoubleClick, maxWidth,
     } = this.props
     const { data, sortBy, sortDirection } = this.state
 
@@ -109,7 +109,7 @@ export default class HFTable extends React.PureComponent {
             rowGetter={({ index }) => data[index]}
             rowCount={data.length}
             onRowClick={onRowClick}
-
+            onRowDoubleClick={onRowDoubleClick}
             headerHeight={headerHeight}
             disableHeader={false}
 

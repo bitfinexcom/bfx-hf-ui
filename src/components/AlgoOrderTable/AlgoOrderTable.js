@@ -9,26 +9,53 @@ const ALGO_NAMES = {
   'bfx-accumulate_distribute': 'Accumulate/Distribute',
   'bfx-ping_pong': 'Ping/Pong',
   'bfx-iceberg': 'Iceberg',
-  'bfx-twap': 'TWAP'
+  'bfx-twap': 'TWAP',
 }
 
-export default class AlgoOrderTable extends React.PureComponent {
+export default class AlgoOrderTable extends React.Component {
+
   static propTypes = propTypes
 
   static defaultProps = defaultProps
 
-  constructor(props) {
-    super(props)
-    this.onRowClick = this.onRowClick.bind(this)
+  state = {
+    editorOpened: false,
   }
 
-  onRowClick ({ index } = {}) {
-    const { onSelect, algoOrders } = this.props
+  componentDidMount() {
+    const { getTableData, algoOrders } = this.props
+    // we can change this latter, if we need fetch data on each comonent mount
+    const firstElementInRow = algoOrders[0][0]
+    if (firstElementInRow === undefined) {
+      getTableData()
+      console.log('got data')
+    }
+  }
+
+  shouldComponentUpdate(nextProps) {
+    const newAlgoOrders = nextProps.algoOrders
+    const { algoOrders } = this.props
+
+    if (newAlgoOrders.length !== algoOrders.length) {
+      return true
+    }
+
+    const isSame = nextProps.algoOrders.every((row, indexRow) => row.every((value, indexValue) => value === algoOrders[indexRow][indexValue]))
+
+    return !isSame
+  }
+
+  onRowClick({ index } = {}) {
+    const {
+      onSelect, algoOrders,
+    } = this.props
     onSelect(algoOrders[index])
   }
 
+
   render () {
     const { algoOrders } = this.props
+    
     const orderObjects = algoOrders.map(ao => ({
       gid: ao[0],
       name: ALGO_NAMES[ao[1]],
