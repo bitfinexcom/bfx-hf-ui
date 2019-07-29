@@ -21,25 +21,7 @@ export default [{
     }
     return new Date(rowData.mts).toLocaleString()
   },
-},
-/* {
-  width: 80,
-  label: 'Symbol',
-  dataKey: 'symbol',
-  cellRenderer: ({ rowData = {} }) => rowData.symbol,
 }, {
-  width: 120,
-  label: 'Order Count',
-  dataKey: 'orderCount',
-  cellRenderer: ({ rowData = {} }) => rowData.orderCount,
-}, {
-  width: 120,
-  label: 'Status',
-  dataKey: 'status',
-  cellRenderer: ({ rowData = {} }) => rowData.status,
-}, 
-*/
-{
   width: 300,
   label: 'Actions',
   dataKey: 'gid',
