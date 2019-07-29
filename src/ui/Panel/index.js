@@ -10,7 +10,7 @@ export default class Panel extends React.PureComponent {
   render() {
     const {
       children, label, headerStyle, contentStyle, style, headerClassName,
-      contentClassName, className, upperLabel
+      contentClassName, className, upperLabel,
     } = this.props
 
     return (
@@ -21,7 +21,7 @@ export default class Panel extends React.PureComponent {
         <div
           style={headerStyle}
           className={ClassNames('panel__header', headerClassName, {
-            upper: upperLabel
+            upper: upperLabel,
           })}
         >
           <p>{label}</p>

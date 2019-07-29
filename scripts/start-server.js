@@ -114,11 +114,6 @@ const run = async () => {
     res.status(200)
   })
 
-  app.post('/disable-order', async (req, res) => {
-      const { algoID } = res.body
-
-      RESTv2.cancel_order(algoID)
-  })
 
   app.get('/v2/tickers', requestProxy({
     url: 'https://www.bitfinex.com/v2/tickers',
@@ -142,17 +137,7 @@ const run = async () => {
 
     return res.json(data)
   })
-  app.get('/get-active-orders', async (req, res) => {
-    if (restAPI === null) {
-      return res.status(503).json({ error: 'REST API unavailable' })
-    }
-    try {
-      const orders = await restAPI.activeOrders()
-      res.send(orders)
-    } catch(e) {
-      res.send(e)
-    }
-  })
+
   app.post('/v2/auth/r/orders/:sym/hist', async (req, res) => {
     if (restAPI === null) {
       return res.status(503).json({ error: 'REST API unavailable' })

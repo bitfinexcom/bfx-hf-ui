@@ -1,7 +1,6 @@
+/* eslint-disable consistent-return */
 import _isArray from 'lodash/isArray'
 // import bfxDataActions from 'bfxuilib/dist/redux/actions/data.actions'
-
-import axios from 'axios'
 import WSHFActions from '../../actions/ws-hf-server'
 
 export default (ws, store) => (e = {}) => {
@@ -9,8 +8,8 @@ export default (ws, store) => (e = {}) => {
   let payload
   try {
     payload = JSON.parse(data)
-  } catch (e) {
-    console.error('[wss] error parsing JSON: ', e)
+  } catch (err) {
+    console.error('[wss] error parsing JSON: ', err)
     return
   }
 
@@ -35,9 +34,9 @@ export default (ws, store) => (e = {}) => {
     }
     case 'ds': { // data server
       const [type] = msg
-      const data = msg[1] ? msg[1][2] : null
-      if (Array.isArray(data) && data) {
-        const event = data[1]
+      const serverData = msg[1] ? msg[1][2] : null
+      if (Array.isArray(serverData) && serverData) {
+        const event = serverData[1]
         if (event === 'ucm-submit-bfx-res-req') {
           store.dispatch(WSHFActions.send(['as', ['get.aos']]))
         }

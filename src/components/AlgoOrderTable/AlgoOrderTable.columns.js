@@ -2,7 +2,7 @@ import React from 'react'
 import Switch from 'react-switch'
 import { Icon } from '@blueprintjs/core'
 import { store } from '../../StoreWrapper'
-
+import WSHFActions from '../../redux/actions/ws-hf-server'
 const openEditor = () => {
   store.dispatch({ type: 'TOGGLE_EDITOR', payload: { editorOpened: true } })
 }
@@ -47,7 +47,7 @@ export default [{
     return <Switch
     onChange={() =>{ 
       store.dispatch({ type: 'CHANGE_STATUS', index: rowIndex })
-      store.dispatch({type:'WS_HF_SEND', payload:['as', ['update.ao', rowData.name]] })
+      WSHFActions.send(['as', ['update.ao', rowData.name]])
     }}
     checked={rowData.status === 'ACTIVE'}
     height={14}

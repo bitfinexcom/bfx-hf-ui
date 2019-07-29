@@ -21,7 +21,7 @@ const mapDispatchToProps = dispatch => ({
   },
   toggleEditor: (flag) => {
     dispatch(EditorActions.toggleEditor(flag))
-  }
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AlgoOrderDefinitionsTableView)

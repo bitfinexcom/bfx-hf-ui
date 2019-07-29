@@ -25,6 +25,7 @@ export default class NavBar extends React.PureComponent {
             <Link to={`/${key}`} key={key}>
               <button
                 className={ClassNames({ active: key === page })}
+                type='button'
               >
                 {item.label}
               </button>
