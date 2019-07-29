@@ -3,6 +3,8 @@ import Modal from 'react-modal'
 import { Icon } from '@blueprintjs/core'
 import { NotificationManager } from 'react-notifications'
 
+// import axios from 'axios'
+
 import { store } from '../../StoreWrapper'
 
 const customStyles = {
