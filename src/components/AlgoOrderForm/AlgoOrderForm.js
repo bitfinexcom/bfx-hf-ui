@@ -3,8 +3,6 @@ import Modal from 'react-modal'
 import { Icon } from '@blueprintjs/core'
 import { NotificationManager } from 'react-notifications'
 
-// import axios from 'axios'
-
 import { store } from '../../StoreWrapper'
 
 const customStyles = {
@@ -48,17 +46,6 @@ export default class ModalForm extends PureComponent {
   handleSubmit(e) {
     e.preventDefault()
     const { algoName, algoDesc } = e.target
-
-    /* POST data to HF server (this is pseudo-code)
-
-      const options = {
-        name: algoName.value,
-        description: algoDesc.value,
-        file: this.state.file,
-      }
-      axios.('POST','some-back-url', options)
-
-    */
 
     store.dispatch({
       type: 'ADD_ALGO_ORDER',
