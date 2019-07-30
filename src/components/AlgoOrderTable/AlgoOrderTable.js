@@ -53,7 +53,10 @@ export default class AlgoOrderTable extends React.Component {
     }))
 
     return (
-      <Panel label='Algo Order Definitions' contentClassName='table__wrapper'>
+      <Panel
+        label='Algo Order Definitions'
+        contentClassName='table__wrapper'
+      >
         <Table
           data={orderObjects}
           columns={AlgoOrderTableColumns}
