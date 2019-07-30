@@ -1,11 +1,16 @@
 function getInitialState() {
   return {
-    algoOrders: [[]],
+    algoOrders: [
+      [42, 'bfx-ping_pong', true, null, 'Default'],
+      [42, 'bfx-iceberg', true, null, 'Default'],
+      [42, 'bfx-twap', true, null, 'Default'],
+      [42, 'bfx-accumulate_distribute', true, null, 'Default'],
+    ],
   }
 }
 
 function reducer(state = getInitialState(), action = {}) {
-  const { type, payload = {} } = action
+  const { type, payload = [] } = action
 
   switch (type) {
     case 'CHANGE_STATUS': {
@@ -24,22 +29,19 @@ function reducer(state = getInitialState(), action = {}) {
       }
     }
 
-    case 'GET_ALGO_DATA': {
-      const algoOrders = [
-        ...new Array(10).fill([42, 'bfx-ping_pong', true, null, 'Default']),
-      ]
+    case 'RECEIVE_ALGO_DATA': {
+       const algoOrders = payload
       return {
         ...state,
         algoOrders,
       }
     }
 
-    case 'RECEIVE_ALGO_DATA': {
-      const { data: algoOrders } = payload
-
+    case 'RECEIVE_ORDERS': {
+      const orders = payload
       return {
         ...state,
-        algoOrders,
+        orders,
       }
     }
 

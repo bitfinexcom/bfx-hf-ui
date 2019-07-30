@@ -7,19 +7,20 @@ import { propTypes, defaultProps } from './OrderTable.props'
 
 export default class OrderTable extends React.PureComponent {
   static propTypes = propTypes
+
   static defaultProps = defaultProps
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.onRowClick = this.onRowClick.bind(this)
   }
 
-  onRowClick ({ index } = {}) {
+  onRowClick({ index } = {}) {
     const { onSelect, orders } = this.props
     onSelect(orders[index])
   }
 
-  render () {
+  render() {
     const { orders, label } = this.props
     const orderObjects = orders.map(o => ({
       symbol: o[3],
@@ -27,7 +28,7 @@ export default class OrderTable extends React.PureComponent {
       price: o[16],
       amount: o[7],
       type: o[8],
-      status: o[13]
+      status: o[13],
     }))
 
     return (

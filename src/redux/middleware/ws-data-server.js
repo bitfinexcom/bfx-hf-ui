@@ -1,24 +1,25 @@
+/* eslint-disable consistent-return */
 import _isArray from 'lodash/isArray'
 import _isString from 'lodash/isString'
 
 import types from '../constants/ws-data-server'
 import actions from '../actions/ws-data-server'
 
-const socketMiddleware = function () {
+const socketMiddleware = () => {
   let socket = null
 
-  const onOpen = (ws, store) => (e) => {
+  const onOpen = (ws, store) => () => {
+    console.log('opened data')
     store.dispatch(actions.connected())
   }
 
-  const onClose = (ws, store) => (e) => {
+  const onClose = (ws, store) => () => {
     store.dispatch(actions.disconnected())
   }
 
   const onMessage = (ws, store) => (e = {}) => {
     const { data = '' } = e
     let payload
-
     try {
       payload = JSON.parse(data)
     } catch (e) {

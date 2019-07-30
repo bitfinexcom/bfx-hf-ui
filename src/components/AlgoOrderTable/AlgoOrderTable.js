@@ -13,7 +13,6 @@ const ALGO_NAMES = {
 }
 
 export default class AlgoOrderTable extends React.Component {
-
   static propTypes = propTypes
 
   static defaultProps = defaultProps
@@ -22,15 +21,6 @@ export default class AlgoOrderTable extends React.Component {
     editorOpened: false,
   }
 
-  componentDidMount() {
-    const { getTableData, algoOrders } = this.props
-    // we can change this latter, if we need fetch data on each comonent mount
-    const firstElementInRow = algoOrders[0][0]
-    if (firstElementInRow === undefined) {
-      getTableData()
-      console.log('got data')
-    }
-  }
 
   shouldComponentUpdate(nextProps) {
     const newAlgoOrders = nextProps.algoOrders
@@ -52,23 +42,21 @@ export default class AlgoOrderTable extends React.Component {
     onSelect(algoOrders[index])
   }
 
-
-  render () {
+  render() {
     const { algoOrders } = this.props
-    
+
     const orderObjects = algoOrders.map(ao => ({
       gid: ao[0],
       name: ALGO_NAMES[ao[1]],
       mts: ao[4],
-      status: ao[2] ? 'ACTIVE' : 'STOPPED'
+      status: ao[2] ? 'ACTIVE' : 'STOPPED',
     }))
 
     return (
-      <Panel label='Order definitions' contentClassName='table__wrapper'>
+      <Panel label='Algo Order Definitions' contentClassName='table__wrapper'>
         <Table
           data={orderObjects}
           columns={AlgoOrderTableColumns}
-          onRowClick={this.onRowClick}
           maxWidth={850}
           defaultSortDirection='ASC'
         />

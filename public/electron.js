@@ -19,6 +19,7 @@ function createWindow() {
     protocol: 'file',
     slashes: true,
   }))
+
   mainWindow.on('closed', () => {
     mainWindow = null
   })
@@ -27,6 +28,7 @@ function createWindow() {
 app.on('ready', () => {
   protocol.interceptFileProtocol('file', (request, callback) => {
     const url = request.url.substr(7) /* all urls start with 'file://' */
+
     callback({ path: path.normalize(`${__dirname}/${url}`) })
   }, (err) => {
     if (err) console.error('Failed to register protocol')

@@ -1,11 +1,11 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import Switch from 'react-switch'
 import { Icon } from '@blueprintjs/core'
 import { store } from '../../StoreWrapper'
+import WSHFActions from '../../redux/actions/ws-hf-server'
 
-const openEditor = () => {
-  store.dispatch({ type: 'TOGGLE_EDITOR', payload: { editorOpened: true } })
-}
+
 export default [{
   width: 300,
   label: 'Name',
@@ -25,15 +25,17 @@ export default [{
   width: 300,
   label: 'Actions',
   dataKey: 'gid',
-  cellRenderer: ({ rowData = {}, rowIndex }) => {
-    return <Switch
-      onChange={() => store.dispatch({ type: 'CHANGE_STATUS', index: rowIndex })}
+  cellRenderer: ({ rowData = {}, rowIndex }) => (
+    <Switch
+      onChange={() => {
+        store.dispatch({ type: 'CHANGE_STATUS', index: rowIndex })
+        WSHFActions.send(['as', ['update.ao', rowData.name]])
+      }}
       checked={rowData.status === 'ACTIVE'}
       height={14}
       width={28}
       onColor='#0F0'
       offColor='#C1C2C3'
     />
-  
-  }
+  ),
 }]

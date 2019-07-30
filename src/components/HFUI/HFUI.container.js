@@ -4,7 +4,7 @@ import APIKeyActions from '../../redux/actions/apiKey'
 import WSHFActions from '../../redux/actions/ws-hf-server'
 import HFUI from './HFUI'
 
-const mapStateToProps = (state = {}, ownProps = {}) => {
+const mapStateToProps = (state = {}) => {
   const { dataHF = {} } = state
   const { apiKey = {} } = dataHF
 

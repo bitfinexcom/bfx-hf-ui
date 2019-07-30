@@ -34,7 +34,6 @@ const requestProxy = require('express-request-proxy')
 const {
   SOCKS_PROXY_URL, REST_URL, WS_URL,
 } = process.env
-
 const API_PORT = process.env.API_PORT || '9987'
 
 const run = async () => {
@@ -50,7 +49,7 @@ const run = async () => {
     if (hfServer) {
       hfServer.close()
     }
-
+    debug(SOCKS_PROXY_URL)
     const creds = await Credential.get(CRED_KEY)
     if (creds) {
       restAPI = new RESTv2({
@@ -85,7 +84,7 @@ const run = async () => {
       secret: creds.secret,
     })
   })
-
+  
   app.post('/api-key', async (req, res) => {
     const { key, secret } = req.body
 
@@ -115,6 +114,7 @@ const run = async () => {
     // await startHFServer()
     res.status(200)
   })
+
 
   app.get('/v2/tickers', requestProxy({
     url: 'https://www.bitfinex.com/v2/tickers',

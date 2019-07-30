@@ -5,31 +5,30 @@ import _isObject from 'lodash/isObject'
 // import bfxWSSActions from 'bfxuilib/dist/redux/actions/websocket.actions'
 import WSHFTypes from '../constants/ws-hf-server'
 
-/*
-const isHB = (payload = []) => {
-  const [, secondPart, thirdPart] = payload
-  return (secondPart === 'hb' || thirdPart === 'hb')
-}
-*/
+
+// const isHB = (payload = []) => {
+//   const [, secondPart, thirdPart] = payload
+//   return (secondPart === 'hb' || thirdPart === 'hb')
+// }
 
 export default {
-  error: (payload) => ({
+  error: payload => ({
     type: WSHFTypes.ERROR,
-    payload
+    payload,
   }),
 
-  send: (payload) => ({
+  send: payload => ({
     type: WSHFTypes.BUFF_SEND,
     payload: _isString(payload)
       ? payload
-      : JSON.stringify(payload)
+      : JSON.stringify(payload),
   }),
 
   connect: (destination = '') => ({
     type: WSHFTypes.CONNECT,
     payload: {
-      destination
-    }
+      destination,
+    },
   }),
 
   connected: () => ({ type: WSHFTypes.CONNECTED }),
@@ -37,12 +36,12 @@ export default {
   disconnect: () => ({ type: WSHFTypes.DISCONNECT }),
 
   data: (msg = []) => {
-    let [ scope, payload ] = msg
-    let [ type ] = payload
+    const [scope, payload] = msg
+    const [type] = payload
 
     return {
       type: _toUpper(`HF_${scope}_${type}_MESSAGE`),
-      payload
+      payload,
     }
   },
 
@@ -83,39 +82,40 @@ export default {
         */
 
         default: {
-          return null
+          return {
+            type: 'mock',
+          }
         }
       }
     }
 
-    return null
+    return {
+      type: 'mock',
+    }
 
-    /*
-    return (isHB(payload))
-      ? bfxDataActions.hb(payload)
-      : bfxDataActions.wss(payload)
-      */
+
+    // return (isHB(payload))
+    //   ? bfxDataActions.hb(payload)
+    //   : bfxDataActions.wss(payload)
   },
 
   recvDataServer: (payload = []) => {
-    const [ type ] = payload
+    const [type] = payload
 
     return {
       type: _toUpper(`HF_DS_${type}_MESSAGE`),
-      payload
+      payload,
     }
   },
 
-  cycleConnection: () => {
-    return {
-      type: 'REST',
-      meta: {
-        url: '/reconnect-bfx',
-        method: 'POST',
-        handler: 'WS_HF_SERVER',
-      },
+  cycleConnection: () => ({
+    type: 'REST',
+    meta: {
+      url: '/reconnect-bfx',
+      method: 'POST',
+      handler: 'WS_HF_SERVER',
+    },
 
-      payload: {}
-    }
-  }
+    payload: {},
+  }),
 }

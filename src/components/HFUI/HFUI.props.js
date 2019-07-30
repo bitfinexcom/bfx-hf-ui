@@ -10,4 +10,5 @@ export const defaultProps = {
   loadInitialSettings: () => {},
   strategies: () => {},
   cycleBFXConnection: () => {},
+  loadAPIKey: () => {},
 }

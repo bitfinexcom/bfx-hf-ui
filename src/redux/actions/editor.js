@@ -3,7 +3,7 @@ function toggleEditor(flag) {
     type: 'TOGGLE_EDITOR',
     payload: {
       editorOpened: flag,
-      code: `// some code`,
+      code: '// some code',
     },
   }
 }

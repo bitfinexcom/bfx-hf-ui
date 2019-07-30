@@ -1,5 +1,6 @@
 import React from 'react'
 import AlgoOrderTable from '../../components/AlgoOrderTable'
+import AlgoOrderDefinitions from '../../components/AlgoOrderDefenitionsTable'
 import AlgoOrderForm from '../../components/AlgoOrderForm'
 import CodeEditor from '../../components/CodeEditor'
 
@@ -20,6 +21,9 @@ export default class AlgoOrdersView extends React.Component {
       <div className='hfui_view__wrapper'>
         <h1>Algo Orders</h1>
         <AlgoOrderTable
+          algoOrders={algoOrders}
+        />
+        <AlgoOrderDefinitions 
           algoOrders={algoOrders}
         />
         {/* <AlgoOrderForm /> */}
