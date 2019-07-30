@@ -5,10 +5,11 @@ import { propTypes, defaultProps } from './index.props'
 
 export default class NavBar extends React.PureComponent {
   static propTypes = propTypes
+
   static defaultProps = defaultProps
 
   render() {
-    const { buttons, location = {pathname:'/'} } = this.props
+    const { buttons, location = { pathname: '/' } } = this.props
 
     return (
       <div className='hfui_menu'>
@@ -17,12 +18,12 @@ export default class NavBar extends React.PureComponent {
           const page = location.pathname.substr(1)
 
           return (
-              <button
-                className={ClassNames({ active: key === page })}
-                type='button'
-              >
-                {item.label}
-              </button>
+            <button
+              className={ClassNames({ active: key === page })}
+              type='button'
+            >
+              {item.label}
+            </button>
           )
         })}
       </div>
