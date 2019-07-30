@@ -8,6 +8,7 @@ import APIComboDialog from '../APIComboDialog'
 import SideNavBar from '../../ui/SideNavBar'
 import StatusBar from '../../ui/StatusBar'
 import AlgoOrdersView from '../../pages/AlgoOrders'
+import SettingsView from '../../pages/Settings'
 import { propTypes } from './HFUI.props'
 
 export default class HFUI extends React.Component {
@@ -68,6 +69,7 @@ export default class HFUI extends React.Component {
           <Route component={SideNavBar} />
           <Redirect exact from='/' to='/algo-orders' />
           <Route path='/algo-orders' component={AlgoOrdersView} />
+          <Route path='/settings' component={SettingsView} />
         </div>
 
         <Route component={StatusBar} />

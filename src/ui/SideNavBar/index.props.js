@@ -28,9 +28,9 @@ export const defaultProps = {
     //   label: 'Execution',
     //   icon: 'play',
     // },
-    // settings: {
-    //   label: 'Settings',
-    //   icon: 'cog',
-    // },
+    settings: {
+      label: 'Settings',
+      icon: 'cog',
+    },
   },
 }

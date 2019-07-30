@@ -23,7 +23,7 @@ export default class AlgoOrdersView extends React.Component {
         <AlgoOrderTable
           algoOrders={algoOrders}
         />
-         <AlgoOrderForm />
+         {/* <AlgoOrderForm /> */}
         <AlgoOrderDefinitions 
           algoOrders={algoOrders}
         />
