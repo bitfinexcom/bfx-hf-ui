@@ -110,8 +110,34 @@ const run = async () => {
     return res.json({ key, secret })
   })
 
+  app.post('/api-key-update', async (req, res) => {
+    const { key, secret } = req.body
+    debug(key, secret)
+
+    if (!_isString(key)) {
+      return res.status(400).json({ error: 'No API key provided' })
+    }
+
+    if (!_isString(secret)) {
+      return res.status(400).json({ error: 'No API secret provided' })
+    }
+
+    try {
+      debug(await Credential.update({
+        cid: CRED_KEY,
+        key,
+        secret,
+      }))
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({ error: error.message })
+    }
+    startHFServer()
+    return res.json({ key, secret })
+  })
+
   app.post('/reconnect-bfx', async (req, res) => {
-    // await startHFServer()
+    await startHFServer()
     res.status(200)
   })
 
