@@ -49,7 +49,6 @@ const run = async () => {
     if (hfServer) {
       hfServer.close()
     }
-    debug(SOCKS_PROXY_URL)
     const creds = await Credential.get(CRED_KEY)
     if (creds) {
       restAPI = new RESTv2({
