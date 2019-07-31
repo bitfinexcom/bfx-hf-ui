@@ -38,7 +38,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.js",
-    "electron": "nohup electron . > logs.log",
+    "electron-dev": "electron .",
+    "electron-prod": "nohup electron . > logs.log",
     "dist": "build --mac --win --linux -c.extraMetadata.main=build/electron.js --publish never"
   },
   "author": "Bitfinex",
