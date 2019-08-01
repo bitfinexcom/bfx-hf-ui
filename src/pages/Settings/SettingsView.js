@@ -4,7 +4,7 @@ import {
 } from '@blueprintjs/core'
 import Settings from '../../ui/SettingsMenu'
 import { store } from '../../StoreWrapper'
-import APIComboDialog from '../../components/APIComboDialog'
+import APIComboDialog from '../../components/APIComboDialogMenu'
 
 export default class SettingsView extends React.Component {
 
