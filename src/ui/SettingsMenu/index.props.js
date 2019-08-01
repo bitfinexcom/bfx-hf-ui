@@ -11,10 +11,5 @@ export const defaultProps = {
       enabled: true,
       icon: 'key',
     },
-    'some-item': {
-      label: 'Item 1',
-      enabled: false,
-      icon: 'icon',
-    },
   },
 }

@@ -122,7 +122,7 @@ const run = async () => {
     }
 
     try {
-      debug(await Credential.update({
+      debug(await Credential.update(CRED_KEY, {
         cid: CRED_KEY,
         key,
         secret,
