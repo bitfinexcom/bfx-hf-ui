@@ -55,7 +55,7 @@ const run = async () => {
         apiKey: creds.key,
         apiSecret: creds.secret,
         agent: SOCKS_PROXY_URL ? new SocksProxyAgent(SOCKS_PROXY_URL) : null,
-        url: 'https://test.bitfinex.com/',
+        url: REST_URL,
       })
       hfServer = new HFServer({
         db: hfDb,
@@ -67,8 +67,8 @@ const run = async () => {
         dsPort: 8899,
         port: 10000,
         agent: SOCKS_PROXY_URL ? new SocksProxyAgent(SOCKS_PROXY_URL) : null,
-        restURL: 'https://test.bitfinex.com/',
-        wsURL: 'https://test.bitfinex.com/ws/2',
+        restURL: REST_URL,
+        wsURL: WS_URL,
       })
     }
   }

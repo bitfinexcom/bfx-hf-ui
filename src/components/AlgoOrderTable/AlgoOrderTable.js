@@ -44,7 +44,7 @@ export default class AlgoOrderTable extends React.Component {
 
   render() {
     const { algoOrders } = this.props
-    
+
     const orderObjects = algoOrders.map(ao => ({
       gid: ao[0],
       name: ALGO_NAMES[ao[1]],
@@ -53,7 +53,10 @@ export default class AlgoOrderTable extends React.Component {
     }))
 
     return (
-      <Panel label='Algo Order Definitions' contentClassName='table__wrapper'>
+      <Panel
+        label='Algo Order Definitions'
+        contentClassName='table__wrapper'
+      >
         <Table
           data={orderObjects}
           columns={AlgoOrderTableColumns}

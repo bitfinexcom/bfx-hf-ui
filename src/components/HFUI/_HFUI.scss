@@ -21,7 +21,9 @@
 
 .hfui_view__wrapper {
   padding: 0 32px;
-  width: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 
   .panel__wrapper {
     margin-bottom: 32px;

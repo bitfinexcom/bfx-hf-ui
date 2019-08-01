@@ -47,7 +47,11 @@ export default class AlgoOrderTable extends React.Component {
         status: ao[2] ? 'ACTIVE' : 'STOPPED',
       }))
     return (
-      <Panel label='Orders' contentClassName='table__wrapper'>
+      <Panel
+        label='Orders'
+        contentClassName='table__wrapper'
+        style={{ height: '100%' }}
+      >
         <Table
           data={orderObjects}
           columns={AlgoOrderDefinitionsTableColumns}
