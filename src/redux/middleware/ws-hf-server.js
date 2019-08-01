@@ -16,7 +16,7 @@ export default () => {
     }
 
     const { type, payload = {} } = action
-
+    console.log(JSON.stringify(action))
     switch (type) {
       case WSHFTypes.CONNECT: {
         if (socket !== null) {

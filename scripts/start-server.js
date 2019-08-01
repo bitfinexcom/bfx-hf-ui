@@ -128,7 +128,7 @@ const run = async () => {
         secret,
       }))
     } catch (error) {
-      console.log(error)
+      debug('===============', error)
       return res.status(500).json({ error: error.message })
     }
     startHFServer()

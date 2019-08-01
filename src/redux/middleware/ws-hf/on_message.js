@@ -19,6 +19,7 @@ export default (ws, store) => (e = {}) => {
   }
 
   const [scope, msg] = payload
+  console.log(JSON.stringify(e))
   switch (scope) {
     case 'error': {
       console.error('[wss] error ', payload)

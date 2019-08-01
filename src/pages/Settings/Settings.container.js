@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import SettingsView from './SettingsView'
 import APIKeyActions from '../../redux/actions/apiKey'
+import WSHFActions from '../../redux/actions/ws-hf-server'
 
 const mapStateToProps = (state = {}, ownProps = {}) => {
   const { dataHF = {} } = state
@@ -25,6 +26,10 @@ const mapDispatchToProps = dispatch => ({
 
   updateAPIKey: ({ key, secret } = {}) => {
     dispatch(APIKeyActions.update({ key, secret }))
+  },
+
+  cycleBFXConnection: () => {
+    dispatch(WSHFActions.cycleConnection())
   },
 })
 

@@ -5,9 +5,7 @@ import {
 import Settings from '../../ui/SettingsMenu'
 import { store } from '../../StoreWrapper'
 import APIComboDialog from '../../components/APIComboDialog'
-import apiKeyActions from '../../redux/actions/apiKey'
 
-const { load, submit } = apiKeyActions
 export default class SettingsView extends React.Component {
 
     constructor(props) {
@@ -15,7 +13,7 @@ export default class SettingsView extends React.Component {
         this.onSubmitKeys = this.onSubmitKeys.bind(this)
     }
     onSubmitKeys({ key, secret } = {}) {
-        const { updateAPIKey } = this.props
+        const { updateAPIKey, cycleBFXConnection } = this.props
         updateAPIKey({ key, secret })
     }
 

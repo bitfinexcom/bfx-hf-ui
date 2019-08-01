@@ -54,7 +54,7 @@ export default {
    */
   recvBitfinex: (msg = []) => {
     const payload = msg[1]
-
+    console.log(msg)
     if (_isObject(payload) && payload.event) {
       switch (payload.event) {
         /*
