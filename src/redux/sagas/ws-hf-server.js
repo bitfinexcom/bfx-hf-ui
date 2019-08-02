@@ -36,7 +36,7 @@ function * messageQueueWorker (action = {}) {
     return
   }
 
-  yield (queue || []).map(function * (queuedAction) {
+  yield (queue || []).map(function  * (queuedAction) {
     if (queuedAction.type === WSHFTypes.BUFF_SEND) {
       queuedAction.type = WSHFTypes.SEND
     }

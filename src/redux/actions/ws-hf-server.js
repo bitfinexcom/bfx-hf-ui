@@ -115,7 +115,6 @@ export default {
       method: 'POST',
       handler: 'WS_HF_SERVER',
     },
-
     payload: {},
   }),
 }

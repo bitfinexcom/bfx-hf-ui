@@ -34,9 +34,9 @@ export default [{
 },
 {
   width: 300,
-  label: 'CCY',
-  dataKey: 'ccy',
-  cellRenderer: ({ rowData = {} }) => rowData.ccy,
+  label: 'Symbol',
+  dataKey: 'symbol',
+  cellRenderer: ({ rowData = {} }) => rowData.symbol,
 }, {
   width: 300,
   label: 'Status',

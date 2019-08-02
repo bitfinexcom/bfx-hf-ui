@@ -14,7 +14,6 @@ export default class NavBar extends React.PureComponent {
       <div className='hfui_sidenavbar'>
         <div className='hfui_sidenavbar__header'>
           <img src='/HF-icon.png' alt='Honey Framework' />
-          <h2>HF UI</h2>
         </div>
 
         {Object.keys(buttons).map((key) => {

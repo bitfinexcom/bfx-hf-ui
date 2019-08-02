@@ -34,18 +34,32 @@ export default class AlgoOrderTable extends React.Component {
   }
 
   render() {
-    const { orders } = this.props
-    const orderObjects = orders.map(ao => (
-      {
+    const { orders, stopOrder } = this.props
+    const orderObjects = orders.map((ao) => {
+      const isActive = !!ao[2]
+      let status = <p>Inactive</p>
+      if (isActive) {
+        status = (
+          <button
+            type='button'
+            className='hfui__stop-order-btn '
+            onClick={() => stopOrder(ao[0])}
+          >
+            Stop
+          </button>
+        )
+      }
+      return {
         gid: ao[0],
         name: ALGO_NAMES[ao[1]],
         mts: ao[0],
         amount: ao[3].args.amount,
         orderType: ao[3].args.orderType,
-        ccy: ao[3].args.symbol,
+        symbol: ao[3].args.symbol,
         price: ao[3].args.price,
-        status: ao[2] ? 'ACTIVE' : 'STOPPED',
-      }))
+        status,
+      }
+    })
     return (
       <Panel
         label='Orders'

@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 
 import TableActions from '../../redux/actions/table'
 import EditorActions from '../../redux/actions/editor'
+import RestHfActions from '../../redux/actions/rest-hf-server'
 
 import AlgoOrderDefinitionsTableView from './AlgoOrderDefinitionsTable'
 
@@ -21,6 +22,9 @@ const mapDispatchToProps = dispatch => ({
   },
   toggleEditor: (flag) => {
     dispatch(EditorActions.toggleEditor(flag))
+  },
+  stopOrder: (gId) => {
+    dispatch(RestHfActions.stopAlgoOrder(gId))
   },
 })
 

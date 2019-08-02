@@ -30,7 +30,7 @@ function reducer(state = getInitialState(), action = {}) {
     }
 
     case 'RECEIVE_ALGO_DATA': {
-       const algoOrders = payload
+      const algoOrders = payload
       return {
         ...state,
         algoOrders,
