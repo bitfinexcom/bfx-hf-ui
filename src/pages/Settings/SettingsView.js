@@ -14,7 +14,7 @@ export default class SettingsView extends React.Component {
   }
 
   onSubmitKeys({ key, secret } = {}) {
-    const { updateAPIKey, cycleBFXConnection } = this.props
+    const { updateAPIKey } = this.props
     updateAPIKey({ key, secret })
   }
 

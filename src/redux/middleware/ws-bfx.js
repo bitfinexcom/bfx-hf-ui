@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable func-names */
 import _isArray from 'lodash/isArray'
 import _isString from 'lodash/isString'
 
@@ -51,8 +53,8 @@ const socketMiddleware = function () {
       return
     }
 
-    const { type, payload = {} } = action
-    console.log(JSON.stringify(action))
+    const { type, payload = {} } = action   
+    
     switch (type) {
       case types.CONNECT: {
         socket = new window.WebSocket(payload.destination)

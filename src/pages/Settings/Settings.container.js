@@ -22,13 +22,8 @@ const mapDispatchToProps = dispatch => ({
   submitAPIKey: ({ key, secret } = {}) => {
     dispatch(APIKeyActions.submit({ key, secret }))
   },
-
   updateAPIKey: ({ key, secret } = {}) => {
     dispatch(APIKeyActions.update({ key, secret }))
-  },
-
-  cycleBFXConnection: () => {
-    dispatch(WSHFActions.cycleConnection())
   },
 })
 
