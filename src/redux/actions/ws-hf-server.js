@@ -54,7 +54,6 @@ export default {
    */
   recvBitfinex: (msg = []) => {
     const payload = msg[1]
-
     if (_isObject(payload) && payload.event) {
       switch (payload.event) {
         /*
@@ -115,7 +114,6 @@ export default {
       method: 'POST',
       handler: 'WS_HF_SERVER',
     },
-
     payload: {},
   }),
 }

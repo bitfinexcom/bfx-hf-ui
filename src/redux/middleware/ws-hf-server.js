@@ -16,7 +16,6 @@ export default () => {
     }
 
     const { type, payload = {} } = action
-
     switch (type) {
       case WSHFTypes.CONNECT: {
         if (socket !== null) {

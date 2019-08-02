@@ -42,7 +42,7 @@ export default class APIComboDialog extends React.Component {
     return (
       <div className='hfui-api-combo-dialog-menu'>
         <Card elevation={Elevation.TWO}>
-          <p>No Bitfinex API key/secret configured. Enter your key combination below to connect to the Bitfinex API.</p>
+          <p>Change Bitfinex API key/secret. Enter your key combination below to change the Bitfinex API.</p>
 
           <InputGroup
             placeholder='API Key'

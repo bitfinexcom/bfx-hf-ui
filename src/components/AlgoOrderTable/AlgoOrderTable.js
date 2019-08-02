@@ -63,6 +63,7 @@ export default class AlgoOrderTable extends React.Component {
           maxWidth={850}
           defaultSortDirection='ASC'
         />
+
       </Panel>
     )
   }

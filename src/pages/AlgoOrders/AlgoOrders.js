@@ -16,7 +16,7 @@ export default class AlgoOrdersView extends React.Component {
     return (
       <div className='hfui_view__wrapper'>
         <h1>Algo Orders</h1>
-        <div style={{ display: 'flex', flexDirection: 'row', flex: 1, paddingBottom: 80 }}>
+        <div className='hfui_content__wrapper'>
           <AlgoOrderTable
             algoOrders={algoOrders}
           />

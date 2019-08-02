@@ -49,7 +49,6 @@ const run = async () => {
     if (hfServer) {
       hfServer.close()
     }
-    debug(SOCKS_PROXY_URL)
     const creds = await Credential.get(CRED_KEY)
     if (creds) {
       restAPI = new RESTv2({
@@ -66,6 +65,7 @@ const run = async () => {
         proxy: true,
         asPort: 9999,
         dsPort: 8899,
+        hfPort: 7799,
         port: 10000,
         agent: SOCKS_PROXY_URL ? new SocksProxyAgent(SOCKS_PROXY_URL) : null,
         restURL: REST_URL,
@@ -84,7 +84,7 @@ const run = async () => {
       secret: creds.secret,
     })
   })
-  
+
   app.post('/api-key', async (req, res) => {
     const { key, secret } = req.body
 
@@ -103,7 +103,33 @@ const run = async () => {
         secret,
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
+      return res.status(500).json({ error: error.message })
+    }
+    startHFServer()
+    return res.json({ key, secret })
+  })
+
+  app.post('/api-key-update', async (req, res) => {
+    const { key, secret } = req.body
+    debug(key, secret)
+
+    if (!_isString(key)) {
+      return res.status(400).json({ error: 'No API key provided' })
+    }
+
+    if (!_isString(secret)) {
+      return res.status(400).json({ error: 'No API secret provided' })
+    }
+
+    try {
+      debug(await Credential.update(CRED_KEY, {
+        cid: CRED_KEY,
+        key,
+        secret,
+      }))
+    } catch (error) {
+      debug('===============', error)
       return res.status(500).json({ error: error.message })
     }
     startHFServer()
@@ -111,7 +137,7 @@ const run = async () => {
   })
 
   app.post('/reconnect-bfx', async (req, res) => {
-    // await startHFServer()
+    await startHFServer()
     res.status(200)
   })
 

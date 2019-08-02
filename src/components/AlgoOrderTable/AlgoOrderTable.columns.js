@@ -34,8 +34,8 @@ export default [{
       checked={rowData.status === 'ACTIVE'}
       height={14}
       width={28}
-      onColor='#0F0'
-      offColor='#C1C2C3'
+      onColor='#9dc24a'
+      offColor='#2c3940'
     />
   ),
 }]

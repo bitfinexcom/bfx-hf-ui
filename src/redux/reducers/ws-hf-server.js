@@ -15,9 +15,11 @@ export default function (state = initialState(), action = {}) {
         status: 'connecting',
       }
     }
-
+    case 'REST_HF_SERVER_GET_RES': {
+      return { ...state }
+    }
     case WSTypes.CONNECTED: {
-      setTimeout(function() {
+      setTimeout(() => {
         NotificationManager.success('', 'HF socket connected!')
       }, 0)
       return {

@@ -33,7 +33,6 @@ const socketMiddleware = () => {
     }
 
     const [msg] = payload
-
     switch (msg) {
       case 'error': {
         console.error('[wss] error ', payload)

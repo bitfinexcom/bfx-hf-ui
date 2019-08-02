@@ -1,23 +1,20 @@
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import SettingsView from './SettingsView'
 import APIKeyActions from '../../redux/actions/api-key'
 import WSHFActions from '../../redux/actions/ws-hf-server'
-import HFUI from './HFUI'
 
-const mapStateToProps = (state = {}) => {
+const mapStateToProps = (state = {}, ownProps = {}) => {
   const { dataHF = {} } = state
   const { apiKey = {} } = dataHF
+  const { key, secret } = apiKey
+
 
   return {
-    apiKeyCombo: apiKey,
+    apiKey,
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  loadInitialSettings: () => {
-    dispatch({ type: 'GET_SETTINGS' })
-  },
-
   loadAPIKey: () => {
     dispatch(APIKeyActions.load())
   },
@@ -26,9 +23,13 @@ const mapDispatchToProps = dispatch => ({
     dispatch(APIKeyActions.submit({ key, secret }))
   },
 
+  updateAPIKey: ({ key, secret } = {}) => {
+    dispatch(APIKeyActions.update({ key, secret }))
+  },
+
   cycleBFXConnection: () => {
     dispatch(WSHFActions.cycleConnection())
   },
 })
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HFUI))
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsView)

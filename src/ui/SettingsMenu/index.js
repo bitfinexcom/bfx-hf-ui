@@ -9,27 +9,21 @@ export default class NavBar extends React.PureComponent {
   static defaultProps = defaultProps
 
   render() {
-    const { buttons, location } = this.props
+    const { buttons, location = { pathname: '/api-keys' } } = this.props
 
     return (
-      <div className='hfui_sidenavbar'>
-        <div className='hfui_sidenavbar__header'>
-          <img src='/HF-icon.png' alt='Honey Framework' />
-        </div>
-
+      <div>
         {Object.keys(buttons).map((key) => {
           const item = buttons[key]
           const page = location.pathname.substr(1)
-
           return (
-            <Link to={`/${key}`} key={key}>
-              <button
-                className={ClassNames({ active: key === page })}
-                type='button'
-              >
-                {item.label}
-              </button>
-            </Link>
+            <button
+              key={key}
+              className={ClassNames({ active: key === page })}
+              type='button'
+            >
+              {item.label}
+            </button>
           )
         })}
       </div>

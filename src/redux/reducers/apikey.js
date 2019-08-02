@@ -14,6 +14,10 @@ function reducer(state = getInitialState(), action = {}) {
       return payload
     }
 
+    case 'REST_SUCCESS': {
+      return payload
+    }
+
     default: {
       return state
     }

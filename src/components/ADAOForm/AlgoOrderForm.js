@@ -47,6 +47,17 @@ export default class ModalForm extends PureComponent {
     e.preventDefault()
     const { algoName, algoDesc } = e.target
 
+    /* POST data to HF server (this is pseudo-code)
+
+      const options = {
+        name: algoName.value,
+        description: algoDesc.value,
+        file: this.state.file,
+      }
+      axios.('POST','some-back-url', options)
+
+    */
+
     store.dispatch({
       type: 'ADD_ALGO_ORDER',
       payload: {

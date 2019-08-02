@@ -52,7 +52,7 @@ const socketMiddleware = function () {
     }
 
     const { type, payload = {} } = action
-
+    console.log(JSON.stringify(action))
     switch (type) {
       case types.CONNECT: {
         socket = new window.WebSocket(payload.destination)
