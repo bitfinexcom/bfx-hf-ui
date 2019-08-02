@@ -115,6 +115,7 @@
     "react-virtualized": "^9.19.1",
     "redux": "^4.0.0",
     "redux-saga": "^0.16.0",
+    "redux-thunk": "^2.3.0",
     "socks-proxy-agent": "^4.0.2",
     "url": "^0.11.0",
     "wait-on": "^3.2.0"
