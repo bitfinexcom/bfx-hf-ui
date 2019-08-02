@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import APIKeyActions from '../../redux/actions/apiKey'
+import APIKeyActions from '../../redux/actions/api-key'
 import WSHFActions from '../../redux/actions/ws-hf-server'
 import HFUI from './HFUI'
 

@@ -5,6 +5,7 @@ import { propTypes, defaultProps } from './index.props'
 
 export default class NavBar extends React.PureComponent {
   static propTypes = propTypes
+
   static defaultProps = defaultProps
 
   render() {

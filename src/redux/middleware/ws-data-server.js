@@ -33,7 +33,6 @@ const socketMiddleware = () => {
     }
 
     const [msg] = payload
-    console.log(JSON.stringify(action))
     switch (msg) {
       case 'error': {
         console.error('[wss] error ', payload)

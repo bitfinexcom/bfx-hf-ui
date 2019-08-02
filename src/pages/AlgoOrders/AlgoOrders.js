@@ -16,13 +16,14 @@ export default class AlgoOrdersView extends React.Component {
     return (
       <div className='hfui_view__wrapper'>
         <h1>Algo Orders</h1>
-        <AlgoOrderTable
-          algoOrders={algoOrders}
-        />
-         {/* <AlgoOrderForm /> */}
-        <AlgoOrderDefinitions 
-          algoOrders={algoOrders}
-        />
+        <div className='hfui_content__wrapper'>
+          <AlgoOrderTable
+            algoOrders={algoOrders}
+          />
+          <AlgoOrderDefinitions
+            algoOrders={algoOrders}
+          />
+        </div>
       </div>
     )
   }

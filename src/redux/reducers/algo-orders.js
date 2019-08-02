@@ -10,13 +10,15 @@ function getInitialState() {
 }
 
 function reducer(state = getInitialState(), action = {}) {
-  const { type, payload = [] } = action
+  const { type, payload = {} } = action
 
   switch (type) {
+    case 'HF_AS_DATA.AOS_MESSAGE': {
+      return payload[1]
+    }
     case 'CHANGE_STATUS': {
       const { index: orderIndex } = action
       const { algoOrders } = state
-
       return {
         ...state,
         algoOrders: algoOrders.map((order, index) => (orderIndex === index
@@ -28,7 +30,6 @@ function reducer(state = getInitialState(), action = {}) {
           : [...order])),
       }
     }
-
     case 'RECEIVE_ALGO_DATA': {
       const algoOrders = payload
       return {
@@ -36,7 +37,6 @@ function reducer(state = getInitialState(), action = {}) {
         algoOrders,
       }
     }
-
     case 'RECEIVE_ORDERS': {
       const orders = payload
       return {
@@ -44,7 +44,6 @@ function reducer(state = getInitialState(), action = {}) {
         orders,
       }
     }
-
     case 'ADD_ALGO_ORDER': {
       const algoOrders = [...state.algoOrders]
       const { algoOrder = [] } = payload
@@ -55,7 +54,6 @@ function reducer(state = getInitialState(), action = {}) {
         algoOrders,
       }
     }
-
     default: {
       return state
     }

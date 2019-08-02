@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import createSagaMiddleware from 'redux-saga'
+import thunk from 'redux-thunk';
 
 import reducer from './reducers'
 import constants from './constants'
@@ -20,6 +21,7 @@ export function configureStore(
 
   let middleware = [
     hfSocketMiddleware(),
+    thunk,
     sagaMiddleware,
   ]
 
@@ -49,7 +51,7 @@ export function configureStore(
 }
 
 export function runSaga() {
-  console.log('%c runSaga is deprecated: it is already run in configureStore', 'color:white;background:orange;')
+  console.error('%c runSaga is deprecated: it is already run in configureStore', 'color:white;background:orange;')
 }
 
 export default {

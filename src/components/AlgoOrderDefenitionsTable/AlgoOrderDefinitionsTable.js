@@ -21,7 +21,7 @@ export default class AlgoOrderTable extends React.Component {
     const newAlgoOrders = nextProps.algoOrders
     const newOrders = nextProps.orders
     const { algoOrders, orders } = this.props
-    if (orders.length !== newOrders.length) {
+    if (orders !== newOrders) {
       return true
     }
     if (newAlgoOrders.length !== algoOrders.length) {
@@ -35,7 +35,7 @@ export default class AlgoOrderTable extends React.Component {
 
   render() {
     const { orders, stopOrder } = this.props
-    const orderObjects = orders.map((ao) => {
+    const orderObjects = orders.reverse().map((ao) => {
       const isActive = !!ao[2]
       let status = <p>Inactive</p>
       if (isActive) {

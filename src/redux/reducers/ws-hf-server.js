@@ -16,7 +16,6 @@ export default function (state = initialState(), action = {}) {
       }
     }
     case 'REST_HF_SERVER_GET_RES': {
-      console.log(action)
       return { ...state }
     }
     case WSTypes.CONNECTED: {

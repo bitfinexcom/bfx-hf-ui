@@ -1,13 +1,12 @@
 import { connect } from 'react-redux'
 
-import TableActions from '../../redux/actions/table'
+import AlgoOrderActions from '../../redux/actions/algo-orders'
 import EditorActions from '../../redux/actions/editor'
-import RestHfActions from '../../redux/actions/rest-hf-server'
 
 import AlgoOrderDefinitionsTableView from './AlgoOrderDefinitionsTable'
 
 const mapStateToProps = (state = {}) => {
-  const { algoOrders = [], orders = [] } = state.table
+  const { algoOrders = [], orders = [] } = state.algoOrders
   const { editorOpened = false } = state.editor
   return {
     algoOrders,
@@ -18,13 +17,13 @@ const mapStateToProps = (state = {}) => {
 
 const mapDispatchToProps = dispatch => ({
   changeStatus: (index) => {
-    dispatch(TableActions.changeStatus(index))
+    dispatch(AlgoOrderActions.changeStatus(index))
   },
   toggleEditor: (flag) => {
     dispatch(EditorActions.toggleEditor(flag))
   },
   stopOrder: (gId) => {
-    dispatch(RestHfActions.stopAlgoOrder(gId))
+    dispatch(AlgoOrderActions.stopOrder(gId))
   },
 })
 

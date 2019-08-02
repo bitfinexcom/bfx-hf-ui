@@ -84,7 +84,7 @@ const run = async () => {
       secret: creds.secret,
     })
   })
-  
+
   app.post('/api-key', async (req, res) => {
     const { key, secret } = req.body
 
@@ -103,7 +103,7 @@ const run = async () => {
         secret,
       })
     } catch (error) {
-      console.log(error)
+      console.error(error)
       return res.status(500).json({ error: error.message })
     }
     startHFServer()

@@ -1,13 +1,12 @@
 import { connect } from 'react-redux'
 import SettingsView from './SettingsView'
-import APIKeyActions from '../../redux/actions/apiKey'
+import APIKeyActions from '../../redux/actions/api-key'
 import WSHFActions from '../../redux/actions/ws-hf-server'
 
 const mapStateToProps = (state = {}, ownProps = {}) => {
   const { dataHF = {} } = state
   const { apiKey = {} } = dataHF
   const { key, secret } = apiKey
-  console.log(apiKey)
 
 
   return {
