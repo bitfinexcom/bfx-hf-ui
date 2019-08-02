@@ -65,6 +65,7 @@ const run = async () => {
         proxy: true,
         asPort: 9999,
         dsPort: 8899,
+        hfPort: 7799,
         port: 10000,
         agent: SOCKS_PROXY_URL ? new SocksProxyAgent(SOCKS_PROXY_URL) : null,
         restURL: REST_URL,
