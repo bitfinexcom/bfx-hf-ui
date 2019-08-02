@@ -1,6 +1,6 @@
 .hfui_sidenavbar {
-  background: #161e24;
-  border-right: 1px solid #1c2831;
+  background: #1b262d;
+  border-right: 1px solid #1b262d;
   min-width: 200px;
 
   a:hover {
@@ -44,8 +44,9 @@
   padding: 16px 0 16px 8px;
   margin: 0 -1px 16px 0;
   text-align: center;
-  background: #000;
-  border-right: 1px solid #000; // hides sidebar border
+  background: #1b262d;
+  border-right: 1px solid #1b262d; // hides sidebar border
+  border-bottom: 1px solid #2c3940;
 
   & > * {
     display: inline-block;

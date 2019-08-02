@@ -77,10 +77,13 @@ class PLChart extends React.PureComponent {
         <AutoSizer
           disableHeight
         >
+         
           {({ width }) => width > 0 && (
+           
             <ChartCanvas
+              
               height={height}
-              width={width}
+              width={width < 100 ? 200 : width}
               ratio={ratio}
               margin={{
                 left: 50,

@@ -1,40 +1,41 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
+import Switch from 'react-switch'
 import { Icon } from '@blueprintjs/core'
+import { store } from '../../StoreWrapper'
+import WSHFActions from '../../redux/actions/ws-hf-server'
+
 
 export default [{
-  width: 200,
+  width: 300,
   label: 'Name',
   dataKey: 'name',
-  cellRenderer: ({ rowData = {} }) => rowData.name
+  cellRenderer: ({ rowData = {} }) => rowData.name,
 }, {
-  width: 200,
+  width: 300,
   label: 'Created',
   dataKey: 'mts',
-  cellRenderer: ({ rowData = {} }) => (
-    new Date(rowData.mts).toLocaleString()
-  ),
+  cellRenderer: ({ rowData = {} }) => {
+    if (typeof rowData.mts === 'string') {
+      return rowData.mts
+    }
+    return new Date(rowData.mts).toLocaleString()
+  },
 }, {
-  width: 80,
-  label: 'Symbol',
-  dataKey: 'symbol',
-  cellRenderer: ({ rowData = {} }) => rowData.symbol
-}, {
-  width: 120,
-  label: 'Order Count',
-  dataKey: 'orderCount',
-  cellRenderer: ({ rowData = {} }) => rowData.orderCount
-}, {
-  width: 120,
-  label: 'Status',
-  dataKey: 'status',
-  cellRenderer: ({ rowData = {} }) => rowData.status
-}, {
-  width: 120,
+  width: 300,
   label: 'Actions',
   dataKey: 'gid',
-  cellRenderer: ({ rowData = {} }) => (
-    rowData.status === 'ACTIVE'
-      ? <Icon icon='pause' key={'pause'} />
-      : <Icon icon='play' key={'play'} />
+  cellRenderer: ({ rowData = {}, rowIndex }) => (
+    <Switch
+      onChange={() => {
+        store.dispatch({ type: 'CHANGE_STATUS', index: rowIndex })
+        WSHFActions.send(['as', ['update.ao', rowData.name]])
+      }}
+      checked={rowData.status === 'ACTIVE'}
+      height={14}
+      width={28}
+      onColor='#9dc24a'
+      offColor='#2c3940'
+    />
   ),
 }]

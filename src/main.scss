@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  background: #0c0c0c;
+  background: #2c3940;
   color: #c4c7c9 !important;
 }
 
@@ -21,9 +21,8 @@ html, body, #root {
 @import "./ui/StatusBar/_StatusBar.scss";
 @import "./ui/Table/_Table.scss";
 @import "./ui/SideNavBar/_SideNavBar.scss";
-
+@import "./ui/SettingsMenu/_SettingsMenu.scss";
 @import "./pages/AlgoOrders/_AlgoOrders.scss";
-@import "./pages/Dashboard/_Dashboard.scss";
 
 @import "./components/StrategyEditor/_StrategyEditor.scss";
 @import "./components/IndicatorCard/_IndicatorCard.scss";
@@ -35,3 +34,6 @@ html, body, #root {
 @import "./components/BTHeaderBar/_BTHeaderBar.scss";
 @import "./components/BacktestInfo/_BacktestInfo.scss";
 @import "./components/SingleAlgoOrderDetails/_SingleAlgoOrderDetails.scss";
+@import "./components/Notification/_Notifications.scss";
+@import "./components/AlgoOrderForm/_AlgoOrderForm.scss";
+@import "./components/CodeEditor/_CodeEditor.scss";

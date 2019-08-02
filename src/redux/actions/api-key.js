@@ -23,4 +23,18 @@ const submit = ({ key, secret } = {}) => ({
   },
 })
 
-export default { load, submit }
+const update = ({ key, secret } = {}) => ({
+  type: 'REST',
+  meta: {
+    url: '/api-key-update',
+    method: 'POST',
+    handler: 'API_KEY',
+  },
+
+  payload: {
+    key,
+    secret,
+  },
+})
+
+export default { load, submit, update }

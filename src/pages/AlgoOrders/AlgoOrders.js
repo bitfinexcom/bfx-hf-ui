@@ -1,12 +1,29 @@
 import React from 'react'
+import AlgoOrderTable from '../../components/AlgoOrderTable'
+import AlgoOrderDefinitions from '../../components/AlgoOrderDefenitionsTable'
+
+const algoOrders = [
+  [42, 'bfx-ping_pong', true, null, 'Default'],
+  [42, 'bfx-iceberg', true, null, 'Default'],
+  [42, 'bfx-twap', true, null, 'Default'],
+  [42, 'bfx-accumulate_distribute', true, null, 'Default'],
+]
 
 export default class AlgoOrdersView extends React.Component {
   state = {}
 
-  render () {
+  render() {
     return (
-      <div className='hfui_view__wrapper hfui-algo-orders'>
+      <div className='hfui_view__wrapper'>
         <h1>Algo Orders</h1>
+        <div className='hfui_content__wrapper'>
+          <AlgoOrderTable
+            algoOrders={algoOrders}
+          />
+          <AlgoOrderDefinitions
+            algoOrders={algoOrders}
+          />
+        </div>
       </div>
     )
   }

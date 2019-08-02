@@ -1,0 +1,43 @@
+.hfui_menu {
+    background: #1b262d;
+    border-right: 1px solid #1b262d;
+    min-width: 20%;
+    max-width: 20%;
+  
+    a:hover {
+      text-decoration: none !important;
+    }
+  
+    a {
+      width: 100%;
+      display: block;
+      margin-bottom: 8px;
+  
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  
+    button {
+      font-size: 14px;
+      font-family: Roboto, sans;
+      color: #939393;
+      padding: 8px 32px 8px 16px;
+      width: 100%;
+      text-align: left;
+  
+      background: transparent;
+      border: none;
+      border-radius: 0;
+  
+      &:hover, &.active {
+        color: #fff;
+        background: rgba(0, 0, 0, 0.1);
+        border-right: 1px solid #fcd206; // HF yellow
+        box-shadow: none;
+        outline: none;
+        cursor: pointer;
+      }
+    }
+  }
+  

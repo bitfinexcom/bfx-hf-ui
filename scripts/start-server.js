@@ -4,15 +4,28 @@ process.env.DEBUG = 'bfx:hf:*'
 require('dotenv').config()
 require('bfx-hf-util/lib/catch_uncaught_errors')
 
+// internal
+const HFDBLowDBAdapter = require('bfx-hf-models-adapter-lowdb')
+const { schema: HFDBBitfinexSchema } = require('bfx-hf-ext-plugin-bitfinex')
+const { RESTv2 } = require('bfx-api-node-rest')
+const HFDB = require('bfx-hf-models')
+const hfDb = new HFDB({
+  schema: HFDBBitfinexSchema,
+  adapter: HFDBLowDBAdapter({
+    dbPath: `${__dirname}/../db`,
+    schema: HFDBBitfinexSchema
+  })
+})
+const { Credential } = hfDb
+const CRED_KEY = 'hf-ui-credentials'
+
+
+// external
 const debug = require('debug')('bfx:hf:api-server')
 const _isString = require('lodash/isString')
 const CORS = require('cors')
 const Express = require('express')
 const BodyParser = require('body-parser')
-const LevelUp = require('levelup')
-const LevelDown = require('leveldown')
-const { connectDB } = require('bfx-hf-models')
-const { RESTv2 } = require('bfx-api-node-rest')
 const HFServer = require('bfx-hf-server')
 const SocksProxyAgent = require('socks-proxy-agent')
 const requestProxy = require('express-request-proxy')
@@ -21,14 +34,9 @@ const requestProxy = require('express-request-proxy')
 const {
   SOCKS_PROXY_URL, REST_URL, WS_URL,
 } = process.env
-
 const API_PORT = process.env.API_PORT || '9987'
 
 const run = async () => {
-  // await startDB(`${__dirname}/db-mongo`)
-  await connectDB('hf-ui-api')
-
-  const db = LevelUp(LevelDown(`${__dirname}/../db`))
   const app = Express()
 
   app.use(CORS())
@@ -37,66 +45,47 @@ const run = async () => {
   let hfServer = null
   let restAPI = null
 
-  const startHFServer = () => {
+  const startHFServer = async () => {
     if (hfServer) {
       hfServer.close()
     }
-
-    db.get('api:key', (error, key) => {
-      if (error) {
-        return
-      }
-
-      db.get('api:secret', (error2, secret) => {
-        if (error2) {
-          return
-        }
-
-        restAPI = new RESTv2({
-          apiKey: key.toString(),
-          apiSecret: secret.toString(),
-          agent: SOCKS_PROXY_URL ? new SocksProxyAgent(SOCKS_PROXY_URL) : null,
-          url: REST_URL,
-        })
-
-        hfServer = new HFServer({
-          apiKey: key.toString(),
-          apiSecret: secret.toString(),
-          transform: true,
-          proxy: true,
-          asPort: 9999,
-          dsPort: 8899,
-          port: 10000,
-          agent: SOCKS_PROXY_URL ? new SocksProxyAgent(SOCKS_PROXY_URL) : null,
-          restURL: REST_URL,
-          wsURL: WS_URL,
-        })
+    const creds = await Credential.get(CRED_KEY)
+    if (creds) {
+      restAPI = new RESTv2({
+        apiKey: creds.key,
+        apiSecret: creds.secret,
+        agent: SOCKS_PROXY_URL ? new SocksProxyAgent(SOCKS_PROXY_URL) : null,
+        url: REST_URL,
       })
-    })
+      hfServer = new HFServer({
+        db: hfDb,
+        apiKey: creds.key,
+        apiSecret: creds.secret,
+        transform: true,
+        proxy: true,
+        asPort: 9999,
+        dsPort: 8899,
+        hfPort: 7799,
+        port: 10000,
+        agent: SOCKS_PROXY_URL ? new SocksProxyAgent(SOCKS_PROXY_URL) : null,
+        restURL: REST_URL,
+        wsURL: WS_URL,
+      })
+    }
   }
 
-  app.get('/api-key', (req, res) => {
-    db.get('api:key', (error, key) => {
-      if (error && !/not found/.test(error.message)) {
-        res.status(500).json({ error: error.message })
-        return
-      }
-
-      db.get('api:secret', (error2, secret) => {
-        if (error2 && !/not found/.test(error2.message)) {
-          res.status(500).json({ error: error2.message })
-          return
-        }
-
-        res.json({
-          key: key ? key.toString() : null,
-          secret: secret ? secret.toString() : null,
-        })
-      })
+  app.get('/api-key', async (req, res) => {
+    const creds = await Credential.get(CRED_KEY)
+    if (!creds) {
+      return res.status(200).json({ error: `Unable to find api credentials for id ${CRED_KEY}` })
+    }
+    return res.json({
+      key: creds.key,
+      secret: creds.secret,
     })
   })
 
-  app.post('/api-key', (req, res) => {
+  app.post('/api-key', async (req, res) => {
     const { key, secret } = req.body
 
     if (!_isString(key)) {
@@ -107,29 +96,51 @@ const run = async () => {
       return res.status(400).json({ error: 'No API secret provided' })
     }
 
-    return db.put('api:key', key, (error) => {
-      if (error) {
-        res.status(500).json({ error: error.message })
-        return
-      }
-
-      db.put('api:secret', secret, (error2) => {
-        if (error2) {
-          res.status(500).json({ error: error.message })
-          return
-        }
-
-        startHFServer()
-
-        res.json({ key, secret })
+    try {
+      await Credential.create({
+        cid: CRED_KEY,
+        key,
+        secret,
       })
-    })
+    } catch (error) {
+      console.error(error)
+      return res.status(500).json({ error: error.message })
+    }
+    startHFServer()
+    return res.json({ key, secret })
   })
 
-  app.post('/reconnect-bfx', (req, res) => {
-    // startHFServer()
+  app.post('/api-key-update', async (req, res) => {
+    const { key, secret } = req.body
+    debug(key, secret)
+
+    if (!_isString(key)) {
+      return res.status(400).json({ error: 'No API key provided' })
+    }
+
+    if (!_isString(secret)) {
+      return res.status(400).json({ error: 'No API secret provided' })
+    }
+
+    try {
+      debug(await Credential.update(CRED_KEY, {
+        cid: CRED_KEY,
+        key,
+        secret,
+      }))
+    } catch (error) {
+      debug('===============', error)
+      return res.status(500).json({ error: error.message })
+    }
+    startHFServer()
+    return res.json({ key, secret })
+  })
+
+  app.post('/reconnect-bfx', async (req, res) => {
+    await startHFServer()
     res.status(200)
   })
+
 
   app.get('/v2/tickers', requestProxy({
     url: 'https://www.bitfinex.com/v2/tickers',
@@ -166,7 +177,7 @@ const run = async () => {
     return res.json(data)
   })
 
-  startHFServer()
+  await startHFServer()
   app.listen(API_PORT)
 
   debug(`server listening on port ${API_PORT}`)

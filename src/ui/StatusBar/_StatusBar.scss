@@ -1,6 +1,6 @@
 .statusbar__wrapper {
   padding: 0 32px;
-  background: #161e24;
+  background: #1b262d;
   color: #eee;
 
   z-index: 9999;
@@ -22,4 +22,36 @@
 .statusbar__wrapper-right {
   float: right;
   line-height: 30px;
+}
+
+.statusbar__version {
+  width: 30px;
+  height: 8px;
+}
+
+.statusbar__right {
+  float: right;
+}
+
+.statusbar_indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 10px;
+}
+
+.online {
+  background: #9dc24a;
+}
+
+.gray {
+  background: #ccc;
+}
+
+.offline {
+  background:#412c34; // need to change this one
+}
+
+.orange {
+  background: #f89406;
 }

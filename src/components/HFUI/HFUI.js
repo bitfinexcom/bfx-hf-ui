@@ -1,24 +1,26 @@
 import React from 'react'
-// import { Spinner, Intent } from '@blueprintjs/core'
-import { Switch, Route } from 'react-router-dom'
-// import _isEmpty from 'lodash/isEmpty'
+import { Spinner, Intent } from '@blueprintjs/core'
+import { Route, Redirect } from 'react-router-dom'
+import _isEmpty from 'lodash/isEmpty'
+import { NotificationContainer } from 'react-notifications'
 
-// import APIComboDialog from '../APIComboDialog'
+import APIComboDialog from '../APIComboDialog'
 import SideNavBar from '../../ui/SideNavBar'
 import StatusBar from '../../ui/StatusBar'
-import BacktestingView from '../../pages/Backtesting'
-import SettingsView from '../../pages/Settings'
 import AlgoOrdersView from '../../pages/AlgoOrders'
-import DashboardView from '../../pages/Dashboard'
+import SettingsView from '../../pages/Settings'
+import { propTypes } from './HFUI.props'
 
 export default class HFUI extends React.Component {
+  static propTypes = propTypes
+
   constructor(props) {
     super(props)
 
     this.onSubmitKeys = this.onSubmitKeys.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const { loadInitialSettings, loadAPIKey, cycleBFXConnection } = this.props
 
     loadInitialSettings()
@@ -32,9 +34,6 @@ export default class HFUI extends React.Component {
   }
 
   render() {
-    console.log('!!! NOTE: API key/secret enforcer disabled !!!')
-
-    /*
     const { apiKeyCombo = {} } = this.props
 
     if (_isEmpty(apiKeyCombo)) {
@@ -59,14 +58,18 @@ export default class HFUI extends React.Component {
         </div>
       )
     }
-    */
 
+    /*
+      <Route exact path='/index.html' component={DashboardView} />  used for an electron app
+    */
     return (
       <div className='hfui'>
         <div className='hfui_content__wrapper'>
+          <NotificationContainer />
           <Route component={SideNavBar} />
-          <Route exact path='/' component={DashboardView} />
+          <Redirect exact from='/' to='/algo-orders' />
           <Route path='/algo-orders' component={AlgoOrdersView} />
+          <Route path='/settings' component={SettingsView} />
         </div>
 
         <Route component={StatusBar} />

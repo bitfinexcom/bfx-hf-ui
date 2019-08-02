@@ -5,6 +5,7 @@ import { propTypes, defaultProps } from './index.props'
 
 export default class NavBar extends React.PureComponent {
   static propTypes = propTypes
+
   static defaultProps = defaultProps
 
   render() {
@@ -14,7 +15,6 @@ export default class NavBar extends React.PureComponent {
       <div className='hfui_sidenavbar'>
         <div className='hfui_sidenavbar__header'>
           <img src='/HF-icon.png' alt='Honey Framework' />
-          <h2>HF UI</h2>
         </div>
 
         {Object.keys(buttons).map((key) => {
@@ -25,6 +25,7 @@ export default class NavBar extends React.PureComponent {
             <Link to={`/${key}`} key={key}>
               <button
                 className={ClassNames({ active: key === page })}
+                type='button'
               >
                 {item.label}
               </button>

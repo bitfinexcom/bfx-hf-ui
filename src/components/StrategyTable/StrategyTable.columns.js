@@ -1,11 +1,11 @@
 import React from 'react'
-import { Icon } from '@blueprintjs/core'
+import Switch from 'react-switch'
 
 export default [{
   width: 300,
   label: 'Name',
   dataKey: 'name',
-  cellRenderer: ({ rowData = {} }) => rowData.name
+  cellRenderer: ({ rowData = {} }) => rowData.name,
 }, {
   width: 200,
   label: 'Created',
@@ -17,24 +17,22 @@ export default [{
   width: 80,
   label: 'Symbol',
   dataKey: 'symbol',
-  cellRenderer: ({ rowData = {} }) => rowData.symbol
+  cellRenderer: ({ rowData = {} }) => rowData.symbol,
 }, {
   width: 120,
   label: 'Order Count',
   dataKey: 'orderCount',
-  cellRenderer: ({ rowData = {} }) => rowData.orderCount
+  cellRenderer: ({ rowData = {} }) => rowData.orderCount,
 }, {
   width: 120,
   label: 'Status',
   dataKey: 'status',
-  cellRenderer: ({ rowData = {} }) => rowData.status
+  cellRenderer: ({ rowData = {} }) => rowData.status,
 }, {
   width: 120,
   label: 'Actions',
   dataKey: 'gid',
   cellRenderer: ({ rowData = {} }) => (
-    rowData.status === 'ACTIVE'
-      ? <Icon icon='pause' key={'pause'} />
-      : <Icon icon='play' key={'play'} />
+     <Switch  checked={rowData.status === 'ACTIVE'} height={14} width={28} onColor='#0F0' />
   ),
 }]

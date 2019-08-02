@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import _isString from 'lodash/isString'
 
 import WSHFTypes from '../constants/ws-hf-server'
@@ -8,14 +9,13 @@ import onWSMessage from './ws-hf/on_message'
 export default () => {
   let socket = null
 
-  return store => next => (action = {}) => {
+  return store => next => (action = { type: 'undefined' }) => {
     if (!action) {
       console.warn('WSS Middleware received strange action', action)
       return
     }
 
     const { type, payload = {} } = action
-
     switch (type) {
       case WSHFTypes.CONNECT: {
         if (socket !== null) {
@@ -37,7 +37,7 @@ export default () => {
         const { channels } = payload
 
         socket.send(JSON.stringify(['ds', ['bfx', [
-          0, 'calc', null, channels
+          0, 'calc', null, channels,
         ]]]))
 
         return
@@ -80,7 +80,7 @@ export default () => {
         return socket.send(
           _isString(payload)
             ? payload
-            : JSON.stringify(payload)
+            : JSON.stringify(payload),
         )
       }
 

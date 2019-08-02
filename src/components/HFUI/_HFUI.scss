@@ -1,6 +1,6 @@
-.hfui .hfui-api-combo-dialog {
-  width: 400px;
-  margin: 200px auto 0 auto;
+.hfui .hfui-api-combo-dialog-menu {
+  width: 40%;
+  margin-left: 300px;
 }
 
 .hfui.loading {
@@ -19,9 +19,12 @@
   flex-direction: row;
 }
 
+
 .hfui_view__wrapper {
   padding: 0 32px;
-  width: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 
   .panel__wrapper {
     margin-bottom: 32px;
