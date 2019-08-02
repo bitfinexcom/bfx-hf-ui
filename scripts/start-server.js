@@ -47,6 +47,7 @@ const run = async () => {
 
   const startHFServer = async () => {
     if (hfServer) {
+      debug(true)
       hfServer.close()
     }
     const creds = await Credential.get(CRED_KEY)
@@ -123,13 +124,12 @@ const run = async () => {
     }
 
     try {
-      debug(await Credential.update(CRED_KEY, {
+      await Credential.update(CRED_KEY, {
         cid: CRED_KEY,
         key,
         secret,
-      }))
+      })
     } catch (error) {
-      debug('===============', error)
       return res.status(500).json({ error: error.message })
     }
     startHFServer()
