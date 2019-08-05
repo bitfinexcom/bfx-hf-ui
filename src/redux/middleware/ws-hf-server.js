@@ -5,6 +5,7 @@ import WSHFTypes from '../constants/ws-hf-server'
 import onWSOpen from './ws-hf/on_open'
 import onWSClose from './ws-hf/on_close'
 import onWSMessage from './ws-hf/on_message'
+import { NotificationManager } from 'react-notifications'
 
 export default () => {
   let socket = null
@@ -61,6 +62,7 @@ export default () => {
       }
 
       case WSHFTypes.DISCONNECTED: {
+        // NotificationManager.error('WS HF Disconnected!')
         console.info('[wss] disconnected')
         return
       }
