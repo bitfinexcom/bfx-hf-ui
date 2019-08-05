@@ -26,6 +26,14 @@ export default class HFUI extends React.Component {
     loadInitialSettings()
     loadAPIKey()
     cycleBFXConnection()
+    // keep trying to load api keys
+    const reloadKeys = () => {
+      const { apiKeyCombo = {} } = this.props
+      if (!_isEmpty(apiKeyCombo)) return
+      loadAPIKey()
+      setTimeout(reloadKeys, 5000)
+    }
+    reloadKeys()
   }
 
   onSubmitKeys({ key, secret } = {}) {
