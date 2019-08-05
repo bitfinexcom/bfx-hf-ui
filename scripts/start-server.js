@@ -47,7 +47,6 @@ const run = async () => {
 
   const startHFServer = async () => {
     if (hfServer) {
-      debug(true)
       hfServer.close()
     }
     const creds = await Credential.get(CRED_KEY)
@@ -113,7 +112,6 @@ const run = async () => {
 
   app.post('/api-key-update', async (req, res) => {
     const { key, secret } = req.body
-    debug(key, secret)
 
     if (!_isString(key)) {
       return res.status(400).json({ error: 'No API key provided' })
