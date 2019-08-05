@@ -28,6 +28,34 @@ const stopOrder = (gId) => {
   }
 }
 
+const runOrder = (gId) => {
+  console.log(gId)
+  return (dispatch) => {
+    return axios.get(`${HfServerConsts.HOST}/v1/orders/${gId}/activate`)
+    .then((response) => {
+      // success
+      dispatch({
+        type: 'RECEIVE_ORDERS',
+        payload: Object.values(response.data).map((v) => {
+          return [
+            v.gid,
+            v.algoID,
+            v.active,
+            v.state,
+          ]
+        }),
+      })
+    })
+    .catch((error) => {
+      // failed
+      console.error(error)
+    })
+    .finally(() => {
+      dispatch({ type: 'RECEIVE_ORDERS_DONE' })
+    })
+  }
+}
+
 function changeStatus(index) {
   return {
     type: 'CHANGE_STATUS',
@@ -55,4 +83,5 @@ export default {
   changeStatus,
   getAlgoData,
   receiveAlgoData,
+  runOrder,
 }

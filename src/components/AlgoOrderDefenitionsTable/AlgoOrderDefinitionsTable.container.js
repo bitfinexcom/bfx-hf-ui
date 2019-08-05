@@ -25,6 +25,9 @@ const mapDispatchToProps = dispatch => ({
   stopOrder: (gId) => {
     dispatch(AlgoOrderActions.stopOrder(gId))
   },
+  runOrder: (gId) => {
+    dispatch(AlgoOrderActions.runOrder(gId))
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AlgoOrderDefinitionsTableView)

@@ -34,10 +34,18 @@ export default class AlgoOrderTable extends React.Component {
   }
 
   render() {
-    const { orders, stopOrder } = this.props
+    const { orders, stopOrder, runOrder } = this.props
     const orderObjects = orders.reverse().map((ao) => {
       const isActive = !!ao[2]
-      let status = <p>Inactive</p>
+      let status = (
+        <button
+          type='button'
+          className='hfui__stop-order-btn '
+          onClick={() => runOrder(ao[0])}
+        >
+      Activate
+        </button>
+      )
       if (isActive) {
         status = (
           <button
