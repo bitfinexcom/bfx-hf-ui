@@ -18,19 +18,9 @@ export default class AlgoOrderTable extends React.Component {
   static defaultProps = defaultProps
 
   shouldComponentUpdate(nextProps) {
-    const newAlgoOrders = nextProps.algoOrders
     const newOrders = nextProps.orders
-    const { algoOrders, orders } = this.props
-    if (orders !== newOrders) {
-      return true
-    }
-    if (newAlgoOrders.length !== algoOrders.length) {
-      return true
-    }
-
-    const isSame = newAlgoOrders.every((row, indexRow) => row.every((value, indexValue) => value === algoOrders[indexRow][indexValue]))
-
-    return !isSame
+    const { orders } = this.props
+    return JSON.stringify(orders) !== JSON.stringify(newOrders)
   }
 
   render() {
@@ -60,18 +50,39 @@ export default class AlgoOrderTable extends React.Component {
         status,
       }
     })
+    const noOrdersDialogue = (
+      <div
+        style={{
+          textAlign: 'center',
+        }}
+      >
+        <p style={{ marginTop: 70 }}>
+          No algo orders have been created yet,
+        </p>
+        <p>Head to bitfinex.com and create one.</p>
+      </div>
+    )
     return (
       <Panel
-        label='Orders'
+        label={orders.length > 0 ? 'Orders' : ''}
         contentClassName='table__wrapper'
         style={{ height: '100%' }}
       >
-        <Table
-          data={orderObjects}
-          columns={AlgoOrderDefinitionsTableColumns}
-          maxWidth={850}
-          defaultSortDirection='ASC'
-        />
+        {
+          (orders.length > 0) && (
+            <Table
+              data={orderObjects}
+              columns={AlgoOrderDefinitionsTableColumns}
+              maxWidth={850}
+              defaultSortDirection='ASC'
+            />
+          )
+        }
+        {
+          (orders.length <= 0) && (
+            noOrdersDialogue
+          )
+        }
       </Panel>
     )
   }

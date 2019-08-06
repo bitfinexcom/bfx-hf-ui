@@ -18,8 +18,8 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  changeStatus: (index) => {
-    dispatch(AlgoOrderActions.changeStatus(index))
+  changeStatus: (id, isActive) => {
+    dispatch(AlgoOrderActions.changeStatus(id, isActive))
   },
   toggleEditor: (flag) => {
     dispatch(EditorActions.toggleEditor(flag))

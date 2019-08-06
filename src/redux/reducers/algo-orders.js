@@ -1,10 +1,42 @@
 function getInitialState() {
   return {
     algoOrders: [
-      [42, 'bfx-ping_pong', true, null, 'Default'],
-      [42, 'bfx-iceberg', true, null, 'Default'],
-      [42, 'bfx-twap', true, null, 'Default'],
-      [42, 'bfx-accumulate_distribute', true, null, 'Default'],
+      {
+        active: false,
+        id: 'bfx-accumulate_distribute',
+        name: 'Accumulate/Distribute',
+        meta: {},
+        events: {
+          self: {}, life: {}, orders: {}, data: {}, errors: {},
+        },
+      },
+      {
+        active: false,
+        id: 'bfx-twap',
+        name: 'TWAP',
+        meta: {},
+        events: {
+          self: {}, life: {}, orders: {}, data: {}, errors: {},
+        },
+      },
+      {
+        active: true,
+        id: 'bfx-iceberg',
+        name: 'Iceberg',
+        meta: {},
+        events: {
+          self: {}, life: {}, orders: {}, errors: {},
+        },
+      },
+      {
+        active: false,
+        id: 'bfx-ping_pong',
+        name: 'Ping/Pong',
+        meta: {},
+        events: {
+          life: {}, orders: {}, errors: {},
+        },
+      },
     ],
   }
 }
