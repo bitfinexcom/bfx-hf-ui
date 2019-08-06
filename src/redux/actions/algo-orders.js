@@ -5,7 +5,6 @@ const stopOrder = (gId) => {
   return (dispatch) => {
     return axios.get(`${HfServerConsts.HOST}/v1/orders/${gId}/stop`)
       .then((response) => {
-        // success
         dispatch({
           type: 'RECEIVE_ORDERS',
           payload: Object.values(response.data).map((v) => {
@@ -28,10 +27,22 @@ const stopOrder = (gId) => {
   }
 }
 
-function changeStatus(index) {
-  return {
-    type: 'CHANGE_STATUS',
-    index,
+function changeStatus(id, isActive) {
+  return (dispatch) => {
+    return axios.post(`${HfServerConsts.HOST}/v1/definitions/${id}/state/set`, { active: isActive })
+      .then((response) => {
+        dispatch({
+          type: 'RECEIVE_ALGO_DATA',
+          payload: response.data,
+        })
+      })
+      .catch((error) => {
+        // failed
+        console.error(error)
+      })
+      .finally(() => {
+        dispatch({ type: 'RECEIVE_ALGO_DATA_DONE' })
+      })
   }
 }
 

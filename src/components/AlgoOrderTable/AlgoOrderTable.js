@@ -30,9 +30,7 @@ export default class AlgoOrderTable extends React.Component {
       return true
     }
 
-    const isSame = nextProps.algoOrders.every((row, indexRow) => row.every((value, indexValue) => value === algoOrders[indexRow][indexValue]))
-
-    return !isSame
+    return JSON.stringify(newAlgoOrders) !== JSON.stringify(algoOrders)
   }
 
   onRowClick({ index } = {}) {
@@ -44,21 +42,13 @@ export default class AlgoOrderTable extends React.Component {
 
   render() {
     const { algoOrders } = this.props
-
-    const orderObjects = algoOrders.map(ao => ({
-      gid: ao[0],
-      name: ALGO_NAMES[ao[1]],
-      mts: ao[4],
-      status: ao[2] ? 'ACTIVE' : 'STOPPED',
-    }))
-
     return (
       <Panel
         label='Algo Order Definitions'
         contentClassName='table__wrapper'
       >
         <Table
-          data={orderObjects}
+          data={algoOrders}
           columns={AlgoOrderTableColumns}
           maxWidth={850}
           defaultSortDirection='ASC'
