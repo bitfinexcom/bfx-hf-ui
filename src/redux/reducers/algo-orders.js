@@ -20,7 +20,7 @@ function getInitialState() {
         },
       },
       {
-        active: true,
+        active: false,
         id: 'bfx-iceberg',
         name: 'Iceberg',
         meta: {},
