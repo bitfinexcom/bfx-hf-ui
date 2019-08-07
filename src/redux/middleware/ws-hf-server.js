@@ -2,8 +2,6 @@
 import _isString from 'lodash/isString'
 
 import WSHFTypes from '../constants/ws-hf-server'
-import onWSOpen from './ws-hf/on_open'
-import onWSClose from './ws-hf/on_close'
 import onWSMessage from './ws-hf/on_message'
 
 export default () => {
@@ -24,8 +22,16 @@ export default () => {
 
         socket = new window.WebSocket(payload.destination)
         socket.onmessage = onWSMessage(socket, store)
-        socket.onclose = onWSClose(socket, store)
-        socket.onopen = onWSOpen(socket, store)
+        socket.onclose = () => {
+          console.info(`[wss] disconnected from ${payload.destination}`)
+          next({ type: WSHFTypes.DISCONNECTED })
+        }
+        socket.onopen = () => {
+          console.info(`[wss] connected to ${payload.destination}`)
+          next({
+            type: WSHFTypes.CONNECTED,
+          })
+        }
         return socket
       }
 
@@ -58,11 +64,6 @@ export default () => {
         socket = null
         return
         */
-      }
-
-      case WSHFTypes.DISCONNECTED: {
-        console.info('[wss] disconnected')
-        return
       }
 
       // bfxft ws integration

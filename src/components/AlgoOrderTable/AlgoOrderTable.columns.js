@@ -1,10 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import Switch from 'react-switch'
-import { Icon } from '@blueprintjs/core'
 import { store } from '../../StoreWrapper'
-import WSHFActions from '../../redux/actions/ws-hf-server'
-
+import AlgoOrderActions from '../../redux/actions/algo-orders'
 
 export default [{
   width: 300,
@@ -15,23 +13,17 @@ export default [{
   width: 300,
   label: 'Created',
   dataKey: 'mts',
-  cellRenderer: ({ rowData = {} }) => {
-    if (typeof rowData.mts === 'string') {
-      return rowData.mts
-    }
-    return new Date(rowData.mts).toLocaleString()
-  },
+  cellRenderer: () => 'Default',
 }, {
   width: 300,
   label: 'Actions',
   dataKey: 'gid',
-  cellRenderer: ({ rowData = {}, rowIndex }) => (
+  cellRenderer: ({ rowData = {} }) => (
     <Switch
       onChange={() => {
-        store.dispatch({ type: 'CHANGE_STATUS', index: rowIndex })
-        WSHFActions.send(['as', ['update.ao', rowData.name]])
+        store.dispatch(AlgoOrderActions.changeStatus(rowData.id, !rowData.active))
       }}
-      checked={rowData.status === 'ACTIVE'}
+      checked={rowData.active}
       height={14}
       width={28}
       onColor='#9dc24a'

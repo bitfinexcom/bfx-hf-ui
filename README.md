@@ -7,13 +7,15 @@
 
 ```bash
 git clone https://github.com/bitfinexcom/bfx-hf-ui
-npm install --dev
+yarn  install
 ```
 
 ## Run in the browser
 
 ```
-npm run dev
+npm run build
+npm run start-server
+npm start
 ```
 
 ## Build electron app manually
@@ -32,7 +34,7 @@ Head to the latest cut [releases](https://github.com/bitfinexcom/bfx-hf-ui/relea
 
 Starting the HF UI will spawn all of the Honey Framework services that are needed to register custom algo-order definitions in the background. Currently (as of release 1.0.0) the UI will register the built in default order types which will be instantly available for use in the bitfinex.com UI. For more info on how to use algo orders once the UI is running head [here](https://medium.com/bitfinex/announcing-the-honey-framework-algorithmic-orders-8065fb70c65c).
 
-![Alt text](res/bfx-hf-ui-v1.0.0.png "Title")
+![Alt text](res/bfx-hf-ui.png "Title")
 
 ## Up and coming features
 
