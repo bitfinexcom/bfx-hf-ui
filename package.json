@@ -76,6 +76,7 @@
     "@blueprintjs/select": "3.1.0",
     "axios": "^0.18.0",
     "bfx-hf-algo": "git+https://github.com/bitfinexcom/bfx-hf-algo.git",
+    "bfx-hf-algo-server": "git+https://github.com/bitfinexcom/bfx-hf-algo-server.git",
     "bfx-hf-ext-plugin-bitfinex": "git+https://github.com/bitfinexcom/bfx-hf-ext-plugin-bitfinex.git",
     "bfx-hf-indicators": "bitfinexcom/bfx-hf-indicators",
     "bfx-hf-models": "git+https://github.com/bitfinexcom/bfx-hf-models.git",
