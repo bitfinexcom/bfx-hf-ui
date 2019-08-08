@@ -27,7 +27,7 @@ export default class SettingsView extends React.Component {
           <div style={{ marginTop: '90px' }} />
           <Settings />
         </div>
-        <div style={{ flex: 1, marginTop: '90px'}}>
+        <div style={{ flex: 1, marginTop: '90px'}} className="bp3-dark hfui">
           <APIComboDialog onSubmit={this.onSubmitKeys} />
         </div>
       </div>

@@ -35,16 +35,14 @@ const {
   SOCKS_PROXY_URL, REST_URL, WS_URL,
 } = process.env
 const API_PORT = process.env.API_PORT || '9987'
+let hfServer = null
+let restAPI = null
 
 const run = async () => {
   const app = Express()
 
   app.use(CORS())
   app.use(BodyParser.json())
-
-  let hfServer = null
-  let restAPI = null
-
   const startHFServer = async () => {
     if (hfServer) {
       hfServer.close()
@@ -77,7 +75,9 @@ const run = async () => {
   app.get('/api-key', async (req, res) => {
     const creds = await Credential.get(CRED_KEY)
     if (!creds) {
-      return res.status(200).json({ error: `Unable to find api credentials for id ${CRED_KEY}` })
+      const err = `Unable to find api credentials for id ${CRED_KEY}`
+      debug(err)
+      return res.status(200).json({ error: err })
     }
     return res.json({
       key: creds.key,
@@ -103,41 +103,41 @@ const run = async () => {
         secret,
       })
     } catch (error) {
-      console.error(error)
+      debug(error)
       return res.status(500).json({ error: error.message })
     }
-    startHFServer()
+    if (!hfServer) {
+      await startHFServer()
+    }
     return res.json({ key, secret })
   })
 
   app.post('/api-key-update', async (req, res) => {
     const { key, secret } = req.body
-    debug(key, secret)
-
     if (!_isString(key)) {
       return res.status(400).json({ error: 'No API key provided' })
     }
-
     if (!_isString(secret)) {
       return res.status(400).json({ error: 'No API secret provided' })
     }
-
     try {
-      debug(await Credential.update(CRED_KEY, {
+      await Credential.update(CRED_KEY, {
         cid: CRED_KEY,
         key,
         secret,
-      }))
+      })
     } catch (error) {
-      debug('===============', error)
+      debug(error)
       return res.status(500).json({ error: error.message })
     }
-    startHFServer()
+    await startHFServer()
     return res.json({ key, secret })
   })
 
   app.post('/reconnect-bfx', async (req, res) => {
-    await startHFServer()
+    if (!hfServer) {
+      await startHFServer()
+    }
     res.status(200)
   })
 
@@ -177,9 +177,7 @@ const run = async () => {
     return res.json(data)
   })
 
-  await startHFServer()
   app.listen(API_PORT)
-
   debug(`server listening on port ${API_PORT}`)
 }
 
