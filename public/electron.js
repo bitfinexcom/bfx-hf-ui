@@ -16,7 +16,7 @@ const fs = require('fs')
 
 
 const unhook_intercept = intercept((txt) => {
-  fs.appendFile('logs.log', txt, (err, res) => {})
+  fs.appendFile(__dirname + 'logs.log', txt, (err, res) => {})
 })
 
 function createWindow() {
