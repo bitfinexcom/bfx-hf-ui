@@ -2,6 +2,7 @@
 import _isArray from 'lodash/isArray'
 // import bfxDataActions from 'bfxuilib/dist/redux/actions/data.actions'
 import WSHFActions from '../../actions/ws-hf-server'
+import { NotificationManager } from 'react-notifications'
 
 export default (ws, store) => (e = {}) => {
   const { data = '' } = e
@@ -33,15 +34,26 @@ export default (ws, store) => (e = {}) => {
       return
     }
     case 'ds': { // data server
-      const [type] = msg
+      const [type, bfxPayload = {}] = msg
+      const { status = {} } = bfxPayload || {}
       const serverData = msg[1] ? msg[1][2] : null
+
       if (Array.isArray(serverData) && serverData) {
         const event = serverData[1]
         if (event === 'ucm-submit-bfx-res-req') {
+          NotificationManager.success('Started new order!')
           store.dispatch(WSHFActions.send(['as', ['get.aos']]))
         }
       }
       if (type === 'bfx') {
+        const bfxMessage = bfxPayload.msg || {}
+        
+        // alert message
+        if (status && status === 'FAILED') {
+          console.log('failed')
+          NotificationManager.error(bfxMessage)
+        }
+
         const action = WSHFActions.recvBitfinex(msg)
         store.dispatch(action)
         // Handle auth sub mock action
