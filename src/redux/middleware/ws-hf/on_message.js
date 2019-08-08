@@ -1,8 +1,8 @@
 /* eslint-disable consistent-return */
 import _isArray from 'lodash/isArray'
 // import bfxDataActions from 'bfxuilib/dist/redux/actions/data.actions'
-import WSHFActions from '../../actions/ws-hf-server'
 import { NotificationManager } from 'react-notifications'
+import WSHFActions from '../../actions/ws-hf-server'
 
 export default (ws, store) => (e = {}) => {
   const { data = '' } = e
@@ -18,7 +18,6 @@ export default (ws, store) => (e = {}) => {
     console.error('[wss] recv invalid ws payload: ', payload)
     return
   }
-
   const [scope, msg] = payload
   switch (scope) {
     case 'error': {
@@ -47,11 +46,20 @@ export default (ws, store) => (e = {}) => {
       }
       if (type === 'bfx') {
         const bfxMessage = bfxPayload.msg || {}
-        
         // alert message
-        if (status && status === 'FAILED') {
-          console.log('failed')
-          NotificationManager.error(bfxMessage)
+        switch (status) {
+          case 'FAILED': {
+            NotificationManager.error(bfxMessage)
+            break
+          }
+          case 'OK': {
+            if (bfxPayload.event === 'auth') {
+              NotificationManager.success('Authenticated succesfully!')
+            }
+            break
+          }
+          default:
+            return {}
         }
 
         const action = WSHFActions.recvBitfinex(msg)
