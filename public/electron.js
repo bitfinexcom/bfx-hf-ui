@@ -2,7 +2,7 @@ const { app, BrowserWindow, protocol, Menu } = require('electron')
 const path = require('path')
 const url = require('url')
 
-require('../scripts/start-server') // run server
+const server = require('../scripts/start-server') // run server
 
 const env = {
   ...process.env,
@@ -10,6 +10,14 @@ const env = {
 }
 
 let mainWindow
+
+const intercept = require('intercept-stdout')
+const fs = require('fs')
+
+
+const unhook_intercept = intercept((txt) => {
+  fs.appendFile('logs.log', txt, (err, res) => {})
+})
 
 function createWindow() {
   mainWindow = new BrowserWindow({ width: 800, height: 600 })
@@ -61,6 +69,7 @@ app.on('ready', () => {
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
+    unhook_intercept()
     app.quit()
   }
 })
