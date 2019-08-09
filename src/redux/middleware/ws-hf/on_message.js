@@ -13,7 +13,7 @@ export default (ws, store) => (e = {}) => {
     console.error('[wss] error parsing JSON: ', err)
     return
   }
-
+  console.log(JSON.stringify(payload))
   if (!_isArray(payload)) {
     console.error('[wss] recv invalid ws payload: ', payload)
     return
