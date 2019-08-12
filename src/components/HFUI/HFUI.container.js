@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import APIKeyActions from '../../redux/actions/api-key'
+import { lastAppVersion } from '../../redux/actions/app-data'
 import WSHFActions from '../../redux/actions/ws-hf-server'
 import HFUI from './HFUI'
 
@@ -28,6 +29,10 @@ const mapDispatchToProps = dispatch => ({
 
   cycleBFXConnection: () => {
     dispatch(WSHFActions.cycleConnection())
+  },
+
+  getLastVersion() {
+    dispatch(lastAppVersion())
   },
 })
 

@@ -21,11 +21,12 @@ export default class HFUI extends React.Component {
   }
 
   componentDidMount() {
-    const { loadInitialSettings, loadAPIKey, cycleBFXConnection } = this.props
+    const { loadInitialSettings, loadAPIKey, cycleBFXConnection, getLastVersion } = this.props
 
     loadInitialSettings()
     loadAPIKey()
     cycleBFXConnection()
+    getLastVersion()
     // keep trying to load api keys
     const reloadKeys = () => {
       const { apiKeyCombo = {} } = this.props
