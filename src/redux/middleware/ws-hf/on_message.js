@@ -45,7 +45,7 @@ export default (ws, store) => (e = {}) => {
       }
       if (type === 'bfx') {
         const bfxMessage = bfxPayload.msg || {}
-        // alert message
+        // alert a message
         switch (status) {
           case 'FAILED': {
             NotificationManager.error(bfxMessage)

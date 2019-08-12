@@ -10,7 +10,7 @@ function getState(state) {
   return state
 }
 
-function getBFXFTType (meta = {}) {
+function getBFXFTType(meta = {}) {
   const {
     section = null,
     subsection = null,
@@ -23,6 +23,19 @@ function getBFXFTType (meta = {}) {
   return (section && subsection)
     ? _toUpper(`${pre}_${section}`)
     : '?'
+}
+
+function* externalREST(action = {}) {
+  const {
+    payload = {},
+    meta = {},
+  } = action
+ const { data } =  yield axios.get( 'https://raw.githubusercontent.com/bitfinexcom/bfx-hf-ui/master/package.json')
+ yield put({
+  type: 'REST_SUCCESS',
+  payload: data,
+  meta,
+})
 }
 
 function* onREST(action = {}) {
@@ -85,12 +98,11 @@ function* onREST(action = {}) {
 
 function* onRESTSuccess(action = {}) {
   const {
-    payload = {},
     meta = {},
+    payload = {},
   } = action
 
   const { handler, method } = meta
-
   yield put({
     type: `${handler}_${method}_RES`,
     payload,
@@ -106,6 +118,7 @@ export function* restSaga() {
   yield takeEvery('REST_SUCCESS', onRESTSuccess)
   yield takeEvery('REST_ERROR', onRESTError)
   yield takeEvery('REST', onREST)
+  yield takeEvery('REST_EXTERNAL', externalREST)
 }
 
 export default restSaga
