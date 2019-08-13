@@ -51,6 +51,10 @@ app.on('ready', () => {
   }, {
     label: 'Edit',
     submenu: [
+      { label: 'Reload', accelerator: 'CmdOrCtrl+R', click() { 
+        app.quit()
+        app.relaunch()
+       } },
       { label: 'Undo', accelerator: 'CmdOrCtrl+Z', selector: 'undo:' },
       { label: 'Redo', accelerator: 'Shift+CmdOrCtrl+Z', selector: 'redo:' },
       { type: 'separator' },
@@ -63,7 +67,6 @@ app.on('ready', () => {
   ]
 
   Menu.setApplicationMenu(Menu.buildFromTemplate(template))
-
   createWindow()
 })
 
