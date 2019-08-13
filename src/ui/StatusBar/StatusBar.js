@@ -7,11 +7,10 @@ import axios from 'axios'
 
 import { propTypes, defaultProps } from './index.props'
 
-const openGithub = (event) => {
-  const { shell } = require('electron')
-  event.preventDefault()
-  shell.openExternal('https://github.com/bitfinexcom/bfx-hf-ui/releases')
+const openGithub = () => {
+  window.location = 'https://github.com/bitfinexcom/bfx-hf-ui/releases'
 }
+
 export default class StatusBar extends React.PureComponent {
   static propTypes = propTypes
 
@@ -51,7 +50,7 @@ export default class StatusBar extends React.PureComponent {
           <span className='statusbar__version'>
             version:
             {' '}
-            { version === lastVersion ? version : <a onClick={()=>openGithub} > {version} is outdated, please update HF</a> }
+            { version === lastVersion ? version : <button onClick={() => openGithub()} className='hfui__add-order-btn'> {version} is outdated, please update HF </button> }
           </span>
           <div className='statusbar__right'>
             
