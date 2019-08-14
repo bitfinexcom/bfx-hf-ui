@@ -1,10 +1,35 @@
 import axios from 'axios'
 import HfServerConsts from '../constants/rest-hf-server'
-import { NotificationManager } from 'react-notifications';
 
 const stopOrder = (gId) => {
   return (dispatch) => {
     return axios.get(`${HfServerConsts.HOST}/v1/orders/${gId}/stop`)
+      .then((response) => {
+        dispatch({
+          type: 'RECEIVE_ORDERS',
+          payload: Object.values(response.data).map((v) => {
+            return [
+              v.gid,
+              v.algoID,
+              v.active,
+              v.state,
+            ]
+          }),
+        })
+      })
+      .catch((error) => {
+        // failed
+        console.error(error)
+      })
+      .finally(() => {
+        dispatch({ type: 'RECEIVE_ORDERS_DONE' })
+      })
+  }
+}
+
+const runOrder = (gId) => {
+  return (dispatch) => {
+    return axios.get(`${HfServerConsts.HOST}/v1/orders/${gId}/activate`)
       .then((response) => {
         dispatch({
           type: 'RECEIVE_ORDERS',
@@ -42,7 +67,6 @@ function changeStatus(id, isActive) {
         console.error(error)
       })
       .finally(() => {
-        NotificationManager.success(`AO ${isActive ? 'activated!' : 'inactivated!'}`)
         dispatch({ type: 'RECEIVE_ALGO_DATA_DONE' })
       })
   }
