@@ -30,7 +30,9 @@ function* externalREST(action = {}) {
     payload = {},
     meta = {},
   } = action
- const { data } =  yield axios.get( 'https://raw.githubusercontent.com/bitfinexcom/bfx-hf-ui/master/package.json')
+
+  const { url, method } = meta
+ const { data } =  yield axios[method](url)
  yield put({
   type: 'REST_SUCCESS',
   payload: data,

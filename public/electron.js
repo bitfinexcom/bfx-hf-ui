@@ -1,8 +1,9 @@
-const { app, BrowserWindow, protocol, Menu } = require('electron')
+const {
+  app, BrowserWindow, protocol, Menu,
+} = require('electron')
 const path = require('path')
 const url = require('url')
 
-const server = require('../scripts/start-server') // run server
 
 const env = {
   ...process.env,
@@ -13,10 +14,11 @@ let mainWindow
 
 const intercept = require('intercept-stdout')
 const fs = require('fs')
+const server = require('../scripts/start-server') // run server
 
 
 const unhook_intercept = intercept((txt) => {
-  fs.appendFile(__dirname + '/logs.log', txt, (err, res) => {})
+  fs.appendFile(`${__dirname }/logs.log`, txt, (err, res) => {})
 })
 
 function createWindow() {
@@ -51,10 +53,14 @@ app.on('ready', () => {
   }, {
     label: 'Edit',
     submenu: [
-      { label: 'Reload', accelerator: 'CmdOrCtrl+R', click() { 
-        app.quit()
-        app.relaunch()
-       } },
+      {
+        label: 'Reload',
+        accelerator: 'CmdOrCtrl+R',
+        click() {
+          app.quit()
+          app.relaunch()
+        },
+      },
       { label: 'Undo', accelerator: 'CmdOrCtrl+Z', selector: 'undo:' },
       { label: 'Redo', accelerator: 'Shift+CmdOrCtrl+Z', selector: 'redo:' },
       { type: 'separator' },
