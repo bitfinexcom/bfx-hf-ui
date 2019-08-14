@@ -4,7 +4,6 @@ const {
 const path = require('path')
 const url = require('url')
 
-
 const env = {
   ...process.env,
   ELECTRON_VERSION: process.versions.electron,
@@ -15,7 +14,6 @@ let mainWindow
 const intercept = require('intercept-stdout')
 const fs = require('fs')
 const server = require('../scripts/start-server') // run server
-
 
 const unhook_intercept = intercept((txt) => {
   fs.appendFile(`${__dirname }/logs.log`, txt, (err, res) => {})
