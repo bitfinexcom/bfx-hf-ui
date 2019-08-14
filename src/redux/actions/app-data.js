@@ -2,7 +2,7 @@ const lastAppVersion = () => ({
     type: 'REST_EXTERNAL',
     meta: {
       url: 'https://raw.githubusercontent.com/bitfinexcom/bfx-hf-ui/master/package.json',
-      method: 'get', // axios method
+      method: 'GET', // axios method
       handler: 'APP_DATA',
     }
   })

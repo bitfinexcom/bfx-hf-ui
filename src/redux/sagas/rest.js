@@ -1,5 +1,7 @@
 import axios from 'axios'
 import _toUpper from 'lodash/toUpper'
+import _toLower from 'lodash/toLower'
+
 import {
   takeEvery, put, call, select,
 } from 'redux-saga/effects'
@@ -32,7 +34,7 @@ function* externalREST(action = {}) {
   } = action
 
   const { url, method } = meta
- const { data } =  yield axios[method](url)
+ const { data } =  yield axios[_toLower(method)](url)
  yield put({
   type: 'REST_SUCCESS',
   payload: data,
