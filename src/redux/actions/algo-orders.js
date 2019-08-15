@@ -1,6 +1,12 @@
 import axios from 'axios'
 import HfServerConsts from '../constants/rest-hf-server'
 import { NotificationManager } from 'react-notifications'
+const orderLabels = {
+  'bfx-accumulate_distribute': 'Accumulate/Distribute',
+  'bfx-twap': 'TWAP',
+  'bfx-iceberg': 'Iceberg',
+  'bfx-ping_pong': 'Ping/Pong',
+}
 
 const stopOrder = (gId) => {
   return (dispatch) => {
@@ -58,7 +64,7 @@ function changeStatus(id, isActive) {
   return (dispatch) => {
     return axios.post(`${HfServerConsts.HOST}/v1/definitions/${id}/state/set`, { active: isActive })
       .then((response) => {
-        NotificationManager.success(`AO ${isActive ? 'activated' : 'stopped'}`)
+        NotificationManager.success( orderLabels[id] + ` ${isActive ? 'activated' : 'stopped'}`)
         dispatch({
           type: 'RECEIVE_ALGO_DATA',
           payload: response.data,
@@ -91,6 +97,7 @@ function receiveAlgoData() {
 
 export default {
   stopOrder,
+  runOrder,
   changeStatus,
   getAlgoData,
   receiveAlgoData,
