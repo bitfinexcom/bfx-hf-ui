@@ -1,5 +1,6 @@
 import axios from 'axios'
 import HfServerConsts from '../constants/rest-hf-server'
+import { NotificationManager } from 'react-notifications'
 
 const stopOrder = (gId) => {
   return (dispatch) => {
@@ -57,6 +58,7 @@ function changeStatus(id, isActive) {
   return (dispatch) => {
     return axios.post(`${HfServerConsts.HOST}/v1/definitions/${id}/state/set`, { active: isActive })
       .then((response) => {
+        NotificationManager.success(`AO ${isActive ? 'activated' : 'stopped'}`)
         dispatch({
           type: 'RECEIVE_ALGO_DATA',
           payload: response.data,
