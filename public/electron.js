@@ -19,11 +19,7 @@ const unhook_intercept = intercept((txt) => {
   fs.appendFile(`${__dirname }/logs.log`, txt, (err, res) => {})
 })
 
-function isExternalURL(url) {
-  return url.startsWith('http:') || url.startsWith('https:')
-}
-
-
+const isExternalURL = url => url.startsWith('http:') || url.startsWith('https:')
 
 function createWindow() {
   mainWindow = new BrowserWindow({ width: 800, height: 600 })
@@ -42,7 +38,6 @@ function createWindow() {
 app.on('ready', () => {
   protocol.interceptFileProtocol('file', (request, callback) => {
     const url = request.url.substr(7) /* all urls start with 'file://' */
-
     callback({ path: path.normalize(`${__dirname}/${url}`) })
   }, (err) => {
     if (err) console.error('Failed to register protocol')

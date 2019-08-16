@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable func-names */
 import { delay } from 'redux-saga'
 import {
   fork, put, call, select, takeEvery,

@@ -1,6 +1,7 @@
 import axios from 'axios'
-import HfServerConsts from '../constants/rest-hf-server'
 import { NotificationManager } from 'react-notifications'
+import HfServerConsts from '../constants/rest-hf-server'
+
 const orderLabels = {
   'bfx-accumulate_distribute': 'Accumulate/Distribute',
   'bfx-twap': 'TWAP',
@@ -64,7 +65,7 @@ function changeStatus(id, isActive) {
   return (dispatch) => {
     return axios.post(`${HfServerConsts.HOST}/v1/definitions/${id}/state/set`, { active: isActive })
       .then((response) => {
-        NotificationManager.success( orderLabels[id] + ` ${isActive ? 'activated' : 'stopped'}`)
+        NotificationManager.success(`${orderLabels[id]} ${isActive ? 'activated' : 'stopped'}`)
         dispatch({
           type: 'RECEIVE_ALGO_DATA',
           payload: response.data,

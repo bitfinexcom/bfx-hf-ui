@@ -1,31 +1,35 @@
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable no-param-reassign */
+/* eslint-disable func-names */
 import { delay } from 'redux-saga'
-import { put, call, select, takeEvery } from 'redux-saga/effects'
+import {
+ put, call, select, takeEvery 
+} from 'redux-saga/effects'
 import WSHFActions from '../actions/ws-hf-server'
 import WSHFTypes from '../constants/ws-hf-server'
 
 const CHECK_EVERY = 4000
 const WSS_URL = 'ws://localhost:10000'
 
-function getState (state = {}) {
+function getState(state = {}) {
   const { socketHF = {} } = state
   return socketHF
 }
 
-function checkConnection (socket = {}) {
+function checkConnection(socket = {}) {
   const { status } = socket
   return status === 'offline'
 }
 
-function * onConnection () {
-
+function* onConnection() {
   yield put({ type: WSHFTypes.FLUSH_QUEUE })
 }
 
 // place every outgoing message in a queue if connection is offline
 let queue = []
-function * messageQueueWorker (action = {}) {
+function* messageQueueWorker(action = {}) {
   const {
-    status
+    status,
   } = yield select(getState)
 
   if (action.type !== WSHFTypes.FLUSH_QUEUE) {
@@ -36,7 +40,7 @@ function * messageQueueWorker (action = {}) {
     return
   }
 
-  yield (queue || []).map(function  * (queuedAction) {
+  yield (queue || []).map(function* (queuedAction) {
     if (queuedAction.type === WSHFTypes.BUFF_SEND) {
       queuedAction.type = WSHFTypes.SEND
     }
@@ -47,7 +51,7 @@ function * messageQueueWorker (action = {}) {
   queue = []
 }
 
-export function * WSHFSaga () {
+export function* WSHFSaga() {
   yield takeEvery(WSHFTypes.BUFF_SEND, messageQueueWorker)
   yield takeEvery(WSHFTypes.FLUSH_QUEUE, messageQueueWorker)
   yield takeEvery(WSHFTypes.CONNECTED, onConnection)

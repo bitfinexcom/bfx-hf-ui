@@ -19,7 +19,6 @@ const hfDb = new HFDB({
 const { Credential } = hfDb
 const CRED_KEY = 'hf-ui-credentials'
 
-
 // external
 const debug = require('debug')('bfx:hf:api-server')
 const _isString = require('lodash/isString')
@@ -140,7 +139,6 @@ const run = async () => {
     }
     res.status(200)
   })
-
 
   app.get('/v2/tickers', requestProxy({
     url: 'https://www.bitfinex.com/v2/tickers',

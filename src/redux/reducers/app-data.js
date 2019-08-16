@@ -19,4 +19,3 @@ function reducer(state = getInitialState(), action = {}) {
 }
 
 export default reducer
-
