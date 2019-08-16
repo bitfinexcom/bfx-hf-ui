@@ -1,5 +1,5 @@
 const {
-  app, BrowserWindow, protocol, Menu,
+  app, BrowserWindow, protocol, Menu, shell
 } = require('electron')
 const path = require('path')
 const url = require('url')
@@ -18,6 +18,12 @@ const server = require('../scripts/start-server') // run server
 const unhook_intercept = intercept((txt) => {
   fs.appendFile(`${__dirname }/logs.log`, txt, (err, res) => {})
 })
+
+function isExternalURL(url) {
+  return url.startsWith('http:') || url.startsWith('https:')
+}
+
+
 
 function createWindow() {
   mainWindow = new BrowserWindow({ width: 800, height: 600 })
@@ -72,6 +78,12 @@ app.on('ready', () => {
 
   Menu.setApplicationMenu(Menu.buildFromTemplate(template))
   createWindow()
+  mainWindow.webContents.on('will-navigate', (event, url) => {
+    event.preventDefault()
+    if (isExternalURL(url)) {
+      shell.openExternal(url)
+    }
+  })
 })
 
 app.on('window-all-closed', () => {
