@@ -46,28 +46,118 @@ export default class ModalForm extends PureComponent {
   handleSubmit(e) {
     e.preventDefault()
     const { algoName, algoDesc } = e.target
+    const { data } = this.props
+    const { name } = data
 
-    store.dispatch({
-      type: 'ADD_ALGO_ORDER',
-      payload: {
-        algoOrder: [42, 'bfx-ping_pong', false, null, 1561361614648],
-      },
-    })
-    NotificationManager.success('Algo order Succesfuly added!', 'Success!')
+    // store.dispatch({
+    //   type: 'ADD_ALGO_ORDER',
+    //   payload: {
+    //     algoOrder: [42, 'bfx-ping_pong', false, null, 1561361614648],
+    //   },
+    // })
+    
+    NotificationManager.success(`${name} order started succesfuly`)
     this.toggleModal()
   }
 
   render() {
     const { modalIsOpen, fileName } = this.state || {}
-    return (
-      <div>
+    const { data } = this.props
+    const { name } = data
+      switch(name) {
+        case 'Ping/Pong': {
+            return (<div>
+            <button
+              type='button'
+              className='hfui__add-order-btn'
+              onClick={() => this.toggleModal()}
+            >
+              New Order
+            </button>
+            <Modal
+              isOpen={modalIsOpen}
+              onAfterOpen={this.afterOpenModal}
+              onRequestClose={this.closeModal}
+              style={customStyles}
+              contentLabel='Example Modal'
+            >
+              <Icon
+                className='hfui__close-modal-button'
+                icon='cross'
+                key='cross'
+                onClick={() => this.toggleModal()}
+              />
+              <div>Create Algo Order</div>
+              <form className='hfui_modal-algo-form' onSubmit={e => this.handleSubmit(e)}>
+                {/* <input name='algoName' type='text' placeholder='Name of algo order' />
+                <input name='algoDesc' type='text' placeholder='Short description' />
+                <label>
+                  <div className='button'>Upload File</div>
+                  <div className='filesContainer'>{fileName}</div>
+                  <input type='file' accept='.js' size='60' onChange={e => this.handleFile(e)} />
+                </label> */}
+                <input type='text' placeholder='amount btc'></input>
+                <input type='text' placeholder='slice amount'></input>
+                <input type='text' placeholder='AMOUNT DISTORTION %'></input>
+                <input type='text' placeholder='SLICE INTERVAL (SEC)'></input>
+                <input type='text' placeholder='SLICE DISTORTION %'></input>
+    
+                <input name='algo_order_submit' type='submit' value='Submit' className='hfui__add-order-btn' />
+              </form>
+            </Modal>
+          </div>)
+        }
+        case 'TWAP': {
+          return (<div>
+          <button
+            type='button'
+            className='hfui__add-order-btn'
+            onClick={() => this.toggleModal()}
+          >
+            New Order
+          </button>
+          <Modal
+            isOpen={modalIsOpen}
+            onAfterOpen={this.afterOpenModal}
+            onRequestClose={this.closeModal}
+            style={customStyles}
+            contentLabel='Example Modal'
+          >
+            <Icon
+              className='hfui__close-modal-button'
+              icon='cross'
+              key='cross'
+              onClick={() => this.toggleModal()}
+            />
+            <div>Create Algo Order</div>
+            <form className='hfui_modal-algo-form' onSubmit={e => this.handleSubmit(e)}>
+              {/* <input name='algoName' type='text' placeholder='Name of algo order' />
+              <input name='algoDesc' type='text' placeholder='Short description' />
+              <label>
+                <div className='button'>Upload File</div>
+                <div className='filesContainer'>{fileName}</div>
+                <input type='file' accept='.js' size='60' onChange={e => this.handleFile(e)} />
+              </label> */}
+              <input type='text' placeholder='AMOUNT BTC'></input>
+              <input type='text' placeholder='SLICE AMOUNT'></input>
+              <input type='text' placeholder='AMOUNT DISTORTION %'></input>
+              <input type='text' placeholder='SLICE INTERVAL (SEC)'></input>
+              <input type='text' placeholder='SUBMIT DELAY (SEC)'></input>
+              <input type='text' placeholder='CANCEL DELAY (SEC)'></input>
+  
+              <input name='algo_order_submit' type='submit' value='Submit' className='hfui__add-order-btn' />
+            </form>
+          </Modal>
+        </div>)
+      }
+      case 'Iceberg': {
+        return (<div>
         <button
           type='button'
           className='hfui__add-order-btn'
-          onClick={() => this.toggleModal()
-         }
+          onClick={() => this.toggleModal()}
         >
-          Create Algo Order
+          New Order
         </button>
         <Modal
           isOpen={modalIsOpen}
@@ -91,16 +181,72 @@ export default class ModalForm extends PureComponent {
               <div className='filesContainer'>{fileName}</div>
               <input type='file' accept='.js' size='60' onChange={e => this.handleFile(e)} />
             </label> */}
-            <input type='text' placeholder='amount btc'></input>
-            <input type='text' placeholder='slice amount'></input>
+            <input type='text' placeholder='AMOUNT BTC'></input>
+            <input type='text' placeholder='SLICE AMOUNT'></input>
+            <input type='text' placeholder='SLICE AMOUNT AS %'></input>
             <input type='text' placeholder='AMOUNT DISTORTION %'></input>
-            <input type='text' placeholder='SLICE INTERVAL (SEC)'></input>
-            <input type='text' placeholder='SLICE DISTORTION %'></input>
+            <input type='text' placeholder='SUBMIT DELAY (SEC)'></input>
+            <input type='text' placeholder='CANCEL DELAY (SEC)'></input>
 
             <input name='algo_order_submit' type='submit' value='Submit' className='hfui__add-order-btn' />
           </form>
         </Modal>
-      </div>
-    )
+      </div>)
+    }
+    case 'Accumulate/Distribute': {
+      return (<div>
+      <button
+        type='button'
+        className='hfui__add-order-btn'
+        onClick={() => this.toggleModal()}
+      >
+        New Order
+      </button>
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={this.afterOpenModal}
+        onRequestClose={this.closeModal}
+        style={customStyles}
+        contentLabel='Example Modal'
+      >
+        <Icon
+          className='hfui__close-modal-button'
+          icon='cross'
+          key='cross'
+          onClick={() => this.toggleModal()}
+        />
+        <div>Create Algo Order</div>
+        <form className='hfui_modal-algo-form' onSubmit={e => this.handleSubmit(e)}>
+          {/* <input name='algoName' type='text' placeholder='Name of algo order' />
+          <input name='algoDesc' type='text' placeholder='Short description' />
+          <label>
+            <div className='button'>Upload File</div>
+            <div className='filesContainer'>{fileName}</div>
+            <input type='file' accept='.js' size='60' onChange={e => this.handleFile(e)} />
+          </label> */}
+          <input type='text' placeholder='AMOUNT BTC'></input>
+          <input type='text' placeholder='SLICE AMOUNT'></input>
+          <input type='text' placeholder='AMOUNT DISTORTION %'></input>
+          <input type='text' placeholder='SLICE INTERVAL (SEC)'></input>
+          <input type='text' placeholder='SUBMIT DELAY (SEC)'></input>
+          <input type='text' placeholder='CANCEL DELAY (SEC)'></input>
+
+          <input name='algo_order_submit' type='submit' value='Exchange submit' className='hfui__add-order-btn' />
+        </form>
+      </Modal>
+    </div>)
+  }
+      default: {
+        return (<div>
+          <button
+              type='button'
+              className='hfui__add-order-btn'
+              onClick={() => this.toggleModal()}
+            >
+              New Order
+            </button>
+        </div>)
+      }
+      }
   }
 }

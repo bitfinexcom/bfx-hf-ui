@@ -3,7 +3,7 @@ import React from 'react'
 import Switch from 'react-switch'
 import { store } from '../../StoreWrapper'
 import AlgoOrderActions from '../../redux/actions/algo-orders'
-
+import AlgoOrderForm from '../AlgoOrderForm'
 export default [{
   width: 300,
   label: 'Name',
@@ -29,5 +29,12 @@ export default [{
       onColor='#9dc24a'
       offColor='#2c3940'
     />
+  ),
+}, {
+  width: 300,
+  label: 'Create',
+  dataKey: 'add',
+  cellRenderer: ({ rowData }) => (
+    <AlgoOrderForm ao='TWAP' data={rowData} />
   ),
 }]
