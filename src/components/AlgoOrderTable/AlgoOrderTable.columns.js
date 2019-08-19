@@ -35,6 +35,6 @@ export default [{
   label: 'Create',
   dataKey: 'add',
   cellRenderer: ({ rowData }) => (
-    <AlgoOrderForm ao='TWAP' data={rowData} />
+    <AlgoOrderForm data={rowData} />
   ),
 }]
