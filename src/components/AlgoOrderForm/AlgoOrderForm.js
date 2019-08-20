@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import Modal from 'react-modal'
 import { Icon } from '@blueprintjs/core'
 import { NotificationManager } from 'react-notifications'
-
+import WSHFActions from '../../redux/actions/ws-hf-server'
 import { store } from '../../StoreWrapper'
 
 const customStyles = {
@@ -56,6 +56,20 @@ export default class ModalForm extends PureComponent {
     //   },
     // })
 
+    WSHFActions.send(['as', ['submit.aos', [, name, { _margin: false,
+      _derivative: false,
+      tradeBeyondEnd: false,
+      orderType: "EXCHANGE LIMIT",
+      priceTarget: "OB_MID",
+      priceCondition: "MATCH_MIDPOINT",
+      amount: 0.0001,
+      sliceAmount: 0.00005,
+      sliceInterval: 10000,
+      symbol: "tBTCUSD",
+      cancelDelay: 1000,
+      submitDelay: 2000,
+      priceDelta: 0, }]]])
+
     NotificationManager.success(`${name} order started succesfuly`)
     this.toggleModal()
   }
@@ -64,9 +78,10 @@ export default class ModalForm extends PureComponent {
     const { modalIsOpen, fileName } = this.state || {}
     const { data } = this.props
     const { name } = data
-      switch(name) {
-        case 'Ping/Pong': {
-            return (<div>
+    switch (name) {
+      case 'Ping/Pong': {
+        return (
+<div>
             <button
               type='button'
               className='hfui__stop-order-btn'
@@ -105,10 +120,12 @@ export default class ModalForm extends PureComponent {
                 <input name='algo_order_submit' type='submit' value='Submit' className='hfui__add-order-btn' />
               </form>
             </Modal>
-          </div>)
-        }
-        case 'TWAP': {
-          return (<div>
+          </div>
+)
+      }
+      case 'TWAP': {
+        return (
+<div>
           <button
             type='button'
             className='hfui__stop-order-btn'
@@ -148,10 +165,12 @@ export default class ModalForm extends PureComponent {
               <input name='algo_order_submit' type='submit' value='Submit' className='hfui__add-order-btn' />
             </form>
           </Modal>
-        </div>)
+        </div>
+)
       }
       case 'Iceberg': {
-        return (<div>
+        return (
+<div>
         <button
           type='button'
           className='hfui__stop-order-btn'
@@ -191,10 +210,12 @@ export default class ModalForm extends PureComponent {
             <input name='algo_order_submit' type='submit' value='Submit' className='hfui__add-order-btn' />
           </form>
         </Modal>
-      </div>)
-    }
-    case 'Accumulate/Distribute': {
-      return (<div>
+      </div>
+)
+      }
+      case 'Accumulate/Distribute': {
+        return (
+<div>
       <button
         type='button'
         className='hfui__stop-order-btn'
@@ -234,10 +255,12 @@ export default class ModalForm extends PureComponent {
           <input name='algo_order_submit' type='submit' value='Exchange submit' className='hfui__add-order-btn' />
         </form>
       </Modal>
-    </div>)
-  }
+    </div>
+)
+      }
       default: {
-        return (<div>
+        return (
+<div>
           <button
               type='button'
               className='hfui__stop-order-btn'
@@ -245,8 +268,9 @@ export default class ModalForm extends PureComponent {
             >
               New Order
             </button>
-        </div>)
+        </div>
+)
       }
-      }
+    }
   }
 }
