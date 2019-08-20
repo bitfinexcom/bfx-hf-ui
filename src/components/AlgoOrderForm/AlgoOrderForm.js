@@ -56,7 +56,7 @@ export default class ModalForm extends PureComponent {
     //   },
     // })
 
-    WSHFActions.send(['as', ['submit.aos', [, name, { _margin: false,
+    WSHFActions.send(['as', ['submit.ao', [, name, { _margin: false,
       _derivative: false,
       tradeBeyondEnd: false,
       orderType: "EXCHANGE LIMIT",
