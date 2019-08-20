@@ -55,7 +55,7 @@ export default class ModalForm extends PureComponent {
     //     algoOrder: [42, 'bfx-ping_pong', false, null, 1561361614648],
     //   },
     // })
-    
+
     NotificationManager.success(`${name} order started succesfuly`)
     this.toggleModal()
   }
@@ -69,7 +69,7 @@ export default class ModalForm extends PureComponent {
             return (<div>
             <button
               type='button'
-              className='hfui__add-order-btn'
+              className='hfui__stop-order-btn'
               onClick={() => this.toggleModal()}
             >
               New Order
@@ -111,7 +111,7 @@ export default class ModalForm extends PureComponent {
           return (<div>
           <button
             type='button'
-            className='hfui__add-order-btn'
+            className='hfui__stop-order-btn'
             onClick={() => this.toggleModal()}
           >
             New Order
@@ -154,7 +154,7 @@ export default class ModalForm extends PureComponent {
         return (<div>
         <button
           type='button'
-          className='hfui__add-order-btn'
+          className='hfui__stop-order-btn'
           onClick={() => this.toggleModal()}
         >
           New Order
@@ -197,7 +197,7 @@ export default class ModalForm extends PureComponent {
       return (<div>
       <button
         type='button'
-        className='hfui__add-order-btn'
+        className='hfui__stop-order-btn'
         onClick={() => this.toggleModal()}
       >
         New Order
@@ -240,7 +240,7 @@ export default class ModalForm extends PureComponent {
         return (<div>
           <button
               type='button'
-              className='hfui__add-order-btn'
+              className='hfui__stop-order-btn'
               onClick={() => this.toggleModal()}
             >
               New Order

@@ -48,7 +48,7 @@ export default class StatusBar extends React.PureComponent {
           </span>
           <span className='update__btn'>
             { version !== lastVersion ? (
-              <button type='button' className='hfui__add-order-btn'>
+              <button type='button' className='hfui__stop-order-btn'>
                 {' '}
                 <a style={{ color: 'white' }} href='https://github.com/bitfinexcom/bfx-hf-ui/releases'>
                   {`Update to ${lastVersion}`}
