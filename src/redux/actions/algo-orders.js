@@ -14,7 +14,7 @@ const stopOrder = (gId) => {
     return axios.get(`${HfServerConsts.HOST}/v1/orders/${gId}/stop`)
       .then((response) => {
         console.log(gId)
-        NotificationManager.success('Order processed')
+        NotificationManager.success('Order stoped')
         dispatch({
           type: 'RECEIVE_ORDERS',
           payload: Object.values(response.data).map((v) => {
@@ -29,6 +29,7 @@ const stopOrder = (gId) => {
       })
       .catch((error) => {
         // failed
+        NotificationManager.error('Stop status error')
         console.error(error)
       })
       .finally(() => {
@@ -41,6 +42,7 @@ const runOrder = (gId) => {
   return (dispatch) => {
     return axios.get(`${HfServerConsts.HOST}/v1/orders/${gId}/activate`)
       .then((response) => {
+        NotificationManager.success('Order now running')
         dispatch({
           type: 'RECEIVE_ORDERS',
           payload: Object.values(response.data).map((v) => {
@@ -55,6 +57,7 @@ const runOrder = (gId) => {
       })
       .catch((error) => {
         // failed
+        NotificationManager.error('Run status error')
         console.error(error)
       })
       .finally(() => {
@@ -75,6 +78,7 @@ function changeStatus(id, isActive) {
       })
       .catch((error) => {
         // failed
+        NotificationManager.error('Change status error')
         console.error(error)
       })
       .finally(() => {
