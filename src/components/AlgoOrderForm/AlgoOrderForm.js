@@ -1,3 +1,4 @@
+/* eslint-disable no-sparse-arrays */
 import React, { PureComponent } from 'react'
 import Modal from 'react-modal'
 import { Icon } from '@blueprintjs/core'
@@ -56,19 +57,22 @@ export default class ModalForm extends PureComponent {
     //   },
     // })
 
-    WSHFActions.send(['as', ['submit.ao', [, name, { _margin: false,
-      _derivative: false,
-      tradeBeyondEnd: false,
-      orderType: "EXCHANGE LIMIT",
-      priceTarget: "OB_MID",
-      priceCondition: "MATCH_MIDPOINT",
-      amount: 0.0001,
-      sliceAmount: 0.00005,
-      sliceInterval: 10000,
-      symbol: "tBTCUSD",
-      cancelDelay: 1000,
-      submitDelay: 2000,
-      priceDelta: 0, }]]])
+    WSHFActions.send(['as', ['submit.ao', [, name,
+      {
+        _margin: false,
+        _derivative: false,
+        tradeBeyondEnd: false,
+        orderType: 'EXCHANGE LIMIT',
+        priceTarget: 'OB_MID',
+        priceCondition: 'MATCH_MIDPOINT',
+        amount: 0.0001,
+        sliceAmount: 0.00005,
+        sliceInterval: 10000,
+        symbol: 'tBTCUSD',
+        cancelDelay: 1000,
+        submitDelay: 2000,
+        priceDelta: 0,
+      }]]])
 
     NotificationManager.success(`${name} order started succesfuly`)
     this.toggleModal()
@@ -81,15 +85,15 @@ export default class ModalForm extends PureComponent {
     switch (name) {
       case 'Ping/Pong': {
         return (
-<div>
-            <button
+          <div>
+  <button
               type='button'
               className='hfui__stop-order-btn'
               onClick={() => this.toggleModal()}
             >
               New Order
             </button>
-            <Modal
+  <Modal
               isOpen={modalIsOpen}
               onAfterOpen={this.afterOpenModal}
               onRequestClose={this.closeModal}
@@ -111,29 +115,29 @@ export default class ModalForm extends PureComponent {
                   <div className='filesContainer'>{fileName}</div>
                   <input type='file' accept='.js' size='60' onChange={e => this.handleFile(e)} />
                 </label> */}
-                <input type='text' placeholder='amount btc'></input>
-                <input type='text' placeholder='slice amount'></input>
-                <input type='text' placeholder='AMOUNT DISTORTION %'></input>
-                <input type='text' placeholder='SLICE INTERVAL (SEC)'></input>
-                <input type='text' placeholder='SLICE DISTORTION %'></input>
-    
+                <input type='text' placeholder='amount btc' />
+                <input type='text' placeholder='slice amount' />
+                <input type='text' placeholder='AMOUNT DISTORTION %' />
+                <input type='text' placeholder='SLICE INTERVAL (SEC)' />
+                <input type='text' placeholder='SLICE DISTORTION %' />
+
                 <input name='algo_order_submit' type='submit' value='Submit' className='hfui__add-order-btn' />
               </form>
             </Modal>
-          </div>
-)
+</div>
+        )
       }
       case 'TWAP': {
         return (
-<div>
-          <button
+          <div>
+  <button
             type='button'
             className='hfui__stop-order-btn'
             onClick={() => this.toggleModal()}
           >
             New Order
           </button>
-          <Modal
+  <Modal
             isOpen={modalIsOpen}
             onAfterOpen={this.afterOpenModal}
             onRequestClose={this.closeModal}
@@ -155,30 +159,30 @@ export default class ModalForm extends PureComponent {
                 <div className='filesContainer'>{fileName}</div>
                 <input type='file' accept='.js' size='60' onChange={e => this.handleFile(e)} />
               </label> */}
-              <input type='text' placeholder='AMOUNT BTC'></input>
-              <input type='text' placeholder='SLICE AMOUNT'></input>
-              <input type='text' placeholder='AMOUNT DISTORTION %'></input>
-              <input type='text' placeholder='SLICE INTERVAL (SEC)'></input>
-              <input type='text' placeholder='SUBMIT DELAY (SEC)'></input>
-              <input type='text' placeholder='CANCEL DELAY (SEC)'></input>
-  
+              <input type='text' placeholder='AMOUNT BTC' />
+              <input type='text' placeholder='SLICE AMOUNT' />
+              <input type='text' placeholder='AMOUNT DISTORTION %' />
+              <input type='text' placeholder='SLICE INTERVAL (SEC)' />
+              <input type='text' placeholder='SUBMIT DELAY (SEC)' />
+              <input type='text' placeholder='CANCEL DELAY (SEC)' />
+
               <input name='algo_order_submit' type='submit' value='Submit' className='hfui__add-order-btn' />
             </form>
           </Modal>
-        </div>
-)
+</div>
+        )
       }
       case 'Iceberg': {
         return (
-<div>
-        <button
+          <div>
+  <button
           type='button'
           className='hfui__stop-order-btn'
           onClick={() => this.toggleModal()}
         >
           New Order
         </button>
-        <Modal
+  <Modal
           isOpen={modalIsOpen}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal}
@@ -200,30 +204,30 @@ export default class ModalForm extends PureComponent {
               <div className='filesContainer'>{fileName}</div>
               <input type='file' accept='.js' size='60' onChange={e => this.handleFile(e)} />
             </label> */}
-            <input type='text' placeholder='AMOUNT BTC'></input>
-            <input type='text' placeholder='SLICE AMOUNT'></input>
-            <input type='text' placeholder='SLICE AMOUNT AS %'></input>
-            <input type='text' placeholder='AMOUNT DISTORTION %'></input>
-            <input type='text' placeholder='SUBMIT DELAY (SEC)'></input>
-            <input type='text' placeholder='CANCEL DELAY (SEC)'></input>
+            <input type='text' placeholder='AMOUNT BTC' />
+            <input type='text' placeholder='SLICE AMOUNT' />
+            <input type='text' placeholder='SLICE AMOUNT AS %' />
+            <input type='text' placeholder='AMOUNT DISTORTION %' />
+            <input type='text' placeholder='SUBMIT DELAY (SEC)' />
+            <input type='text' placeholder='CANCEL DELAY (SEC)' />
 
             <input name='algo_order_submit' type='submit' value='Submit' className='hfui__add-order-btn' />
           </form>
         </Modal>
-      </div>
-)
+</div>
+        )
       }
       case 'Accumulate/Distribute': {
         return (
-<div>
-      <button
+          <div>
+  <button
         type='button'
         className='hfui__stop-order-btn'
         onClick={() => this.toggleModal()}
       >
         New Order
       </button>
-      <Modal
+  <Modal
         isOpen={modalIsOpen}
         onAfterOpen={this.afterOpenModal}
         onRequestClose={this.closeModal}
@@ -245,31 +249,31 @@ export default class ModalForm extends PureComponent {
             <div className='filesContainer'>{fileName}</div>
             <input type='file' accept='.js' size='60' onChange={e => this.handleFile(e)} />
           </label> */}
-          <input type='text' placeholder='AMOUNT BTC'></input>
-          <input type='text' placeholder='SLICE AMOUNT'></input>
-          <input type='text' placeholder='AMOUNT DISTORTION %'></input>
-          <input type='text' placeholder='SLICE INTERVAL (SEC)'></input>
-          <input type='text' placeholder='SUBMIT DELAY (SEC)'></input>
-          <input type='text' placeholder='CANCEL DELAY (SEC)'></input>
+          <input type='text' placeholder='AMOUNT BTC' />
+          <input type='text' placeholder='SLICE AMOUNT' />
+          <input type='text' placeholder='AMOUNT DISTORTION %' />
+          <input type='text' placeholder='SLICE INTERVAL (SEC)' />
+          <input type='text' placeholder='SUBMIT DELAY (SEC)' />
+          <input type='text' placeholder='CANCEL DELAY (SEC)' />
 
           <input name='algo_order_submit' type='submit' value='Exchange submit' className='hfui__add-order-btn' />
         </form>
       </Modal>
-    </div>
-)
+</div>
+        )
       }
       default: {
         return (
-<div>
-          <button
-              type='button'
-              className='hfui__stop-order-btn'
-              onClick={() => this.toggleModal()}
-            >
+          <div>
+  <button
+            type='button'
+            className='hfui__stop-order-btn'
+            onClick={() => this.toggleModal()}
+          >
               New Order
-            </button>
-        </div>
-)
+          </button>
+</div>
+        )
       }
     }
   }

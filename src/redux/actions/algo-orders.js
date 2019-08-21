@@ -13,6 +13,8 @@ const stopOrder = (gId) => {
   return (dispatch) => {
     return axios.get(`${HfServerConsts.HOST}/v1/orders/${gId}/stop`)
       .then((response) => {
+        console.log(gId)
+        NotificationManager.success('Order processed')
         dispatch({
           type: 'RECEIVE_ORDERS',
           payload: Object.values(response.data).map((v) => {

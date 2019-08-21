@@ -30,11 +30,4 @@ export default [{
       offColor='#2c3940'
     />
   ),
-}, {
-  width: 300,
-  label: 'Create',
-  dataKey: 'add',
-  cellRenderer: ({ rowData }) => (
-    <AlgoOrderForm data={rowData} />
-  ),
-}]
+}, ]
