@@ -31,9 +31,9 @@ const requestProxy = require('express-request-proxy')
 /* eslint-enable */
 
 const {
-  SOCKS_PROXY_URL, REST_URL, WS_URL,
+  SOCKS_PROXY_URL, REST_URL, WS_URL, API_PORT = '9987',
 } = process.env
-const API_PORT = process.env.API_PORT || '9987'
+
 let hfServer = null
 let restAPI = null
 
