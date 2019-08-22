@@ -78,7 +78,7 @@ function changeStatus(id, isActive) {
       })
       .catch((error) => {
         // failed
-        NotificationManager.error('Change status error')
+        NotificationManager.error('Change status error', JSON.stringify(error))
         console.error(error)
       })
       .finally(() => {

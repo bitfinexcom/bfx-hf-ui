@@ -20,13 +20,14 @@ export default class AlgoOrderTable extends React.Component {
   shouldComponentUpdate(nextProps) {
     const newOrders = nextProps.orders
     const { orders } = this.props
-    return JSON.stringify(orders) !== JSON.stringify(newOrders)
+    return true
   }
 
   render() {
-    const { orders, stopOrder, runOrder } = this.props
+    const { orders, stopOrder, runOrder, algoOrders } = this.props
     const orderObjects = orders.reverse().map((ao) => {
-      const isActive = !!ao[2]
+    const isActive = !!ao[2]
+    const isAOActive = algoOrders.filter((algo) => algo.id === ao[1])[0].active
       let status = (
         <button
           type='button'
@@ -45,6 +46,17 @@ export default class AlgoOrderTable extends React.Component {
           >
             Stop
           </button>
+        )
+      }
+      if (!isAOActive) {
+        status = (
+          <div
+            disabled={true}
+            type='button'
+            className='hfui__stop-order-btn-disabled'
+          >
+            {`${isActive ? 'Stop' : 'Inactivate' }`}
+          </div>
         )
       }
       return {
