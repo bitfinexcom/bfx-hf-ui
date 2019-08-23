@@ -39,6 +39,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.js",
     "electron": "electron .",
+    "electron-prod": "nohup electron . > logs.log",
     "dist": "build --mac --win --linux -c.extraMetadata.main=build/electron.js --publish never"
   },
   "author": "Bitfinex",

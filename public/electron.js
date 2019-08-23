@@ -1,5 +1,5 @@
 const {
-  app, BrowserWindow, protocol, Menu, shell
+  app, BrowserWindow, protocol, Menu, shell,
 } = require('electron')
 const path = require('path')
 const url = require('url')
