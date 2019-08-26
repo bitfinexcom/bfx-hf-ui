@@ -17,17 +17,15 @@ export default class AlgoOrderTable extends React.Component {
 
   static defaultProps = defaultProps
 
-  shouldComponentUpdate(nextProps) {
-    const newOrders = nextProps.orders
-    const { orders } = this.props
+  shouldComponentUpdate() {
     return true
   }
 
   render() {
     const { orders, stopOrder, runOrder, algoOrders } = this.props
     const orderObjects = orders.reverse().map((ao) => {
-    const isActive = !!ao[2]
-    const isAOActive = algoOrders.filter((algo) => algo.id === ao[1])[0].active
+      const isActive = !!ao[2]
+      const isAOActive = algoOrders.filter( algo => algo.id === ao[1])[0].active
       let status = (
         <button
           type='button'

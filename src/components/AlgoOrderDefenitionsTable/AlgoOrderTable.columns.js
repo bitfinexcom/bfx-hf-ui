@@ -3,7 +3,7 @@ import React from 'react'
 import Switch from 'react-switch'
 import { store } from '../../StoreWrapper'
 import AlgoOrderActions from '../../redux/actions/algo-orders'
-import AlgoOrderForm from '../AlgoOrderForm'
+
 export default [{
   width: 300,
   label: 'Name',
