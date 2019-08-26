@@ -134,6 +134,7 @@ const run = async () => {
   })
 
   app.post('/reconnect-bfx', async (req, res) => {
+    debug('=============', 'reconnect bfx==================', req)
     if (!hfServer) {
       debug('no HFSERVER, starting new one')
       await startHFServer()
