@@ -7,19 +7,18 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
   const { bfx = {}, candles = {}, } = dataHF
   const { orders = [] } = bfx
 
-  const { algoOrders = [
+  const algoOrders = [
     [42, 'bfx-ping_pong', true, null, 'Default'],
     [42, 'bfx-iceberg', true, null, 'Default'],
     [42, 'bfx-twap', true, null, 'Default'],
     [42, 'bfx-accumulate_distribute', true, null, 'Default'],
-  ] } = table
-  const { editorOpened } = state.editor
+  ] // grab it from table
 
   return {
     allCandles: candles,
     algoOrders,
     orders,
-    editorOpened,
+    // editorOpened,
   }
 }
 

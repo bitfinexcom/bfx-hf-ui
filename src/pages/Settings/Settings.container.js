@@ -3,11 +3,9 @@ import SettingsView from './SettingsView'
 import APIKeyActions from '../../redux/actions/api-key'
 import WSHFActions from '../../redux/actions/ws-hf-server'
 
-const mapStateToProps = (state = {}, ownProps = {}) => {
+const mapStateToProps = (state = {}) => {
   const { dataHF = {} } = state
   const { apiKey = {} } = dataHF
-  const { key, secret } = apiKey
-
 
   return {
     apiKey,

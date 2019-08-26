@@ -96,6 +96,7 @@ export default class StrategyEditor extends React.PureComponent {
       >
         <div className='strategy_editor__header'>
           <button
+            type='button'
             className='bp3-button bp3-icon-floppy-disk bp3-minimal'
             disabled={!dirty && !unsavedBuffers[activeMethod]}
             onClick={this.onSave}
@@ -106,6 +107,7 @@ Save
           <button
             className='bp3-button bp3-icon-play bp3-minimal'
             onClick={onEval}
+            type='button'
           >
 Eval
           </button>
