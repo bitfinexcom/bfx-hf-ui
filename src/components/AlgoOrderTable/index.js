@@ -1,3 +1,3 @@
-import AlgoOrderTable from './AlgoOrderTable.container'
+import AlgoOrderDefinitionsTable from './AlgoOrderDefinitionsTable.container'
 
-export default AlgoOrderTable
+export default AlgoOrderDefinitionsTable
