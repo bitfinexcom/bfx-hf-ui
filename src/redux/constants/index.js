@@ -1,3 +1,5 @@
-import wsHFServer from './ws-hf-server'
+import ui from './ui'
 
-export default { wsHFServer }
+export default {
+  ui
+}

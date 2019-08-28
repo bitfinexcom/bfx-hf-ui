@@ -1,18 +1,21 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import createSagaMiddleware from 'redux-saga'
-import thunk from 'redux-thunk';
+import { createBrowserHistory } from 'history'
+import { routerMiddleware } from 'connected-react-router'
+import Debug from 'debug'
 
-import reducer from './reducers'
+import createRootReducer from './reducers'
 import constants from './constants'
 import actions from './actions'
 import selectors from './selectors'
-import hfSocketMiddleware from './middleware/ws-hf-server'
 
+const debug = Debug('dtc:rx')
 const sagaMiddleware = createSagaMiddleware()
+
+export const history = createBrowserHistory()
 
 export function configureStore(
   options = {},
-  optionalReducers = {},
   optionalMiddleware = null,
 ) {
   const {
@@ -20,8 +23,7 @@ export function configureStore(
   } = options
 
   let middleware = [
-    hfSocketMiddleware(),
-    thunk,
+    routerMiddleware(history),
     sagaMiddleware,
   ]
 
@@ -40,7 +42,7 @@ export function configureStore(
   )
 
   const store = createStore(
-    reducer(optionalReducers),
+    createRootReducer(history),
     {},
     enhancers,
   )
@@ -51,7 +53,7 @@ export function configureStore(
 }
 
 export function runSaga() {
-  console.error('%c runSaga is deprecated: it is already run in configureStore', 'color:white;background:orange;')
+  debug('runSaga is deprecated: it is already run in configureStore')
 }
 
 export default {

@@ -1,9 +1,9 @@
-import candles from './candles'
-import markets from './markets'
-import bts from './bts'
+import * as ui from './ui'
+import * as data from './data'
+import * as bfxData from './bfx_data'
 
 export default {
-  candles,
-  markets,
-  bts,
+  ui,
+  data,
+  bfxData,
 }

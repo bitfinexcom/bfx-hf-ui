@@ -1,33 +1,24 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-import { routerReducer, routerMiddleware } from 'react-router-redux'
-// import { configureStore } from 'bfxuilib/dist/redux'
-import { configureStore } from './redux'
+import { history, configureStore } from './redux'
+import { ConnectedRouter } from 'connected-react-router'
 
 import sagas from './redux/sagas'
-import dataReducer from './redux/reducers/data'
-import hfSocketReducer from './redux/reducers/ws-hf-server'
-import hfSocketMiddleware from './redux/middleware/ws-hf-server'
+import wsHFMiddleware from './redux/middleware/ws_hf_server'
+import wsDTCMiddleware from './redux/middleware/ws_dtc_server'
 
 const config = {
   development: true,
   sagas,
 }
 
-const optionalReducers = {
-  router: routerReducer,
-  socketHF: hfSocketReducer,
-  dataHF: dataReducer,
-}
-
 const optionalMiddleware = [
-  hfSocketMiddleware(),
-  routerMiddleware(),
+  wsHFMiddleware(),
+  wsDTCMiddleware(),
 ]
 
-export const store = configureStore(
+const store = configureStore(
   config,
-  optionalReducers,
   optionalMiddleware,
 )
 
@@ -37,7 +28,9 @@ export default class StoreWrapper extends React.PureComponent {
   render() {
     return (
       <Provider store={store}>
-        {this.props.children}
+        <ConnectedRouter history={history}>
+          {this.props.children}
+        </ConnectedRouter>
       </Provider>
     )
   }

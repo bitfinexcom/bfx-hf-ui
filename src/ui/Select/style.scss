@@ -1,0 +1,70 @@
+.dtc-select__control {
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  min-height: 20px !important;
+
+  &.dtc-select__control--menu-is-open {
+    border: none;
+  }
+}
+
+.dtc-select__control--is-focused {
+  border: none !important;
+}
+
+.dtc-select__value-container {
+  font-size: 12px !important;
+}
+
+.dtc-select__single-value {
+  color: #eee !important;
+}
+
+.dtc-select__value-container {
+  padding: 0 !important;
+}
+
+.dtc-select__indicator-separator {
+  display: none;
+}
+
+.dtc-select__indicator {
+  padding: 0 !important;
+}
+
+.dtc-select__menu {
+  background: #0d101f !important;
+  box-shadow: none !important;
+  border: 1px solid #666;
+  border-radius: 0 !important;
+  border-top: none;
+  margin-top: 0 !important;
+}
+
+.dtc-select__menu-list {
+  padding-top: 0 !important;
+}
+
+.dtc-select__option {
+  padding: 4px 8px !important;
+  font-size: 12px !important;
+}
+
+.dtc-select__option--is-selected {
+  background: rgba(255, 255, 255, 0.3) !important;
+}
+
+.dtc-select__option--is-focused:not(.dtc-select__option--is-selected) {
+  background: rgba(255, 255, 255, 0.1) !important;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.dtc-select__input {
+  color: #eee !important;
+}

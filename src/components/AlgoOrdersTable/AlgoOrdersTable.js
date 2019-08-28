@@ -1,0 +1,65 @@
+import React from 'react'
+import _capitalize from 'lodash/capitalize'
+
+import './style.css'
+
+// TODO: Extract props
+export default class AlgoOrdersTable extends React.PureComponent {
+  render () {
+    const { cancelOrder, orders, apiClientState } = this.props
+
+    return (
+      <ul className='dtc-ao-list__wrapper'>
+        {orders.map(ao => (
+          <li key={ao.gid} className='dtc-ao-list__entry'>
+            {apiClientState === 2 && (
+              <ul className='dtc-ao-list__entry-controls'>
+                <li>
+                  <i
+                    className='fas fa-stop'
+                    onClick={() => cancelOrder(ao)}
+                  />
+                </li>
+              </ul>
+            )}
+
+            <div className='dtc-ao-list__entry-row-status green'></div>
+
+            <div className='dtc-ao-list__entry-row'>
+              <div className='dtc-ao-list__entry-row-elm'>
+                <p className='dtc-ao-list__entry-row-elm-value'>{ao.name}</p>
+                <p className='dtc-ao-list__entry-row-elm-label'>Name</p>
+              </div>
+
+              <div className='dtc-ao-list__entry-row-elm'>
+                <p className='dtc-ao-list__entry-row-elm-value'>{_capitalize(ao.exID)}</p>
+                <p className='dtc-ao-list__entry-row-elm-label'>Exchange</p>
+              </div>
+
+              <div className='dtc-ao-list__entry-row-elm'>
+                <p className='dtc-ao-list__entry-row-elm-value'>{ao.args._margin ? 'Margin' : 'Exchange'}</p>
+                <p className='dtc-ao-list__entry-row-elm-label'>Context</p>
+              </div>
+
+              <div className='dtc-ao-list__entry-row-elm'>
+                <p className='dtc-ao-list__entry-row-elm-value'>{new Date(+ao.gid).toLocaleString()}</p>
+                <p className='dtc-ao-list__entry-row-elm-label'>Created</p>
+              </div>
+            </div>
+
+            <div className='dtc-ao-list__entry-row'>
+              <div className='dtc-ao-list__entry-row-elm'>
+                <p className='dtc-ao-list__entry-row-elm-value'>{ao.args.symbol}</p>
+                <p className='dtc-ao-list__entry-row-elm-label'>Symbol</p>
+              </div>
+              <div className='dtc-ao-list__entry-row-elm'>
+                <p className='dtc-ao-list__entry-row-elm-value'>{ao.label}</p>
+                <p className='dtc-ao-list__entry-row-elm-label'>Label</p>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+}

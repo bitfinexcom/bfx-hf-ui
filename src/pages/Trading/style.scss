@@ -1,0 +1,37 @@
+.dtc-tradingpage__wrapper {
+  height: 100%;
+}
+
+.dtc-tradingpage__inner {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.dtc-tradingpage__column {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .dtc_orderform__panel, .dtc-tvchart__wrapper {
+    height: 70%;
+  }
+
+  .dtc-tvchart__wrapper > #__tvchart {
+    height: calc(100% - 8px);
+    padding: 4px 1px 4px 4px;
+    background: #2f3240;
+  }
+
+  .dtc-tradestable__wrapper, .dtc-tradingstatepanel__wrapper {
+    height: 30%;
+  }
+
+  &.left, &.right {
+    width: 20%;
+  }
+
+  &.center {
+    width: 60%;
+  }
+}

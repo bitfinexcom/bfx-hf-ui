@@ -1,0 +1,91 @@
+.dtc-pricingtable__wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  > p {
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .__react_component_tooltip {
+    max-width: 400px;
+    text-align: left;
+    line-height: 1.5;
+  }
+}
+
+.dtc-pricingtable__register {
+  width: 100%;
+  margin: 32px 0 16px 0;
+  text-align: center;
+}
+
+.dtc-pricingtable__columns {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 32px;
+
+  .dtc-pricingtable__column {
+    width: 25%;
+    text-align: center;
+
+    &:first-child {
+      text-align: right;
+
+      li {
+        padding-right: 16px;
+        border-bottom: none;
+        padding-bottom: 1px;
+
+        &:not(.price) {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    &:last-child {
+      li, i {
+        color: #fcd206;
+      }
+    }
+
+    li {
+      border-right: 1px solid #222;
+      border-bottom: 1px solid #222;
+      line-height: 24px;
+      height: 24px;
+      font-size: 14px;
+
+      &.dev {
+        opacity: 0.5;
+      }
+
+      &.header {
+        font-size: 20px;
+        padding-bottom: 8px;
+        border-right: none;
+      }
+
+      &.price {
+        font-size: 20px;
+        padding-top: 8px;
+        border-bottom: none;
+        border-right: none;
+      }
+
+      &.empty {
+        border-right: none;
+      }
+
+      &.button {
+        border: none;
+        margin-top: 16px;
+      }
+    }
+  }
+}

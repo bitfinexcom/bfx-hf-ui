@@ -1,0 +1,108 @@
+.dtc-orderbook__wrapper {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+
+  &.stacked {
+    flex-direction: row;
+  }
+
+  &, ul {
+    height: 100%;
+  }
+
+  &.stacked ul {
+    width: 100%;
+  }
+
+  &:not(.stacked) {
+    display: flex;
+    flex-direction: row;
+
+    ul {
+      width: 50%;
+    }
+
+    .buy .dtc-orderbook__pl-vol {
+      left: auto;
+      right: 0;
+    }
+  }
+
+  li.spread {
+    border-top: 1px solid #101221;
+    border-bottom: 1px solid #101221;
+    background: #0c0f17;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 14px;
+
+    .dtc-orderbook__pl-container {
+      height: auto;
+    }
+  }
+}
+
+.dtc-orderbook__pl-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+
+  & > * {
+    width: 100%;
+    flex: 1;
+  }
+}
+
+.dtc-orderbook__pl-vol {
+  height: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  display: block;
+  float: right;
+}
+
+.dtc-orderbook__pl {
+  color: #eee;
+  position: relative;
+
+  &.buy .dtc-orderbook__pl-vol {
+    border-left: 1px solid green;
+    background: rgba(0, 255, 0, 0.05);
+  }
+
+  &.sell .dtc-orderbook__pl-vol {
+    border-left: 1px solid red;
+    background: rgba(255, 0, 0, 0.05);
+  }
+}
+
+.dtc-orderbook__pl-amount {
+  text-align: center;
+}
+
+.dtc-orderbook__pl-price {
+  text-align: center;
+}
+
+.dtc-orderbook_pl-vol-container:not(.noborder) {
+  border-left: 1px solid #101221;
+}
+
+.dtc-orderbook__side {
+  .dtc-orderbook__pl.sell {
+    .dtc-orderbook__pl-container {
+      flex-direction: row-reverse;
+    }
+
+    .dtc-orderbook__pl-vol {
+      float: none;
+    }
+
+    &.sell .dtc-orderbook__pl-vol {
+      border-right: 1px solid red;
+      border-left: 0;
+    }
+  }
+}

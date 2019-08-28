@@ -4,10 +4,10 @@ import { defaultProps, propTypes } from './Table.props'
 import { sortData } from './Table.helpers'
 
 import 'react-virtualized/styles.css'
+import './style.css'
 
 export default class HFTable extends React.PureComponent {
   static propTypes = propTypes
-
   static defaultProps = defaultProps
 
   state = {
@@ -70,7 +70,7 @@ export default class HFTable extends React.PureComponent {
     const prevSortBy = this.state.sortBy
     const prevSortDirection = this.state.sortDirection
     const direction = sortDirection || defaultSortDirection
-    const { data, columns } = this.props
+
     if (prevSortBy === sortBy && prevSortDirection === direction) { // skip
       return
     }
@@ -84,8 +84,8 @@ export default class HFTable extends React.PureComponent {
       ...stateSortSettings,
 
       data: sortData({
-        data,
-        columns,
+        data: this.props.data,
+        columns: this.props.columns,
         ...stateSortSettings,
       }, this.props),
     }))
@@ -93,40 +93,45 @@ export default class HFTable extends React.PureComponent {
 
   render() {
     const {
-      columns, onRowClick, rowHeight, headerHeight, onRowDoubleClick, maxWidth,
+      columns, onRowClick, rowHeight, headerHeight,
     } = this.props
-    const { data, sortBy, sortDirection } = this.state
+
+    const {
+      data, sortBy, sortDirection, scrollTop
+    } = this.state
 
     return (
-      <AutoSizer>
-        {({ width, height }) => (
-          <Table
-            autoHeight={false}
-            height={height}
-            width={maxWidth && width > maxWidth ? maxWidth : width}
+      <div className='dtc-table'>
+        <AutoSizer>
+          {({ width, height }) => (
+            <Table
+              height={height}
+              width={width}
 
-            rowHeight={rowHeight}
-            rowGetter={({ index }) => data[index]}
-            rowCount={data.length}
-            onRowClick={onRowClick}
-            onRowDoubleClick={onRowDoubleClick}
-            headerHeight={headerHeight}
-            disableHeader={false}
+              rowHeight={rowHeight}
+              rowGetter={({ index }) => data[index]}
+              rowCount={data.length}
+              onRowClick={onRowClick}
 
-            gridStyle={{ outline: 'none' }}
-            sort={this.onSort}
-            sortBy={sortBy}
-            sortDirection={sortDirection}
-          >
-            {columns.map((c = {}) => (
-              <Column
-                key={c.dataKey}
-                {...c}
-              />
-            ))}
-          </Table>
-        )}
-      </AutoSizer>
+              headerHeight={headerHeight}
+              disableHeader={false}
+
+              gridStyle={{ outline: 'none' }}
+              sort={this.onSort}
+              sortBy={sortBy}
+              sortDirection={sortDirection}
+              scrollTop={scrollTop}
+            >
+              {columns.map((c = {}) => (
+                <Column
+                  key={c.dataKey}
+                  {...c}
+                />
+              ))}
+            </Table>
+          )}
+        </AutoSizer>
+      </div>
     )
   }
 }

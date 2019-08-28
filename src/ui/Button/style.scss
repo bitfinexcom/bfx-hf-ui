@@ -1,0 +1,26 @@
+.dtc-button, button {
+  background: #333;
+  border: 1px solid #666;
+  color: #eee;
+  padding: 4px 16px;
+
+  &.red {
+    background: #970000;
+    border-color: #cc0101;
+  }
+
+  &.green {
+    background: #009722;
+    border-color: #03db35;
+  }
+
+  &:hover:not(.disabled) {
+    color: #fff;
+    cursor: pointer;
+    opacity: 0.8;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+  }
+}

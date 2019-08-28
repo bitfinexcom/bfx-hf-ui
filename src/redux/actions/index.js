@@ -1,3 +1,5 @@
-import ws from './ws-hf-server'
+import ui from './ui'
 
-export default { ws }
+export default {
+  ui
+}

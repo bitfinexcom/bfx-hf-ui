@@ -1,0 +1,21 @@
+.dtc-spinner__wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .fa-circle-notch {
+    animation: dtc-spinner-rotate 1s infinite ease-in-out both;
+    color: #fcd206 !important;
+  }
+}
+
+@keyframes dtc-spinner-rotate {
+  0% {
+    transform: rotate(0);
+  } 100% {
+    transform: rotate(360deg);
+  }
+}

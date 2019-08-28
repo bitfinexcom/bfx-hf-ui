@@ -1,0 +1,45 @@
+import { connect } from 'react-redux'
+
+import {
+  getActiveMarket, getComponentState, getActiveExchange,
+} from '../../redux/selectors/ui'
+
+import { getExchanges, getMarkets } from '../../redux/selectors/meta'
+import WSDTCActions from '../../redux/actions/ws_dtc_server'
+import UIActions from '../../redux/actions/ui'
+
+import OrderBookPanel from './OrderBookPanel'
+
+const mapStateToProps = (state = {}, ownProps = {}) => {
+  const { layoutID, layoutI: id } = ownProps
+  const activeExchange = getActiveExchange(state)
+  const activeMarket = getActiveMarket(state)
+
+  return {
+    activeExchange,
+    activeMarket,
+    savedState: getComponentState(state, layoutID, 'book', id),
+    exchanges: getExchanges(state),
+    allMarkets: getMarkets(state)
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  addOBRequirement: (exchange, market) => {
+    dispatch(WSDTCActions.addChannelRequirement(exchange, ['book', market]))
+  },
+
+  removeOBRequirement: (exchange, market) => {
+    dispatch(WSDTCActions.removeChannelRequirement(exchange, ['book', market]))
+  },
+
+  saveState: (layoutID, componentID, state) => {
+    dispatch(UIActions.saveComponentState({
+      state,
+      layoutID,
+      componentID,
+    }))
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderBookPanel)

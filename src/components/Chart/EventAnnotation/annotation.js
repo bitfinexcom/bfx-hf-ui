@@ -6,7 +6,6 @@ import React from 'react'
 
 export default class Event extends LabelAnnotation {
   static propTypes = LabelAnnotation.propTypes
-
   static defaultProps = LabelAnnotation.defaultProps
 
   render() {

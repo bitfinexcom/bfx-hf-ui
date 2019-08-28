@@ -45,7 +45,7 @@ export default class SellOrderAnnotation extends React.Component {
     return (
       <Annotate
         with={Annotation}
-        when={d => _isArray(mtsMap[+d.date])}
+        when={d => _isArray(mtsMap[d.mts])}
         usingProps={{
           mtsMap,
           fontSize: 36,
@@ -53,7 +53,7 @@ export default class SellOrderAnnotation extends React.Component {
           fill: '#FF0000',
           opacity: 0.8,
           text: '\u2191',
-          tooltip: d => timeFormat('%B')(d.date),
+          tooltip: d => timeFormat('%B')(new Date(d.mts)),
           x: ({ xScale, xAccessor, datum }) => xScale(xAccessor(datum)),
           y: ({ datum, yScale }) => yScale(datum.high),
         }}
