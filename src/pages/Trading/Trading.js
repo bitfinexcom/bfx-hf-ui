@@ -2,7 +2,7 @@ import React from 'react'
 
 import OrderBookPanel from '../../components/OrderBookPanel'
 import TradingStatePanel from '../../components/TradingStatePanel'
-import TVChart from '../../components/TVChart'
+// import TVChart from '../../components/TVChart'
 import OrderForm from '../../components/OrderForm'
 import TradesTablePanel from '../../components/TradesTablePanel'
 import StatusBar from '../../components/StatusBar'
@@ -17,8 +17,8 @@ const orderDefinitions = {
   binance: Object.values(BinanceOrders).map(uiDef => uiDef()),
 }
 
-export default class Trading extends React.Component {
-  render () {
+export default class Trading extends React.PureComponent {
+  render() {
     const { onLogin, activeMarket } = this.props
 
     const commonComponentProps = {
@@ -47,9 +47,11 @@ export default class Trading extends React.Component {
           </div>
 
           <div className='dtc-tradingpage__column center'>
+            {/*
             <div className='dtc-tvchart__wrapper'>
               <TVChart containerID='__tvchart' />
             </div>
+            */}
 
             <TradingStatePanel
               {...commonComponentProps}
