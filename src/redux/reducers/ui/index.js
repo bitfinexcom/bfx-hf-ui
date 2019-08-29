@@ -126,7 +126,7 @@ function reducer(state = getInitialState(), action = {}) {
 
     case types.SAVE_COMPONENT_STATE: {
       const {
-        layoutID, componentID, state: componentState = {}
+        layoutID, componentID, state: componentState = {},
       } = payload
 
       return {
@@ -136,8 +136,8 @@ function reducer(state = getInitialState(), action = {}) {
           [layoutID]: {
             ...(state.layoutComponentState[layoutID] || {}),
             [componentID]: componentState,
-          }
-        }
+          },
+        },
       }
     }
 
@@ -210,7 +210,9 @@ function reducerWithStorage(state = getInitialState(), action = {}) {
         break
       }
 
-      default: {}
+      default: {
+        break
+      }
     }
   }
 

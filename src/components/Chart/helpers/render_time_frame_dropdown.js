@@ -4,14 +4,14 @@ import Dropdown from '../../../ui/Dropdown'
 import TimeFrames from '../../../util/time_frames'
 
 // TODO: Use TimeFrameDropdown
-export default ({ currentExchange, currentTF, onChangeTF }) => {
+export default ({ currentExchange, currentTF, onChangeTF }) => { // eslint-disable-line
   const options = []
   const tfLabels = Object.keys(TimeFrames[currentExchange] || {})
 
   for (let i = 0; i < tfLabels.length; i += 1) {
     options.push({
       label: tfLabels[i],
-      value: TimeFrames[currentExchange][tfLabels[i]]
+      value: TimeFrames[currentExchange][tfLabels[i]],
     })
   }
 

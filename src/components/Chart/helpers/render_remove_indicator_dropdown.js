@@ -3,7 +3,7 @@ import Select from '../../../ui/Select'
 
 const LABEL = '- Indicator'
 
-export default ({ onRemoveIndicator, indicators }) => (
+export default ({ onRemoveIndicator, indicators }) => ( // eslint-disable-line
   <Select
     key='rm-indicator-dropdown'
     className='indicator-select'

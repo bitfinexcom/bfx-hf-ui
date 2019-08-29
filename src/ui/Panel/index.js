@@ -35,7 +35,11 @@ export default class Panel extends React.PureComponent {
                   className={ClassNames({ active: tab.id === activeTab })}
                   onClick={() => onChangeTab(tab.id)}
                 >
-                  <p className='dtc-panel__label'>{tab.label} {tab.suffix}</p>
+                  <p className='dtc-panel__label'>
+                    {tab.label}
+                    {' '}
+                    {tab.suffix}
+                  </p>
                 </li>
               ))}
             </ul>
@@ -79,11 +83,11 @@ export default class Panel extends React.PureComponent {
 
           <Scrollbars
             renderTrackVertical={props => (
-              <div {...props} className="dtc-scrollbars-track-vertical"/>
+              <div {...props} className='dtc-scrollbars-track-vertical' />
             )}
 
             renderThumbVertical={props => (
-              <div {...props} className="dtc-scrollbars-thumb-vertical"/>
+              <div {...props} className='dtc-scrollbars-thumb-vertical' />
             )}
           >
             {children}

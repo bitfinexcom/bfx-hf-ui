@@ -26,9 +26,8 @@ export default function (state = getInitialState(), action = {}) {
         [exID]: {
           ...(state[exID] || {}),
           [symbol]: bookData,
-        }
+        },
       }
-
     }
 
     default: {

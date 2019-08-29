@@ -2,7 +2,7 @@ export default () => ({
   label: 'Market',
   customHelp: 'A Market order will fill immediately at the current market price.',
 
-  generateOrder: (data = {}, symbol, margin) => {
+  generateOrder: (data = {}, symbol) => {
     const { amount } = data
 
     return {
@@ -18,7 +18,7 @@ export default () => ({
     name: 'general',
     rows: [
       ['price', 'amount'],
-    ]
+    ],
   }],
 
   fields: {
@@ -35,5 +35,5 @@ export default () => ({
     },
   },
 
-  actions: ['sell', 'buy']
+  actions: ['sell', 'buy'],
 })

@@ -25,8 +25,8 @@ function reducer(state = getInitialState(), action = {}) {
 
       return {
         ...state,
-        ..._keyBy([orderAdapter(order)], o => o.id)
-        }
+        ..._keyBy([orderAdapter(order)], o => o.id),
+      }
     }
 
     case types.ORDER_UPDATE: {
@@ -55,9 +55,9 @@ function reducer(state = getInitialState(), action = {}) {
 
       for (let i = 0; i < updates.length; i += 1) {
         update = updates[i]
-        const [, type, orderData] = update
+        const [, updateType, orderData] = update
 
-        switch (type) {
+        switch (updateType) {
           case 'on':
           case 'ou': {
             const o = orderAdapter(orderData)
@@ -67,13 +67,13 @@ function reducer(state = getInitialState(), action = {}) {
 
           case 'oc': {
             const o = orderAdapter(orderData)
-            let { [o.id]: _, ...remainingOrders } = nextState
+            const { [o.id]: _, ...remainingOrders } = nextState
             nextState = remainingOrders
             break
           }
 
           default: {
-            debug('receive unknown order update type: %s', type)
+            debug('receive unknown order update type: %s', updateType)
           }
         }
       }

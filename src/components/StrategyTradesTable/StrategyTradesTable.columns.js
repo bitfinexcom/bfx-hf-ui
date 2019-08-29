@@ -5,12 +5,12 @@ export default [{
   label: 'Price',
   dataKey: 'price',
   width: 60,
-  cellRenderer: ({ rowData = {} }) => preparePrice(rowData.price)
+  cellRenderer: ({ rowData = {} }) => preparePrice(rowData.price),
 }, {
   label: 'Amount',
   dataKey: 'amount',
   width: 120,
-  cellRenderer: ({ rowData = {} }) => (rowData.amount < 0
+  cellRenderer: ({ rowData = {} }) => (rowData.amount < 0 // eslint-disable-line
     ? <span className='dtc-red'>{prepareAmount(rowData.amount)}</span>
     : <span className='dtc-green'>{prepareAmount(rowData.amount)}</span>
   ),
@@ -18,7 +18,7 @@ export default [{
   label: 'P/L',
   dataKey: 'pl',
   width: 120,
-  cellRenderer: ({ rowData = {} }) => (rowData.pl < 0
+  cellRenderer: ({ rowData = {} }) => (rowData.pl < 0 // eslint-disable-line
     ? <span className='dtc-red'>{prepareAmount(rowData.pl)}</span>
     : <span className='dtc-green'>{prepareAmount(rowData.pl)}</span>
   ),
@@ -26,10 +26,10 @@ export default [{
   label: 'Label',
   dataKey: 'label',
   width: 200,
-  cellRenderer: ({ rowData = {} }) => rowData.label
+  cellRenderer: ({ rowData = {} }) => rowData.label,
 }, {
   label: 'Time',
   dataKey: 'mts',
   width: 100,
-  cellRenderer: ({ rowData = {} }) => new Date(rowData.mts).toLocaleTimeString()
+  cellRenderer: ({ rowData = {} }) => new Date(rowData.mts).toLocaleTimeString(),
 }]

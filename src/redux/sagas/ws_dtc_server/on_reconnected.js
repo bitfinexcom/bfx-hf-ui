@@ -10,7 +10,7 @@ import {
 
 const debug = Debug('dtc:rx:s:ws-dtc-server:on-reconnected')
 
-export default function * () {
+export default function* () {
   const reqs = yield select(getAllChannelRequirements)
   const reqKeys = Object.keys(reqs)
   const keysRequiringConnection = reqKeys.filter(k => reqs[k] > 0)
@@ -21,7 +21,7 @@ export default function * () {
       case 'ticker': {
         return ['ticker', ...parseTickerKey(key)]
       }
-      
+
       case 'book': {
         return ['book', ...parseBookKey(key)]
       }

@@ -16,7 +16,7 @@ export default ({ indicators, indicatorData, onOpenSettings }) => {
       yExtents={d => indicatorData[i.key][d.mts]}
       height={125}
       origin={(w, h) => [0, 20 + h + (n * 145)]}
-      key={n}
+      key={i.key}
     >
       <XAxis
         axisAt='bottom'

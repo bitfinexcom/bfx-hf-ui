@@ -1,4 +1,4 @@
-const layoutDefToGridLayout = (layoutDef) => layoutDef.layout.map(l => ({
+const layoutDefToGridLayout = layoutDef => layoutDef.layout.map(l => ({
   i: l.i,
   x: l.x,
   y: l.y,
@@ -7,7 +7,7 @@ const layoutDefToGridLayout = (layoutDef) => layoutDef.layout.map(l => ({
 }))
 
 const gridLayoutToLayoutDef = (layoutDef, parentLayoutDef) => {
-  parentLayoutDef.layout.forEach(l => {
+  parentLayoutDef.layout.forEach((l) => {
     const elm = layoutDef.layout.find(lElm => lElm.i === l.i)
 
     if (elm) {

@@ -26,7 +26,7 @@ export default (nextProps, prevState) => {
     lastInternalCandleUpdate: prevState.lastInternalCandleUpdate,
     currentExchange,
     currentMarket,
-    focus
+    focus,
   }
 
   // Update market & exchange w/ UI if not manually changed
@@ -45,7 +45,6 @@ export default (nextProps, prevState) => {
   const mID = nextState.currentMarket.u
 
   if (mID !== currentMarket.u || exID !== currentExchange) {
-    const exID = nextState.currentExchange
     const market = nextState.currentMarket
 
     syncCandles(exID, market, currentTF, currentRange) // update
@@ -91,7 +90,7 @@ export default (nextProps, prevState) => {
         v: [
           prevState.lastDomain[0] + candleDelta,
           prevState.lastDomain[1] + candleDelta,
-        ]
+        ],
       }
     }
   }
@@ -100,7 +99,7 @@ export default (nextProps, prevState) => {
   const { indicators = [] } = prevState
   const indicatorData = {}
 
-  indicators.forEach(i => {
+  indicators.forEach((i) => {
     indicatorData[i.key] = calcIndicatorValuesForCandles(i, candles)
   })
 
@@ -111,6 +110,6 @@ export default (nextProps, prevState) => {
     candles,
     indicatorData,
 
-    ...genChartData(candles)
+    ...genChartData(candles),
   }
 }

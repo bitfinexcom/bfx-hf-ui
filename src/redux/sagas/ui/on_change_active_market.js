@@ -4,7 +4,7 @@ import MarketActions from '../../actions/market'
 
 const debug = Debug('dtc:rx:s:ui')
 
-export default function * onChangeActiveMarket (action = {}) {
+export default function* onChangeActiveMarket(action = {}) {
   const { payload = {} } = action
   const { market } = payload
 

@@ -2,8 +2,8 @@ import React from 'react'
 
 import OrderFormModal from '../OrderFormModal'
 
-export default class UnlockAPIKeysModal extends React.PureComponent {
-  render () {
+export default class ConnectingModal extends React.PureComponent {
+  render() {
     return (
       <OrderFormModal
         className='nohover'

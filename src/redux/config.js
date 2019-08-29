@@ -8,5 +8,5 @@ const REDUCER_PATHS = {
 }
 
 export {
-  REDUCER_PATHS,
+  REDUCER_PATHS, // eslint-disable-line
 }

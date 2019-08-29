@@ -4,9 +4,13 @@ import _capitalize from 'lodash/capitalize'
 import AtomicOrdersTable from '../AtomicOrdersTable'
 import Select from '../../ui/Select'
 import Panel from '../../ui/Panel'
+import { propTypes, defaultProps } from './AtomicOrdersTablePanel.props'
 
 export default class AtomicOrdersTablePanel extends React.Component {
-  constructor (props) {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
+  constructor(props) {
     super(props)
 
     const { savedState = {} } = props
@@ -20,7 +24,7 @@ export default class AtomicOrdersTablePanel extends React.Component {
     this.onChangeExchange = this.onChangeExchange.bind(this)
   }
 
-  static getDerivedStateFromProps (nextProps, prevState) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     const { exchangeDirty, currentExchange } = prevState
     const { activeExchange } = nextProps
 
@@ -33,7 +37,7 @@ export default class AtomicOrdersTablePanel extends React.Component {
     }
   }
 
-  onChangeExchange (option) {
+  onChangeExchange(option) {
     const { value: exchange } = option
     const { currentExchange } = this.state
 
@@ -49,13 +53,13 @@ export default class AtomicOrdersTablePanel extends React.Component {
     this.deferSaveState()
   }
 
-  deferSaveState () {
+  deferSaveState() {
     setTimeout(() => {
       this.saveState()
     }, 0)
   }
 
-  saveState () {
+  saveState() {
     const { saveState, layoutID, layoutI } = this.props
     const { currentExchange, exchangeDirty } = this.state
 
@@ -65,7 +69,7 @@ export default class AtomicOrdersTablePanel extends React.Component {
     })
   }
 
-  renderExchangeDropdown ()  {
+  renderExchangeDropdown() {
     const { exchangeDirty, currentExchange } = this.state
     const { exchanges } = this.props
 
@@ -87,7 +91,7 @@ export default class AtomicOrdersTablePanel extends React.Component {
     )
   }
 
-  render () {
+  render() {
     // const { currentExchange } = this.state
     const { onRemove, activeMarket, activeExchange } = this.props
 
@@ -97,7 +101,9 @@ export default class AtomicOrdersTablePanel extends React.Component {
         onRemove={onRemove}
         headerComponents={[
           // this.renderExchangeDropdown(),
-          <p key='market'>{activeMarket.u}</p>
+          <p key='market'>
+            {activeMarket.u}
+          </p>,
         ]}
       >
         <AtomicOrdersTable

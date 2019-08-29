@@ -4,15 +4,18 @@ import _reverse from 'lodash/reverse'
 import _max from 'lodash/max'
 import _sum from 'lodash/sum'
 import BigN from 'bignumber.js'
-import { prepareAmount } from 'bfx-api-node-util'
 
 import OBSide from './OBSide'
 import Spinner from '../../ui/Spinner'
+import { propTypes, defaultProps } from './OrderBook.props'
 import './style.css'
 
 // TODO: Unified/split views
 export default class OrderBook extends React.PureComponent {
-  render () {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
+  render() {
     const { ob, sumAmounts, stackedView } = this.props
 
     if (ob.length === 0) {
@@ -29,8 +32,9 @@ export default class OrderBook extends React.PureComponent {
 
     return (
       <div className={ClassNames('dtc-orderbook__wrapper', {
-        stacked: stackedView
-      })}>
+        stacked: stackedView,
+      })}
+      >
         {stackedView ? (
           <ul>
             {ob.map((pl, i) => {
@@ -50,7 +54,7 @@ export default class OrderBook extends React.PureComponent {
                     }}
                   >
                     <div className='dtc-orderbook__pl-container spread'>
-                      <p className='dtc-orderbook__pl-amount'></p>
+                      <p className='dtc-orderbook__pl-amount' />
 
                       <p className='dtc-orderbook__pl-price'>
                         {new BigN(`${ob[i - 1][0]}`).minus(new BigN(`${pl[0]}`)).toString(10)}
@@ -58,15 +62,15 @@ export default class OrderBook extends React.PureComponent {
 
                       <div className='dtc-orderbook_pl-vol-container noborder' />
                     </div>
-                  </li>
+                  </li>,
                 )
               }
 
               html.push(
                 <li
-                  key={i}
+                  key={i} // eslint-disable-line
                   style={{
-                    height: `calc(100% / ${ob.length + 3})`
+                    height: `calc(100% / ${ob.length + 3})`,
                   }}
 
                   className={ClassNames('dtc-orderbook__pl', {
@@ -95,10 +99,10 @@ export default class OrderBook extends React.PureComponent {
                               : `${(remSellAmount / totalSellAmount) * 100}%`
                             : `${Math.floor((Math.abs(pl[1]) / maxVol) * 100)}%`,
                         }}
-                      ></span>
+                      />
                     </div>
                   </div>
-                </li>
+                </li>,
               )
 
               if (pl[1] < 0) {

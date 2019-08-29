@@ -33,7 +33,7 @@ export default function (state = getInitialState(), action = {}) {
             ...(state.channels[exID] || {}),
             [`${chanID}`]: chanData,
           },
-        }
+        },
       }
     }
 
@@ -47,7 +47,7 @@ export default function (state = getInitialState(), action = {}) {
         channels: {
           ...state.channels,
           [exID]: remainingChannels,
-        }
+        },
       }
     }
 
@@ -63,9 +63,9 @@ export default function (state = getInitialState(), action = {}) {
 
           [exID]: {
             ...(state.requirements[exID] || {}),
-            [key]: requirements + 1
+            [key]: requirements + 1,
           },
-        }
+        },
       }
     }
 
@@ -85,9 +85,9 @@ export default function (state = getInitialState(), action = {}) {
 
           [exID]: {
             ...(state.requirements[exID] || {}),
-            [key]: requirements - 1
+            [key]: requirements - 1,
           },
-        }
+        },
       }
     }
 

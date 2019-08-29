@@ -1,6 +1,42 @@
 import _isFunction from 'lodash/isFunction'
 import _get from 'lodash/get'
 
+export const getTransformers = (columns = []) => {
+  const transformers = {}
+
+  columns.forEach((col) => {
+    if (col.dataKey && col.transformData) {
+      transformers[col.dataKey] = col.transformData
+    }
+  })
+
+  return transformers
+}
+
+export const getSortKeys = (columns = []) => {
+  const sortKeys = {}
+
+  columns.forEach((col) => {
+    if (col.sortKey) {
+      sortKeys[col.dataKey] = col.sortKey
+    }
+  })
+
+  return sortKeys
+}
+
+export const getSortFunctions = (columns = []) => {
+  const sortFunctions = {}
+
+  columns.forEach((col) => {
+    if (col.sortKey) {
+      sortFunctions[col.dataKey] = col.sortKey
+    }
+  })
+
+  return sortFunctions
+}
+
 /**
  * Returns a sorted copy of the provided dataset; values are cast to strings
  * before comparison via localeCompare(). The transformers map is optional,
@@ -46,45 +82,9 @@ export const getSortedData = (args = {}) => {
   return sortedData
 }
 
-export const getTransformers = (columns = []) => {
-  const transformers = {}
-
-  columns.forEach((col) => {
-    if (col.dataKey && col.transformData) {
-      transformers[col.dataKey] = col.transformData
-    }
-  })
-
-  return transformers
-}
-
-export const getSortKeys = (columns = []) => {
-  const sortKeys = {}
-
-  columns.forEach((col) => {
-    if (col.sortKey) {
-      sortKeys[col.dataKey] = col.sortKey
-    }
-  })
-
-  return sortKeys
-}
-
-export const getSortFunctions = (columns = []) => {
-  const sortFunctions = {}
-
-  columns.forEach((col) => {
-    if (col.sortKey) {
-      sortFunctions[col.dataKey] = col.sortKey
-    }
-  })
-
-  return sortFunctions
-}
-
 export function sortData(args = {}, props = {}) {
-  const { getSortedData, sortedDataPostProcessor } = props
-  const sortedData = getSortedData(args)
+  const { getSortedData: getData, sortedDataPostProcessor } = props
+  const sortedData = getData(args)
 
   sortedDataPostProcessor(sortedData)
 

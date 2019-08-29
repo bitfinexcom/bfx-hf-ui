@@ -27,7 +27,7 @@ const mapDispatchToProps = dispatch => ({
       layoutID,
       componentID,
     }))
-  }
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AtomicOrdersTablePanel)

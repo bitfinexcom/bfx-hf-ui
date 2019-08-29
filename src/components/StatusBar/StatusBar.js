@@ -6,13 +6,12 @@ import MANIFEST from '../../../package.json'
 import Input from '../../ui/Input'
 import Button from '../../ui/Button'
 import { COMPONENT_TYPES } from '../GridLayout/GridLayout.helpers'
-
+import { propTypes, defaultProps } from './StatusBar.props'
 import './style.css'
 
 export default class StatusBar extends React.Component {
-  static defaultProps = {
-    displayLayoutControls: true,
-  }
+  static propTypes = propTypes
+  static defaultProps = defaultProps
 
   state = {
     componentListOpen: false,
@@ -21,7 +20,7 @@ export default class StatusBar extends React.Component {
     newLayoutName: '',
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.onToggleComponentList = this.onToggleComponentList.bind(this)
@@ -33,7 +32,7 @@ export default class StatusBar extends React.Component {
     this.onChangeLayout = this.onChangeLayout.bind(this)
   }
 
-  onToggleComponentList () {
+  onToggleComponentList() {
     this.setState(({ componentListOpen }) => ({
       componentListOpen: !componentListOpen,
       layoutListOpen: false,
@@ -41,7 +40,7 @@ export default class StatusBar extends React.Component {
     }))
   }
 
-  onToggleLayoutList () {
+  onToggleLayoutList() {
     this.setState(({ layoutListOpen }) => ({
       layoutListOpen: !layoutListOpen,
       componentListOpen: false,
@@ -49,21 +48,7 @@ export default class StatusBar extends React.Component {
     }))
   }
 
-  onToggleLayoutCreator () {
-    // const { user, onUpgrade, onLogin } = this.props
-
-    /*
-    if (!user || !user.id) {
-      return onLogin()
-    }
-
-    const { subscription } = user
-
-    if (!subscription || subscription < 1) {
-      return onUpgrade()
-    }
-    */
-
+  onToggleLayoutCreator() {
     this.setState(({ layoutCreatorOpen }) => ({
       layoutCreatorOpen: !layoutCreatorOpen,
       layoutListOpen: false,
@@ -72,11 +57,11 @@ export default class StatusBar extends React.Component {
     }))
   }
 
-  onChangeNewLayoutName (newLayoutName) {
+  onChangeNewLayoutName(newLayoutName) {
     this.setState(() => ({ newLayoutName }))
   }
 
-  onSelectComponent (component) {
+  onSelectComponent(component) {
     const { onAddComponentToLayout } = this.props
 
     onAddComponentToLayout(component)
@@ -84,7 +69,7 @@ export default class StatusBar extends React.Component {
     this.setState(() => ({ componentListOpen: false }))
   }
 
-  onCreateNewLayout () {
+  onCreateNewLayout() {
     const { newLayoutName } = this.state
     const { onCreateNewLayout } = this.props
 
@@ -93,27 +78,26 @@ export default class StatusBar extends React.Component {
     this.setState(() => ({ layoutCreatorOpen: false }))
   }
 
-  onChangeLayout (id) {
+  onChangeLayout(id) {
     const { onChangeLayout } = this.props
     onChangeLayout(id)
 
     this.setState(() => ({ layoutListOpen: false }))
   }
 
-  onDeleteLayout (id) {
+  onDeleteLayout(id) {
     const { onDeleteLayout } = this.props
     onDeleteLayout(id)
   }
 
-  render () {
+  render() {
     const {
       layoutListOpen, componentListOpen, newLayoutName, layoutCreatorOpen,
     } = this.state
 
     const {
       onSaveLayout, layoutDirty, displayLayoutControls, layoutName,
-      layoutNames, dtcConnected, user, navigate, allowTradingComponents,
-      layoutCanDelete,
+      layoutNames, dtcConnected, allowTradingComponents, layoutCanDelete,
     } = this.props
 
     return (
@@ -126,7 +110,8 @@ export default class StatusBar extends React.Component {
               <p
                 className='dtc-statusbar__layout-active-name'
                 onClick={this.onToggleLayoutList}
-              >{layoutName}
+              >
+                {layoutName}
                 <i className='fas fa-chevron-up' />
               </p>
 
@@ -158,7 +143,9 @@ export default class StatusBar extends React.Component {
                         yellow: name === layoutName,
                         selected: name === layoutName,
                       })}
-                    >{name}</li>
+                    >
+                      {name}
+                    </li>
                   ))}
                 </ul>
               )}
@@ -167,7 +154,8 @@ export default class StatusBar extends React.Component {
             <div className='icon with-popuplist'>
               <p
                 onClick={this.onToggleLayoutCreator}
-              >Add Layout
+              >
+Add Layout
                 <i className='fas fa-plus' />
               </p>
 
@@ -199,7 +187,8 @@ export default class StatusBar extends React.Component {
                 className={ClassNames({
                   yellow: componentListOpen,
                 })}
-              >Add Component
+              >
+Add Component
                 <i className='fas fa-plus' />
               </p>
 
@@ -218,14 +207,18 @@ export default class StatusBar extends React.Component {
 
         <div className='dtc-statusbar__right'>
           <div className='dtc-statusbar__version'>
-            <p>Version {MANIFEST.version}</p>
+            <p>
+Version
+              {MANIFEST.version}
+            </p>
           </div>
 
           <div className='dtc-statusbar__connection-status'>
             <span className={ClassNames('dtc-statusbar__statuscircle', {
               green: dtcConnected,
-              red: !dtcConnected
-            })}></span>
+              red: !dtcConnected,
+            })}
+            />
 
             <p>{dtcConnected ? 'WS Connected' : 'WS Disconnected'}</p>
           </div>

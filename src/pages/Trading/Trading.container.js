@@ -2,13 +2,13 @@ import { connect } from 'react-redux'
 
 import UIActions from '../../redux/actions/ui'
 import {
-  getLayouts, getActiveMarket, getActiveExchange
+  getLayouts, getActiveMarket, getActiveExchange,
 } from '../../redux/selectors/ui'
 import { getUser } from '../../redux/selectors/ws_dtc_server'
 
 import Trading from './Trading'
 
-const mapStateToProps = (state = {}, ownProps = {}) => ({
+const mapStateToProps = (state = {}) => ({
   layouts: getLayouts(state),
   activeMarket: getActiveMarket(state),
   exID: getActiveExchange(state),
@@ -26,7 +26,7 @@ const mapDispatchToProps = dispatch => ({
 
   deleteLayout: (id) => {
     dispatch(UIActions.deleteLayout(id))
-  }
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Trading)

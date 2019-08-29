@@ -4,7 +4,7 @@ export default () => ({
   label: 'Limit',
   customHelp: 'A Limit order submits a buy or sell order at the specified price. If the price is above or below the current best ask/bid (respectively for buy/sell orders) it will execute immediately as a TAKER order. Otherwise, it will be inserted into the order book and execute as a MAKER order when the market reaches the order\'s price.',
 
-  generateOrder: (data = {}, symbol, margin) => {
+  generateOrder: (data = {}, symbol) => {
     const { tif, price, amount } = data
 
     return {
@@ -22,13 +22,13 @@ export default () => ({
     name: 'general',
     rows: [
       ['price', 'amount'],
-    ]
+    ],
   }, {
     title: '',
     name: 'tif',
     fullWidth: true,
     rows: [
-      ['tif']
+      ['tif'],
     ],
   }],
 
@@ -46,7 +46,7 @@ export default () => ({
 
     price: {
       component: 'input.price',
-      label: 'Price $QUOTE'
+      label: 'Price $QUOTE',
     },
 
     amount: {
@@ -55,5 +55,5 @@ export default () => ({
     },
   },
 
-  actions: ['sell', 'buy']
+  actions: ['sell', 'buy'],
 })

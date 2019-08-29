@@ -6,7 +6,6 @@ import Table from '../../ui/Table'
 
 import './style.css'
 
-// TODO: Extract props
 export default class BalancesTable extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps

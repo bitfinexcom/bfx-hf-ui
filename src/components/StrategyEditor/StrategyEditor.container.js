@@ -11,7 +11,7 @@ import { getActiveMarket, getActiveExchange } from '../../redux/selectors/ui'
 import StrategyEditor from './StrategyEditor'
 
 const debug = Debug('dtc:c:strategy-editor:container')
-const mapStateToProps = (state = {}, ownProps = {}) => ({
+const mapStateToProps = (state = {}) => ({
   activeExchange: getActiveExchange(state),
   activeMarket: getActiveMarket(state),
   candles: getAllCandles(state),
@@ -25,7 +25,8 @@ const mapDispatchToProps = dispatch => ({
 
     scrypt(pwBuff, saltBuff, 1024, 8, 1, 32, (error, progress, key) => {
       if (error) {
-        return debug('error creating encryption key: %s', error)
+        debug('error creating encryption key: %s', error)
+        return
       }
 
       if (!key) {
@@ -43,7 +44,7 @@ const mapDispatchToProps = dispatch => ({
           return
         }
 
-        const aesCTR = new aes.ModeOfOperation.ctr(key)
+        const aesCTR = new aes.ModeOfOperation.ctr(key) // eslint-disable-line
         const sectionBytes = aes.utils.utf8.toBytes(strategy[field])
         const cipherText = aes.utils.hex.fromBytes(aesCTR.encrypt(sectionBytes))
 
@@ -56,7 +57,7 @@ const mapDispatchToProps = dispatch => ({
 
       dispatch(WSDTCActions.send(['strategy.save', encryptedStrategy]))
     })
-  }
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(StrategyEditor)

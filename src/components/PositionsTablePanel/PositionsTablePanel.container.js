@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import { getComponentState, getActiveExchange } from '../../redux/selectors/ui'
-import { getExchanges} from '../../redux/selectors/meta'
+import { getExchanges } from '../../redux/selectors/meta'
 import UIActions from '../../redux/actions/ui'
 
 import PositionsTablePanel from './PositionsTablePanel'
@@ -24,7 +24,7 @@ const mapDispatchToProps = dispatch => ({
       layoutID,
       componentID,
     }))
-  }
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PositionsTablePanel)

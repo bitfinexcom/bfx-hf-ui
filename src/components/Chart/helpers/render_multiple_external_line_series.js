@@ -4,7 +4,7 @@ import { LineSeries } from 'react-stockcharts/lib/series'
 import { SingleValueTooltip } from 'react-stockcharts/lib/tooltip'
 import SettingsTextOverlay from '../SettingsTextOverlay'
 
-export default (i, indicatorData, onOpenSettings, n) => {
+export default (i, indicatorData, onOpenSettings) => {
   return [
     i.ui.lines.map(key => (
       <LineSeries
@@ -31,6 +31,6 @@ export default (i, indicatorData, onOpenSettings, n) => {
       onClick={() => onOpenSettings({ type: 'indicator', i })}
       positionY={i.ui.lines.length + 1}
       forLabel={i._name}
-    />
+    />,
   ]
 }

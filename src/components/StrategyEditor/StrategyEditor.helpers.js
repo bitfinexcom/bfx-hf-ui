@@ -21,7 +21,15 @@ export const generateResults = (btState = {}) => {
   const maxPL = _max(pls)
 
   return {
-    nTrades, nCandles, pf, pl, minPL, maxPL, nStrategyTrades, nOpens, vol,
+    nTrades,
+    nCandles,
+    pf,
+    pl,
+    minPL,
+    maxPL,
+    nStrategyTrades,
+    nOpens,
+    vol,
     fees,
 
     nGains: gains.length,
@@ -29,6 +37,6 @@ export const generateResults = (btState = {}) => {
     trades: trades.map(t => ({
       ...t,
       date: new Date(t.mts),
-    }))
+    })),
   }
 }

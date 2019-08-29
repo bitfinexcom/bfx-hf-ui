@@ -11,7 +11,7 @@ import WSDTCActions from '../../redux/actions/ws_dtc_server'
 import { getExchanges, getMarkets } from '../../redux/selectors/meta'
 import { getUser, getAPIClientStates } from '../../redux/selectors/ws_dtc_server'
 import {
-  getComponentState, getActiveExchange, getActiveMarket
+  getComponentState, getActiveExchange, getActiveMarket,
 } from '../../redux/selectors/ui'
 
 const debug = Debug('dtc:c:order-form')
@@ -48,45 +48,50 @@ const mapDispatchToProps = dispatch => ({
 
     dispatch(WSDTCActions.send(['order.submit', exID, {
       symbol: packet.symbol[exID === 'bitfinex' ? 'w' : 'r'],
-      ...packet
+      ...packet,
     }]))
   },
 
-  submitAlgoOrder: ({ exID, id, market, context, data }) => {
+  submitAlgoOrder: ({
+    exID, id, market, context, data,
+  }) => {
     debug('submitting algo order %s on %s [%s]', id, market.u, context)
 
     // TODO: Extract symbol resolution (r/w)
     dispatch(WSDTCActions.send(['algo_order.submit', exID, id, {
       ...data,
       _symbol: exID === 'bitfinex' ? market.w : market.r,
-      _margin: context === 'm'
+      _margin: context === 'm',
     }]))
   },
 
-  submitAPIKeys: ({ userID, exID, apiKey, apiSecret, password }) => {
+  submitAPIKeys: ({
+    userID, exID, apiKey, apiSecret, password,
+  }) => {
     const pwBuff = new buffer.SlowBuffer(password.normalize('NFKC'))
     const saltBuff = new buffer.SlowBuffer(`${userID}`.normalize('NFKC'))
 
     scrypt(pwBuff, saltBuff, 1024, 8, 1, 32, (error, progress, key) => {
       if (error) {
-        return debug('error creating encryption key: %s', error)
+        debug('error creating encryption key: %s', error)
+        return
       }
 
       if (!key) {
         return
       }
 
-      const aesCTR = new aes.ModeOfOperation.ctr(key)
+      const aesCTR = new aes.ModeOfOperation.ctr(key) // eslint-disable-line
       const cryptedAPIKey = aes.utils.hex.fromBytes(aesCTR.encrypt(
-        aes.utils.utf8.toBytes(apiKey)
+        aes.utils.utf8.toBytes(apiKey),
       ))
 
       const cryptedAPISecret = aes.utils.hex.fromBytes(aesCTR.encrypt(
-        aes.utils.utf8.toBytes(apiSecret)
+        aes.utils.utf8.toBytes(apiSecret),
       ))
 
       const cryptedAPIControl = aes.utils.hex.fromBytes(aesCTR.encrypt(
-        aes.utils.utf8.toBytes('control')
+        aes.utils.utf8.toBytes('control'),
       ))
 
       dispatch(WSDTCActions.send([

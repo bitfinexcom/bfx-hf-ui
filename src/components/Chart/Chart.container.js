@@ -39,13 +39,13 @@ const mapDispatchToProps = dispatch => ({
 
   addCandlesRequirement: (exchange, market, tf) => {
     dispatch(WSDTCActions.addChannelRequirement(
-      exchange, ['candles', tf, market]
+      exchange, ['candles', tf, market],
     ))
   },
 
   removeCandlesRequirement: (exchange, market, tf) => {
     dispatch(WSDTCActions.removeChannelRequirement(
-      exchange, ['candles', tf, market]
+      exchange, ['candles', tf, market],
     ))
   },
 
@@ -59,7 +59,7 @@ const mapDispatchToProps = dispatch => ({
       layoutID,
       componentID,
     }))
-  }
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chart)

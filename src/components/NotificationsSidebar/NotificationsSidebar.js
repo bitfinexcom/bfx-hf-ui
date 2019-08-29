@@ -5,11 +5,15 @@ import { nonce } from 'bfx-api-node-util'
 
 import Notification from './Notification'
 import Panel from '../../ui/Panel'
+import { propTypes, defaultProps } from './NotificationsSidebar.props'
 import './style.css'
 
 const LIVE_NOTIFICATION_LIFETIME_MS = 4000
 
 export default class NotificationsSidebar extends React.Component {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
   state = {
     open: false,
     lastShownMTS: 0,
@@ -17,7 +21,7 @@ export default class NotificationsSidebar extends React.Component {
     liveNotifications: [],
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     const { notifications = [] } = props
@@ -30,7 +34,7 @@ export default class NotificationsSidebar extends React.Component {
     this.onToggleOpen = this.onToggleOpen.bind(this)
   }
 
-  static getDerivedStateFromProps (nextProps, prevState) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     const { notifications = [] } = nextProps
     const { lastNotificationCount } = prevState
 
@@ -51,51 +55,52 @@ export default class NotificationsSidebar extends React.Component {
         })),
 
         ...prevState.liveNotifications,
-      ]
+      ],
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { liveNotifications } = this.state
+    const { liveNotifications, lastShownMTS } = this.state
 
     if (liveNotifications.length === prevState.liveNotifications.length) {
       return
     }
 
     setTimeout(
-      this.timeoutLiveNotifications.bind(this, this.state.lastShownMTS),
-      LIVE_NOTIFICATION_LIFETIME_MS
+      this.timeoutLiveNotifications.bind(this, lastShownMTS),
+      LIVE_NOTIFICATION_LIFETIME_MS,
     )
   }
 
-  timeoutLiveNotifications (shownMTS) {
-    this.setState(({ liveNotifications }) => ({
-      liveNotifications: liveNotifications.filter(({ showMTS }) => (
-        showMTS !== shownMTS
-      ))
-    }))
-  }
-
-  onToggleOpen () {
+  onToggleOpen() {
     this.setState(({ open }) => ({ open: !open }))
   }
 
-  render () {
+  timeoutLiveNotifications(shownMTS) {
+    this.setState(({ liveNotifications }) => ({
+      liveNotifications: liveNotifications.filter(({ showMTS }) => (
+        showMTS !== shownMTS
+      )),
+    }))
+  }
+
+  render() {
     const { open, liveNotifications } = this.state
     const { notifications } = this.props
 
     return (
       <div className={ClassNames('dtc-notificationssidebar__wrapper', {
         visible: open,
-      })}>
+      })}
+      >
         <Panel
           label='NOTIFICATIONS'
           hideIcons
         >
           <ul>
             <Scrollbars height='100%'>
-              {notifications.map((n = {}, i) => (
-                <Notification key={i} data={n} />
+              {notifications.map((n = {}) => (
+                <Notification key={`${n.mts}-${n.text}`} data={n} />
               ))}
             </Scrollbars>
           </ul>
@@ -109,12 +114,13 @@ export default class NotificationsSidebar extends React.Component {
           </ul>
         )}
 
-        <div
+        <button
+          type='button'
           onClick={this.onToggleOpen}
           className='dtc-notificationssidebar__notch'
         >
           <i className='fa fa-bell' />
-        </div>
+        </button>
       </div>
     )
   }

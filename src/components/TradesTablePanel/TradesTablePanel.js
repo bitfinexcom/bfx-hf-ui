@@ -7,15 +7,18 @@ import MarketSelect from '../MarketSelect'
 import Panel from '../../ui/Panel'
 import Select from '../../ui/Select'
 import nearestMarket from '../../util/nearest_market'
+import { propTypes, defaultProps } from './TradesTablePanel.props'
 
-// TODO: Extract props
 export default class TradesTablePanel extends React.Component {
-  constructor (props) {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
+  constructor(props) {
     super(props)
 
     const { savedState = {}, activeMarket } = props
     const {
-      currentMarket = activeMarket, currentExchange, marketDirty, exchangeDirty
+      currentMarket = activeMarket, currentExchange, marketDirty, exchangeDirty,
     } = savedState
 
     this.state = {
@@ -29,21 +32,21 @@ export default class TradesTablePanel extends React.Component {
     this.onChangeExchange = this.onChangeExchange.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const { currentExchange, currentMarket } = this.state
     const { addTradesRequirement } = this.props
     addTradesRequirement(currentExchange, currentMarket)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     const { currentExchange, currentMarket } = this.state
     const { removeTradesRequirement } = this.props
     removeTradesRequirement(currentExchange, currentMarket)
   }
 
-  static getDerivedStateFromProps (nextProps, prevState) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     const {
-      currentExchange, currentMarket, exchangeDirty, marketDirty
+      currentExchange, currentMarket, exchangeDirty, marketDirty,
     } = prevState
 
     const {
@@ -66,10 +69,10 @@ export default class TradesTablePanel extends React.Component {
     }
   }
 
-  onChangeMarket (market) {
+  onChangeMarket(market) {
     const { currentMarket } = this.state
     const {
-      activeExchange, addTradesRequirement, removeTradesRequirement
+      activeExchange, addTradesRequirement, removeTradesRequirement,
     } = this.props
 
     if (market.r === currentMarket.r) {
@@ -86,11 +89,11 @@ export default class TradesTablePanel extends React.Component {
     this.deferSaveState()
   }
 
-  onChangeExchange (option) {
+  onChangeExchange(option) {
     const { value: exchange } = option
     const { currentExchange, currentMarket } = this.state
     const {
-      addTradesRequirement, removeTradesRequirement, allMarkets
+      addTradesRequirement, removeTradesRequirement, allMarkets,
     } = this.props
 
     if (exchange === currentExchange) {
@@ -112,13 +115,13 @@ export default class TradesTablePanel extends React.Component {
     this.deferSaveState()
   }
 
-  deferSaveState () {
+  deferSaveState() {
     setTimeout(() => {
       this.saveState()
     }, 0)
   }
 
-  saveState () {
+  saveState() {
     const { saveState, layoutID, layoutI } = this.props
     const {
       currentMarket, currentExchange, exchangeDirty, marketDirty,
@@ -132,7 +135,7 @@ export default class TradesTablePanel extends React.Component {
     })
   }
 
-  renderExchangeDropdown ()  {
+  renderExchangeDropdown() {
     const { exchangeDirty, currentExchange } = this.state
     const { exchanges, canChangeExchange } = this.props
 
@@ -155,8 +158,7 @@ export default class TradesTablePanel extends React.Component {
     )
   }
 
-
-  renderMarketDropdown ()  {
+  renderMarketDropdown() {
     const { marketDirty, currentMarket, currentExchange } = this.state
     const { allMarkets, canChangeMarket } = this.props
     const markets = allMarkets[currentExchange] || []
@@ -173,9 +175,9 @@ export default class TradesTablePanel extends React.Component {
     )
   }
 
-  render () {
+  render() {
     const {
-      label = 'TRADES', onRemove, moveable, removeable, showExchange, showMarket
+      label, onRemove, moveable, removeable, showExchange, showMarket,
     } = this.props
 
     const { currentExchange, currentMarket } = this.state
@@ -189,7 +191,7 @@ export default class TradesTablePanel extends React.Component {
         className='dtc-tradestable__wrapper'
         headerComponents={[
           showExchange && this.renderExchangeDropdown(),
-          showMarket && this.renderMarketDropdown()
+          showMarket && this.renderMarketDropdown(),
         ]}
       >
         <TradesTable

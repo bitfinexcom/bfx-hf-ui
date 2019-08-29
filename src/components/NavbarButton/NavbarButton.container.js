@@ -5,7 +5,7 @@ import { getLocation } from '../../redux/selectors/router'
 
 import NavbarButton from './NavbarButton'
 
-const mapStateToProps = (state = {}, ownProps = {}) => ({
+const mapStateToProps = (state = {}) => ({
   currentRoute: getLocation(state),
 })
 

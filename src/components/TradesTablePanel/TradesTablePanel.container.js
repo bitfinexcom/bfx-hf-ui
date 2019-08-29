@@ -17,7 +17,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     savedState: getComponentState(state, layoutID, 'trades', id),
     activeMarket: getActiveMarket(state),
     exchanges: getExchanges(state),
-    allMarkets: getMarkets(state)
+    allMarkets: getMarkets(state),
   }
 }
 
@@ -36,7 +36,7 @@ const mapDispatchToProps = dispatch => ({
       layoutID,
       componentID,
     }))
-  }
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TradesTablePanel)

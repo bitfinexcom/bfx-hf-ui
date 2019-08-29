@@ -30,7 +30,7 @@ export default () => ({
 
   header: {
     component: 'ui.checkbox_group',
-    fields: ['reduceonly', 'tif']
+    fields: ['reduceonly', 'tif'],
   },
 
   sections: [{
@@ -38,18 +38,18 @@ export default () => ({
     name: 'general',
     rows: [
       ['distance', 'amount'],
-    ]
+    ],
   }, {
     title: '',
     name: 'tif',
     fullWidth: true,
     rows: [
-      ['tifDate']
+      ['tifDate'],
     ],
 
     visible: {
-      tif: { eq: true }
-    }
+      tif: { eq: true },
+    },
   }],
 
   fields: {
@@ -67,7 +67,7 @@ export default () => ({
 
     distance: {
       component: 'input.price',
-      label: 'Distance $QUOTE'
+      label: 'Distance $QUOTE',
     },
 
     amount: {
@@ -78,8 +78,8 @@ export default () => ({
     tifDate: {
       component: 'input.date',
       label: 'TIF Date',
-    }
+    },
   },
 
-  actions: ['sell', 'buy']
+  actions: ['sell', 'buy'],
 })

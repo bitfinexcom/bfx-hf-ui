@@ -4,7 +4,7 @@ import { LineSeries } from 'react-stockcharts/lib/series'
 import { SingleValueTooltip } from 'react-stockcharts/lib/tooltip'
 import SettingsTextOverlay from '../SettingsTextOverlay'
 
-export default (i, indicatorData, onOpenSettings, n) => [
+export default (i, indicatorData, onOpenSettings) => [
   <LineSeries
     yAccessor={d => indicatorData[i.key][d.mts]}
     stroke={i.color}
@@ -25,5 +25,5 @@ export default (i, indicatorData, onOpenSettings, n) => [
     key={`${i.key}-settings`}
     onClick={() => onOpenSettings({ type: 'indicator', i })}
     positionY={1}
-  />
+  />,
 ]

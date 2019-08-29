@@ -1,12 +1,16 @@
 import React from 'react'
 import { Responsive as RGL, WidthProvider } from 'react-grid-layout'
 
+import { propTypes, defaultProps } from './GridLayout.props'
 import { renderLayoutElement } from './GridLayout.helpers'
 import './style.css'
 
 const GridLayoutP = WidthProvider(RGL)
 
 export default class GridLayout extends React.PureComponent {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
   constructor(props) {
     super(props)
 
@@ -21,7 +25,7 @@ export default class GridLayout extends React.PureComponent {
   render() {
     const {
       layoutDef, chartProps, bookProps, tradesProps, orderFormProps, ordersProps,
-      onRemoveComponent, layoutID
+      onRemoveComponent, layoutID,
     } = this.props
 
     const componentProps = {
@@ -37,11 +41,15 @@ export default class GridLayout extends React.PureComponent {
         autoSize
         className='layout'
         draggableHandle='.fas.fa-arrows-alt'
-        cols={{ lg: 100, md: 20, sm: 20, xs: 20, xxs: 20 }}
+        cols={{
+          lg: 100, md: 20, sm: 20, xs: 20, xxs: 20,
+        }}
         rowHeight={25}
         margin={[16, 16]}
         layouts={{ lg: layoutDef.layout }}
-        breakpoints={{ lg: 1000, md: 996, sm: 768, xs: 480, xxs: 0 }}
+        breakpoints={{
+          lg: 1000, md: 996, sm: 768, xs: 480, xxs: 0,
+        }}
         onLayoutChange={this.onLayoutChange}
       >
         {layoutDef.layout.map(def => (

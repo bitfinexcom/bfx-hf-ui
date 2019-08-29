@@ -8,14 +8,16 @@ import PositionsTable from '../PositionsTable'
 import AtomicOrdersTable from '../AtomicOrdersTable'
 import AlgoOrdersTable from '../AlgoOrdersTable'
 import BalancesTable from '../BalancesTable'
-
+import { propTypes, defaultProps } from './TradingStatePanel.props'
 import './style.css'
 
 const DEFAULT_ACTIVE_TAB = 'positions'
 
 export default class TradingStatePanel extends React.Component {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     const { savedState = {} } = props
@@ -36,41 +38,24 @@ export default class TradingStatePanel extends React.Component {
     this.onToggleExchangeFilter = this.onToggleExchangeFilter.bind(this)
   }
 
-  onChangeTab (activeTab) {
+  onChangeTab(activeTab) {
     this.setState(() => ({ activeTab }))
     this.deferSaveState()
   }
 
-  onToggleMarketFilter () {
+  onToggleMarketFilter() {
     this.setState(({ marketFilterActive }) => ({
       marketFilterActive: !marketFilterActive,
     }))
   }
 
-  onToggleExchangeFilter () {
+  onToggleExchangeFilter() {
     this.setState(({ exchangeFilterActive }) => ({
       exchangeFilterActive: !exchangeFilterActive,
     }))
   }
 
-  deferSaveState () {
-    setTimeout(() => {
-      this.saveState()
-    }, 0)
-  }
-
-  saveState () {
-    const { saveState, layoutID, layoutI } = this.props
-    const { activeTab, marketFilterActive, exchangeFilterActive } = this.state
-
-    saveState(layoutID, layoutI, {
-      exchangeFilterActive,
-      marketFilterActive,
-      activeTab,
-    })
-  }
-
-  getFilteredAtomicOrders () {
+  getFilteredAtomicOrders() {
     const { activeExchange, activeMarket, atomicOrders } = this.props
     const { exchangeFilterActive, marketFilterActive } = this.state
 
@@ -83,7 +68,7 @@ export default class TradingStatePanel extends React.Component {
       : filteredByExchange
   }
 
-  getFilteredAlgoOrders () {
+  getFilteredAlgoOrders() {
     const { activeExchange, activeMarket, algoOrders } = this.props
     const { exchangeFilterActive, marketFilterActive } = this.state
 
@@ -96,7 +81,7 @@ export default class TradingStatePanel extends React.Component {
       : filteredByExchange
   }
 
-  getFilteredPositions () {
+  getFilteredPositions() {
     const { activeExchange, activeMarket, positions } = this.props
     const { exchangeFilterActive, marketFilterActive } = this.state
 
@@ -109,7 +94,7 @@ export default class TradingStatePanel extends React.Component {
       : filteredByExchange
   }
 
-  getFilteredBalances () {
+  getFilteredBalances() {
     const { activeExchange, balances } = this.props
     const { exchangeFilterActive } = this.state
 
@@ -118,9 +103,26 @@ export default class TradingStatePanel extends React.Component {
       : _flatten(Object.values(balances).map(Object.values))
   }
 
-  render () {
+  deferSaveState() {
+    setTimeout(() => {
+      this.saveState()
+    }, 0)
+  }
+
+  saveState() {
+    const { saveState, layoutID, layoutI } = this.props
+    const { activeTab, marketFilterActive, exchangeFilterActive } = this.state
+
+    saveState(layoutID, layoutI, {
+      exchangeFilterActive,
+      marketFilterActive,
+      activeTab,
+    })
+  }
+
+  render() {
     const {
-      onRemove, activeExchange, activeMarket, moveable, removeable
+      onRemove, activeExchange, activeMarket, moveable, removeable,
     } = this.props
 
     const { activeTab, exchangeFilterActive, marketFilterActive } = this.state
@@ -187,7 +189,7 @@ export default class TradingStatePanel extends React.Component {
         )}
 
         {activeTab === 'atomics' && (
-          <AtomicOrdersTable  
+          <AtomicOrdersTable
             exID={activeExchange}
             orders={atomicOrders}
           />
@@ -203,7 +205,7 @@ export default class TradingStatePanel extends React.Component {
         {activeTab === 'balances' && (
           <BalancesTable
             exID={activeExchange}
-            hideZeroBalances={true}
+            hideZeroBalances
             balances={balances}
           />
         )}

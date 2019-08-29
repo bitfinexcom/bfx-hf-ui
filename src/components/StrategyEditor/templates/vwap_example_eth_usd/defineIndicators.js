@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 export default `(I) => {
   const indicators = {
   	vwap: new I.VWAP(),

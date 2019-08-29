@@ -1,2 +1,3 @@
-import NavbarButton from './NavbarButton.container.js'
+import NavbarButton from './NavbarButton.container'
+
 export default NavbarButton

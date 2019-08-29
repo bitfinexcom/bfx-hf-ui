@@ -1,11 +1,14 @@
 import React from 'react'
 import _capitalize from 'lodash/capitalize'
 
+import { propTypes, defaultProps } from './AlgoOrdersTable.props'
 import './style.css'
 
-// TODO: Extract props
 export default class AlgoOrdersTable extends React.PureComponent {
-  render () {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
+  render() {
     const { cancelOrder, orders, apiClientState } = this.props
 
     return (
@@ -16,14 +19,17 @@ export default class AlgoOrdersTable extends React.PureComponent {
               <ul className='dtc-ao-list__entry-controls'>
                 <li>
                   <i
+                    role='button'
+                    tabIndex={0}
                     className='fas fa-stop'
                     onClick={() => cancelOrder(ao)}
+                    onKeyPress={() => cancelOrder(ao)}
                   />
                 </li>
               </ul>
             )}
 
-            <div className='dtc-ao-list__entry-row-status green'></div>
+            <div className='dtc-ao-list__entry-row-status green' />
 
             <div className='dtc-ao-list__entry-row'>
               <div className='dtc-ao-list__entry-row-elm'>

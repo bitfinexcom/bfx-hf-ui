@@ -5,10 +5,13 @@ import _isEmpty from 'lodash/isEmpty'
 import Modal from '../../ui/Modal'
 import Input from '../../ui/Input'
 import Button from '../../ui/Button'
-
+import { propTypes, defaultProps } from './RegisterModal.props'
 import './style.css'
 
 export default class RegisterModal extends React.Component {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
   state = {
     email: '',
     username: '',
@@ -17,39 +20,59 @@ export default class RegisterModal extends React.Component {
     error: '',
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.onSubmit = this.onSubmit.bind(this)
+    this.onEmailChange = this.onEmailChange.bind(this)
+    this.onUsernameChange = this.onUsernameChange.bind(this)
+    this.onPasswordChange = this.onPasswordChange.bind(this)
+    this.onConfirmPasswordChange = this.onConfirmPasswordChange.bind(this)
   }
 
-  onFieldChange (field, value) {
-    this.setState(() => ({ [field]: value }))
+  onEmailChange(email) {
+    this.setState(() => ({ email }))
   }
 
-  onSubmit () {
+  onUsernameChange(username) {
+    this.setState(() => ({ username }))
+  }
+
+  onPasswordChange(password) {
+    this.setState(() => ({ password }))
+  }
+
+  onConfirmPasswordChange(confirmPassword) {
+    this.setState(() => ({ confirmPassword }))
+  }
+
+  onSubmit() {
     const { onSubmit, onClose } = this.props
-    const { username, password, confirmPassword, email } = this.state
+    const {
+      username, password, confirmPassword, email,
+    } = this.state
 
     if (_isEmpty(username)) {
-      return this.setState(() => ({ error: 'Username required '}))
-    } else if (_isEmpty(password)) {
-      return this.setState(() => ({ error: 'Password required '}))
-    } else if (password !== confirmPassword) {
-      return this.setState(() => ({ error: 'Passwords don\'t match '}))
-    } else if (_isEmpty(email)) {
-      return this.setState(() => ({ error: 'E-Mail required'}))
-    } else if (!EmailValidator.validate(email)) {
-      return this.setState(() => ({ error: 'Invalid e-mail'}))
+      this.setState(() => ({ error: 'Username required ' }))
+    } if (_isEmpty(password)) {
+      this.setState(() => ({ error: 'Password required ' }))
+    } if (password !== confirmPassword) {
+      this.setState(() => ({ error: 'Passwords don\'t match ' }))
+    } if (_isEmpty(email)) {
+      this.setState(() => ({ error: 'E-Mail required' }))
+    } if (!EmailValidator.validate(email)) {
+      this.setState(() => ({ error: 'Invalid e-mail' }))
+    } else {
+      onSubmit({ username, password, email })
+      onClose()
     }
-
-    onSubmit({ username, password, email })
-    onClose()
   }
 
-  render () {
+  render() {
     const { onClose, onLogin } = this.props
-    const { username, password, confirmPassword, email, error } = this.state
+    const {
+      username, password, confirmPassword, email, error,
+    } = this.state
 
     return (
       <Modal
@@ -66,28 +89,28 @@ export default class RegisterModal extends React.Component {
           type='text'
           value={username}
           label='Username'
-          onChange={this.onFieldChange.bind(this, 'username')}
+          onChange={this.onUsernameChange}
         />
 
         <Input
           type='password'
           label='Password'
           value={password}
-          onChange={this.onFieldChange.bind(this, 'password')}
+          onChange={this.onPasswordChange}
         />
 
         <Input
           type='password'
           label='Confirm Password'
           value={confirmPassword}
-          onChange={this.onFieldChange.bind(this, 'confirmPassword')}
+          onChange={this.onConfirmPasswordChange}
         />
 
         <Input
           type='email'
           label='E-Mail'
           value={email}
-          onChange={this.onFieldChange.bind(this, 'email')}
+          onChange={this.onEmailChange}
         />
 
         <Button
@@ -102,10 +125,13 @@ export default class RegisterModal extends React.Component {
 
         <div className='dtc-registermodal__footer'>
           <p>Already have an account?</p>
-          <p
+          <button
+            type='button'
             className='button'
             onClick={onLogin}
-          >Login now.</p>
+          >
+            Login now.
+          </button>
         </div>
       </Modal>
     )

@@ -11,7 +11,7 @@ export default (i, candles = []) => {
     return values
   }
 
-  candles.forEach(c => {
+  candles.forEach((c) => {
     if (dKey === '*') {
       i.add(c)
     } else {

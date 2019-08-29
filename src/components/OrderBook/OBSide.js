@@ -4,8 +4,13 @@ import _sum from 'lodash/sum'
 import _max from 'lodash/max'
 import { prepareAmount, preparePrice } from 'bfx-api-node-util'
 
+import { propTypes, defaultProps } from './OBSide.props'
+
 export default class OBSide extends React.PureComponent {
-  render () {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
+  render() {
     const { levels, sumAmounts } = this.props
     const amountSum = _sum(levels.map(pl => Math.abs(pl[1])))
     const maxVol = _max(levels.map(pl => Math.abs(pl[1])))
@@ -18,8 +23,8 @@ export default class OBSide extends React.PureComponent {
 
           return (
             <li
-              key={i}
-              style={{ height: `calc(100% / ${levels.length})`}}
+              key={i} // eslint-disable-line
+              style={{ height: `calc(100% / ${levels.length})` }}
               className={ClassNames('dtc-orderbook__pl', {
                 buy: pl[1] > 0,
                 sell: pl[1] < 0,

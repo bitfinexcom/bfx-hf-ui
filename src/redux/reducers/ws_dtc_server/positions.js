@@ -16,7 +16,7 @@ function reducer(state = getInitialState(), action = {}) {
 
       return {
         ...state,
-        [exID]: _keyBy(positions.map(positionAdapter), p => p.symbol)
+        [exID]: _keyBy(positions.map(positionAdapter), p => p.symbol),
       }
     }
 
@@ -28,7 +28,7 @@ function reducer(state = getInitialState(), action = {}) {
 
         [exID]: {
           ...(state[exID] || {}),
-          ..._keyBy([positionAdapter(position)], p => p.symbol)
+          ..._keyBy([positionAdapter(position)], p => p.symbol),
         },
       }
     }
@@ -40,7 +40,7 @@ function reducer(state = getInitialState(), action = {}) {
 
       return {
         ...state,
-        [exID]: remainingPositions
+        [exID]: remainingPositions,
       }
     }
 

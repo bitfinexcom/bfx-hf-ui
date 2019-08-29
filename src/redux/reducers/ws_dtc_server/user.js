@@ -40,8 +40,8 @@ export default function (state = getInitialState(), action = {}) {
           [exID]: {
             key: apiKey,
             secret: apiSecret,
-          }
-        }
+          },
+        },
       }
     }
 

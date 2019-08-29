@@ -3,6 +3,7 @@ import { Annotate } from 'react-stockcharts/lib/annotation'
 import { timeFormat } from 'd3-time-format'
 import _isArray from 'lodash/isArray'
 
+import { propTypes, defaultProps } from './props'
 import Annotation from './annotation'
 import tradeCandleMTSMap from '../../../util/trade_candle_mts_map'
 
@@ -14,6 +15,9 @@ import tradeCandleMTSMap from '../../../util/trade_candle_mts_map'
  * TODO: Refactor out UNSAFE_*
  */
 export default class SellOrderAnnotation extends React.Component {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
   constructor(props) {
     super(props)
 
@@ -22,10 +26,10 @@ export default class SellOrderAnnotation extends React.Component {
     }
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { trades, candles } = nextProps
+  UNSAFE_componentWillReceiveProps(nextProps) { // eslint-disable-line
+    const { trades, candles } = this.props
 
-    if (trades !== this.props.trades || candles !== this.props.candles) {
+    if (trades !== nextProps.trades || candles !== nextProps.candles) {
       this.setState(() => ({
         mtsMap: this.getMTSMap(nextProps),
       }))

@@ -4,7 +4,7 @@ import Select from '../../../ui/Select'
 
 const LABEL = '+ Indicator'
 
-export default ({ onAddIndicator }) => (
+export default ({ onAddIndicator }) => ( // eslint-disable-line
   <Select
     className='indicator-select'
     key='add-indicator-dropdown'

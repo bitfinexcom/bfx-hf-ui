@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 export default `(I) => {
   const indicators = {
   	emaL: new I.EMA([100, 'high']),

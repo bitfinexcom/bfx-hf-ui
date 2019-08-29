@@ -8,15 +8,18 @@ import PanelSettings from '../../ui/PanelSettings'
 import Checkbox from '../../ui/Checkbox'
 import Select from '../../ui/Select'
 import Panel from '../../ui/Panel'
-
 import nearestMarket from '../../util/nearest_market'
+import { propTypes, defaultProps } from './OrderBookPanel.props'
 
 export default class OrderBookPanel extends React.Component {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
   state = {
     settingsOpen: false,
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     const { savedState = {} } = props
@@ -42,19 +45,19 @@ export default class OrderBookPanel extends React.Component {
     this.onChangeStackedView = this.onChangeStackedView.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const { currentExchange, currentMarket } = this.state
     const { addOBRequirement } = this.props
     addOBRequirement(currentExchange, currentMarket)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     const { currentExchange, currentMarket } = this.state
     const { removeOBRequirement } = this.props
     removeOBRequirement(currentExchange, currentMarket)
   }
 
-  static getDerivedStateFromProps (nextProps, prevState) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     const {
       marketDirty, currentMarket, exchangeDirty, currentExchange,
     } = prevState
@@ -78,23 +81,23 @@ export default class OrderBookPanel extends React.Component {
     }
   }
 
-  onToggleSettings () {
+  onToggleSettings() {
     this.setState(({ settingsOpen }) => ({
       settingsOpen: !settingsOpen,
     }))
   }
 
-  onChangeSumAmounts (sumAmounts) {
+  onChangeSumAmounts(sumAmounts) {
     this.setState(() => ({ sumAmounts }))
     this.deferSaveState()
   }
 
-  onChangeStackedView (stackedView) {
+  onChangeStackedView(stackedView) {
     this.setState(() => ({ stackedView }))
     this.deferSaveState()
   }
 
-  onChangeMarket (market) {
+  onChangeMarket(market) {
     const { currentExchange, currentMarket } = this.state
     const { addOBRequirement, removeOBRequirement } = this.props
 
@@ -112,7 +115,7 @@ export default class OrderBookPanel extends React.Component {
     this.deferSaveState()
   }
 
-  onChangeExchange (option) {
+  onChangeExchange(option) {
     const { value: exchange } = option
     const { currentExchange, currentMarket } = this.state
     const { allMarkets, addOBRequirement, removeOBRequirement } = this.props
@@ -136,13 +139,13 @@ export default class OrderBookPanel extends React.Component {
     this.deferSaveState()
   }
 
-  deferSaveState () {
+  deferSaveState() {
     setTimeout(() => {
       this.saveState()
     }, 0)
   }
 
-  saveState () {
+  saveState() {
     const { saveState, layoutID, layoutI } = this.props
     const {
       currentExchange, currentMarket, exchangeDirty, marketDirty, sumAmounts,
@@ -159,7 +162,7 @@ export default class OrderBookPanel extends React.Component {
     })
   }
 
-  renderExchangeDropdown ()  {
+  renderExchangeDropdown() {
     const { exchangeDirty, currentExchange } = this.state
     const { exchanges, canChangeExchange } = this.props
 
@@ -182,7 +185,7 @@ export default class OrderBookPanel extends React.Component {
     )
   }
 
-  renderMarketDropdown ()  {
+  renderMarketDropdown() {
     const { currentExchange, marketDirty, currentMarket } = this.state
     const { allMarkets, canChangeMarket } = this.props
 
@@ -200,10 +203,10 @@ export default class OrderBookPanel extends React.Component {
     )
   }
 
-  render () {
+  render() {
     const {
       onRemove, showExchange, showMarket, canChangeStacked, moveable,
-      removeable
+      removeable,
     } = this.props
 
     const {
@@ -218,7 +221,7 @@ export default class OrderBookPanel extends React.Component {
         removeable={removeable}
         headerComponents={[
           showExchange && this.renderExchangeDropdown(),
-          showMarket && this.renderMarketDropdown()
+          showMarket && this.renderMarketDropdown(),
         ]}
 
         settingsOpen={settingsOpen}
@@ -235,12 +238,14 @@ export default class OrderBookPanel extends React.Component {
                 onChange={this.onChangeSumAmounts}
               />,
 
-              canChangeStacked && (<Checkbox
+              canChangeStacked && (
+              <Checkbox
                 key='stacked-view'
                 label='Stacked View'
                 value={stackedView}
                 onChange={this.onChangeStackedView}
-              />),
+              />
+              ),
             ]}
           />
         ) : (

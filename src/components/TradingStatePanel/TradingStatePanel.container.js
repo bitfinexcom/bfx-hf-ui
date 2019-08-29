@@ -6,7 +6,7 @@ import {
 } from '../../redux/selectors/ws_dtc_server'
 
 import {
-  getComponentState, getActiveExchange, getActiveMarket
+  getComponentState, getActiveExchange, getActiveMarket,
 } from '../../redux/selectors/ui'
 
 import TradingStatePanel from './TradingStatePanel'
@@ -32,7 +32,7 @@ const mapDispatchToProps = dispatch => ({
       layoutID,
       componentID,
     }))
-  }
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TradingStatePanel)

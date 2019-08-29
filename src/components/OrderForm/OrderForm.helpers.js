@@ -28,7 +28,7 @@ const COMPONENTS_FOR_ID = {
   'input.date': DateInput,
 }
 
-const marketToQuoteBase = (market) => ({
+const marketToQuoteBase = market => ({
   QUOTE: market.q,
   BASE: market.b,
 })
@@ -36,7 +36,7 @@ const marketToQuoteBase = (market) => ({
 const renderString = (str, renderData) => {
   const tokens = str.split(' ')
 
-  return tokens.map(t => {
+  return tokens.map((t) => {
     if (t[0] !== '$') {
       return t
     }
@@ -50,15 +50,15 @@ const renderString = (str, renderData) => {
 const verifyCondition = (condition = {}, value) => {
   if (typeof condition.eq !== 'undefined') {
     return condition.eq === value
-  } else if (typeof condition.neq !== 'undefined') {
+  } if (typeof condition.neq !== 'undefined') {
     return condition.neq !== value
-  } else if (condition.lt) {
+  } if (condition.lt) {
     return value < condition.lt
-  } else if (condition.lte) {
+  } if (condition.lte) {
     return value <= condition.lte
-  } else if (condition.gt) {
+  } if (condition.gt) {
     return value > condition.gt
-  } else if (condition.gte) {
+  } if (condition.gte) {
     return value >= condition.gte
   }
 
@@ -83,7 +83,7 @@ const defaultDataForLayout = (layout = {}) => {
   const { fields = {} } = layout
   const defaultData = {}
 
-  Object.keys(fields).forEach(fieldName => {
+  Object.keys(fields).forEach((fieldName) => {
     const field = fields[fieldName]
     const { component, default: defaultValue } = field
     const C = COMPONENTS_FOR_ID[component] || {}
@@ -98,7 +98,7 @@ const processFieldData = ({ action, layout = {}, fieldData = {} }) => {
   const { fields = {} } = layout
   const data = {}
 
-  Object.keys(fieldData).forEach(fieldName => {
+  Object.keys(fieldData).forEach((fieldName) => {
     const rawValue = fieldData[fieldName]
     const C = COMPONENTS_FOR_ID[(fields[fieldName] || {}).component]
 
@@ -115,165 +115,15 @@ const processFieldData = ({ action, layout = {}, fieldData = {} }) => {
   return data
 }
 
-// Renders a full order form layout
-const renderLayout = ({
-  validationErrors = {},
-  renderData = {},
-  fieldData = {},
-  layout = {},
-  onSubmit,
-  onFieldChange
-}) => {
-  const { label, header, sections = [] } = layout
-  const html = []
-
-  if (_isObject(header)) {
-    const { component } = header
-
-    if (component !== 'ui.checkbox_group') {
-      console.error(`layout ${label} has unsupported header component: ${component}`)
-    } else {
-      html.push((
-        <div
-          className='dtc-orderform__layout-header'
-          key='header-component'
-        >
-          {renderLayoutComponent({ // TODO: Handle field change for header
-            componentDef: header,
-            fieldName: null, // meta field
-            validationErrors,
-            onFieldChange,
-            renderData,
-            fieldData,
-            layout,
-          })}
-        </div>
-      ))
-    }
-  }
-
-  sections.forEach(( section = {} ) => {
-    const { visible } = section
-
-    if (_isBoolean(visible) && !visible) {
-      return
-    } else if (_isObject(visible) && !verifyConditionsMet(visible, fieldData)) {
-      return
-    }
-
-    html.push(renderLayoutSection({
-      validationErrors,
-      onFieldChange,
-      renderData,
-      fieldData,
-      section,
-      layout,
-    }))
-  })
-
-  html.push(renderLayoutActions({ layout, onSubmit }))
-
-  return (
-    <div className='dtc-orderform__layout'>
-      {html}
-    </div>
-  )
-}
-
-// Renders a layout section (multiple fields/rows)
-const renderLayoutSection = ({
-  onFieldChange,
-  validationErrors = {},
-  renderData = {},
-  fieldData = {},
-  section = {},
-  layout = {},
-}) => {
-  const { title, name, rows = [], fullWidth } = section
-
-  return (
-    <div
-      key={name}
-      className={ClassNames('dtc-orderform__layout-section', {
-        fullWidth
-      })}
-    >
-      {title && (
-        <p className='dtc-orderform__layout-section-title'>{title}</p>
-      )}
-
-      <ul>
-        {_flatten(rows.map((row, i) => row.map((field, rowI) => {
-          if (field === null) { // spacing placeholder
-            return (
-              <li key={`empty-${i}-${rowI}`} />
-            )
-          }
-
-          const fieldComponent = layout.fields[field]
-          const { visible } = fieldComponent
-
-          if (_isBoolean(visible) && !visible) {
-            return null
-          } else if (_isObject(visible) && !verifyConditionsMet(visible, fieldData)) {
-            return null
-          }
-
-          return (
-            <li key={field}>
-              {field && renderLayoutField({
-                field,
-                layout,
-                fieldData,
-                renderData,
-                onFieldChange,
-                validationErrors,
-              })}
-            </li>
-          )
-        })))}
-      </ul>
-    </div>
-  )
-}
-
-// Renders a layout field by name
-const renderLayoutField = ({
-  validationErrors = {},
-  renderData = {},
-  fieldData = {},
-  onFieldChange,
-  layout,
-  field,
-}) => {
-  const { fields = {} } = layout
-  const fieldDef = fields[field]
-
-  if (!fieldDef) {
-    console.error(`can't render unknown field ${field}`)
-    return null
-  }
-
-  return renderLayoutComponent({
-    componentDef: fieldDef,
-    fieldName: field,
-    validationErrors,
-    onFieldChange,
-    renderData,
-    fieldData,
-    layout,
-  })
-}
-
 // Renders a single layout field component
 const renderLayoutComponent = ({
-  componentDef = {},
-  validationErrors = {},
-  renderData = {},
-  fieldData = {},
-  layout = {},
-  fieldName,
-  onFieldChange,
+  componentDef = {}, // eslint-disable-line
+  validationErrors = {}, // eslint-disable-line
+  renderData = {}, // eslint-disable-line
+  fieldData = {}, // eslint-disable-line
+  layout = {}, // eslint-disable-line
+  fieldName, // eslint-disable-line
+  onFieldChange, // eslint-disable-line
 }) => {
   const { disabled: disabledCond, component: id } = componentDef
   const C = COMPONENTS_FOR_ID[id]
@@ -308,7 +158,7 @@ const renderLayoutComponent = ({
   )
 }
 
-const renderLayoutActions = ({ layout = {}, onSubmit }) => {
+const renderLayoutActions = ({ layout = {}, onSubmit }) => { // eslint-disable-line
   const { actions = [] } = layout
 
   return (
@@ -326,6 +176,159 @@ const renderLayoutActions = ({ layout = {}, onSubmit }) => {
     </div>
   )
 }
+
+// Renders a layout field by name
+const renderLayoutField = ({
+  validationErrors = {},
+  renderData = {},
+  fieldData = {},
+  onFieldChange,
+  layout,
+  field,
+}) => {
+  const { fields = {} } = layout
+  const fieldDef = fields[field]
+
+  if (!fieldDef) {
+    console.error(`can't render unknown field ${field}`)
+    return null
+  }
+
+  return renderLayoutComponent({
+    componentDef: fieldDef,
+    fieldName: field,
+    validationErrors,
+    onFieldChange,
+    renderData,
+    fieldData,
+    layout,
+  })
+}
+
+// Renders a layout section (multiple fields/rows)
+const renderLayoutSection = ({
+  onFieldChange, // eslint-disable-line
+  validationErrors = {}, // eslint-disable-line
+  renderData = {}, // eslint-disable-line
+  fieldData = {}, // eslint-disable-line
+  section = {}, // eslint-disable-line
+  layout = {}, // eslint-disable-line
+}) => {
+  const {
+    title, name, rows = [], fullWidth,
+  } = section
+
+  return (
+    <div
+      key={name}
+      className={ClassNames('dtc-orderform__layout-section', {
+        fullWidth,
+      })}
+    >
+      {title && (
+        <p className='dtc-orderform__layout-section-title'>{title}</p>
+      )}
+
+      <ul>
+        {_flatten(rows.map((row, i) => row.map((field, rowI) => {
+          if (field === null) { // spacing placeholder
+            return (
+              <li key={`empty-${i}-${rowI}`} /> // eslint-disable-line
+            )
+          }
+
+          const fieldComponent = layout.fields[field]
+          const { visible } = fieldComponent
+
+          if (_isBoolean(visible) && !visible) {
+            return null
+          } if (_isObject(visible) && !verifyConditionsMet(visible, fieldData)) {
+            return null
+          }
+
+          return (
+            <li key={field}>
+              {field && renderLayoutField({
+                field,
+                layout,
+                fieldData,
+                renderData,
+                onFieldChange,
+                validationErrors,
+              })}
+            </li>
+          )
+        })))}
+      </ul>
+    </div>
+  )
+}
+
+// Renders a full order form layout
+const renderLayout = ({
+  validationErrors = {}, // eslint-disable-line
+  renderData = {}, // eslint-disable-line
+  fieldData = {}, // eslint-disable-line
+  layout = {}, // eslint-disable-line
+  onSubmit, // eslint-disable-line
+  onFieldChange, // eslint-disable-line
+}) => {
+  const { label, header, sections = [] } = layout
+  const html = []
+
+  if (_isObject(header)) {
+    const { component } = header
+
+    if (component !== 'ui.checkbox_group') {
+      console.error(`layout ${label} has unsupported header component: ${component}`)
+    } else {
+      html.push((
+        <div
+          className='dtc-orderform__layout-header'
+          key='header-component'
+        >
+          {renderLayoutComponent({ // TODO: Handle field change for header
+            componentDef: header,
+            fieldName: null, // meta field
+            validationErrors,
+            onFieldChange,
+            renderData,
+            fieldData,
+            layout,
+          })}
+        </div>
+      ))
+    }
+  }
+
+  sections.forEach((section = {}) => {
+    const { visible } = section
+
+    if (_isBoolean(visible) && !visible) {
+      return
+    } if (_isObject(visible) && !verifyConditionsMet(visible, fieldData)) {
+      return
+    }
+
+    html.push(renderLayoutSection({
+      validationErrors,
+      onFieldChange,
+      renderData,
+      fieldData,
+      section,
+      layout,
+    }))
+  })
+
+  html.push(renderLayoutActions({ layout, onSubmit }))
+
+  return (
+    <div className='dtc-orderform__layout'>
+      {html}
+    </div>
+  )
+}
+
 
 export {
   renderLayout,

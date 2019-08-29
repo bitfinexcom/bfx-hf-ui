@@ -1,5 +1,5 @@
-import NumberInput from './input.number'
 import { preparePrice } from 'bfx-api-node-util'
+import NumberInput from './input.number'
 
 export default class PriceInput extends NumberInput {
   static processValue = v => +preparePrice(+v)

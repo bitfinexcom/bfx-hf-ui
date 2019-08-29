@@ -4,7 +4,7 @@ import _capitalize from 'lodash/capitalize'
 import Select from '../../../ui/Select'
 
 export default ({
-  onChangeExchange, currentExchange, exchangeDirty, exchanges, disabled,
+  onChangeExchange, currentExchange, exchangeDirty, exchanges, disabled, // eslint-disable-line
 }) => (
   <Select
     key='exchange-dropdown'

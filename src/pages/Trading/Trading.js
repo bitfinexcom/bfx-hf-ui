@@ -9,7 +9,7 @@ import StatusBar from '../../components/StatusBar'
 
 import BitfinexOrders from '../../orders/bitfinex'
 import BinanceOrders from '../../orders/binance'
-
+import { propTypes, defaultProps } from './Trading.props'
 import './style.css'
 
 const orderDefinitions = {
@@ -18,6 +18,9 @@ const orderDefinitions = {
 }
 
 export default class Trading extends React.PureComponent {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
   render() {
     const { onLogin, activeMarket } = this.props
 

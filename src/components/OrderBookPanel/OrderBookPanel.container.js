@@ -20,7 +20,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     activeMarket,
     savedState: getComponentState(state, layoutID, 'book', id),
     exchanges: getExchanges(state),
-    allMarkets: getMarkets(state)
+    allMarkets: getMarkets(state),
   }
 }
 
@@ -39,7 +39,7 @@ const mapDispatchToProps = dispatch => ({
       layoutID,
       componentID,
     }))
-  }
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderBookPanel)

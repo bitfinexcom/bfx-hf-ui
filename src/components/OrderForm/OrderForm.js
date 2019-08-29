@@ -2,7 +2,7 @@ import React from 'react'
 import _capitalize from 'lodash/capitalize'
 import ClassNames from 'classnames'
 import {
-  Iceberg, TWAP, AccumulateDistribute, PingPong, MACrossover
+  Iceberg, TWAP, AccumulateDistribute, PingPong, MACrossover,
 } from 'bfx-hf-algo'
 
 import {
@@ -29,6 +29,7 @@ import UnconfiguredModal from './Modals/UnconfiguredModal'
 import SubmitAPIKeysModal from './Modals/SubmitAPIKeysModal'
 import UnlockAPIKeysModal from './Modals/UnlockAPIKeysModal'
 
+import { propTypes, defaultProps } from './OrderForm.props'
 import './style.css'
 
 const CONTEXT_LABELS = {
@@ -38,6 +39,9 @@ const CONTEXT_LABELS = {
 }
 
 export default class OrderForm extends React.Component {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
   state = {
     fieldData: {},
     validationErrors: {},
@@ -48,7 +52,7 @@ export default class OrderForm extends React.Component {
     configureModalOpen: false,
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     const {
@@ -90,7 +94,7 @@ export default class OrderForm extends React.Component {
     this.onUnlock = this.onUnlock.bind(this)
   }
 
-  static getAOs (exID) {
+  static getAOs(exID) {
     return [
       MACrossover,
       AccumulateDistribute,
@@ -102,10 +106,10 @@ export default class OrderForm extends React.Component {
     }))
   }
 
-  static getDerivedStateFromProps (nextProps, prevState) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     const { activeExchange, activeMarket } = nextProps
     const {
-      marketDirty, currentMarket, exchangeDirty, currentExchange
+      marketDirty, currentMarket, exchangeDirty, currentExchange,
     } = prevState
 
     if ((marketDirty || exchangeDirty) || (
@@ -127,48 +131,7 @@ export default class OrderForm extends React.Component {
     }
   }
 
-  renderExchangeDropdown ()  {
-    const { exchangeDirty, currentExchange } = this.state
-    const { exchanges, canChangeExchange } = this.props
-
-    return (
-      <Select
-        key='exchange-dropdown'
-        className={{ yellow: exchangeDirty }}
-        onChange={this.onChangeExchange}
-        disabled={!canChangeExchange}
-        value={{
-          label: _capitalize(currentExchange),
-          value: currentExchange,
-        }}
-
-        options={exchanges.map(ex => ({
-          label: _capitalize(ex),
-          value: ex,
-        }))}
-      />
-    )
-  }
-
-  renderMarketDropdown ()  {
-    const { currentExchange, marketDirty, currentMarket } = this.state
-    const { allMarkets, canChangeMarket } = this.props
-
-    const markets = allMarkets[currentExchange] || []
-
-    return (
-      <MarketSelect
-        key='market-dropdown'
-        disabled={!canChangeMarket}
-        className={{ yellow: marketDirty }}
-        onChange={this.onChangeMarket}
-        value={currentMarket}
-        markets={markets}
-      />
-    )
-  }
-
-  onChangeMarket (market) {
+  onChangeMarket(market) {
     const { currentMarket } = this.state
 
     if (market.r === currentMarket.r) {
@@ -184,14 +147,14 @@ export default class OrderForm extends React.Component {
     this.deferSaveState()
   }
 
-  onUnlock ({ password }) {
+  onUnlock({ password }) {
     const { unlockAPIKeys } = this.props
     const { currentExchange } = this.state
 
     unlockAPIKeys({ password, exID: currentExchange })
   }
 
-  onSubmitAPIKeys ({ apiKey, apiSecret, password }) {
+  onSubmitAPIKeys({ apiKey, apiSecret, password }) {
     const { submitAPIKeys, user } = this.props
     const { currentExchange } = this.state
 
@@ -204,29 +167,29 @@ export default class OrderForm extends React.Component {
     })
   }
 
-  onToggleHelp () {
+  onToggleHelp() {
     this.setState(({ helpOpen }) => ({
       helpOpen: !helpOpen,
     }))
   }
 
-  onToggleUnlockModal () {
+  onToggleUnlockModal() {
     this.setState(({ unlockModalOpen }) => ({
       unlockModalOpen: !unlockModalOpen,
     }))
   }
 
-  onToggleConfigureModal () {
+  onToggleConfigureModal() {
     this.setState(({ configureModalOpen }) => ({
       configureModalOpen: !configureModalOpen,
     }))
   }
 
-  onContextChange (context) {
+  onContextChange(context) {
     this.setState(() => ({ context }))
   }
 
-  onChangeActiveOrderLayout (orderLabel) {
+  onChangeActiveOrderLayout(orderLabel) {
     const { orders: allOrders } = this.props
     const { currentExchange, algoOrders } = this.state
     const orders = allOrders[currentExchange]
@@ -243,7 +206,7 @@ export default class OrderForm extends React.Component {
     }))
   }
 
-  onFieldChange (fieldName, value) {
+  onFieldChange(fieldName, value) {
     this.setState(({
       fieldData,
       currentLayout,
@@ -262,22 +225,24 @@ export default class OrderForm extends React.Component {
 
         fieldData: {
           ...fieldData,
-          [fieldName]: value
+          [fieldName]: value,
         },
 
         validationErrors: {
           ...validationErrors,
           [fieldName]: validationError,
-        }
+        },
       }
     })
   }
 
-  onSubmit (action) {
+  onSubmit(action) {
     if (action === 'submit') {
-      return this.onSubmitAlgoOrder()
-    } else if (action === 'preview') {
-      return this.onPreviewAlgoOrder()
+      this.onSubmitAlgoOrder()
+      return
+    } if (action === 'preview') {
+      // TODO:
+      return
     }
 
     const {
@@ -305,7 +270,7 @@ export default class OrderForm extends React.Component {
     }
   }
 
-  onSubmitAlgoOrder () {
+  onSubmitAlgoOrder() {
     const { demoMode, submitAlgoOrder } = this.props
 
     if (demoMode) {
@@ -313,7 +278,7 @@ export default class OrderForm extends React.Component {
     }
 
     const {
-      currentExchange, currentMarket, currentLayout, fieldData, context
+      currentExchange, currentMarket, currentLayout, fieldData, context,
     } = this.state
 
     const { id } = currentLayout
@@ -332,11 +297,7 @@ export default class OrderForm extends React.Component {
     })
   }
 
-  onPreviewAlgoOrder () {
-
-  }
-
-  onChangeExchange (option) {
+  onChangeExchange(option) {
     const { value: exchange } = option
     const { currentExchange, currentMarket } = this.state
     const { allMarkets } = this.props
@@ -366,15 +327,17 @@ export default class OrderForm extends React.Component {
     this.deferSaveState()
   }
 
-  deferSaveState () {
+  deferSaveState() {
     setTimeout(() => {
       this.saveState()
     }, 0)
   }
 
-  saveState () {
+  saveState() {
     const { saveState, layoutID, layoutI } = this.props
-    const { currentExchange, currentMarket, exchangeDirty, marketDirty } = this.state
+    const {
+      currentExchange, currentMarket, exchangeDirty, marketDirty,
+    } = this.state
 
     saveState(layoutID, layoutI, {
       currentExchange,
@@ -384,10 +347,52 @@ export default class OrderForm extends React.Component {
     })
   }
 
-  render () {
+  renderExchangeDropdown() {
+    const { exchangeDirty, currentExchange } = this.state
+    const { exchanges, canChangeExchange } = this.props
+
+    return (
+      <Select
+        key='exchange-dropdown'
+        className={{ yellow: exchangeDirty }}
+        onChange={this.onChangeExchange}
+        disabled={!canChangeExchange}
+        value={{
+          label: _capitalize(currentExchange),
+          value: currentExchange,
+        }}
+
+        options={exchanges.map(ex => ({
+          label: _capitalize(ex),
+          value: ex,
+        }))}
+      />
+    )
+  }
+
+  renderMarketDropdown() {
+    const { currentExchange, marketDirty, currentMarket } = this.state
+    const { allMarkets, canChangeMarket } = this.props
+
+    const markets = allMarkets[currentExchange] || []
+
+    return (
+      <MarketSelect
+        key='market-dropdown'
+        disabled={!canChangeMarket}
+        className={{ yellow: marketDirty }}
+        onChange={this.onChangeMarket}
+        value={currentMarket}
+        markets={markets}
+      />
+    )
+  }
+
+
+  render() {
     const {
       onRemove, orders, apiClientStates, user = {}, onLogin, demoMode,
-      moveable = true, removeable = true, navigate, showExchange,
+      moveable = true, removeable = true, showExchange,
       showMarket,
     } = this.props
 
@@ -417,8 +422,8 @@ export default class OrderForm extends React.Component {
         // NOTE: Iceberg is disabled on Binance [native iceberg support pending implementation]
         algoOrders.filter((ao) => {
           return (
-            (currentExchange === 'bitfinex') ||
-            (currentExchange === 'binance' && ao.id !== 'bfx-iceberg')
+            (currentExchange === 'bitfinex')
+            || (currentExchange === 'binance' && ao.id !== 'bfx-iceberg')
           )
         }).forEach(({ label }) => {
           orderOptions.push({ value: label, label })
@@ -442,6 +447,8 @@ export default class OrderForm extends React.Component {
         extraIcons={(
           apiClientConnected && currentLayout && currentLayout.customHelp && (
             <i
+              role='button'
+              tabIndex={0}
               onClick={this.onToggleHelp}
               className={ClassNames('fas fa-question', {
                 yellow: helpOpen,
@@ -453,7 +460,7 @@ export default class OrderForm extends React.Component {
         footer={[
           <div className='dtc-orderform__footer-lockstatus' key='lockstatus'>
             <p>{apiClientConnected ? `UNLOCKED FOR ${currentExchange.toUpperCase()}` : 'LOCKED'}</p>
-            <i className={`fas fa-${apiClientConnected ? 'unlock' : 'lock'}`}/>
+            <i className={`fas fa-${apiClientConnected ? 'unlock' : 'lock'}`} />
           </div>,
 
           <div className='dtc-orderform__footer-connectionstatus' key='connectionstatus'>
@@ -461,7 +468,8 @@ export default class OrderForm extends React.Component {
               green: apiClientConnected,
               yellow: apiClientConnecting,
               red: apiClientDisconnected,
-            })}></span>
+            })}
+            />
 
             <p>
               {apiClientConnected
@@ -475,17 +483,6 @@ export default class OrderForm extends React.Component {
         ]}
       >
         <div className='dtc-orderform__wrapper'>
-          {(!demoMode && !user.subscription) && (
-            <div className='dtc-orderform__upgrade'>
-              <div
-                className='dtc-orderform__upgrade_inner'
-                onClick={() => navigate('/pricing')}
-              >
-                Upgrade for Algorithmic Orders
-              </div>
-            </div>
-          )}
-
           {!demoMode && (
             !(user || {}).id ? (
               <LoginModal onClick={onLogin} />
@@ -524,7 +521,7 @@ export default class OrderForm extends React.Component {
 
               apiClientConnecting && (
                 <ConnectingModal key='connecting' />
-              )
+              ),
             ]
           )}
 
@@ -533,8 +530,11 @@ export default class OrderForm extends React.Component {
               <Scrollbars>
                 <div className='dtc-orderform__help-inner'>
                   <p className='dtc-orderform__help-title'>
-                    <span className='prefix'>HELP:</span>{currentLayout.label}
+                    <span className='prefix'>HELP:</span>
+                    {currentLayout.label}
                     <i
+                      role='button'
+                      tabIndex={0}
                       onClick={this.onToggleHelp}
                       className='far fa-times-circle'
                     />
@@ -562,11 +562,11 @@ export default class OrderForm extends React.Component {
                 label='Context'
                 value={context}
                 onChange={this.onContextChange}
-                options={currentMarket.c.filter((context) => (
-                  currentExchange === 'bitfinex' || context !== 'm'
-                )).map(context => ({
-                  label: CONTEXT_LABELS[context],
-                  value: context,
+                options={currentMarket.c.filter(ctx => (
+                  currentExchange === 'bitfinex' || ctx !== 'm'
+                )).map(ctx => ({
+                  label: CONTEXT_LABELS[ctx],
+                  value: ctx,
                 }))}
               />
             </li>

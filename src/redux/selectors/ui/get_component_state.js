@@ -8,6 +8,6 @@ export default (state, layoutID, componentType, id) => {
   return _get(
     state,
     `${path}.layoutComponentState.${layoutID}.${id}`,
-    defaultStateForComponentType(state, componentType)
+    defaultStateForComponentType(state, componentType),
   )
 }

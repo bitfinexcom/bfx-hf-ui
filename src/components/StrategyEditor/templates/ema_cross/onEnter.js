@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 export default `({ HFS, _, HFU }) => async (state = {}, update = {}) => {
   if (HFS.getNumCandles(state) < 2) { // 2 price points needed
     return state

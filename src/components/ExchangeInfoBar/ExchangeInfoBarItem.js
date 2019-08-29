@@ -7,7 +7,7 @@ export default class ExchangeInfoBarItem extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
 
-  render () {
+  render() {
     const {
       label, value, valuePrefix, valueSuffix, dataClassName, labelClassName,
       text,
@@ -17,7 +17,9 @@ export default class ExchangeInfoBarItem extends React.PureComponent {
       <li className={ClassNames({ text })}>
         <p
           className={ClassNames('dtc-exchangeinfobar__item-label', labelClassName)}
-        >{label}</p>
+        >
+          {label}
+        </p>
 
         <div
           className={ClassNames('dtc-exchangeinfobar__item-data', dataClassName)}

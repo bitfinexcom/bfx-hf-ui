@@ -15,7 +15,7 @@ export default () => ({
 
   header: {
     component: 'ui.checkbox_group',
-    fields: ['reduceonly']
+    fields: ['reduceonly'],
   },
 
   sections: [{
@@ -23,7 +23,7 @@ export default () => ({
     name: 'general',
     rows: [
       ['price', 'amount'],
-    ]
+    ],
   }],
 
   fields: {
@@ -46,5 +46,5 @@ export default () => ({
     },
   },
 
-  actions: ['sell', 'buy']
+  actions: ['sell', 'buy'],
 })

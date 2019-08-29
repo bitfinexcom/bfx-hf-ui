@@ -5,7 +5,9 @@ export default () => ({
   customHelp: 'Stop orders are automatically converted to Market orders once the specified stop price is reached.\n\nFor control over the execution price, use a Stop-Limit order.\n\nIf the \'reduce-only\' option is specified, the order will be cancelled if it would open or increase the size of an open position.\n\nA Time-In-Force date may be specified, after which the order will be automatically cancelled.',
 
   generateOrder: (data = {}, symbol, context) => {
-    const { reduceonly, price, amount, tif, tifDate } = data
+    const {
+      reduceonly, price, amount, tif, tifDate,
+    } = data
 
     if (tif && (!_isFinite(tifDate) || tifDate === 0)) {
       throw new Error('TIF date required')
@@ -28,7 +30,7 @@ export default () => ({
 
   header: {
     component: 'ui.checkbox_group',
-    fields: ['reduceonly', 'tif']
+    fields: ['reduceonly', 'tif'],
   },
 
   sections: [{
@@ -36,7 +38,7 @@ export default () => ({
     name: 'general',
     rows: [
       ['price', 'amount'],
-    ]
+    ],
   }, {
     title: '',
     name: 'tif',
@@ -46,8 +48,8 @@ export default () => ({
     ],
 
     visible: {
-      tif: { eq: true }
-    }
+      tif: { eq: true },
+    },
   }],
 
   fields: {
@@ -65,7 +67,7 @@ export default () => ({
 
     price: {
       component: 'input.price',
-      label: 'Stop Price $QUOTE'
+      label: 'Stop Price $QUOTE',
     },
 
     amount: {
@@ -76,8 +78,8 @@ export default () => ({
     tifDate: {
       component: 'input.date',
       label: 'TIF Date',
-    }
+    },
   },
 
-  actions: ['sell', 'buy']
+  actions: ['sell', 'buy'],
 })

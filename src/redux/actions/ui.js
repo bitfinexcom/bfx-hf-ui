@@ -16,18 +16,18 @@ const createLayout = (id, tradingEnabled) => ({
   },
 })
 
-const deleteLayout = (id) => ({
+const deleteLayout = id => ({
   type: types.DELETE_LAYOUT,
   payload: {
     id,
   },
 })
 
-const setActiveMarket = (market) => ({
+const setActiveMarket = market => ({
   type: types.SET_ACTIVE_MARKET,
   payload: {
     market,
-  }
+  },
 })
 
 const setActiveExchange = (exchange, market) => ({
@@ -36,9 +36,9 @@ const setActiveExchange = (exchange, market) => ({
 })
 
 const saveComponentState = ({
-  layoutID, 
+  layoutID,
   componentID,
-  state
+  state,
 }) => ({
   type: types.SAVE_COMPONENT_STATE,
   payload: {
@@ -48,11 +48,11 @@ const saveComponentState = ({
   },
 })
 
-const setRoute = (route) => ({
+const setRoute = route => ({
   type: types.SET_ROUTE,
   payload: {
     route,
-  }
+  },
 })
 
 export default {

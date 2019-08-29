@@ -21,7 +21,7 @@ export default function (state = getInitialState(), action = {}) {
           [symbol]: [
             trade,
             ...((state[exID] || {})[symbol] || []),
-          ]
+          ],
         },
       }
     }
@@ -39,11 +39,10 @@ export default function (state = getInitialState(), action = {}) {
           [symbol]: [
             ...trades,
             ...((state[exID] || {})[symbol] || []),
-          ]
+          ],
         },
       }
     }
-
 
     default: {
       return state

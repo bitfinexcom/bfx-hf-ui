@@ -13,7 +13,7 @@ function reducer(state = getInitialState(), action = {}) {
       const [, aos] = payload
 
       return {
-        ..._keyBy(aos.map(adapter), ao => ao.gid)
+        ..._keyBy(aos.map(adapter), ao => ao.gid),
       }
     }
 
@@ -29,7 +29,7 @@ function reducer(state = getInitialState(), action = {}) {
 
       return {
         ...state,
-        ..._keyBy([adapter(ao)], ao => ao.gid)
+        ..._keyBy([adapter(ao)], o => o.gid),
       }
     }
 

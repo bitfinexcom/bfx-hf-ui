@@ -37,31 +37,34 @@ export default () => {
 
       case WSDTCTypes.CONNECTED: {
         debug('connected')
-        return next(action)
+        next(action)
+        break
       }
 
       case WSDTCTypes.DISCONNECTED: {
         debug('disconnected')
-        return next(action)
+        next(action)
+        break
       }
 
       case WSDTCTypes.SEND: {
         if (!socket || socket.readyState !== 1) {
           debug('[socket.send] can\'t send, not online')
-          return -1
+          break
         }
 
-        const { payload } = action
-
-        return socket.send(
+        socket.send(
           _isString(payload)
             ? payload
-            : JSON.stringify(payload)
+            : JSON.stringify(payload),
         )
+
+        break
       }
 
       default: {
-        return next(action)
+        next(action)
+        break
       }
     }
   }

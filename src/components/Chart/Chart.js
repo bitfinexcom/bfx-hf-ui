@@ -13,14 +13,13 @@ import { AutoSizer } from 'react-virtualized'
 import { ChartCanvas, Chart as RSChart } from 'react-stockcharts/'
 import { fitWidth } from 'react-stockcharts/lib/helper'
 import { XAxis, YAxis } from 'react-stockcharts/lib/axes'
-import { PriceCoordinate } from 'react-stockcharts/lib/coordinates'
 
 import {
-  BarSeries, CandlestickSeries, LineSeries, BollingerSeries
+  BarSeries, CandlestickSeries, LineSeries, BollingerSeries,
 } from 'react-stockcharts/lib/series'
 
 import {
-  CrossHairCursor, MouseCoordinateX, MouseCoordinateY,
+  CrossHairCursor, MouseCoordinateX, MouseCoordinateY, PriceCoordinate,
 } from 'react-stockcharts/lib/coordinates'
 
 import {
@@ -86,7 +85,7 @@ class Chart extends React.Component {
     settingsModalType: null,
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     const {
@@ -127,7 +126,7 @@ class Chart extends React.Component {
       }),
 
       ...restoreIndicators(indicatorIDs, indicatorArgs, candles),
-      ...genChartData(candles)
+      ...genChartData(candles),
     }
 
     const { onRangeChange, onTFChange } = props
@@ -155,7 +154,7 @@ class Chart extends React.Component {
     this.chartRef = null
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const { addCandlesRequirement, addTradesRequirement } = this.props
     const { currentExchange, currentMarket, currentTF } = this.state
 
@@ -164,7 +163,48 @@ class Chart extends React.Component {
     addTradesRequirement(currentExchange, currentMarket)
   }
 
-  componentWillUnmount () {
+  shouldComponentUpdate(nextProps, nextState) {
+    const {
+      indicators, indicatorData, trades, focusMTS, positions, exchanges, orders,
+    } = this.props
+
+    const {
+      currentTF, currentExchange, currentMarket, indicators: stateIndicators,
+      settingsModalOpen, height, lastDomain, lastInternalCandleUpdate,
+    } = this.state
+
+    if (
+      !_isEqual(nextProps.indicators, indicators)
+      || !_isEqual(nextProps.indicatorData, indicatorData)
+      || !_isEqual(nextProps.trades, trades)
+      || (nextProps.focusMTS !== focusMTS)
+      || (nextState.currentTF !== currentTF)
+      || (nextState.currentExchange !== currentExchange)
+      || !_isEqual(nextState.currentMarket, currentMarket)
+      || !_isEqual(nextProps.positions, positions)
+      || !_isEqual(nextState.indicators, stateIndicators)
+      || (nextState.settingsModalOpen !== settingsModalOpen)
+      || !_isEqual(nextProps.exchanges, exchanges)
+      || !_isEqual(nextProps.orders, orders)
+      || (nextState.height !== height)
+    ) {
+      return true
+    }
+
+    if (nextState.lastDomain !== lastDomain) {
+      return false // don't re-render on domain update (pan)
+    } if (nextState.lastInternalCandleUpdate === lastInternalCandleUpdate) {
+      return false
+    }
+
+    return true
+  }
+
+  componentDidUpdate() {
+    this.deferSaveState()
+  }
+
+  componentWillUnmount() {
     const { removeCandlesRequirement, removeTradesRequirement } = this.props
     const { currentExchange, currentMarket, currentTF } = this.state
 
@@ -176,39 +216,7 @@ class Chart extends React.Component {
     removeTradesRequirement(currentExchange, currentMarket)
   }
 
-  shouldComponentUpdate (nextProps, nextState) {
-    if (
-      !_isEqual(nextProps.indicators, this.props.indicators) ||
-      !_isEqual(nextProps.indicatorData, this.props.indicatorData) ||
-      !_isEqual(nextProps.trades, this.props.trades) ||
-      (nextProps.focusMTS !== this.props.focusMTS) ||
-      (nextState.currentTF !== this.state.currentTF) ||
-      (nextState.currentExchange !== this.state.currentExchange) ||
-      !_isEqual(nextState.currentMarket, this.state.currentMarket) ||
-      !_isEqual(nextProps.positions, this.props.positions) ||
-      !_isEqual(nextState.indicators, this.state.indicators) ||
-      (nextState.settingsModalOpen !== this.state.settingsModalOpen) ||
-      !_isEqual(nextProps.exchanges, this.props.exchanges) ||
-      !_isEqual(nextProps.orders, this.props.orders) ||
-      (nextState.height !== this.state.height)
-    ) {
-      return true
-    }
-
-    if (nextState.lastDomain !== this.state.lastDomain) {
-      return false // don't re-render on domain update (pan)
-    } else if (nextState.lastInternalCandleUpdate === this.state.lastInternalCandleUpdate) {
-      return false
-    }
-
-    return true
-  }
-
-  componentDidUpdate () {
-    this.deferSaveState()
-  }
-
-  onIncreaseHeight () {
+  onIncreaseHeight() {
     this.setState(({ height }) => ({
       height: height + HEIGHT_STEP_PX,
     }))
@@ -216,7 +224,7 @@ class Chart extends React.Component {
     this.deferSaveState()
   }
 
-  onDecreaseHeight () {
+  onDecreaseHeight() {
     this.setState(({ height }) => ({
       height: Math.max(height - HEIGHT_STEP_PX, MIN_HEIGHT_PX),
     }))
@@ -224,65 +232,7 @@ class Chart extends React.Component {
     this.deferSaveState()
   }
 
-  deferSaveState () {
-    setTimeout(() => {
-      this.saveState()
-    }, 0)
-  }
-
-  saveState () {
-    const {
-      currentExchange, currentMarket, currentTF, currentRange, indicators,
-      marketDirty, exchangeDirty, height,
-    } = this.state
-
-    const { saveState, layoutID, layoutI, onRangeChange } = this.props
-
-    saveState(layoutID, layoutI, {
-      marketDirty,
-      exchangeDirty,
-      currentExchange,
-      currentMarket,
-      currentRange,
-      currentTF,
-      height,
-      indicatorIDs: indicators.map(i => i.id),
-      indicatorArgs: indicators.map(i => i._args),
-    })
-
-    if (onRangeChange) {
-      onRangeChange(currentRange)
-    }
-  }
-
-  syncData () {
-    const { syncCandles } = this.props
-    const {
-      currentExchange, currentMarket, currentTF, currentRange,
-    } = this.state
-
-    syncCandles(currentExchange, currentMarket, currentTF, currentRange)
-  }
-
-  onAddIndicator (v) {
-    // const { user, onLogin, onUpgrade } = this.props
-
-    /*
-    if (!user || !user.id) {
-      return onLogin()
-    }
-
-    const { subscription } = user
-    const nIndicators = this.state.indicators.length
-
-    if (
-      ((!subscription || subscription < 1) && nIndicators >= 3) ||
-      (subscription === 1 && nIndicators >= 5)
-    ) {
-      return onUpgrade()
-    }
-    */
-
+  onAddIndicator(v) {
     const I = Object.values(Indicators).find(i => i.id === v.value)
     const i = new I(I.args.map(arg => arg.default))
 
@@ -302,13 +252,13 @@ class Chart extends React.Component {
       indicatorData: {
         ...indicatorData,
         [i.key]: calcIndicatorValuesForCandles(i, candles),
-      }
+      },
     }))
 
     setTimeout(() => { this.saveState() }, 0)
   }
 
-  onRemoveIndicator (option) {
+  onRemoveIndicator(option) {
     const { value } = option
 
     this.setState(({ indicators, indicatorData }) => {
@@ -332,17 +282,17 @@ class Chart extends React.Component {
     setTimeout(() => { this.saveState() }, 0)
   }
 
-  onCandleSelectionChange () {
+  onCandleSelectionChange() {
     setTimeout(() => {
       this.syncData()
       this.saveState()
     }, 0)
   }
 
-  onChangeTF (tf) {
+  onChangeTF(tf) {
     const { currentExchange, currentMarket, currentTF } = this.state
     const {
-      addCandlesRequirement, removeCandlesRequirement, onTFChange
+      addCandlesRequirement, removeCandlesRequirement, onTFChange,
     } = this.props
 
     if (tf === currentTF) {
@@ -363,7 +313,7 @@ class Chart extends React.Component {
     }
   }
 
-  onChangeMarket (market) {
+  onChangeMarket(market) {
     const { currentExchange, currentMarket, currentTF } = this.state
     const {
       addCandlesRequirement, removeCandlesRequirement, addTradesRequirement,
@@ -389,7 +339,7 @@ class Chart extends React.Component {
     addTradesRequirement(currentExchange, market)
   }
 
-  onChangeExchange (option) {
+  onChangeExchange(option) {
     const { value: exchange } = option
     const { currentExchange, currentMarket, currentTF } = this.state
     const {
@@ -421,7 +371,7 @@ class Chart extends React.Component {
     addTradesRequirement(exchange, newMarket)
   }
 
-  onChartEvent (type, moreProps, state = {}) {
+  onChartEvent(type, moreProps) {
     if (type !== 'pan') {
       return
     }
@@ -429,13 +379,13 @@ class Chart extends React.Component {
     const { xScale } = moreProps
 
     this.setState(() => ({
-      lastDomain: xScale.domain()
+      lastDomain: xScale.domain(),
     }))
 
     this.deferSaveState()
   }
 
-  onLoadMore (start, end) {
+  onLoadMore(start, end) {
     const { currentTF, currentRange } = this.state
 
     if (Math.ceil(start) === end) {
@@ -452,7 +402,7 @@ class Chart extends React.Component {
 
     const newRange = [
       currentRange[0] - (cWidth * rowsToDownload),
-      currentRange[0]
+      currentRange[0],
     ]
 
     this.setState(() => ({ currentRange: newRange }))
@@ -462,12 +412,115 @@ class Chart extends React.Component {
     })
   }
 
-  renderPanel (contents) {
+  onCloseSettingsModal() {
+    this.setState(() => ({ settingsModalOpen: false }))
+  }
+
+  onSaveSettingsModalSettings(argValues) {
+    const { settingsModalType, settingsModalProps } = this.state
+
+    if (settingsModalType !== 'indicator') {
+      console.error(`save unknown settings modal type: ${settingsModalType}`)
+      return
+    }
+
+    const { i } = settingsModalProps
+
+    this.deferSaveState()
+    this.setState(({ indicators, indicatorData, candles }) => {
+      const iIndex = indicators.findIndex(ind => ind.key === i.key)
+      const nextIndicators = [...indicators]
+      const nextIndicatorData = { ...indicatorData }
+
+      if (iIndex < 0) {
+        console.error(`could not save indicator, not found: ${i.key}`)
+        return {}
+      }
+
+      const I = Object.values(Indicators).find(ind => ind.id === i._id)
+      const args = I.args.map(arg => argValues[arg.label])
+      const ind = new I(args)
+
+      // Copy metadata
+      ind.id = I.id
+      ind.ui = I.ui
+      ind.key = `${I.id}-${nonce()}`
+      ind.args = args
+      ind.color = indicators[iIndex].color
+
+      nextIndicators[iIndex] = ind
+      nextIndicatorData[ind.key] = calcIndicatorValuesForCandles(ind, candles)
+
+      return {
+        indicators: nextIndicators,
+        indicatorData: nextIndicatorData,
+        settingsModalOpen: false,
+      }
+    })
+  }
+
+  onOpenSettingsModal({ type, ...args }) {
+    if (type !== 'indicator') {
+      console.error(`open unknown settings modal type: ${type}`)
+      return
+    }
+
+    this.setState(() => ({
+      settingsModalOpen: true,
+      settingsModalProps: args,
+      settingsModalType: 'indicator',
+    }))
+  }
+
+
+  syncData() {
+    const { syncCandles } = this.props
+    const {
+      currentExchange, currentMarket, currentTF, currentRange,
+    } = this.state
+
+    syncCandles(currentExchange, currentMarket, currentTF, currentRange)
+  }
+
+  deferSaveState() {
+    setTimeout(() => {
+      this.saveState()
+    }, 0)
+  }
+
+  saveState() {
+    const {
+      currentExchange, currentMarket, currentTF, currentRange, indicators,
+      marketDirty, exchangeDirty, height,
+    } = this.state
+
+    const {
+      saveState, layoutID, layoutI, onRangeChange,
+    } = this.props
+
+    saveState(layoutID, layoutI, {
+      marketDirty,
+      exchangeDirty,
+      currentExchange,
+      currentMarket,
+      currentRange,
+      currentTF,
+      height,
+      indicatorIDs: indicators.map(i => i.id),
+      indicatorArgs: indicators.map(i => i._args),
+    })
+
+    if (onRangeChange) {
+      onRangeChange(currentRange)
+    }
+  }
+
+  renderPanel(contents) {
     const {
       onChangeTF, onChangeMarket, onAddIndicator, onRemoveIndicator,
       onChangeExchange,
     } = this
-    
+
     const {
       currentMarket, currentTF, indicators, marketDirty, settingsModalOpen,
       currentExchange, exchangeDirty, height,
@@ -526,12 +579,16 @@ class Chart extends React.Component {
 
         extraIcons={[
           <i
+            role='button'
+            tabIndex={0}
             key='increase-height'
             className='fas fa-caret-down'
             onClick={this.onIncreaseHeight}
           />,
 
-          <i  
+          <i
+            role='button'
+            tabIndex={0}
             key='decrease-height'
             onClick={this.onDecreaseHeight}
             className={ClassNames('fas fa-caret-up', {
@@ -541,121 +598,61 @@ class Chart extends React.Component {
 
           !_isEmpty(syncRanges) && (
             <i key='sync' className='fas fa-circle-notch' />
-          )
+          ),
         ]}
 
         headerComponents={headerComponents}
         modal={settingsModalOpen && this.renderSettingsModal()}
       >
-        {contents || this.renderLoadingContent()}
+        {contents || <Spinner />}
       </Panel>
     )
   }
 
-  renderLoadingContent () {
-    return (<Spinner />)
-  }
-
   // TODO: Extract
-  renderSettingsModal () {
+  renderSettingsModal() {
     const { settingsModalProps, settingsModalType } = this.state
 
     if (settingsModalType !== 'indicator') {
       console.error(`render unknown settings modal type: ${settingsModalType}`)
-      return
+      return null
     }
 
     return (
-      <IndicatorSettingsModal 
+      <IndicatorSettingsModal
         {...settingsModalProps}
 
         onClose={this.onCloseSettingsModal}
         onSave={this.onSaveSettingsModalSettings}
-        onRemove={key => { this.onRemoveIndicator({ value: key })}}
+        onRemove={(key) => { this.onRemoveIndicator({ value: key }) }}
       />
     )
   }
 
-  onCloseSettingsModal () {
-    this.setState(() => ({ settingsModalOpen: false }))
-  }
-
- onSaveSettingsModalSettings (argValues) {
-    const { settingsModalType, settingsModalProps } = this.state
-
-    if (settingsModalType !== 'indicator') {
-      console.error(`save unknown settings modal type: ${settingsModalType}`)
-      return
-    }
-
-    const { i } = settingsModalProps
-
-    this.deferSaveState()
-    this.setState(({ indicators, indicatorData, candles }) => {
-      const iIndex = indicators.findIndex(ind => ind.key === i.key)
-
-      if (iIndex < 0) {
-        console.error(`could not save indicator, not found: ${i.key}`)
-        return {}
-      }
-
-      const I = Object.values(Indicators).find(ind => ind.id === i._id)
-      const args = I.args.map(arg => argValues[arg.label])
-      const ind = new I(args)
-
-      // Copy metadata
-      ind.id = I.id
-      ind.ui = I.ui
-      ind.key = `${I.id}-${nonce()}`
-      ind.args = args
-      ind.color = indicators[iIndex].color
-
-      indicators[iIndex] = ind
-      indicatorData[ind.key] = calcIndicatorValuesForCandles(ind, candles)
-
-      return {
-        indicators,
-        indicatorData,
-        settingsModalOpen: false,
-      }
-    })
-  }
-
-  onOpenSettingsModal ({ type, ...args }) {
-    if (type !== 'indicator') {
-      console.error(`open unknown settings modal type: ${type}`)
-      return
-    }
-
-    this.setState(() => ({
-      settingsModalOpen: true,
-      settingsModalProps: args,
-      settingsModalType: 'indicator',
-    }))
-  }
-
-  render () {
+  render() {
     const {
       trades, ratio, orders: allOrders, disableIndicatorSettings, showOrders,
-      positions: allPositions, showPositions,
+      positions: allPositions, showPositions, indicators: propsIndicators,
+      indicatorData: propsIndicatorData,
     } = this.props
 
     const {
       candles, data, xScale, xAccessor, displayXAccessor, focus, currentMarket,
-      currentExchange, height,
+      currentExchange, height, indicators: stateIndicators,
+      indicatorData: stateIndicatorData,
     } = this.state
 
     if (data.length < 5) { // TODO: Extract
       return this.renderPanel()
     }
 
-    const indicators = _isEmpty(this.state.indicators)
-      ? this.props.indicators
-      : this.state.indicators
+    const indicators = _isEmpty(stateIndicators)
+      ? propsIndicators
+      : stateIndicators
 
-    const indicatorData = _isEmpty(this.state.indicatorData)
-      ? this.props.indicatorData
-      : this.state.indicatorData
+    const indicatorData = _isEmpty(stateIndicatorData)
+      ? propsIndicatorData
+      : stateIndicatorData
 
     // TODO: Extract w/r resolution
     const orders = Object.values(allOrders[currentExchange] || {}).filter(({ symbol }) => (
@@ -674,7 +671,7 @@ class Chart extends React.Component {
     if (focus) {
       if (focus.type === 'mts') {
         const candleWidth = data[1].mts - data[0].mts
-        const i = data.findIndex(c => {
+        const i = data.findIndex((c) => {
           return focus.v > c.mts && (focus.v - c.mts) <= candleWidth
         })
 
@@ -726,7 +723,7 @@ class Chart extends React.Component {
                 if (chart !== null) {
                   this.chartRef = chart
                   this.chartRef.subscribe('chart-events', {
-                    listener: this.onChartEvent
+                    listener: this.onChartEvent,
                   })
                 }
               }}
@@ -829,13 +826,13 @@ class Chart extends React.Component {
 
                 {/* placeholder for event system */}
                 <EventAnnotation
-                  when={d => false}
+                  when={() => false}
                   height={finalHeight}
                   yOffset={30}
                   stroke='#ff0000'
                 />
 
-                {indicators.filter(i => i.ui.position === 'overlay' && i.ui.type === 'line').map((i) => [
+                {indicators.filter(i => i.ui.position === 'overlay' && i.ui.type === 'line').map(i => [
                   <LineSeries
                     yAccessor={d => indicatorData[i.key][d.mts]}
                     stroke={i.color}
@@ -853,7 +850,7 @@ class Chart extends React.Component {
                       chartWidth={width}
                       right
                     />
-                  ))
+                  )),
                 ])}
 
                 {indicators.filter(i => i.ui.position === 'overlay' && i.ui.type === 'lines').map(i => [
@@ -876,7 +873,7 @@ class Chart extends React.Component {
                       chartWidth={width}
                       right
                     />
-                  ))
+                  )),
                 ])}
 
                 {indicators.filter(i => i.ui.position === 'overlay' && i.ui.type === 'bbands').map(i => [
@@ -903,7 +900,7 @@ class Chart extends React.Component {
                       chartWidth={width}
                       right
                     />
-                  ))
+                  )),
                 ])}
 
                 <CandlestickSeries
@@ -915,7 +912,7 @@ class Chart extends React.Component {
                 <OHLCTooltip
                   forChart={1}
                   origin={[-40, 10]}
-                  xDisplayFormat={timeFormat("%Y-%m-%d")}
+                  xDisplayFormat={timeFormat('%Y-%m-%d')}
                   accessor={c => ({
                     ...c,
                     volume: c.volume,
@@ -956,11 +953,11 @@ class Chart extends React.Component {
                 />
               </RSChart>
 
-              {!_isEmpty(externalIndicators) &&
-                renderExternalIndicators({
+              {!_isEmpty(externalIndicators)
+                && renderExternalIndicators({
                   onOpenSettings: this.onOpenSettingsModal,
                   indicators: externalIndicators,
-                  indicatorData
+                  indicatorData,
                 })
               }
 
@@ -976,6 +973,4 @@ class Chart extends React.Component {
   }
 }
 
-Chart = fitWidth(Chart)
-
-export default Chart
+export default fitWidth(Chart)

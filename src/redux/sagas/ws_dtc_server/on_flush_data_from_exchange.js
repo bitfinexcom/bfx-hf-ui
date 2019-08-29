@@ -2,7 +2,7 @@ import { put, select } from 'redux-saga/effects'
 import A from '../../actions/ws_dtc_server'
 import { getChannelByID } from '../../selectors/ws_dtc_server'
 
-export default function * (action = {}) {
+export default function* (action = {}) {
   const { payload = {} } = action
   const { updates = [] } = payload
   const tradeUpdates = {}
@@ -37,7 +37,9 @@ export default function * (action = {}) {
         break
       }
 
-      default: {}
+      default: {
+        break
+      }
     }
   }
 
@@ -49,8 +51,8 @@ export default function * (action = {}) {
     exID = tradeExchanges[i]
     const exChannels = Object.keys(tradeUpdates[exID])
 
-    for (let i = 0; i < exChannels.length; i += 1) {
-      chanID = exChannels[i]
+    for (let j = 0; j < exChannels.length; j += 1) {
+      chanID = exChannels[j]
       const channel = yield select(getChannelByID, exID, chanID)
 
       tradeUpdates[exID][chanID].sort((a, b) => b.mts - a.mts)

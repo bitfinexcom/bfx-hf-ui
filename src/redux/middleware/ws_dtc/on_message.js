@@ -12,8 +12,8 @@ export default (ws, store) => (e = {}) => {
 
   try {
     payload = JSON.parse(data)
-  } catch (e) {
-    console.error('[wss] error parsing JSON: ', e)
+  } catch (error) {
+    console.error('[wss] error parsing JSON: ', error.message)
     return
   }
 
@@ -22,7 +22,7 @@ export default (ws, store) => (e = {}) => {
     return
   }
 
-  const [ type ] = payload
+  const [type] = payload
 
   switch (type) {
     case 'info.version': {
@@ -48,28 +48,32 @@ export default (ws, store) => (e = {}) => {
     }
 
     case 'data': {
-      const [, exID, chanID, data] = payload
-      store.dispatch(WSDTCActions.bufferDataFromExchange(exID, chanID, data))
+      const [, exID, chanID, exData] = payload
+      store.dispatch(WSDTCActions.bufferDataFromExchange(exID, chanID, exData))
       break
     }
 
     case 'data.candles': {
       const [, exID, symbol, tf, start, end, candles] = payload
       store.dispatch(WSDTCActions.recvDataCandles({
-        exID, symbol, tf, candles, start, end
+        exID, symbol, tf, candles, start, end,
       }))
       break
     }
 
     case 'data.sync.start': {
       const [, exID, symbol, tf, start, end] = payload
-      store.dispatch(WSDTCActions.recvDataSyncStart({ exID, symbol, tf, start, end }))
+      store.dispatch(WSDTCActions.recvDataSyncStart({
+        exID, symbol, tf, start, end,
+      }))
       break
     }
 
     case 'data.sync.end': {
       const [, exID, symbol, tf, start, end] = payload
-      store.dispatch(WSDTCActions.recvDataSyncEnd({ exID, symbol, tf, start, end }))
+      store.dispatch(WSDTCActions.recvDataSyncEnd({
+        exID, symbol, tf, start, end,
+      }))
       break
     }
 
@@ -106,14 +110,20 @@ export default (ws, store) => (e = {}) => {
     }
 
     case 'authenticated': {
-      const [
-        , userID, username, userEmail, authToken, apiKeys, subscription,
+      const [,
+        userID, username, userEmail, authToken, apiKeys, subscription,
         cancelSubscriptionURL, updateBillingURL,
       ] = payload
 
       store.dispatch(WSDTCActions.authSuccess({
-        userID, username, userEmail, authToken, apiKeys, subscription,
-        cancelSubscriptionURL, updateBillingURL,
+        userID,
+        username,
+        userEmail,
+        authToken,
+        apiKeys,
+        subscription,
+        cancelSubscriptionURL,
+        updateBillingURL,
       }))
       break
     }
@@ -210,8 +220,7 @@ export default (ws, store) => (e = {}) => {
     }
 
     default: {
-      return
+      break
     }
   }
 }
-

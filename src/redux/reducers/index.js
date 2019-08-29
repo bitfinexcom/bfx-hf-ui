@@ -8,7 +8,7 @@ import bfxData from './bfx'
 import meta from './meta'
 import wsDTCServer from './ws_dtc_server'
 
-const reducers = (history) => combineReducers({
+const reducers = history => combineReducers({
   [REDUCER_PATHS.ROUTER]: connectRouter(history),
   [REDUCER_PATHS.WS_DTC_SERVER]: wsDTCServer,
   [REDUCER_PATHS.META]: meta,

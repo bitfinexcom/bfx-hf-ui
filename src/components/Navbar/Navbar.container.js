@@ -5,7 +5,7 @@ import { getUser } from '../../redux/selectors/ws_dtc_server'
 
 import Navbar from './Navbar'
 
-const mapStateToProps = (state = {}, ownProps = {}) => ({
+const mapStateToProps = (state = {}) => ({
   user: getUser(state),
 })
 

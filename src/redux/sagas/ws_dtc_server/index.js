@@ -15,7 +15,7 @@ import onRemoveChannelRequirement from './on_rm_channel_req'
 import onFlushDataFromExchange from './on_flush_data_from_exchange'
 import onBufferDataFromExchange from './on_buffer_data_from_exchange'
 
-export default function * () {
+export default function* () {
   yield takeEvery(t.BUFF_SEND, messageQueueWorker)
   yield takeEvery(t.FLUSH_QUEUE, messageQueueWorker)
   yield takeEvery(t.CONNECTED, onConnected)

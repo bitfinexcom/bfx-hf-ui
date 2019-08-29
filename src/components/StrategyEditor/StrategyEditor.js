@@ -10,7 +10,7 @@ import HFS from 'bfx-hf-strategy'
 import HFU from 'bfx-hf-util'
 import raw from 'raw.macro'
 import _ from 'lodash'
-import * as SRD from "@projectstorm/react-diagrams"
+import * as SRD from '@projectstorm/react-diagrams'
 
 import Templates from './templates'
 import Results from './Results'
@@ -24,6 +24,7 @@ import StrategyPasswordModal from '../StrategyPasswordModal'
 import CreateNewStrategyModal from '../CreateNewStrategyModal'
 import OpenExistingStrategyModal from '../OpenExistingStrategyModal'
 import LoginTAFModal from '../LoginTAFModal'
+import { propTypes, defaultProps } from './StrategyEditor.props'
 import './style.css'
 
 const generalHelp = raw('./help/general.md')
@@ -45,6 +46,9 @@ const STRATEGY_SECTIONS = [
 ]
 
 export default class StrategyEditor extends React.PureComponent {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
   state = {
     activeContent: 'defineIndicators',
     results: null,
@@ -66,7 +70,7 @@ export default class StrategyEditor extends React.PureComponent {
     helpOpen: false,
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.onStrategyExecWorkerMessage = this.onStrategyExecWorkerMessage.bind(this)
@@ -87,11 +91,11 @@ export default class StrategyEditor extends React.PureComponent {
     this.execWorker.onmessage = this.onStrategyExecWorkerMessage
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.execWorker.terminate()
   }
 
-  onCreateNewStrategy (label, templateLabel) {
+  onCreateNewStrategy(label, templateLabel) {
     const strategy = { label }
     const template = Templates.find(t => t.label === templateLabel)
 
@@ -101,7 +105,7 @@ export default class StrategyEditor extends React.PureComponent {
 
     const templateSections = Object.keys(template)
 
-    templateSections.forEach(s => {
+    templateSections.forEach((s) => {
       if (s === 'label') return
 
       strategy[s] = template[s]
@@ -115,12 +119,12 @@ export default class StrategyEditor extends React.PureComponent {
 
     if (strategy.defineIndicators) {
       setTimeout(() => {
-        this.onDefineIndicatorsChange('defineIndicators', strategy.defineIndicators)
+        this.onDefineIndicatorsChange()
       }, 0)
     }
   }
 
-  onLoadStrategy (strategy) {
+  onLoadStrategy(strategy) {
     this.setState(() => ({
       sectionErrors: {},
       strategyDirty: false,
@@ -128,17 +132,19 @@ export default class StrategyEditor extends React.PureComponent {
     }))
 
     if (strategy.defineIndicators) {
-      this.onDefineIndicatorsChange('defineIndicators', strategy.defineIndicators)
+      setTimeout(() => {
+        this.onDefineIndicatorsChange()
+      }, 0)
     }
   }
 
-  onToggleHelp () {
+  onToggleHelp() {
     this.setState(({ helpOpen }) => ({
-      helpOpen: !helpOpen
+      helpOpen: !helpOpen,
     }))
   }
 
-  onOpenCreateModal () {
+  onOpenCreateModal() {
     this.setState(() => ({
       createNewStrategyModalOpen: true,
       openExistingStrategyModalOpen: false,
@@ -146,7 +152,7 @@ export default class StrategyEditor extends React.PureComponent {
     }))
   }
 
-  onOpenSelectModal () {
+  onOpenSelectModal() {
     this.setState(() => ({
       createNewStrategyModalOpen: false,
       openExistingStrategyModalOpen: true,
@@ -154,7 +160,7 @@ export default class StrategyEditor extends React.PureComponent {
     }))
   }
 
-  onCloseModals () {
+  onCloseModals() {
     this.setState(() => ({
       createNewStrategyModalOpen: false,
       openExistingStrategyModalOpen: false,
@@ -162,18 +168,18 @@ export default class StrategyEditor extends React.PureComponent {
     }))
   }
 
-  onClearError () {
+  onClearError() {
     this.setState(() => ({
       sectionErrors: {},
       execError: '',
     }))
   }
 
-  onSaveStrategy () {
+  onSaveStrategy() {
     this.setState(() => ({ strategyPasswordModalOpen: true }))
   }
 
-  onExecSaveStrategy (password) {
+  onExecSaveStrategy(password) {
     const { onSave, user } = this.props
     const { strategy } = this.state
 
@@ -183,8 +189,8 @@ export default class StrategyEditor extends React.PureComponent {
     this.onCloseModals()
   }
 
-  onStrategyExecWorkerMessage (message = {}) {
-    const { data: messageData } = message
+  onStrategyExecWorkerMessage(incomingMessage = {}) {
+    const { data: messageData } = incomingMessage
     const { type, data = {} } = messageData
 
     if (type === 'EXEC_STRATEGY_PARSE_ERROR') {
@@ -216,7 +222,7 @@ export default class StrategyEditor extends React.PureComponent {
     }
   }
 
-  onEditorContentChange (editor, data, code) {
+  onEditorContentChange(editor, data, code) {
     const { activeContent } = this.state
 
     this.setState(({ strategy }) => ({
@@ -229,18 +235,18 @@ export default class StrategyEditor extends React.PureComponent {
 
     setTimeout(() => {
       if (activeContent === 'defineIndicators') {
-        this.onDefineIndicatorsChange(code) // tracks errors
+        this.onDefineIndicatorsChange() // tracks errors
       } else {
         this.evalSectionContent(activeContent)
       }
     }, 0)
   }
 
-  onActiveContentChange (activeContent) {
+  onActiveContentChange(activeContent) {
     this.setState(() => ({ activeContent }))
   }
 
-  onDefineIndicatorsChange (defineIndicators) {
+  onDefineIndicatorsChange() {
     const { onIndicatorsChange } = this.props
 
     if (!onIndicatorsChange) {
@@ -258,28 +264,70 @@ export default class StrategyEditor extends React.PureComponent {
       }
     }
 
-    Object.values(indicators).forEach(i => {
-      i.key = `${nonce()}`
+    Object.values(indicators).forEach((i) => {
+      i.key = `${nonce()}` // eslint-disable-line
     })
 
     onIndicatorsChange(indicators)
   }
 
-  setSectionError (section, msg) {
+  onBacktestStrategy() {
+    const { strategy } = this.state
+    const {
+      tf, activeExchange, activeMarket,
+      candles: candleData,
+    } = this.props
+
+    const strategyContent = {}
+    let section
+
+    for (let i = 0; i < STRATEGY_SECTIONS.length; i += 1) {
+      section = STRATEGY_SECTIONS[i]
+      const content = strategy[section]
+
+      if (!_isEmpty(content)) {
+        strategyContent[section] = content
+      }
+    }
+
+    this.execWorker.postMessage({
+      type: 'EXEC_STRATEGY',
+      data: {
+        exID: activeExchange,
+        mID: activeMarket.u,
+        strategyContent,
+        candleData,
+        tf,
+      },
+    })
+  }
+
+  onToggleMaximiseEditor() {
+    this.setState(({ editorMaximised }) => ({
+      editorMaximised: !editorMaximised,
+    }))
+  }
+
+  onSwitchEditorMode(editorMode) {
+    this.setState(() => ({ editorMode }))
+  }
+
+  setSectionError(section, msg) {
     this.setState(({ sectionErrors }) => ({
       sectionErrors: {
         ...sectionErrors,
         [section]: msg,
-      }
+      },
     }))
   }
 
-  clearSectionError (section) {
+  clearSectionError(section) {
     this.setSectionError(section, '')
   }
 
-  evalSectionContent (section, providedContent) {
-    const content = providedContent || this.state.strategy[section] || ''
+  evalSectionContent(section, providedContent) {
+    const { strategy } = this.state
+    const content = providedContent || strategy[section] || ''
 
     // We don't immediately exec the 2 possible 'define' methods
     if (section.substring(0, 6) === 'define') {
@@ -306,40 +354,7 @@ export default class StrategyEditor extends React.PureComponent {
     }
   }
 
-  onBacktestStrategy () {
-    const { strategy } = this.state
-    const {
-      tf, activeExchange, activeMarket,
-      candles: candleData,
-    } = this.props
-
-    let strategyContent = {}
-    let section
-
-    for (let i = 0; i < STRATEGY_SECTIONS.length; i += 1) {
-      section = STRATEGY_SECTIONS[i]
-      const content = strategy[section]
-
-      if (_isEmpty(content)) {
-        continue
-      }
-
-      strategyContent[section] = content
-    }
-
-    this.execWorker.postMessage({
-      type: 'EXEC_STRATEGY',
-      data: {
-        exID: activeExchange,
-        mID: activeMarket.u,
-        strategyContent,
-        candleData,
-        tf,
-      }
-    })
-  }
-
-  updateResults (btState = {}) {
+  updateResults(btState = {}) {
     const { onResultsChange } = this.props
     const results = generateResults(btState)
 
@@ -353,34 +368,21 @@ export default class StrategyEditor extends React.PureComponent {
     }
   }
 
-  updateError (errMessage) {
+  updateError(errMessage) {
     this.setState(() => ({
       results: null,
       execError: errMessage,
     }))
   }
 
-  onToggleMaximiseEditor () {
-    this.setState(({ editorMaximised }) => ({
-      editorMaximised: !editorMaximised,
-    }))
-  }
-
-  onSwitchEditorMode (editorMode) {
-    this.setState(() => ({ editorMode }))
-  }
-
-  onEditorContentClick (e) {
-  }
-
-  renderPanel (content) {
+  renderPanel(content) {
     const {
       strategy, execRunning, strategyDirty, helpOpen, editorMaximised,
       editorMode,
     } = this.state
 
     const {
-      authenticated, onRemove, moveable, removeable, demoMode
+      authenticated, onRemove, moveable, removeable, demoMode,
     } = this.props
 
     return (
@@ -409,7 +411,7 @@ export default class StrategyEditor extends React.PureComponent {
     )
   }
 
-  renderEmptyContent () {
+  renderEmptyContent() {
     const { authenticated } = this.props
     const {
       createNewStrategyModalOpen, openExistingStrategyModalOpen,
@@ -421,7 +423,9 @@ export default class StrategyEditor extends React.PureComponent {
           <p
             className='button'
             onClick={this.onOpenCreateModal}
-          >Create</p>
+          >
+Create
+          </p>
           <p>a new strategy</p>
 
           {authenticated && [
@@ -430,8 +434,10 @@ export default class StrategyEditor extends React.PureComponent {
               key='b'
               className='button'
               onClick={this.onOpenSelectModal}
-            >open</p>,
-            <p key='c'>an existing one.</p>
+            >
+open
+            </p>,
+            <p key='c'>an existing one.</p>,
           ]}
         </div>
 
@@ -448,11 +454,11 @@ export default class StrategyEditor extends React.PureComponent {
             onOpen={this.onLoadStrategy}
           />
         )}
-       </div>
+      </div>
     )
   }
 
-  render () {
+  render() {
     const { authenticated, onLogin, renderResults = true } = this.props
     const {
       activeContent, results, execError, execRunning, currentTick, totalTicks,
@@ -466,37 +472,37 @@ export default class StrategyEditor extends React.PureComponent {
     }
 
     // 1) setup the diagram engine
-    var engine = new SRD.DiagramEngine();
-    engine.installDefaultFactories();
+    const engine = new SRD.DiagramEngine()
+    engine.installDefaultFactories()
 
     // 2) setup the diagram model
-    var model = new SRD.DiagramModel();
+    const model = new SRD.DiagramModel()
 
     // 3) create a default node
-    var node1 = new SRD.DefaultNodeModel("Node 1", "rgb(0,192,255)");
-    let port1 = node1.addOutPort("Out");
-    node1.setPosition(100, 100);
+    const node1 = new SRD.DefaultNodeModel('Node 1', 'rgb(0,192,255)')
+    const port1 = node1.addOutPort('Out')
+    node1.setPosition(100, 100)
 
     // 4) create another default node
-    var node2 = new SRD.DefaultNodeModel("Node 2", "rgb(192,255,0)");
-    let port2 = node2.addInPort("In");
-    node2.setPosition(400, 100);
+    const node2 = new SRD.DefaultNodeModel('Node 2', 'rgb(192,255,0)')
+    const port2 = node2.addInPort('In')
+    node2.setPosition(400, 100)
 
     // 5) link the ports
-    let link1 = port1.link(port2);
+    const link1 = port1.link(port2)
 
     // 6) add the models to the root graph
-    model.addAll(node1, node2, link1);
+    model.addAll(node1, node2, link1)
 
     // 7) load model into engine
-    engine.setDiagramModel(model);
+    engine.setDiagramModel(model)
 
     return this.renderPanel(
       <div className='dtc-strategyeditor__wrapper'>
         {helpOpen && <StrategyEditorHelp source={generalHelp} />}
 
         {createNewStrategyModalOpen && (
-          <CreateNewStrategyModal 
+          <CreateNewStrategyModal
             onClose={this.onCloseModals}
             onSubmit={this.onCreateNewStrategy}
           />
@@ -548,30 +554,29 @@ export default class StrategyEditor extends React.PureComponent {
 
         <div className='dtc-strategyeditor__content-wrapper'>
           <div
-            onClick={this.onEditorContentClick}
             className={ClassNames('dtc-strategyeditor__editor-wrapper', {
               noresults: !renderResults,
               maximised: editorMaximised,
             })}
           >
-            {true /* editorMode === 'code' */ ? (
-              <CodeMirror
-                value={strategy[activeContent] || ''}
-                onBeforeChange={this.onEditorContentChange}
-                options={{
-                  mode: {
-                    name: 'javascript',
-                    json: true,
-                  },
+            <CodeMirror
+              value={strategy[activeContent] || ''}
+              onBeforeChange={this.onEditorContentChange}
+              options={{
+                mode: {
+                  name: 'javascript',
+                  json: true,
+                },
 
-                  theme: 'tomorrow-night-eighties',
-                  lineNumbers: true,
-                  tabSize: 2,
-                }}
-              />
-            ) : (
+                theme: 'tomorrow-night-eighties',
+                lineNumbers: true,
+                tabSize: 2,
+              }}
+            />
+
+            {/*
               <SRD.DiagramWidget diagramEngine={engine} />
-            )}
+            */}
 
             {execError || sectionErrors[activeContent] ? (
               <div className='dtc-strategyeditor__editor-error-output'>
@@ -596,7 +601,7 @@ export default class StrategyEditor extends React.PureComponent {
             </div>
           )}
         </div>
-      </div>
+      </div>,
     )
   }
 }

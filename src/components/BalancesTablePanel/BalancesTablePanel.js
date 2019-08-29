@@ -7,15 +7,19 @@ import Select from '../../ui/Select'
 import Panel from '../../ui/Panel'
 import PanelSettings from '../../ui/PanelSettings'
 
+import { propTypes, defaultProps } from './BalancesTablePanel.props'
 import './style.css'
 
 export default class BalancesTablePanel extends React.Component {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
   state = {
     settingsOpen: false,
     hideZeroBalances: true,
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     const { savedState = {} } = props
@@ -32,7 +36,7 @@ export default class BalancesTablePanel extends React.Component {
     this.onChangeHideZeroBalances = this.onChangeHideZeroBalances.bind(this)
   }
 
-  static getDerivedStateFromProps (nextProps, prevState) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     const { exchangeDirty, currentExchange } = prevState
     const { activeExchange } = nextProps
 
@@ -45,17 +49,17 @@ export default class BalancesTablePanel extends React.Component {
     }
   }
 
-  onToggleSettings () {
+  onToggleSettings() {
     this.setState(({ settingsOpen }) => ({
       settingsOpen: !settingsOpen,
     }))
   }
 
-  onChangeHideZeroBalances (hideZeroBalances) {
+  onChangeHideZeroBalances(hideZeroBalances) {
     this.setState(() => ({ hideZeroBalances }))
   }
 
-  onChangeExchange (option) {
+  onChangeExchange(option) {
     const { value: exchange } = option
     const { currentExchange } = this.state
 
@@ -71,13 +75,13 @@ export default class BalancesTablePanel extends React.Component {
     this.deferSaveState()
   }
 
-  deferSaveState () {
+  deferSaveState() {
     setTimeout(() => {
       this.saveState()
     }, 0)
   }
 
-  saveState () {
+  saveState() {
     const { saveState, layoutID, layoutI } = this.props
     const { currentExchange, exchangeDirty } = this.state
 
@@ -87,7 +91,7 @@ export default class BalancesTablePanel extends React.Component {
     })
   }
 
-  renderExchangeDropdown ()  {
+  renderExchangeDropdown() {
     const { exchangeDirty, currentExchange } = this.state
     const { exchanges, canChangeExchange } = this.props
 
@@ -109,7 +113,7 @@ export default class BalancesTablePanel extends React.Component {
     )
   }
 
-  render () {
+  render() {
     const { currentExchange, settingsOpen, hideZeroBalances } = this.state
     const { onRemove, showExchange } = this.props
 

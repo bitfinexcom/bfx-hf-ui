@@ -32,6 +32,6 @@ export const parseCandlesKey = (key) => {
 
   return [
     info[1].split('-')[1],
-    info[2].split('-')[1]
+    info[2].split('-')[1],
   ]
 }

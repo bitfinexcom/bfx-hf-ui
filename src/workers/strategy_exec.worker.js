@@ -1,11 +1,12 @@
 import Indicators from 'bfx-hf-indicators'
-import { define as defineStrategy } from 'bfx-hf-strategy'
 import { execOffline } from 'bfx-hf-backtest'
 import HFS from 'bfx-hf-strategy'
 import HFU from 'bfx-hf-util'
 import _ from 'lodash'
 
-const onExecStrategy = ({ strategyContent, candleData, exID, mID, tf }) => {
+const onExecStrategy = ({
+  strategyContent, candleData, exID, mID, tf,
+}) => {
   let strategy = {}
   const sections = Object.keys(strategyContent)
   let sectionContent
@@ -27,14 +28,14 @@ const onExecStrategy = ({ strategyContent, candleData, exID, mID, tf }) => {
         data: {
           message: `${section}: ${e.message}`,
           section,
-        }
+        },
       })
 
       return // return on first error
     }
   }
 
-  strategy = defineStrategy({
+  strategy = HFS.define({
     ...strategy,
 
     tf,
@@ -53,13 +54,13 @@ const onExecStrategy = ({ strategyContent, candleData, exID, mID, tf }) => {
       ...c,
       symbol: mID,
       tf,
-    }))
+    })),
   }
 
   postMessage({ type: 'EXEC_STRATEGY_START' })
 
   execOffline(strategy, {
-    candles: execCandles
+    candles: execCandles,
   }, (currentTick, totalTicks) => {
     if (currentTick % 100 === 0) {
       postMessage({
@@ -71,8 +72,8 @@ const onExecStrategy = ({ strategyContent, candleData, exID, mID, tf }) => {
       })
     }
   }).then((btState = {}) => {
-    const { strategy = {}, nCandles, nTrades } = btState
-    const { trades = [] } = strategy
+    const { nCandles, nTrades } = btState
+    const { trades = [] } = btState.strategy || {}
 
     postMessage({
       type: 'EXEC_STRATEGY_END',
@@ -87,7 +88,7 @@ const onExecStrategy = ({ strategyContent, candleData, exID, mID, tf }) => {
       type: 'EXEC_STRATEGY_ERROR',
       data: {
         message: e.message,
-      }
+      },
     })
   })
 }

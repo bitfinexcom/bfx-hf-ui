@@ -6,7 +6,7 @@ import { getActiveMarket } from '../../redux/selectors/ui'
 
 import DTC from './DTC'
 
-const mapStateToProps = (state = {}, ownProps = {}) => ({
+const mapStateToProps = (state = {}) => ({
   activeMarket: getActiveMarket(state),
 })
 

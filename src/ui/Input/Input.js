@@ -7,9 +7,9 @@ export default class Input extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
 
-  render () {
+  render() {
     const {
-      type, className, onChange, disabled, value, placeholder, label
+      type, className, onChange, disabled, value, placeholder, label,
     } = this.props
 
     return (
@@ -21,7 +21,7 @@ export default class Input extends React.PureComponent {
         <input
           type={type}
           className={className}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={e => onChange(e.target.value)}
           placeholder={placeholder}
           disabled={disabled}
           value={value}
@@ -29,5 +29,4 @@ export default class Input extends React.PureComponent {
       </div>
     )
   }
-
 }

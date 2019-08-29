@@ -3,7 +3,7 @@ import { Order, Notification } from 'bfx-api-node-models'
 import _capitalize from 'lodash/capitalize'
 import BFXDataActions from '../../actions/bfx_data'
 
-export default function * (action = {}) {
+export default function* (action = {}) {
   const { payload = {} } = action
   const { order } = payload
   const o = new Order(order).toJS()

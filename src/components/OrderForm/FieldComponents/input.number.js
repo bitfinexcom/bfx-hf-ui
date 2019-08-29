@@ -4,12 +4,13 @@ import _isFinite from 'lodash/isFinite'
 
 import Input from '../../../ui/Input'
 import { renderString } from '../OrderForm.helpers'
+import { propTypes, defaultProps } from './input.number.props'
 
 export default class NumberInput extends React.PureComponent {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
   static DEFAULT_VALUE = ''
-
   static processValue = v => +v
-
   static validateValue = (v) => {
     return _isFinite(+v)
       ? null
@@ -27,7 +28,8 @@ export default class NumberInput extends React.PureComponent {
       <div className={ClassNames('dtc-orderform__input', {
         disabled,
         invalid: !!validationError,
-      })}>
+      })}
+      >
         <Input
           type='text'
           onChange={onChange}

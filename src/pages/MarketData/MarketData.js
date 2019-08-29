@@ -4,7 +4,7 @@ import GridLayoutPage from '../../components/GridLayoutPage'
 import './style.css'
 
 export default class MarketData extends React.PureComponent {
-  render () {
+  render() {
     return (
       <div className='dtc-marketdatapage__wrapper'>
         <GridLayoutPage

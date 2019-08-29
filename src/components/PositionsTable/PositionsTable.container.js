@@ -8,7 +8,7 @@ import PositionsTable from './PositionsTable'
 
 const debug = Debug('dtc:c:positions-table')
 
-const mapStateToProps = (state = {}, ownProps = {}) => ({})
+const mapStateToProps = (state = {}, ownProps = {}) => ({}) // eslint-disable-line
 
 const mapDispatchToProps = dispatch => ({
   closePosition: (exID, position = {}) => {
@@ -30,7 +30,7 @@ const mapDispatchToProps = dispatch => ({
         debug('closePosition unimplemented for %s', exID)
       }
     }
-  }
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PositionsTable)

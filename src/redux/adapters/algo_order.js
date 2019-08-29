@@ -25,6 +25,6 @@ export default (ao) => {
     createdAt,
     symbol,
     name,
-    label
+    label,
   }
 }

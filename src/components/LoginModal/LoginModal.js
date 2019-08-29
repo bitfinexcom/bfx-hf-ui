@@ -5,26 +5,41 @@ import Input from '../../ui/Input'
 import Button from '../../ui/Button'
 import Checkbox from '../../ui/Checkbox'
 
+import { propTypes, defaultProps } from './LoginModal.props'
 import './style.css'
 
 export default class LoginModal extends React.Component {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
   state = {
     username: '',
     password: '',
     remember: false,
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.onSubmit = this.onSubmit.bind(this)
+    this.onUsernameChange = this.onUsernameChange.bind(this)
+    this.onPasswordChange = this.onPasswordChange.bind(this)
+    this.onRememberChange = this.onRememberChange.bind(this)
   }
 
-  onFieldChange (field, value) {
-    this.setState(() => ({ [field]: value }))
+  onUsernameChange(username) {
+    this.setState(() => ({ username }))
   }
 
-  onSubmit () {
+  onPasswordChange(password) {
+    this.setState(() => ({ password }))
+  }
+
+  onRememberChange(remember) {
+    this.setState(() => ({ remember }))
+  }
+
+  onSubmit() {
     const { onSubmit, onClose } = this.props
     const { username, password, remember } = this.state
 
@@ -32,7 +47,7 @@ export default class LoginModal extends React.Component {
     onClose()
   }
 
-  render () {
+  render() {
     const { onClose, onRegister } = this.props
     const { username, password, remember } = this.state
 
@@ -51,20 +66,20 @@ export default class LoginModal extends React.Component {
           type='text'
           label='Username'
           value={username}
-          onChange={this.onFieldChange.bind(this, 'username')}
+          onChange={this.onUsernameChange}
         />
 
         <Input
           type='password'
           label='Password'
           value={password}
-          onChange={this.onFieldChange.bind(this, 'password')}
+          onChange={this.onPasswordChange}
         />
 
-        <Checkbox 
+        <Checkbox
           label='Remember me'
           value={remember}
-          onChange={this.onFieldChange.bind(this, 'remember')}
+          onChange={this.onRememberChange}
         />
 
         <Button
@@ -74,11 +89,14 @@ export default class LoginModal extends React.Component {
         />
 
         <div className='dtc-loginmodal__footer'>
-          <p>Don't have an account?</p>
-          <p
+          <p>Don&#39;t have an account?</p>
+          <button
+            type='button'
             className='button'
             onClick={onRegister}
-          >Join the waiting list.</p>
+          >
+            Join the waiting list.
+          </button>
         </div>
       </Modal>
     )

@@ -16,7 +16,7 @@ function reducer(state = getInitialState(), action = {}) {
 
       return {
         ...state,
-        [exID]: _keyBy(balances.map(b => balanceAdapter(b, exID)), p => p.currency)
+        [exID]: _keyBy(balances.map(b => balanceAdapter(b, exID)), p => p.currency),
       }
     }
 
@@ -29,7 +29,7 @@ function reducer(state = getInitialState(), action = {}) {
         [exID]: {
           ...(state[exID] || {}),
           [adaptedBalance.currency]: adaptedBalance,
-        }
+        },
       }
     }
 

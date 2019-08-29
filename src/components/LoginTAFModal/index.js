@@ -1,11 +1,14 @@
 import React from 'react'
 
 import Modal from '../../ui/Modal'
-
+import { propTypes, defaultProps } from './LoginTAFModal.props'
 import './style.css'
 
 export default class LoginTAFModal extends React.PureComponent {
-  render () {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
+  render() {
     const { onLogin, onClose } = this.props
 
     return (
@@ -13,7 +16,12 @@ export default class LoginTAFModal extends React.PureComponent {
         className='dtc-pleaselogintafmodal__wrapper'
         onClose={onClose}
       >
-        <p onClick={onLogin}>Login to access this feature</p>
+        <button
+          onClick={onLogin}
+          type='button'
+        >
+          Login to access this feature
+        </button>
       </Modal>
     )
   }

@@ -12,7 +12,6 @@ function reducer(state = getInitialState(), action = {}) {
     case types.DATA_INDICATOR_VALUES: {
       const { exID, tf, results } = payload
 
-
       return {
         ...state,
         [exID]: {
@@ -20,7 +19,7 @@ function reducer(state = getInitialState(), action = {}) {
 
           [tf]: {
             ...((state[exID] || {})[tf] || {}),
-            ..._keyBy(results, r => r[0])
+            ..._keyBy(results, r => r[0]),
           },
         },
       }

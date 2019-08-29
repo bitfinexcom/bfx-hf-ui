@@ -1,12 +1,14 @@
 import React from 'react'
 
 import NavbarButton from '../NavbarButton'
+import { propTypes, defaultProps } from './Navbar.props'
 import './style.css'
 
 export default class Navbar extends React.PureComponent {
-  render () {
-    const { user, onLogin, onRegister, onLogout } = this.props
+  static propTypes = propTypes
+  static defaultProps = defaultProps
 
+  render() {
     return (
       <div className='dtc-navbar__wrapper'>
         <ul className='dtc-navbar__main-links'>
@@ -30,28 +32,6 @@ export default class Navbar extends React.PureComponent {
               label='Strategy Editor'
             />
           </li>
-
-          {user.id ? [
-            <li key='username' className='full-width'>
-              <NavbarButton
-                route='/account'
-                label={[
-                  <p key='username'>Logged in as {user.username}</p>,
-                  <i key='icon' className='fas fa-cog'></i>,
-                ]}
-              />
-            </li>,
-            <li key='logout'>
-              <button onClick={onLogout}>Logout</button>
-            </li>
-          ] : [
-            <li key='login' className='full-width'>
-              <button onClick={onLogin}>Login</button>
-            </li>,
-            <li key='register'>
-              <button onClick={onRegister}>Register</button>
-            </li>
-          ]}
         </ul>
       </div>
     )

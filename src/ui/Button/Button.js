@@ -8,13 +8,14 @@ export default class Button extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
 
-  render () {
+  render() {
     const {
       onClick, label, red, green, blue, gray, className, dataProduct, disabled,
     } = this.props
 
     return (
       <button
+        type='button'
         onClick={disabled ? () => {} : onClick}
         data-product={dataProduct}
         className={ClassNames('dtc-button', className, {
@@ -24,7 +25,9 @@ export default class Button extends React.PureComponent {
           green,
           disabled,
         })}
-      >{label}</button>
+      >
+        {label}
+      </button>
     )
   }
 }

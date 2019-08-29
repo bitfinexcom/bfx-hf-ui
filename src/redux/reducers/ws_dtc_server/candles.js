@@ -11,7 +11,9 @@ const updateKey = ({ exID, symbol, tf }) => {
   return `${exID}:${symbol}:${tf}`
 }
 
-const syncKey = ({ exID, symbol, tf, start, end }) => {
+const syncKey = ({
+  exID, symbol, tf, start, end,
+}) => {
   return `${exID}:${symbol}:${tf}:${start}:${end}`
 }
 
@@ -57,7 +59,7 @@ function reducer(state = getInitialState(), action = {}) {
 
     case t.DATA_CANDLE: {
       const { exID, channel, candle } = payload
-      const [, tf, market ] = channel
+      const [, tf, market] = channel
       const symbol = market.u
       const uKey = updateKey({ exID, symbol, tf })
       const dataKey = marketKey({ symbol, tf })
@@ -77,7 +79,7 @@ function reducer(state = getInitialState(), action = {}) {
             ...(state.data[exID] || {}),
             [dataKey]: {
               ...((state.data[exID] || {})[dataKey] || {}),
-              ...(_keyBy([candle], c => `${c.mts}`))
+              ...(_keyBy([candle], c => `${c.mts}`)),
             },
           },
         },
@@ -135,13 +137,15 @@ function reducer(state = getInitialState(), action = {}) {
           [exID]: {
             ...(state.data[exID] || {}),
             ...exchangeDataPatch,
-          }
-        }
+          },
+        },
       }
     }
 
     case t.DATA_CANDLES: {
-      const { exID, symbol, tf, candles, end } = payload
+      const {
+        exID, symbol, tf, candles, end,
+      } = payload
 
       if (candles.length === 0) {
         return state
@@ -149,7 +153,7 @@ function reducer(state = getInitialState(), action = {}) {
 
       const uKey = updateKey({ exID, symbol, tf })
       const dataKey = marketKey({ symbol, tf })
-      const paddedCandles = [ ...candles ]
+      const paddedCandles = [...candles]
       let lastCandle = _last(paddedCandles)
 
       while (lastCandle.mts < end) {
@@ -181,7 +185,7 @@ function reducer(state = getInitialState(), action = {}) {
             ...(state.data[exID] || {}),
             [dataKey]: {
               ...((state.data[exID] || {})[dataKey] || {}),
-              ...(_keyBy(paddedCandles, c => `${c.mts}`))
+              ...(_keyBy(paddedCandles, c => `${c.mts}`)),
             },
           },
         },

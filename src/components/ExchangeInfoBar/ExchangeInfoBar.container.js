@@ -8,7 +8,7 @@ import { getExchanges, getMarkets } from '../../redux/selectors/meta'
 
 import ExchangeInfoBar from './ExchangeInfoBar'
 
-const mapStateToProps = (state = {}, ownProps = {}) => {
+const mapStateToProps = (state = {}) => {
   const activeExchange = getActiveExchange(state)
   const activeMarket = getActiveMarket(state)
 
@@ -36,7 +36,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(WSDTCActions.removeChannelRequirement(prevExchange, ['ticker', prevMarket]))
     dispatch(UIActions.setActiveExchange(exchange, market))
     dispatch(WSDTCActions.addChannelRequirement(exchange, ['ticker', market]))
-  }
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExchangeInfoBar)

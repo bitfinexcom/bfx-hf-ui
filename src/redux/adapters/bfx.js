@@ -31,9 +31,8 @@ const notificationAdapter = (data = []) => {
       status: data[4].level.toUpperCase(),
       text: data[4].message,
     }
-  } else {
-    return new Notification(data).toJS()
   }
+  return new Notification(data).toJS()
 }
 
 export {

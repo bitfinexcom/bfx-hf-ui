@@ -21,7 +21,7 @@ const mapDispatchToProps = dispatch => ({
 
     debug('cancelling algo order %d', +gid)
     dispatch(WSDTCActions.send(['algo_order.cancel', exID, `${gid}`]))
-  }
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AlgoOrdersTable)

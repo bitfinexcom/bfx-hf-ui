@@ -3,14 +3,14 @@ import _isFinite from 'lodash/isFinite'
 import t from '../constants/ws_dtc_server'
 
 export default {
-  error: (payload) => ({ type: t.ERROR, payload }),
+  error: payload => ({ type: t.ERROR, payload }),
   flushQueue: () => ({ type: t.FLUSH_QUEUE }),
 
-  send: (payload) => ({
+  send: payload => ({
     type: t.BUFF_SEND,
     payload: _isString(payload)
       ? payload
-      : JSON.stringify(payload)
+      : JSON.stringify(payload),
   }),
 
   deauth: () => ({
@@ -24,8 +24,14 @@ export default {
   }) => ({
     type: t.AUTH_SUCCESS,
     payload: {
-      userID, username, userEmail, authToken, apiKeys, subscription,
-      cancelSubscriptionURL, updateBillingURL,
+      userID,
+      username,
+      userEmail,
+      authToken,
+      apiKeys,
+      subscription,
+      cancelSubscriptionURL,
+      updateBillingURL,
     },
   }),
 
@@ -41,25 +47,25 @@ export default {
 
   subscribed: ({ exID, chanID, chanData }) => ({
     type: t.SUBSCRIBED,
-    payload: { exID, chanID, chanData }
+    payload: { exID, chanID, chanData },
   }),
 
   clearChannels: () => ({ type: t.CLEAR_CHANNELS }),
 
   unsubscribed: ({ chanId }) => ({
     type: t.UNSUBSCRIBED,
-    payload: { chanId }
+    payload: { chanId },
   }),
 
   subscribe: (exID, channel) => ({
     type: t.SUBSCRIBE,
-    payload: { exID, channel }
+    payload: { exID, channel },
   }),
 
   unsubscribe: (exID, channelDataOrID) => {
     const action = {
       type: t.UNSUBSCRIBE,
-      payload: { exID }
+      payload: { exID },
     }
 
     if (_isFinite(channelDataOrID)) {
@@ -81,7 +87,7 @@ export default {
     payload: { exID, channel },
   }),
 
-  recvDataExchanges: (exchanges) => ({
+  recvDataExchanges: exchanges => ({
     type: t.DATA_EXCHANGES,
     payload: { exchanges },
   }),
@@ -96,49 +102,61 @@ export default {
     payload: { exID, chanID, data },
   }),
 
-  flushDataFromExchange: (updates) => ({
+  flushDataFromExchange: updates => ({
     type: t.FLUSH_DATA_FROM_EXCHANGE,
     payload: { updates },
   }),
 
   recvDataCandle: (exID, channel, candle) => ({
     type: t.DATA_CANDLE,
-    payload: { exID, channel, candle }
+    payload: { exID, channel, candle },
   }),
 
-  recvDataCandles: ({ exID, symbol, tf, candles, start, end }) => ({
+  recvDataCandles: ({
+    exID, symbol, tf, candles, start, end,
+  }) => ({
     type: t.DATA_CANDLES,
-    payload: { exID, symbol, tf, candles, start, end },
+    payload: {
+      exID, symbol, tf, candles, start, end,
+    },
   }),
 
   recvDataTicker: (exID, channel, ticker) => ({
     type: t.DATA_TICKER,
-    payload: { exID, channel, ticker }
+    payload: { exID, channel, ticker },
   }),
 
   recvDataTrade: (exID, channel, trade) => ({
     type: t.DATA_TRADE,
-    payload: { exID, channel, trade }
+    payload: { exID, channel, trade },
   }),
 
   recvDataTrades: (exID, channel, trades) => ({
     type: t.DATA_TRADES,
-    payload: { exID, channel, trades }
+    payload: { exID, channel, trades },
   }),
 
   recvDataBook: (exID, channel, book) => ({
     type: t.DATA_BOOK,
-    payload: { exID, channel, book }
+    payload: { exID, channel, book },
   }),
 
-  recvDataSyncStart: ({ exID, symbol, tf, start, end }) => ({
+  recvDataSyncStart: ({
+    exID, symbol, tf, start, end,
+  }) => ({
     type: t.DATA_SYNC_START,
-    payload: { exID, symbol, tf, start, end }
+    payload: {
+      exID, symbol, tf, start, end,
+    },
   }),
 
-  recvDataSyncEnd: ({ exID, symbol, tf, start, end }) => ({
+  recvDataSyncEnd: ({
+    exID, symbol, tf, start, end,
+  }) => ({
     type: t.DATA_SYNC_END,
-    payload: { exID, symbol, tf, start, end }
+    payload: {
+      exID, symbol, tf, start, end,
+    },
   }),
 
   recvStrategy: ({ id, strategy }) => ({
@@ -219,5 +237,5 @@ export default {
   recvIndicatorValues: ({ exID, tf, results }) => ({
     type: t.DATA_INDICATOR_VALUES,
     payload: { exID, tf, results },
-  })
+  }),
 }

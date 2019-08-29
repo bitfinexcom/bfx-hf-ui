@@ -4,8 +4,10 @@ export default () => ({
   label: 'Stop-Limit',
   customHelp: 'The Stop-Limit order type differs from the basic Stop order by allowing the specification of an exact price of execution.\n\nOnce the \'stop\' price is reached, a \'Limit\' order is created at the specified limit price.',
 
-  generateOrder: (data = {}, symbol, margin) => {
-    const { tif, price, amount, stopPrice } = data
+  generateOrder: (data = {}, symbol) => {
+    const {
+      tif, price, amount, stopPrice,
+    } = data
 
     return {
       side: amount > 0 ? 'BUY' : 'SELL',
@@ -24,13 +26,13 @@ export default () => ({
     rows: [
       ['price', 'amount'],
       ['stopPrice', null],
-    ]
+    ],
   }, {
     title: '',
     name: 'tif',
     fullWidth: true,
     rows: [
-      ['tif']
+      ['tif'],
     ],
   }],
 
@@ -48,12 +50,12 @@ export default () => ({
 
     price: {
       component: 'input.price',
-      label: 'Stop Price $QUOTE'
+      label: 'Stop Price $QUOTE',
     },
 
     stopPrice: {
       component: 'input.price',
-      label: 'Limit Price $QUOTE'
+      label: 'Limit Price $QUOTE',
     },
 
     amount: {
@@ -62,5 +64,5 @@ export default () => ({
     },
   },
 
-  actions: ['sell', 'buy']
+  actions: ['sell', 'buy'],
 })

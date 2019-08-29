@@ -4,8 +4,8 @@ import _min from 'lodash/min'
 import _max from 'lodash/max'
 import { nonce } from 'bfx-api-node-util'
 
-import GridLayout from '../../components/GridLayout'
-import StatusBar from '../../components/StatusBar'
+import GridLayout from '../GridLayout'
+import StatusBar from '../StatusBar'
 
 import {
   layoutDefToGridLayout,
@@ -13,11 +13,12 @@ import {
 } from './GridLayoutPage.helpers'
 
 import {
-  COMPONENT_DIMENSIONS
-} from '../../components/GridLayout/GridLayout.helpers'
+  COMPONENT_DIMENSIONS,
+} from '../GridLayout/GridLayout.helpers'
 
 import BitfinexOrders from '../../orders/bitfinex'
 import BinanceOrders from '../../orders/binance'
+import { propTypes, defaultProps } from './GridLayoutPage.props'
 
 const orderDefinitions = {
   bitfinex: Object.values(BitfinexOrders).map(uiDef => uiDef()),
@@ -25,11 +26,14 @@ const orderDefinitions = {
 }
 
 export default class GridLayoutPage extends React.Component {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
   state = {
     layoutDirty: false,
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.onSaveLayout = this.onSaveLayout.bind(this)
@@ -48,7 +52,7 @@ export default class GridLayoutPage extends React.Component {
     }
   }
 
-  onLayoutChange (incomingLayout) {
+  onLayoutChange(incomingLayout) {
     const { tradingEnabled } = this.props
     const { layoutDef } = this.state
 
@@ -64,39 +68,20 @@ export default class GridLayoutPage extends React.Component {
         canDelete: layoutDef.canDelete,
         type: tradingEnabled ? 'trading' : 'data',
         layout: incomingLayout,
-      }, layoutDef)
+      }, layoutDef),
     }))
   }
 
-  onSaveLayout () {
+  onSaveLayout() {
     const { saveLayout } = this.props
     const { layoutDef, layoutID } = this.state
 
     saveLayout(layoutDef, layoutID)
-   
+
     this.setState(() => ({ layoutDirty: false }))
   }
 
-  onAddComponentToLayout (component) {
-    /*
-    if (component === 'CHART') {
-      const { user, onUpgrade, onLogin } = this.props
-      const { layout } = this.state
-      const chartsOnLayout = layout.filter(l => l.c === 'CHART').length
-
-      if (!user || !user.id) {
-        return onLogin()
-      }
-
-      if (
-        ((!user.subscription || user.subscription < 1) && chartsOnLayout >= 1) ||
-        (user.subscription === 1 && chartsOnLayout >= 3)
-      ) {
-        return onUpgrade()
-      }
-    }
-    */
-
+  onAddComponentToLayout(component) {
     this.setState(({ layoutDef }) => ({
       layoutDef: {
         ...layoutDef,
@@ -110,13 +95,13 @@ export default class GridLayoutPage extends React.Component {
             x: _min(layoutDef.layout.map(l => l.x)) || 0,
             y: _max(layoutDef.layout.map(l => l.y)) || 0,
             ...COMPONENT_DIMENSIONS[component],
-          }
-        ]
+          },
+        ],
       },
     }))
   }
 
-  onRemoveComponentFromLayout (i) {
+  onRemoveComponentFromLayout(i) {
     this.setState(({ layoutDef }) => {
       const index = layoutDef.layout.findIndex(l => l.i === i)
       const newLayoutDef = { ...layoutDef }
@@ -129,29 +114,8 @@ export default class GridLayoutPage extends React.Component {
     })
   }
 
-  onCreateNewLayout (layoutName) {
-    const {
-      /* layouts, user, */ createLayout, /* onUpgrade, onLogin */
-      tradingEnabled,
-    } = this.props
-
-    /*
-    if (!user || !user.id) {
-      return onLogin()
-    }
-
-    const { subscription } = user
-
-    if (!subscription || subscription < 1) {
-      return onUpgrade()
-    }
-
-    const nLayouts = Object.values(layouts).length
-
-    if (subscription === 1 && nLayouts >= 3) {
-      return onUpgrade()
-    }
-    */
+  onCreateNewLayout(layoutName) {
+    const { createLayout, tradingEnabled } = this.props
 
     createLayout(layoutName, tradingEnabled)
 
@@ -160,12 +124,12 @@ export default class GridLayoutPage extends React.Component {
 
       this.setState(() => ({
         layoutID: layoutName,
-        layoutDef: layouts[layoutName]
+        layoutDef: layouts[layoutName],
       }))
     }, 0)
   }
 
-  onChangeLayout (id) {
+  onChangeLayout(id) {
     const { layouts } = this.props
 
     this.setState(() => ({
@@ -174,7 +138,7 @@ export default class GridLayoutPage extends React.Component {
     }))
   }
 
-  onDeleteLayout (id) {
+  onDeleteLayout(id) {
     const { deleteLayout, layouts, defaultLayoutID } = this.props
     deleteLayout(id)
 
@@ -184,10 +148,10 @@ export default class GridLayoutPage extends React.Component {
     }))
   }
 
-  render () {
+  render() {
     const { layoutDef, layoutID, layoutDirty } = this.state
     const {
-      activeMarket, layouts, onLogin, onUpgrade, tradingEnabled, chartProps,
+      activeMarket, layouts, onLogin, tradingEnabled, chartProps,
       bookProps, tradesProps, ordersProps, orderFormProps,
     } = this.props
 
@@ -196,7 +160,9 @@ export default class GridLayoutPage extends React.Component {
         <GridLayout
           layoutDef={layoutDef}
           layoutID={layoutID}
-          chartProps={({ onLogin, onUpgrade, activeMarket, ...chartProps })}
+          chartProps={({
+            onLogin, activeMarket, ...chartProps,
+          })}
           bookProps={{ canChangeStacked: true, ...bookProps }}
           tradesProps={{ ...tradesProps }}
           ordersProps={({
@@ -206,7 +172,7 @@ export default class GridLayoutPage extends React.Component {
 
           orderFormProps={({
             orders: orderDefinitions,
-            onLogin: onLogin,
+            onLogin,
             ...orderFormProps,
           })}
 
@@ -215,9 +181,9 @@ export default class GridLayoutPage extends React.Component {
         />
 
         <StatusBar
-          layoutNames={Object.keys(layouts).filter((id) => (
-            (layouts[id].type === 'trading' && tradingEnabled) ||
-            (layouts[id].type === 'data' && !tradingEnabled)
+          layoutNames={Object.keys(layouts).filter(id => (
+            (layouts[id].type === 'trading' && tradingEnabled)
+            || (layouts[id].type === 'data' && !tradingEnabled)
           ))}
 
           layoutName={layoutID}
@@ -229,7 +195,6 @@ export default class GridLayoutPage extends React.Component {
           onChangeLayout={this.onChangeLayout}
           onDeleteLayout={this.onDeleteLayout}
           onLogin={onLogin}
-          onUpgrade={onUpgrade}
           allowTradingComponents={tradingEnabled}
         />
       </div>

@@ -12,6 +12,6 @@ export default (candles = []) => {
     data,
     xScale,
     displayXAccessor,
-    xAccessor
+    xAccessor,
   }
 }

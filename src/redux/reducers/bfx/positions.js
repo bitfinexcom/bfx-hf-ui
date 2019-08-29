@@ -22,7 +22,7 @@ function reducer(state = getInitialState(), action = {}) {
 
       return {
         ...state,
-        ..._keyBy([positionAdapter(position)], p => p.symbol)
+        ..._keyBy([positionAdapter(position)], p => p.symbol),
       }
     }
 

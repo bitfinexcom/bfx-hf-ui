@@ -17,7 +17,7 @@ function reducer(state = getInitialState(), action = {}) {
       const nextState = { ...state }
 
       updates.forEach(([channel, data]) => {
-        const { symbol /*, prec, len */ } = channel
+        const { symbol /* , prec, len */ } = channel
 
         // TODO: Key by prec & len as well (currently not in UI)
         if (_isArray(data[0])) { // book snapshot

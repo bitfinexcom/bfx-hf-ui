@@ -6,22 +6,27 @@ import MarketSelect from '../MarketSelect'
 import ExchangeInfoBarItem from './ExchangeInfoBarItem'
 import nearestMarket from '../../util/nearest_market'
 import quotePrefix from '../../util/quote_prefix'
+
+import { propTypes, defaultProps } from './ExchangeInfoBar.props'
 import './style.css'
 
 export default class ExchangeInfoBar extends React.PureComponent {
-  componentDidMount () {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
+  componentDidMount() {
     const { activeExchange, activeMarket, addTickerRequirement } = this.props
     addTickerRequirement(activeExchange, activeMarket)
   }
 
-  render () {
+  render() {
     const {
       onChangeMarket, activeMarket, ticker, exchanges = [], activeExchange,
       onChangeExchange, markets,
     } = this.props
 
     const {
-      lastPrice, dailyChange, dailyChangePerc, high, low, volume
+      lastPrice, dailyChange, dailyChangePerc, high, low, volume,
     } = ticker
 
     const marketsForActiveExchange = markets[activeExchange] || []
@@ -65,25 +70,25 @@ export default class ExchangeInfoBar extends React.PureComponent {
             )}
           />
 
-          <ExchangeInfoBarItem  
+          <ExchangeInfoBarItem
             text
             label='Last Price'
             value={lastPrice || '-'}
             valuePrefix={quotePrefix(activeMarket.q)}
           />
 
-          <ExchangeInfoBarItem  
+          <ExchangeInfoBarItem
             text
             label='24h Change'
             value={dailyChange || '-'}
             valuePrefix={quotePrefix(activeMarket.q)}
-            dataClassName={dailyChange ?
-              dailyChange < 0 ? 'dtc-red' : 'dtc-green'
+            dataClassName={dailyChange
+              ? dailyChange < 0 ? 'dtc-red' : 'dtc-green'
               : ''
             }
           />
 
-          <ExchangeInfoBarItem  
+          <ExchangeInfoBarItem
             text
             label='24h Change %'
             valueSuffix='%'
@@ -94,21 +99,21 @@ export default class ExchangeInfoBar extends React.PureComponent {
             }
           />
 
-          <ExchangeInfoBarItem  
+          <ExchangeInfoBarItem
             text
             label='24h High'
             valuePrefix={quotePrefix(activeMarket.q)}
             value={high || '-'}
           />
 
-          <ExchangeInfoBarItem  
+          <ExchangeInfoBarItem
             text
             label='24h Low'
             valuePrefix={quotePrefix(activeMarket.q)}
             value={low || '-'}
           />
 
-          <ExchangeInfoBarItem  
+          <ExchangeInfoBarItem
             text
             label='24h Volume'
             value={volume || '-'}

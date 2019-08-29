@@ -10,7 +10,7 @@ export default (state, exID, symbol, tf) => {
     return keyExID === exID && keySym === symbol && keyTF === tf
   })
 
-  return syncs.map(syncKey => {
+  return syncs.map((syncKey) => {
     const tokens = syncKey.split(':')
     const [,, start, end] = tokens
 

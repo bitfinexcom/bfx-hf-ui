@@ -3,22 +3,28 @@ import ClassNames from 'classnames'
 
 import RadioButton from '../../../ui/RadioButton'
 import { renderString } from '../OrderForm.helpers'
+import { propTypes, defaultProps } from './input.radio.props'
 
 export default class RadioInput extends React.PureComponent {
-  render () {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
+  render() {
     const {
-      def = {}, renderData, value, onChange, disabled
+      def = {}, renderData, value, onChange, disabled, key,
     } = this.props
 
     const { options } = def
 
     return (
       <div className={ClassNames('dtc-orderform__input', {
-        disabled
-      })}>
+        disabled,
+      })}
+      >
         {options.map(o => (
           <RadioButton
             key={o}
+            id={key}
             label={renderString(o, renderData)}
             value={value === o}
             onChange={() => onChange(o)}

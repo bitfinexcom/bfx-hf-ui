@@ -3,9 +3,13 @@ import ClassNames from 'classnames'
 
 import Dropdown from '../../../ui/Dropdown'
 import { renderString } from '../OrderForm.helpers'
+import { propTypes, defaultProps } from './input.dropdown.props'
 
 export default class DropdownInput extends React.PureComponent {
-  render () {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
+  render() {
     const {
       def = {}, renderData = {}, value, disabled, onChange, validationError,
     } = this.props
@@ -13,10 +17,11 @@ export default class DropdownInput extends React.PureComponent {
     const { label, options } = def
 
     return (
-       <div className={ClassNames('dtc-orderform__input', {
+      <div className={ClassNames('dtc-orderform__input', {
         disabled,
         invalid: !!validationError,
-      })}>
+      })}
+      >
         <Dropdown
           value={value}
           onChange={onChange}

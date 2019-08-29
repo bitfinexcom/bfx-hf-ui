@@ -5,21 +5,23 @@ import StrategyTradesTable from '../../components/StrategyTradesTable'
 import Chart from '../../components/Chart'
 import StatusBar from '../../components/StatusBar'
 import { calcIndicatorValuesForCandles } from '../../components/Chart/helpers'
-
+import { propTypes, defaultProps } from './StrategyEditor.props'
 import './style.css'
 
 export default class StrategyEditorPage extends React.Component {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
   state = {
     results: {},
     indicators: [],
     indicatorData: {},
     currentRange: [],
-    candleDataLength: 0,
     tf: '1m',
     focusMTS: null,
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.onResultsChange = this.onResultsChange.bind(this)
@@ -29,15 +31,15 @@ export default class StrategyEditorPage extends React.Component {
     this.onCurrentTFChange = this.onCurrentTFChange.bind(this)
   }
 
-  onResultsChange (results) {
+  onResultsChange(results) {
     this.setState(() => ({ results }))
   }
 
-  onCurrentRangeChange (currentRange) {
+  onCurrentRangeChange(currentRange) {
     this.setState(() => ({ currentRange }))
   }
 
-  onIndicatorsChange (indicators) {
+  onIndicatorsChange(indicators) {
     const { candleData, activeMarket, activeExchange } = this.props
     const { currentRange, tf } = this.state
     const candleKey = `${tf}:${activeMarket.u}`
@@ -49,7 +51,7 @@ export default class StrategyEditorPage extends React.Component {
 
     const indicatorData = {}
 
-    Object.values(indicators).forEach(i => {
+    Object.values(indicators).forEach((i) => {
       indicatorData[i.key] = calcIndicatorValuesForCandles(i, candles)
     })
 
@@ -57,20 +59,19 @@ export default class StrategyEditorPage extends React.Component {
       tf,
       indicators,
       indicatorData,
-      candleDataLength: candles.length,
     }))
   }
 
-  onCurrentTFChange (tf) {
-    console.log(tf)
+  onCurrentTFChange(tf) {
     this.setState(() => ({ tf }))
 
     setTimeout(() => {
-      this.onIndicatorsChange(this.state.indicators)
+      const { indicators } = this.state
+      this.onIndicatorsChange(indicators)
     }, 0)
   }
 
-  static getDerivedStateFromProps (nextProps, prevState) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     const { candleData, activeMarket, activeExchange } = nextProps
     const { currentRange, tf, indicators } = prevState
 
@@ -87,24 +88,28 @@ export default class StrategyEditorPage extends React.Component {
 
     const indicatorData = {}
 
-    Object.values(indicators).forEach(i => {
+    Object.values(indicators).forEach((i) => {
       indicatorData[i.key] = calcIndicatorValuesForCandles(i, candles)
     })
 
     return { indicatorData }
   }
 
-  onTradeClick (trade) {
+  onTradeClick(trade) {
     const { mts } = trade
 
     this.setState(() => ({
-      focusMTS: mts
+      focusMTS: mts,
     }))
   }
 
-  render () {
-    const { activeExchange, activeMarket, user, onLogin } = this.props
-    const { results = {}, indicators, indicatorData, focusMTS, tf } = this.state
+  render() {
+    const {
+      activeExchange, activeMarket, user, onLogin,
+    } = this.props
+    const {
+      results = {}, indicators, indicatorData, focusMTS, tf,
+    } = this.state
     const { trades = [] } = results
 
     return (
@@ -140,7 +145,7 @@ export default class StrategyEditorPage extends React.Component {
             canChangeExchange={false}
             showMarket={false}
             showExchange={false}
-            disableIndicatorSettings={true}
+            disableIndicatorSettings
 
             onRangeChange={this.onCurrentRangeChange}
             onTFChange={this.onCurrentTFChange}

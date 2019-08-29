@@ -81,11 +81,16 @@ const renderLayoutElement = (layoutID, def = {}, componentProps = {}, onRemoveCo
     ...props,
     layoutID,
     layoutI: i,
-    onRemove: () => onRemoveComponent(i)
+    onRemove: () => onRemoveComponent(i),
   }
 
   if (!C) {
-    return (<p>Unknown component type: {c}</p>)
+    return (
+      <p>
+Unknown component type:
+        {c}
+      </p>
+    )
   }
 
   if (C === Chart && componentProps.chart) {

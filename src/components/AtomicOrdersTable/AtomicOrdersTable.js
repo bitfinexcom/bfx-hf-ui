@@ -1,12 +1,14 @@
 import React from 'react'
 import AtomicOrdersTableColumns from './AtomicOrdersTable.columns'
 
+import { propTypes, defaultProps } from './AtomicOrdersTable.props'
 import Table from '../../ui/Table'
-
 import './style.css'
 
-// TODO: Extract props
 export default class OrdersTable extends React.PureComponent {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
   render() {
     const { exID, orders, cancelOrder } = this.props
 

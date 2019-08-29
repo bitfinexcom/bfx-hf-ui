@@ -36,7 +36,7 @@ export default () => ({
 
   header: {
     component: 'ui.checkbox_group',
-    fields: ['oco', 'hidden', 'postonly', 'tif']
+    fields: ['oco', 'hidden', 'postonly', 'tif'],
   },
 
   sections: [{
@@ -44,28 +44,28 @@ export default () => ({
     name: 'general',
     rows: [
       ['price', 'amount'],
-    ]
+    ],
   }, {
     title: '',
     name: 'tif',
     fullWidth: true,
     rows: [
-      ['tifDate']
+      ['tifDate'],
     ],
 
     visible: {
-      tif: { eq: true }
-    }
+      tif: { eq: true },
+    },
   }, {
     title: '',
     name: 'oco',
     rows: [
-      ['ocoStop', null]
+      ['ocoStop', null],
     ],
 
     visible: {
-      oco: { eq: true }
-    }
+      oco: { eq: true },
+    },
   }],
 
   fields: {
@@ -95,12 +95,12 @@ export default () => ({
 
     price: {
       component: 'input.price',
-      label: 'Price $QUOTE'
+      label: 'Price $QUOTE',
     },
 
     ocoStop: {
       component: 'input.price',
-      label: 'OCO Stop $QUOTE'
+      label: 'OCO Stop $QUOTE',
     },
 
     amount: {
@@ -111,8 +111,8 @@ export default () => ({
     tifDate: {
       component: 'input.date',
       label: 'TIF Date',
-    }
+    },
   },
 
-  actions: ['sell', 'buy']
+  actions: ['sell', 'buy'],
 })

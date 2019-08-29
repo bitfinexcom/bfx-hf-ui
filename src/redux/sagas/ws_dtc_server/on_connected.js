@@ -4,7 +4,7 @@ import BFXDataActions from '../../actions/bfx_data'
 
 let wasConnected = false
 
-export default function * () {
+export default function* () {
   yield put(A.flushQueue())
 
   if (wasConnected) {
@@ -14,7 +14,7 @@ export default function * () {
   yield put(BFXDataActions.notification({
     mts: Date.now(),
     status: 'success',
-    text: 'Successfully connected to websocket server'
+    text: 'Successfully connected to websocket server',
   }))
 
   wasConnected = true

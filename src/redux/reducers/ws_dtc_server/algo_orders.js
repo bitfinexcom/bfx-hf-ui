@@ -20,7 +20,7 @@ export default (state = getInitialState(), action = {}) => {
 
       return {
         ...state,
-        [exID]: _keyBy(aos, ao => `${ao.gid}`)
+        [exID]: _keyBy(aos, ao => `${ao.gid}`),
       }
     }
 
@@ -34,7 +34,7 @@ export default (state = getInitialState(), action = {}) => {
 
         [exID]: {
           ...(state[exID] || {}),
-          ..._keyBy([ao], ao => `${ao.gid}`)
+          ..._keyBy([ao], o => `${o.gid}`),
         },
       }
     }

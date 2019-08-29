@@ -16,7 +16,7 @@ export default (state = getInitialState(), action = {}) => {
 
       return {
         ...state,
-        [exID]: _keyBy(orders.map(orderAdapter), o => o.id)
+        [exID]: _keyBy(orders.map(orderAdapter), o => o.id),
       }
     }
 
@@ -28,7 +28,7 @@ export default (state = getInitialState(), action = {}) => {
 
         [exID]: {
           ...(state[exID] || {}),
-          ..._keyBy([orderAdapter(order)], o => o.id)
+          ..._keyBy([orderAdapter(order)], o => o.id),
         },
       }
     }
@@ -40,7 +40,7 @@ export default (state = getInitialState(), action = {}) => {
 
       return {
         ...state,
-        [exID]: remainingOrders
+        [exID]: remainingOrders,
       }
     }
 
