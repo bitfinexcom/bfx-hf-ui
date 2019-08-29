@@ -34,7 +34,7 @@
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive --importer=node_modules/node-sass-tilde-importer",
     "start-server": "node scripts/start-server.js",
     "start": "REACT_APP_DEV=1 REACT_APP_TV_URL=http://localhost:9999 REACT_APP_WSS_URL=ws://localhost:45000 node scripts/start.js",
-    "build": "REACT_APP_TV_URL=https://localhost:9999 REACT_APP_WSS_URL=wss://localhost:45000 node scripts/build.js",
+    "build": "REACT_APP_TV_URL=http://localhost:9999 REACT_APP_WSS_URL=ws://localhost:45000 node scripts/build.js",
     "dev": "concurrently --kill-others \"npm run start-server\" \"npm run start\"",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
