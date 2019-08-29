@@ -156,7 +156,7 @@ export default class GridLayoutPage extends React.Component {
     } = this.props
 
     return (
-      <div className='dtc-tradingpage__wrapper'>
+      <div className='hfui-tradingpage__wrapper'>
         <GridLayout
           layoutDef={layoutDef}
           layoutID={layoutID}

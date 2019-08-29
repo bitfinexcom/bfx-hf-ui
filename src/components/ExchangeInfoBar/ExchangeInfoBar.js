@@ -32,7 +32,7 @@ export default class ExchangeInfoBar extends React.PureComponent {
     const marketsForActiveExchange = markets[activeExchange] || []
 
     return (
-      <div className='dtc-exchangeinfobar__wrapper'>
+      <div className='hfui-exchangeinfobar__wrapper'>
         <ul>
           <ExchangeInfoBarItem
             label='Exchange'
@@ -83,7 +83,7 @@ export default class ExchangeInfoBar extends React.PureComponent {
             value={dailyChange || '-'}
             valuePrefix={quotePrefix(activeMarket.q)}
             dataClassName={dailyChange
-              ? dailyChange < 0 ? 'dtc-red' : 'dtc-green'
+              ? dailyChange < 0 ? 'hfui-red' : 'hfui-green'
               : ''
             }
           />
@@ -94,7 +94,7 @@ export default class ExchangeInfoBar extends React.PureComponent {
             valueSuffix='%'
             value={dailyChangePerc ? dailyChangePerc * 100 : '-'}
             dataClassName={dailyChangePerc
-              ? dailyChangePerc < 0 ? 'dtc-red' : 'dtc-green'
+              ? dailyChangePerc < 0 ? 'hfui-red' : 'hfui-green'
               : ''
             }
           />

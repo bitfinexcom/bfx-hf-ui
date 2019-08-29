@@ -51,15 +51,15 @@ export default class IndicatorSettingsModal extends React.Component {
 
     return (
       <Modal>
-        <div className='dtc-indicatorsettingsmodal__wrapper'>
+        <div className='hfui-indicatorsettingsmodal__wrapper'>
           <h3>
 Settings:
             {humanLabel}
           </h3>
-          <ul className='dtc-indicatorsettingsmodal__args'>
+          <ul className='hfui-indicatorsettingsmodal__args'>
             {argsDef.map(def => (
               <li key={def.label}>
-                <p className='dtc-indicatorsettingsmodal__args-label'>{def.label}</p>
+                <p className='hfui-indicatorsettingsmodal__args-label'>{def.label}</p>
 
                 <Input
                   type='text'
@@ -68,7 +68,7 @@ Settings:
                 />
 
                 <button
-                  className='dtc-indicatorsettingsmodal__args-reset'
+                  className='hfui-indicatorsettingsmodal__args-reset'
                   onClick={this.onArgReset.bind(this, def)}
                   type='button'
                 >
@@ -78,7 +78,7 @@ Settings:
             ))}
           </ul>
 
-          <ul className='dtc-indicatorsettingsmodal__actions'>
+          <ul className='hfui-indicatorsettingsmodal__actions'>
             <li>
               <i
                 role='button'

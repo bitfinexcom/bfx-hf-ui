@@ -8,7 +8,7 @@ import {
   parseKeyChannelType,
 } from '../../helpers/parse_channel_req_key'
 
-const debug = Debug('dtc:rx:s:ws-dtc-server:on-reconnected')
+const debug = Debug('hfui:rx:s:ws-hfui-server:on-reconnected')
 
 export default function* () {
   const reqs = yield select(getAllChannelRequirements)

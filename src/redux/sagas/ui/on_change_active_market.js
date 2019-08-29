@@ -2,7 +2,7 @@ import { put } from 'redux-saga/effects'
 import Debug from 'debug'
 import MarketActions from '../../actions/market'
 
-const debug = Debug('dtc:rx:s:ui')
+const debug = Debug('hfui:rx:s:ui')
 
 export default function* onChangeActiveMarket(action = {}) {
   const { payload = {} } = action

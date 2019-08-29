@@ -7,7 +7,7 @@ import './style.css'
 export default class UnlockOrderFormModal extends React.PureComponent {
   render() {
     return (
-      <Modal className='dtc-unlockorderformmodal__wrapper'>
+      <Modal className='hfui-unlockorderformmodal__wrapper'>
         <p>Unlock the Order Form to use this component</p>
       </Modal>
     )

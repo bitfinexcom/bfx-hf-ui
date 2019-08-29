@@ -12,9 +12,9 @@ export default class RadioButton extends React.PureComponent {
     } = this.props
 
     return (
-      <div className='pretty p-default p-round dtc-radio-button'>
+      <div className='pretty p-default p-round hfui-radio-button'>
         <input
-          className='dtc-input'
+          className='hfui-input'
           type='radio'
           id={id}
           checked={value}

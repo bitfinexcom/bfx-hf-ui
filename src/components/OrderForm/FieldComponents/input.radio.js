@@ -17,7 +17,7 @@ export default class RadioInput extends React.PureComponent {
     const { options } = def
 
     return (
-      <div className={ClassNames('dtc-orderform__input', {
+      <div className={ClassNames('hfui-orderform__input', {
         disabled,
       })}
       >

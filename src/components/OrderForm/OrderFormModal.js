@@ -14,12 +14,12 @@ export default class OrderFormModal extends React.PureComponent {
     } = this.props
 
     return (
-      <div className={ClassNames('dtc-orderform__modal-wrapper', className)}>
+      <div className={ClassNames('hfui-orderform__modal-wrapper', className)}>
         <Scrollbars>
           <div
             role='button'
             tabIndex={0}
-            className='dtc-orderform__modal-inner fullheight'
+            className='hfui-orderform__modal-inner fullheight'
             onClick={onClick}
           >
             {icon && (<i className={icon} />)}
@@ -28,13 +28,13 @@ export default class OrderFormModal extends React.PureComponent {
             {content && (content)}
 
             {form && (
-              <div className='dtc-orderform__modal-form'>
+              <div className='hfui-orderform__modal-form'>
                 {form}
               </div>
             )}
 
             {buttons && (
-              <div className='dtc-orderform__modal-buttons'>
+              <div className='hfui-orderform__modal-buttons'>
                 {buttons}
               </div>
             )}

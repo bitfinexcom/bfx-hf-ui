@@ -12,9 +12,9 @@ export default class StrategyEditorHelp extends React.PureComponent {
     const { source } = this.props
 
     return (
-      <div className='dtc-strategyeditor__help'>
+      <div className='hfui-strategyeditor__help'>
         <Scrollbars>
-          <div className='dtc-strategyeditor__help-inner'>
+          <div className='hfui-strategyeditor__help-inner'>
             <ReactMarkdown
               source={source}
             />

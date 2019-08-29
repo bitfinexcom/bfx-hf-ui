@@ -6,7 +6,7 @@ import './style.css'
 export default class MarketData extends React.PureComponent {
   render() {
     return (
-      <div className='dtc-marketdatapage__wrapper'>
+      <div className='hfui-marketdatapage__wrapper'>
         <GridLayoutPage
           defaultLayoutID='Default Market Data'
         />

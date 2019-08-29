@@ -16,7 +16,7 @@ export default class MarketSelect extends React.PureComponent {
 
     return (
       <Select
-        className={ClassNames('dtc-marketselect', className)}
+        className={ClassNames('hfui-marketselect', className)}
         onChange={(selection) => {
           onChange(markets.find(m => m.u === selection.value))
         }}

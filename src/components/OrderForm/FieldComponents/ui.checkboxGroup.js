@@ -14,7 +14,7 @@ export default class UICheckboxGroup extends React.PureComponent {
     const { fields } = def
 
     return (
-      <div className='dtc-orderform__checkbox-group'>
+      <div className='hfui-orderform__checkbox-group'>
         {fields.map(fieldName => (
           renderLayoutField({
             onFieldChange,

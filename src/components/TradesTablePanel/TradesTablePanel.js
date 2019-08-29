@@ -188,7 +188,7 @@ export default class TradesTablePanel extends React.Component {
         onRemove={onRemove}
         moveable={moveable}
         removeable={removeable}
-        className='dtc-tradestable__wrapper'
+        className='hfui-tradestable__wrapper'
         headerComponents={[
           showExchange && this.renderExchangeDropdown(),
           showMarket && this.renderMarketDropdown(),

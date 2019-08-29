@@ -17,12 +17,12 @@ export default class Notification extends React.PureComponent {
     const { status, text, mts } = data
 
     return (
-      <li className={ClassNames('dtc-notification', {
+      <li className={ClassNames('hfui-notification', {
         [status.toLowerCase()]: true,
       })}
       >
         <p>{text}</p>
-        <p className='dtc-notification__ts'>{new Date(mts).toLocaleString()}</p>
+        <p className='hfui-notification__ts'>{new Date(mts).toLocaleString()}</p>
       </li>
     )
   }

@@ -5,7 +5,7 @@ import WSDTCActions from '../../redux/actions/ws_dtc_server'
 
 import AtomicOrdersTable from './AtomicOrdersTable'
 
-const debug = Debug('dtc:c:atomic-orders-table')
+const debug = Debug('hfui:c:atomic-orders-table')
 
 const mapStateToProps = (state = {}, ownProps = {}) => {} // eslint-disable-line
 

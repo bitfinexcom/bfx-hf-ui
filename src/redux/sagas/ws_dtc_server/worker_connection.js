@@ -6,7 +6,7 @@ import { getSocket } from '../../selectors/ws_dtc_server'
 
 const WSS_URL = process.env.REACT_APP_WSS_URL
 const CHECK_CONNECTION_EVERY_MS = 10 * 1000
-const debug = Debug('dtc:rx:s:ws-dtc:worker-connection')
+const debug = Debug('hfui:rx:s:ws-hfui:worker-connection')
 
 export default function* () {
   while (true) {

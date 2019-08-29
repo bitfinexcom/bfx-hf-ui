@@ -77,10 +77,10 @@ export default class RegisterModal extends React.Component {
     return (
       <Modal
         fixed
-        className='dtc-registermodal__wrapper'
+        className='hfui-registermodal__wrapper'
         onClose={onClose}
       >
-        <div className='dtc-registermodal__header'>
+        <div className='hfui-registermodal__header'>
           <h3>Register</h3>
           <p>Enter your account details below</p>
         </div>
@@ -123,7 +123,7 @@ export default class RegisterModal extends React.Component {
           <p className='error'>{error}</p>
         )}
 
-        <div className='dtc-registermodal__footer'>
+        <div className='hfui-registermodal__footer'>
           <p>Already have an account?</p>
           <button
             type='button'

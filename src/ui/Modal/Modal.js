@@ -14,11 +14,11 @@ export default class Modal extends React.PureComponent {
 
     return (
       <div
-        className={ClassNames('dtc-modal__wrapper', { fixed })}
+        className={ClassNames('hfui-modal__wrapper', { fixed })}
         onClick={onClose}
       >
         <div
-          className={ClassNames('dtc-modal__content', className)}
+          className={ClassNames('hfui-modal__content', className)}
           onClick={(e) => {
             e.stopPropagation()
             return false

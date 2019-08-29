@@ -4,7 +4,7 @@ import Debug from 'debug'
 import types from '../../constants/bfx_data'
 import { orderAdapter } from '../../adapters/ws_dtc_server'
 
-const debug = Debug('dtc:rx:r:orders')
+const debug = Debug('hfui:rx:r:orders')
 
 function getInitialState() {
   return {}

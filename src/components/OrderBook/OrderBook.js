@@ -31,7 +31,7 @@ export default class OrderBook extends React.PureComponent {
     let buyAmountSum = 0
 
     return (
-      <div className={ClassNames('dtc-orderbook__wrapper', {
+      <div className={ClassNames('hfui-orderbook__wrapper', {
         stacked: stackedView,
       })}
       >
@@ -53,14 +53,14 @@ export default class OrderBook extends React.PureComponent {
                       height: `calc(((100% / ${ob.length + 3}) * 3) - 2px)`,
                     }}
                   >
-                    <div className='dtc-orderbook__pl-container spread'>
-                      <p className='dtc-orderbook__pl-amount' />
+                    <div className='hfui-orderbook__pl-container spread'>
+                      <p className='hfui-orderbook__pl-amount' />
 
-                      <p className='dtc-orderbook__pl-price'>
+                      <p className='hfui-orderbook__pl-price'>
                         {new BigN(`${ob[i - 1][0]}`).minus(new BigN(`${pl[0]}`)).toString(10)}
                       </p>
 
-                      <div className='dtc-orderbook_pl-vol-container noborder' />
+                      <div className='hfui-orderbook_pl-vol-container noborder' />
                     </div>
                   </li>,
                 )
@@ -73,25 +73,25 @@ export default class OrderBook extends React.PureComponent {
                     height: `calc(100% / ${ob.length + 3})`,
                   }}
 
-                  className={ClassNames('dtc-orderbook__pl', {
+                  className={ClassNames('hfui-orderbook__pl', {
                     buy: pl[1] > 0,
                     sell: pl[1] < 0,
                   })}
                 >
-                  <div className='dtc-orderbook__pl-container'>
-                    <p className='dtc-orderbook__pl-amount'>
+                  <div className='hfui-orderbook__pl-container'>
+                    <p className='hfui-orderbook__pl-amount'>
                       {(sumAmounts
                         ? pl[1] < 0 ? remSellAmount : buyAmountSum
                         : pl[1]).toFixed(2)}
                     </p>
 
-                    <p className='dtc-orderbook__pl-price'>
+                    <p className='hfui-orderbook__pl-price'>
                       {new BigN(`${pl[0]}`).toString(10)}
                     </p>
 
-                    <div className='dtc-orderbook_pl-vol-container'>
+                    <div className='hfui-orderbook_pl-vol-container'>
                       <span
-                        className='dtc-orderbook__pl-vol'
+                        className='hfui-orderbook__pl-vol'
                         style={{
                           width: sumAmounts
                             ? pl[1] > 0

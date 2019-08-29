@@ -7,7 +7,7 @@ import onWSOpen from './ws_dtc/on_open'
 import onWSClose from './ws_dtc/on_close'
 import onWSMessage from './ws_dtc/on_message'
 
-const debug = Debug('dtc:rx:m:ws-dtc-server')
+const debug = Debug('hfui:rx:m:ws-hfui-server')
 
 export default () => {
   let socket = null

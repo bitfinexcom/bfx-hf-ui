@@ -435,7 +435,7 @@ export default class OrderForm extends React.Component {
     return (
       <Panel
         label='EXECUTE ORDER'
-        className='dtc_orderform__panel'
+        className='hfui-orderform__panel'
         moveable={moveable}
         removeable={removeable}
         onRemove={onRemove}
@@ -458,13 +458,13 @@ export default class OrderForm extends React.Component {
         )}
 
         footer={[
-          <div className='dtc-orderform__footer-lockstatus' key='lockstatus'>
+          <div className='hfui-orderform__footer-lockstatus' key='lockstatus'>
             <p>{apiClientConnected ? `UNLOCKED FOR ${currentExchange.toUpperCase()}` : 'LOCKED'}</p>
             <i className={`fas fa-${apiClientConnected ? 'unlock' : 'lock'}`} />
           </div>,
 
-          <div className='dtc-orderform__footer-connectionstatus' key='connectionstatus'>
-            <span className={ClassNames('dtc-orderform__footer-statuscircle', {
+          <div className='hfui-orderform__footer-connectionstatus' key='connectionstatus'>
+            <span className={ClassNames('hfui-orderform__footer-statuscircle', {
               green: apiClientConnected,
               yellow: apiClientConnecting,
               red: apiClientDisconnected,
@@ -482,7 +482,7 @@ export default class OrderForm extends React.Component {
           </div>,
         ]}
       >
-        <div className='dtc-orderform__wrapper'>
+        <div className='hfui-orderform__wrapper'>
           {!demoMode && (
             !(user || {}).id ? (
               <LoginModal onClick={onLogin} />
@@ -526,10 +526,10 @@ export default class OrderForm extends React.Component {
           )}
 
           {helpOpen && currentLayout && currentLayout.customHelp && (
-            <div className='dtc-orderform__help-wrapper'>
+            <div className='hfui-orderform__help-wrapper'>
               <Scrollbars>
-                <div className='dtc-orderform__help-inner'>
-                  <p className='dtc-orderform__help-title'>
+                <div className='hfui-orderform__help-inner'>
+                  <p className='hfui-orderform__help-title'>
                     <span className='prefix'>HELP:</span>
                     {currentLayout.label}
                     <i
@@ -539,7 +539,7 @@ export default class OrderForm extends React.Component {
                       className='far fa-times-circle'
                     />
                   </p>
-                  <p className='dtc-orderform__help-content'>
+                  <p className='hfui-orderform__help-content'>
                     {currentLayout.customHelp}
                   </p>
                 </div>
@@ -547,7 +547,7 @@ export default class OrderForm extends React.Component {
             </div>
           )}
 
-          <ul className='dtc-orderform__header'>
+          <ul className='hfui-orderform__header'>
             <li>
               <Dropdown
                 label='Order Type'
@@ -582,7 +582,7 @@ export default class OrderForm extends React.Component {
           })}
 
           {creationError && (
-            <div className='dtc-orderform__creation-error'>
+            <div className='hfui-orderform__creation-error'>
               <p>{creationError}</p>
             </div>
           )}

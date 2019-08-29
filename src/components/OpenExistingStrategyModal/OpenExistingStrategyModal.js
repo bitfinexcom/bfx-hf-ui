@@ -13,7 +13,7 @@ import Dropdown from '../../ui/Dropdown'
 import { propTypes, defaultProps } from './OpenExistingStrategyModal.props'
 import './style.css'
 
-const debug = Debug('dtc:c:open-existing-strategy-modal')
+const debug = Debug('hfui:c:open-existing-strategy-modal')
 
 export default class OpenExistingStrategyModal extends React.Component {
   static propTypes = propTypes
@@ -107,7 +107,7 @@ export default class OpenExistingStrategyModal extends React.Component {
     return (
       <Modal
         onClose={onClose}
-        className='dtc-openexistingstrategymodal__wrapper'
+        className='hfui-openexistingstrategymodal__wrapper'
       >
         <p>Open Strategy</p>
 

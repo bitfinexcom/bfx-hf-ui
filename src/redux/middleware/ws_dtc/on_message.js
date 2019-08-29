@@ -4,7 +4,7 @@ import Debug from 'debug'
 import WSDTCActions from '../../actions/ws_dtc_server'
 import BFXDataActions from '../../actions/bfx_data'
 
-const debug = Debug('dtc:rx:m:ws-dtc-server:msg')
+const debug = Debug('hfui:rx:m:ws-hfui-server:msg')
 
 export default (ws, store) => (e = {}) => {
   const { data = '' } = e

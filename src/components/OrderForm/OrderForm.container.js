@@ -14,7 +14,7 @@ import {
   getComponentState, getActiveExchange, getActiveMarket,
 } from '../../redux/selectors/ui'
 
-const debug = Debug('dtc:c:order-form')
+const debug = Debug('hfui:c:order-form')
 
 const mapStateToProps = (state = {}, ownProps = {}) => {
   const { layoutID, layoutI: id } = ownProps

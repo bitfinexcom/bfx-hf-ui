@@ -9,7 +9,7 @@ import constants from './constants'
 import actions from './actions'
 import selectors from './selectors'
 
-const debug = Debug('dtc:rx')
+const debug = Debug('hfui:rx')
 const sagaMiddleware = createSagaMiddleware()
 
 export const history = createBrowserHistory()

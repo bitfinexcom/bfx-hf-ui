@@ -15,8 +15,8 @@ export default (exID, cancelOrder) => [{
   dataKey: 'amount',
   width: 120,
   cellRenderer: ({ rowData = {} }) => (rowData.amount < 0 // eslint-disable-line
-    ? <span className='dtc-red'>{rowData.amount}</span>
-    : <span className='dtc-green'>{rowData.amount}</span>
+    ? <span className='hfui-red'>{rowData.amount}</span>
+    : <span className='hfui-green'>{rowData.amount}</span>
   ),
 }, {
   label: 'Price',

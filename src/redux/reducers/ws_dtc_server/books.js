@@ -1,7 +1,7 @@
 import Debug from 'debug'
 import t from '../../constants/ws_dtc_server'
 
-const debug = Debug('dtc:rx:r:ws-dtc-server:books')
+const debug = Debug('hfui:rx:r:ws-hfui-server:books')
 const getInitialState = () => {
   return {}
 }

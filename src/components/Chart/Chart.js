@@ -571,7 +571,7 @@ class Chart extends React.Component {
 
     return (
       <Panel
-        className={ClassNames('dtc-chart__wrapper', className)}
+        className={ClassNames('hfui-chart__wrapper', className)}
         moveable={moveable}
         removeable={removeable}
         onRemove={onRemove}

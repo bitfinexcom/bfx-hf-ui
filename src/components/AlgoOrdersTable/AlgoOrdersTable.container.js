@@ -5,7 +5,7 @@ import { getAPIClientState } from '../../redux/selectors/ws_dtc_server'
 import WSDTCActions from '../../redux/actions/ws_dtc_server'
 import AlgoOrdersTable from './AlgoOrdersTable'
 
-const debug = Debug('dtc:c:algo-orders-table')
+const debug = Debug('hfui:c:algo-orders-table')
 
 const mapStateToProps = (state = {}, ownProps = {}) => {
   const { exID } = ownProps

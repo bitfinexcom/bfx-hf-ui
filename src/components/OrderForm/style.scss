@@ -1,9 +1,9 @@
-.dtc-orderform__wrapper {
+.hfui-orderform__wrapper {
   padding: 0 16px 16px 16px;
   min-height: calc(100% - 16px);
   position: relative;
 
-  .dtc-dropdown__button {
+  .hfui-dropdown__button {
     margin-left: 0;
     border: 1px solid #282e58;
     background: #070917;
@@ -25,7 +25,7 @@
     }
   }
 
-  .dtc-dropdown__wrapper {
+  .hfui-dropdown__wrapper {
     width: calc(100% - 16px);
 
     > p {
@@ -39,14 +39,14 @@
   }
 }
 
-.dtc-orderform__upgrade {
+.hfui-orderform__upgrade {
   width: calc(100% + 32px);
   text-align: center;
   background: #060606;
   border-bottom: 1px solid #3c3202;
   margin-left: -16px;
 
-  .dtc-orderform__upgrade_inner {
+  .hfui-orderform__upgrade_inner {
     display: inline-block;
     margin: 0 auto;
     font-size: 12px;
@@ -61,8 +61,8 @@
   }
 }
 
-.dtc_orderform__panel {
-  .dtc-panel__footer {
+.hfui-orderform__panel {
+  .hfui-panel__footer {
     width: calc(100% - 16px);
     background: #131723;
     line-height: 30px;
@@ -73,7 +73,7 @@
     display: flex;
     flex-direction: row;
 
-    .dtc-orderform__footer-lockstatus {
+    .hfui-orderform__footer-lockstatus {
       color: #fcd206;
       width: 100%;
 
@@ -88,7 +88,7 @@
       }
     }
 
-    .dtc-orderform__footer-connectionstatus {
+    .hfui-orderform__footer-connectionstatus {
       text-align: right;
       flex-shrink: 0;
 
@@ -97,7 +97,7 @@
         vertical-align: middle;
       }
 
-      .dtc-orderform__footer-statuscircle {
+      .hfui-orderform__footer-statuscircle {
         width: 8px;
         height: 8px;
         border-radius: 50%;
@@ -116,7 +116,7 @@
   }
 }
 
-.dtc-orderform__label {
+.hfui-orderform__label {
   width: 100%;
   display: block;
   color: #666;
@@ -125,7 +125,7 @@
   text-align: center;
 }
 
-.dtc-orderform__header {
+.hfui-orderform__header {
   display: flex;
   flex-direction: row;
   padding: 16px 0;
@@ -141,22 +141,22 @@
   }
 }
 
-.dtc-orderform__creation-error {
+.hfui-orderform__creation-error {
   margin-top: 16px;
   font-size: 12px;
   color: red;
 }
 
-.dtc-orderform__checkbox-group {
+.hfui-orderform__checkbox-group {
   margin-bottom: 16px;
   text-align: center;
 }
 
-.dtc-orderform__layout {
+.hfui-orderform__layout {
   padding-top: 8px;
 }
 
-.dtc-orderform__layout-section {
+.hfui-orderform__layout-section {
   ul {
     display: flex;
     flex-direction: row;
@@ -179,7 +179,7 @@
       }
     }
 
-    .dtc-input {
+    .hfui-input {
       line-height: 32px;
 
       input {
@@ -192,14 +192,14 @@
         width: 100%;
       }
 
-      .dtc-input input {
+      .hfui-input input {
         max-width: 100%;
       }
     }
   }
 }
 
-.dtc-orderform__layout-section-title {
+.hfui-orderform__layout-section-title {
   text-align: center;
   font-size: 12px;
   margin-bottom: 16px;
@@ -207,16 +207,16 @@
   padding-top: 8px;
 }
 
-.dtc-orderform__layout-header {
+.hfui-orderform__layout-header {
   padding-bottom: 8px;
 }
 
-.dtc-orderform__layout-actions {
+.hfui-orderform__layout-actions {
   display: flex;
   flex-direction: row;
   margin-top: 8px;
 
-  .dtc-button {
+  .hfui-button {
     width: 50%;
 
     &:first-child:last-child {
@@ -233,15 +233,15 @@
   }
 }
 
-.dtc-orderform__checkbox-group {
+.hfui-orderform__checkbox-group {
   font-size: 11px;
 
-  .dtc-orderform__input {
+  .hfui-orderform__input {
     margin-bottom: 0;
   }
 }
 
-.dtc-orderform__input {
+.hfui-orderform__input {
   display: inline-block;
   vertical-align: middle;
   margin: 0 0 16px 0;
@@ -255,7 +255,7 @@
   }
 
   &.invalid {
-    .dtc-input {
+    .hfui-input {
       border-color: red;
     }
 
@@ -276,7 +276,7 @@
     }
   }
 
-  .dtc-orderform__input-label {
+  .hfui-orderform__input-label {
     color: #666;
     font-size: 11px;
     line-height: 16px;
@@ -284,7 +284,7 @@
     flex-shrink: 0;
   }
 
-  .dtc-orderform__input-error-label {
+  .hfui-orderform__input-error-label {
     font-size: 11px;
     margin-bottom: 8px;
   }
@@ -321,12 +321,12 @@
     }
   }
 
-  .dtc-dropdown__wrapper {
+  .hfui-dropdown__wrapper {
     width: 100%;
   }
 }
 
-.dtc-orderform__help-wrapper {
+.hfui-orderform__help-wrapper {
   position: absolute;
   top: 0;
   left: 0;
@@ -339,15 +339,15 @@
   width: 100%;
   user-select: none;
 
-  .dtc-orderform__help-inner {
+  .hfui-orderform__help-inner {
     padding: 0 16px;
   }
 
-  .dtc-orderform__help-content {
+  .hfui-orderform__help-content {
     font-size: 12px;
   }
 
-  .dtc-orderform__help-title {
+  .hfui-orderform__help-title {
     margin-bottom: 8px;
     padding-bottom: 4px;
     font-size: 14px;
@@ -371,7 +371,7 @@
   }
 }
 
-.dtc-orderform__modal-wrapper {
+.hfui-orderform__modal-wrapper {
   position: absolute;
   top: 0;
   left: 0;
@@ -407,11 +407,11 @@
     text-align: center;
   }
 
-  .dtc-input {
+  .hfui-input {
     margin-bottom: 8px;
   }
 
-  .dtc-orderform__modal-form {
+  .hfui-orderform__modal-form {
     margin: 32px 0 !important;
 
     .error {
@@ -421,8 +421,8 @@
     }
   }
 
-  .dtc-orderform__modal-buttons {
-    .dtc-button {
+  .hfui-orderform__modal-buttons {
+    .hfui-button {
       margin-right: 16px;
 
       &:last-child {
@@ -431,7 +431,7 @@
     }
   }
 
-  .dtc-orderform__modal-inner {
+  .hfui-orderform__modal-inner {
     display: flex;
     flex-direction: column;
     justify-content: center;

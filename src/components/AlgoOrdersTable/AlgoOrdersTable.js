@@ -12,11 +12,11 @@ export default class AlgoOrdersTable extends React.PureComponent {
     const { cancelOrder, orders, apiClientState } = this.props
 
     return (
-      <ul className='dtc-ao-list__wrapper'>
+      <ul className='hfui-ao-list__wrapper'>
         {orders.map(ao => (
-          <li key={ao.gid} className='dtc-ao-list__entry'>
+          <li key={ao.gid} className='hfui-ao-list__entry'>
             {apiClientState === 2 && (
-              <ul className='dtc-ao-list__entry-controls'>
+              <ul className='hfui-ao-list__entry-controls'>
                 <li>
                   <i
                     role='button'
@@ -29,38 +29,38 @@ export default class AlgoOrdersTable extends React.PureComponent {
               </ul>
             )}
 
-            <div className='dtc-ao-list__entry-row-status green' />
+            <div className='hfui-ao-list__entry-row-status green' />
 
-            <div className='dtc-ao-list__entry-row'>
-              <div className='dtc-ao-list__entry-row-elm'>
-                <p className='dtc-ao-list__entry-row-elm-value'>{ao.name}</p>
-                <p className='dtc-ao-list__entry-row-elm-label'>Name</p>
+            <div className='hfui-ao-list__entry-row'>
+              <div className='hfui-ao-list__entry-row-elm'>
+                <p className='hfui-ao-list__entry-row-elm-value'>{ao.name}</p>
+                <p className='hfui-ao-list__entry-row-elm-label'>Name</p>
               </div>
 
-              <div className='dtc-ao-list__entry-row-elm'>
-                <p className='dtc-ao-list__entry-row-elm-value'>{_capitalize(ao.exID)}</p>
-                <p className='dtc-ao-list__entry-row-elm-label'>Exchange</p>
+              <div className='hfui-ao-list__entry-row-elm'>
+                <p className='hfui-ao-list__entry-row-elm-value'>{_capitalize(ao.exID)}</p>
+                <p className='hfui-ao-list__entry-row-elm-label'>Exchange</p>
               </div>
 
-              <div className='dtc-ao-list__entry-row-elm'>
-                <p className='dtc-ao-list__entry-row-elm-value'>{ao.args._margin ? 'Margin' : 'Exchange'}</p>
-                <p className='dtc-ao-list__entry-row-elm-label'>Context</p>
+              <div className='hfui-ao-list__entry-row-elm'>
+                <p className='hfui-ao-list__entry-row-elm-value'>{ao.args._margin ? 'Margin' : 'Exchange'}</p>
+                <p className='hfui-ao-list__entry-row-elm-label'>Context</p>
               </div>
 
-              <div className='dtc-ao-list__entry-row-elm'>
-                <p className='dtc-ao-list__entry-row-elm-value'>{new Date(+ao.gid).toLocaleString()}</p>
-                <p className='dtc-ao-list__entry-row-elm-label'>Created</p>
+              <div className='hfui-ao-list__entry-row-elm'>
+                <p className='hfui-ao-list__entry-row-elm-value'>{new Date(+ao.gid).toLocaleString()}</p>
+                <p className='hfui-ao-list__entry-row-elm-label'>Created</p>
               </div>
             </div>
 
-            <div className='dtc-ao-list__entry-row'>
-              <div className='dtc-ao-list__entry-row-elm'>
-                <p className='dtc-ao-list__entry-row-elm-value'>{ao.args.symbol}</p>
-                <p className='dtc-ao-list__entry-row-elm-label'>Symbol</p>
+            <div className='hfui-ao-list__entry-row'>
+              <div className='hfui-ao-list__entry-row-elm'>
+                <p className='hfui-ao-list__entry-row-elm-value'>{ao.args.symbol}</p>
+                <p className='hfui-ao-list__entry-row-elm-label'>Symbol</p>
               </div>
-              <div className='dtc-ao-list__entry-row-elm'>
-                <p className='dtc-ao-list__entry-row-elm-value'>{ao.label}</p>
-                <p className='dtc-ao-list__entry-row-elm-label'>Label</p>
+              <div className='hfui-ao-list__entry-row-elm'>
+                <p className='hfui-ao-list__entry-row-elm-value'>{ao.label}</p>
+                <p className='hfui-ao-list__entry-row-elm-label'>Label</p>
               </div>
             </div>
           </li>

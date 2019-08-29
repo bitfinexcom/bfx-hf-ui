@@ -23,19 +23,19 @@ export default class Panel extends React.PureComponent {
     if (footer) heightOffsetPX += 33
 
     return (
-      <div className={ClassNames('dtc-panel', className)}>
-        <div className='dtc-panel__header'>
-          {label && <p className='dtc-panel__label'>{label}</p>}
+      <div className={ClassNames('hfui-panel', className)}>
+        <div className='hfui-panel__header'>
+          {label && <p className='hfui-panel__label'>{label}</p>}
 
           {tabs && (
-            <ul className='dtc-panel__header-tabs'>
+            <ul className='hfui-panel__header-tabs'>
               {tabs.map(tab => (
                 <li
                   key={tab.id}
                   className={ClassNames({ active: tab.id === activeTab })}
                   onClick={() => onChangeTab(tab.id)}
                 >
-                  <p className='dtc-panel__label'>
+                  <p className='hfui-panel__label'>
                     {tab.label}
                     {' '}
                     {tab.suffix}
@@ -46,13 +46,13 @@ export default class Panel extends React.PureComponent {
           )}
 
           {headerComponents && (
-            <div className='dtc-panel__header-components'>
+            <div className='hfui-panel__header-components'>
               {headerComponents}
             </div>
           )}
 
           {!hideIcons && (
-            <div className='dtc-panel__header-icons'>
+            <div className='hfui-panel__header-icons'>
               {removeable && (
                 <i onClick={onRemove} className='far fa-times-circle' />
               )}
@@ -74,7 +74,7 @@ export default class Panel extends React.PureComponent {
         </div>
 
         <div
-          className='dtc-panel__content'
+          className='hfui-panel__content'
           style={{
             height: `calc(100% - ${heightOffsetPX}px)`,
           }}
@@ -83,11 +83,11 @@ export default class Panel extends React.PureComponent {
 
           <Scrollbars
             renderTrackVertical={props => (
-              <div {...props} className='dtc-scrollbars-track-vertical' />
+              <div {...props} className='hfui-scrollbars-track-vertical' />
             )}
 
             renderThumbVertical={props => (
-              <div {...props} className='dtc-scrollbars-thumb-vertical' />
+              <div {...props} className='hfui-scrollbars-thumb-vertical' />
             )}
           >
             {children}
@@ -95,7 +95,7 @@ export default class Panel extends React.PureComponent {
         </div>
 
         {footer && (
-          <div className='dtc-panel__footer'>{footer}</div>
+          <div className='hfui-panel__footer'>{footer}</div>
         )}
       </div>
     )

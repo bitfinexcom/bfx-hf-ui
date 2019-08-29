@@ -156,12 +156,12 @@ export default class TradingStatePanel extends React.Component {
 
         activeTab={activeTab}
         onChangeTab={this.onChangeTab}
-        className='dtc-tradingstatepanel__wrapper'
+        className='hfui-tradingstatepanel__wrapper'
         headerComponents={[(
           <div
             key='filter-market'
             onClick={this.onToggleMarketFilter}
-            className={ClassNames('dtc-tspanel-header-button', {
+            className={ClassNames('hfui-tspanel-header-button', {
               active: marketFilterActive,
             })}
           >
@@ -172,7 +172,7 @@ export default class TradingStatePanel extends React.Component {
           <div
             key='filter-exchange'
             onClick={this.onToggleExchangeFilter}
-            className={ClassNames('dtc-tspanel-header-button', {
+            className={ClassNames('hfui-tspanel-header-button', {
               active: exchangeFilterActive,
             })}
           >

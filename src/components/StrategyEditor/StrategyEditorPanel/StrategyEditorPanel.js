@@ -19,7 +19,7 @@ export default class StrategyEditorPanel extends React.PureComponent {
     return (
       <Panel
         label='STRATEGY EDITOR'
-        className='dtc-strategyeditor__panel'
+        className='hfui-strategyeditor__panel'
         onRemove={onRemove}
         moveable={moveable}
         removeable={removeable}
@@ -37,7 +37,7 @@ export default class StrategyEditorPanel extends React.PureComponent {
         ]}
 
         headerComponents={(
-          <div className='dtc-strategyeditor__header'>
+          <div className='hfui-strategyeditor__header'>
             {authenticated && (
               <i
                 className='far fa-folder-open'

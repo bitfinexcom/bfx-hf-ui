@@ -162,7 +162,7 @@ const renderLayoutActions = ({ layout = {}, onSubmit }) => { // eslint-disable-l
   const { actions = [] } = layout
 
   return (
-    <div key='of-actions' className='dtc-orderform__layout-actions'>
+    <div key='of-actions' className='hfui-orderform__layout-actions'>
       {actions.filter(action => action !== 'preview').map(action => (
         <Button
           key={action}
@@ -221,12 +221,12 @@ const renderLayoutSection = ({
   return (
     <div
       key={name}
-      className={ClassNames('dtc-orderform__layout-section', {
+      className={ClassNames('hfui-orderform__layout-section', {
         fullWidth,
       })}
     >
       {title && (
-        <p className='dtc-orderform__layout-section-title'>{title}</p>
+        <p className='hfui-orderform__layout-section-title'>{title}</p>
       )}
 
       <ul>
@@ -284,7 +284,7 @@ const renderLayout = ({
     } else {
       html.push((
         <div
-          className='dtc-orderform__layout-header'
+          className='hfui-orderform__layout-header'
           key='header-component'
         >
           {renderLayoutComponent({ // TODO: Handle field change for header
@@ -323,7 +323,7 @@ const renderLayout = ({
   html.push(renderLayoutActions({ layout, onSubmit }))
 
   return (
-    <div className='dtc-orderform__layout'>
+    <div className='hfui-orderform__layout'>
       {html}
     </div>
   )

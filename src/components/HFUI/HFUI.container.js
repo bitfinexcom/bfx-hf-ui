@@ -4,7 +4,7 @@ import WSDTCActions from '../../redux/actions/ws_dtc_server'
 import UIActions from '../../redux/actions/ui'
 import { getActiveMarket } from '../../redux/selectors/ui'
 
-import DTC from './DTC'
+import HFUI from './HFUI'
 
 const mapStateToProps = (state = {}) => ({
   activeMarket: getActiveMarket(state),
@@ -28,4 +28,4 @@ const mapDispatchToProps = dispatch => ({
   },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(DTC)
+export default connect(mapStateToProps, mapDispatchToProps)(HFUI)

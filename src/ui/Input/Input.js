@@ -13,7 +13,7 @@ export default class Input extends React.PureComponent {
     } = this.props
 
     return (
-      <div className='dtc-input'>
+      <div className='hfui-input'>
         {label && (
           <p>{label}</p>
         )}

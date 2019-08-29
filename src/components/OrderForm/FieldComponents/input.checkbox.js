@@ -18,7 +18,7 @@ export default class CheckboxInput extends React.PureComponent {
     const { label } = def
 
     return (
-      <div className={ClassNames('dtc-orderform__input inline', {
+      <div className={ClassNames('hfui-orderform__input inline', {
         disabled,
       })}
       >

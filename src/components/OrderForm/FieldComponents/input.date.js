@@ -28,9 +28,9 @@ export default class DateInput extends React.PureComponent {
     const { label } = def
 
     return (
-      <div className='dtc-orderform__input fullWidth'>
+      <div className='hfui-orderform__input fullWidth'>
         <DatePicker
-          className='dtc-input'
+          className='hfui-input'
           popperPlacement='bottom-start'
           dateFormat='MMMM d, yyyy h:mm aa'
           timeCaption='Time'
@@ -42,12 +42,12 @@ export default class DateInput extends React.PureComponent {
           onChange={onChange}
         />
 
-        <p className='dtc-orderform__input-label'>
+        <p className='hfui-orderform__input-label'>
           {renderString(label, renderData)}
         </p>
 
         {validationError && (
-          <p className='dtc-orderform__input-error-label'>
+          <p className='hfui-orderform__input-error-label'>
             {validationError}
           </p>
         )}

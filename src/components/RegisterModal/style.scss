@@ -1,4 +1,4 @@
-.dtc-registermodal__wrapper {
+.hfui-registermodal__wrapper {
   display: flex;
   flex-direction: column;
 
@@ -16,7 +16,7 @@
   }
 }
 
-.dtc-registermodal__header {
+.hfui-registermodal__header {
   > * {
     display: inline-block;
     vertical-align: middle;
@@ -30,7 +30,7 @@
   }
 }
 
-.dtc-registermodal__footer {
+.hfui-registermodal__footer {
   font-size: 12px;
 
   > * {

@@ -57,7 +57,7 @@ export default class CreateNewStrategyModal extends React.Component {
     return (
       <Modal
         onClose={onClose}
-        className='dtc-createnewstrategymodal__wrapper'
+        className='hfui-createnewstrategymodal__wrapper'
       >
         <p>Create a new Strategy</p>
         <p className='notice'>Your strategy will be encrypted with a password before being sent to the server</p>

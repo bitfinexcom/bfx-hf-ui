@@ -42,15 +42,15 @@ class Dropdown extends React.Component {
     } = this.props
 
     return (
-      <div className='dtc-dropdown__wrapper'>
+      <div className='hfui-dropdown__wrapper'>
         {label && (
           <p>{label}</p>
         )}
 
-        <div className='dtc-dropdown__button-wrapper'>
+        <div className='hfui-dropdown__button-wrapper'>
           <div
             onClick={disabled ? () => {} : this.onToggleOpen}
-            className={ClassNames('dtc-dropdown__button', {
+            className={ClassNames('hfui-dropdown__button', {
               yellow: open || highlight,
               disabled,
             })}

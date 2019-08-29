@@ -1,4 +1,4 @@
-.dtc-orderstable__wrapper {
+.hfui-orderstable__wrapper {
   color: #666;
   padding: 8px 8px 0 8px;
   overflow: hidden;
@@ -8,7 +8,7 @@
     margin-bottom: 2px;
   }
 
-  .dtc-orderstable__header {
+  .hfui-orderstable__header {
     border-bottom: 1px solid #666;
     padding-bottom: 2px;
     margin-bottom: 2px;
@@ -36,11 +36,11 @@
       }
     }
 
-    &.buy .dtc-orderstable__amount {
+    &.buy .hfui-orderstable__amount {
       color: green;
     }
 
-    &.sell .dtc-orderstable__amount {
+    &.sell .hfui-orderstable__amount {
       color: red;
     }
   }

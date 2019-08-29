@@ -18,7 +18,7 @@ export default class Button extends React.PureComponent {
         type='button'
         onClick={disabled ? () => {} : onClick}
         data-product={dataProduct}
-        className={ClassNames('dtc-button', className, {
+        className={ClassNames('hfui-button', className, {
           red,
           blue,
           gray,

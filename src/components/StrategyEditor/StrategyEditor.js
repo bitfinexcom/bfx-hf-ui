@@ -29,7 +29,7 @@ import './style.css'
 
 const generalHelp = raw('./help/general.md')
 
-const debug = Debug('dtc-ui:c:strategy-editor')
+const debug = Debug('hfui-ui:c:strategy-editor')
 const STRATEGY_SECTIONS = [
   'defineIndicators',
   'onPriceUpdate',
@@ -418,7 +418,7 @@ export default class StrategyEditor extends React.PureComponent {
     } = this.state
 
     return (
-      <div className='dtc-strategyeditor__empty-content'>
+      <div className='hfui-strategyeditor__empty-content'>
         <div>
           <p
             className='button'
@@ -498,7 +498,7 @@ open
     engine.setDiagramModel(model)
 
     return this.renderPanel(
-      <div className='dtc-strategyeditor__wrapper'>
+      <div className='hfui-strategyeditor__wrapper'>
         {helpOpen && <StrategyEditorHelp source={generalHelp} />}
 
         {createNewStrategyModalOpen && (
@@ -529,7 +529,7 @@ open
           )
         )}
 
-        <ul className='dtc-strategyeditor__func-select'>
+        <ul className='hfui-strategyeditor__func-select'>
           {STRATEGY_SECTIONS.map(section => (
             <li
               key={section}
@@ -552,9 +552,9 @@ open
           ))}
         </ul>
 
-        <div className='dtc-strategyeditor__content-wrapper'>
+        <div className='hfui-strategyeditor__content-wrapper'>
           <div
-            className={ClassNames('dtc-strategyeditor__editor-wrapper', {
+            className={ClassNames('hfui-strategyeditor__editor-wrapper', {
               noresults: !renderResults,
               maximised: editorMaximised,
             })}
@@ -579,7 +579,7 @@ open
             */}
 
             {execError || sectionErrors[activeContent] ? (
-              <div className='dtc-strategyeditor__editor-error-output'>
+              <div className='hfui-strategyeditor__editor-error-output'>
                 <i
                   className='fas fa-times-circle'
                   onClick={this.onClearError}
@@ -591,7 +591,7 @@ open
           </div>
 
           {renderResults && (
-            <div className='dtc-strategyeditor__results-outer'>
+            <div className='hfui-strategyeditor__results-outer'>
               <Results
                 results={results}
                 execRunning={execRunning}

@@ -17,9 +17,9 @@ export default class Select extends React.PureComponent {
 
     return (
       <RSelect
-        className={ClassNames('dtc-select', className)}
+        className={ClassNames('hfui-select', className)}
         isDisabled={disabled || isDisabled}
-        classNamePrefix='dtc-select'
+        classNamePrefix='hfui-select'
         onChange={onChange}
         value={value}
         options={options}

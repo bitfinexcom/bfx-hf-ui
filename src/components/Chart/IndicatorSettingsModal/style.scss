@@ -1,4 +1,4 @@
-.dtc-indicatorsettingsmodal__wrapper {
+.hfui-indicatorsettingsmodal__wrapper {
   padding: 8px;
 
   h3 {
@@ -10,7 +10,7 @@
   }
 
   ul {
-    &.dtc-indicatorsettingsmodal__args li {
+    &.hfui-indicatorsettingsmodal__args li {
       margin-bottom: 8px;
 
       &:last-child {
@@ -21,16 +21,16 @@
     li {
       font-size: 12px;
 
-      .dtc-indicatorsettingsmodal__args-label {
+      .hfui-indicatorsettingsmodal__args-label {
         width: 100px;
         text-align: right;
       }
 
-      .dtc-indicatorsettingsmodal__args-label, .dtc-input {
+      .hfui-indicatorsettingsmodal__args-label, .hfui-input {
         margin-right: 8px;
       }
 
-      .dtc-indicatorsettingsmodal__args-reset {
+      .hfui-indicatorsettingsmodal__args-reset {
         color: #fcd206;
 
         &:hover {
@@ -46,7 +46,7 @@
     }
   }
 
-  .dtc-indicatorsettingsmodal__actions {
+  .hfui-indicatorsettingsmodal__actions {
     margin-top: 8px;
     text-align: right;
 

@@ -12,8 +12,8 @@ export default [{
   dataKey: 'amount',
   width: 120,
   cellRenderer: ({ rowData = {} }) => (rowData.amount < 0 // eslint-disable-line
-    ? <span className='dtc-red'>{prepareAmount(rowData.amount)}</span>
-    : <span className='dtc-green'>{prepareAmount(rowData.amount)}</span>
+    ? <span className='hfui-red'>{prepareAmount(rowData.amount)}</span>
+    : <span className='hfui-green'>{prepareAmount(rowData.amount)}</span>
   ),
 }, {
   label: 'Time',

@@ -10,8 +10,8 @@ export default class Navbar extends React.PureComponent {
 
   render() {
     return (
-      <div className='dtc-navbar__wrapper'>
-        <ul className='dtc-navbar__main-links'>
+      <div className='hfui-navbar__wrapper'>
+        <ul className='hfui-navbar__main-links'>
           <li>
             <NavbarButton
               route='/'

@@ -16,7 +16,7 @@ export default class NavbarButton extends React.PureComponent {
     return (
       <button
         type='button'
-        className={ClassNames('dtc-navbarbutton', { active: currentRoute === route })}
+        className={ClassNames('hfui-navbarbutton', { active: currentRoute === route })}
         onClick={route === currentRoute ? () => {} : () => navigate(route)}
       >
         {label}

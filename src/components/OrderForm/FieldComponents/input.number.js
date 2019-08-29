@@ -25,7 +25,7 @@ export default class NumberInput extends React.PureComponent {
     const { label } = def
 
     return (
-      <div className={ClassNames('dtc-orderform__input', {
+      <div className={ClassNames('hfui-orderform__input', {
         disabled,
         invalid: !!validationError,
       })}
@@ -37,12 +37,12 @@ export default class NumberInput extends React.PureComponent {
           value={value}
         />
 
-        <p className='dtc-orderform__input-label'>
+        <p className='hfui-orderform__input-label'>
           {renderString(label, renderData)}
         </p>
 
         {validationError && (
-          <p className='dtc-orderform__input-error-label'>
+          <p className='hfui-orderform__input-error-label'>
             {validationError}
           </p>
         )}

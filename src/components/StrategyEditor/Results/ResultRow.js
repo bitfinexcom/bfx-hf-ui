@@ -10,8 +10,8 @@ export default class ResultRow extends React.PureComponent {
 
     return (
       <li>
-        <p className='dtc-strategyeditor__results-label'>{label}</p>
-        <p className='dtc-strategyeditor__results-value'>{value}</p>
+        <p className='hfui-strategyeditor__results-label'>{label}</p>
+        <p className='hfui-strategyeditor__results-value'>{value}</p>
       </li>
     )
   }

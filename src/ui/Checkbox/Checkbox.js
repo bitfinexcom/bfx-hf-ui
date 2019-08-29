@@ -12,9 +12,9 @@ export default class Checkbox extends React.PureComponent {
     } = this.props
 
     return (
-      <div className='dtc-checkbox pretty p-default'>
+      <div className='hfui-checkbox pretty p-default'>
         <input
-          className='dtc-input'
+          className='hfui-input'
           type='checkbox'
           checked={value}
           onChange={e => onChange(e.target.checked)}

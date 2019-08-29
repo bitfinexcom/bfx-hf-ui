@@ -19,7 +19,7 @@ export default class SettingsTextOverlay extends React.PureComponent {
       <g>
         <g
           transform={`translate(${x}, ${y})`}
-          className='dtc-chart__settings-text-overlay'
+          className='hfui-chart__settings-text-overlay'
         >
           <text
             fontFamily='Helvetica Neue, Helvetica, Arial, sans-serif'

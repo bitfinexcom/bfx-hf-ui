@@ -6,7 +6,7 @@ import BFXOrders from '../../orders/bitfinex'
 import WSDTCActions from '../../redux/actions/ws_dtc_server'
 import PositionsTable from './PositionsTable'
 
-const debug = Debug('dtc:c:positions-table')
+const debug = Debug('hfui:c:positions-table')
 
 const mapStateToProps = (state = {}, ownProps = {}) => ({}) // eslint-disable-line
 

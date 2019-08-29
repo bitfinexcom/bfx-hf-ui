@@ -1,10 +1,10 @@
-.dtc-strategyeditor__wrapper {
+.hfui-strategyeditor__wrapper {
   display: flex;
   flex-direction: row;
   height: 100%;
 }
 
-.dtc-strategyeditor__editor-wrapper {
+.hfui-strategyeditor__editor-wrapper {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -36,7 +36,7 @@
   }
 }
 
-.dtc-strategyeditor__editor-error-output {
+.hfui-strategyeditor__editor-error-output {
   font-family: monospace;
   padding: 0 16px;
   background: #161a2f;
@@ -65,7 +65,7 @@
   }
 }
 
-.dtc-strategyeditor__func-select {
+.hfui-strategyeditor__func-select {
   width: 150px;
   min-width: 150px;
   font-size: 12px;
@@ -107,7 +107,7 @@
   }
 }
 
-.dtc-strategyeditor__header {
+.hfui-strategyeditor__header {
   margin-left: 16px;
   flex-shrink: 0;
   user-select: none;
@@ -160,19 +160,19 @@
   }
 }
 
-.dtc-strategyeditor__content-wrapper {
+.hfui-strategyeditor__content-wrapper {
   width: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.dtc-strategyeditor__results-outer {
+.hfui-strategyeditor__results-outer {
   display: flex;
   flex-direction: row;
   height: 42%;
 }
 
-.dtc-strategyeditor__header-label {
+.hfui-strategyeditor__header-label {
   border: none !important;
   margin: 0;
   padding: 0;

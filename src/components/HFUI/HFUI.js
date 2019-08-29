@@ -11,10 +11,10 @@ import RegisterModal from '../RegisterModal'
 import ExchangeInfoBar from '../ExchangeInfoBar'
 import NotificationsSidebar from '../NotificationsSidebar'
 
-import { propTypes, defaultProps } from './DTC.props'
+import { propTypes, defaultProps } from './HFUI.props'
 import './style.css'
 
-export default class DTC extends React.Component {
+export default class HFUI extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
 
@@ -68,7 +68,7 @@ export default class DTC extends React.Component {
     const { activeMarket } = this.props
 
     return (
-      <div className='dtc-app'>
+      <div className='hfui-app'>
         <Navbar
           onLogin={this.onToggleLoginModal}
           onRegister={this.onToggleRegisterModal}

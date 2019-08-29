@@ -13,7 +13,7 @@ export default class LoginTAFModal extends React.PureComponent {
 
     return (
       <Modal
-        className='dtc-pleaselogintafmodal__wrapper'
+        className='hfui-pleaselogintafmodal__wrapper'
         onClose={onClose}
       >
         <button

@@ -10,7 +10,7 @@ import { getActiveMarket, getActiveExchange } from '../../redux/selectors/ui'
 
 import StrategyEditor from './StrategyEditor'
 
-const debug = Debug('dtc:c:strategy-editor:container')
+const debug = Debug('hfui:c:strategy-editor:container')
 const mapStateToProps = (state = {}) => ({
   activeExchange: getActiveExchange(state),
   activeMarket: getActiveMarket(state),

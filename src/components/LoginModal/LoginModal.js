@@ -54,10 +54,10 @@ export default class LoginModal extends React.Component {
     return (
       <Modal
         fixed
-        className='dtc-loginmodal__wrapper'
+        className='hfui-loginmodal__wrapper'
         onClose={onClose}
       >
-        <div className='dtc-loginmodal__header'>
+        <div className='hfui-loginmodal__header'>
           <h3>Login</h3>
           <p>Enter your credentials below</p>
         </div>
@@ -88,7 +88,7 @@ export default class LoginModal extends React.Component {
           blue
         />
 
-        <div className='dtc-loginmodal__footer'>
+        <div className='hfui-loginmodal__footer'>
           <p>Don&#39;t have an account?</p>
           <button
             type='button'

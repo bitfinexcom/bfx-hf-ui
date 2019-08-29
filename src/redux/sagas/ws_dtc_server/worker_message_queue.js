@@ -3,7 +3,7 @@ import Debug from 'debug'
 import { getSocket } from '../../selectors/ws_dtc_server'
 import WSDTCTypes from '../../constants/ws_dtc_server'
 
-const debug = Debug('dtc:rx:s:ws-dtc:msg-q')
+const debug = Debug('hfui:rx:s:ws-hfui:msg-q')
 let queue = []
 
 // Place every outgoing message in a queue if connection is offline

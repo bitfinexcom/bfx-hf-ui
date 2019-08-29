@@ -105,7 +105,7 @@ export default class HFTable extends React.PureComponent {
     } = this.state
 
     return (
-      <div className='dtc-table'>
+      <div className='hfui-table'>
         <AutoSizer>
           {({ width, height }) => (
             <Table

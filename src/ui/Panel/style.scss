@@ -1,4 +1,4 @@
-.dtc-panel {
+.hfui-panel {
   width: 100%;
   height: 100%;
 
@@ -7,7 +7,7 @@
   background: #131723;
 }
 
-.dtc-panel__header {
+.hfui-panel__header {
   padding: 0 8px;
   display: flex;
   flex-direction: row;
@@ -18,26 +18,26 @@
     color: #fcd206 !important;
   }
 
-  .dtc-select.yellow .dtc-select__value-container > * {
+  .hfui-select.yellow .hfui-select__value-container > * {
     color: #fcd206 !important;
   }
 
-  .dtc-select__value-container {
+  .hfui-select__value-container {
     width: 70px;
   }
 
-  .dtc-select__control {
+  .hfui-select__control {
     height: 30px;
     margin-left: 16px;
   }
 
-  .dtc-select__menu {
+  .hfui-select__menu {
     margin-left: 8px;
     z-index: 999;
   }
 }
 
-.dtc-panel__header-tabs {
+.hfui-panel__header-tabs {
   flex-shrink: 0;
   margin-left: 16px;
 
@@ -58,7 +58,7 @@
   }
 }
 
-.dtc-panel__header-components {
+.hfui-panel__header-components {
   display: flex;
   flex-direction: row;
   flex-shrink: 0;
@@ -85,7 +85,7 @@
   }
 }
 
-.dtc-panel__header-icons {
+.hfui-panel__header-icons {
   width: 100%;
   text-align: right;
   display: flex;
@@ -113,23 +113,23 @@
   }
 
   .fa-circle-notch {
-    animation: dtc-panel-spinner-rotate 1s infinite ease-in-out both;
+    animation: hfui-panel-spinner-rotate 1s infinite ease-in-out both;
     color: #fcd206 !important;
   }
 }
 
-.dtc-panel__label {
+.hfui-panel__label {
   font-size: 11px;
   color: #666;
   line-height: 32px;
   flex-shrink: 0;
 }
 
-.dtc-panel__content {
+.hfui-panel__content {
   position: relative;
 }
 
-@keyframes dtc-panel-spinner-rotate {
+@keyframes hfui-panel-spinner-rotate {
   0% {
     transform: rotate(0);
   } 100% {

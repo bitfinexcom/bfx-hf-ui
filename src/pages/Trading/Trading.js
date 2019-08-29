@@ -34,9 +34,9 @@ export default class Trading extends React.PureComponent {
     }
 
     return (
-      <div className='dtc-tradingpage__wrapper'>
-        <div className='dtc-tradingpage__inner'>
-          <div className='dtc-tradingpage__column left'>
+      <div className='hfui-tradingpage__wrapper'>
+        <div className='hfui-tradingpage__inner'>
+          <div className='hfui-tradingpage__column left'>
             <OrderForm
               orders={orderDefinitions}
               onLogin={onLogin}
@@ -49,9 +49,9 @@ export default class Trading extends React.PureComponent {
             />
           </div>
 
-          <div className='dtc-tradingpage__column center'>
+          <div className='hfui-tradingpage__column center'>
             {/*
-            <div className='dtc-tvchart__wrapper'>
+            <div className='hfui-tvchart__wrapper'>
               <TVChart containerID='__tvchart' />
             </div>
             */}
@@ -61,7 +61,7 @@ export default class Trading extends React.PureComponent {
             />
           </div>
 
-          <div className='dtc-tradingpage__column right'>
+          <div className='hfui-tradingpage__column right'>
             <OrderBookPanel
               canChangeStacked={false}
               {...commonComponentProps}

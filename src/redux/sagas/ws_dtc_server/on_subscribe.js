@@ -5,7 +5,7 @@ import Debug from 'debug'
 import { getChannel } from '../../selectors/ws_dtc_server'
 import WSDTCActions from '../../actions/ws_dtc_server'
 
-const debug = Debug('dtc:rx:s:ws-dtc-server:on-sub')
+const debug = Debug('hfui:rx:s:ws-hfui-server:on-sub')
 
 export default function* (action = {}) {
   const { payload = {} } = action

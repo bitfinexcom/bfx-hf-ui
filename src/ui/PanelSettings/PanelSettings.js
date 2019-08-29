@@ -15,7 +15,7 @@ export default class PanelSettings extends React.PureComponent {
     } = this.props
 
     return (
-      <div className='dtc-panelsettings__wrapper'>
+      <div className='hfui-panelsettings__wrapper'>
         {title && (<p className='header'>{title}</p>)}
         {content && (
           <div className={ClassNames('inner', { center })}>{content}</div>

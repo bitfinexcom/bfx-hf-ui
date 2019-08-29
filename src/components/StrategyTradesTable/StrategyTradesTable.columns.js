@@ -11,16 +11,16 @@ export default [{
   dataKey: 'amount',
   width: 120,
   cellRenderer: ({ rowData = {} }) => (rowData.amount < 0 // eslint-disable-line
-    ? <span className='dtc-red'>{prepareAmount(rowData.amount)}</span>
-    : <span className='dtc-green'>{prepareAmount(rowData.amount)}</span>
+    ? <span className='hfui-red'>{prepareAmount(rowData.amount)}</span>
+    : <span className='hfui-green'>{prepareAmount(rowData.amount)}</span>
   ),
 }, {
   label: 'P/L',
   dataKey: 'pl',
   width: 120,
   cellRenderer: ({ rowData = {} }) => (rowData.pl < 0 // eslint-disable-line
-    ? <span className='dtc-red'>{prepareAmount(rowData.pl)}</span>
-    : <span className='dtc-green'>{prepareAmount(rowData.pl)}</span>
+    ? <span className='hfui-red'>{prepareAmount(rowData.pl)}</span>
+    : <span className='hfui-green'>{prepareAmount(rowData.pl)}</span>
   ),
 }, {
   label: 'Label',

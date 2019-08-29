@@ -45,7 +45,7 @@ export default class StrategyPasswordModal extends React.Component {
     return (
       <Modal
         onClose={onClose}
-        className='dtc-strategypasswordmodal__wrapper'
+        className='hfui-strategypasswordmodal__wrapper'
       >
         <p>Enter Password</p>
         <p className='notice'>Your strategies are encrypted before being sent to the server. This password is required in order to view, save or execute your strategy.</p>

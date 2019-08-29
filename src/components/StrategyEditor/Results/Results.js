@@ -25,11 +25,11 @@ export default class Results extends React.PureComponent {
         : 'No Results'
 
     return (
-      <div className='dtc-strategyeditor__results-wrapper'>
+      <div className='hfui-strategyeditor__results-wrapper'>
         {results ? [
           <p key='header'>{label}</p>,
 
-          <div key='results-left' className='dtc-strategyeditor__results-section'>
+          <div key='results-left' className='hfui-strategyeditor__results-section'>
             <ul>
               <ResultRow label='Backtest Candles' value={nCandles} />
               <ResultRow label='Backtest Trades' value={nTrades} />
@@ -40,7 +40,7 @@ export default class Results extends React.PureComponent {
             </ul>
           </div>,
 
-          <div key='results-right' className='dtc-strategyeditor__results-section'>
+          <div key='results-right' className='hfui-strategyeditor__results-section'>
             <ul>
               <ResultRow label='Fees' value={`$${preparePrice(fees)}`} />
               <ResultRow label='Profit/Loss' value={`$${preparePrice(pl)}`} />

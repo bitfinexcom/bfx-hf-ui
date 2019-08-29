@@ -21,12 +21,12 @@ export default class APICredentialsBox extends React.PureComponent {
 
     return (
       <li
-        className={ClassNames('dtc-apicredentialsbox__wrapper', {
+        className={ClassNames('hfui-apicredentialsbox__wrapper', {
           green: configured,
           orange: !configured,
         })}
       >
-        <div className='dtc-apicredentialsbox__label'>
+        <div className='hfui-apicredentialsbox__label'>
           <p>
             {_capitalize(exID)}
             :

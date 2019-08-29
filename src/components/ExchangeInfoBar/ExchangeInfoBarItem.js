@@ -16,13 +16,13 @@ export default class ExchangeInfoBarItem extends React.PureComponent {
     return (
       <li className={ClassNames({ text })}>
         <p
-          className={ClassNames('dtc-exchangeinfobar__item-label', labelClassName)}
+          className={ClassNames('hfui-exchangeinfobar__item-label', labelClassName)}
         >
           {label}
         </p>
 
         <div
-          className={ClassNames('dtc-exchangeinfobar__item-data', dataClassName)}
+          className={ClassNames('hfui-exchangeinfobar__item-data', dataClassName)}
         >
           {valuePrefix}
           {typeof value === 'number' ? value.toLocaleString('en-US', { maximumFractionDigits: 8 }) : value}

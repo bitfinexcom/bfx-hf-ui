@@ -1,4 +1,4 @@
-.dtc-exchangeinfobar__wrapper {
+.hfui-exchangeinfobar__wrapper {
   padding: 0 24px;
   line-height: 26px;
   border-bottom: 1px solid #101221;
@@ -25,28 +25,28 @@
     text-align: center;
 
     &.text {
-      .dtc-exchangeinfobar__item-label,
-      .dtc-exchangeinfobar__item-data {
+      .hfui-exchangeinfobar__item-label,
+      .hfui-exchangeinfobar__item-data {
         line-height: 32px;
       }
     }
   }
 }
 
-.dtc-exchangeinfobar__item-label,
-.dtc-exchangeinfobar__item-data {
+.hfui-exchangeinfobar__item-label,
+.hfui-exchangeinfobar__item-data {
   display: inline-block;
   vertical-align: middle;
   font-size: 11px;
 }
 
-.dtc-exchangeinfobar__item-label {
+.hfui-exchangeinfobar__item-label {
   color: #666;
   user-select: none;
   margin-right: 8px;
 }
 
-.dtc-exchangeinfobar__item-data {
+.hfui-exchangeinfobar__item-data {
   color: #eee;
 
   &.hover:hover {
@@ -54,12 +54,12 @@
     text-decoration: underline;
   }
 
-  .dtc-select {
+  .hfui-select {
     margin-top: -2px;
     min-width: 100px;
   }
 
-  .dtc-select__control {
+  .hfui-select__control {
     padding: 0 4px;
   }
 }

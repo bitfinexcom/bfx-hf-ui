@@ -113,7 +113,7 @@ export default class StrategyEditorPage extends React.Component {
     const { trades = [] } = results
 
     return (
-      <div className='dtc-strategyeditorpage__wrapper'>
+      <div className='hfui-strategyeditorpage__wrapper'>
         <StrategyEditor
           key='editor'
           onResultsChange={this.onResultsChange}
@@ -127,7 +127,7 @@ export default class StrategyEditorPage extends React.Component {
 
         <div
           key='main'
-          className='dtc-strategiespage__right'
+          className='hfui-strategiespage__right'
         >
           <Chart
             showIndicatorControls={false}

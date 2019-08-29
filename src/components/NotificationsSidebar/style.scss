@@ -1,4 +1,4 @@
-.dtc-notificationssidebar__wrapper {
+.hfui-notificationssidebar__wrapper {
   position: fixed;
   top: 33px;
   right: 0;
@@ -19,7 +19,7 @@
   }
 }
 
-.dtc-notificationssidebar__external {
+.hfui-notificationssidebar__external {
   position: absolute;
   top: 0;
   right: 32px;
@@ -32,7 +32,7 @@
   pointer-events: none;
 }
 
-.dtc-notificationssidebar__notch {
+.hfui-notificationssidebar__notch {
   position: absolute;
   bottom: 66px;
   left: -24px;
@@ -52,7 +52,7 @@
   }
 }
 
-.dtc-notification__ts {
+.hfui-notification__ts {
   font-size: 11px;
   margin-top: 8px;
   width: 100%;
@@ -60,7 +60,7 @@
   color: #aaa;
 }
 
-.dtc-notification {
+.hfui-notification {
   margin: 8px;
   border: 1px solid #333;
   padding: 8px;

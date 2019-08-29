@@ -1,4 +1,4 @@
-.dtc-statusbar__wrapper {
+.hfui-statusbar__wrapper {
   width: 100%;
   height: 32px;
   border-top: 1px solid #101221;
@@ -18,7 +18,7 @@
   user-select: none;
 }
 
-.dtc-statusbar__layout-name {
+.hfui-statusbar__layout-name {
   flex-shrink: 0;
   display: flex;
   flex-direction: row;
@@ -43,7 +43,7 @@
     }
   }
 
-  .dtc-statusbar__layout-active-name {
+  .hfui-statusbar__layout-active-name {
     text-align: center;
     width: 100%;
     padding: 0 8px;
@@ -63,7 +63,7 @@
   }
 }
 
-.dtc-statusbar__left {
+.hfui-statusbar__left {
   display: flex;
   flex-direction: row;
   padding-left: 16px;
@@ -107,7 +107,7 @@
   }
 }
 
-.dtc-statusbar__right {
+.hfui-statusbar__right {
   width: 100%;
   text-align: right;
   padding-right: 16px;
@@ -120,21 +120,21 @@
     line-height: 24px;
   }
 
-  & > *, .dtc-statusbar__connection-status > * {
+  & > *, .hfui-statusbar__connection-status > * {
     display: inline-block;
     vertical-align: middle;
   }
 
-  .dtc-statusbar__connection-status {
+  .hfui-statusbar__connection-status {
     margin-left: 8px;
   }
 
-  .dtc-statusbar__connection-status > p:last-child {
+  .hfui-statusbar__connection-status > p:last-child {
     margin-left: 8px;
   }
 }
 
-.dtc-statusbar__statuscircle {
+.hfui-statusbar__statuscircle {
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -149,7 +149,7 @@
   }
 }
 
-.dtc-statusbar__popuplist-wrapper {
+.hfui-statusbar__popuplist-wrapper {
   position: absolute;
   bottom: 32px;
   left: 0;
@@ -189,7 +189,7 @@
   }
 }
 
-.dtc-statusbar__made-in {
+.hfui-statusbar__made-in {
   font-size: 11px;
   border-right: 1px solid #333;
   padding-right: 16px;
@@ -201,15 +201,15 @@
   }
 }
 
-.dtc-statusbar__support,
-.dtc-statusbar__version {
+.hfui-statusbar__support,
+.hfui-statusbar__version {
   padding-right: 16px;
   margin-right: 16px;
   border-right: 1px solid #333;
   line-height: 32px;
 }
 
-.dtc-statusbar__legal {
+.hfui-statusbar__legal {
   font-size: 11px;
   margin-right: 16px !important;
   padding-right: 16px;

@@ -101,14 +101,14 @@ export default class StatusBar extends React.Component {
     } = this.props
 
     return (
-      <div className='dtc-statusbar__wrapper'>
+      <div className='hfui-statusbar__wrapper'>
         {displayLayoutControls && (
-          <div className='dtc-statusbar__left'>
-            <div className='dtc-statusbar__layout-name'>
+          <div className='hfui-statusbar__left'>
+            <div className='hfui-statusbar__layout-name'>
               <p>Layout</p>
 
               <p
-                className='dtc-statusbar__layout-active-name'
+                className='hfui-statusbar__layout-active-name'
                 onClick={this.onToggleLayoutList}
               >
                 {layoutName}
@@ -134,7 +134,7 @@ export default class StatusBar extends React.Component {
               />
 
               {layoutListOpen && (
-                <ul className='dtc-statusbar__popuplist-wrapper'>
+                <ul className='hfui-statusbar__popuplist-wrapper'>
                   {layoutNames.map(name => (
                     <li
                       key={name}
@@ -160,7 +160,7 @@ Add Layout
               </p>
 
               {layoutCreatorOpen && (
-                <ul className='dtc-statusbar__popuplist-wrapper form'>
+                <ul className='hfui-statusbar__popuplist-wrapper form'>
                   <li className='nohover'>
                     <Input
                       type='text'
@@ -193,7 +193,7 @@ Add Component
               </p>
 
               {componentListOpen && (
-                <ul className='dtc-statusbar__popuplist-wrapper'>
+                <ul className='hfui-statusbar__popuplist-wrapper'>
                   <li onClick={this.onSelectComponent.bind(this, COMPONENT_TYPES.CHART)}>Chart</li>
                   <li onClick={this.onSelectComponent.bind(this, COMPONENT_TYPES.ORDER_BOOK)}>Order Book</li>
                   <li onClick={this.onSelectComponent.bind(this, COMPONENT_TYPES.TRADES_TABLE)}>Trades Table</li>
@@ -205,16 +205,16 @@ Add Component
           </div>
         )}
 
-        <div className='dtc-statusbar__right'>
-          <div className='dtc-statusbar__version'>
+        <div className='hfui-statusbar__right'>
+          <div className='hfui-statusbar__version'>
             <p>
 Version
               {MANIFEST.version}
             </p>
           </div>
 
-          <div className='dtc-statusbar__connection-status'>
-            <span className={ClassNames('dtc-statusbar__statuscircle', {
+          <div className='hfui-statusbar__connection-status'>
+            <span className={ClassNames('hfui-statusbar__statuscircle', {
               green: dtcConnected,
               red: !dtcConnected,
             })}

@@ -1,9 +1,9 @@
-.dtc-chart__wrapper {
+.hfui-chart__wrapper {
   text {
     fill: #ccc;
   }
 
-  .dtc-chart__settings-text-overlay {
+  .hfui-chart__settings-text-overlay {
     pointer-events: all;
 
     &:hover {
@@ -12,7 +12,7 @@
     }
   }
 
-  .dtc-select.indicator-select .dtc-select__menu {
+  .hfui-select.indicator-select .hfui-select__menu {
     width: 300px;
   }
 }

@@ -89,7 +89,7 @@ export default class NotificationsSidebar extends React.Component {
     const { notifications } = this.props
 
     return (
-      <div className={ClassNames('dtc-notificationssidebar__wrapper', {
+      <div className={ClassNames('hfui-notificationssidebar__wrapper', {
         visible: open,
       })}
       >
@@ -107,7 +107,7 @@ export default class NotificationsSidebar extends React.Component {
         </Panel>
 
         {!open && (
-          <ul className='dtc-notificationssidebar__external'>
+          <ul className='hfui-notificationssidebar__external'>
             {liveNotifications.map((item = {}) => (
               <Notification key={item.id} data={item.n} />
             ))}
@@ -117,7 +117,7 @@ export default class NotificationsSidebar extends React.Component {
         <button
           type='button'
           onClick={this.onToggleOpen}
-          className='dtc-notificationssidebar__notch'
+          className='hfui-notificationssidebar__notch'
         >
           <i className='fa fa-bell' />
         </button>

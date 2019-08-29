@@ -1,37 +1,37 @@
-.dtc-strategyeditorpage__wrapper {
+.hfui-strategyeditorpage__wrapper {
   display: flex;
   flex-direction: row;
   height: calc(100% - 32px);
   width: 100%;
 
-  .dtc-panel {
+  .hfui-panel {
     margin: 16px;
   }
 
-  > .dtc-panel:first-child {
+  > .hfui-panel:first-child {
     width: calc(50% - 32px);
   }
 
-  .dtc-chart__wrapper {
+  .hfui-chart__wrapper {
     height: calc(60% - 32px);
     width: auto;
   }
 
-  .dtc-strategytradestable__wrapper {
+  .hfui-strategytradestable__wrapper {
     height: 40%;
     width: auto;
   }
 
-  .dtc-statusbar__wrapper {
+  .hfui-statusbar__wrapper {
     width: 100%;
   }
 
-  .dtc-strategiespage__right {
+  .hfui-strategiespage__right {
     width: 50%;
     display: flex;
     flex-direction: column;
 
-    .dtc-panel {
+    .hfui-panel {
       flex-shrink: 0;
     }
   }

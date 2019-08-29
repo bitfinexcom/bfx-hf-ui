@@ -18,7 +18,7 @@ export default class StrategyTradesTable extends React.PureComponent {
         label={label}
         removeable={false}
         moveable={false}
-        className='dtc-strategytradestable__wrapper'
+        className='hfui-strategytradestable__wrapper'
       >
         <Table
           data={trades}
