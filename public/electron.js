@@ -1,4 +1,7 @@
-const { app, BrowserWindow, protocol, Menu } = require('electron')
+const {
+  app, BrowserWindow, protocol, Menu,
+} = require('electron')
+
 const path = require('path')
 const url = require('url')
 
@@ -14,9 +17,8 @@ let mainWindow
 const intercept = require('intercept-stdout')
 const fs = require('fs')
 
-
-const unhook_intercept = intercept((txt) => {
-  fs.appendFile(__dirname + 'logs.log', txt, (err, res) => {})
+const unhookIntercept = intercept((txt) => {
+  fs.appendFile(`${__dirname}/logs.log`, txt)
 })
 
 function createWindow() {
@@ -35,9 +37,9 @@ function createWindow() {
 
 app.on('ready', () => {
   protocol.interceptFileProtocol('file', (request, callback) => {
-    const url = request.url.substr(7) /* all urls start with 'file://' */
+    const fileURL = request.url.substr(7) /* all urls start with 'file://' */
 
-    callback({ path: path.normalize(`${__dirname}/${url}`) })
+    callback({ path: path.normalize(`${__dirname}/${fileURL}`) })
   }, (err) => {
     if (err) console.error('Failed to register protocol')
   })
@@ -69,7 +71,7 @@ app.on('ready', () => {
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
-    unhook_intercept()
+    unhookIntercept()
     app.quit()
   }
 })
