@@ -30,4 +30,4 @@ export default [{
       offColor='#2c3940'
     />
   ),
-}]
+}, ]

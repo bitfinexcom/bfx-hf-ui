@@ -4,7 +4,7 @@ import OrderTable from '../OrderTable'
 
 export default class SingleAlgoOrderDetails extends React.PureComponent {
   render () {
-    const { ao = [], orders } = this.props
+    const { ao = [], orders = []} = this.props
     const [,,, state = {}] = ao
     const { args = {} } = state
 

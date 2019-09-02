@@ -49,6 +49,7 @@ input[type="file"] {
 }
 input[type='text'], input[type='submit'] {
     padding: 5px 10px 5px 10px;
+    color: white;
 }
 input[type='text'] {
     background: #2c3940;
@@ -73,9 +74,20 @@ input[type='submit'] {
 }
 
 
+
 .hfui__stop-order-btn:hover {
     background-color: #2b3f4d;
     cursor: pointer;
+}
+
+.hfui__stop-order-btn-disabled {
+    border: none;
+    background: #22333f;
+    color: gray;
+    padding: 5px 10px 5px 10px;
+    margin-top: '15px';
+    text-transform: 'uppercase';
+    outline: none;
 }
 
 .hfui__add-order-btn {

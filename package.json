@@ -38,7 +38,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.js",
-    "electron-dev": "electron .",
+    "electron": "electron .",
     "electron-prod": "nohup electron . > logs.log",
     "dist": "build --mac --win --linux -c.extraMetadata.main=build/electron.js --publish never"
   },

@@ -1,3 +1,4 @@
+/* eslint-disable no-cond-assign */
 import 'babel-polyfill'
 
 import React from 'react'
@@ -21,14 +22,14 @@ import StoreWrapper from './StoreWrapper'
 
 window.APP = {
   data: {
-    pathBase: ''
-  }
+    pathBase: '',
+  },
 }
 
 // Handle legacy webapp ajax navigation in components
 // TODO: remove?
 document.querySelector('body').addEventListener('click', (e) => {
-  let target = e.target
+  let { target } = e
 
   do {
     if (target.classList.contains('ajax')) {

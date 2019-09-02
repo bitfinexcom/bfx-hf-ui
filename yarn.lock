@@ -1794,7 +1794,7 @@ bcrypt-pbkdf@^1.0.0:
   dependencies:
     tweetnacl "^0.14.3"
 
-bfx-api-mock-srv@bitfinexcom/bfx-api-mock-srv, "bfx-api-mock-srv@github:bitfinexcom/bfx-api-mock-srv":
+bfx-api-mock-srv@bitfinexcom/bfx-api-mock-srv:
   version "0.0.2"
   uid "73a35b9938a997306968b982f801b9b780a275b3"
   resolved "https://codeload.github.com/bitfinexcom/bfx-api-mock-srv/tar.gz/73a35b9938a997306968b982f801b9b780a275b3"
@@ -1895,7 +1895,7 @@ bfx-api-node-util@^1.0.0, bfx-api-node-util@^1.0.2:
     bignumber.js "^6.0.0"
     copy "^0.3.2"
 
-"bfx-api-node-util@github:bitfinexcom/bfx-api-node-util":
+bfx-api-node-util@bitfinexcom/bfx-api-node-util:
   version "1.0.2"
   resolved "https://codeload.github.com/bitfinexcom/bfx-api-node-util/tar.gz/9e0d87f4965f518d23b4a55ef7249e95713e6c14"
   dependencies:
@@ -8483,7 +8483,7 @@ negotiator@0.6.2:
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.2.tgz#feacf7ccf525a77ae9634436a64883ffeca346fb"
   integrity sha512-hZXc7K2e+PgeI1eDBe/10Ard4ekbfrrqG8Ep+8Jmf4JID2bNg7NvCPOZN+kfF574pFQI7mum2AUqDidoKqcTOw==
 
-"nems@github:f3rno/nodejs-embedded-mongodb-standalone":
+nems@f3rno/nodejs-embedded-mongodb-standalone:
   version "1.4.1"
   resolved "https://codeload.github.com/f3rno/nodejs-embedded-mongodb-standalone/tar.gz/79496dd135d82d69ab32149e688dba67967d741f"
   dependencies:

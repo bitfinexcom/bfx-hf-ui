@@ -1,14 +1,15 @@
 import { connect } from 'react-redux'
+import axios from 'axios'
 import StatusBar from './StatusBar'
+import { lastAppVersion } from '../../redux/actions/app-data'
 
 const mapStateToProps = (state = {}, ownProps = {}) => {
-
-  const { dataHF = {}, socketHF = {} } = state
+  const { dataHF = {}, socketHF = {}, appData = {} } = state
   const { candles = {} } = dataHF
   const { syncs = {} } = candles
   const { status = '' } = socketHF
-
-  return { syncs, status }
+  const { version = ''} = appData
+  return { syncs, status, version }
 }
 
 const mapDispatchToProps = dispatch => ({

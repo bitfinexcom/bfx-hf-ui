@@ -3,7 +3,6 @@ import {
   Button, Card, Elevation, InputGroup,
 } from '@blueprintjs/core'
 import Settings from '../../ui/SettingsMenu'
-import { store } from '../../StoreWrapper'
 import APIComboDialog from '../../components/APIComboDialogMenu'
 
 export default class SettingsView extends React.Component {
@@ -14,13 +13,11 @@ export default class SettingsView extends React.Component {
   }
 
   onSubmitKeys({ key, secret } = {}) {
-    const { updateAPIKey, cycleBFXConnection } = this.props
+    const { updateAPIKey } = this.props
     updateAPIKey({ key, secret })
   }
 
   render() {
-    const { apiKey } = this.props
-    const { key, secret } = apiKey
     return (
       <div style={{ flex: 1, display: 'flex', flexDirection: 'row' }}>
         <div className='hfui_sidenavbar' style={{ backgroundColor: 'rgba(27,38,45,0.95)' }}>

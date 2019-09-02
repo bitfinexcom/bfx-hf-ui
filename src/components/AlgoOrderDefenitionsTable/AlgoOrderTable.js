@@ -5,13 +5,6 @@ import Table from '../../ui/Table'
 import AlgoOrderTableColumns from './AlgoOrderTable.columns'
 import { propTypes, defaultProps } from './AlgoOrderTable.props'
 
-const ALGO_NAMES = {
-  'bfx-accumulate_distribute': 'Accumulate/Distribute',
-  'bfx-ping_pong': 'Ping/Pong',
-  'bfx-iceberg': 'Iceberg',
-  'bfx-twap': 'TWAP',
-}
-
 export default class AlgoOrderTable extends React.Component {
   static propTypes = propTypes
 

@@ -19,7 +19,6 @@ const hfDb = new HFDB({
 const { Credential } = hfDb
 const CRED_KEY = 'hf-ui-credentials'
 
-
 // external
 const debug = require('debug')('bfx:hf:api-server')
 const _isString = require('lodash/isString')
@@ -32,9 +31,9 @@ const requestProxy = require('express-request-proxy')
 /* eslint-enable */
 
 const {
-  SOCKS_PROXY_URL, REST_URL, WS_URL,
+  SOCKS_PROXY_URL, REST_URL, WS_URL, API_PORT = '9987',
 } = process.env
-const API_PORT = process.env.API_PORT || '9987'
+
 let hfServer = null
 let restAPI = null
 
@@ -135,12 +134,13 @@ const run = async () => {
   })
 
   app.post('/reconnect-bfx', async (req, res) => {
+    debug('=============', 'reconnect bfx==================', req)
     if (!hfServer) {
+      debug('no HFSERVER, starting new one')
       await startHFServer()
     }
     res.status(200)
   })
-
 
   app.get('/v2/tickers', requestProxy({
     url: 'https://www.bitfinex.com/v2/tickers',

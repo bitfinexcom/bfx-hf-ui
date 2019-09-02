@@ -1,5 +1,4 @@
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
 
 import AlgoOrderActions from '../../redux/actions/algo-orders'
 import EditorActions from '../../redux/actions/editor'
