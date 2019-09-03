@@ -23,7 +23,6 @@ import StrategyEditorPanel from './StrategyEditorPanel'
 import StrategyPasswordModal from '../StrategyPasswordModal'
 import CreateNewStrategyModal from '../CreateNewStrategyModal'
 import OpenExistingStrategyModal from '../OpenExistingStrategyModal'
-import LoginTAFModal from '../LoginTAFModal'
 import { propTypes, defaultProps } from './StrategyEditor.props'
 import './style.css'
 
@@ -180,10 +179,10 @@ export default class StrategyEditor extends React.PureComponent {
   }
 
   onExecSaveStrategy(password) {
-    const { onSave, user } = this.props
+    const { authToken, onSave } = this.props
     const { strategy } = this.state
 
-    onSave(user.id, password, strategy)
+    onSave(authToken, password, strategy)
 
     this.setState(() => ({ strategyDirty: false }))
     this.onCloseModals()
@@ -382,7 +381,7 @@ export default class StrategyEditor extends React.PureComponent {
     } = this.state
 
     const {
-      authenticated, onRemove, moveable, removeable, demoMode,
+      authenticated, onRemove, moveable, removeable,
     } = this.props
 
     return (
@@ -393,7 +392,6 @@ export default class StrategyEditor extends React.PureComponent {
         execRunning={execRunning}
         helpOpen={helpOpen}
         authenticated={authenticated}
-        demoMode={demoMode}
         strategyDirty={strategyDirty}
         strategy={strategy}
         editorMode={editorMode}
@@ -459,7 +457,7 @@ open
   }
 
   render() {
-    const { authenticated, onLogin, renderResults = true } = this.props
+    const { renderResults } = this.props
     const {
       activeContent, results, execError, execRunning, currentTick, totalTicks,
       strategy, createNewStrategyModalOpen, openExistingStrategyModalOpen,
@@ -516,17 +514,10 @@ open
         )}
 
         {strategyPasswordModalOpen && (
-          authenticated ? (
-            <StrategyPasswordModal
-              onClose={this.onCloseModals}
-              onSubmit={this.onExecSaveStrategy}
-            />
-          ) : (
-            <LoginTAFModal
-              onClose={this.onCloseModals}
-              onLogin={onLogin}
-            />
-          )
+          <StrategyPasswordModal
+            onClose={this.onCloseModals}
+            onSubmit={this.onExecSaveStrategy}
+          />
         )}
 
         <ul className='hfui-strategyeditor__func-select'>

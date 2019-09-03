@@ -151,8 +151,8 @@ export default class GridLayoutPage extends React.Component {
   render() {
     const { layoutDef, layoutID, layoutDirty } = this.state
     const {
-      activeMarket, layouts, onLogin, tradingEnabled, chartProps,
-      bookProps, tradesProps, ordersProps, orderFormProps,
+      activeMarket, layouts, tradingEnabled, chartProps, bookProps, tradesProps,
+      ordersProps, orderFormProps,
     } = this.props
 
     return (
@@ -161,7 +161,7 @@ export default class GridLayoutPage extends React.Component {
           layoutDef={layoutDef}
           layoutID={layoutID}
           chartProps={({
-            onLogin, activeMarket, ...chartProps,
+            activeMarket, ...chartProps,
           })}
           bookProps={{ canChangeStacked: true, ...bookProps }}
           tradesProps={{ ...tradesProps }}
@@ -172,7 +172,6 @@ export default class GridLayoutPage extends React.Component {
 
           orderFormProps={({
             orders: orderDefinitions,
-            onLogin,
             ...orderFormProps,
           })}
 
@@ -194,7 +193,6 @@ export default class GridLayoutPage extends React.Component {
           onCreateNewLayout={this.onCreateNewLayout}
           onChangeLayout={this.onChangeLayout}
           onDeleteLayout={this.onDeleteLayout}
-          onLogin={onLogin}
           allowTradingComponents={tradingEnabled}
         />
       </div>

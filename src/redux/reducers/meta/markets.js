@@ -1,4 +1,4 @@
-import types from '../../constants/ws_dtc_server'
+import types from '../../constants/ws'
 
 const getInitialState = () => {
   return {}

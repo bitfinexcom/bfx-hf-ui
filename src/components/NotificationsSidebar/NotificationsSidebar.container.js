@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import { getNotifications } from '../../redux/selectors/bfx_data'
+import { getNotifications } from '../../redux/selectors/ws'
 import NotificationsSidebar from './NotificationsSidebar'
 
 const mapStateToProps = (state = {}) => ({

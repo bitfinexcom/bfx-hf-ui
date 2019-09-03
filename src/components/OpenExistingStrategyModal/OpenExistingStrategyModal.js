@@ -53,8 +53,9 @@ export default class OpenExistingStrategyModal extends React.Component {
     }
 
     const {
-      onClose, onOpen, strategies, user,
+      onClose, onOpen, strategies, authToken,
     } = this.props
+
     const strategy = strategies.find(s => s.id === strategyID)
 
     if (!strategy) {
@@ -63,7 +64,7 @@ export default class OpenExistingStrategyModal extends React.Component {
     }
 
     const pwBuff = new buffer.SlowBuffer(password.normalize('NFKC'))
-    const saltBuff = new buffer.SlowBuffer(`${user.id}`.normalize('NFKC'))
+    const saltBuff = new buffer.SlowBuffer(`${authToken}`.normalize('NFKC'))
 
     scrypt(pwBuff, saltBuff, 1024, 8, 1, 32, (error, progress, key) => {
       if (error) {

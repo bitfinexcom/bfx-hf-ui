@@ -7,7 +7,6 @@ export const propTypes = {
   execRunning: PropTypes.bool,
   helpOpen: PropTypes.bool,
   authenticated: PropTypes.bool,
-  demoMode: PropTypes.bool,
   strategyDirty: PropTypes.bool,
   strategy: PropTypes.object,
   onToggleHelp: PropTypes.func,

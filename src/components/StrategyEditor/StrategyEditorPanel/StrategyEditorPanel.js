@@ -10,7 +10,7 @@ export default class StrategyEditorPanel extends React.PureComponent {
   render() {
     const {
       onRemove, moveable, removeable, children, execRunning, helpOpen,
-      authenticated, demoMode, strategyDirty, strategy, onToggleHelp,
+      authenticated, strategyDirty, strategy, onToggleHelp,
       onOpenSelectModal, onOpenCreateModal, onSaveStrategy, onBacktestStrategy,
       // onSwitchEditorMode, onToggleMaximiseEditor, editorMode,
       // editorMaximised,
@@ -54,27 +54,23 @@ export default class StrategyEditorPanel extends React.PureComponent {
               <div key='label' className='strategy-label'>
                 <p>{strategy.label}</p>
 
-                {!demoMode && (
-                  <i
-                    key='save'
-                    onClick={onSaveStrategy}
-                    className={ClassNames('far fa-save', {
-                      yellow: strategyDirty,
-                    })}
-                  />
-                )}
+                <i
+                  key='save'
+                  onClick={onSaveStrategy}
+                  className={ClassNames('far fa-save', {
+                    yellow: strategyDirty,
+                  })}
+                />
               </div>,
 
-              !demoMode && (
-                <div
-                  key='exec'
-                  onClick={execRunning ? () => {} : onBacktestStrategy}
-                  className={ClassNames('exec-button', { disabled: execRunning })}
-                >
-                  <i className='fa fa-play' />
-                  <p>Run</p>
-                </div>
-              ),
+              <div
+                key='exec'
+                onClick={execRunning ? () => {} : onBacktestStrategy}
+                className={ClassNames('exec-button', { disabled: execRunning })}
+              >
+                <i className='fa fa-play' />
+                <p>Run</p>
+              </div>,
 
               /*
               <div

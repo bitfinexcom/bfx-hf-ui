@@ -104,9 +104,7 @@ export default class StrategyEditorPage extends React.Component {
   }
 
   render() {
-    const {
-      activeExchange, activeMarket, user, onLogin,
-    } = this.props
+    const { activeExchange, activeMarket } = this.props
     const {
       results = {}, indicators, indicatorData, focusMTS, tf,
     } = this.state
@@ -118,8 +116,6 @@ export default class StrategyEditorPage extends React.Component {
           key='editor'
           onResultsChange={this.onResultsChange}
           onIndicatorsChange={this.onIndicatorsChange}
-          authenticated={!!user.id}
-          onLogin={onLogin}
           moveable={false}
           removeable={false}
           tf={tf}

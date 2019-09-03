@@ -7,8 +7,8 @@ import Debug from 'debug'
 import Manifest from '../package.json'
 
 const debug = Debug('hfui:main')
-const LOCAL_STORAGE_VERSION_KEY = 'DTC_LS_VERSION'
-const LOCAL_STORAGE_VERSION = 9
+const LOCAL_STORAGE_VERSION_KEY = 'HFUI_LS_VERSION'
+const LOCAL_STORAGE_VERSION = 1
 
 if (localStorage) {
   const version = +localStorage.getItem(LOCAL_STORAGE_VERSION_KEY)

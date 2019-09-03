@@ -5,9 +5,6 @@ import { routerMiddleware } from 'connected-react-router'
 import Debug from 'debug'
 
 import createRootReducer from './reducers'
-import constants from './constants'
-import actions from './actions'
-import selectors from './selectors'
 
 const debug = Debug('hfui:rx')
 const sagaMiddleware = createSagaMiddleware()
@@ -58,8 +55,5 @@ export function runSaga() {
 
 export default {
   configureStore,
-  actions,
-  constants,
   runSaga,
-  selectors,
 }

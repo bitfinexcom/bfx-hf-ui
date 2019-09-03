@@ -3,7 +3,7 @@ import { prepareAmount } from 'bfx-api-node-util'
 import Debug from 'debug'
 
 import BFXOrders from '../../orders/bitfinex'
-import WSDTCActions from '../../redux/actions/ws_dtc_server'
+import WSActions from '../../redux/actions/ws'
 import PositionsTable from './PositionsTable'
 
 const debug = Debug('hfui:c:positions-table')
@@ -22,7 +22,7 @@ const mapDispatchToProps = dispatch => ({
         }, symbol, 'm')
 
         debug('closing position on %s %f @ %f', symbol, amount, basePrice)
-        dispatch(WSDTCActions.send(['order.submit', exID, packet]))
+        dispatch(WSActions.send(['order.submit', exID, packet]))
         break
       }
 

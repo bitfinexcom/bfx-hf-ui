@@ -10,7 +10,7 @@ export const propTypes = {
   layoutName: PropTypes.string,
   layoutNames: PropTypes.array,
   allowTradingComponents: PropTypes.bool,
-  dtcConnected: PropTypes.bool,
+  wsConnected: PropTypes.bool,
   layoutCanDelete: PropTypes.bool,
 }
 

@@ -8,11 +8,11 @@ export const propTypes = {
   moveable: PropTypes.bool,
   removeable: PropTypes.bool,
   authenticated: PropTypes.bool,
-  demoMode: PropTypes.bool,
-  user: PropTypes.object.isRequired,
+  renderResults: PropTypes.bool,
 }
 
 export const defaultProps = {
   moveable: false,
   removeable: false,
+  renderResults: true,
 }

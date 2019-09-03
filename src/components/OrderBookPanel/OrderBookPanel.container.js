@@ -5,7 +5,7 @@ import {
 } from '../../redux/selectors/ui'
 
 import { getExchanges, getMarkets } from '../../redux/selectors/meta'
-import WSDTCActions from '../../redux/actions/ws_dtc_server'
+import WSActions from '../../redux/actions/ws'
 import UIActions from '../../redux/actions/ui'
 
 import OrderBookPanel from './OrderBookPanel'
@@ -26,11 +26,11 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
 
 const mapDispatchToProps = dispatch => ({
   addOBRequirement: (exchange, market) => {
-    dispatch(WSDTCActions.addChannelRequirement(exchange, ['book', market]))
+    dispatch(WSActions.addChannelRequirement(exchange, ['book', market]))
   },
 
   removeOBRequirement: (exchange, market) => {
-    dispatch(WSDTCActions.removeChannelRequirement(exchange, ['book', market]))
+    dispatch(WSActions.removeChannelRequirement(exchange, ['book', market]))
   },
 
   saveState: (layoutID, componentID, state) => {

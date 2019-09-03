@@ -1,12 +1,12 @@
 import { connect } from 'react-redux'
 
 import UIActions from '../../redux/actions/ui'
-import WSDTCActions from '../../redux/actions/ws_dtc_server'
+import WSActions from '../../redux/actions/ws'
 import { getExchanges } from '../../redux/selectors/meta'
 import { getComponentState, getActiveExchange } from '../../redux/selectors/ui'
 import {
-  getAllCandles, getAllPositions, getUser, getAllOrders,
-} from '../../redux/selectors/ws_dtc_server'
+  getAllCandles, getAllPositions, getAllOrders,
+} from '../../redux/selectors/ws'
 
 import Chart from './Chart'
 
@@ -22,35 +22,34 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     candleData: getAllCandles(state),
     orders: getAllOrders(state),
     positions: getAllPositions(state),
-    user: getUser(state),
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   syncCandles: (exchange, market, tf, range) => {
-    dispatch(WSDTCActions.send([
+    dispatch(WSActions.send([
       'get.candles', exchange, market, tf, range[0], range[1],
     ]))
   },
 
   addTradesRequirement: (exchange, market) => {
-    dispatch(WSDTCActions.addChannelRequirement(exchange, ['trades', market]))
+    dispatch(WSActions.addChannelRequirement(exchange, ['trades', market]))
   },
 
   addCandlesRequirement: (exchange, market, tf) => {
-    dispatch(WSDTCActions.addChannelRequirement(
+    dispatch(WSActions.addChannelRequirement(
       exchange, ['candles', tf, market],
     ))
   },
 
   removeCandlesRequirement: (exchange, market, tf) => {
-    dispatch(WSDTCActions.removeChannelRequirement(
+    dispatch(WSActions.removeChannelRequirement(
       exchange, ['candles', tf, market],
     ))
   },
 
   removeTradesRequirement: (exchange, market) => {
-    dispatch(WSDTCActions.removeChannelRequirement(exchange, ['trades', market]))
+    dispatch(WSActions.removeChannelRequirement(exchange, ['trades', market]))
   },
 
   saveState: (layoutID, componentID, state) => {

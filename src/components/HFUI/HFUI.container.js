@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
 
-import WSDTCActions from '../../redux/actions/ws_dtc_server'
 import UIActions from '../../redux/actions/ui'
 import { getActiveMarket } from '../../redux/selectors/ui'
 
@@ -17,10 +16,6 @@ const mapDispatchToProps = dispatch => ({
 
   saveActiveMarket: (market) => {
     dispatch(UIActions.saveActiveMarket(market))
-  },
-
-  loginWithAuthToken: (authToken) => {
-    dispatch(WSDTCActions.send(['auth.token', authToken]))
   },
 
   navigate: (route) => {

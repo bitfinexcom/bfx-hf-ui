@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import Debug from 'debug'
 
-import WSDTCActions from '../../redux/actions/ws_dtc_server'
+import WSActions from '../../redux/actions/ws'
 
 import AtomicOrdersTable from './AtomicOrdersTable'
 
@@ -14,7 +14,7 @@ const mapDispatchToProps = dispatch => ({
     const { id, symbol } = order
 
     debug('cancelling order %d [%s]', id, symbol)
-    dispatch(WSDTCActions.send(['order.cancel', exID, symbol, id]))
+    dispatch(WSActions.send(['order.cancel', exID, symbol, id]))
   },
 })
 

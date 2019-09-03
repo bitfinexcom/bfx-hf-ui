@@ -7,9 +7,12 @@ import buffer from 'scrypt-js/thirdparty/buffer'
 
 import OrderForm from './OrderForm'
 import UIActions from '../../redux/actions/ui'
-import WSDTCActions from '../../redux/actions/ws_dtc_server'
+import WSActions from '../../redux/actions/ws'
 import { getExchanges, getMarkets } from '../../redux/selectors/meta'
-import { getUser, getAPIClientStates } from '../../redux/selectors/ws_dtc_server'
+import {
+  getAPIClientStates, getAuthToken, getAPICredentials,
+} from '../../redux/selectors/ws'
+
 import {
   getComponentState, getActiveExchange, getActiveMarket,
 } from '../../redux/selectors/ui'
@@ -20,13 +23,14 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
   const { layoutID, layoutI: id } = ownProps
 
   return {
-    user: getUser(state),
     activeExchange: getActiveExchange(state),
     activeMarket: getActiveMarket(state),
     exchanges: getExchanges(state),
     apiClientStates: getAPIClientStates(state),
     allMarkets: getMarkets(state),
     savedState: getComponentState(state, layoutID, 'orderform', id),
+    authToken: getAuthToken(state),
+    apiCredentials: getAPICredentials(state),
   }
 }
 
@@ -46,7 +50,7 @@ const mapDispatchToProps = dispatch => ({
   submitOrder: ({ exID, packet }) => {
     debug('submitting order %j', packet)
 
-    dispatch(WSDTCActions.send(['order.submit', exID, {
+    dispatch(WSActions.send(['order.submit', exID, {
       symbol: packet.symbol[exID === 'bitfinex' ? 'w' : 'r'],
       ...packet,
     }]))
@@ -58,7 +62,7 @@ const mapDispatchToProps = dispatch => ({
     debug('submitting algo order %s on %s [%s]', id, market.u, context)
 
     // TODO: Extract symbol resolution (r/w)
-    dispatch(WSDTCActions.send(['algo_order.submit', exID, id, {
+    dispatch(WSActions.send(['algo_order.submit', exID, id, {
       ...data,
       _symbol: exID === 'bitfinex' ? market.w : market.r,
       _margin: context === 'm',
@@ -66,10 +70,10 @@ const mapDispatchToProps = dispatch => ({
   },
 
   submitAPIKeys: ({
-    userID, exID, apiKey, apiSecret, password,
+    authToken, exID, apiKey, apiSecret, password,
   }) => {
     const pwBuff = new buffer.SlowBuffer(password.normalize('NFKC'))
-    const saltBuff = new buffer.SlowBuffer(`${userID}`.normalize('NFKC'))
+    const saltBuff = new buffer.SlowBuffer(`${authToken}`.normalize('NFKC'))
 
     scrypt(pwBuff, saltBuff, 1024, 8, 1, 32, (error, progress, key) => {
       if (error) {
@@ -94,7 +98,7 @@ const mapDispatchToProps = dispatch => ({
         aes.utils.utf8.toBytes('control'),
       ))
 
-      dispatch(WSDTCActions.send([
+      dispatch(WSActions.send([
         'api_credentials.save',
         exID,
         cryptedAPIKey,
@@ -105,7 +109,7 @@ const mapDispatchToProps = dispatch => ({
   },
 
   unlockAPIKeys: ({ exID, password }) => {
-    dispatch(WSDTCActions.send([
+    dispatch(WSActions.send([
       'api_client.spawn', exID, password,
     ]))
   },

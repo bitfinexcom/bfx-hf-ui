@@ -114,13 +114,12 @@ export default class NotificationsSidebar extends React.Component {
           </ul>
         )}
 
-        <button
-          type='button'
+        <div
           onClick={this.onToggleOpen}
           className='hfui-notificationssidebar__notch'
         >
           <i className='fa fa-bell' />
-        </button>
+        </div>
       </div>
     )
   }

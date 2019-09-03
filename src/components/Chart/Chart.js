@@ -49,7 +49,7 @@ import {
   getDerivedStateFromProps,
 } from './helpers'
 
-import { getSyncRanges, getLastCandleUpdate } from '../../redux/selectors/ws_dtc_server'
+import { getSyncRanges, getLastCandleUpdate } from '../../redux/selectors/ws'
 import { getMarketsForExchange } from '../../redux/selectors/meta'
 import nearestMarket from '../../util/nearest_market'
 

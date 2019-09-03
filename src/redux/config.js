@@ -1,9 +1,7 @@
 const REDUCER_PATHS = {
-  WS_DTC_SERVER: 'wsDTCServer',
-  BFX_DATA: 'bfxData',
+  WS: 'ws',
   ROUTER: 'router',
   META: 'meta',
-  DATA: 'data',
   UI: 'ui',
 }
 

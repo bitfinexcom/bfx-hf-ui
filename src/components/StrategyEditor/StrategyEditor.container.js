@@ -4,8 +4,8 @@ import aes from 'aes-js'
 import scrypt from 'scrypt-js'
 import buffer from 'scrypt-js/thirdparty/buffer'
 
-import WSDTCActions from '../../redux/actions/ws_dtc_server'
-import { getAllCandles, getUser } from '../../redux/selectors/ws_dtc_server'
+import WSActions from '../../redux/actions/ws'
+import { getAllCandles, getAuthToken } from '../../redux/selectors/ws'
 import { getActiveMarket, getActiveExchange } from '../../redux/selectors/ui'
 
 import StrategyEditor from './StrategyEditor'
@@ -15,13 +15,13 @@ const mapStateToProps = (state = {}) => ({
   activeExchange: getActiveExchange(state),
   activeMarket: getActiveMarket(state),
   candles: getAllCandles(state),
-  user: getUser(state),
+  authToken: getAuthToken(state),
 })
 
 const mapDispatchToProps = dispatch => ({
-  onSave: (userID, password, strategy = {}) => {
+  onSave: (authToken, password, strategy = {}) => {
     const pwBuff = new buffer.SlowBuffer(password.normalize('NFKC'))
-    const saltBuff = new buffer.SlowBuffer(`${userID}`.normalize('NFKC'))
+    const saltBuff = new buffer.SlowBuffer(`${authToken}`.normalize('NFKC'))
 
     scrypt(pwBuff, saltBuff, 1024, 8, 1, 32, (error, progress, key) => {
       if (error) {
@@ -55,7 +55,7 @@ const mapDispatchToProps = dispatch => ({
         }
       })
 
-      dispatch(WSDTCActions.send(['strategy.save', encryptedStrategy]))
+      dispatch(WSActions.send(['strategy.save', encryptedStrategy]))
     })
   },
 })

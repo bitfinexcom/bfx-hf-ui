@@ -4,7 +4,7 @@ import { ConnectedRouter } from 'connected-react-router'
 import { history, configureStore } from './redux'
 
 import sagas from './redux/sagas'
-import wsDTCMiddleware from './redux/middleware/ws_dtc_server'
+import wsMiddleware from './redux/middleware/ws'
 
 const config = {
   development: true,
@@ -12,7 +12,7 @@ const config = {
 }
 
 const optionalMiddleware = [
-  wsDTCMiddleware(),
+  wsMiddleware(),
 ]
 
 const store = configureStore(

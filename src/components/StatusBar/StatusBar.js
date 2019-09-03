@@ -97,7 +97,7 @@ export default class StatusBar extends React.Component {
 
     const {
       onSaveLayout, layoutDirty, displayLayoutControls, layoutName,
-      layoutNames, dtcConnected, allowTradingComponents, layoutCanDelete,
+      layoutNames, wsConnected, allowTradingComponents, layoutCanDelete,
     } = this.props
 
     return (
@@ -208,19 +208,19 @@ Add Component
         <div className='hfui-statusbar__right'>
           <div className='hfui-statusbar__version'>
             <p>
-Version
+              v
               {MANIFEST.version}
             </p>
           </div>
 
           <div className='hfui-statusbar__connection-status'>
             <span className={ClassNames('hfui-statusbar__statuscircle', {
-              green: dtcConnected,
-              red: !dtcConnected,
+              green: wsConnected,
+              red: !wsConnected,
             })}
             />
 
-            <p>{dtcConnected ? 'WS Connected' : 'WS Disconnected'}</p>
+            <p>{wsConnected ? 'WS Connected' : 'WS Disconnected'}</p>
           </div>
         </div>
       </div>

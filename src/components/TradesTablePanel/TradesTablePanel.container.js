@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import TradesTablePanel from './TradesTablePanel'
 import UIActions from '../../redux/actions/ui'
-import WSDTCActions from '../../redux/actions/ws_dtc_server'
+import WSActions from '../../redux/actions/ws'
 import { getExchanges, getMarkets } from '../../redux/selectors/meta'
 import {
   getActiveMarket, getComponentState, getActiveExchange,
@@ -23,11 +23,11 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
 
 const mapDispatchToProps = dispatch => ({
   addTradesRequirement: (exchange, market) => {
-    dispatch(WSDTCActions.addChannelRequirement(exchange, ['trades', market]))
+    dispatch(WSActions.addChannelRequirement(exchange, ['trades', market]))
   },
 
   removeTradesRequirement: (exchange, market) => {
-    dispatch(WSDTCActions.removeChannelRequirement(exchange, ['trades', market]))
+    dispatch(WSActions.removeChannelRequirement(exchange, ['trades', market]))
   },
 
   saveState: (layoutID, componentID, state) => {

@@ -6,10 +6,8 @@ export const propTypes = {
   activeMarket: PropTypes.object.isRequired,
   activeExchange: PropTypes.string.isRequired,
   onRemove: PropTypes.func,
-  onLogin: PropTypes.func,
   apiClientStates: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
-  demoMode: PropTypes.bool,
+  apiCredentials: PropTypes.object.isRequired,
   moveable: PropTypes.bool,
   removeable: PropTypes.bool,
   showExchange: PropTypes.bool,
@@ -17,7 +15,6 @@ export const propTypes = {
 }
 
 export const defaultProps = {
-  demoMode: false,
   moveable: true,
   removeable: true,
   showExchange: false,

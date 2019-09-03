@@ -22,7 +22,6 @@ import Dropdown from '../../ui/Dropdown'
 import Scrollbars from '../../ui/Scrollbars'
 import MarketSelect from '../MarketSelect'
 
-import LoginModal from './Modals/LoginModal'
 import LockedModal from './Modals/LockedModal'
 import ConnectingModal from './Modals/ConnectingModal'
 import UnconfiguredModal from './Modals/UnconfiguredModal'
@@ -155,11 +154,11 @@ export default class OrderForm extends React.Component {
   }
 
   onSubmitAPIKeys({ apiKey, apiSecret, password }) {
-    const { submitAPIKeys, user } = this.props
+    const { submitAPIKeys, authToken } = this.props
     const { currentExchange } = this.state
 
     submitAPIKeys({
-      userID: user.id,
+      authToken,
       exID: currentExchange,
       apiKey,
       apiSecret,
@@ -249,12 +248,7 @@ export default class OrderForm extends React.Component {
       currentLayout, fieldData, context, currentExchange, currentMarket,
     } = this.state
 
-    const { demoMode, submitOrder } = this.props
-
-    if (demoMode) {
-      return
-    }
-
+    const { submitOrder } = this.props
     const { generateOrder } = currentLayout
     const data = processFieldData({
       layout: currentLayout,
@@ -271,11 +265,7 @@ export default class OrderForm extends React.Component {
   }
 
   onSubmitAlgoOrder() {
-    const { demoMode, submitAlgoOrder } = this.props
-
-    if (demoMode) {
-      return
-    }
+    const { submitAlgoOrder } = this.props
 
     const {
       currentExchange, currentMarket, currentLayout, fieldData, context,
@@ -391,9 +381,8 @@ export default class OrderForm extends React.Component {
 
   render() {
     const {
-      onRemove, orders, apiClientStates, user = {}, onLogin, demoMode,
-      moveable = true, removeable = true, showExchange,
-      showMarket,
+      onRemove, orders, apiClientStates, apiCredentials, moveable, removeable,
+      showExchange, showMarket,
     } = this.props
 
     const {
@@ -406,7 +395,7 @@ export default class OrderForm extends React.Component {
     const apiClientConnected = apiClientState === 2
     const apiClientConnecting = apiClientState === 1
     const apiClientDisconnected = !apiClientState
-    const keys = ((user || {}).apiKeys || {})[currentExchange] || {}
+    const keys = (apiCredentials || {})[currentExchange] || {}
     const renderData = marketToQuoteBase(currentMarket)
     const orderOptions = [{ value: '_label', label: 'Atomic Orders' }]
 
@@ -415,21 +404,17 @@ export default class OrderForm extends React.Component {
       label,
     }))
 
-    if (user && user.subscription > 0) {
-      if (currentExchange === 'bitfinex' || currentExchange === 'binance') {
-        orderOptions.push({ value: '_label', label: 'Algorithmic Orders' })
+    orderOptions.push({ value: '_label', label: 'Algorithmic Orders' })
 
-        // NOTE: Iceberg is disabled on Binance [native iceberg support pending implementation]
-        algoOrders.filter((ao) => {
-          return (
-            (currentExchange === 'bitfinex')
-            || (currentExchange === 'binance' && ao.id !== 'bfx-iceberg')
-          )
-        }).forEach(({ label }) => {
-          orderOptions.push({ value: label, label })
-        })
-      }
-    }
+    // NOTE: Iceberg is disabled on Binance [native iceberg support pending implementation]
+    algoOrders.filter((ao) => {
+      return (
+        (currentExchange === 'bitfinex')
+        || (currentExchange === 'binance' && ao.id !== 'bfx-iceberg')
+      )
+    }).forEach(({ label }) => {
+      orderOptions.push({ value: label, label })
+    })
 
     // NOTE: Margin trading disabled on Binance
     return (
@@ -483,47 +468,43 @@ export default class OrderForm extends React.Component {
         ]}
       >
         <div className='hfui-orderform__wrapper'>
-          {!demoMode && (
-            !(user || {}).id ? (
-              <LoginModal onClick={onLogin} />
-            ) : [
-              apiClientDisconnected && !keys.key && !keys.secret && !configureModalOpen && (
-                <UnconfiguredModal
-                  key='unconfigured'
-                  exID={currentExchange}
-                  onClick={this.onToggleConfigureModal}
-                />
-              ),
+          {[
+            apiClientDisconnected && !keys.key && !keys.secret && !configureModalOpen && (
+              <UnconfiguredModal
+                key='unconfigured'
+                exID={currentExchange}
+                onClick={this.onToggleConfigureModal}
+              />
+            ),
 
-              apiClientDisconnected && !keys.key && !keys.secret && configureModalOpen && (
-                <SubmitAPIKeysModal
-                  key='submit-api-keys'
-                  onClose={this.onToggleConfigureModal}
-                  onSubmit={this.onSubmitAPIKeys}
-                  exID={currentExchange}
-                />
-              ),
+            apiClientDisconnected && !keys.key && !keys.secret && configureModalOpen && (
+              <SubmitAPIKeysModal
+                key='submit-api-keys'
+                onClose={this.onToggleConfigureModal}
+                onSubmit={this.onSubmitAPIKeys}
+                exID={currentExchange}
+              />
+            ),
 
-              apiClientDisconnected && keys.key && keys.secret && !unlockModalOpen && (
-                <LockedModal
-                  key='locked'
-                  onClick={this.onToggleUnlockModal}
-                />
-              ),
+            apiClientDisconnected && keys.key && keys.secret && !unlockModalOpen && (
+              <LockedModal
+                key='locked'
+                onClick={this.onToggleUnlockModal}
+              />
+            ),
 
-              apiClientDisconnected && keys.key && keys.secret && unlockModalOpen && (
-                <UnlockAPIKeysModal
-                  key='unlock'
-                  onClose={this.onToggleUnlockModal}
-                  onSubmit={this.onUnlock}
-                />
-              ),
+            apiClientDisconnected && keys.key && keys.secret && unlockModalOpen && (
+              <UnlockAPIKeysModal
+                key='unlock'
+                onClose={this.onToggleUnlockModal}
+                onSubmit={this.onUnlock}
+              />
+            ),
 
-              apiClientConnecting && (
-                <ConnectingModal key='connecting' />
-              ),
-            ]
-          )}
+            apiClientConnecting && (
+              <ConnectingModal key='connecting' />
+            ),
+          ]}
 
           {helpOpen && currentLayout && currentLayout.customHelp && (
             <div className='hfui-orderform__help-wrapper'>

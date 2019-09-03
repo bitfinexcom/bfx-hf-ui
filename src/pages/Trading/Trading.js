@@ -3,6 +3,7 @@ import React from 'react'
 import OrderBookPanel from '../../components/OrderBookPanel'
 import TradingStatePanel from '../../components/TradingStatePanel'
 // import TVChart from '../../components/TVChart'
+import Chart from '../../components/Chart'
 import OrderForm from '../../components/OrderForm'
 import TradesTablePanel from '../../components/TradesTablePanel'
 import StatusBar from '../../components/StatusBar'
@@ -22,7 +23,7 @@ export default class Trading extends React.PureComponent {
   static defaultProps = defaultProps
 
   render() {
-    const { onLogin, activeMarket } = this.props
+    const { activeMarket, exID } = this.props
 
     const commonComponentProps = {
       moveable: false,
@@ -39,7 +40,6 @@ export default class Trading extends React.PureComponent {
           <div className='hfui-tradingpage__column left'>
             <OrderForm
               orders={orderDefinitions}
-              onLogin={onLogin}
               {...commonComponentProps}
             />
 
@@ -50,6 +50,17 @@ export default class Trading extends React.PureComponent {
           </div>
 
           <div className='hfui-tradingpage__column center'>
+            <div className='hfui-tradingpage__chart'>
+              <Chart
+                activeMarket={activeMarket}
+                activeExchange={exID}
+                canChangeMarket={false}
+                canChangeExchange={false}
+                moveable={false}
+                removeable={false}
+              />
+            </div>
+
             {/*
             <div className='hfui-tvchart__wrapper'>
               <TVChart containerID='__tvchart' />

@@ -4,7 +4,7 @@ import _last from 'lodash/last'
 import genChartData from './gen_chart_data'
 import calcIndicatorValuesForCandles from './calc_indicator_values_for_candles'
 import { getMarketsForExchange } from '../../../redux/selectors/meta'
-import { getLastCandleUpdate } from '../../../redux/selectors/ws_dtc_server'
+import { getLastCandleUpdate } from '../../../redux/selectors/ws'
 import nearestMarket from '../../../util/nearest_market'
 
 export default (nextProps, prevState) => {

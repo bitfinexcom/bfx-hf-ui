@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import { getOrderBook } from '../../redux/selectors/ws_dtc_server'
+import { getOrderBook } from '../../redux/selectors/ws'
 import OrderBook from './OrderBook'
 
 const mapStateToProps = (state = {}, ownProps = {}) => ({

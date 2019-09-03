@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import UIActions from '../../redux/actions/ui'
 import {
   getAlgoOrders, getAllOrders, getAllPositions, getAllBalances,
-} from '../../redux/selectors/ws_dtc_server'
+} from '../../redux/selectors/ws'
 
 import {
   getComponentState, getActiveExchange, getActiveMarket,

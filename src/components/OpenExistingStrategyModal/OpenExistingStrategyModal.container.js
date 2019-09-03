@@ -1,12 +1,11 @@
 import { connect } from 'react-redux'
 
-import { getStrategies, getUser } from '../../redux/selectors/ws_dtc_server'
-
+import { getStrategies, getAuthToken } from '../../redux/selectors/ws'
 import OpenExistingStrategyModal from './OpenExistingStrategyModal'
 
 const mapStateToProps = (state = {}) => ({
   strategies: getStrategies(state),
-  user: getUser(state),
+  authToken: getAuthToken(state),
 })
 
 const mapDispatchToProps = dispatch => ({}) // eslint-disable-line
