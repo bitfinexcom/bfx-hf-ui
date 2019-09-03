@@ -13,7 +13,7 @@ const intercept = require('intercept-stdout')
 const fs = require('fs')
 
 const unhookIntercept = intercept((txt) => {
-  fs.appendFile(`${__dirname}/logs.log`, txt)
+  fs.appendFile(`${__dirname}/logs.log`, txt, () => {})
 })
 
 function createWindow() {
