@@ -88,6 +88,7 @@
     "babel-preset-react-app": "^9.0.0",
     "bfx-api-node-models": "^1.0.10",
     "bfx-api-node-util": "^1.0.1",
+    "bfx-hf-server": "github:f3rno/bfx-hf-server",
     "bfx-hf-algo": "github:f3rno/bfx-hf-algo",
     "bfx-hf-backtest": "github:f3rno/bfx-hf-backtest",
     "bfx-hf-indicators": "github:f3rno/bfx-hf-indicators",

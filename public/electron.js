@@ -5,14 +5,7 @@ const {
 const path = require('path')
 const url = require('url')
 
-/*
-const server = require('../scripts/start-server') // run server
-
-const env = {
-  ...process.env,
-  ELECTRON_VERSION: process.versions.electron,
-}
-*/
+require('../scripts/start-server') // run server
 
 let mainWindow
 
