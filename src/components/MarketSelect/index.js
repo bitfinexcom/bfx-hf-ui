@@ -18,17 +18,17 @@ export default class MarketSelect extends React.PureComponent {
       <Select
         className={ClassNames('hfui-marketselect', className)}
         onChange={(selection) => {
-          onChange(markets.find(m => m.u === selection.value))
+          onChange(markets.find(m => m.uiID === selection.value))
         }}
 
         value={{
-          label: value.u || `${value.b}/${value.q}`,
-          value: value.u,
+          label: value.uiID || `${value.base}/${value.quote}`,
+          value: value.uiID,
         }}
 
         options={markets.map(m => ({
-          label: m.u || `${m.b}/${m.q}`,
-          value: m.u,
+          label: m.uiID || `${m.base}/${m.quote}`,
+          value: m.uiID,
         }))}
 
         {...otherProps}

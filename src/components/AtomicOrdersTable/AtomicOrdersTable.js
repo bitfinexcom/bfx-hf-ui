@@ -5,7 +5,7 @@ import { propTypes, defaultProps } from './AtomicOrdersTable.props'
 import Table from '../../ui/Table'
 import './style.css'
 
-export default class OrdersTable extends React.PureComponent {
+export default class AtomicOrdersTable extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
 

@@ -10,8 +10,8 @@ export default class StrategyEditorPanel extends React.PureComponent {
   render() {
     const {
       onRemove, moveable, removeable, children, execRunning, helpOpen,
-      authenticated, strategyDirty, strategy, onToggleHelp,
-      onOpenSelectModal, onOpenCreateModal, onSaveStrategy, onBacktestStrategy,
+      strategyDirty, strategy, onToggleHelp, onOpenSelectModal,
+      onOpenCreateModal, onSaveStrategy, onBacktestStrategy,
       // onSwitchEditorMode, onToggleMaximiseEditor, editorMode,
       // editorMaximised,
     } = this.props
@@ -38,12 +38,10 @@ export default class StrategyEditorPanel extends React.PureComponent {
 
         headerComponents={(
           <div className='hfui-strategyeditor__header'>
-            {authenticated && (
-              <i
-                className='far fa-folder-open'
-                onClick={onOpenSelectModal}
-              />
-            )}
+            <i
+              className='far fa-folder-open'
+              onClick={onOpenSelectModal}
+            />
 
             <i
               className='far fa-plus-square'

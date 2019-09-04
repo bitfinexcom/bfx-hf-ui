@@ -7,7 +7,7 @@ import AtomicOrdersTable from './AtomicOrdersTable'
 
 const debug = Debug('hfui:c:atomic-orders-table')
 
-const mapStateToProps = (state = {}, ownProps = {}) => {} // eslint-disable-line
+const mapStateToProps = (state = {}, ownProps = {}) => ({}) // eslint-disable-line
 
 const mapDispatchToProps = dispatch => ({
   cancelOrder: (exID, order) => {

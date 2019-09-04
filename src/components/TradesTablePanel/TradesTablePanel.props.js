@@ -12,7 +12,7 @@ export const propTypes = {
   saveState: PropTypes.func.isRequired,
   addTradesRequirement: PropTypes.func.isRequired,
   removeTradesRequirement: PropTypes.func.isRequired,
-  onRemove: PropTypes.func.isRequired,
+  onRemove: PropTypes.func,
   canChangeExchange: PropTypes.bool,
   canChangeMarket: PropTypes.bool,
   moveable: PropTypes.bool,

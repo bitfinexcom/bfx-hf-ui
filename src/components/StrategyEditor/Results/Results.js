@@ -2,7 +2,7 @@ import React from 'react'
 
 import { preparePrice } from 'bfx-api-node-util'
 import ResultRow from './ResultRow'
-import { propTypes, defaultProps } from './ResultRow.props'
+import { propTypes, defaultProps } from './Results.props'
 import './style.css'
 
 export default class Results extends React.PureComponent {

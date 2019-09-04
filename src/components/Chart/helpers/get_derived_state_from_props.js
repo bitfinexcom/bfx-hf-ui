@@ -30,7 +30,7 @@ export default (nextProps, prevState) => {
   }
 
   // Update market & exchange w/ UI if not manually changed
-  if (currentMarket && (activeMarket.r !== currentMarket.r) && !marketDirty) {
+  if (currentMarket && (activeMarket.restID !== currentMarket.restID) && !marketDirty) {
     nextState.currentMarket = activeMarket
   }
 
@@ -42,9 +42,9 @@ export default (nextProps, prevState) => {
   }
 
   const exID = nextState.currentExchange
-  const mID = nextState.currentMarket.u
+  const mID = nextState.currentMarket.uiID
 
-  if (mID !== currentMarket.u || exID !== currentExchange) {
+  if (mID !== currentMarket.uiID || exID !== currentExchange) {
     const market = nextState.currentMarket
 
     syncCandles(exID, market, currentTF, currentRange) // update
@@ -54,7 +54,7 @@ export default (nextProps, prevState) => {
 
   const lastCandleUpdate = getLastCandleUpdate(reduxState, {
     exID: nextState.currentExchange,
-    symbol: nextState.currentMarket.u,
+    symbol: nextState.currentMarket.uiID,
     tf: prevState.currentTF,
   })
 

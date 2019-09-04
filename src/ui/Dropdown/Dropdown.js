@@ -66,7 +66,7 @@ class Dropdown extends React.Component {
             <ul>
               <Scrollbars autoHeight style={{ maxHeight: '300px' }}>
                 {options.map(o => (
-                  value === '_label' ? (
+                  o.value === '_label' ? (
                     <li
                       key={o.label}
                       className='label'

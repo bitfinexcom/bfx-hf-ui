@@ -8,13 +8,13 @@ export default class UICheckboxGroup extends React.PureComponent {
 
   render() {
     const {
-      def = {}, layout = {}, renderData = {}, fieldData = {}, onFieldChange,
+      def = {}, layout = {}, renderData = {}, fieldData = {}, onFieldChange, id,
     } = this.props
 
     const { fields } = def
 
     return (
-      <div className='hfui-orderform__checkbox-group'>
+      <div key={id} className='hfui-orderform__checkbox-group'>
         {fields.map(fieldName => (
           renderLayoutField({
             onFieldChange,

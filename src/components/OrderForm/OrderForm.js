@@ -22,11 +22,9 @@ import Dropdown from '../../ui/Dropdown'
 import Scrollbars from '../../ui/Scrollbars'
 import MarketSelect from '../MarketSelect'
 
-import LockedModal from './Modals/LockedModal'
 import ConnectingModal from './Modals/ConnectingModal'
 import UnconfiguredModal from './Modals/UnconfiguredModal'
 import SubmitAPIKeysModal from './Modals/SubmitAPIKeysModal'
-import UnlockAPIKeysModal from './Modals/UnlockAPIKeysModal'
 
 import { propTypes, defaultProps } from './OrderForm.props'
 import './style.css'
@@ -47,7 +45,6 @@ export default class OrderForm extends React.Component {
     creationError: null,
     context: 'exchange',
     helpOpen: false,
-    unlockModalOpen: false,
     configureModalOpen: false,
   }
 
@@ -77,7 +74,7 @@ export default class OrderForm extends React.Component {
 
       fieldData: defaultDataForLayout(currentOrder),
       currentLayout: currentOrder,
-      context: currentMarket.c[0],
+      context: currentMarket.contexts[0],
     }
 
     this.onChangeActiveOrderLayout = this.onChangeActiveOrderLayout.bind(this)
@@ -87,7 +84,6 @@ export default class OrderForm extends React.Component {
     this.onFieldChange = this.onFieldChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
     this.onToggleHelp = this.onToggleHelp.bind(this)
-    this.onToggleUnlockModal = this.onToggleUnlockModal.bind(this)
     this.onToggleConfigureModal = this.onToggleConfigureModal.bind(this)
     this.onSubmitAPIKeys = this.onSubmitAPIKeys.bind(this)
     this.onUnlock = this.onUnlock.bind(this)
@@ -133,7 +129,7 @@ export default class OrderForm extends React.Component {
   onChangeMarket(market) {
     const { currentMarket } = this.state
 
-    if (market.r === currentMarket.r) {
+    if (market.restID === currentMarket.restID) {
       return
     }
 
@@ -169,12 +165,6 @@ export default class OrderForm extends React.Component {
   onToggleHelp() {
     this.setState(({ helpOpen }) => ({
       helpOpen: !helpOpen,
-    }))
-  }
-
-  onToggleUnlockModal() {
-    this.setState(({ unlockModalOpen }) => ({
-      unlockModalOpen: !unlockModalOpen,
     }))
   }
 
@@ -248,7 +238,7 @@ export default class OrderForm extends React.Component {
       currentLayout, fieldData, context, currentExchange, currentMarket,
     } = this.state
 
-    const { submitOrder } = this.props
+    const { submitOrder, authToken } = this.props
     const { generateOrder } = currentLayout
     const data = processFieldData({
       layout: currentLayout,
@@ -257,16 +247,19 @@ export default class OrderForm extends React.Component {
     })
 
     try {
-      const packet = generateOrder(data, currentMarket[currentExchange === 'bitfinex' ? 'w' : 'r'], context)
-      submitOrder({ exID: currentExchange, packet })
+      const packet = generateOrder(data, currentMarket[currentExchange === 'bitfinex' ? 'wsID' : 'restID'], context)
+      submitOrder({
+        exID: currentExchange,
+        authToken,
+        packet,
+      })
     } catch (e) {
       this.setState(() => ({ creationError: e.message }))
     }
   }
 
   onSubmitAlgoOrder() {
-    const { submitAlgoOrder } = this.props
-
+    const { submitAlgoOrder, authToken } = this.props
     const {
       currentExchange, currentMarket, currentLayout, fieldData, context,
     } = this.state
@@ -282,6 +275,7 @@ export default class OrderForm extends React.Component {
       id,
       data,
       context,
+      authToken,
       market: currentMarket,
       exID: currentExchange,
     })
@@ -387,15 +381,14 @@ export default class OrderForm extends React.Component {
 
     const {
       fieldData, validationErrors, creationError, context, currentLayout,
-      helpOpen, unlockModalOpen, configureModalOpen, currentExchange,
-      currentMarket, algoOrders,
+      helpOpen, configureModalOpen, currentExchange, currentMarket, algoOrders,
     } = this.state
 
     const apiClientState = apiClientStates[currentExchange]
     const apiClientConnected = apiClientState === 2
     const apiClientConnecting = apiClientState === 1
     const apiClientDisconnected = !apiClientState
-    const keys = (apiCredentials || {})[currentExchange] || {}
+    const apiClientConfigured = !!(apiCredentials || {})[currentExchange]
     const renderData = marketToQuoteBase(currentMarket)
     const orderOptions = [{ value: '_label', label: 'Atomic Orders' }]
 
@@ -469,7 +462,7 @@ export default class OrderForm extends React.Component {
       >
         <div className='hfui-orderform__wrapper'>
           {[
-            apiClientDisconnected && !keys.key && !keys.secret && !configureModalOpen && (
+            apiClientDisconnected && !apiClientConfigured && !configureModalOpen && (
               <UnconfiguredModal
                 key='unconfigured'
                 exID={currentExchange}
@@ -477,27 +470,12 @@ export default class OrderForm extends React.Component {
               />
             ),
 
-            apiClientDisconnected && !keys.key && !keys.secret && configureModalOpen && (
+            apiClientDisconnected && !apiClientConfigured && configureModalOpen && (
               <SubmitAPIKeysModal
                 key='submit-api-keys'
                 onClose={this.onToggleConfigureModal}
                 onSubmit={this.onSubmitAPIKeys}
                 exID={currentExchange}
-              />
-            ),
-
-            apiClientDisconnected && keys.key && keys.secret && !unlockModalOpen && (
-              <LockedModal
-                key='locked'
-                onClick={this.onToggleUnlockModal}
-              />
-            ),
-
-            apiClientDisconnected && keys.key && keys.secret && unlockModalOpen && (
-              <UnlockAPIKeysModal
-                key='unlock'
-                onClose={this.onToggleUnlockModal}
-                onSubmit={this.onUnlock}
               />
             ),
 
@@ -543,7 +521,7 @@ export default class OrderForm extends React.Component {
                 label='Context'
                 value={context}
                 onChange={this.onContextChange}
-                options={currentMarket.c.filter(ctx => (
+                options={currentMarket.contexts.filter(ctx => (
                   currentExchange === 'bitfinex' || ctx !== 'm'
                 )).map(ctx => ({
                   label: CONTEXT_LABELS[ctx],

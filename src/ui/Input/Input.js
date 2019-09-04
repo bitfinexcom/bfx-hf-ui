@@ -10,6 +10,7 @@ export default class Input extends React.PureComponent {
   render() {
     const {
       type, className, onChange, disabled, value, placeholder, label,
+      autocomplete, style,
     } = this.props
 
     return (
@@ -20,10 +21,12 @@ export default class Input extends React.PureComponent {
 
         <input
           type={type}
+          autoComplete={autocomplete}
           className={className}
           onChange={e => onChange(e.target.value)}
           placeholder={placeholder}
           disabled={disabled}
+          style={style}
           value={value}
         />
       </div>

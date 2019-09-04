@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 
 export const propTypes = {
-  content: PropTypes.object,
+  content: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   className: PropTypes.string,
   icon: PropTypes.string,
   title: PropTypes.string,

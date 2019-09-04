@@ -20,7 +20,6 @@ import StrategyExecWorker from '../../workers/strategy_exec.worker'
 import { generateResults } from './StrategyEditor.helpers'
 import StrategyEditorHelp from './StrategyEditorHelp'
 import StrategyEditorPanel from './StrategyEditorPanel'
-import StrategyPasswordModal from '../StrategyPasswordModal'
 import CreateNewStrategyModal from '../CreateNewStrategyModal'
 import OpenExistingStrategyModal from '../OpenExistingStrategyModal'
 import { propTypes, defaultProps } from './StrategyEditor.props'
@@ -64,7 +63,6 @@ export default class StrategyEditor extends React.PureComponent {
     editorMaximised: false,
     createNewStrategyModalOpen: false,
     openExistingStrategyModalOpen: false,
-    strategyPasswordModalOpen: false,
     editorMode: 'visual',
     helpOpen: false,
   }
@@ -81,7 +79,6 @@ export default class StrategyEditor extends React.PureComponent {
     this.onCloseModals = this.onCloseModals.bind(this)
     this.onCreateNewStrategy = this.onCreateNewStrategy.bind(this)
     this.onSaveStrategy = this.onSaveStrategy.bind(this)
-    this.onExecSaveStrategy = this.onExecSaveStrategy.bind(this)
     this.onLoadStrategy = this.onLoadStrategy.bind(this)
     this.onToggleHelp = this.onToggleHelp.bind(this)
     this.onToggleMaximiseEditor = this.onToggleMaximiseEditor.bind(this)
@@ -147,7 +144,6 @@ export default class StrategyEditor extends React.PureComponent {
     this.setState(() => ({
       createNewStrategyModalOpen: true,
       openExistingStrategyModalOpen: false,
-      strategyPasswordModalOpen: false,
     }))
   }
 
@@ -155,7 +151,6 @@ export default class StrategyEditor extends React.PureComponent {
     this.setState(() => ({
       createNewStrategyModalOpen: false,
       openExistingStrategyModalOpen: true,
-      strategyPasswordModalOpen: false,
     }))
   }
 
@@ -163,7 +158,6 @@ export default class StrategyEditor extends React.PureComponent {
     this.setState(() => ({
       createNewStrategyModalOpen: false,
       openExistingStrategyModalOpen: false,
-      strategyPasswordModalOpen: false,
     }))
   }
 
@@ -175,14 +169,10 @@ export default class StrategyEditor extends React.PureComponent {
   }
 
   onSaveStrategy() {
-    this.setState(() => ({ strategyPasswordModalOpen: true }))
-  }
-
-  onExecSaveStrategy(password) {
     const { authToken, onSave } = this.props
     const { strategy } = this.state
 
-    onSave(authToken, password, strategy)
+    onSave(authToken, strategy)
 
     this.setState(() => ({ strategyDirty: false }))
     this.onCloseModals()
@@ -293,7 +283,7 @@ export default class StrategyEditor extends React.PureComponent {
       type: 'EXEC_STRATEGY',
       data: {
         exID: activeExchange,
-        mID: activeMarket.u,
+        mID: activeMarket.uiID,
         strategyContent,
         candleData,
         tf,
@@ -380,9 +370,7 @@ export default class StrategyEditor extends React.PureComponent {
       editorMode,
     } = this.state
 
-    const {
-      authenticated, onRemove, moveable, removeable,
-    } = this.props
+    const { onRemove, moveable, removeable } = this.props
 
     return (
       <StrategyEditorPanel
@@ -391,7 +379,6 @@ export default class StrategyEditor extends React.PureComponent {
         removeable={removeable}
         execRunning={execRunning}
         helpOpen={helpOpen}
-        authenticated={authenticated}
         strategyDirty={strategyDirty}
         strategy={strategy}
         editorMode={editorMode}
@@ -410,7 +397,6 @@ export default class StrategyEditor extends React.PureComponent {
   }
 
   renderEmptyContent() {
-    const { authenticated } = this.props
     const {
       createNewStrategyModalOpen, openExistingStrategyModalOpen,
     } = this.state
@@ -422,21 +408,16 @@ export default class StrategyEditor extends React.PureComponent {
             className='button'
             onClick={this.onOpenCreateModal}
           >
-Create
+            Create
           </p>
-          <p>a new strategy</p>
-
-          {authenticated && [
-            <p key='a'>or</p>,
-            <p
-              key='b'
-              className='button'
-              onClick={this.onOpenSelectModal}
-            >
-open
-            </p>,
-            <p key='c'>an existing one.</p>,
-          ]}
+          <p>a new strategy or</p>
+          <p
+            className='button'
+            onClick={this.onOpenSelectModal}
+          >
+            open
+          </p>
+          <p>an existing one.</p>
         </div>
 
         {createNewStrategyModalOpen && (
@@ -461,8 +442,7 @@ open
     const {
       activeContent, results, execError, execRunning, currentTick, totalTicks,
       strategy, createNewStrategyModalOpen, openExistingStrategyModalOpen,
-      sectionErrors, strategyPasswordModalOpen, helpOpen, editorMaximised,
-      // editorMode,
+      sectionErrors, helpOpen, editorMaximised, // editorMode,
     } = this.state
 
     if (!strategy) {
@@ -510,13 +490,6 @@ open
           <OpenExistingStrategyModal
             onClose={this.onCloseModals}
             onOpen={this.onLoadStrategy}
-          />
-        )}
-
-        {strategyPasswordModalOpen && (
-          <StrategyPasswordModal
-            onClose={this.onCloseModals}
-            onSubmit={this.onExecSaveStrategy}
           />
         )}
 

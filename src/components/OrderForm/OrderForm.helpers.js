@@ -151,6 +151,7 @@ const renderLayoutComponent = ({
       onChange={v => onFieldChange(fieldName, v)}
       value={fieldData[fieldName]}
       key={`${fieldName}-component`}
+      id={`${fieldName}-component`}
       validationError={validationErrors[fieldName]}
       fieldData={fieldData}
       disabled={disabled}

@@ -13,6 +13,7 @@ import BinanceOrders from '../../orders/binance'
 import { propTypes, defaultProps } from './Trading.props'
 import './style.css'
 
+const LAYOUT_ID = '__hfui_trading_page'
 const orderDefinitions = {
   bitfinex: Object.values(BitfinexOrders).map(uiDef => uiDef()),
   binance: Object.values(BinanceOrders).map(uiDef => uiDef()),
@@ -26,6 +27,7 @@ export default class Trading extends React.PureComponent {
     const { activeMarket, exID } = this.props
 
     const commonComponentProps = {
+      layoutID: LAYOUT_ID,
       moveable: false,
       removeable: false,
       canChangeExchange: false,
@@ -39,11 +41,13 @@ export default class Trading extends React.PureComponent {
         <div className='hfui-tradingpage__inner'>
           <div className='hfui-tradingpage__column left'>
             <OrderForm
+              layoutI='orderform'
               orders={orderDefinitions}
               {...commonComponentProps}
             />
 
             <TradesTablePanel
+              layoutI='trades-table'
               activeMarket={activeMarket}
               {...commonComponentProps}
             />
@@ -52,8 +56,11 @@ export default class Trading extends React.PureComponent {
           <div className='hfui-tradingpage__column center'>
             <div className='hfui-tradingpage__chart'>
               <Chart
+                layoutI='chart'
                 activeMarket={activeMarket}
                 activeExchange={exID}
+                showMarket={false}
+                showExchange={false}
                 canChangeMarket={false}
                 canChangeExchange={false}
                 moveable={false}
@@ -68,20 +75,21 @@ export default class Trading extends React.PureComponent {
             */}
 
             <TradingStatePanel
+              layoutI='trading-state'
               {...commonComponentProps}
             />
           </div>
 
           <div className='hfui-tradingpage__column right'>
             <OrderBookPanel
+              layoutI='orderbook'
               canChangeStacked={false}
               {...commonComponentProps}
             />
           </div>
         </div>
-        <StatusBar
-          displayLayoutControls={false}
-        />
+
+        <StatusBar displayLayoutControls={false} />
       </div>
     )
   }

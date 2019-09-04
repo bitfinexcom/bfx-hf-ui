@@ -5,6 +5,7 @@ export const propTypes = {
   className: PropTypes.string,
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
+  autocomplete: PropTypes.string,
   value: PropTypes.any,
 }
 

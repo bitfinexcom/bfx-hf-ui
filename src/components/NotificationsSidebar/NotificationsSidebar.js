@@ -19,6 +19,7 @@ export default class NotificationsSidebar extends React.Component {
     lastShownMTS: 0,
     lastNotificationCount: 0,
     liveNotifications: [],
+    liveNotificationTimeouts: [],
   }
 
   constructor(props) {
@@ -32,6 +33,11 @@ export default class NotificationsSidebar extends React.Component {
     }
 
     this.onToggleOpen = this.onToggleOpen.bind(this)
+    this.mounted = false
+  }
+
+  componentDidMount() {
+    this.mounted = true
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -72,11 +78,19 @@ export default class NotificationsSidebar extends React.Component {
     )
   }
 
+  componentWillUnmount() {
+    this.mounted = false
+  }
+
   onToggleOpen() {
     this.setState(({ open }) => ({ open: !open }))
   }
 
   timeoutLiveNotifications(shownMTS) {
+    if (!this.mounted) {
+      return
+    }
+
     this.setState(({ liveNotifications }) => ({
       liveNotifications: liveNotifications.filter(({ showMTS }) => (
         showMTS !== shownMTS

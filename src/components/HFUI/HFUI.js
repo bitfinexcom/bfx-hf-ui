@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router'
 import TradingPage from '../../pages/Trading'
 import StrategyEditorPage from '../../pages/StrategyEditor'
 import MarketDataPage from '../../pages/MarketData'
+import AuthenticationPage from '../../pages/Authentication'
 
 import Navbar from '../Navbar'
 import ExchangeInfoBar from '../ExchangeInfoBar'
@@ -28,7 +29,16 @@ export default class HFUI extends React.PureComponent {
   }
 
   render() {
-    const { activeMarket } = this.props
+    const { activeMarket, authToken } = this.props
+
+    if (!authToken) {
+      return (
+        <div className='hfui-app'>
+          <AuthenticationPage />
+          <NotificationsSidebar />
+        </div>
+      )
+    }
 
     return (
       <div className='hfui-app'>

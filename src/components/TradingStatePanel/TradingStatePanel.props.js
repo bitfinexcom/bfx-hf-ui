@@ -5,7 +5,7 @@ export const propTypes = {
   layoutI: PropTypes.string.isRequired,
   savedState: PropTypes.object.isRequired,
   saveState: PropTypes.func.isRequired,
-  onRemove: PropTypes.func.isRequired,
+  onRemove: PropTypes.func,
   activeExchange: PropTypes.string.isRequired,
   activeMarket: PropTypes.object.isRequired,
   atomicOrders: PropTypes.object.isRequired,

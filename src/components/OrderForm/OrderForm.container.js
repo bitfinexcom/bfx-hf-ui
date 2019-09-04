@@ -1,9 +1,6 @@
 import { connect } from 'react-redux'
 import { push } from 'connected-react-router'
 import Debug from 'debug'
-import aes from 'aes-js'
-import scrypt from 'scrypt-js'
-import buffer from 'scrypt-js/thirdparty/buffer'
 
 import OrderForm from './OrderForm'
 import UIActions from '../../redux/actions/ui'
@@ -47,22 +44,22 @@ const mapDispatchToProps = dispatch => ({
     }))
   },
 
-  submitOrder: ({ exID, packet }) => {
+  submitOrder: ({ authToken, exID, packet }) => {
     debug('submitting order %j', packet)
 
-    dispatch(WSActions.send(['order.submit', exID, {
+    dispatch(WSActions.send(['order.submit', authToken, exID, {
       symbol: packet.symbol[exID === 'bitfinex' ? 'w' : 'r'],
       ...packet,
     }]))
   },
 
   submitAlgoOrder: ({
-    exID, id, market, context, data,
+    authToken, exID, id, market, context, data,
   }) => {
     debug('submitting algo order %s on %s [%s]', id, market.u, context)
 
     // TODO: Extract symbol resolution (r/w)
-    dispatch(WSActions.send(['algo_order.submit', exID, id, {
+    dispatch(WSActions.send(['algo_order.submit', authToken, exID, id, {
       ...data,
       _symbol: exID === 'bitfinex' ? market.w : market.r,
       _margin: context === 'm',
@@ -70,47 +67,14 @@ const mapDispatchToProps = dispatch => ({
   },
 
   submitAPIKeys: ({
-    authToken, exID, apiKey, apiSecret, password,
+    exID, authToken, apiKey, apiSecret,
   }) => {
-    const pwBuff = new buffer.SlowBuffer(password.normalize('NFKC'))
-    const saltBuff = new buffer.SlowBuffer(`${authToken}`.normalize('NFKC'))
-
-    scrypt(pwBuff, saltBuff, 1024, 8, 1, 32, (error, progress, key) => {
-      if (error) {
-        debug('error creating encryption key: %s', error)
-        return
-      }
-
-      if (!key) {
-        return
-      }
-
-      const aesCTR = new aes.ModeOfOperation.ctr(key) // eslint-disable-line
-      const cryptedAPIKey = aes.utils.hex.fromBytes(aesCTR.encrypt(
-        aes.utils.utf8.toBytes(apiKey),
-      ))
-
-      const cryptedAPISecret = aes.utils.hex.fromBytes(aesCTR.encrypt(
-        aes.utils.utf8.toBytes(apiSecret),
-      ))
-
-      const cryptedAPIControl = aes.utils.hex.fromBytes(aesCTR.encrypt(
-        aes.utils.utf8.toBytes('control'),
-      ))
-
-      dispatch(WSActions.send([
-        'api_credentials.save',
-        exID,
-        cryptedAPIKey,
-        cryptedAPISecret,
-        cryptedAPIControl,
-      ]))
-    })
-  },
-
-  unlockAPIKeys: ({ exID, password }) => {
     dispatch(WSActions.send([
-      'api_client.spawn', exID, password,
+      'api_credentials.save',
+      authToken,
+      exID,
+      apiKey,
+      apiSecret,
     ]))
   },
 })

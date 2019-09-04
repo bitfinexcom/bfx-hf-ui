@@ -42,7 +42,7 @@ export default class StrategyEditorPage extends React.Component {
   onIndicatorsChange(indicators) {
     const { candleData, activeMarket, activeExchange } = this.props
     const { currentRange, tf } = this.state
-    const candleKey = `${tf}:${activeMarket.u}`
+    const candleKey = `${tf}:${activeMarket.uiID}`
     const start = +currentRange[0]
 
     const allCandles = Object.values((candleData[activeExchange] || {})[candleKey] || {})
@@ -79,7 +79,7 @@ export default class StrategyEditorPage extends React.Component {
       return {}
     }
 
-    const candleKey = `${tf}:${activeMarket.u}`
+    const candleKey = `${tf}:${activeMarket.uiID}`
     const start = +currentRange[0]
 
     const allCandles = Object.values((candleData[activeExchange] || {})[candleKey] || {})

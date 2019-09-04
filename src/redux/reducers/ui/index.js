@@ -10,14 +10,14 @@ const ACTIVE_MARKET_KEY = 'HF_UI_ACTIVE_MARKET'
 const ACTIVE_EXCHANGE_KEY = 'HF_UI_ACTIVE_EXCHANGE'
 
 const DEFAULT_ROUTE = '/'
-const DEFAULT_EXCHANGE = 'binance'
+const DEFAULT_EXCHANGE = 'bitfinex'
 const DEFAULT_MARKET = {
-  c: ['e', 'm'],
-  r: 'BTCUSDT',
-  w: 'BTCUSDT',
-  b: 'BTC',
-  q: 'USDT',
-  u: 'BTC/USDT',
+  contexts: ['e', 'm'],
+  restID: 'tBTCUSD',
+  wsID: 'tBTCUSD',
+  base: 'BTC',
+  quote: 'USD',
+  uiID: 'BTC/USD',
 }
 
 function getInitialState() {

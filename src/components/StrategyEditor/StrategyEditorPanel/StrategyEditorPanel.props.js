@@ -6,7 +6,6 @@ export const propTypes = {
   removeable: PropTypes.bool,
   execRunning: PropTypes.bool,
   helpOpen: PropTypes.bool,
-  authenticated: PropTypes.bool,
   strategyDirty: PropTypes.bool,
   strategy: PropTypes.object,
   onToggleHelp: PropTypes.func,

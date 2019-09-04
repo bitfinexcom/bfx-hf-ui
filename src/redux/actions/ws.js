@@ -2,16 +2,17 @@ import _isString from 'lodash/isString'
 import _isFinite from 'lodash/isFinite'
 import t from '../constants/ws'
 
+const send = payload => ({
+  type: t.BUFF_SEND,
+  payload: _isString(payload)
+    ? payload
+    : JSON.stringify(payload),
+})
+
 export default {
+  send,
   error: payload => ({ type: t.ERROR, payload }),
   flushQueue: () => ({ type: t.FLUSH_QUEUE }),
-
-  send: payload => ({
-    type: t.BUFF_SEND,
-    payload: _isString(payload)
-      ? payload
-      : JSON.stringify(payload),
-  }),
 
   connect: (destination = '') => ({
     type: t.CONNECT,
@@ -147,9 +148,9 @@ export default {
     payload: { strategies },
   }),
 
-  recvAPICredentials: ({ exID, apiKey, apiSecret }) => ({
-    type: t.DATA_API_CREDENTIALS,
-    payload: { exID, apiKey, apiSecret },
+  recvAPICredentialsConfigured: ({ exID }) => ({
+    type: t.DATA_API_CREDENTIALS_CONFIGURED,
+    payload: { exID },
   }),
 
   recvClientStatusUpdate: ({ exID, status }) => ({
@@ -214,15 +215,20 @@ export default {
 
   recvNotification: notification => ({
     type: t.DATA_NOTIFICATION,
-    payload: {
-      notification,
-    },
+    payload: { notification },
+  }),
+
+  recvAuthConfigured: configured => ({
+    type: t.DATA_AUTH_CONFIGURED,
+    payload: { configured },
   }),
 
   recvAuthToken: token => ({
     type: t.DATA_AUTH_TOKEN,
-    payload: {
-      token,
-    },
+    payload: { token },
   }),
+
+  initAuth: password => send(['auth.init', password]),
+  auth: password => send(['auth.submit', password]),
+  resetAuth: () => send(['auth.reset']),
 }

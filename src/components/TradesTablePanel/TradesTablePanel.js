@@ -55,7 +55,7 @@ export default class TradesTablePanel extends React.Component {
     } = nextProps
 
     if ((marketDirty || exchangeDirty) || (
-      activeMarket.r === currentMarket.r && activeExchange === currentExchange
+      activeMarket.restID === currentMarket.restID && activeExchange === currentExchange
     )) {
       return {}
     }
@@ -75,7 +75,7 @@ export default class TradesTablePanel extends React.Component {
       activeExchange, addTradesRequirement, removeTradesRequirement,
     } = this.props
 
-    if (market.r === currentMarket.r) {
+    if (market.restID === currentMarket.restID) {
       return
     }
 

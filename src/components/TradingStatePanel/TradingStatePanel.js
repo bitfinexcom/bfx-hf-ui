@@ -64,7 +64,7 @@ export default class TradingStatePanel extends React.Component {
       : _flatten(Object.values(atomicOrders).map(Object.values))
 
     return marketFilterActive
-      ? filteredByExchange.filter(o => o.symbol === activeMarket.w)
+      ? filteredByExchange.filter(o => o.symbol === activeMarket.wsID)
       : filteredByExchange
   }
 
@@ -77,7 +77,7 @@ export default class TradingStatePanel extends React.Component {
       : _flatten(Object.values(algoOrders).map(Object.values))
 
     return marketFilterActive
-      ? filteredByExchange.filter(ao => ao.args.symbol === activeMarket.w)
+      ? filteredByExchange.filter(ao => ao.args.symbol === activeMarket.wsID)
       : filteredByExchange
   }
 
@@ -90,7 +90,7 @@ export default class TradingStatePanel extends React.Component {
       : _flatten(Object.values(positions).map(Object.values))
 
     return marketFilterActive
-      ? filteredByExchange.filter(p => p.symbol === activeMarket.w)
+      ? filteredByExchange.filter(p => p.symbol === activeMarket.wsID)
       : filteredByExchange
   }
 
@@ -166,7 +166,7 @@ export default class TradingStatePanel extends React.Component {
             })}
           >
             <i className='fas fa-filter' />
-            <p>{activeMarket.u}</p>
+            <p>{activeMarket.uiID}</p>
           </div>
         ), (
           <div

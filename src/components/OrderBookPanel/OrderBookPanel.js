@@ -101,7 +101,7 @@ export default class OrderBookPanel extends React.Component {
     const { currentExchange, currentMarket } = this.state
     const { addOBRequirement, removeOBRequirement } = this.props
 
-    if (market.r === currentMarket.r) {
+    if (market.restID === currentMarket.restID) {
       return
     }
 

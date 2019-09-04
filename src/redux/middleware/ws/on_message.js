@@ -40,6 +40,12 @@ export default (ws, store) => (e = {}) => {
       break
     }
 
+    case 'info.auth_configured': {
+      const [, configured] = payload
+      store.dispatch(WSActions.recvAuthConfigured(configured))
+      break
+    }
+
     case 'info.auth_token': {
       const [, token] = payload
       store.dispatch(WSActions.recvAuthToken(token))
@@ -114,11 +120,9 @@ export default (ws, store) => (e = {}) => {
       break
     }
 
-    case 'data.api_credentials': {
-      const [, exID, apiKey, apiSecret] = payload
-      store.dispatch(WSActions.recvAPICredentials({
-        exID, apiKey, apiSecret,
-      }))
+    case 'data.api_credentials.configured': {
+      const [, exID] = payload
+      store.dispatch(WSActions.recvAPICredentialsConfigured({ exID }))
       break
     }
 

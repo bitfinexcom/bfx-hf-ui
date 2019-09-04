@@ -103,7 +103,7 @@ class Chart extends React.Component {
     //       on the previous user pans
     const currentRange = defaultRangeForTF(currentTF)
     const start = currentRange[0]
-    const candleKey = `${currentTF}:${currentMarket.u}`
+    const candleKey = `${currentTF}:${currentMarket.uiID}`
     const allCandles = Object.values((candleData[currentExchange] || {})[candleKey] || {})
     const candles = allCandles.filter(({ mts }) => mts >= start)
 
@@ -121,7 +121,7 @@ class Chart extends React.Component {
 
       lastCandleUpdate: getLastCandleUpdate(reduxState, {
         exID: currentExchange,
-        symbol: currentMarket.r,
+        symbol: currentMarket.restID,
         tf: currentTF,
       }),
 
@@ -320,7 +320,7 @@ class Chart extends React.Component {
       removeTradesRequirement,
     } = this.props
 
-    if (market.u === currentMarket.u) {
+    if (market.uiID === currentMarket.uiID) {
       return
     }
 
@@ -533,7 +533,7 @@ class Chart extends React.Component {
     } = this.props
 
     const hasIndicators = !_isEmpty(indicators)
-    const syncRanges = getSyncRanges(reduxState, currentExchange, currentMarket.r, currentTF)
+    const syncRanges = getSyncRanges(reduxState, currentExchange, currentMarket.restID, currentTF)
     const headerComponents = [
       showExchange && renderExchangeDropdown({
         disabled: !canChangeExchange,

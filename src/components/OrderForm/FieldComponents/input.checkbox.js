@@ -12,22 +12,23 @@ export default class CheckboxInput extends React.PureComponent {
 
   render() {
     const {
-      def = {}, renderData, value, onChange, disabled, key,
+      def = {}, renderData, value, onChange, disabled, id,
     } = this.props
 
     const { label } = def
 
     return (
-      <div className={ClassNames('hfui-orderform__input inline', {
-        disabled,
-      })}
+      <div
+        className={ClassNames('hfui-orderform__input inline', {
+          disabled,
+        })}
       >
         <Checkbox
           label={renderString(label, renderData)}
           onChange={onChange}
           disabled={disabled}
           value={value}
-          id={key}
+          id={id}
         />
       </div>
     )

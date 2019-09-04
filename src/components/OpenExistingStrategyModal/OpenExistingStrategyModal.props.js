@@ -4,7 +4,7 @@ export const propTypes = {
   onClose: PropTypes.func.isRequired,
   onOpen: PropTypes.func.isRequired,
   strategies: PropTypes.array.isRequired,
-  authToken: PropTypes.object.isRequired,
+  authToken: PropTypes.string.isRequired,
 }
 
 export const defaultProps = {}

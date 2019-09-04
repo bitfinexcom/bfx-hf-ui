@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 
 export const propTypes = {
-  children: PropTypes.object.isRequired,
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   className: PropTypes.string,
   onClose: PropTypes.func,
   fixed: PropTypes.bool,

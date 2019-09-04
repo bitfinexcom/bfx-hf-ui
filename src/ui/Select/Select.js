@@ -7,7 +7,6 @@ import './style.css'
 
 export default class Select extends React.PureComponent {
   static propTypes = propTypes
-
   static defaultProps = defaultProps
 
   render() {

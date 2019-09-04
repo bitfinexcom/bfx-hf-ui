@@ -102,7 +102,7 @@ export default class AtomicOrdersTablePanel extends React.Component {
         headerComponents={[
           // this.renderExchangeDropdown(),
           <p key='market'>
-            {activeMarket.u}
+            {activeMarket.uiID}
           </p>,
         ]}
       >

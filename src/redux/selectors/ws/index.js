@@ -16,6 +16,7 @@ import getTrades from './get_trades'
 import getAllTrades from './get_all_trades'
 import getLastCandleUpdate from './get_last_candle_update'
 import getAuthToken from './get_auth_token'
+import getAuthConfigured from './get_auth_configured'
 import getStrategies from './get_strategies'
 import getPositions from './get_positions'
 import getAllPositions from './get_all_positions'
@@ -37,6 +38,7 @@ export {
   getSocket,
 
   getAuthToken,
+  getAuthConfigured,
   getChannels,
   getChannel,
   getChannelID,
