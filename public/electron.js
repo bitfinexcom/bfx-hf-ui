@@ -1,6 +1,6 @@
 const {
   app, BrowserWindow, protocol, Menu,
-} = require('electron')
+} = require('electron') // eslint-disable-line
 
 const path = require('path')
 const url = require('url')
