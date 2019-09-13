@@ -64,6 +64,7 @@ if (process.env.HOST) {
 // We require that you explicitly set browsers and do not fall back to
 // browserslist defaults.
 const { checkBrowsers } = require('react-dev-utils/browsersHelper')
+
 checkBrowsers(paths.appPath, isInteractive)
   .then(() => {
     // We attempt to use the default port but if it is busy, we offer the user to
@@ -121,19 +122,19 @@ checkBrowsers(paths.appPath, isInteractive)
             'Setting NODE_PATH to resolve modules absolutely has been deprecated in favor of setting baseUrl in jsconfig.json (or tsconfig.json if you are using TypeScript) and will be removed in a future major release of create-react-app.',
           ),
         )
-        console.log()
       }
 
       console.log(chalk.cyan('Starting the development server...\n'))
       openBrowser(urls.localUrlForBrowser)
-    });
-
-    ['SIGINT', 'SIGTERM'].forEach((sig) => {
-      process.on(sig, function() {
-        devServer.close();
-        process.exit();
-      });
+      return null
     })
+
+      ['SIGINT', 'SIGTERM'].forEach(sig => {
+        process.on(sig, () => {
+          devServer.close()
+          process.exit()
+        })
+      })
   })
   .catch((err) => {
     if (err && err.message) {
