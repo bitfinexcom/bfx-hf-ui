@@ -16,6 +16,13 @@ require('../config/env')
 
 
 const fs = require('fs')
+
+const dbDir = '../db'
+
+if (!fs.existsSync(dbDir)) {
+  fs.mkdirSync(dbDir)
+}
+
 const chalk = require('react-dev-utils/chalk')
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
@@ -129,7 +136,7 @@ checkBrowsers(paths.appPath, isInteractive)
       return null
     })
 
-      ['SIGINT', 'SIGTERM'].forEach(sig => {
+      ['SIGINT', 'SIGTERM'].forEach((sig) => {
         process.on(sig, () => {
           devServer.close()
           process.exit()
