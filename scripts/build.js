@@ -25,17 +25,18 @@ const printHostingInstructions = require('react-dev-utils/printHostingInstructio
 const FileSizeReporter = require('react-dev-utils/FileSizeReporter')
 const printBuildError = require('react-dev-utils/printBuildError')
 
-const dbDir = __dirname +  '/../db'
+const dbDir = `${__dirname   }/../db`
 
 if (!fs.existsSync(dbDir)) {
   fs.mkdirSync(dbDir)
-} 
+}
 
-const {measureFileSizesBeforeBuild} = FileSizeReporter;
-const {printFileSizesAfterBuild} = FileSizeReporter;
+const { measureFileSizesBeforeBuild } = FileSizeReporter
+const { printFileSizesAfterBuild } = FileSizeReporter
 const paths = require('../config/paths')
 const { checkBrowsers } = require('react-dev-utils/browsersHelper')
 const configFactory = require('../config/webpack.config')
+
 const useYarn = fs.existsSync(path.yarnLockFile)
 
 // These sizes are pretty large. We'll warn for bundles exceeding them.
