@@ -25,7 +25,7 @@ const printHostingInstructions = require('react-dev-utils/printHostingInstructio
 const FileSizeReporter = require('react-dev-utils/FileSizeReporter')
 const printBuildError = require('react-dev-utils/printBuildError')
 
-const dbDir = `${__dirname   }/../db`
+const dbDir = `${__dirname }/../db`
 
 if (!fs.existsSync(dbDir)) {
   fs.mkdirSync(dbDir)
