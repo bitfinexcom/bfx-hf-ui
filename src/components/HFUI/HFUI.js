@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Switch } from 'react-router'
+import { Route, Switch, Redirect } from 'react-router'
 
 import TradingPage from '../../pages/Trading'
 import StrategyEditorPage from '../../pages/StrategyEditor'
@@ -30,7 +30,7 @@ export default class HFUI extends React.PureComponent {
 
   render() {
     const { activeMarket, authToken } = this.props
-
+    console.log(window.location)
     if (!authToken) {
       return (
         <div className='hfui-app'>
@@ -50,6 +50,9 @@ export default class HFUI extends React.PureComponent {
         />
 
         <Switch>
+
+          <Redirect exact from='/index.html' to='/' />
+
           <Route
             exact
             path='/'
