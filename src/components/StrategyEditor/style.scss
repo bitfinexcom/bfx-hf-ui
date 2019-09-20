@@ -1,0 +1,180 @@
+.hfui-strategyeditor__wrapper {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.hfui-strategyeditor__editor-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 58%;
+  position: relative;
+  border-bottom: 1px solid #282e58;
+  background: #000;
+
+  &.noresults {
+    height: 100%;
+  }
+
+  .react-codemirror2, .CodeMirror {
+    height: 100%;
+  }
+
+  .CodeMirror-code {
+    font-size: 11px;
+  }
+
+  &.maximised {
+    position: fixed;
+    left: 150px;
+    top: 99px;
+    width: calc(100% - 152px);
+    z-index: 99;
+    height: calc(100% - 134px);
+    border: 1px solid #3c3202;
+  }
+}
+
+.hfui-strategyeditor__editor-error-output {
+  font-family: monospace;
+  padding: 0 16px;
+  background: #161a2f;
+  color: red;
+  font-size: 11px;
+  position: absolute;
+  bottom: 0;
+  left: 0px;
+  width: calc(100% - 32px);
+  z-index: 9999;
+  border-top: 1px solid #333;
+
+  .fas.fa-times-circle {
+    position: absolute;
+    top: 12px;
+    right: 8px;
+
+    &:hover {
+      color: #fcd206;
+      cursor: pointer;
+    }
+  }
+
+  pre {
+    white-space: pre-wrap;
+  }
+}
+
+.hfui-strategyeditor__func-select {
+  width: 150px;
+  min-width: 150px;
+  font-size: 12px;
+  background: #0d101f;
+
+  li {
+    padding: 0 8px;
+    border-bottom: 0.5px solid #282e58;
+
+    display: flex;
+    flex-direction: row;
+
+    p {
+      height: 25px;
+      line-height: 25px;
+    }
+
+    p:first-child {
+      width: 100%;
+    }
+
+    &.active {
+      background: #333;
+      color: #fcd206 !important;
+    }
+
+    &.empty {
+      color: #666;
+    }
+
+    &:hover {
+      cursor: pointer;
+      color: #fcd206;
+    }
+
+    &.hasError {
+      color: red !important;
+    }
+  }
+}
+
+.hfui-strategyeditor__header {
+  margin-left: 16px;
+  flex-shrink: 0;
+  user-select: none;
+
+  > *, > div > * {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 8px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  .exec-button, .strategy-label, .maximize-button, .mode-button {
+    margin-left: 16px;
+    padding-left: 16px;
+    border-left: 1px solid #333;
+
+    &:hover i, &:hover p {
+      color: #fcd206;
+    }
+  }
+
+  .exec-button:hover {
+    cursor: pointer;
+
+    p, i {
+      color: #fcd206;
+    }
+  }
+
+  p {
+    font-size: 11px;
+    line-height: 30px;
+  }
+
+  i {
+    font-size: 11px;
+    line-height: 30px;
+
+    &:hover {
+      cursor: pointer;
+      color: #fcd206;
+    }
+
+    &.fa-play {
+      color: green;
+    }
+  }
+}
+
+.hfui-strategyeditor__content-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.hfui-strategyeditor__results-outer {
+  display: flex;
+  flex-direction: row;
+  height: 42%;
+}
+
+.hfui-strategyeditor__header-label {
+  border: none !important;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}

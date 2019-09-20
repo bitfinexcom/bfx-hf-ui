@@ -1,0 +1,232 @@
+.hfui-statusbar__wrapper {
+  width: 100%;
+  height: 32px;
+  border-top: 1px solid #101221;
+  background: #0c0f17;
+  z-index: 100;
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+
+  font-size: 12px;
+  color: #eee;
+
+  display: flex;
+  flex-direction: row;
+
+  user-select: none;
+}
+
+.hfui-statusbar__layout-name {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+
+  p {
+    margin: 0 !important;
+  }
+
+  > i {
+    &:last-child {
+      margin-right: 16px !important;
+    }
+
+    &.disabled {
+      opacity: 0.5;
+    }
+
+    &:hover:not(.disabled) {
+      color: #fcd206;
+      cursor: pointer;
+    }
+  }
+
+  .hfui-statusbar__layout-active-name {
+    text-align: center;
+    width: 100%;
+    padding: 0 8px;
+
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+
+      &, i {
+        color: #fcd206;
+      }
+    }
+
+    i {
+      margin-left: 8px;
+    }
+  }
+}
+
+.hfui-statusbar__left {
+  display: flex;
+  flex-direction: row;
+  padding-left: 16px;
+  flex-shrink: 0;
+
+  p, i, .icon {
+    line-height: 32px;
+  }
+
+  .icon {
+    position: relative;
+    flex-shrink: 0;
+
+    p > i {
+      margin-left: 8px;
+    }
+
+    &.with-popuplist {
+      margin-right: 16px;
+    }
+  }
+
+  .yellow {
+    color: #fcd206;
+  }
+
+  i, .icon {
+    margin-right: 8px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &:hover:not(.disabled) {
+      cursor: pointer;
+
+      > p, i {
+        color: #fcd206;
+      }
+    }
+  }
+}
+
+.hfui-statusbar__right {
+  width: 100%;
+  text-align: right;
+  padding-right: 16px;
+
+  p {
+    line-height: 32px;
+  }
+
+  span {
+    line-height: 24px;
+  }
+
+  & > *, .hfui-statusbar__connection-status > * {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .hfui-statusbar__connection-status {
+    margin-left: 8px;
+  }
+
+  .hfui-statusbar__connection-status > p:last-child {
+    margin-left: 8px;
+  }
+}
+
+.hfui-statusbar__statuscircle {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+
+  &.green {
+    background: green;
+  }
+
+  &.red {
+    background: red;
+  }
+}
+
+.hfui-statusbar__popuplist-wrapper {
+  position: absolute;
+  bottom: 32px;
+  left: 0;
+  background: #0d101f;
+  width: 200px;
+  border: 0.5px solid #282e58;
+  border-bottom: none;
+  user-select: none;
+
+  &.form li {
+    margin-bottom: 8px;
+
+    &:first-child {
+      margin-top: 16px;
+    }
+  }
+
+  li {
+    display: block;
+    line-height: 24px;
+    padding: 0 16px;
+    margin-left: 1px;
+
+    &:hover:not(.selected):not(.nohover) {
+      background: rgba(0, 0, 0, 0.3);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    &.center {
+      text-align: center;
+    }
+
+    &.selected {
+      background: rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
+.hfui-statusbar__made-in {
+  font-size: 11px;
+  border-right: 1px solid #333;
+  padding-right: 16px;
+  margin-right: 8px;
+  opacity: 0.8;
+
+  .red {
+    color: red;
+  }
+}
+
+.hfui-statusbar__support,
+.hfui-statusbar__version {
+  padding-right: 16px;
+  margin-right: 16px;
+  border-right: 1px solid #333;
+  line-height: 32px;
+}
+
+.hfui-statusbar__legal {
+  font-size: 11px;
+  margin-right: 16px !important;
+  padding-right: 16px;
+  border-right: 1px solid #333;
+
+  > * {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+}

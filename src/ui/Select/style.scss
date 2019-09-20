@@ -1,0 +1,70 @@
+.hfui-select__control {
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  min-height: 20px !important;
+
+  &.hfui-select__control--menu-is-open {
+    border: none;
+  }
+}
+
+.hfui-select__control--is-focused {
+  border: none !important;
+}
+
+.hfui-select__value-container {
+  font-size: 12px !important;
+}
+
+.hfui-select__single-value {
+  color: #eee !important;
+}
+
+.hfui-select__value-container {
+  padding: 0 !important;
+}
+
+.hfui-select__indicator-separator {
+  display: none;
+}
+
+.hfui-select__indicator {
+  padding: 0 !important;
+}
+
+.hfui-select__menu {
+  background: #0d101f !important;
+  box-shadow: none !important;
+  border: 1px solid #666;
+  border-radius: 0 !important;
+  border-top: none;
+  margin-top: 0 !important;
+}
+
+.hfui-select__menu-list {
+  padding-top: 0 !important;
+}
+
+.hfui-select__option {
+  padding: 4px 8px !important;
+  font-size: 12px !important;
+}
+
+.hfui-select__option--is-selected {
+  background: rgba(255, 255, 255, 0.3) !important;
+}
+
+.hfui-select__option--is-focused:not(.hfui-select__option--is-selected) {
+  background: rgba(255, 255, 255, 0.1) !important;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.hfui-select__input {
+  color: #eee !important;
+}

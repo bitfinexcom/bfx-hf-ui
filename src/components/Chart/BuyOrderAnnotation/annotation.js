@@ -1,10 +1,10 @@
-import {
-  default as LabelAnnotation, helper,
+import LabelAnnotation, {
+  helper,
 } from 'react-stockcharts/lib/annotation/LabelAnnotation'
 
 import React from 'react'
 import CaretUpIcon from '../../../ui/Icons/CaretUpIcon'
-import { labelForStrategyTradeAnnotation } from '../Chart.helpers'
+import { labelForStrategyTradeAnnotation } from '../helpers'
 
 /**
  * Renders multiple caret-up icons, one for each order within the current candle
@@ -12,7 +12,6 @@ import { labelForStrategyTradeAnnotation } from '../Chart.helpers'
  */
 export default class BuyOrder extends LabelAnnotation {
   static propTypes = LabelAnnotation.propTypes
-
   static defaultProps = LabelAnnotation.defaultProps
 
   render() {
@@ -23,7 +22,7 @@ export default class BuyOrder extends LabelAnnotation {
     const orders = mtsMap[datum.mts]
 
     return orders.map(o => (
-      <g className={className} key={o.mts}>
+      <g className={className} key={o.order_id}>
         <title>{labelForStrategyTradeAnnotation(o)}</title>
         <CaretUpIcon
           x={xPos}

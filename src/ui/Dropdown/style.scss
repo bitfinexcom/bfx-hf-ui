@@ -1,0 +1,63 @@
+.hfui-dropdown__wrapper {
+  font-size: 12px;
+  position: relative;
+  user-select: none;
+  max-height: 300px;
+
+  ul {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    border: 1px solid #666;
+    width: 200px;
+    background: #070917;
+    z-index: 999;
+
+    li {
+      line-height: 24px;
+      padding: 0 8px;
+      background: #070917;
+
+      &:hover:not(.label) {
+        background: #111;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+
+      &.label {
+        text-align: center;
+        border-bottom: 1px solid #3c3202;
+        border-top: 1px solid #222;
+        font-size: 11px;
+        line-height: 20px;
+      }
+    }
+  }
+}
+
+.hfui-dropdown__button-wrapper {
+  position: relative;
+}
+
+.hfui-dropdown__button {
+  display: flex;
+  flex-direction: row;
+  margin-left: 8px;
+
+  p {
+    line-height: 30px;
+    flex-shrink: 0;
+  }
+
+  i {
+    margin: 10px 0 0 4px;
+  }
+
+  &.yellow > * {
+    color: #fcd206;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+  }
+}
