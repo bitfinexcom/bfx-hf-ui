@@ -1,0 +1,65 @@
+.hfui-exchangeinfobar__wrapper {
+  padding: 0 24px;
+  line-height: 26px;
+  border-bottom: 1px solid #101221;
+  background: #0c0f17;
+
+  width: calc(100% - 48px);
+  z-index: 100;
+
+  position: relative;
+
+  ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  li {
+    min-width: fit-content;
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+    margin: 0 8px;
+    flex: 1;
+    text-align: center;
+
+    &.text {
+      .hfui-exchangeinfobar__item-label,
+      .hfui-exchangeinfobar__item-data {
+        line-height: 32px;
+      }
+    }
+  }
+}
+
+.hfui-exchangeinfobar__item-label,
+.hfui-exchangeinfobar__item-data {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 11px;
+}
+
+.hfui-exchangeinfobar__item-label {
+  color: #666;
+  user-select: none;
+  margin-right: 8px;
+}
+
+.hfui-exchangeinfobar__item-data {
+  color: #eee;
+
+  &.hover:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  .hfui-select {
+    margin-top: -2px;
+    min-width: 100px;
+  }
+
+  .hfui-select__control {
+    padding: 0 4px;
+  }
+}

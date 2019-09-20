@@ -1,8 +1,8 @@
 import { fork } from 'redux-saga/effects'
-import { WSHFSaga } from './ws-hf-server'
-import restSaga from './rest'
+import WSSaga from './ws'
+import UISaga from './ui'
 
-export default function * rootSaga () {
-  yield fork(WSHFSaga)
-  yield fork(restSaga)
+export default function* rootSaga() {
+  yield fork(WSSaga)
+  yield fork(UISaga)
 }

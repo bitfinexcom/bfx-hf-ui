@@ -1,0 +1,453 @@
+.hfui-orderform__wrapper {
+  padding: 0 16px 16px 16px;
+  min-height: calc(100% - 16px);
+  position: relative;
+
+  .hfui-dropdown__button {
+    margin-left: 0;
+    border: 1px solid #282e58;
+    background: #070917;
+    position: relative;
+    width: 165;
+    padding-left: 8px;
+
+    p {
+      width: calc(100% - 20px);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    i {
+      position: absolute;
+      top: 0;
+      right: 8px;
+    }
+  }
+
+  .hfui-dropdown__wrapper {
+    width: calc(100% - 16px);
+
+    > p {
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    > ul {
+      max-width: 100%;
+    }
+  }
+}
+
+.hfui-orderform__upgrade {
+  width: calc(100% + 32px);
+  text-align: center;
+  background: #060606;
+  border-bottom: 1px solid #3c3202;
+  margin-left: -16px;
+
+  .hfui-orderform__upgrade_inner {
+    display: inline-block;
+    margin: 0 auto;
+    font-size: 12px;
+    padding: 0 16px;
+    line-height: 30px;
+    height: 33px;
+    text-decoration: underline;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.hfui-orderform__panel {
+  .hfui-panel__footer {
+    width: calc(100% - 16px);
+    background: #131723;
+    line-height: 30px;
+    font-size: 11px;
+    color: #666;
+    padding: 0 8px;
+    border-top: 1px solid #101221;
+    display: flex;
+    flex-direction: row;
+
+    .hfui-orderform__footer-lockstatus {
+      color: #fcd206;
+      width: 100%;
+
+      > * {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      i {
+        margin-left: 8px;
+        line-height: 30px;
+      }
+    }
+
+    .hfui-orderform__footer-connectionstatus {
+      text-align: right;
+      flex-shrink: 0;
+
+      > * {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .hfui-orderform__footer-statuscircle {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 8px;
+
+        &.green {
+          background: green;
+        }
+
+        &.red {
+          background: red;
+        }
+      }
+    }
+  }
+}
+
+.hfui-orderform__label {
+  width: 100%;
+  display: block;
+  color: #666;
+  font-size: 12px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.hfui-orderform__header {
+  display: flex;
+  flex-direction: row;
+  padding: 16px 0;
+
+  > li {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+
+    &:nth-child(2n) {
+      flex-direction: row-reverse;
+    }
+  }
+}
+
+.hfui-orderform__creation-error {
+  margin-top: 16px;
+  font-size: 12px;
+  color: red;
+}
+
+.hfui-orderform__checkbox-group {
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.hfui-orderform__layout {
+  padding-top: 8px;
+}
+
+.hfui-orderform__layout-section {
+  ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+
+    > li {
+      width: 50%;
+      display: flex;
+      flex-direction: row;
+      flex-shrink: 0;
+      margin-bottom: 16px;
+
+      &:nth-child(2n) {
+        flex-direction: row-reverse;
+      }
+
+      > * {
+        max-width: calc(100% - 16px);
+      }
+    }
+
+    .hfui-input {
+      line-height: 32px;
+
+      input {
+        height: 20px;
+      }
+    }
+
+    &.fullWidth {
+      li {
+        width: 100%;
+      }
+
+      .hfui-input input {
+        max-width: 100%;
+      }
+    }
+  }
+}
+
+.hfui-orderform__layout-section-title {
+  text-align: center;
+  font-size: 12px;
+  margin-bottom: 16px;
+  border-top: 1px solid #282e58;
+  padding-top: 8px;
+}
+
+.hfui-orderform__layout-header {
+  padding-bottom: 8px;
+}
+
+.hfui-orderform__layout-actions {
+  display: flex;
+  flex-direction: row;
+  margin-top: 8px;
+
+  .hfui-button {
+    width: 50%;
+
+    &:first-child:last-child {
+      width: 100%;
+    }
+
+    &:first-child:not(:last-child) {
+      margin-right: 16px;
+    }
+
+    &:last-child:not(:first-child) {
+      margin-left: 16px;
+    }
+  }
+}
+
+.hfui-orderform__checkbox-group {
+  font-size: 11px;
+
+  .hfui-orderform__input {
+    margin-bottom: 0;
+  }
+}
+
+.hfui-orderform__input {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 0 16px 0;
+
+  &:not(.inline) {
+    width: 100%;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+  }
+
+  &.invalid {
+    .hfui-input {
+      border-color: red;
+    }
+
+    & > p:last-child {
+      color: red;
+    }
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &.fullWidth {
+    width: 100%;
+
+    input {
+      width: calc(100% - 16px);
+    }
+  }
+
+  .hfui-orderform__input-label {
+    color: #666;
+    font-size: 11px;
+    line-height: 16px;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .hfui-orderform__input-error-label {
+    font-size: 11px;
+    margin-bottom: 8px;
+  }
+
+  &.text p:first-child {
+    color: #aaa;
+    font-size: 12px;
+    line-height: 24px;
+    width: 138px;
+  }
+
+  &.checkboxes {
+    font-size: 12px;
+    max-width: 166px;
+
+    .pretty .state {
+      margin-left: 4px;
+    }
+
+    .pretty {
+      margin-bottom: 8px;
+    }
+  }
+
+  &.execute {
+    width: 100%;
+
+    button {
+      width: 35%;
+
+      &:first-child {
+        margin-right: 24px;
+      }
+    }
+  }
+
+  .hfui-dropdown__wrapper {
+    width: 100%;
+  }
+}
+
+.hfui-orderform__help-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  line-height: 1.5;
+  padding: 8px 0;
+  background: #070917;
+  height: 100%;
+  white-space: pre-line;
+  width: 100%;
+  user-select: none;
+
+  .hfui-orderform__help-inner {
+    padding: 0 16px;
+  }
+
+  .hfui-orderform__help-content {
+    font-size: 12px;
+  }
+
+  .hfui-orderform__help-title {
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    font-size: 14px;
+    border-bottom: 1px solid #333;
+    line-height: 30px;
+
+    i {
+      line-height: 30px;
+      float: right;
+
+      &:hover {
+        color: #fcd206;
+        cursor: pointer;
+      }
+    }
+
+    .prefix {
+      color: #666;
+      margin-right: 8px;
+    }
+  }
+}
+
+.hfui-orderform__modal-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background: #131723;
+  width: calc(100% - 1px);
+  height: 100%;
+  user-select: none;
+
+  &:hover:not(.nohover) {
+    cursor: pointer;
+
+    p, i {
+      color: #fcd206;
+    }
+  }
+
+  i {
+    font-size: 32px;
+    height: 32px;
+    margin-bottom: 16px;
+  }
+
+  .underline {
+    text-decoration: underline;
+  }
+
+  .notice {
+    padding: 0 16px;
+    font-size: 11px;
+    color: #666;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .hfui-input {
+    margin-bottom: 8px;
+  }
+
+  .hfui-orderform__modal-form {
+    margin: 32px 0 !important;
+
+    .error {
+      font-size: 12px;
+      color: red;
+      text-align: center;
+    }
+  }
+
+  .hfui-orderform__modal-buttons {
+    .hfui-button {
+      margin-right: 16px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .hfui-orderform__modal-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 0;
+
+    &.fullheight {
+      height: calc(100% - 32px);
+    }
+
+    > * {
+      margin-bottom: 8px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

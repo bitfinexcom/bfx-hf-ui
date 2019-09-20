@@ -1,20 +1,12 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Annotate } from 'react-stockcharts/lib/annotation'
 
+import { propTypes, defaultProps } from './props'
 import Annotation from './annotation'
 
-export default class EventAnnotation extends React.Component {
-  static propTypes = {
-    when: PropTypes.func.isRequired,
-    height: PropTypes.number.isRequired,
-    yOffset: PropTypes.number.isRequired,
-    stroke: PropTypes.string,
-  }
-
-  static defaultProps = {
-    stroke: '#FFFFFF',
-  }
+export default class EventAnnotation extends React.PureComponent {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
 
   render() {
     const {

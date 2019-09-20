@@ -1,0 +1,37 @@
+.hfui-app {
+  height: calc(100% - 98px);
+}
+
+.hfui-app__content {
+  // display: flex;
+  // flex-direction: row;
+
+  .hfui-sidebar__wrapper {
+    border-right: 1px solid #333;
+  }
+}
+
+.hfui-app__content-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.hfui-app__content-primary, .hfui-app__content-secondary {
+  display: flex;
+  flex-direction: row;
+}
+
+.hfui-app__content-primary {
+  width: 100%;
+  min-height: 400px;
+  z-index: 1;
+
+  .hfui-sidebar__wrapper {
+    border-right: 1px solid #333;
+  }
+
+  .hfui-chart__wrapper {
+    width: 100%;
+  }
+}

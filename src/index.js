@@ -1,57 +1,45 @@
-/* eslint-disable no-cond-assign */
-import 'babel-polyfill'
+/* eslint-disable */
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { ConnectedRouter } from 'react-router-redux'
-import { createBrowserHistory } from 'history'
+import { Scrollbars } from 'react-custom-scrollbars'
+import Debug from 'debug'
+import Manifest from '../package.json'
 
-// import './webapp-bfx.css'
-import './main.css'
-import '@blueprintjs/icons/lib/css/blueprint-icons.css'
-import '@blueprintjs/core/lib/css/blueprint.css'
-import '@blueprintjs/datetime/lib/css/blueprint-datetime.css'
-import '@blueprintjs/select/lib/css/blueprint-select.css'
-import 'codemirror/lib/codemirror.css'
-import 'codemirror/theme/material.css'
-import 'codemirror/mode/javascript/javascript'
+const debug = Debug('hfui:main')
+const LOCAL_STORAGE_VERSION_KEY = 'HFUI_LS_VERSION'
+const LOCAL_STORAGE_VERSION = 2
 
-import HFUI from './components/HFUI'
-import registerServiceWorker from './registerServiceWorker'
-import StoreWrapper from './StoreWrapper'
+if (localStorage) {
+  const version = +localStorage.getItem(LOCAL_STORAGE_VERSION_KEY)
 
-window.APP = {
-  data: {
-    pathBase: '',
-  },
+  if (!version || version < LOCAL_STORAGE_VERSION) {
+    localStorage.clear()
+    localStorage.setItem(LOCAL_STORAGE_VERSION_KEY, LOCAL_STORAGE_VERSION)
+    localStorage.debug = 'hfui:*'
+    debug('local storage version mis-match, cleared')
+    location.reload()
+  } else {
+    debug('local storage DB version %s', version)
+  }
 }
 
-// Handle legacy webapp ajax navigation in components
-// TODO: remove?
-document.querySelector('body').addEventListener('click', (e) => {
-  let { target } = e
+debug('boot version %s', Manifest.version)
 
-  do {
-    if (target.classList.contains('ajax')) {
-      const url = target.getAttribute('href')
+import HFUI from './components/HFUI'
+import StoreWrapper from './StoreWrapper'
 
-      window.history.pushState({}, '', url)
-
-      e.preventDefault()
-      e.stopPropagation()
-      return false
-    }
-  } while ((target = target.parentNode) && (target !== e.currentTarget))
-}, true)
-
-const history = createBrowserHistory()
+import './passive_listener_fix'
+import './index.css'
 
 ReactDOM.render((
-  <StoreWrapper>
-    <ConnectedRouter history={history}>
+  <Scrollbars
+    style={{
+      height: '100%',
+    }}
+  >
+    <StoreWrapper>
       <HFUI />
-    </ConnectedRouter>
-  </StoreWrapper>
+    </StoreWrapper>
+  </Scrollbars>
 ), document.getElementById('root'))
-
-registerServiceWorker()

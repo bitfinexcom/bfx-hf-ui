@@ -1,0 +1,18 @@
+.hfui-chart__wrapper {
+  text {
+    fill: #ccc;
+  }
+
+  .hfui-chart__settings-text-overlay {
+    pointer-events: all;
+
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+
+  .hfui-select.indicator-select .hfui-select__menu {
+    width: 300px;
+  }
+}
