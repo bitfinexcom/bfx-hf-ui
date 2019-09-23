@@ -17,9 +17,8 @@ function ensureSlash(inputPath, needsSlash) {
     return inputPath.substr(0, inputPath.length - 1)
   } if (!hasSlash && needsSlash) {
     return `${inputPath}/`
-  } 
-    return inputPath
-  
+  }
+  return inputPath
 }
 
 const getPublicUrl = appPackageJson => envPublicUrl || require(appPackageJson).homepage
