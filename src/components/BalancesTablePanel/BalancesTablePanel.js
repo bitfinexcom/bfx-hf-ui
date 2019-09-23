@@ -107,7 +107,7 @@ export default class BalancesTablePanel extends React.Component {
 
         options={exchanges.map(ex => ({
           label: _capitalize(ex),
-          value: ex,
+          value: ex,  
         }))}
       />
     )
