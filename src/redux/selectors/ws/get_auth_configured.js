@@ -1,5 +1,5 @@
 import _get from 'lodash/get'
-import { REDUCER_ } from '../../config'
+import { REDUCER_PATHS } from '../../config'
 
 const path = REDUCER_PATHS.WS
 
