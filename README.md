@@ -8,6 +8,7 @@
 ```bash
 git clone https://github.com/bitfinexcom/bfx-hf-ui
 yarn  install
+yarn build-css
 ```
 
 ## Run in the browser
