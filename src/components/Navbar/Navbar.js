@@ -32,6 +32,15 @@ export default class Navbar extends React.PureComponent {
               label='Strategy Editor'
             />
           </li>
+
+          <li>
+            <a
+              href='https://github.com/bitfinexcom/bfx-hf-ui'
+              style={{ marginTop: '5px' }}
+            >
+            Update hfui
+            </a>
+          </li>
         </ul>
       </div>
     )
