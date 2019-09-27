@@ -1,9 +1,11 @@
 const {
-  app, BrowserWindow, protocol, Menu,
-} = require('electron') // eslint-disable-line
+  app, BrowserWindow, protocol, Menu, shell,
+} = require('electron')
 
 const path = require('path')
 const url = require('url')
+
+const isExternalURL = url => url.startsWith('http:') || url.startsWith('https:')
 
 require('../scripts/start-server') // run server
 
@@ -33,7 +35,7 @@ function createWindow() {
 app.on('ready', () => {
   protocol.interceptFileProtocol('file', (request, callback) => {
     const fileURL = request.url.substr(7) /* all urls start with 'file://' */
-
+    mainWindow.webContents.openDevTools()
     callback({ path: path.normalize(`${__dirname}/${fileURL}`) })
   }, (err) => {
     if (err) console.error('Failed to register protocol')
@@ -58,10 +60,15 @@ app.on('ready', () => {
     ],
   },
   ]
-
   Menu.setApplicationMenu(Menu.buildFromTemplate(template))
 
   createWindow()
+  mainWindow.webContents.on('will-navigate', (event, url) => {
+    event.preventDefault()
+    if (isExternalURL(url)) {
+      shell.openExternal(url)
+    }
+  })
 })
 
 app.on('window-all-closed', () => {
