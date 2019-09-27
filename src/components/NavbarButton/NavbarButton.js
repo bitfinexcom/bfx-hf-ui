@@ -10,9 +10,17 @@ export default class NavbarButton extends React.PureComponent {
 
   render() {
     const {
-      currentRoute, route, navigate, label,
+      currentRoute, route, navigate, label, external,
     } = this.props
-
+    if (external) {
+      return (
+        <a
+          href={`${external}`}
+        >
+          {label}
+        </a>
+      )
+    }
     return (
       <button
         type='button'
