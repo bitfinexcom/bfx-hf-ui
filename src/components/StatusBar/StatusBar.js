@@ -1,7 +1,8 @@
 import React from 'react'
 import ClassNames from 'classnames'
 import _isEmpty from 'lodash/isEmpty'
-
+import axios from 'axios'
+import NavbarButton from '../NavbarButton'
 import MANIFEST from '../../../package.json'
 import Input from '../../ui/Input'
 import Button from '../../ui/Button'
@@ -91,6 +92,17 @@ export default class StatusBar extends React.Component {
   }
 
   render() {
+    axios
+      .get('https://raw.githubusercontent.com/bitfinexcom/bfx-hf-ui/master/package.json')
+      .then(({ data }) => {
+        const lastVersion = data.version
+        // eslint-disable-next-line global-require
+        const currVersion = require('../../../package.json').version
+        console.log(lastVersion, currVersion, this.state)
+        // eslint-disable-next-line react/no-unused-state
+        this.setState({ lastVersion, currVersion })
+      })
+    const { lastVersion, currVersion } = this.state || {}
     const {
       layoutListOpen, componentListOpen, newLayoutName, layoutCreatorOpen,
     } = this.state
@@ -206,8 +218,18 @@ Add Component
         )}
 
         <div className='hfui-statusbar__right'>
-          <div className='hfui-statusbar__version'>
+          <div className='hfui-statusbar__version' style={{ marginRight: '80px;', background: '#131723;' }}>
             <p>
+              {
+              lastVersion && lastVersion !== currVersion ? (
+
+                <NavbarButton
+                  label='Update to last version'
+                  external='https://github.com/bitfinexcom/bfx-hf-ui/releases'
+                />
+              ) : null
+           }
+           &nbsp;
               v
               {MANIFEST.version}
             </p>
