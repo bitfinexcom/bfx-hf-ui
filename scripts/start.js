@@ -17,7 +17,7 @@ require('../config/env')
 
 const fs = require('fs')
 
-const dbDir = '../db'
+const dbDir = `${__dirname}/db`
 
 if (!fs.existsSync(dbDir)) {
   fs.mkdirSync(dbDir)
