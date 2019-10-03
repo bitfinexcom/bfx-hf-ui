@@ -7,12 +7,20 @@ const url = require('url')
 
 const isExternalURL = url => url.startsWith('http:') || url.startsWith('https:')
 
-require('../scripts/start-server') // run server
+
 
 let mainWindow
 
 const intercept = require('intercept-stdout')
 const fs = require('fs')
+
+const dbDir = `${__dirname }/../scripts/db`
+console.log(dbDir)
+if (!fs.existsSync(dbDir)) {
+  fs.mkdirSync(dbDir)
+}
+
+require('../scripts/start-server') // run server
 
 const unhookIntercept = intercept((txt) => {
   fs.appendFile(`${__dirname}/logs.log`, txt, () => {})
