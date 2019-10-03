@@ -224,7 +224,7 @@ Add Component
               lastVersion && lastVersion !== currVersion ? (
 
                 <NavbarButton
-                  label='Update to last version'
+                  label='Update to latest version'
                   external='https://github.com/bitfinexcom/bfx-hf-ui/releases'
                 />
               ) : null
