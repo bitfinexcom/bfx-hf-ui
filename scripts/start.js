@@ -17,12 +17,6 @@ require('../config/env')
 
 const fs = require('fs')
 
-const dbDir = `${__dirname}/db`
-
-if (!fs.existsSync(dbDir)) {
-  fs.mkdirSync(dbDir)
-}
-
 const chalk = require('react-dev-utils/chalk')
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
