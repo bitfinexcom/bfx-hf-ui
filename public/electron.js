@@ -1,12 +1,12 @@
 const {
   app, BrowserWindow, protocol, Menu, shell,
+// eslint-disable-next-line import/no-extraneous-dependencies
 } = require('electron')
 
 const path = require('path')
 const url = require('url')
 
-const isExternalURL = url => url.startsWith('http:') || url.startsWith('https:')
-
+const isExternalURL = link => link.startsWith('http:') || link.startsWith('https:')
 
 
 let mainWindow
@@ -14,7 +14,7 @@ let mainWindow
 const intercept = require('intercept-stdout')
 const fs = require('fs')
 
-const dbDir = `${__dirname }/../scripts/db`
+const dbDir = `${__dirname}/../scripts/db`
 console.log(dbDir)
 if (!fs.existsSync(dbDir)) {
   fs.mkdirSync(dbDir)
@@ -71,10 +71,10 @@ app.on('ready', () => {
   Menu.setApplicationMenu(Menu.buildFromTemplate(template))
 
   createWindow()
-  mainWindow.webContents.on('will-navigate', (event, url) => {
+  mainWindow.webContents.on('will-navigate', (event, link) => {
     event.preventDefault()
-    if (isExternalURL(url)) {
-      shell.openExternal(url)
+    if (isExternalURL(link)) {
+      shell.openExternal(link)
     }
   })
 })
