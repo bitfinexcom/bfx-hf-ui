@@ -1,8 +1,7 @@
 /node_modules
 /build
-/db
+/scripts/db
 /dist
-
 .DS_Store
 .env
 
