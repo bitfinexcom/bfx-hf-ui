@@ -8,7 +8,6 @@ const url = require('url')
 
 const isExternalURL = link => link.startsWith('http:') || link.startsWith('https:')
 
-
 let mainWindow
 
 const intercept = require('intercept-stdout')
@@ -77,6 +76,7 @@ app.on('ready', () => {
       shell.openExternal(link)
     }
   })
+  mainWindow.webContents.openDevTools()
 })
 
 app.on('window-all-closed', () => {
