@@ -66,7 +66,6 @@ export default class AuthenticationInit extends React.Component {
 
           <Input
             type='password'
-            label='Password'
             autocomplete='new-password'
             value={password}
             onChange={this.onPasswordChange}
@@ -74,7 +73,6 @@ export default class AuthenticationInit extends React.Component {
 
           <Input
             type='password'
-            label='Confirm Password'
             autocomplete='new-password'
             value={confirmPassword}
             onChange={this.onConfirmPasswordChange}
