@@ -1,0 +1,46 @@
+.hfui-orderformmenu__wrapper {
+  padding: 32px;
+
+  h4 {
+    margin-bottom: 16px;
+    text-align: center;
+
+    &:not(:first-child) {
+      margin-top: 32px;
+    }
+  }
+
+  li {
+    display: flex;
+    flex-direction: row;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.1);
+    margin-bottom: 16px;
+    padding: 8px 0;
+  
+    &:hover {
+      cursor: pointer;
+    }
+
+    i {
+      width: 20%;
+      line-height: 48px;
+      text-align: center;
+    }
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      height: 48px;
+
+      > * {
+        height: 24px;
+        line-height: 24px;
+
+        &:last-child {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
