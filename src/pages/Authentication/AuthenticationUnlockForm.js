@@ -55,8 +55,8 @@ export default class AuthenticationInit extends React.Component {
 
           <Input
             type='password'
-            label='Password'
             autocomplete='current-password'
+            placeholder='Password'
             value={password}
             onChange={this.onPasswordChange}
           />
