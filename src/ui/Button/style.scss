@@ -1,12 +1,13 @@
 .hfui-button, button {
   background: #333;
+  text-transform: uppercase;
   border: 1px solid #666;
   color: #eee;
-  padding: 4px 16px;
+  font-size: 15px;
 
   &.red {
-    background: #970000;
-    border-color: #cc0101;
+    background: #F05359;
+    border-color: #F05359;
   }
 
   &.green {

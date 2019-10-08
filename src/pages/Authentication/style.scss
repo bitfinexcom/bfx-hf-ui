@@ -21,10 +21,43 @@
 }
 .hfui-authenticationpage__inner-left {
   background: #172D3E;
+
+  svg { 
+    margin: 0 auto;
+  }
 }
 .hfui-authenticationpage__inner-left img {
   width: 25%;
   margin: 0 auto;
+}
+
+.hfui-authenticationpage__inner-left-version-container {
+  height: 50%;
+  width: 45%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+
+
+.hfui-authenticationpage__inner-left-version {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  text-align: center;
+
+  p { 
+    font-size: 15px;
+    font-weight: 300;
+  }
+
+  h6 {
+    font-size: 15px;
+    font-weight: 500;
+  }
 }
 
 .hfui-authenticationpage__content {
@@ -48,15 +81,20 @@
     background-color:#102331;
     border: none;
     width: 45%;
+  
 
   }
   .hfui-input, .hfui-button {
+    text-transform: uppercase;
     margin-top: 16px;
+  }
+
+  input:focus {
+    border: 1px solid #54B361;
   }
 }
 
 .hfui-authenticationpage__clear {
   margin-top: 32px;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
   padding-top: 32px;
 }

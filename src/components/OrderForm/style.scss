@@ -109,7 +109,7 @@
         }
 
         &.red {
-          background: red;
+          background: #F05359;
         }
       }
     }
@@ -217,6 +217,7 @@
   margin-top: 8px;
 
   .hfui-button {
+    text-transform: uppercase;
     width: 50%;
 
     &:first-child:last-child {
