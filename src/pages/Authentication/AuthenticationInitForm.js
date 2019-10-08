@@ -60,6 +60,7 @@ export default class AuthenticationInit extends React.Component {
           <Input
             type='text'
             name='username'
+            placeholder='Username'
             autocomplete='username'
             style={{ display: 'none' }}
           />
@@ -67,6 +68,7 @@ export default class AuthenticationInit extends React.Component {
           <Input
             type='password'
             autocomplete='new-password'
+            placeholder='Password'
             value={password}
             onChange={this.onPasswordChange}
           />
@@ -74,6 +76,7 @@ export default class AuthenticationInit extends React.Component {
           <Input
             type='password'
             autocomplete='new-password'
+            placeholder='Confirm password'
             value={confirmPassword}
             onChange={this.onConfirmPasswordChange}
           />
