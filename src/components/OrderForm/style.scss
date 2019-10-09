@@ -217,6 +217,7 @@
   margin-top: 8px;
 
   .hfui-button {
+    padding: 4px 8px 4px 8px;
     text-transform: uppercase;
     width: 50%;
 
@@ -425,7 +426,7 @@
   .hfui-orderform__modal-buttons {
     .hfui-button {
       margin-right: 16px;
-
+      padding: 4px 8px 4px 8px;
       &:last-child {
         margin-right: 0;
       }

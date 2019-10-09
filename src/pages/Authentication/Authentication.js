@@ -19,7 +19,7 @@ export default class Authentication extends React.PureComponent {
       <div className='hfui-authenticationpage__wrapper'>
         <div className='hfui-authenticationpage__inner'>
           <div className='hfui-authenticationpage__inner-left'>
-            <svg width='437' height='172' viewBox='0 0 437 172' fill='none' xmlns='http://www.w3.org/2000/svg'>
+            <svg width='60%' viewBox='0 0 437 172' fill='none' xmlns='http://www.w3.org/2000/svg'>
               <g clipPath='url(#clip0)'>
                 <path d='M72.1719 73.7155C63.1375 75.1015 83.0338 129.449 121.699 129.449C140.912 129.449 109.061 68.1023 72.1719 73.7155Z' stroke='black' strokeWidth='4' strokeMiterlimit='10' />
                 <path d='M57.2942 73.363C66.3457 74.749 46.4494 129.097 7.76704 129.097C-11.429 129.097 20.4221 67.7498 57.2942 73.363Z' stroke='black' strokeWidth='4' strokeMiterlimit='10' />
