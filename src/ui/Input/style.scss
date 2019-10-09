@@ -6,12 +6,29 @@
 
   input {
     width: calc(100% - 16px);
-    color: #eee;
+    color: #54B361;
     background: #102331;
     border: 0.5px solid #102331;
     padding: 4px 8px;
     font-size: 12px;
     line-height: 12px;
     outline: none;
+  }
+  
+}
+
+.field-icon {
+  float: right;
+  margin-left: -25px;
+  margin-top: -23px;
+  position: relative;
+  border: none;
+  color: #54B361;
+  background: #102331;
+  z-index: 2;
+  outline: none;
+  
+  span {
+    font-size: 13px;
   }
 }
