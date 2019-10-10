@@ -4,7 +4,7 @@ require('dotenv').config()
 require('bfx-hf-util/lib/catch_uncaught_errors')
 
 const startHFServer = require('bfx-hf-server')
-
+//comment
 startHFServer({
   uiDBPath: `${__dirname}/../db/ui.json`,
   algoDBPath: `${__dirname}/../db/algos.json`,
