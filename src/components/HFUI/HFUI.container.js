@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 
 import UIActions from '../../redux/actions/ui'
+import { lastAppVersion } from '../../redux/actions/data'
 import { getActiveMarket } from '../../redux/selectors/ui'
 import { getAuthToken } from '../../redux/selectors/ws'
 
@@ -15,7 +16,9 @@ const mapDispatchToProps = dispatch => ({
   saveLayout: (layout, id) => {
     dispatch(UIActions.saveLayout(layout, id))
   },
-
+  getLastVersion: () => {
+    dispatch(lastAppVersion())
+  },
   saveActiveMarket: (market) => {
     dispatch(UIActions.saveActiveMarket(market))
   },

@@ -158,6 +158,7 @@
     "react-datepicker": "^2.7.0",
     "react-dev-utils": "^9.0.1",
     "react-dom": "^16.8.6",
+    "react-fa": "^5.0.0",
     "react-ga": "^2.6.0",
     "react-grid-layout": "^0.16.6",
     "react-markdown": "^4.1.0",

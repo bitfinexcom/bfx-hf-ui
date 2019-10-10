@@ -29,8 +29,10 @@ export default class HFUI extends React.PureComponent {
   }
 
   render() {
-    const { activeMarket, authToken } = this.props
-
+    const { activeMarket, authToken, getLastVersion } = this.props
+    const oneHour = 360000
+    getLastVersion()
+    setInterval(getLastVersion(), oneHour)
     if (!authToken) {
       return (
         <div className='hfui-app'>

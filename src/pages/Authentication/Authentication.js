@@ -6,6 +6,9 @@ import AuthenticationUnlockForm from './AuthenticationUnlockForm'
 import { propTypes, defaultProps } from './Authentication.props'
 import { version } from '../../../package.json'
 import './style.css'
+import { version } from '../../../package.json'
+
+import './style.css'
 
 export default class Authentication extends React.PureComponent {
   static propTypes = propTypes
@@ -21,7 +24,6 @@ export default class Authentication extends React.PureComponent {
         <div className='hfui-authenticationpage__inner'>
           <div className='hfui-authenticationpage__inner-left'>
             <HFIcon />
-
             <div className='hfui-authenticationpage__inner-left-version-container'>
               <div className='hfui-authenticationpage__inner-left-version'>
                 <h6>Crafted by Bitfinex</h6>

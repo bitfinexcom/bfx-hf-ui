@@ -60,6 +60,7 @@ export default class SubmitAPIKeysModal extends React.Component {
             type='text'
             label='API Key'
             key='apiKey'
+            placeholder='API Key'
             value={apiKey}
             onChange={this.onAPIKeyChange}
           />,
@@ -67,6 +68,7 @@ export default class SubmitAPIKeysModal extends React.Component {
           <Input
             type='password'
             label='API Secret'
+            placeholder='API Secret'
             key='apiSecret'
             value={apiSecret}
             onChange={this.onAPISecretChange}

@@ -21,6 +21,20 @@ export default class Input extends React.PureComponent {
     this.setState(({ hidden }) => ({ hidden: !hidden }))
   }
 
+  state = {
+    hidden: true,
+  }
+
+  constructor(props) {
+    super(props)
+
+    this.onToggleShow = this.onToggleShow.bind(this)
+  }
+
+  onToggleShow() {
+    this.setState(({ hidden }) => ({ hidden: !hidden }))
+  }
+
   render() {
     const {
       type, className, onChange, disabled, value, placeholder, label,
