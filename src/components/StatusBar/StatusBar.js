@@ -98,7 +98,6 @@ export default class StatusBar extends React.Component {
         const lastVersion = data.version
         // eslint-disable-next-line global-require
         const currVersion = require('../../../package.json').version
-        console.log(lastVersion, currVersion, this.state)
         // eslint-disable-next-line react/no-unused-state
         this.setState({ lastVersion, currVersion })
       })
