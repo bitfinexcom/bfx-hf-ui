@@ -7,8 +7,8 @@
   flex-direction: row;
 
   &.green {
-    border-color: #004800;
-    background: #041900;
+    border-color: #54B361;
+    background: #54B361;
   }
 
   &.orange {
@@ -21,7 +21,9 @@
   }
 
   .hfui-button {
+    text-transform: uppercase;
     font-size: 14px;
+    padding: 4px 8px 4px 8px;
   }
 
   .hfui-apicredentialsbox__label {

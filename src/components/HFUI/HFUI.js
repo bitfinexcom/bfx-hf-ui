@@ -30,7 +30,7 @@ export default class HFUI extends React.PureComponent {
 
   render() {
     const { activeMarket, authToken } = this.props
-
+    console.log(window.location)
     if (!authToken) {
       return (
         <div className='hfui-app'>

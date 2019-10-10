@@ -2,19 +2,16 @@ import { connect } from 'react-redux'
 import { prepareAmount } from 'bfx-api-node-util'
 import Debug from 'debug'
 
-import { getAuthToken } from '../../redux/selectors/ws'
 import BFXOrders from '../../orders/bitfinex'
 import WSActions from '../../redux/actions/ws'
 import PositionsTable from './PositionsTable'
 
 const debug = Debug('hfui:c:positions-table')
 
-const mapStateToProps = (state = {}, ownProps = {}) => ({ // eslint-disable-line
-  authToken: getAuthToken(state),
-})
+const mapStateToProps = (state = {}, ownProps = {}) => ({}) // eslint-disable-line
 
 const mapDispatchToProps = dispatch => ({
-  closePosition: (exID, authToken, position = {}) => {
+  closePosition: (exID, position = {}) => {
     switch (exID) {
       case 'bitfinex': {
         const { symbol, amount, basePrice } = position
@@ -25,7 +22,7 @@ const mapDispatchToProps = dispatch => ({
         }, symbol, 'm')
 
         debug('closing position on %s %f @ %f', symbol, amount, basePrice)
-        dispatch(WSActions.send(['order.submit', authToken, exID, packet]))
+        dispatch(WSActions.send(['order.submit', exID, packet]))
         break
       }
 

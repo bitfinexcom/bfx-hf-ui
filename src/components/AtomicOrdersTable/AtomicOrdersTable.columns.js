@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default (exID, authToken, cancelOrder) => [{
+export default (exID, cancelOrder) => [{
   label: 'Symbol',
   dataKey: 'symbol',
   width: 120,
@@ -38,7 +38,7 @@ export default (exID, authToken, cancelOrder) => [{
         role='button'
         tabIndex={0}
         className='far fa-times-circle'
-        onClick={() => cancelOrder(exID, authToken, rowData)}
+        onClick={() => cancelOrder(exID, rowData)}
       />
     </div>
   ),
