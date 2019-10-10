@@ -4,7 +4,6 @@ import NavbarButton from '../NavbarButton'
 import { propTypes, defaultProps } from './Navbar.props'
 import './style.css'
 
-
 export default class Navbar extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
