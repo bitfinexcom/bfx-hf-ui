@@ -56,7 +56,7 @@ const mapDispatchToProps = dispatch => ({
   submitAlgoOrder: ({
     authToken, exID, id, market, context, data,
   }) => {
-    debug('submitting algo order %s on %s [%s]', id, market.u, context)
+    debug('submitting algo order %s on %s [%s]', id, market.uiID, context)
 
     // TODO: Extract symbol resolution (r/w)
     dispatch(WSActions.send(['algo_order.submit', authToken, exID, id, {
