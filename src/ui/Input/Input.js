@@ -1,5 +1,4 @@
 import React from 'react'
-import { Icon } from 'react-fa'
 
 import { propTypes, defaultProps } from './Input.props'
 import './style.css'
@@ -25,7 +24,9 @@ export default class Input extends React.PureComponent {
       type, className, onChange, disabled, value, placeholder, label,
       autocomplete, style,
     } = this.props
+
     const { hidden } = this.state
+
     if (type === 'password') {
       return (
         <div className='hfui-input'>
@@ -36,10 +37,17 @@ export default class Input extends React.PureComponent {
             onChange={e => onChange(e.target.value)}
             value={value}
           />
-          <button className='field-icon' type='button' onClick={() => this.toggleShow()}>{hidden ? <Icon name='eye' /> : <Icon name='eye-slash' />}</button>
+          <button
+            className='field-icon'
+            type='button'
+            onClick={() => this.toggleShow()}
+          >
+            {hidden ? <i className='fas fa-eye' /> : <i className='fas fa-eye-slash' />}
+          </button>
         </div>
       )
     }
+
     return (
       <div className='hfui-input'>
         {label && (
