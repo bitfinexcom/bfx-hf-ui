@@ -5,8 +5,10 @@ import getActiveExchange from './get_active_exchange'
 import getActiveMarket from './get_active_market'
 import getLayouts from './get_layouts'
 import getLayout from './get_layout'
+import getRemoteVersion from './get_remote_version'
 
 export {
+  getRemoteVersion,
   getNumberOfLayouts,
   getComponentState,
   getPreviousMarket,
