@@ -12,5 +12,6 @@ yarn-error.log*
 
 src/**/*.css
 package-lock.json
+yarn.lock
 
 todo
