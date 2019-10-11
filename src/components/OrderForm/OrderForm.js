@@ -16,6 +16,7 @@ import {
 import nearestMarket from '../../util/nearest_market'
 import TIME_FRAMES_FOR_EXID from '../../util/time_frames'
 
+import Button from '../../ui/Button'
 import Panel from '../../ui/Panel'
 import Select from '../../ui/Select'
 import Dropdown from '../../ui/Dropdown'
@@ -25,6 +26,7 @@ import MarketSelect from '../MarketSelect'
 import ConnectingModal from './Modals/ConnectingModal'
 import UnconfiguredModal from './Modals/UnconfiguredModal'
 import SubmitAPIKeysModal from './Modals/SubmitAPIKeysModal'
+import OrderFormMenu from './OrderFormMenu'
 
 import { propTypes, defaultProps } from './OrderForm.props'
 import './style.css'
@@ -51,17 +53,13 @@ export default class OrderForm extends React.Component {
   constructor(props) {
     super(props)
 
-    const {
-      orders = {}, savedState = {}, activeMarket, activeExchange,
-    } = props
-
+    const { savedState = {}, activeMarket, activeExchange } = props
     const {
       currentExchange = activeExchange, currentMarket = activeMarket,
       exchangeDirty, marketDirty,
     } = savedState
 
     const algoOrders = OrderForm.getAOs(currentExchange)
-    const currentOrder = orders[currentExchange][0] || algoOrders[0]
 
     this.state = {
       ...this.state,
@@ -72,8 +70,8 @@ export default class OrderForm extends React.Component {
       exchangeDirty,
       marketDirty,
 
-      fieldData: defaultDataForLayout(currentOrder),
-      currentLayout: currentOrder,
+      fieldData: {},
+      currentLayout: null,
       context: currentMarket.contexts[0],
     }
 
@@ -87,6 +85,7 @@ export default class OrderForm extends React.Component {
     this.onToggleConfigureModal = this.onToggleConfigureModal.bind(this)
     this.onSubmitAPIKeys = this.onSubmitAPIKeys.bind(this)
     this.onUnlock = this.onUnlock.bind(this)
+    this.onClearOrderLayout = this.onClearOrderLayout.bind(this)
   }
 
   static getAOs(exID) {
@@ -114,15 +113,13 @@ export default class OrderForm extends React.Component {
     }
 
     const algoOrders = OrderForm.getAOs(activeExchange)
-    const { orders } = nextProps
-    const currentOrder = orders[activeExchange][0] || algoOrders[0]
 
     return {
       algoOrders,
       currentExchange: activeExchange,
       currentMarket: activeMarket,
-      fieldData: defaultDataForLayout(currentOrder),
-      currentLayout: currentOrder,
+      fieldData: {},
+      currentLayout: null,
     }
   }
 
@@ -176,6 +173,13 @@ export default class OrderForm extends React.Component {
 
   onContextChange(context) {
     this.setState(() => ({ context }))
+  }
+
+  onClearOrderLayout() {
+    this.setState(() => ({
+      currentLayout: null,
+      fieldData: {},
+    }))
   }
 
   onChangeActiveOrderLayout(orderLabel) {
@@ -390,14 +394,14 @@ export default class OrderForm extends React.Component {
     const apiClientDisconnected = !apiClientState
     const apiClientConfigured = !!(apiCredentials || {})[currentExchange]
     const renderData = marketToQuoteBase(currentMarket)
-    const orderOptions = [{ value: '_label', label: 'Atomic Orders' }]
+    const atomicOrderTypes = []
+    const algoOrderTypes = []
 
-    orders[currentExchange].forEach(({ label }) => orderOptions.push({
-      value: label,
+    orders[currentExchange].forEach(({ label, id }) => atomicOrderTypes.push({
+      id,
       label,
+      description: 'description text pending',
     }))
-
-    orderOptions.push({ value: '_label', label: 'Algorithmic Orders' })
 
     // NOTE: Iceberg is disabled on Binance [native iceberg support pending implementation]
     algoOrders.filter((ao) => {
@@ -405,8 +409,12 @@ export default class OrderForm extends React.Component {
         (currentExchange === 'bitfinex')
         || (currentExchange === 'binance' && ao.id !== 'bfx-iceberg')
       )
-    }).forEach(({ label }) => {
-      orderOptions.push({ value: label, label })
+    }).forEach(({ label, id }) => {
+      algoOrderTypes.push({
+        id,
+        label,
+        description: 'description text pending',
+      })
     })
 
     // NOTE: Margin trading disabled on Binance
@@ -485,7 +493,7 @@ export default class OrderForm extends React.Component {
           ]}
 
           {helpOpen && currentLayout && currentLayout.customHelp && (
-            <div className='hfui-orderform__help-wrapper'>
+            <div className='hfui-orderform__overlay-wrapper'>
               <Scrollbars>
                 <div className='hfui-orderform__help-inner'>
                   <p className='hfui-orderform__help-title'>
@@ -506,45 +514,56 @@ export default class OrderForm extends React.Component {
             </div>
           )}
 
-          <ul className='hfui-orderform__header'>
-            <li>
-              <Dropdown
-                label='Order Type'
-                onChange={this.onChangeActiveOrderLayout}
-                value={currentLayout.label}
-                options={orderOptions}
-              />
-            </li>
-
-            <li>
-              <Dropdown
-                label='Context'
-                value={context}
-                onChange={this.onContextChange}
-                options={currentMarket.contexts.filter(ctx => (
-                  currentExchange === 'bitfinex' || ctx !== 'm'
-                )).map(ctx => ({
-                  label: CONTEXT_LABELS[ctx],
-                  value: ctx,
-                }))}
-              />
-            </li>
-          </ul>
-
-          {renderLayout({
-            onSubmit: this.onSubmit,
-            onFieldChange: this.onFieldChange,
-            layout: currentLayout,
-            validationErrors,
-            renderData,
-            fieldData,
-          })}
-
-          {creationError && (
-            <div className='hfui-orderform__creation-error'>
-              <p>{creationError}</p>
+          {!currentLayout && (
+            <div className='hfui-orderform__overlay-wrapper'>
+              <Scrollbars>
+                <OrderFormMenu
+                  atomicOrderTypes={atomicOrderTypes}
+                  algoOrderTypes={algoOrderTypes}
+                  onSelect={({ label }) => this.onChangeActiveOrderLayout(label)}
+                />
+              </Scrollbars>
             </div>
           )}
+
+          {currentLayout && [
+            <ul className='hfui-orderform__header' key='of-header'>
+              <li>
+                <Button
+                  label='Change Order Type'
+                  onClick={this.onClearOrderLayout}
+                />
+              </li>
+              <li>
+                <Dropdown
+                  label='Context'
+                  value={context}
+                  onChange={this.onContextChange}
+                  options={currentMarket.contexts.filter(ctx => (
+                    currentExchange === 'bitfinex' || ctx !== 'm'
+                  )).map(ctx => ({
+                    label: CONTEXT_LABELS[ctx],
+                    value: ctx,
+                  }))}
+                />
+              </li>
+            </ul>,
+
+            renderLayout({
+              onSubmit: this.onSubmit,
+              onFieldChange: this.onFieldChange,
+              layout: currentLayout,
+              validationErrors,
+              renderData,
+              fieldData,
+            }),
+
+            creationError && (
+              <div className='hfui-orderform__creation-error' key='of-error'>
+                <p>{creationError}</p>
+              </div>
+            ),
+          ]}
         </div>
       </Panel>
     )
