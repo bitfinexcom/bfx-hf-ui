@@ -27,6 +27,7 @@ function getInitialState() {
     activeExchange: DEFAULT_EXCHANGE,
     previousMarket: null,
     previousExchange: null,
+    remoteVersion: null,
   }
 
   if (!localStorage) {
@@ -82,6 +83,15 @@ function reducer(state = getInitialState(), action = {}) {
   const { type, payload = {} } = action
 
   switch (type) {
+    case types.SAVE_REMOTE_VERSION: {
+      const { version } = payload
+
+      return {
+        ...state,
+        remoteVersion: version,
+      }
+    }
+
     case types.SAVE_LAYOUT: {
       const { layout, id } = payload
 

@@ -172,6 +172,7 @@
     "redux-beacon": "^2.1.0",
     "redux-beacon-matomo-tag-manager": "^1.0.0",
     "redux-saga": "^1.0.4",
+    "request-promise": "^4.2.4",
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
     "scrypt-js": "^2.0.4",
