@@ -6,17 +6,19 @@ import './style.css'
 export default class Input extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
+
+  state = {
+    hidden: true,
+  }
+
   constructor(props) {
     super(props)
 
-    this.state = {
-      hidden: true,
-    }
+    this.onToggleShow = this.onToggleShow.bind(this)
   }
 
-  toggleShow() {
-    const { hidden } = this.state
-    this.setState({ hidden: !hidden })
+  onToggleShow() {
+    this.setState(({ hidden }) => ({ hidden: !hidden }))
   }
 
   render() {
@@ -40,7 +42,7 @@ export default class Input extends React.PureComponent {
           <button
             className='field-icon'
             type='button'
-            onClick={() => this.toggleShow()}
+            onClick={this.onToggleShow}
           >
             {hidden ? <i className='fas fa-eye' /> : <i className='fas fa-eye-slash' />}
           </button>
