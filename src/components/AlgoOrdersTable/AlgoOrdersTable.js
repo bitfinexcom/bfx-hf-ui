@@ -9,7 +9,9 @@ export default class AlgoOrdersTable extends React.PureComponent {
   static defaultProps = defaultProps
 
   render() {
-    const { cancelOrder, orders, apiClientState } = this.props
+    const {
+      cancelOrder, orders, apiClientState, authToken,
+    } = this.props
 
     return (
       <ul className='hfui-ao-list__wrapper'>
@@ -22,8 +24,8 @@ export default class AlgoOrdersTable extends React.PureComponent {
                     role='button'
                     tabIndex={0}
                     className='fas fa-stop'
-                    onClick={() => cancelOrder(ao)}
-                    onKeyPress={() => cancelOrder(ao)}
+                    onClick={() => cancelOrder(authToken, ao)}
+                    onKeyPress={() => cancelOrder(authToken, ao)}
                   />
                 </li>
               </ul>
