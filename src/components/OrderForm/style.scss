@@ -139,6 +139,12 @@
       flex-direction: row-reverse;
     }
   }
+
+  .hfui-button {
+    margin-top: 20px;
+    height: 32px;
+    font-size: 13px;
+  }
 }
 
 .hfui-orderform__creation-error {
@@ -328,7 +334,7 @@
   }
 }
 
-.hfui-orderform__help-wrapper {
+.hfui-orderform__overlay-wrapper {
   position: absolute;
   top: 0;
   left: 0;
