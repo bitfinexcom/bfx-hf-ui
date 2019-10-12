@@ -16,7 +16,6 @@ import {
 import nearestMarket from '../../util/nearest_market'
 import TIME_FRAMES_FOR_EXID from '../../util/time_frames'
 
-import Button from '../../ui/Button'
 import Panel from '../../ui/Panel'
 import Select from '../../ui/Select'
 import Dropdown from '../../ui/Dropdown'
@@ -446,7 +445,6 @@ export default class OrderForm extends React.Component {
         footer={[
           <div className='hfui-orderform__footer-lockstatus' key='lockstatus'>
             <p>{apiClientConnected ? `UNLOCKED FOR ${currentExchange.toUpperCase()}` : 'LOCKED'}</p>
-            <i className={`fas fa-${apiClientConnected ? 'unlock' : 'lock'}`} />
           </div>,
 
           <div className='hfui-orderform__footer-connectionstatus' key='connectionstatus'>
@@ -459,10 +457,10 @@ export default class OrderForm extends React.Component {
 
             <p>
               {apiClientConnected
-                ? 'CONNECTED'
+                ? 'Connected'
                 : apiClientConnecting
-                  ? 'CONNECTING'
-                  : 'DISCONNECTED'
+                  ? 'Connecting'
+                  : 'Disconnected'
               }
             </p>
           </div>,
@@ -527,16 +525,21 @@ export default class OrderForm extends React.Component {
           )}
 
           {currentLayout && [
+            <div className='hfui-orderform__layout-label' key='layout-label'>
+              <i
+                className='fas fa-arrow-left'
+                onClick={this.onClearOrderLayout}
+              />
+              <div className='hfui-orderform__layout-label-inner'>
+                <i className='fas fa-bell' />
+                <p>{currentLayout.label}</p>
+              </div>
+            </div>,
+
             <ul className='hfui-orderform__header' key='of-header'>
               <li>
-                <Button
-                  label='Change Order Type'
-                  onClick={this.onClearOrderLayout}
-                />
-              </li>
-              <li>
                 <Dropdown
-                  label='Context'
+                  icon='fas fa-bell'
                   value={context}
                   onChange={this.onContextChange}
                   options={currentMarket.contexts.filter(ctx => (

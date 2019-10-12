@@ -8,7 +8,7 @@ export default class RadioButton extends React.PureComponent {
 
   render() {
     const {
-      onChange, value, label, id,
+      onChange, value, label, id, uppercase,
     } = this.props
 
     return (
@@ -22,7 +22,14 @@ export default class RadioButton extends React.PureComponent {
         />
 
         <div className='state'>
-          <label htmlFor={id}>{label}</label>
+          <label
+            htmlFor={id}
+            style={{
+              textTransform: uppercase ? 'uppercase' : 'auto',
+            }}
+          >
+            {label}
+          </label>
         </div>
       </div>
     )

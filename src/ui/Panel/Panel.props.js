@@ -10,9 +10,11 @@ export const propTypes = {
   moveable: PropTypes.bool,
   removeable: PropTypes.bool,
   modal: PropTypes.any,
+  darkHeader: PropTypes.bool,
 }
 
 export const defaultProps = {
   moveable: true,
   removeable: true,
+  darkHeader: false,
 }

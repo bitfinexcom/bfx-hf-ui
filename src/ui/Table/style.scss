@@ -1,6 +1,7 @@
 .ReactVirtualized__Table__headerRow {
-  border-bottom: 1px solid #2f3240;
+  border-bottom: none;
   padding-right: 0 !important;
+  height: 48px;
 }
 
 .ReactVirtualized__Table__headerColumn {
@@ -13,26 +14,21 @@
 
 .ReactVirtualized__Table__headerTruncatedText {
   margin-right: 4px;
+  font-weight: bold;
+  font-size: 13px;
+  text-transform: none;
 }
 
 .ReactVirtualized__Table__row {
-  color: #ccc;
+  color: #fff;
 
   > * {
-    font-size: 12px;
+    font-size: 13px;
     line-height: 20px !important;
   }
 
   &:hover {
     cursor: pointer;
-  }
-}
-
-.ReactVirtualized__Table__rowColumn {
-  border-right: 1px solid #2f3240;
-
-  &:last-child {
-    border-right: none;
   }
 }
 

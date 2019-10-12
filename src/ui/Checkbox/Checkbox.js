@@ -8,7 +8,7 @@ export default class Checkbox extends React.PureComponent {
 
   render() {
     const {
-      label, value, onChange, id,
+      label, value, onChange, id, uppercase,
     } = this.props
 
     return (
@@ -22,7 +22,14 @@ export default class Checkbox extends React.PureComponent {
         />
 
         <div className='state'>
-          <label htmlFor={id}>{label}</label>
+          <label
+            htmlFor={id}
+            style={{
+              textTransform: uppercase ? 'uppercase' : 'auto',
+            }}
+          >
+            {label}
+          </label>
         </div>
       </div>
     )

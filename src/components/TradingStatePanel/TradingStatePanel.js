@@ -154,6 +154,7 @@ export default class TradingStatePanel extends React.Component {
           label: 'BALANCES',
         }]}
 
+        darkHeader
         activeTab={activeTab}
         onChangeTab={this.onChangeTab}
         className='hfui-tradingstatepanel__wrapper'

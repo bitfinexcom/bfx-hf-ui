@@ -7,6 +7,7 @@ export const propTypes = {
   valueSuffix: PropTypes.string,
   dataClassName: PropTypes.string,
   labelClassName: PropTypes.string,
+  vertical: PropTypes.bool,
 }
 
 export const defaultProps = {
@@ -14,4 +15,5 @@ export const defaultProps = {
   valueSuffix: '',
   dataClassName: '',
   labelClassName: '',
+  vertical: false,
 }

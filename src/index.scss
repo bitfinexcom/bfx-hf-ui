@@ -63,14 +63,14 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background: #03040a;
-  color: #c6c6c6;
+  background: #172d3e;
+  color: #e2e5e7;
 
   margin: 0;
   overflow: hidden;
@@ -95,7 +95,7 @@ a, a:visited {
 }
 
 .hfui-red {
-  color: red;
+  color: #F05359;
 }
 
 .hfui-green {
