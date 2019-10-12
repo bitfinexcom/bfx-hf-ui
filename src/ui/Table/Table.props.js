@@ -12,7 +12,7 @@ export const propTypes = {
 export const defaultProps = {
   data: [],
   columns: [],
-  rowHeight: 20,
+  rowHeight: 22,
   headerHeight: 32,
   onRowClick: () => {},
   sortedDataPostProcessor: () => {},

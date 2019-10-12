@@ -1,28 +1,32 @@
 .hfui-exchangeinfobar__wrapper {
-  padding: 0 24px;
-  line-height: 26px;
-  border-bottom: 1px solid #101221;
-  background: #0c0f17;
+  border-bottom: 1px solid #102331;
+  background: #172d3e;
 
-  width: calc(100% - 48px);
   z-index: 100;
+  height: 76px;
 
   position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  padding: 0 32px;
 
   ul {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    flex: 1;
   }
 
   li {
     min-width: fit-content;
     display: inline-block;
     vertical-align: middle;
-    width: 100%;
-    margin: 0 8px;
-    flex: 1;
-    text-align: center;
+    padding-bottom: 23px;
+
+    &:first-child {
+      margin-right: 16px;
+    }
 
     &.text {
       .hfui-exchangeinfobar__item-label,
@@ -33,17 +37,68 @@
   }
 }
 
+.hfui-exchangeinfobar__left {
+  display: flex;
+  flex-direction: row;
+}
+
+.hfui-exchangeinfobar__right {
+  text-align: right;
+  min-width: 338px;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  i {
+    font-size: 20px;
+  }
+}
+
+.hfui-exchangeinfobar__item.vertical {
+  display: block;
+  padding: 0;
+  margin-right: 59px !important;
+
+  &:last-child {
+    margin-right: 0 !important;
+  }
+
+  .hfui-exchangeinfobar__item-label,
+  .hfui-exchangeinfobar__item-data {
+    display: block;
+    width: 100%;
+  }
+
+  .hfui-exchangeinfobar__item-label {
+    text-transform: none;
+    line-height: 11px;
+    height: 11px;
+    margin-bottom: 8px;
+    margin-right: 0;
+  }
+
+  .hfui-exchangeinfobar__item-data {
+    line-height: 15px;
+    height: 15px;
+    margin-bottom: 20px;
+  }
+}
+
+
 .hfui-exchangeinfobar__item-label,
 .hfui-exchangeinfobar__item-data {
   display: inline-block;
   vertical-align: middle;
-  font-size: 11px;
+  font-size: 13px;
 }
 
 .hfui-exchangeinfobar__item-label {
-  color: #666;
+  color: #e2e5e7;
   user-select: none;
-  margin-right: 8px;
+  margin-right: 6px;
+  text-transform: uppercase;
 }
 
 .hfui-exchangeinfobar__item-data {
@@ -61,5 +116,9 @@
 
   .hfui-select__control {
     padding: 0 4px;
+  }
+
+  .hfui-select__single-value {
+    color: #16b157 !important;
   }
 }

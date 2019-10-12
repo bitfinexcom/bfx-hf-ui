@@ -24,6 +24,7 @@ export default class CheckboxInput extends React.PureComponent {
         })}
       >
         <Checkbox
+          uppercase
           label={renderString(label, renderData)}
           onChange={onChange}
           disabled={disabled}

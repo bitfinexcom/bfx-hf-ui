@@ -44,13 +44,29 @@
   flex-direction: row;
   margin-left: 8px;
 
+  > i:first-child {
+    right: auto;
+    left: 15px;
+    font-size: 10px;
+    margin-top: 12px;
+    color: #f0f1f2;
+  }
+
   p {
-    line-height: 30px;
+    line-height: 35px;
     flex-shrink: 0;
+
+    &.with-icon {
+      padding-left: 32px;
+    }
   }
 
   i {
     margin: 10px 0 0 4px;
+
+    &:last-child {
+      top: 2px;
+    }
   }
 
   &.yellow > * {

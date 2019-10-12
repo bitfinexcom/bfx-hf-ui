@@ -38,7 +38,7 @@ class Dropdown extends React.Component {
   render() {
     const { open } = this.state
     const {
-      label, value, options, highlight, fallback, disabled, isOpen,
+      label, value, options, highlight, fallback, disabled, isOpen, icon,
     } = this.props
 
     return (
@@ -55,7 +55,15 @@ class Dropdown extends React.Component {
               disabled,
             })}
           >
-            <p>
+            {icon && (
+              <i className={icon} />
+            )}
+
+            <p
+              className={ClassNames({
+                'with-icon': icon && !isOpen && !open,
+              })}
+            >
               {(options.find(o => o.value === value) || {}).label || fallback || 'Select an option'}
             </p>
 

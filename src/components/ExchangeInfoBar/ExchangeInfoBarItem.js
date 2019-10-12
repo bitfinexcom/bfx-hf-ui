@@ -10,11 +10,11 @@ export default class ExchangeInfoBarItem extends React.PureComponent {
   render() {
     const {
       label, value, valuePrefix, valueSuffix, dataClassName, labelClassName,
-      text,
+      text, vertical,
     } = this.props
 
     return (
-      <li className={ClassNames({ text })}>
+      <li className={ClassNames('hfui-exchangeinfobar__item', { text, vertical })}>
         <p
           className={ClassNames('hfui-exchangeinfobar__item-label', labelClassName)}
         >

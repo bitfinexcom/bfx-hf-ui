@@ -1,8 +1,10 @@
 import React from 'react'
 import DatePicker from 'react-datepicker'
 
-import { renderString } from '../OrderForm.helpers'
 import { propTypes, defaultProps } from './input.date.props'
+import {
+  renderString, CONVERT_LABELS_TO_PLACEHOLDERS,
+} from '../OrderForm.helpers'
 
 // TODO:
 export default class DateInput extends React.PureComponent {
@@ -26,6 +28,7 @@ export default class DateInput extends React.PureComponent {
     } = this.props
 
     const { label } = def
+    const renderedLabel = renderString(label, renderData)
 
     return (
       <div className='hfui-orderform__input fullWidth'>
@@ -40,11 +43,14 @@ export default class DateInput extends React.PureComponent {
 
           selected={value}
           onChange={onChange}
+          placeholder={CONVERT_LABELS_TO_PLACEHOLDERS && renderedLabel}
         />
 
-        <p className='hfui-orderform__input-label'>
-          {renderString(label, renderData)}
-        </p>
+        {!CONVERT_LABELS_TO_PLACEHOLDERS && (
+          <p className='hfui-orderform__input-label'>
+            {renderedLabel}
+          </p>
+        )}
 
         {validationError && (
           <p className='hfui-orderform__input-error-label'>

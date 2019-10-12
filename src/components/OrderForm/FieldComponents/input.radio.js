@@ -28,6 +28,7 @@ export default class RadioInput extends React.PureComponent {
             label={renderString(o, renderData)}
             value={value === o}
             onChange={() => onChange(o)}
+            uppercase
           />
         ))}
       </div>
