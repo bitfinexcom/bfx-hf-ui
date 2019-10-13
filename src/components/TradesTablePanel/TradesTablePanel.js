@@ -177,19 +177,21 @@ export default class TradesTablePanel extends React.Component {
 
   render() {
     const {
-      label, onRemove, moveable, removeable, showExchange, showMarket,
+      label, onRemove, moveable, removeable, showExchange, showMarket, dark,
     } = this.props
 
     const { currentExchange, currentMarket } = this.state
 
     return (
       <Panel
+        dark={dark}
+        darkHeader={dark}
         label={label}
         onRemove={onRemove}
         moveable={moveable}
         removeable={removeable}
         className='hfui-tradestable__wrapper'
-        headerComponents={[
+        secondaryHeaderComponents={[
           showExchange && this.renderExchangeDropdown(),
           showMarket && this.renderMarketDropdown(),
         ]}

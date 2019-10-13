@@ -13,9 +13,11 @@ export const propTypes = {
   onOpenCreateModal: PropTypes.func,
   onSaveStrategy: PropTypes.func,
   onBacktestStrategy: PropTypes.func,
+  dark: PropTypes.bool,
 }
 
 export const defaultProps = {
   moveable: true,
   removeable: true,
+  dark: true,
 }

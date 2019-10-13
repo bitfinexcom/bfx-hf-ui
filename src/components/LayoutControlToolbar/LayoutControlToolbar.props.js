@@ -1,13 +1,11 @@
 import PropTypes from 'prop-types'
 
 export const propTypes = {
-  defaultLayoutID: PropTypes.string.isRequired,
-  layouts: PropTypes.object.isRequired,
+  layouts: PropTypes.object,
   tradingEnabled: PropTypes.bool,
-  darkPanels: PropTypes.bool,
 }
 
 export const defaultProps = {
+  layouts: {},
   tradingEnabled: false,
-  darkPanels: false,
 }

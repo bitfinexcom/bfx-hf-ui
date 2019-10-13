@@ -102,6 +102,10 @@ a, a:visited {
   color: #54B361;
 }
 
+.hfui-uppercase {
+  text-transform: uppercase;
+}
+
 @import '~react-grid-layout/css/styles';
 @import '~react-resizable/css/styles';
 

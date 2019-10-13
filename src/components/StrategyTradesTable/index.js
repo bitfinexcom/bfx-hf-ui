@@ -11,10 +11,14 @@ export default class StrategyTradesTable extends React.PureComponent {
   static defaultProps = defaultProps
 
   render() {
-    const { label, trades, onTradeClick } = this.props
+    const {
+      label, trades, onTradeClick, dark,
+    } = this.props
 
     return (
       <Panel
+        dark={dark}
+        darkHeader={dark}
         label={label}
         removeable={false}
         moveable={false}

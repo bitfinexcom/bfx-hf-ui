@@ -14,6 +14,7 @@ export const propTypes = {
   canChangeExchange: PropTypes.bool,
   showMarket: PropTypes.bool,
   showExchange: PropTypes.bool,
+  dark: PropTypes.bool,
 }
 
 export const defaultProps = {
@@ -30,4 +31,5 @@ export const defaultProps = {
   canChangeExchange: true,
   showMarket: true,
   showExchange: true,
+  dark: false,
 }

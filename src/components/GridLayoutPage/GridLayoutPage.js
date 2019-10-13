@@ -152,12 +152,13 @@ export default class GridLayoutPage extends React.Component {
     const { layoutDef, layoutID, layoutDirty } = this.state
     const {
       activeMarket, layouts, tradingEnabled, chartProps, bookProps, tradesProps,
-      ordersProps, orderFormProps,
+      ordersProps, orderFormProps, darkPanels,
     } = this.props
 
     return (
       <div className='hfui-tradingpage__wrapper'>
         <GridLayout
+          darkPanels={darkPanels}
           layoutDef={layoutDef}
           layoutID={layoutID}
           chartProps={({

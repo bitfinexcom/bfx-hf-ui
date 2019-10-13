@@ -206,7 +206,7 @@ export default class OrderBookPanel extends React.Component {
   render() {
     const {
       onRemove, showExchange, showMarket, canChangeStacked, moveable,
-      removeable,
+      removeable, dark,
     } = this.props
 
     const {
@@ -216,6 +216,8 @@ export default class OrderBookPanel extends React.Component {
     return (
       <Panel
         label='ORDER BOOK'
+        dark={dark}
+        darkHeader={dark}
         onRemove={onRemove}
         moveable={moveable}
         removeable={removeable}

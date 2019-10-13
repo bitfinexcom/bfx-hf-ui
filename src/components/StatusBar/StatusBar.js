@@ -9,6 +9,11 @@ import { COMPONENT_TYPES } from '../GridLayout/GridLayout.helpers'
 import { propTypes, defaultProps } from './StatusBar.props'
 import './style.css'
 
+// NOTE: Temporary until relevant logic is moved into LayoutControlToolbar
+// This just force disables the layout controls regardless of props; all logic
+// implementing the controls must be moved from this component
+const LAYOUT_CONTROLS_ENABLED = false
+
 export default class StatusBar extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -103,7 +108,7 @@ export default class StatusBar extends React.Component {
 
     return (
       <div className='hfui-statusbar__wrapper'>
-        {displayLayoutControls && (
+        {LAYOUT_CONTROLS_ENABLED && displayLayoutControls && (
           <div className='hfui-statusbar__left'>
             <div className='hfui-statusbar__layout-name'>
               <p>Layout</p>

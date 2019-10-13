@@ -19,10 +19,12 @@ export const propTypes = {
   removeable: PropTypes.bool,
   showExchange: PropTypes.bool,
   showMarket: PropTypes.bool,
+  dark: PropTypes.bool,
 }
 
 export const defaultProps = {
   label: 'TRADES',
   canChangeExchange: true,
   canChangeMarket: true,
+  dark: false,
 }

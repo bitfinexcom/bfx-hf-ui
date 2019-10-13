@@ -5,8 +5,31 @@
   overflow: hidden;
   background: #172d3e;
 
+  &.dark {
+    background: #102331;
+  }
+
   &.dark-header .hfui-panel__header {
     background: #102331;
+  }
+}
+
+.hfui-panel__secondaryheader__wrapper {
+  display: flex;
+  flex-direction: row;
+  padding: 0 20px 10px 20px;
+  border-bottom: 1px solid #172d3e;
+
+  > * {
+    width: 100%;
+    flex: 1;
+
+    max-width: 100px;
+    margin-right: 40px;
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
 }
 
@@ -16,6 +39,7 @@
   border-bottom: 1px solid #102331;
   background: #172d3e;
   margin-left: 24px;
+  padding-right: 31px;
 
   .yellow {
     color: #fcd206 !important;
@@ -48,7 +72,6 @@
     display: inline-block;
     vertical-align: middle;
     padding: 0 12px;
-    height: 32px;
 
     &.active {
       background-color: rgba(0, 0, 0, 0.3);
@@ -109,7 +132,7 @@
 
   i {
     line-height: 32px;
-    margin-right: 8px;
+    margin-right: 13px;
     font-size: 14px;
     color: #fff;
 
@@ -132,10 +155,10 @@
 .hfui-panel__label {
   font-weight: 500;
   font-size: 13px;
-  color: #54b361;
   line-height: 45px;
   flex-shrink: 0;
   text-transform: uppercase;
+  color: #54b361;
 }
 
 .hfui-panel__content {

@@ -5,16 +5,19 @@ export const propTypes = {
   label: PropTypes.string,
   onRemove: PropTypes.func,
   headerComponents: PropTypes.any,
+  secondaryHeaderComponents: PropTypes.any,
   hideIcons: PropTypes.bool,
   extraIcons: PropTypes.any,
   moveable: PropTypes.bool,
   removeable: PropTypes.bool,
   modal: PropTypes.any,
   darkHeader: PropTypes.bool,
+  dark: PropTypes.bool,
 }
 
 export const defaultProps = {
   moveable: true,
   removeable: true,
   darkHeader: false,
+  dark: false,
 }
