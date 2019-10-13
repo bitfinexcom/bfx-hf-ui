@@ -133,32 +133,22 @@ export default class TradingStatePanel extends React.Component {
 
     return (
       <Panel
-        label='TRADING STATE'
-        onRemove={onRemove}
-        moveable={moveable}
-        removeable={removeable}
-        tabs={[{
-          id: 'positions',
-          label: 'POSITIONS',
-          suffix: positions.length,
-        }, {
-          id: 'atomics',
-          label: 'ATOMIC ORDERS',
-          suffix: atomicOrders.length,
-        }, {
-          id: 'algos',
-          label: 'ALGO ORDERS',
-          suffix: algoOrders.length,
-        }, {
-          id: 'balances',
-          label: 'BALANCES',
-        }]}
-
-        darkHeader
-        activeTab={activeTab}
-        onChangeTab={this.onChangeTab}
+        label='TRADING STAGE'
         className='hfui-tradingstatepanel__wrapper'
-        headerComponents={[(
+        moveable={false}
+        removeable={false}
+        extraIcons={[(
+          <div
+            key='filter-exchange'
+            onClick={this.onToggleExchangeFilter}
+            className={ClassNames('hfui-tspanel-header-button', {
+              active: exchangeFilterActive,
+            })}
+          >
+            <i className='fas fa-filter' />
+            <p>{_capitalize(activeExchange)}</p>
+          </div>
+        ), (
           <div
             key='filter-market'
             onClick={this.onToggleMarketFilter}
@@ -170,46 +160,65 @@ export default class TradingStatePanel extends React.Component {
             <p>{activeMarket.uiID}</p>
           </div>
         ), (
-          <div
-            key='filter-exchange'
-            onClick={this.onToggleExchangeFilter}
-            className={ClassNames('hfui-tspanel-header-button', {
-              active: exchangeFilterActive,
-            })}
-          >
-            <i className='fas fa-filter' />
-            <p>{_capitalize(activeExchange)}</p>
+          <div key='filter-by'>
+            <p className='hfui-uppercase'>Filter By:</p>
           </div>
         )]}
       >
-        {activeTab === 'positions' && (
-          <PositionsTable
-            exID={activeExchange}
-            positions={positions}
-          />
-        )}
+        <Panel
+          onRemove={onRemove}
+          moveable={moveable}
+          removeable={removeable}
+          tabs={[{
+            id: 'positions',
+            label: 'Positions',
+            suffix: positions.length,
+          }, {
+            id: 'atomics',
+            label: 'Atomic Orders',
+            suffix: atomicOrders.length,
+          }, {
+            id: 'algos',
+            label: 'Algo Orders',
+            suffix: algoOrders.length,
+          }, {
+            id: 'balances',
+            label: 'Balances',
+          }]}
 
-        {activeTab === 'atomics' && (
-          <AtomicOrdersTable
-            exID={activeExchange}
-            orders={atomicOrders}
-          />
-        )}
+          darkHeader
+          activeTab={activeTab}
+          onChangeTab={this.onChangeTab}
+        >
+          {activeTab === 'positions' && (
+            <PositionsTable
+              exID={activeExchange}
+              positions={positions}
+            />
+          )}
 
-        {activeTab === 'algos' && (
-          <AlgoOrdersTable
-            exID={activeExchange}
-            orders={algoOrders}
-          />
-        )}
+          {activeTab === 'atomics' && (
+            <AtomicOrdersTable
+              exID={activeExchange}
+              orders={atomicOrders}
+            />
+          )}
 
-        {activeTab === 'balances' && (
-          <BalancesTable
-            exID={activeExchange}
-            hideZeroBalances
-            balances={balances}
-          />
-        )}
+          {activeTab === 'algos' && (
+            <AlgoOrdersTable
+              exID={activeExchange}
+              orders={algoOrders}
+            />
+          )}
+
+          {activeTab === 'balances' && (
+            <BalancesTable
+              exID={activeExchange}
+              hideZeroBalances
+              balances={balances}
+            />
+          )}
+        </Panel>
       </Panel>
     )
   }

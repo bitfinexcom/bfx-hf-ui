@@ -10,6 +10,7 @@ export const propTypes = {
   ordersProps: PropTypes.object,
   onRemoveComponent: PropTypes.func.isRequired,
   layoutID: PropTypes.string.isRequired,
+  darkPanels: PropTypes.bool,
 }
 
 export const defaultProps = {
@@ -18,4 +19,5 @@ export const defaultProps = {
   tradesProps: {},
   orderFormProps: {},
   ordersProps: {},
+  darkPanels: false,
 }

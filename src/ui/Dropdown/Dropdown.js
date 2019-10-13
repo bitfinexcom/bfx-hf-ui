@@ -51,7 +51,7 @@ class Dropdown extends React.Component {
           <div
             onClick={disabled ? () => {} : this.onToggleOpen}
             className={ClassNames('hfui-dropdown__button', {
-              yellow: open || highlight,
+              highlight: open || highlight,
               disabled,
             })}
           >

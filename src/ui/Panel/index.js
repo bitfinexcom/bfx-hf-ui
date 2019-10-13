@@ -14,7 +14,8 @@ export default class Panel extends React.PureComponent {
     const {
       className, label, children, onRemove, headerComponents, hideIcons,
       extraIcons, moveable, removeable, modal, footer, settingsOpen,
-      onToggleSettings, tabs, activeTab, onChangeTab, darkHeader,
+      onToggleSettings, tabs, activeTab, onChangeTab, darkHeader, dark,
+      secondaryHeaderComponents,
     } = this.props
 
     let heightOffsetPX = 0
@@ -26,6 +27,7 @@ export default class Panel extends React.PureComponent {
       <div
         className={ClassNames('hfui-panel', className, {
           'dark-header': darkHeader,
+          dark,
         })}
       >
         <div className='hfui-panel__header'>
@@ -76,6 +78,12 @@ export default class Panel extends React.PureComponent {
             </div>
           )}
         </div>
+
+        {secondaryHeaderComponents && (
+          <div className='hfui-panel__secondaryheader__wrapper'>
+            {secondaryHeaderComponents}
+          </div>
+        )}
 
         <div
           className='hfui-panel__content'

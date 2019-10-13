@@ -11,7 +11,7 @@ export default class StrategyEditorPanel extends React.PureComponent {
     const {
       onRemove, moveable, removeable, children, execRunning, helpOpen,
       strategyDirty, strategy, onToggleHelp, onOpenSelectModal,
-      onOpenCreateModal, onSaveStrategy, onBacktestStrategy,
+      onOpenCreateModal, onSaveStrategy, onBacktestStrategy, dark,
       // onSwitchEditorMode, onToggleMaximiseEditor, editorMode,
       // editorMaximised,
     } = this.props
@@ -20,6 +20,8 @@ export default class StrategyEditorPanel extends React.PureComponent {
       <Panel
         label='STRATEGY EDITOR'
         className='hfui-strategyeditor__panel'
+        dark={dark}
+        darkHeader={dark}
         onRemove={onRemove}
         moveable={moveable}
         removeable={removeable}

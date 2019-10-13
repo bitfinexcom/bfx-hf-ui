@@ -1,5 +1,5 @@
 .hfui-dropdown__wrapper {
-  font-size: 12px;
+  font-size: 13px;
   position: relative;
   user-select: none;
   max-height: 300px;
@@ -44,6 +44,14 @@
   flex-direction: row;
   margin-left: 8px;
 
+  &.highlight {
+    box-shadow: inset 0 0 0 2px #35704f;
+
+    &, i, p {
+      color: #54B361;
+    }
+  }
+
   > i:first-child {
     right: auto;
     left: 15px;
@@ -67,10 +75,6 @@
     &:last-child {
       top: 2px;
     }
-  }
-
-  &.yellow > * {
-    color: #fcd206;
   }
 
   &.disabled {

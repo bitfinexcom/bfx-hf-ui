@@ -367,13 +367,14 @@ export default class StrategyEditor extends React.PureComponent {
   renderPanel(content) {
     const {
       strategy, execRunning, strategyDirty, helpOpen, editorMaximised,
-      editorMode,
+      editorMode, dark,
     } = this.state
 
     const { onRemove, moveable, removeable } = this.props
 
     return (
       <StrategyEditorPanel
+        dark={dark}
         onRemove={onRemove}
         moveable={moveable}
         removeable={removeable}
