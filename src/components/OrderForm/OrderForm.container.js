@@ -61,7 +61,7 @@ const mapDispatchToProps = dispatch => ({
     // TODO: Extract symbol resolution (r/w)
     dispatch(WSActions.send(['algo_order.submit', authToken, exID, id, {
       ...data,
-      _symbol: exID === 'bitfinex' ? market.wsID : market.restID,
+      _symbol: exID === 'bitfinex' ? market.w : market.r,
       _margin: context === 'm',
     }]))
   },
