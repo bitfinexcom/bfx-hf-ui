@@ -1,5 +1,6 @@
 import React from 'react'
 import ClassNames from 'classnames'
+import { Icon } from 'react-fa'
 
 import { propTypes, defaultProps } from './Notification.props'
 
@@ -15,12 +16,28 @@ export default class Notification extends React.PureComponent {
   render() {
     const { data = {} } = this.props
     const { status, text, mts } = data
-
+    let icon
+    console.log(status, data)
+    switch (status) {
+      case 'success':
+        icon = <Icon name='check' />
+        break
+      case 'error':
+        if (text === 'Invalid password') { icon = <Icon name='lock' /> } else { icon = <Icon name='times' /> }
+        break
+      case 'info':
+        if (text === 'Cleared user credentials & data') { icon = <Icon name='trash' /> }
+        break
+      default:
+        icon = <Icon name='check' />
+        break
+    }
     return (
       <li className={ClassNames('hfui-notification', {
         [status.toLowerCase()]: true,
       })}
       >
+        {icon}
         <p className='nfui-notification-msg'>{text}</p>
         <p className='hfui-notification__ts'>{`${new Date(mts).toLocaleString()}`}</p>
       </li>

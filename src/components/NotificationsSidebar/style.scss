@@ -10,7 +10,7 @@
   margin-right: -1px;
 
   &.visible {
-    width: 300px;
+    width: 27%;
     margin-right: 0;
   }
 
@@ -31,7 +31,11 @@
 
   pointer-events: none;
 }
-
+.fa-check, .fa-times, .fa-lock, .fa-trash{
+  float: left;
+  margin: 10px;
+  margin-top: 12px;
+}
 .hfui-notificationssidebar__notch {
   position: absolute;
   bottom: 66px;
@@ -91,7 +95,7 @@
   }
 
   &.info {
-    color: #eee;
-    border-color: blue;
+    color: #82BAF6;
+    border-color: 1px solid #82BAF6;
   }
 }
