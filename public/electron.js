@@ -24,7 +24,7 @@ function createWindow() {
     protocol: 'file',
     slashes: true,
   }))
-
+  mainWindow.webContents.openDevTools()
   mainWindow.on('closed', () => {
     mainWindow = null
   })
@@ -60,7 +60,6 @@ app.on('ready', () => {
   ]
 
   Menu.setApplicationMenu(Menu.buildFromTemplate(template))
-
   createWindow()
 })
 
