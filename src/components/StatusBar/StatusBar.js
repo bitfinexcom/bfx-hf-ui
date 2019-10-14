@@ -1,7 +1,6 @@
 import React from 'react'
 import ClassNames from 'classnames'
 import _isEmpty from 'lodash/isEmpty'
-import axios from 'axios'
 import NavbarButton from '../NavbarButton'
 import MANIFEST from '../../../package.json'
 import Input from '../../ui/Input'
@@ -92,16 +91,7 @@ export default class StatusBar extends React.Component {
   }
 
   render() {
-    axios
-      .get('https://raw.githubusercontent.com/bitfinexcom/bfx-hf-ui/master/package.json')
-      .then(({ data }) => {
-        const lastVersion = data.version
-        // eslint-disable-next-line global-require
-        const currVersion = require('../../../package.json').version
-        // eslint-disable-next-line react/no-unused-state
-        this.setState({ lastVersion, currVersion })
-      })
-    const { lastVersion, currVersion } = this.state || {}
+    const { lastVersion, currVersion } = this.props || {}
     const {
       layoutListOpen, componentListOpen, newLayoutName, layoutCreatorOpen,
     } = this.state
