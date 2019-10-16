@@ -1,7 +1,7 @@
 import React from 'react'
 import { preparePrice, prepareAmount } from 'bfx-api-node-util'
 
-export default ({ exID, closePosition }) => [{
+export default ({ exID, authToken, closePosition }) => [{
   label: 'Pair',
   dataKey: 'symbol',
   width: 120,
@@ -49,7 +49,7 @@ export default ({ exID, closePosition }) => [{
         role='button'
         tabIndex={0}
         className='far fa-times-circle'
-        onClick={() => closePosition(exID, rowData)}
+        onClick={() => closePosition(exID, authToken, rowData)}
       />
     </div>
   ),
