@@ -64,17 +64,17 @@
 .hfui-orderform__panel {
   .hfui-panel__footer {
     width: calc(100% - 16px);
-    background: #131723;
     line-height: 30px;
     font-size: 11px;
     color: #666;
     padding: 0 8px;
-    border-top: 1px solid #101221;
+    background: #102331;
+box-shadow: 0px -6px 31px rgba(0, 0, 0, 0.25);
     display: flex;
     flex-direction: row;
 
     .hfui-orderform__footer-lockstatus {
-      color: #fcd206;
+      color: #54b361;
       width: 100%;
 
       > * {
@@ -138,6 +138,12 @@
     &:nth-child(2n) {
       flex-direction: row-reverse;
     }
+  }
+
+  .hfui-button {
+    margin-top: 20px;
+    height: 32px;
+    font-size: 13px;
   }
 }
 
@@ -328,7 +334,7 @@
   }
 }
 
-.hfui-orderform__help-wrapper {
+.hfui-orderform__overlay-wrapper {
   position: absolute;
   top: 0;
   left: 0;
