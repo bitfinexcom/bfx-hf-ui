@@ -10,12 +10,14 @@ export default class PositionsTable extends React.PureComponent {
   static defaultProps = defaultProps
 
   render() {
-    const { exID, positions, closePosition } = this.props
+    const {
+      exID, positions, closePosition, authToken,
+    } = this.props
 
     return (
       <Table
         data={positions}
-        columns={PositionsTableColumns({ exID, closePosition })}
+        columns={PositionsTableColumns({ exID, authToken, closePosition })}
         defaultSortBy='mts'
         defaultSortDirection='ASC'
       />
