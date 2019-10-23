@@ -145,7 +145,7 @@ export default class TradingStatePanel extends React.Component {
               active: exchangeFilterActive,
             })}
           >
-            <i className='fas fa-filter' />
+            <i className='icon-filter-active' />
             <p>{_capitalize(activeExchange)}</p>
           </div>
         ), (
@@ -156,7 +156,7 @@ export default class TradingStatePanel extends React.Component {
               active: marketFilterActive,
             })}
           >
-            <i className='fas fa-filter' />
+            <i className='icon-filter-active' />
             <p>{activeMarket.uiID}</p>
           </div>
         ), (

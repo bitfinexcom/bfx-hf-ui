@@ -603,8 +603,9 @@ class Chart extends React.Component {
           ),
         ]}
 
-        headerComponents={headerComponents}
         modal={settingsModalOpen && this.renderSettingsModal()}
+        secondaryHeaderComponents={headerComponents}
+        secondaryHeaderReverse
       >
         {contents || <Spinner />}
       </Panel>

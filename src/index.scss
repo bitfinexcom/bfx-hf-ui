@@ -5,6 +5,7 @@
 @import '~codemirror/theme/tomorrow-night-eighties';
 @import '~@projectstorm/react-diagrams/dist/style.min';
 @import 'https://fonts.googleapis.com/css?family=Roboto&display=swap';
+@import '/icon_font/styles.css';
 
 .react-datepicker {
   background-color: #000;
@@ -54,12 +55,6 @@
 .react-datepicker-wrapper,
 .react-datepicker__input-container {
   width: 100%;
-}
-
-@import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css';
-
-.far, .fas {
-  color: #999;
 }
 
 body {

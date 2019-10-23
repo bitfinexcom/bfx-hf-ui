@@ -30,6 +30,7 @@ import OrderFormMenu from './OrderFormMenu'
 import { propTypes, defaultProps } from './OrderForm.props'
 import './style.css'
 
+const HELP_ICON_DISABLED = true // not in design
 const CONTEXT_LABELS = {
   e: 'Exchange',
   m: 'Margin',
@@ -430,7 +431,7 @@ export default class OrderForm extends React.Component {
         ]}
 
         extraIcons={(
-          apiClientConnected && currentLayout && currentLayout.customHelp && (
+          !HELP_ICON_DISABLED && apiClientConnected && currentLayout && currentLayout.customHelp && (
             <i
               role='button'
               tabIndex={0}
@@ -527,7 +528,7 @@ export default class OrderForm extends React.Component {
           {currentLayout && [
             <div className='hfui-orderform__layout-label' key='layout-label'>
               <i
-                className='fas fa-arrow-left'
+                className='icon-back-arrow'
                 onClick={this.onClearOrderLayout}
               />
               <div className='hfui-orderform__layout-label-inner'>
@@ -539,7 +540,7 @@ export default class OrderForm extends React.Component {
             <ul className='hfui-orderform__header' key='of-header'>
               <li>
                 <Dropdown
-                  icon='fas fa-bell'
+                  icon='exchange-passive'
                   value={context}
                   onChange={this.onContextChange}
                   options={currentMarket.contexts.filter(ctx => (

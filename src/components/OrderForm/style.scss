@@ -216,16 +216,25 @@
   display: flex;
   flex-direction: row;
   padding-bottom: 52px;
+  padding-right: 20px;
 
   &.single-action {
     justify-content: right;
   }
 
   .hfui-button {
-    padding: 4px 8px 4px 8px;
+    padding: 8px 13px;
     text-transform: uppercase;
     width: 50%;
-    margin-right:
+
+    button {
+      font-size: 13px;
+      font-weight: 300;
+    }
+
+    button, i {
+      color: #fff;
+    }
 
     &:first-child:last-child {
       float: right;

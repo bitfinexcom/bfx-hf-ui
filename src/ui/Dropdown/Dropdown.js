@@ -56,7 +56,7 @@ class Dropdown extends React.Component {
             })}
           >
             {icon && (
-              <i className={icon} />
+              <i className={`icon-${icon}`} />
             )}
 
             <p
@@ -67,7 +67,7 @@ class Dropdown extends React.Component {
               {(options.find(o => o.value === value) || {}).label || fallback || 'Select an option'}
             </p>
 
-            <i className='fas fa-caret-down' />
+            <i className='icon-arrow-down-passive' />
           </div>
 
           {(open || isOpen) && (

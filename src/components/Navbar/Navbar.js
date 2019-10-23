@@ -32,7 +32,10 @@ export default class Navbar extends React.PureComponent {
           <li>
             <NavbarButton
               route='/strategy-editor'
-              label='Strategy Editor'
+              label={[
+                <i key='icon' className='icon-strategy-editor-active' />,
+                <p key='label'>Strategy Editor</p>,
+              ]}
             />
           </li>
         </ul>
