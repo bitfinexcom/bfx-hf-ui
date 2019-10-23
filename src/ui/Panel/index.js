@@ -15,7 +15,7 @@ export default class Panel extends React.PureComponent {
       className, label, children, onRemove, headerComponents, hideIcons,
       extraIcons, moveable, removeable, modal, footer, settingsOpen,
       onToggleSettings, tabs, activeTab, onChangeTab, darkHeader, dark,
-      secondaryHeaderComponents,
+      secondaryHeaderComponents, secondaryHeaderReverse,
     } = this.props
 
     let heightOffsetPX = 0
@@ -30,7 +30,11 @@ export default class Panel extends React.PureComponent {
           dark,
         })}
       >
-        <div className='hfui-panel__header'>
+        <div
+          className={ClassNames('hfui-panel__header', {
+            'has-secondary-header': !!secondaryHeaderComponents,
+          })}
+        >
           {label && <p className='hfui-panel__label'>{label}</p>}
 
           {tabs && (
@@ -60,15 +64,15 @@ export default class Panel extends React.PureComponent {
           {!hideIcons && (
             <div className='hfui-panel__header-icons'>
               {removeable && (
-                <i onClick={onRemove} className='far fa-times-circle' />
+                <i onClick={onRemove} className='icon-cancel' />
               )}
 
-              {moveable && <i className='fas fa-arrows-alt' />}
+              {moveable && <i className='icon-move' />}
 
               {onToggleSettings && (
                 <i
                   onClick={onToggleSettings}
-                  className={ClassNames('fas fa-cog', {
+                  className={ClassNames('icon-settings-icon', {
                     yellow: settingsOpen,
                   })}
                 />
@@ -80,7 +84,11 @@ export default class Panel extends React.PureComponent {
         </div>
 
         {secondaryHeaderComponents && (
-          <div className='hfui-panel__secondaryheader__wrapper'>
+          <div
+            className={ClassNames('hfui-panel__secondaryheader__wrapper', {
+              reverse: secondaryHeaderReverse,
+            })}
+          >
             {secondaryHeaderComponents}
           </div>
         )}

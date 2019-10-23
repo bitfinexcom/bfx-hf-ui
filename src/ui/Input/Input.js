@@ -44,7 +44,7 @@ export default class Input extends React.PureComponent {
             type='button'
             onClick={this.onToggleShow}
           >
-            {hidden ? <i className='fas fa-eye' /> : <i className='fas fa-eye-slash' />}
+            {hidden ? <i className='icon-eye-open' /> : <i className='icon-eye-closed' />}
           </button>
         </div>
       )

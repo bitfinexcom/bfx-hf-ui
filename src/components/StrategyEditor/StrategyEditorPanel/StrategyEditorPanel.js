@@ -1,6 +1,9 @@
 import React from 'react'
 import ClassNames from 'classnames'
+
+import Button from '../../../ui/Button'
 import Panel from '../../../ui/Panel'
+
 import { propTypes, defaultProps } from './StrategyEditorPanel.props'
 
 export default class StrategyEditorPanel extends React.PureComponent {
@@ -40,39 +43,46 @@ export default class StrategyEditorPanel extends React.PureComponent {
 
         headerComponents={(
           <div className='hfui-strategyeditor__header'>
-            <i
-              className='far fa-folder-open'
+            <Button
               onClick={onOpenSelectModal}
+              label={[
+                <i key='icon' className='icon-open' />,
+                <p key='text'>Open</p>,
+              ]}
             />
 
-            <i
-              className='far fa-plus-square'
+            <Button
+              green
               onClick={onOpenCreateModal}
+              label={[
+                <i key='icon' className='icon-strategy-editor-passive' />,
+                <p key='text'>New Strategy</p>,
+              ]}
             />
 
-            {strategy && [
-              <div key='label' className='strategy-label'>
-                <p>{strategy.label}</p>
+            {strategy && (
+              <Button
+                onClick={onSaveStrategy}
+                disabled={!strategyDirty}
+                label={[
+                  <i key='icon' className='icon-save' />,
+                  <p key='text'>Save</p>,
+                ]}
+              />
+            )}
 
-                <i
-                  key='save'
-                  onClick={onSaveStrategy}
-                  className={ClassNames('far fa-save', {
-                    yellow: strategyDirty,
-                  })}
-                />
-              </div>,
+            {strategy && (
+              <Button
+                disabled={execRunning}
+                onClick={onBacktestStrategy}
+                label={[
+                  <i key='icon' className='icon-run' />,
+                  <p key='text'>Run</p>,
+                ]}
+              />
+            )}
 
-              <div
-                key='exec'
-                onClick={execRunning ? () => {} : onBacktestStrategy}
-                className={ClassNames('exec-button', { disabled: execRunning })}
-              >
-                <i className='fa fa-play' />
-                <p>Run</p>
-              </div>,
-
-              /*
+            {/*
               <div
                 key='mode'
                 className='mode-button'
@@ -101,8 +111,7 @@ export default class StrategyEditorPanel extends React.PureComponent {
                   <p key='label'>Maximize Editor</p>
                 ]}
               </div>
-              */
-            ]}
+            */}
           </div>
         )}
       >

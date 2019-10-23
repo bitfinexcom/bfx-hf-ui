@@ -221,7 +221,7 @@ export default class OrderBookPanel extends React.Component {
         onRemove={onRemove}
         moveable={moveable}
         removeable={removeable}
-        headerComponents={[
+        secondaryHeaderComponents={[
           showExchange && this.renderExchangeDropdown(),
           showMarket && this.renderMarketDropdown(),
         ]}

@@ -20,8 +20,9 @@
 
 .hfui-modal__content {
   width: 50%;
-  background: #000;
-  border: 1px solid #333;
+  max-width: 447px;
+  background: #172d3e;
+  padding: 0 26px 31px 26px;
 
   .error {
     color: red;
@@ -29,9 +30,62 @@
   }
 
   .notice {
-    font-size: 11px;
-    color: #666;
-    font-style: italic;
+    font-size: 15px;
+    color: #fff;
+    font-weight: 300;
+    text-transform: uppercase;
     line-height: 1.5;
+    margin-top: -30px;
+    padding-right: 32px;
+    padding-bottom: 20px;
+  }
+
+  .hfui-dropdown__button, .hfui-input {
+    background: #102331;
+    max-width: 300px;
+  }
+
+  .hfui-input > * {
+    line-height: 36px;
+    padding: 0 8px;
+  }
+}
+
+.hfui-modal__actions {
+  text-align: right;
+
+  .hfui-button {
+    padding: 8px 13px;
+
+    button {
+      font-size: 13px;
+      font-weight: 300;
+    }
+
+    button, i {
+      color: #fff;
+    }
+  }
+}
+
+.hfui-modal__label {
+  text-transform: uppercase;
+  color: #54b361;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.hfui-modal__header {
+  padding-bottom: 23px;
+  display: flex;
+  flex-direction: row;
+
+  p {
+    flex-shrink: 0;
+  }
+
+  i {
+    width: 100%;
+    text-align: right;
   }
 }

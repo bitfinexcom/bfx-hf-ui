@@ -59,22 +59,22 @@ export default class OpenExistingStrategyModal extends React.Component {
       <Modal
         onClose={onClose}
         className='hfui-openexistingstrategymodal__wrapper'
+        label='Open Strategy'
+        actions={(
+          <Button
+            onClick={this.onSubmit}
+            label='Open'
+            green
+          />
+        )}
       >
-        <p>Open Strategy</p>
-
         <Dropdown
-          label='Strategy'
           value={strategyID}
           onChange={this.onStrategyChange}
           options={strategies.map(s => ({
             label: s.label,
             value: s.id,
           }))}
-        />
-
-        <Button
-          onClick={this.onSubmit}
-          label='Open'
         />
 
         {!_isEmpty(error) && (

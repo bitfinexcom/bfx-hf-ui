@@ -22,7 +22,7 @@ export default class Results extends React.PureComponent {
       ? `Strategy running... (${currentTick}/${totalTicks} ticks)`
       : results
         ? 'Results'
-        : 'No Results'
+        : 'No Result'
 
     return (
       <div className='hfui-strategyeditor__results-wrapper'>

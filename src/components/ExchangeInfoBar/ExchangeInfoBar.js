@@ -129,7 +129,7 @@ export default class ExchangeInfoBar extends React.PureComponent {
         </ul>
 
         <div className='hfui-exchangeinfobar__right'>
-          <i className='fas fa-bell' />
+          <i className='icon-notifications' />
         </div>
       </div>
     )
