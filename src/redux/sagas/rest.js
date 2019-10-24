@@ -29,7 +29,6 @@ function* externalREST(action = {}) {
   const {
     meta = {},
   } = action
-  console.log(action)
   const { url, method } = meta
   const { data } = yield axios[_toLower(method)](url)
   yield put({
@@ -46,7 +45,6 @@ function* onREST(action = {}) {
     payload = {},
     meta = {},
   } = action
-  console.log(action)
   try {
     const res = yield call(axios, {
       method: meta.method || payload.method,
@@ -102,7 +100,6 @@ function* onRESTSuccess(action = {}) {
     meta = {},
     payload = {},
   } = action
-  console.log(action)
   const { handler, method } = meta
   yield put({
     type: `${handler}_${method}_RES`,

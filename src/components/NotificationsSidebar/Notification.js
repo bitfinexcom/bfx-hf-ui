@@ -18,11 +18,9 @@ export default class Notification extends React.PureComponent {
   static INTENT_INFO = 'info'
 
   render() {
-    console.log(check)
     const { data = {} } = this.props
     const { status, text, mts } = data
     let icon
-    console.log(status, data)
     switch (status) {
       case 'success':
         icon = <img src={check} alt='check' />
