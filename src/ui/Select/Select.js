@@ -11,19 +11,26 @@ export default class Select extends React.PureComponent {
 
   render() {
     const {
-      onChange, value, options, className, disabled, isDisabled, ...otherProps
+      onChange, value, options, className, disabled, isDisabled, label,
+      ...otherProps
     } = this.props
 
     return (
-      <RSelect
-        className={ClassNames('hfui-select', className)}
-        isDisabled={disabled || isDisabled}
-        classNamePrefix='hfui-select'
-        onChange={onChange}
-        value={value}
-        options={options}
-        {...otherProps}
-      />
+      <div className='hfui-select__outer'>
+        {label && (
+          <p>{label}</p>
+        )}
+
+        <RSelect
+          className={ClassNames('hfui-select', className)}
+          isDisabled={disabled || isDisabled}
+          classNamePrefix='hfui-select'
+          onChange={onChange}
+          value={value}
+          options={options}
+          {...otherProps}
+        />
+      </div>
     )
   }
 }

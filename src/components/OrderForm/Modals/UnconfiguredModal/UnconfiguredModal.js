@@ -14,14 +14,14 @@ export default class UnconfiguredModal extends React.PureComponent {
     return (
       <OrderFormModal
         title='NOT CONFIGURED'
-        icon='fas fa-cogs'
+        titleColor='#f05359'
+        icon='icon-api'
         onClick={onClick}
         content={[
           <p key='a' className='underline'>
             Submit API keys for
             {` ${_capitalize(exID)}`}
           </p>,
-          <p key='b' className='notice'>NOTE: Your API keys are encrypted with a password before being saved locally. The password is required before executing orders or strategies utilizing the API keys.</p>,
         ]}
       />
     )

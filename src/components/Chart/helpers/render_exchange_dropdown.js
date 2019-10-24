@@ -8,6 +8,7 @@ export default ({
 }) => (
   <Select
     key='exchange-dropdown'
+    label='Exchange'
     disabled={disabled}
     className={{ yellow: exchangeDirty }}
     onChange={onChangeExchange}

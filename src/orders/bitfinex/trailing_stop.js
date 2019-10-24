@@ -2,6 +2,7 @@ import _isFinite from 'lodash/isFinite'
 
 export default () => ({
   label: 'Trailing Stop',
+  uiIcon: 'trailing-stop-active',
   customHelp: 'Trailing stop orders follow (\'trail\') the market price up (for sell orders) or down (for buy orders) by the specified trailing distance. If the market price moves against the trailing stop order, it does not move and will execute once the market reaches the order.\n\nIf the \'reduce-only\' option is specified, the order will be cancelled if it would open or increase the size of an open position.\n\nA Time-In-Force date may be specified, after which the order will be automatically cancelled.',
 
   generateOrder: (data = {}, symbol, context) => {

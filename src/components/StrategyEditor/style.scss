@@ -163,10 +163,10 @@
   }
 
   .hfui-panel__header-components {
-    width: calc(100% - 78px);
+    width: calc(100% - 155px);
 
     .hfui-strategyeditor__header {
-      width: 100%;
+      width: calc(100% - 16px);
       padding: 14px 16px 14px 0;
 
       > * {

@@ -2,6 +2,7 @@ import _isFinite from 'lodash/isFinite'
 
 export default () => ({
   label: 'Stop Limit',
+  uiIcon: 'stop-limit-active',
   customHelp: 'The Stop-Limit order type differs from the basic Stop order by allowing the specification of an exact price of execution.\n\nOnce the \'stop\' price is reached, a \'Limit\' order is created at the specified limit price.\n\nIf the \'hidden\' option is enabled, the order will be inserted in the order book but will not be visible to other users, and will execute as a TAKER.\n\nIf the \'reduce-only\' option is specified, the resulting Limit order will be cancelled if it would open or increase the size of an open position.\n\nA Time-In-Force date may be specified, after which the order will be automatically cancelled.',
 
   generateOrder: (data = {}, symbol, context) => {

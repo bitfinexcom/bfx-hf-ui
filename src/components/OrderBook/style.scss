@@ -35,9 +35,12 @@
     flex-direction: column;
     justify-content: center;
     font-size: 13px;
+    border-top: 1px solid #172d3e;
+    border-bottom: 1px solid #172d3e;
 
     .hfui-orderbook__pl-container {
-      height: auto;
+      height: 41px;
+      line-height: 41px;
     }
   }
 }

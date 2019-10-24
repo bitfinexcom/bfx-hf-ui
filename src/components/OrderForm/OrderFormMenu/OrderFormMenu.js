@@ -15,13 +15,12 @@ export default class OrderFormMenu extends React.PureComponent {
         <ul>
           {atomicOrderTypes.map(type => (
             <li
-              key={type.id}
+              key={type.label}
               onClick={() => onSelect(type)}
             >
-              <i className='fa fa-play' />
+              <i className={`icon-${type.uiIcon}`} />
               <div>
                 <p>{type.label}</p>
-                <p>{type.description}</p>
               </div>
             </li>
           ))}
@@ -31,13 +30,12 @@ export default class OrderFormMenu extends React.PureComponent {
         <ul>
           {algoOrderTypes.map(type => (
             <li
-              key={type.id}
+              key={type.label}
               onClick={() => onSelect(type)}
             >
-              <i className='fa fa-play' />
+              <i className={`icon-${type.uiIcon}`} />
               <div>
                 <p>{type.label}</p>
-                <p>{type.description}</p>
               </div>
             </li>
           ))}

@@ -1,3 +1,14 @@
+.hfui-select__outer {
+  display: flex;
+  flex-direction: row;
+
+  > p:first-child {
+    font-size: 13px;
+    line-height: 45px;
+    text-transform: uppercase;
+  }
+}
+
 .hfui-select__control {
   background-color: transparent !important;
   border: none !important;

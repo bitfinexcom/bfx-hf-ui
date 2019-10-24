@@ -543,12 +543,6 @@ class Chart extends React.Component {
         exchanges,
       }),
 
-      renderTimeFrameDropdown({
-        currentExchange,
-        currentTF,
-        onChangeTF,
-      }),
-
       showMarket && renderMarketDropdown({
         disabled: !canChangeMarket,
         onChangeMarket,
@@ -558,11 +552,19 @@ class Chart extends React.Component {
       }),
     ]
 
+    const secondaryHeaderComponents = [
+      renderTimeFrameDropdown({
+        currentExchange,
+        currentTF,
+        onChangeTF,
+      }),
+    ]
+
     if (showIndicatorControls) {
-      headerComponents.push(renderAddIndicatorDropdown({ onAddIndicator }))
+      secondaryHeaderComponents.push(renderAddIndicatorDropdown({ onAddIndicator }))
 
       if (hasIndicators) {
-        headerComponents.push(renderRemoveIndicatorDropdown({
+        secondaryHeaderComponents.push(renderRemoveIndicatorDropdown({
           indicators,
           onRemoveIndicator,
         }))
@@ -584,7 +586,7 @@ class Chart extends React.Component {
             role='button'
             tabIndex={0}
             key='increase-height'
-            className='fas fa-caret-down'
+            className='icon-distribute-down-active high-contrast small'
             onClick={this.onIncreaseHeight}
           />,
 
@@ -593,7 +595,7 @@ class Chart extends React.Component {
             tabIndex={0}
             key='decrease-height'
             onClick={this.onDecreaseHeight}
-            className={ClassNames('fas fa-caret-up', {
+            className={ClassNames('icon-distribute-up-active high-contrast no-margin small', {
               disabled: height === MIN_HEIGHT_PX,
             })}
           />,
@@ -604,7 +606,8 @@ class Chart extends React.Component {
         ]}
 
         modal={settingsModalOpen && this.renderSettingsModal()}
-        secondaryHeaderComponents={headerComponents}
+        headerComponents={headerComponents}
+        secondaryHeaderComponents={secondaryHeaderComponents}
         secondaryHeaderReverse
       >
         {contents || <Spinner />}

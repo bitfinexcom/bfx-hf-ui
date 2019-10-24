@@ -1,6 +1,7 @@
 export default () => ({
   label: 'Fill or Kill',
   customHelp: 'An FOK order is a limit order that must fully fill immediately or it is canceled (killed).',
+  uiIcon: 'fill-or-kill-active',
 
   generateOrder: (data = {}, symbol, context) => {
     const { reduceonly, price, amount } = data

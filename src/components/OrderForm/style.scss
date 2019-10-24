@@ -399,16 +399,10 @@
 
   &:hover:not(.nohover) {
     cursor: pointer;
-
-    p, i {
-      color: #fcd206;
-    }
   }
 
-  i {
-    font-size: 32px;
-    height: 32px;
-    margin-bottom: 16px;
+  i + p {
+    font-weight: 500;
   }
 
   .underline {
@@ -428,7 +422,7 @@
   }
 
   .hfui-orderform__modal-form {
-    margin: 32px 0 !important;
+    margin: 16px 0 !important;
 
     .error {
       font-size: 12px;
@@ -437,14 +431,47 @@
     }
   }
 
-  .hfui-orderform__modal-buttons {
-    .hfui-button {
-      margin-right: 16px;
-      padding: 4px 8px 4px 8px;
-      &:last-child {
-        margin-right: 0;
+  .hfui-orderform__modal-form .row,
+  .hfui-orderform__modal-buttons .row {
+    display: flex;
+    flex-direction: row;
+
+    > *:first-child {
+      margin-left: 20px;
+      margin-right: 15px;
+    }
+
+    > *:last-child {
+      margin-right: 20px;
+    }
+
+    .hfui-input {
+      line-height: 32px;
+
+      input {
+        height: 24px;
+        font-size: 11px;
       }
     }
+
+    .hfui-button {
+      padding: 8px 13px;
+      text-transform: uppercase;
+      width: 50%;
+
+      button {
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+      button, i {
+        color: #fff;
+      }
+    }
+  }
+
+  .hfui-orderform__modal-buttons {
+    width: 100%;
   }
 
   .hfui-orderform__modal-inner {
@@ -456,6 +483,12 @@
 
     &.fullheight {
       height: calc(100% - 32px);
+    }
+
+    > i {
+      font-size: 38px;
+      height: 38px;
+      margin-bottom: 16px !important;
     }
 
     > * {

@@ -35,6 +35,7 @@ export default class OrderBook extends React.PureComponent {
     const maxVol = _max(ob.map(pl => Math.abs(pl[1])))
     const totalBuyAmount = _sum(ob.filter(pl => pl[1] > 0).map(pl => pl[1]))
     const totalSellAmount = -1 * _sum(ob.filter(pl => pl[1] < 0).map(pl => pl[1]))
+    const totalAmount = totalBuyAmount + totalSellAmount
     let remSellAmount = totalSellAmount
     let buyAmountSum = 0
 
@@ -44,7 +45,7 @@ export default class OrderBook extends React.PureComponent {
       })}
       >
         {stackedView ? [
-          <div className='hfui-orderbook__header'>
+          <div key='header' className='hfui-orderbook__header'>
             <p>Count</p>
             <p>Amount</p>
             <p>Total</p>
@@ -70,9 +71,14 @@ export default class OrderBook extends React.PureComponent {
                     }}
                   >
                     <div className='hfui-orderbook__pl-container spread'>
-                      <p className='hfui-orderbook__pl-count' />
+                      <p className='hfui-orderbook__pl-count'>
+                        TODO
+                      </p>
+
                       <p className='hfui-orderbook__pl-amount' />
-                      <p className='hfui-orderbook__pl-total' />
+                      <p className='hfui-orderbook__pl-total'>
+                        {totalAmount.toFixed(2)}
+                      </p>
 
                       <p className='hfui-orderbook__pl-price'>
                         {new BigN(`${ob[i - 1][0]}`).minus(new BigN(`${pl[0]}`)).toString(10)}

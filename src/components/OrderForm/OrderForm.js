@@ -397,10 +397,10 @@ export default class OrderForm extends React.Component {
     const atomicOrderTypes = []
     const algoOrderTypes = []
 
-    orders[currentExchange].forEach(({ label, id }) => atomicOrderTypes.push({
+    orders[currentExchange].forEach(({ label, id, uiIcon }) => atomicOrderTypes.push({
       id,
       label,
-      description: 'description text pending',
+      uiIcon,
     }))
 
     // NOTE: Iceberg is disabled on Binance [native iceberg support pending implementation]
@@ -409,11 +409,11 @@ export default class OrderForm extends React.Component {
         (currentExchange === 'bitfinex')
         || (currentExchange === 'binance' && ao.id !== 'bfx-iceberg')
       )
-    }).forEach(({ label, id }) => {
+    }).forEach(({ label, id, uiIcon }) => {
       algoOrderTypes.push({
         id,
         label,
-        description: 'description text pending',
+        uiIcon,
       })
     })
 
@@ -532,7 +532,7 @@ export default class OrderForm extends React.Component {
                 onClick={this.onClearOrderLayout}
               />
               <div className='hfui-orderform__layout-label-inner'>
-                <i className='fas fa-bell' />
+                <i className={`icon-${currentLayout.uiIcon}`} />
                 <p>{currentLayout.label}</p>
               </div>
             </div>,

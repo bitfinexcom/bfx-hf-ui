@@ -10,7 +10,7 @@ export default class OrderFormModal extends React.PureComponent {
 
   render() {
     const {
-      content, className, icon, title, form, buttons, onClick,
+      content, className, icon, title, form, buttons, onClick, titleColor,
     } = this.props
 
     return (
@@ -23,7 +23,15 @@ export default class OrderFormModal extends React.PureComponent {
             onClick={onClick}
           >
             {icon && (<i className={icon} />)}
-            {title && (<p>{title}</p>)}
+            {title && (
+              <p
+                style={!titleColor ? {} : {
+                  color: titleColor,
+                }}
+              >
+                {title}
+              </p>
+            )}
 
             {content && (content)}
 

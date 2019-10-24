@@ -54,44 +54,50 @@ export default class SubmitAPIKeysModal extends React.Component {
       <OrderFormModal
         className='nohover'
         title={`SUBMIT API KEYS FOR ${exID.toUpperCase()}`}
-        icon='fas fa-cogs'
+        icon='icon-api'
         form={[
-          <Input
-            type='text'
-            label='API Key'
-            key='apiKey'
-            value={apiKey}
-            onChange={this.onAPIKeyChange}
-          />,
+          <div key='form' className='row'>
+            <Input
+              type='text'
+              placeholder='API KEY'
+              key='apiKey'
+              value={apiKey}
+              onChange={this.onAPIKeyChange}
+            />
 
-          <Input
-            type='password'
-            label='API Secret'
-            key='apiSecret'
-            value={apiSecret}
-            onChange={this.onAPISecretChange}
-          />,
+            <Input
+              type='password'
+              placeholder='API SECRET'
+              key='apiSecret'
+              value={apiSecret}
+              onChange={this.onAPISecretChange}
+            />
+          </div>,
 
           error && (
-            <p className='error'>{error}</p>
+            <div key='error' className='row'>
+              <p className='error'>{error}</p>
+            </div>
           ),
         ]}
 
-        buttons={[
-          <Button
-            onClick={onClose}
-            label='Cancel'
-            key='cancel'
-            red
-          />,
+        buttons={(
+          <div className='row'>
+            <Button
+              onClick={this.onSubmit}
+              label='Submit'
+              key='submit'
+              green
+            />
 
-          <Button
-            onClick={this.onSubmit}
-            label='Submit'
-            key='submit'
-            green
-          />,
-        ]}
+            <Button
+              onClick={onClose}
+              label='Cancel'
+              key='cancel'
+              red
+            />
+          </div>
+        )}
       />
     )
   }
