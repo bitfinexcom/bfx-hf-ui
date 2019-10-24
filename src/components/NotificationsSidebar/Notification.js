@@ -42,10 +42,10 @@ export default class Notification extends React.PureComponent {
         [status.toLowerCase()]: true,
       })}
       >
-        <div className='icon'>
+        <div className='hfui-notification-icon'>
           {icon}
         </div>
-        <div className='notification-data'>
+        <div className='hfui-notification-data'>
           <p className='nfui-notification-msg'>{text}</p>
           <p className='hfui-notification__ts'>{`${new Date(mts).toLocaleString()}`}</p>
         </div>
