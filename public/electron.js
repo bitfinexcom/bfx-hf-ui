@@ -5,8 +5,8 @@ const {
 const path = require('path')
 const url = require('url')
 
-require('../scripts/start-server') // run server
-
+require('../scripts/start-api-server') // run server
+require('../scripts/start-ds-bitfinex')
 let mainWindow
 
 const intercept = require('intercept-stdout')

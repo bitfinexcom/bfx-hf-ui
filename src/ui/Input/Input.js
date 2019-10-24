@@ -6,33 +6,17 @@ import './style.css'
 export default class Input extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
-
-  state = {
-    hidden: true,
-  }
-
   constructor(props) {
     super(props)
 
-    this.onToggleShow = this.onToggleShow.bind(this)
+    this.state = {
+      hidden: true,
+    }
   }
 
-  onToggleShow() {
-    this.setState(({ hidden }) => ({ hidden: !hidden }))
-  }
-
-  state = {
-    hidden: true,
-  }
-
-  constructor(props) {
-    super(props)
-
-    this.onToggleShow = this.onToggleShow.bind(this)
-  }
-
-  onToggleShow() {
-    this.setState(({ hidden }) => ({ hidden: !hidden }))
+  toggleShow() {
+    const { hidden } = this.state
+    this.setState({ hidden: !hidden })
   }
 
   render() {
