@@ -5,6 +5,7 @@ import AuthenticationInitForm from './AuthenticationInitForm'
 import AuthenticationUnlockForm from './AuthenticationUnlockForm'
 import { propTypes, defaultProps } from './Authentication.props'
 import { version } from '../../../package.json'
+
 import './style.css'
 import { version } from '../../../package.json'
 
