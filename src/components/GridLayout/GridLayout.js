@@ -41,7 +41,7 @@ export default class GridLayout extends React.PureComponent {
       <GridLayoutP
         autoSize
         className='layout'
-        draggableHandle='.fas.fa-arrows-alt'
+        draggableHandle='.icon-expand-arrow'
         cols={{
           lg: 100, md: 20, sm: 20, xs: 20, xxs: 20,
         }}

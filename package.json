@@ -12,7 +12,8 @@
       "build/**/*",
       "node_modules/**/*",
       "src/**/*",
-      "scripts/**/*"
+      "scripts/**/*",
+      "public/**/*"
     ],
     "asar": false,
     "appId": "com.bfx-hf-ui",

@@ -11,5 +11,6 @@ export default ({
     onChange={onChangeMarket}
     value={currentMarket}
     markets={markets}
+    renderLabel
   />
 )

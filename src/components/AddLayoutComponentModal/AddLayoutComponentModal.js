@@ -56,8 +56,11 @@ export default class AddLayoutComponentModal extends React.Component {
         actions={(
           <Button
             green
-            label='Add Component'
             onClick={this.onSubmit}
+            label={[
+              <i key='icon' className='icon-plus' />,
+              <p key='text'>Add Component</p>,
+            ]}
           />
         )}
       >

@@ -52,8 +52,12 @@ export default class CreateNewLayoutModal extends React.Component {
         label='Add Layout'
         actions={(
           <Button
-            label='Add Layout'
+            green
             onClick={this.onSubmit}
+            label={[
+              <i key='icon' className='icon-plus' />,
+              <p key='text'>Add Layout</p>,
+            ]}
           />
         )}
       >

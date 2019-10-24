@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 
 export const propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   onClick: PropTypes.func,
   red: PropTypes.bool,
   green: PropTypes.bool,

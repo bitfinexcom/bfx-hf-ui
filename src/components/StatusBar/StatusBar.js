@@ -212,7 +212,12 @@ Add Component
         )}
 
         <div className='hfui-statusbar__right'>
-          <div className='hfui-statusbar__version' style={{ marginRight: '80px;', background: '#131723;' }}>
+          <div
+            className='hfui-statusbar__version'
+            style={{
+              marginRight: '80px',
+            }}
+          >
             <p>
               {remoteVersion && remoteVersion !== MANIFEST.version ? (
                 <NavbarButton

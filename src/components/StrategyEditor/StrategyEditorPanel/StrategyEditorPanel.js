@@ -1,5 +1,4 @@
 import React from 'react'
-import ClassNames from 'classnames'
 
 import Button from '../../../ui/Button'
 import Panel from '../../../ui/Panel'
@@ -12,8 +11,8 @@ export default class StrategyEditorPanel extends React.PureComponent {
 
   render() {
     const {
-      onRemove, moveable, removeable, children, execRunning, helpOpen,
-      strategyDirty, strategy, onToggleHelp, onOpenSelectModal,
+      onRemove, moveable, removeable, children, execRunning, /* helpOpen, */
+      strategyDirty, strategy, /* onToggleHelp, */ onOpenSelectModal,
       onOpenCreateModal, onSaveStrategy, onBacktestStrategy, dark,
       // onSwitchEditorMode, onToggleMaximiseEditor, editorMode,
       // editorMaximised,
@@ -30,6 +29,7 @@ export default class StrategyEditorPanel extends React.PureComponent {
         removeable={removeable}
         extraIcons={[
           execRunning && (<i key='running' className='fas fa-circle-notch' />),
+          /*
           strategy && (
             <i
               key='help'
@@ -39,6 +39,7 @@ export default class StrategyEditorPanel extends React.PureComponent {
               onClick={onToggleHelp}
             />
           ),
+          */
         ]}
 
         headerComponents={(
