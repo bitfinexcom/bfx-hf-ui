@@ -10,7 +10,7 @@
   margin-right: -1px;
 
   &.visible {
-    width: 27%;
+    width: 30%;
     margin-right: 0;
   }
 
@@ -23,7 +23,7 @@
   position: absolute;
   top: 0;
   right: 32px;
-  width: 300px;
+  width: 400px;
 
   display: flex;
   flex-direction: column-reverse;
@@ -74,11 +74,14 @@
   font-size: 12px;
   background: #102331;
   text-align: center;
-
+  display: flex;
+  justify-content: space-evenly;
   > p:first-child {
     line-height: 1.3;
   }
-
+  img {
+    padding-right: 30px ;
+  }
   &.success {
     color: #54B361;
     border-color: 1px solid #54B361;
@@ -99,3 +102,12 @@
     border-color: 1px solid #82BAF6;
   }
 }
+
+.icon { 
+  align-self: center;
+  width: 25%;
+  /* margin-left: 0; */
+  position: absolute;
+  left: 0;
+}
+

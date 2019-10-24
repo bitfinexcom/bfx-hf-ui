@@ -1,6 +1,10 @@
 import React from 'react'
 import ClassNames from 'classnames'
-import { Icon } from 'react-fa'
+// import { Icon } from 'react-fa'
+import check from './check.svg'
+import error from './error.svg'
+import clear from './clear.svg'
+import pass from './password.svg'
 
 import { propTypes, defaultProps } from './Notification.props'
 
@@ -14,22 +18,23 @@ export default class Notification extends React.PureComponent {
   static INTENT_INFO = 'info'
 
   render() {
+    console.log(check)
     const { data = {} } = this.props
     const { status, text, mts } = data
     let icon
     console.log(status, data)
     switch (status) {
       case 'success':
-        icon = <Icon name='check' />
+        icon = <img src={check} alt='check' />
         break
       case 'error':
-        if (text === 'Invalid password') { icon = <Icon name='lock' /> } else { icon = <Icon name='times' /> }
+        if (text === 'Invalid password') { icon = <img src={pass} alt='password error' /> } else { icon = <img src={error} alt='error' /> }
         break
       case 'info':
-        if (text === 'Cleared user credentials & data') { icon = <Icon name='trash' /> }
+        if (text === 'Cleared user credentials & data') { icon = <img src={clear} alt='clear' /> }
         break
       default:
-        icon = <Icon name='check' />
+        icon = <img src={check} alt='check' />
         break
     }
     return (
@@ -37,9 +42,13 @@ export default class Notification extends React.PureComponent {
         [status.toLowerCase()]: true,
       })}
       >
-        {icon}
-        <p className='nfui-notification-msg'>{text}</p>
-        <p className='hfui-notification__ts'>{`${new Date(mts).toLocaleString()}`}</p>
+        <div className='icon'>
+          {icon}
+        </div>
+        <div className='notification-data'>
+          <p className='nfui-notification-msg'>{text}</p>
+          <p className='hfui-notification__ts'>{`${new Date(mts).toLocaleString()}`}</p>
+        </div>
       </li>
     )
   }
