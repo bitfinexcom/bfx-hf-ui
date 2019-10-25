@@ -55,13 +55,9 @@
 .hfui-panel__header {
   display: flex;
   flex-direction: row;
-<<<<<<< HEAD
-  background: #102331;
-=======
   border-bottom: 1px solid #102331;
   background: #172d3e;
   margin: 0 24px;
->>>>>>> 29e52f630647dc0486e8e6ec684228ae6033b269
 
   &.has-secondary-header {
     border-bottom: none;
