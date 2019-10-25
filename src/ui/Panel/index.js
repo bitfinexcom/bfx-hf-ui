@@ -14,17 +14,27 @@ export default class Panel extends React.PureComponent {
     const {
       className, label, children, onRemove, headerComponents, hideIcons,
       extraIcons, moveable, removeable, modal, footer, settingsOpen,
-      onToggleSettings, tabs, activeTab, onChangeTab,
+      onToggleSettings, tabs, activeTab, onChangeTab, darkHeader, dark,
+      secondaryHeaderComponents, secondaryHeaderReverse,
     } = this.props
 
     let heightOffsetPX = 0
 
-    if (label) heightOffsetPX += 33
-    if (footer) heightOffsetPX += 33
+    if (label) heightOffsetPX += 45
+    if (footer) heightOffsetPX += 35
 
     return (
-      <div className={ClassNames('hfui-panel', className)}>
-        <div className='hfui-panel__header'>
+      <div
+        className={ClassNames('hfui-panel', className, {
+          'dark-header': darkHeader,
+          dark,
+        })}
+      >
+        <div
+          className={ClassNames('hfui-panel__header', {
+            'has-secondary-header': !!secondaryHeaderComponents,
+          })}
+        >
           {label && <p className='hfui-panel__label'>{label}</p>}
 
           {tabs && (
@@ -54,15 +64,15 @@ export default class Panel extends React.PureComponent {
           {!hideIcons && (
             <div className='hfui-panel__header-icons'>
               {removeable && (
-                <i onClick={onRemove} className='far fa-times-circle' />
+                <i onClick={onRemove} className='icon-cancel' />
               )}
 
-              {moveable && <i className='fas fa-arrows-alt' />}
+              {moveable && <i className='icon-move' />}
 
               {onToggleSettings && (
                 <i
                   onClick={onToggleSettings}
-                  className={ClassNames('fas fa-cog', {
+                  className={ClassNames('icon-settings-icon', {
                     yellow: settingsOpen,
                   })}
                 />
@@ -72,6 +82,16 @@ export default class Panel extends React.PureComponent {
             </div>
           )}
         </div>
+
+        {secondaryHeaderComponents && (
+          <div
+            className={ClassNames('hfui-panel__secondaryheader__wrapper', {
+              reverse: secondaryHeaderReverse,
+            })}
+          >
+            {secondaryHeaderComponents}
+          </div>
+        )}
 
         <div
           className='hfui-panel__content'

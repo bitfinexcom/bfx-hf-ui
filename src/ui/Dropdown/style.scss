@@ -1,5 +1,5 @@
 .hfui-dropdown__wrapper {
-  font-size: 12px;
+  font-size: 13px;
   position: relative;
   user-select: none;
   max-height: 300px;
@@ -8,18 +8,17 @@
     position: absolute;
     top: 30px;
     left: 0;
-    border: 1px solid #666;
+    border: 1px solid #54b361;
     width: 200px;
-    background: #070917;
+    background: #102331;
     z-index: 999;
 
     li {
-      line-height: 24px;
+      line-height: 40px;
       padding: 0 8px;
-      background: #070917;
+      background: #102331;
 
       &:hover:not(.label) {
-        background: #111;
         text-decoration: underline;
         cursor: pointer;
       }
@@ -42,19 +41,40 @@
 .hfui-dropdown__button {
   display: flex;
   flex-direction: row;
-  margin-left: 8px;
+  padding-left: 8px;
+
+  &.highlight {
+    box-shadow: inset 0 0 0 2px #35704f;
+
+    &, i, p {
+      color: #54B361;
+    }
+  }
+
+  > i:first-child {
+    right: auto;
+    left: 15px;
+    font-size: 10px;
+    margin-top: 12px;
+    color: #f0f1f2;
+  }
 
   p {
-    line-height: 30px;
+    line-height: 35px;
     flex-shrink: 0;
+    flex: 1;
+
+    &.with-icon {
+      padding-left: 32px;
+    }
   }
 
   i {
-    margin: 10px 0 0 4px;
-  }
+    margin: 10px 16px 0 4px;
 
-  &.yellow > * {
-    color: #fcd206;
+    &:last-child {
+      top: 2px;
+    }
   }
 
   &.disabled {

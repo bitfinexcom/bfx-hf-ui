@@ -4,8 +4,10 @@ import _min from 'lodash/min'
 import _max from 'lodash/max'
 import { nonce } from 'bfx-api-node-util'
 
+import AddLayoutComponentModal from '../AddLayoutComponentModal'
+import CreateNewLayoutModal from '../CreateNewLayoutModal'
+import LayoutControlToolbar from '../LayoutControlToolbar'
 import GridLayout from '../GridLayout'
-import StatusBar from '../StatusBar'
 
 import {
   layoutDefToGridLayout,
@@ -31,6 +33,8 @@ export default class GridLayoutPage extends React.Component {
 
   state = {
     layoutDirty: false,
+    addLayoutModalOpen: false,
+    addComponentModalOpen: false,
   }
 
   constructor(props) {
@@ -43,6 +47,8 @@ export default class GridLayoutPage extends React.Component {
     this.onCreateNewLayout = this.onCreateNewLayout.bind(this)
     this.onChangeLayout = this.onChangeLayout.bind(this)
     this.onDeleteLayout = this.onDeleteLayout.bind(this)
+    this.onToggleCreateNewLayoutModal = this.onToggleCreateNewLayoutModal.bind(this)
+    this.onToggleAddComponentModal = this.onToggleAddComponentModal.bind(this)
 
     this.state = {
       ...this.state,
@@ -123,10 +129,23 @@ export default class GridLayoutPage extends React.Component {
       const { layouts } = this.props
 
       this.setState(() => ({
+        addLayoutModalOpen: false,
         layoutID: layoutName,
         layoutDef: layouts[layoutName],
       }))
     }, 0)
+  }
+
+  onToggleCreateNewLayoutModal() {
+    this.setState(({ addLayoutModalOpen }) => ({
+      addLayoutModalOpen: !addLayoutModalOpen,
+    }))
+  }
+
+  onToggleAddComponentModal() {
+    this.setState(({ addComponentModalOpen }) => ({
+      addComponentModalOpen: !addComponentModalOpen,
+    }))
   }
 
   onChangeLayout(id) {
@@ -149,15 +168,48 @@ export default class GridLayoutPage extends React.Component {
   }
 
   render() {
-    const { layoutDef, layoutID, layoutDirty } = this.state
+    const {
+      layoutDef, layoutID, layoutDirty, addLayoutModalOpen,
+      addComponentModalOpen,
+    } = this.state
+
     const {
       activeMarket, layouts, tradingEnabled, chartProps, bookProps, tradesProps,
-      ordersProps, orderFormProps,
+      ordersProps, orderFormProps, darkPanels,
     } = this.props
 
     return (
-      <div className='hfui-tradingpage__wrapper'>
+      <div className='hfui-gridlayoutpage__wrapper'>
+        <LayoutControlToolbar
+          tradingEnabled={tradingEnabled}
+          activeLayout={layoutDef}
+          activeLayoutID={layoutID}
+          layoutDirty={layoutDirty}
+          layouts={layouts}
+
+          onDeleteLayout={this.onDeleteLayout}
+          onSaveLayout={this.onSaveLayout}
+          onAddLayout={this.onToggleCreateNewLayoutModal}
+          onAddComponent={this.onToggleAddComponentModal}
+          onChangeLayout={this.onChangeLayout}
+        />
+
+        {addLayoutModalOpen && (
+          <CreateNewLayoutModal
+            onClose={this.onToggleCreateNewLayoutModal}
+            onSubmit={this.onCreateNewLayout}
+          />
+        )}
+
+        {addComponentModalOpen && (
+          <AddLayoutComponentModal
+            onClose={this.onToggleAddComponentModal}
+            onSubmit={this.onAddComponentToLayout}
+          />
+        )}
+
         <GridLayout
+          darkPanels={darkPanels}
           layoutDef={layoutDef}
           layoutID={layoutID}
           chartProps={({
@@ -179,6 +231,7 @@ export default class GridLayoutPage extends React.Component {
           onRemoveComponent={this.onRemoveComponentFromLayout}
         />
 
+        {/*
         <StatusBar
           layoutNames={Object.keys(layouts).filter(id => (
             (layouts[id].type === 'trading' && tradingEnabled)
@@ -195,6 +248,7 @@ export default class GridLayoutPage extends React.Component {
           onDeleteLayout={this.onDeleteLayout}
           allowTradingComponents={tradingEnabled}
         />
+        */}
       </div>
     )
   }

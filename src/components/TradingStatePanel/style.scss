@@ -1,12 +1,75 @@
 .hfui-tradingstatepanel__wrapper {
+  .hfui-panel__header {
+    margin-left: 0;
+    padding-left: 24px;
+    border-top: 1px solid #102331;
+
+    .hfui-panel__label {
+      text-transform: none;
+      line-height: 36px;
+    }
+
+    > .hfui-panel__label {
+      line-height: 48px;
+    }
+
+    .hfui-panel__header-tabs {
+      margin-left: 0;
+
+      li {
+        padding: 0;
+        margin: 0 20px;
+
+        &:first-child {
+          margin-left: 0;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+
+      .active {
+        background: none;
+
+        p {
+          color: #54b361;
+        }
+
+        border-bottom: 2px solid #54b361;
+      }
+    }
+  }
+
+  .hfui-panel .hfui-panel__label {
+    color: #fff;
+  }
+
+  .hfui-panel__header-icons {
+    margin: 8px 0;
+  }
+
   .hfui-tspanel-header-button {
     font-size: 11px;
-    line-height: 32px;
-    color: #666;
-    padding: 0 12px;
+    line-height: 24px;
+    padding: 0 13px;
+    background: #102331;
+    color: #fff;
+    height: 30px;
+    margin: 0 7px;
+
+    i, p {
+      line-height: 30px;
+    }
+
+    p {
+      text-transform: uppercase;
+      font-weight: 300;
+    }
 
     i {
       margin-right: 8px;
+      font-size: 11px;
     }
 
     > * {
@@ -14,14 +77,12 @@
       vertical-align: middle;
     }
 
-    &:hover {
+    &:hover, &.active {
       cursor: pointer;
-      background: rgba(0, 0, 0, 0.3);
-    }
+      box-shadow: inset 0 0 0 2px #35704f;
 
-    &.active {
       i, p {
-        color: #fcd206;
+        color: #50aa5e;
       }
     }
   }

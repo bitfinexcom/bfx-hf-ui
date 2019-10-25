@@ -12,7 +12,8 @@
       "build/**/*",
       "node_modules/**/*",
       "src/**/*",
-      "scripts/**/*"
+      "scripts/**/*",
+      "public/**/*"
     ],
     "asar": false,
     "appId": "com.bfx-hf-ui",
@@ -37,10 +38,10 @@
     "start-ds-bitfinex": "node scripts/start-ds-bitfinex.js",
     "start": "REACT_APP_DEV=1 REACT_APP_TV_URL=http://localhost:9999 REACT_APP_WSS_URL=ws://localhost:45000 node scripts/start.js",
     "build": "npm run build-css && REACT_APP_TV_URL=http://localhost:9999 REACT_APP_WSS_URL=ws://localhost:45000 node scripts/build.js",
-    "dev": "concurrently --kill-others \"npm run start-api-server\" \"npm run start\"",
+    "dev": "concurrently --kill-others \"npm run start-server\" \"npm run start\"",
     "test": "npm run lint && node scripts/test.js",
     "lint": "eslint src/**/*.js",
-    "electron-dev": "concurrently \"BROWSER=none npm run start-api-server\"  & electron .",
+    "electron-dev": "concurrently \"BROWSER=none npm run start-server\"  & electron .",
     "electron": "electron .",
     "pack": "electron-builder --dir",
     "dist": "build --mac --win --linux -c.extraMetadata.main=build/electron.js --publish never"
@@ -173,6 +174,7 @@
     "redux-beacon": "^2.1.0",
     "redux-beacon-matomo-tag-manager": "^1.0.0",
     "redux-saga": "^1.0.4",
+    "request-promise": "^4.2.4",
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
     "scrypt-js": "^2.0.4",

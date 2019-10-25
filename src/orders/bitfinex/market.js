@@ -1,5 +1,6 @@
 export default () => ({
   label: 'Market',
+  uiIcon: 'market-active',
   customHelp: 'A Market order will fill immediately at the current market price.\n\nIf the \'reduce-only\' option is specified, the order will be cancelled if it would open or increase the size of an open position.',
 
   generateOrder: (data = {}, symbol, context) => {

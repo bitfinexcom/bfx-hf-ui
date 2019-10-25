@@ -1,6 +1,7 @@
 export default () => ({
   label: 'Immediate or Cancel',
   customHelp: 'An IOC order is a limit order that must fill immediately, with any unfilled portion cancelled.',
+  uiIcon: 'immediate-or-cancel-active',
 
   generateOrder: (data = {}, symbol, context) => {
     const { reduceonly, price, amount } = data

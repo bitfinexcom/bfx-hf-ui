@@ -10,6 +10,8 @@ export default class MarketData extends React.PureComponent {
       canChangeExchange: true,
       showMarket: true,
       showExchange: true,
+      dark: true,
+      darkHeader: true,
     }
 
     return (

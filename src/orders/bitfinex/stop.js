@@ -2,6 +2,7 @@ import _isFinite from 'lodash/isFinite'
 
 export default () => ({
   label: 'Stop',
+  uiIcon: 'stop-active',
   customHelp: 'Stop orders are automatically converted to Market orders once the specified stop price is reached.\n\nFor control over the execution price, use a Stop-Limit order.\n\nIf the \'reduce-only\' option is specified, the order will be cancelled if it would open or increase the size of an open position.\n\nA Time-In-Force date may be specified, after which the order will be automatically cancelled.',
 
   generateOrder: (data = {}, symbol, context) => {

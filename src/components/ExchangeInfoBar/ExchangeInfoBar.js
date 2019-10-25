@@ -33,7 +33,7 @@ export default class ExchangeInfoBar extends React.PureComponent {
 
     return (
       <div className='hfui-exchangeinfobar__wrapper'>
-        <ul>
+        <div className='hfui-exchangeinfobar__left'>
           <ExchangeInfoBarItem
             label='Exchange'
             value={(
@@ -69,9 +69,12 @@ export default class ExchangeInfoBar extends React.PureComponent {
               />
             )}
           />
+        </div>
 
+        <ul>
           <ExchangeInfoBarItem
             text
+            vertical
             label='Last Price'
             value={lastPrice || '-'}
             valuePrefix={quotePrefix(activeMarket.quote)}
@@ -79,6 +82,7 @@ export default class ExchangeInfoBar extends React.PureComponent {
 
           <ExchangeInfoBarItem
             text
+            vertical
             label='24h Change'
             value={dailyChange || '-'}
             valuePrefix={quotePrefix(activeMarket.quote)}
@@ -90,6 +94,7 @@ export default class ExchangeInfoBar extends React.PureComponent {
 
           <ExchangeInfoBarItem
             text
+            vertical
             label='24h Change %'
             valueSuffix='%'
             value={dailyChangePerc ? dailyChangePerc * 100 : '-'}
@@ -101,6 +106,7 @@ export default class ExchangeInfoBar extends React.PureComponent {
 
           <ExchangeInfoBarItem
             text
+            vertical
             label='24h High'
             valuePrefix={quotePrefix(activeMarket.quote)}
             value={high || '-'}
@@ -108,6 +114,7 @@ export default class ExchangeInfoBar extends React.PureComponent {
 
           <ExchangeInfoBarItem
             text
+            vertical
             label='24h Low'
             valuePrefix={quotePrefix(activeMarket.quote)}
             value={low || '-'}
@@ -115,10 +122,15 @@ export default class ExchangeInfoBar extends React.PureComponent {
 
           <ExchangeInfoBarItem
             text
+            vertical
             label='24h Volume'
             value={volume || '-'}
           />
         </ul>
+
+        <div className='hfui-exchangeinfobar__right'>
+          <i className='icon-notifications' />
+        </div>
       </div>
     )
   }

@@ -9,7 +9,7 @@ export default class Modal extends React.PureComponent {
 
   render() {
     const {
-      children, className, onClose, fixed,
+      children, className, onClose, fixed, actions, label,
     } = this.props
 
     return (
@@ -24,7 +24,24 @@ export default class Modal extends React.PureComponent {
             return false
           }}
         >
+          <div className='hfui-modal__header'>
+            {label && (
+              <p className='hfui-modal__label'>{label}</p>
+            )}
+
+            <i
+              className='icon-cancel'
+              onClick={onClose}
+            />
+          </div>
+
           {children}
+
+          {actions && (
+            <div className='hfui-modal__actions'>
+              {actions}
+            </div>
+          )}
         </div>
       </div>
     )

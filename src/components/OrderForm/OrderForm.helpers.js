@@ -28,6 +28,9 @@ const COMPONENTS_FOR_ID = {
   'input.date': DateInput,
 }
 
+// Just in case we ever decide the labels are again valuable
+export const CONVERT_LABELS_TO_PLACEHOLDERS = true
+
 const marketToQuoteBase = market => ({
   QUOTE: market.q,
   BASE: market.b,
@@ -161,10 +164,16 @@ const renderLayoutComponent = ({
 
 const renderLayoutActions = ({ layout = {}, onSubmit }) => { // eslint-disable-line
   const { actions = [] } = layout
+  const validActions = actions.filter(action => action !== 'preview')
 
   return (
-    <div key='of-actions' className='hfui-orderform__layout-actions'>
-      {actions.filter(action => action !== 'preview').map(action => (
+    <div
+      key='of-actions'
+      className={ClassNames('hfui-orderform__layout-actions', {
+        'single-action': validActions.length === 1,
+      })}
+    >
+      {validActions.map(action => (
         <Button
           key={action}
           label={_capitalize(action)}

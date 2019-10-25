@@ -113,6 +113,7 @@ export default class StrategyEditorPage extends React.Component {
     return (
       <div className='hfui-strategyeditorpage__wrapper'>
         <StrategyEditor
+          dark
           key='editor'
           onResultsChange={this.onResultsChange}
           onIndicatorsChange={this.onIndicatorsChange}
@@ -126,6 +127,7 @@ export default class StrategyEditorPage extends React.Component {
           className='hfui-strategiespage__right'
         >
           <Chart
+            dark
             showIndicatorControls={false}
             showOrders={false}
             showPositions={false}
@@ -148,6 +150,7 @@ export default class StrategyEditorPage extends React.Component {
           />
 
           <StrategyTradesTable
+            dark
             trades={trades}
             onTradeClick={this.onTradeClick}
           />

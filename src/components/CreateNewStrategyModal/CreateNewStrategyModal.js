@@ -58,30 +58,31 @@ export default class CreateNewStrategyModal extends React.Component {
       <Modal
         onClose={onClose}
         className='hfui-createnewstrategymodal__wrapper'
+        label='Create a New Strategy'
+        actions={(
+          <Button
+            green
+            label='Create'
+            onClick={this.onSubmit}
+          />
+        )}
       >
-        <p>Create a new Strategy</p>
         <p className='notice'>Your strategy will be encrypted with a password before being sent to the server</p>
 
         <Input
           type='text'
-          label='Label'
+          placeholder='Label'
           value={label}
           onChange={this.onLabelChange}
         />
 
         <Dropdown
-          label='Template'
           value={template}
           onChange={this.onTemplateChange}
           options={Templates.map(t => ({
             label: t.label,
             value: t.label,
           }))}
-        />
-
-        <Button
-          label='Create'
-          onClick={this.onSubmit}
         />
 
         {!_isEmpty(error) && (

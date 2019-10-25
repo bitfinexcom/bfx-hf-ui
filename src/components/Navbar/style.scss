@@ -7,18 +7,16 @@
   flex-direction: row;
   flex-wrap: wrap;
   font-size: 12px;
-  align-content: center;
   background: #102331;
+  height: 72px;
+
+  svg {
+    width: 93px;
+    margin-left: 31px;
+  }
+
   &, button {
     color: #eee;
-  }
-
-  & > *:first-child {
-    padding-left: 16px;
-  }
-
-  & > *:last-child {
-    padding-right: 16px;
   }
 
   > p {
@@ -37,21 +35,22 @@
     padding: .5em 16px .5em 0;
     outline: none;
 
+    margin: 0 26px;
+    line-height: 72px;
+    text-transform: uppercase;
+    font-size: 15px;
+
     &:first-child {
       margin-left: -8px;
     }
 
-    &:hover {
-      cursor: pointer;
-
-      &:not(.active) {
-        text-decoration: underline;
-      }
+    &:hover, &.active {
+      border-bottom: 2px solid #54b361;
+      color: #4faa5e;
     }
 
-    &.active {
-      color: #54B361;
-      border-bottom: 2px solid #54B361;
+    &.hover {
+      cursor: pointer;
     }
   }
 
@@ -76,9 +75,9 @@
 }
 
 .hfui-navbar__main-links {
-  width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  flex: 1;
 }

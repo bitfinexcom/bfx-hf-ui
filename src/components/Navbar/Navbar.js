@@ -1,5 +1,6 @@
 import React from 'react'
 
+import HFIcon from '../../ui/HFIcon'
 import NavbarButton from '../NavbarButton'
 import { propTypes, defaultProps } from './Navbar.props'
 import './style.css'
@@ -11,6 +12,8 @@ export default class Navbar extends React.PureComponent {
   render() {
     return (
       <div className='hfui-navbar__wrapper'>
+        <HFIcon />
+
         <ul className='hfui-navbar__main-links'>
           <li>
             <NavbarButton
@@ -29,7 +32,10 @@ export default class Navbar extends React.PureComponent {
           <li>
             <NavbarButton
               route='/strategy-editor'
-              label='Strategy Editor'
+              label={[
+                <i key='icon' className='icon-strategy-editor-active' />,
+                <p key='label'>Strategy Editor</p>,
+              ]}
             />
           </li>
         </ul>

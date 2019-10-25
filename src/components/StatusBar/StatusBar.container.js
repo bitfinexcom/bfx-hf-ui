@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { push } from 'connected-react-router'
 
 import StatusBar from './StatusBar'
-import { getNumberOfLayouts } from '../../redux/selectors/ui'
+import { getNumberOfLayouts, getRemoteVersion } from '../../redux/selectors/ui'
 import { getSocket } from '../../redux/selectors/ws'
 import { version } from '../../../package.json'
 
@@ -16,9 +16,7 @@ const mapStateToProps = (state = {}) => {
   return {
     wsConnected: wsStatus === 'online',
     nLayouts: getNumberOfLayouts(state),
-    lastVersion,
-    currVersion: version,
-
+    remoteVersion: getRemoteVersion(state),
   }
 }
 

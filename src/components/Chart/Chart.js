@@ -529,7 +529,7 @@ class Chart extends React.Component {
     const {
       label, onRemove, showIndicatorControls, reduxState, moveable,
       removeable, canChangeMarket, canChangeExchange, exchanges, className,
-      showMarket, showExchange,
+      showMarket, showExchange, dark,
     } = this.props
 
     const hasIndicators = !_isEmpty(indicators)
@@ -543,12 +543,6 @@ class Chart extends React.Component {
         exchanges,
       }),
 
-      renderTimeFrameDropdown({
-        currentExchange,
-        currentTF,
-        onChangeTF,
-      }),
-
       showMarket && renderMarketDropdown({
         disabled: !canChangeMarket,
         onChangeMarket,
@@ -558,11 +552,19 @@ class Chart extends React.Component {
       }),
     ]
 
+    const secondaryHeaderComponents = [
+      renderTimeFrameDropdown({
+        currentExchange,
+        currentTF,
+        onChangeTF,
+      }),
+    ]
+
     if (showIndicatorControls) {
-      headerComponents.push(renderAddIndicatorDropdown({ onAddIndicator }))
+      secondaryHeaderComponents.push(renderAddIndicatorDropdown({ onAddIndicator }))
 
       if (hasIndicators) {
-        headerComponents.push(renderRemoveIndicatorDropdown({
+        secondaryHeaderComponents.push(renderRemoveIndicatorDropdown({
           indicators,
           onRemoveIndicator,
         }))
@@ -576,13 +578,15 @@ class Chart extends React.Component {
         removeable={removeable}
         onRemove={onRemove}
         label={label}
+        darkHeader={dark}
+        dark={dark}
 
         extraIcons={[
           <i
             role='button'
             tabIndex={0}
             key='increase-height'
-            className='fas fa-caret-down'
+            className='icon-distribute-down-active high-contrast small'
             onClick={this.onIncreaseHeight}
           />,
 
@@ -591,7 +595,7 @@ class Chart extends React.Component {
             tabIndex={0}
             key='decrease-height'
             onClick={this.onDecreaseHeight}
-            className={ClassNames('fas fa-caret-up', {
+            className={ClassNames('icon-distribute-up-active high-contrast no-margin small', {
               disabled: height === MIN_HEIGHT_PX,
             })}
           />,
@@ -601,8 +605,10 @@ class Chart extends React.Component {
           ),
         ]}
 
-        headerComponents={headerComponents}
         modal={settingsModalOpen && this.renderSettingsModal()}
+        headerComponents={headerComponents}
+        secondaryHeaderComponents={secondaryHeaderComponents}
+        secondaryHeaderReverse
       >
         {contents || <Spinner />}
       </Panel>
@@ -744,16 +750,16 @@ class Chart extends React.Component {
                 <XAxis
                   axisAt='bottom'
                   orient='bottom'
-                  tickStroke='#AAAAAA'
-                  stroke='#AAAAAA'
+                  tickStroke='#555461'
+                  stroke='#555461'
                   ticks={5}
                 />
 
                 <YAxis
                   axisAt='right'
                   orient='right'
-                  tickStroke='#AAAAAA'
-                  stroke='#AAAAAA'
+                  tickStroke='#555461'
+                  stroke='#555461'
                   ticks={5}
                 />
 
@@ -774,15 +780,15 @@ class Chart extends React.Component {
                 />
 
                 <PriceCoordinate
-                  at='right'
-                  orient='right'
+                  at='left'
+                  orient='left'
                   price={lastCandle.close}
-                  lineStroke={lastCandle.close > lastCandle.open ? '#00FF00' : '#FF0000'}
+                  lineStroke={lastCandle.close > lastCandle.open ? '#00D983' : '#F05359'}
                   lineOpacity={0.75}
                   stroke='#3490DC'
                   strokeWidth={1}
-                  fill={lastCandle.close > lastCandle.open ? '#00FF00' : '#FF0000'}
-                  textFill='#22292F'
+                  fill={lastCandle.close > lastCandle.open ? '#00D983' : '#F05359'}
+                  textFill='#ffffff'
                   arrowWidth={7}
                   strokeDasharray='ShortDash'
                   displayFormat={format('~r')}
@@ -904,9 +910,9 @@ class Chart extends React.Component {
                 ])}
 
                 <CandlestickSeries
-                  fill={d => (d.close > d.open ? '#3c9d37' : '#990f0f')}
-                  stroke={d => (d.close > d.open ? '#49bf43' : '#cc1414')}
-                  wickStroke={d => (d.close > d.open ? '#49bf43' : '#cc1414')}
+                  fill={d => (d.close > d.open ? '#00D983' : '#F05359')}
+                  stroke={d => (d.close > d.open ? '#00D983' : '#F05359')}
+                  wickStroke={d => (d.close > d.open ? '#00D983' : '#F05359')}
                 />
 
                 <OHLCTooltip
@@ -929,8 +935,8 @@ class Chart extends React.Component {
                 <YAxis
                   axisAt='left'
                   orient='left'
-                  stroke='#CCCCCC'
-                  tickStroke='#CCCCCC'
+                  stroke='#555461'
+                  tickStroke='#555461'
                   ticks={5}
                   tickFormat={format('.2s')}
                 />

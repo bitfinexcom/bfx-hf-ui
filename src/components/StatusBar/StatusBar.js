@@ -9,6 +9,11 @@ import { COMPONENT_TYPES } from '../GridLayout/GridLayout.helpers'
 import { propTypes, defaultProps } from './StatusBar.props'
 import './style.css'
 
+// NOTE: Temporary until relevant logic is moved into LayoutControlToolbar
+// This just force disables the layout controls regardless of props; all logic
+// implementing the controls must be moved from this component
+const LAYOUT_CONTROLS_ENABLED = false
+
 export default class StatusBar extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -91,7 +96,6 @@ export default class StatusBar extends React.Component {
   }
 
   render() {
-    const { lastVersion, currVersion } = this.props || {}
     const {
       layoutListOpen, componentListOpen, newLayoutName, layoutCreatorOpen,
     } = this.state
@@ -99,11 +103,12 @@ export default class StatusBar extends React.Component {
     const {
       onSaveLayout, layoutDirty, displayLayoutControls, layoutName,
       layoutNames, wsConnected, allowTradingComponents, layoutCanDelete,
+      remoteVersion,
     } = this.props
 
     return (
       <div className='hfui-statusbar__wrapper'>
-        {displayLayoutControls && (
+        {LAYOUT_CONTROLS_ENABLED && displayLayoutControls && (
           <div className='hfui-statusbar__left'>
             <div className='hfui-statusbar__layout-name'>
               <p>Layout</p>
@@ -207,18 +212,20 @@ Add Component
         )}
 
         <div className='hfui-statusbar__right'>
-          <div className='hfui-statusbar__version' style={{ marginRight: '80px;', background: '#131723;' }}>
+          <div
+            className='hfui-statusbar__version'
+            style={{
+              marginRight: '80px',
+            }}
+          >
             <p>
-              {
-              lastVersion && lastVersion !== currVersion ? (
-
+              {remoteVersion && remoteVersion !== MANIFEST.version ? (
                 <NavbarButton
                   label='Update to latest version'
                   external='https://github.com/bitfinexcom/bfx-hf-ui/releases'
                 />
-              ) : null
-           }
-           &nbsp;
+              ) : null}
+              &nbsp;
               v
               {MANIFEST.version}
             </p>

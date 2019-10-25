@@ -38,7 +38,7 @@ class Dropdown extends React.Component {
   render() {
     const { open } = this.state
     const {
-      label, value, options, highlight, fallback, disabled, isOpen,
+      label, value, options, highlight, fallback, disabled, isOpen, icon,
     } = this.props
 
     return (
@@ -51,15 +51,23 @@ class Dropdown extends React.Component {
           <div
             onClick={disabled ? () => {} : this.onToggleOpen}
             className={ClassNames('hfui-dropdown__button', {
-              yellow: open || highlight,
+              highlight: open || highlight,
               disabled,
             })}
           >
-            <p>
+            {icon && (
+              <i className={`icon-${icon}`} />
+            )}
+
+            <p
+              className={ClassNames({
+                'with-icon': icon && !isOpen && !open,
+              })}
+            >
               {(options.find(o => o.value === value) || {}).label || fallback || 'Select an option'}
             </p>
 
-            <i className='fas fa-caret-down' />
+            <i className='icon-arrow-down-passive' />
           </div>
 
           {(open || isOpen) && (

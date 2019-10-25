@@ -1,5 +1,12 @@
 import types from '../constants/ui'
 
+const saveRemoteVersion = version => ({
+  type: types.SAVE_REMOTE_VERSION,
+  payload: {
+    version,
+  },
+})
+
 const saveLayout = (layout, id) => ({
   type: types.SAVE_LAYOUT,
   payload: {
@@ -63,4 +70,5 @@ export default {
   setActiveMarket,
   saveComponentState,
   setActiveExchange,
+  saveRemoteVersion,
 }
