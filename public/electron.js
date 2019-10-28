@@ -61,6 +61,7 @@ app.on('ready', () => {
   ]
 
   Menu.setApplicationMenu(Menu.buildFromTemplate(template))
+
   createWindow()
 })
 

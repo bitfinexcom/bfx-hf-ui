@@ -10,6 +10,6 @@ startHFServer({
   algoDBPath: `${__dirname}/../db/algos.json`,
 
   // Data servers are started by individual scripts
-  hfBitfinexDBPath: `${__dirname}/../db/hf-bitfinex.json`,
-  hfBinanceDBPath: `${__dirname}/../db/hf-binance.json`,
+  // hfBitfinexDBPath: `${__dirname}/../db/hf-bitfinex.json`,
+  // hfBinanceDBPath: `${__dirname}/../db/hf-binance.json`,
 })
