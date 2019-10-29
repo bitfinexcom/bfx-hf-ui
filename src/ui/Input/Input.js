@@ -1,4 +1,5 @@
 import React from 'react'
+import { Icon } from 'react-fa'
 
 import { propTypes, defaultProps } from './Input.props'
 import './style.css'
@@ -40,9 +41,9 @@ export default class Input extends React.PureComponent {
           <button
             className='field-icon'
             type='button'
-            onClick={this.onToggleShow}
+            onClick={() => this.toggleShow()}
           >
-            {hidden ? <i className='icon-eye-open' /> : <i className='icon-eye-closed' />}
+            {hidden ? <Icon name='eye' /> : <Icon name='eye-slash' />}
           </button>
         </div>
       )

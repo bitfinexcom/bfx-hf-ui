@@ -6,19 +6,15 @@
 
   input {
     width: calc(100% - 16px);
-    color: #ffffff;
+    color: #54B361;
     background: #102331;
     border: 0.5px solid #102331;
     padding: 4px 8px;
     font-size: 12px;
     line-height: 12px;
     outline: none;
-
-    &::placeholder {
-      color: #ffffff;
-      opacity: 1;
-    }
   }
+  
 }
 
 .field-icon {
