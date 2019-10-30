@@ -184,6 +184,7 @@
     "terser-webpack-plugin": "1.2.3",
     "thread-loader": "^2.1.2",
     "ts-pnp": "1.1.2",
+    "typescript": "^3.6.4",
     "url-loader": "1.1.2",
     "utf-8-validate": "^5.0.2",
     "webpack": "4.29.6",
