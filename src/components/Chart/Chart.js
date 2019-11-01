@@ -155,6 +155,7 @@ class Chart extends React.Component {
   }
 
   componentDidMount() {
+    console.log('chart did mount')
     const { addCandlesRequirement, addTradesRequirement } = this.props
     const { currentExchange, currentMarket, currentTF } = this.state
 
@@ -188,15 +189,18 @@ class Chart extends React.Component {
       || !_isEqual(nextProps.orders, orders)
       || (nextState.height !== height)
     ) {
+      console.log('chart updated')
       return true
     }
 
     if (nextState.lastDomain !== lastDomain) {
+      console.log('chart isn"t updated')
       return false // don't re-render on domain update (pan)
     } if (nextState.lastInternalCandleUpdate === lastInternalCandleUpdate) {
+      console.log('chart isn"t updated', nextState)
       return false
     }
-
+    console.log('chart updated')
     return true
   }
 
@@ -205,6 +209,7 @@ class Chart extends React.Component {
   }
 
   componentWillUnmount() {
+    console.log('chart will unmount')
     const { removeCandlesRequirement, removeTradesRequirement } = this.props
     const { currentExchange, currentMarket, currentTF } = this.state
 

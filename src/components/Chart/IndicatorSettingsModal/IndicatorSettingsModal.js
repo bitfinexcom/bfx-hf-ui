@@ -1,6 +1,7 @@
 import React from 'react'
 import _isFinite from 'lodash/isFinite'
 
+import { Icon } from 'react-fa'
 import { propTypes, defaultProps } from './IndicatorSettingsModal.props'
 import Input from '../../../ui/Input'
 import Modal from '../../../ui/Modal'
@@ -50,7 +51,7 @@ export default class IndicatorSettingsModal extends React.Component {
     const { argsDef, humanLabel } = i
 
     return (
-      <Modal>
+      <Modal onClose={onClose}>
         <div className='hfui-indicatorsettingsmodal__wrapper'>
           <h3>
 Settings:
@@ -80,30 +81,30 @@ Settings:
 
           <ul className='hfui-indicatorsettingsmodal__actions'>
             <li>
-              <i
-                role='button'
-                tabIndex={0}
-                className='fas fa-trash-alt'
+              <Icon
+                name='trash'
                 onClick={() => {
                   onRemove(i.key)
                   onClose()
                 }}
+                role='button'
+                tabIndex={0}
               />
             </li>
             <li>
-              <i
+              <Icon
+                name='save'
                 role='button'
                 tabIndex={0}
                 onClick={() => onSave(argValues)}
-                className='far fa-save'
               />
             </li>
             <li>
-              <i
+              <Icon
+                name='times-circle'
                 role='button'
                 tabIndex={0}
                 onClick={onClose}
-                className='fas fa-times-circle'
               />
             </li>
           </ul>

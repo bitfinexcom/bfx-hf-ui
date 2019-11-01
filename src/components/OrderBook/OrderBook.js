@@ -72,7 +72,7 @@ export default class OrderBook extends React.PureComponent {
                   >
                     <div className='hfui-orderbook__pl-container spread'>
                       <p className='hfui-orderbook__pl-count'>
-                        TODO
+                        —
                       </p>
 
                       <p className='hfui-orderbook__pl-amount' />
@@ -100,7 +100,7 @@ export default class OrderBook extends React.PureComponent {
                 >
                   <div className='hfui-orderbook__pl-container'>
                     <p className='hfui-orderbook__pl-count'>
-                      TODO
+                      —
                     </p>
 
                     <p className='hfui-orderbook__pl-amount'>
