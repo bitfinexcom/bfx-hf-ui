@@ -442,30 +442,6 @@ export default class OrderForm extends React.Component {
             />
           )
         )}
-
-        footer={[
-          <div className='hfui-orderform__footer-lockstatus' key='lockstatus'>
-            <p>{apiClientConnected ? `UNLOCKED FOR ${currentExchange.toUpperCase()}` : 'LOCKED'}</p>
-          </div>,
-
-          <div className='hfui-orderform__footer-connectionstatus' key='connectionstatus'>
-            <span className={ClassNames('hfui-orderform__footer-statuscircle', {
-              green: apiClientConnected,
-              yellow: apiClientConnecting,
-              red: apiClientDisconnected,
-            })}
-            />
-
-            <p>
-              {apiClientConnected
-                ? 'Connected'
-                : apiClientConnecting
-                  ? 'Connecting'
-                  : 'Disconnected'
-              }
-            </p>
-          </div>,
-        ]}
       >
         <div className='hfui-orderform__wrapper'>
           {[
