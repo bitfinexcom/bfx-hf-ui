@@ -123,14 +123,7 @@
   & > *, .hfui-statusbar__connection-status > * {
     display: inline-block;
     vertical-align: middle;
-  }
-
-  .hfui-statusbar__connection-status {
-    margin-left: 8px;
-  }
-
-  .hfui-statusbar__connection-status > p:last-child {
-    margin-left: 8px;
+    margin-right: 10px;
   }
 }
 
@@ -190,8 +183,6 @@
 }
 
 .hfui-statusbar__version {
-  padding-right: 16px;
-  margin-right: 16px;
   line-height: 32px;
 }
 
