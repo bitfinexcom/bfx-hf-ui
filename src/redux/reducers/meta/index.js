@@ -2,12 +2,12 @@ import { combineReducers } from 'redux'
 
 import exchanges from './exchanges'
 import markets from './markets'
-import data from './data'
+import rest from './rest'
 
 const reducers = combineReducers({
   exchanges,
   markets,
-  data,
+  rest,
 })
 
 export default reducers
