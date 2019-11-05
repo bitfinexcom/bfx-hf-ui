@@ -26,10 +26,10 @@ export default class Notification extends React.PureComponent {
         icon = <img src={check} alt='check' />
         break
       case 'error':
-        if (text === 'Invalid password') { icon = <img src={pass} alt='password error' /> } else { icon = <img src={error} alt='error' /> }
+        if (text.toLowerCase().includes('invalid password')) { icon = <img src={pass} alt='password error' /> } else { icon = <img src={error} alt='error' /> }
         break
       case 'info':
-        if (text === 'Cleared user credentials & data') { icon = <img src={clear} alt='clear' /> }
+        if (text.toLowerCase().includes('cleared user credentials & data')) { icon = <img src={clear} alt='clear' /> }
         break
       default:
         icon = <img src={check} alt='check' />

@@ -233,7 +233,6 @@ Add Component
             </p>
           </div>
           <div className='hfui-statusbar__connection-status'>
-            {/*  tag to find ----- */}
             <div className='hfui-statusbar__connection' key='lockstatus'>
               <p>{apiClientConnected ? `UNLOCKED FOR ${currentExchange.toUpperCase()}` : 'LOCKED'}</p>
             </div>
