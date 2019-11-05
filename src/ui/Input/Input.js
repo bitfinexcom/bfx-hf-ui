@@ -16,8 +16,7 @@ export default class Input extends React.PureComponent {
   }
 
   toggleShow() {
-    const { hidden } = this.state
-    this.setState({ hidden: !hidden })
+    this.setState(({ hidden }) => ({ hidden: !hidden }))
   }
 
   render() {
