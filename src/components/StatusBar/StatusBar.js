@@ -103,8 +103,13 @@ export default class StatusBar extends React.Component {
     const {
       onSaveLayout, layoutDirty, displayLayoutControls, layoutName,
       layoutNames, wsConnected, allowTradingComponents, layoutCanDelete,
-      remoteVersion,
+      remoteVersion, apiClientStates, currentExchange,
     } = this.props
+
+    const apiClientState = apiClientStates[currentExchange]
+    const apiClientConnected = apiClientState === 2
+    const apiClientConnecting = apiClientState === 1
+    const apiClientDisconnected = !apiClientState
 
     return (
       <div className='hfui-statusbar__wrapper'>
@@ -214,9 +219,6 @@ Add Component
         <div className='hfui-statusbar__right'>
           <div
             className='hfui-statusbar__version'
-            style={{
-              marginRight: '80px',
-            }}
           >
             <p>
               {remoteVersion && remoteVersion !== MANIFEST.version ? (
@@ -230,15 +232,34 @@ Add Component
               {MANIFEST.version}
             </p>
           </div>
-
           <div className='hfui-statusbar__connection-status'>
+            {/*  tag to find ----- */}
+            <div className='hfui-statusbar__connection' key='lockstatus'>
+              <p>{apiClientConnected ? `UNLOCKED FOR ${currentExchange.toUpperCase()}` : 'LOCKED'}</p>
+            </div>
+            <div className='hfui-statusbar__connection-status' key='connectionstatus'>
+              <span className={ClassNames('hfui-statusbar__statuscircle', {
+                green: apiClientConnected,
+                yellow: apiClientConnecting,
+                red: apiClientDisconnected,
+              })}
+              />
+
+              <p>
+                {apiClientConnected
+                  ? 'HF Connected'
+                  : apiClientConnecting
+                    ? 'HF Connecting'
+                    : 'HF Disconnected'
+              }
+              </p>
+            </div>
+            <p>{wsConnected ? 'WS Connected' : 'WS Disconnected'}</p>
             <span className={ClassNames('hfui-statusbar__statuscircle', {
               green: wsConnected,
               red: !wsConnected,
             })}
             />
-
-            <p>{wsConnected ? 'WS Connected' : 'WS Disconnected'}</p>
           </div>
         </div>
       </div>
