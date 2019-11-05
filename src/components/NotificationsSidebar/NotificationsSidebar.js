@@ -2,6 +2,7 @@ import React from 'react'
 import ClassNames from 'classnames'
 import Scrollbars from 'react-custom-scrollbars'
 import { nonce } from 'bfx-api-node-util'
+import { Icon } from 'react-fa'
 
 import Notification from './Notification'
 import Panel from '../../ui/Panel'
@@ -132,7 +133,7 @@ export default class NotificationsSidebar extends React.Component {
           onClick={this.onToggleOpen}
           className='hfui-notificationssidebar__notch'
         >
-          <i className='fa fa-bell' />
+          <Icon name='bell' />
         </div>
       </div>
     )
