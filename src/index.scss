@@ -1,0 +1,114 @@
+@import '~normalize.css/normalize';
+@import '~pretty-checkbox/src/pretty-checkbox.scss';
+@import '~react-datepicker/dist/react-datepicker';
+@import '~codemirror/lib/codemirror';
+@import '~codemirror/theme/tomorrow-night-eighties';
+@import '~@projectstorm/react-diagrams/dist/style.min';
+@import 'https://fonts.googleapis.com/css?family=Roboto&display=swap';
+@import '/icon_font/styles.css';
+
+.react-datepicker {
+  background-color: #000;
+  color: #ccc;
+  border-color: #666;
+}
+
+.react-datepicker__time-container .react-datepicker__time {
+  background: #000;
+}
+
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item:hover {
+  background-color: #333;
+}
+
+.react-datepicker__time-list-item {
+  width: auto !important;
+  flex-direction: row;
+}
+
+.react-datepicker__current-month,
+.react-datepicker-time__header,
+.react-datepicker-year-header {
+  color: #ccc;
+}
+
+.react-datepicker__header {
+  background-color: #333;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+  color: #ccc;
+}
+
+.react-datepicker__day:hover, .react-datepicker__month-text:hover {
+  background-color: #666;
+}
+
+.react-datepicker__day--keyboard-selected, .react-datepicker__month-text--keyboard-selected,
+.react-datepicker__day--keyboard-selected, .react-datepicker__month-text--keyboard-selected {
+  background: #fcd206;
+  color: #000;
+}
+
+.react-datepicker-wrapper,
+.react-datepicker__input-container {
+  width: 100%;
+}
+
+body {
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  background: #172d3e;
+  color: #e2e5e7;
+
+  margin: 0;
+  overflow: hidden;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+ul, ol {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
+
+a, a:visited {
+  color: #54B361;
+}
+
+.hfui-red {
+  color: #F05359;
+}
+
+.hfui-green {
+  color: #54B361;
+}
+
+.hfui-uppercase {
+  text-transform: uppercase;
+}
+
+@import '~react-grid-layout/css/styles';
+@import '~react-resizable/css/styles';
+
+.react-grid-item > .react-resizable-handle {
+  z-index: 100;
+}
+
+.react-grid-item > .react-resizable-handle::after {
+  border-right: 2px solid rgba(255, 255, 255, 0.4);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+}

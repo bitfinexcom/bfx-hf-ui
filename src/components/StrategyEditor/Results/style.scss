@@ -1,0 +1,73 @@
+.hfui-strategyeditor__results-wrapper {
+  background: #102331;
+  width: 100%;
+  padding: 0 8px;
+
+  > p:first-child {
+    font-size: 12px;
+    font-weight: 500;
+    margin: 8px 0;
+    width: 100%;
+    color: #54b361;
+    text-align: center;
+  }
+
+  ul {
+    font-size: 12px;
+
+    li {
+      margin-bottom: 4px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      p:first-child {
+        text-align: right;
+        margin-right: 16px;
+        width: 50%;
+      }
+
+      > * {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+
+.hfui-strategyeditor__results-section {
+  width: 50%;
+  display: inline-block;
+}
+
+.hfui-strategyeditor__empty-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  > div:first-child {
+    text-align: center;
+
+    > * {
+      display: inline-block;
+      vertical-align: middle;
+
+      margin-right: 4px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .button {
+    text-decoration: underline;
+
+    &:hover {
+      cursor: pointer;
+      color: #fcd206;
+    }
+  }
+}

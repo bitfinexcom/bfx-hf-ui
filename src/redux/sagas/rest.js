@@ -6,8 +6,6 @@ import {
   takeEvery, put, call, select,
 } from 'redux-saga/effects'
 
-axios.defaults.baseURL = 'http://localhost:9987'
-
 function getState(state) {
   return state
 }
@@ -29,17 +27,15 @@ function getBFXFTType(meta = {}) {
 
 function* externalREST(action = {}) {
   const {
-    payload = {},
     meta = {},
   } = action
-
   const { url, method } = meta
- const { data } =  yield axios[_toLower(method)](url)
- yield put({
-  type: 'REST_SUCCESS',
-  payload: data,
-  meta,
-})
+  const { data } = yield axios[_toLower(method)](url)
+  yield put({
+    type: 'REST_SUCCESS',
+    payload: data,
+    meta,
+  })
 }
 
 function* onREST(action = {}) {
@@ -49,7 +45,6 @@ function* onREST(action = {}) {
     payload = {},
     meta = {},
   } = action
-
   try {
     const res = yield call(axios, {
       method: meta.method || payload.method,
@@ -105,7 +100,6 @@ function* onRESTSuccess(action = {}) {
     meta = {},
     payload = {},
   } = action
-
   const { handler, method } = meta
   yield put({
     type: `${handler}_${method}_RES`,

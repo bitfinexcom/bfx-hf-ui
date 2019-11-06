@@ -1,0 +1,21 @@
+.hfui-spinner__wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .fa-circle-notch {
+    animation: hfui-spinner-rotate 1s infinite ease-in-out both;
+    color: #54b361 !important;
+  }
+}
+
+@keyframes hfui-spinner-rotate {
+  0% {
+    transform: rotate(0);
+  } 100% {
+    transform: rotate(360deg);
+  }
+}
