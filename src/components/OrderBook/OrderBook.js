@@ -1,3 +1,4 @@
+/* eslint-disable react/no-redundant-should-component-update */
 import React from 'react'
 import ClassNames from 'classnames'
 import _reverse from 'lodash/reverse'
@@ -19,6 +20,17 @@ const TEMP_OB_SIDE_LENGTH_LIMIT = 12
 export default class OrderBook extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
+
+  shouldComponentUpdate(nextProps) {
+    let flag = false
+    const { ob } = this.props
+    if (ob.length !== nextProps.ob.length) return true
+    ob.forEach((arr, index) => {
+      if (JSON.stringify(arr) !== JSON.stringify(nextProps.ob[index])) flag = true
+    })
+    console.log(flag)
+    return flag
+  }
 
   render() {
     const { ob: fullOB, sumAmounts, stackedView } = this.props
