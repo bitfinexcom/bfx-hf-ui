@@ -24,11 +24,14 @@ export default class OrderBook extends React.PureComponent {
   shouldComponentUpdate(nextProps) {
     let flag = false
     const { ob } = this.props
-    if (ob.length !== nextProps.ob.length) return true
+    if (ob.length !== nextProps.ob.length) {
+      return true
+    }
     ob.forEach((arr, index) => {
-      if (JSON.stringify(arr) !== JSON.stringify(nextProps.ob[index])) flag = true
+      if (JSON.stringify(arr) !== JSON.stringify(nextProps.ob[index])) {
+        flag = true
+      }
     })
-    console.log(flag)
     return flag
   }
 
