@@ -1,4 +1,3 @@
-/* eslint-disable react/no-redundant-should-component-update */
 import React from 'react'
 import ClassNames from 'classnames'
 import _reverse from 'lodash/reverse'
@@ -17,7 +16,7 @@ import './style.css'
 const TEMP_OB_SIDE_LENGTH_LIMIT = 12
 
 // TODO: Unified/split views
-export default class OrderBook extends React.PureComponent {
+export default class OrderBook extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
 
