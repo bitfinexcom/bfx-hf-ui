@@ -1,6 +1,7 @@
 /node_modules
 /build
-scripts/db
+/scripts/db/*
+!/scripts/db/.keep
 /dist
 
 .DS_Store
