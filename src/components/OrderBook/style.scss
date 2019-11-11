@@ -1,0 +1,134 @@
+.hfui-orderbook__wrapper {
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+
+  &.stacked {
+    flex-direction: column;
+  }
+
+  &, ul {
+    height: 100%;
+  }
+
+  &.stacked ul {
+    width: 100%;
+  }
+
+  &:not(.stacked) {
+    display: flex;
+    flex-direction: row;
+
+    ul {
+      width: 50%;
+    }
+
+    .buy .hfui-orderbook__pl-vol {
+      left: auto;
+      right: 0;
+    }
+  }
+
+  li.spread {
+    background: #102331;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 13px;
+    border-top: 1px solid #172d3e;
+    border-bottom: 1px solid #172d3e;
+
+    .hfui-orderbook__pl-container {
+      height: 41px;
+      line-height: 41px;
+    }
+  }
+}
+
+.hfui-orderbook__header {
+  font-weight: bold;
+  font-size: 11px;
+  color: #fff;
+  height: 27px;
+  line-height: 27px;
+  text-align: center;
+}
+
+.hfui-orderbook__header,
+.hfui-orderbook__pl-container {
+  display: flex;
+  flex-direction: row;
+
+  & > * {
+    width: 100%;
+    flex: 1;
+  }
+}
+
+.hfui-orderbook_pl-vol-container {
+  flex: 0;
+}
+
+.hfui-orderbook__pl-container {
+  height: 23px;
+  line-height: 23px;
+  padding: 0 9px 0 3px;
+
+  p {
+    z-index: 1;
+  }
+}
+
+.hfui-orderbook__pl-vol {
+  height: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.hfui-orderbook__pl {
+  color: #eee;
+  position: relative;
+  margin-bottom: 1px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &.buy .hfui-orderbook__pl-vol {
+    background: #204143;
+  }
+
+  &.sell .hfui-orderbook__pl-vol {
+    background: #383342;
+  }
+}
+
+.hfui-orderbook__pl-count,
+.hfui-orderbook__pl-total,
+.hfui-orderbook__pl-amount {
+  text-align: center;
+}
+
+.hfui-orderbook__pl-price {
+  text-align: right;
+}
+
+.hfui-orderbook__side {
+  .hfui-orderbook__pl.sell {
+    .hfui-orderbook__pl-container {
+      flex-direction: row-reverse;
+    }
+
+    .hfui-orderbook__pl-vol {
+      float: none;
+    }
+
+    &.sell .hfui-orderbook__pl-vol {
+      border-right: 1px solid red;
+      border-left: 0;
+    }
+  }
+}

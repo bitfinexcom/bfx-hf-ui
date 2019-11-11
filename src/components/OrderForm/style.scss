@@ -1,0 +1,538 @@
+.hfui-orderform__wrapper {
+  min-height: calc(100% - 16px);
+  position: relative;
+  padding: 0 20px;
+
+  .hfui-dropdown__button {
+    margin-left: 0;
+    background: #102331;
+    position: relative;
+    width: 165;
+    padding-left: 8px;
+
+    p {
+      width: calc(100% - 20px);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    i {
+      position: absolute;
+      right: 10px;
+      color: #f0f1f2;
+      font-size: 10px;
+    }
+  }
+
+  .hfui-dropdown__wrapper {
+    width: calc(100% - 16px);
+
+    > p {
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    > ul {
+      max-width: 100%;
+    }
+  }
+}
+
+.hfui-orderform__upgrade {
+  width: calc(100% + 32px);
+  text-align: center;
+  background: #060606;
+  border-bottom: 1px solid #3c3202;
+  margin-left: -16px;
+
+  .hfui-orderform__upgrade_inner {
+    display: inline-block;
+    margin: 0 auto;
+    font-size: 12px;
+    padding: 0 16px;
+    line-height: 30px;
+    height: 33px;
+    text-decoration: underline;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.hfui-orderform__panel {
+  .hfui-panel__footer {
+    width: calc(100% - 16px);
+    background: #102331;
+    line-height: 32px;
+    font-size: 13px;
+    color: #e1e3e6;
+    padding: 0 8px;
+    display: flex;
+    flex-direction: row;
+
+    .hfui-orderform__footer-lockstatus {
+      color: #50aa5e;
+      width: 100%;
+      margin-left: 22px;
+
+      > * {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+
+    .hfui-orderform__footer-connectionstatus {
+      text-align: right;
+      flex-shrink: 0;
+
+      > * {
+        display: inline-block;
+        vertical-align: middle;
+      }
+      
+      p {
+        margin-right: 20px;
+      }
+
+      .hfui-orderform__footer-statuscircle {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 5px;
+
+        &.green {
+          background: #54B361;
+        }
+
+        &.red {
+          background: #F05359;
+        }
+      }
+    }
+  }
+}
+
+.hfui-orderform__label {
+  width: 100%;
+  display: block;
+  color: #666;
+  font-size: 12px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.hfui-orderform__header {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+
+  > li {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+    &:nth-child(2n) {
+      flex-direction: row-reverse;
+    }
+  }
+
+  .hfui-button {
+    margin-top: 20px;
+    height: 32px;
+    font-size: 13px;
+  }
+}
+
+.hfui-orderform__creation-error {
+  margin-top: 16px;
+  font-size: 12px;
+  color: red;
+}
+
+.hfui-orderform__checkbox-group {
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.hfui-orderform__layout-section {
+  ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    > li {
+      width: calc(50% - 20px);
+      display: flex;
+      flex-direction: row;
+      flex-shrink: 0;
+      margin-bottom: 20px;
+
+      &:nth-child(2n) {
+        flex-direction: row-reverse;
+        margin-left: 20px;
+      }
+    }
+
+    .hfui-input {
+      line-height: 32px;
+
+      input {
+        height: 24px;
+        font-size: 11px;
+      }
+    }
+
+    &.fullWidth {
+      li {
+        width: 100%;
+      }
+
+      .hfui-input input {
+        max-width: 100%;
+      }
+    }
+  }
+}
+
+.hfui-orderform__layout-section-title {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 300;
+  margin-bottom: 16px;
+  border-top: 1px solid #102331;
+  text-transform: uppercase;
+  padding-top: 14px;
+  color: #fff;
+}
+
+.hfui-orderform__layout-header {
+  padding-bottom: 8px;
+}
+
+.hfui-orderform__layout-actions {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 52px;
+  padding-right: 20px;
+
+  &.single-action {
+    justify-content: right;
+  }
+
+  .hfui-button {
+    padding: 8px 13px;
+    text-transform: uppercase;
+    width: 50%;
+
+    button {
+      font-size: 13px;
+      font-weight: 300;
+    }
+
+    button, i {
+      color: #fff;
+    }
+
+    &:first-child:last-child {
+      float: right;
+    }
+
+    &:first-child:not(:last-child) {
+      margin-right: 16px;
+    }
+
+    &:last-child:not(:first-child) {
+      margin-left: 16px;
+    }
+  }
+}
+
+.hfui-orderform__checkbox-group {
+  font-size: 11px;
+
+  .hfui-orderform__input {
+    margin-bottom: 0;
+  }
+}
+
+.hfui-orderform__input {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 0 16px 0;
+
+  &:not(.inline) {
+    width: 100%;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+  }
+
+  &.invalid {
+    .hfui-input {
+      border-color: red;
+    }
+
+    & > p:last-child {
+      color: red;
+    }
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &.fullWidth {
+    width: 100%;
+
+    input {
+      width: calc(100% - 16px);
+    }
+  }
+
+  .hfui-orderform__input-label {
+    color: #666;
+    font-size: 11px;
+    line-height: 16px;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .hfui-orderform__input-error-label {
+    font-size: 11px;
+    margin-bottom: 8px;
+  }
+
+  &.text p:first-child {
+    color: #aaa;
+    font-size: 12px;
+    line-height: 24px;
+    width: 138px;
+  }
+
+  &.checkboxes {
+    font-size: 12px;
+    max-width: 166px;
+
+    .pretty .state {
+      margin-left: 4px;
+    }
+
+    .pretty {
+      margin-bottom: 8px;
+    }
+  }
+
+  &.execute {
+    width: 100%;
+
+    button {
+      width: 35%;
+
+      &:first-child {
+        margin-right: 24px;
+      }
+    }
+  }
+
+  .hfui-dropdown__wrapper {
+    width: 100%;
+  }
+}
+
+.hfui-orderform__overlay-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  line-height: 1.5;
+  background: #172d3e;
+  height: 100%;
+  white-space: pre-line;
+  width: 100%;
+  user-select: none;
+
+  .hfui-orderform__help-inner {
+    padding: 0 16px;
+  }
+
+  .hfui-orderform__help-content {
+    font-size: 12px;
+  }
+
+  .hfui-orderform__help-title {
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    font-size: 14px;
+    border-bottom: 1px solid #333;
+    line-height: 30px;
+
+    i {
+      line-height: 30px;
+      float: right;
+
+      &:hover {
+        color: #fcd206;
+        cursor: pointer;
+      }
+    }
+
+    .prefix {
+      color: #666;
+      margin-right: 8px;
+    }
+  }
+}
+
+.hfui-orderform__modal-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background: #172d3e;
+  width: calc(100% - 1px);
+  height: 100%;
+  user-select: none;
+
+  &:hover:not(.nohover) {
+    cursor: pointer;
+  }
+
+  i + p {
+    font-weight: 500;
+  }
+
+  .underline {
+    text-decoration: underline;
+  }
+
+  .notice {
+    padding: 0 16px;
+    font-size: 11px;
+    color: #666;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .hfui-input {
+    margin-bottom: 8px;
+  }
+
+  .hfui-orderform__modal-form {
+    margin: 16px 0 !important;
+
+    .error {
+      font-size: 12px;
+      color: red;
+      text-align: center;
+    }
+  }
+
+  .hfui-orderform__modal-form .row,
+  .hfui-orderform__modal-buttons .row {
+    display: flex;
+    flex-direction: row;
+
+    > *:first-child {
+      margin-left: 20px;
+      margin-right: 15px;
+    }
+
+    > *:last-child {
+      margin-right: 20px;
+    }
+
+    .hfui-input {
+      line-height: 32px;
+
+      input {
+        height: 24px;
+        font-size: 11px;
+      }
+    }
+
+    .hfui-button {
+      padding: 8px 13px;
+      text-transform: uppercase;
+      width: 50%;
+
+      button {
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+      button, i {
+        color: #fff;
+      }
+    }
+  }
+
+  .hfui-orderform__modal-buttons {
+    width: 100%;
+  }
+
+  .hfui-orderform__modal-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 0;
+
+    &.fullheight {
+      height: calc(100% - 32px);
+    }
+
+    > i {
+      font-size: 38px;
+      height: 38px;
+      margin-bottom: 16px !important;
+    }
+
+    > * {
+      margin-bottom: 8px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.hfui-orderform__layout-label {
+  display: flex;
+  flex-direction: row;
+  height: 39px;
+
+  > i {
+    line-height: 39px;
+    font-size: 15px;
+    color: #e2e5e7;
+    flex: 1;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .hfui-orderform__layout-label-inner {
+    width: 100%;
+    text-align: center;
+
+    > * {
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 39px;
+      font-size: 13px;
+      color: #e2e5e7;
+    }
+
+    p {
+      text-transform: uppercase;
+      font-weight: 300;
+      margin-left: 6px;
+    }
+  }
+}

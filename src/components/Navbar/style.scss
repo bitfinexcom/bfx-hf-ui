@@ -1,0 +1,83 @@
+.hfui-navbar__wrapper {
+  z-index: 101;
+  position: relative;
+
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  font-size: 12px;
+  background: #102331;
+  height: 72px;
+
+  svg {
+    width: 93px;
+    margin-left: 31px;
+  }
+
+  &, button {
+    color: #eee;
+  }
+
+  > p {
+    flex-shrink: 0;
+    margin-right: 32px;
+  }
+
+  p, button {
+    line-height: 32px;
+  }
+
+  button {
+    background: transparent;
+    border: none;
+    padding: 0 16px;
+    outline: none;
+
+    margin: 0 26px;
+    line-height: 72px;
+    text-transform: uppercase;
+    font-size: 15px;
+
+    &:first-child {
+      margin-left: -8px;
+    }
+
+    &:hover, &.active {
+      border-bottom: 2px solid #54b361;
+      color: #4faa5e;
+    }
+
+    &.hover {
+      cursor: pointer;
+    }
+  }
+
+  & > *, li {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  li {
+    margin-right: 8px;
+    flex-shrink: 0;
+
+    &.full-width {
+      flex-grow: 1;
+      text-align: right;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.hfui-navbar__main-links {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex: 1;
+}

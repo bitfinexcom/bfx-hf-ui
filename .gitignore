@@ -1,6 +1,6 @@
 /node_modules
 /build
-/db
+scripts/db
 /dist
 
 .DS_Store
@@ -12,3 +12,6 @@ yarn-error.log*
 
 src/**/*.css
 package-lock.json
+yarn.lock
+
+todo

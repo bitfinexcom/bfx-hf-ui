@@ -1,0 +1,181 @@
+.hfui-strategyeditor__wrapper {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.hfui-strategyeditor__editor-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 58%;
+  position: relative;
+  border-bottom: 1px solid #282e58;
+  background: #000;
+
+  &.noresults {
+    height: 100%;
+  }
+
+  .react-codemirror2, .CodeMirror {
+    height: 100%;
+  }
+
+  .CodeMirror-code {
+    font-size: 11px;
+  }
+
+  &.maximised {
+    position: fixed;
+    left: 150px;
+    top: 99px;
+    width: calc(100% - 152px);
+    z-index: 99;
+    height: calc(100% - 134px);
+    border: 1px solid #3c3202;
+  }
+}
+
+.hfui-strategyeditor__editor-error-output {
+  font-family: monospace;
+  padding: 0 16px;
+  background: #161a2f;
+  color: red;
+  font-size: 11px;
+  position: absolute;
+  bottom: 0;
+  left: 0px;
+  width: calc(100% - 32px);
+  z-index: 9999;
+  border-top: 1px solid #333;
+
+  .fas.fa-times-circle {
+    position: absolute;
+    top: 12px;
+    right: 8px;
+
+    &:hover {
+      color: #fcd206;
+      cursor: pointer;
+    }
+  }
+
+  pre {
+    white-space: pre-wrap;
+  }
+}
+
+.hfui-strategyeditor__func-select {
+  width: 150px;
+  min-width: 150px;
+  font-size: 12px;
+  background: #172d3e;
+  margin: 12px;
+
+  li {
+    padding: 0 8px;
+    border-bottom: 0.5px solid #282e58;
+
+    display: flex;
+    flex-direction: row;
+
+    p {
+      height: 25px;
+      line-height: 25px;
+      text-transform: uppercase;
+    }
+
+    p:first-child {
+      width: 100%;
+    }
+
+    &.active {
+      color: #54b361 !important;
+      border-bottom: 1px solid #54b361;
+    }
+
+    &:not(.active) {
+      color: #364855;
+    }
+
+    &.empty {
+      color: #666;
+    }
+
+    &:hover {
+      cursor: pointer;
+      color: #54b361;
+    }
+
+    &.hasError {
+      color: red !important;
+    }
+  }
+}
+
+.hfui-strategyeditor__header {
+  text-align: right;
+
+  .hfui-button {
+    padding: 8px 13px;
+
+    &:not(.green) {
+      background: #172d3e;
+    }
+
+    button {
+      font-size: 13px;
+      font-weight: 300;
+    }
+
+    button, i {
+      color: #fff;
+    }
+  }
+}
+
+.hfui-strategyeditor__content-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.hfui-strategyeditor__results-outer {
+  display: flex;
+  flex-direction: row;
+  height: 42%;
+}
+
+.hfui-strategyeditor__header-label {
+  border: none !important;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.hfui-strategyeditor__panel {
+  .hfui-panel__header {
+    border-bottom: 1px solid #20313e;
+
+    .hfui-panel__label {
+      line-height: 57px;
+    }
+  }
+
+  .hfui-panel__header-components {
+    width: calc(100% - 155px);
+
+    .hfui-strategyeditor__header {
+      width: calc(100% - 16px);
+      padding: 14px 16px 14px 0;
+
+      > * {
+        margin-right: 14px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}

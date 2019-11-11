@@ -1,0 +1,39 @@
+.hfui-strategyeditorpage__wrapper {
+  display: flex;
+  flex-direction: row;
+  height: calc(100% - 32px);
+  width: 100%;
+  padding-bottom: 64px;
+
+  .hfui-panel {
+    margin: 16px;
+  }
+
+  > .hfui-panel:first-child {
+    width: calc(50% - 32px);
+  }
+
+  .hfui-chart__wrapper {
+    height: calc(60% - 32px);
+    width: auto;
+  }
+
+  .hfui-strategytradestable__wrapper {
+    height: 40%;
+    width: auto;
+  }
+
+  .hfui-statusbar__wrapper {
+    width: 100%;
+  }
+
+  .hfui-strategiespage__right {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+
+    .hfui-panel {
+      flex-shrink: 0;
+    }
+  }
+}

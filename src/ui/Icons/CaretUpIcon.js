@@ -1,6 +1,10 @@
 import React from 'react'
+import { propTypes, defaultProps } from './CaretUpIcon.props'
 
 export default class CaretUpIcon extends React.PureComponent {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
   render() {
     const { x, y } = this.props
 

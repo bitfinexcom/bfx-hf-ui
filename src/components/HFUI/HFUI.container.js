@@ -1,39 +1,31 @@
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-import APIKeyActions from '../../redux/actions/api-key'
-import { lastAppVersion } from '../../redux/actions/app-data'
-import WSHFActions from '../../redux/actions/ws-hf-server'
+
+import UIActions from '../../redux/actions/ui'
+import { updateGithubAppVersion } from '../../redux/actions/data'
+import { getActiveMarket } from '../../redux/selectors/ui'
+import { getAuthToken } from '../../redux/selectors/ws'
+
 import HFUI from './HFUI'
 
-const mapStateToProps = (state = {}) => {
-  const { dataHF = {} } = state
-  const { apiKey = {} } = dataHF
-
-  return {
-    apiKeyCombo: apiKey,
-  }
-}
+const mapStateToProps = (state = {}) => ({
+  activeMarket: getActiveMarket(state),
+  authToken: getAuthToken(state),
+})
 
 const mapDispatchToProps = dispatch => ({
-  loadInitialSettings: () => {
-    dispatch({ type: 'GET_SETTINGS' })
+  saveLayout: (layout, id) => {
+    dispatch(UIActions.saveLayout(layout, id))
+  },
+  getLastVersion: () => {
+    dispatch(updateGithubAppVersion())
+  },
+  saveActiveMarket: (market) => {
+    dispatch(UIActions.saveActiveMarket(market))
   },
 
-  loadAPIKey: () => {
-    dispatch(APIKeyActions.load())
-  },
-
-  submitAPIKey: ({ key, secret } = {}) => {
-    dispatch(APIKeyActions.submit({ key, secret }))
-  },
-
-  cycleBFXConnection: () => {
-    dispatch(WSHFActions.cycleConnection())
-  },
-
-  getLastVersion() {
-    dispatch(lastAppVersion())
+  navigate: (route) => {
+    dispatch(UIActions.setRoute(route))
   },
 })
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HFUI))
+export default connect(mapStateToProps, mapDispatchToProps)(HFUI)

@@ -1,87 +1,84 @@
 import React from 'react'
-import { Spinner, Intent } from '@blueprintjs/core'
-import { Route, Redirect } from 'react-router-dom'
-import _isEmpty from 'lodash/isEmpty'
-import { NotificationContainer } from 'react-notifications'
+import { Route, Switch, Redirect } from 'react-router'
 
-import APIComboDialog from '../APIComboDialog'
-import SideNavBar from '../../ui/SideNavBar'
-import StatusBar from '../../ui/StatusBar'
-import AlgoOrdersView from '../../pages/AlgoOrders'
-import SettingsView from '../../pages/Settings'
-import { propTypes } from './HFUI.props'
+import TradingPage from '../../pages/Trading'
+import StrategyEditorPage from '../../pages/StrategyEditor'
+import MarketDataPage from '../../pages/MarketData'
+import AuthenticationPage from '../../pages/Authentication'
 
-export default class HFUI extends React.Component {
+import Navbar from '../Navbar'
+import ExchangeInfoBar from '../ExchangeInfoBar'
+import NotificationsSidebar from '../NotificationsSidebar'
+
+import { propTypes, defaultProps } from './HFUI.props'
+import './style.css'
+
+export default class HFUI extends React.PureComponent {
   static propTypes = propTypes
+  static defaultProps = defaultProps
 
   constructor(props) {
     super(props)
 
-    this.onSubmitKeys = this.onSubmitKeys.bind(this)
+    this.onChangeMarket = this.onChangeMarket.bind(this)
   }
 
-  componentDidMount() {
-    const { loadInitialSettings, loadAPIKey, cycleBFXConnection, getLastVersion } = this.props
-
-    loadInitialSettings()
-    loadAPIKey()
-    cycleBFXConnection()
-    getLastVersion()
-    // keep trying to load api keys
-    const reloadKeys = () => {
-      const { apiKeyCombo = {} } = this.props
-      if (!_isEmpty(apiKeyCombo)) return
-      loadAPIKey()
-      setTimeout(reloadKeys, 5000)
-    }
-    reloadKeys()
-  }
-
-  onSubmitKeys({ key, secret } = {}) {
-    const { submitAPIKey } = this.props
-    submitAPIKey({ key, secret })
+  onChangeMarket(option) {
+    const { saveActiveMarket } = this.props
+    saveActiveMarket(option.value)
   }
 
   render() {
-    const { apiKeyCombo = {} } = this.props
-
-    if (_isEmpty(apiKeyCombo)) {
+    const { activeMarket, authToken, getLastVersion } = this.props
+    const oneHour = 360000
+    getLastVersion()
+    setInterval(getLastVersion(), oneHour)
+    if (!authToken) {
       return (
-        <div className='bp3-dark hfui loading'>
-          <Spinner
-            intent={Intent.PRIMARY}
-            size={Spinner.SIZE_LARGE}
-          />
+        <div className='hfui-app'>
+          <AuthenticationPage />
+          <NotificationsSidebar />
         </div>
       )
     }
 
-    const { key, secret } = apiKeyCombo
-
-    if (!key || !secret) {
-      return (
-        <div className='bp3-dark hfui'>
-          <APIComboDialog
-            onSubmit={this.onSubmitKeys}
-          />
-        </div>
-      )
-    }
-
-    /*
-      <Route exact path='/index.html' component={DashboardView} />  used for an electron app
-    */
     return (
-      <div className='hfui'>
-        <div className='hfui_content__wrapper'>
-          <NotificationContainer />
-          <Route component={SideNavBar} />
-          <Redirect exact from='/' to='/algo-orders' />
-          <Route path='/algo-orders' component={AlgoOrdersView} />
-          <Route path='/settings' component={SettingsView} />
-        </div>
+      <div className='hfui-app'>
+        <Navbar />
 
-        <Route component={StatusBar} />
+        <ExchangeInfoBar
+          selectedMarket={activeMarket}
+          onChangeMarket={this.onChangeMarket}
+        />
+
+        <Switch>
+
+          <Redirect exact from='/index.html' to='/' />
+
+          <Route
+            exact
+            path='/'
+            render={() => (
+              <TradingPage />
+            )}
+          />
+
+          <Route
+            path='/strategy-editor'
+            render={() => (
+              <StrategyEditorPage />
+            )}
+          />
+
+          <Route
+            path='/data'
+            render={() => (
+              <MarketDataPage />
+            )}
+          />
+        </Switch>
+
+        <NotificationsSidebar />
       </div>
     )
   }
