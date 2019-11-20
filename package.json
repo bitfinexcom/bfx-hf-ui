@@ -21,13 +21,53 @@
       "buildResources": "public"
     },
     "mac": {
-      "icon": "build/icon.png"
+      "icon": "build/icon.png",
+      "hardenedRuntime": true,
+      "artifactName": "${productName}-${version}-${arch}-${os}.${ext}",
+      "category": "public.app-category.productivity",
+      "target": [
+        "dmg",
+        "zip"
+      ]
     },
     "win": {
-      "icon": "build/icon.png"
+      "icon": "build/icon.png",
+      "target": [
+        "dir",
+        "zip"
+      ],
+      "publisherName": "Honey Framework UI"
     },
     "linux": {
-      "icon": "build/icon.png"
+      "icon": "build/icon.png",
+      "artifactName": "${productName}-${version}-${arch}-${os}.${ext}",
+      "description": "Honey Framework UI",
+      "maintainer": "<bitfinex.com>",
+      "category": "Network",
+      "target": [
+        "dir",
+        "zip"
+      ]
+    },
+    "dmg": {
+      "iconSize": 100,
+      "contents": [
+        {
+          "x": 380,
+          "y": 280,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 110,
+          "y": 280,
+          "type": "file"
+        }
+      ],
+      "window": {
+        "width": 500,
+        "height": 500
+      }
     }
   },
   "scripts": {
@@ -44,7 +84,10 @@
     "electron-dev": "concurrently \"BROWSER=none npm run start-server\"  & electron .",
     "electron": "electron .",
     "pack": "electron-builder --dir",
-    "dist": "build --mac --win --linux -c.extraMetadata.main=build/electron.js --publish never"
+    "dist": "build --mac --win --linux -c.extraMetadata.main=build/electron.js --publish never",
+    "dist-win": "build --win -c.extraMetadata.main=build/electron.js --publish never",
+    "dist-mac": "build --mac -c.extraMetadata.main=build/electron.js --publish never",
+    "dist-linux": "build --linux -c.extraMetadata.main=build/electron.js --publish never"
   },
   "author": "Bitfinex",
   "license": "Apache-2.0",
