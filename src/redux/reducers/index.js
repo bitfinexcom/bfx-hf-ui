@@ -1,16 +1,16 @@
 import { combineReducers } from 'redux'
+import { connectRouter } from 'connected-react-router'
+import { REDUCER_PATHS } from '../config'
 
-import data from './data'
-import socketHF from './ws-hf-server'
-import editor from './editor'
-import algoOrders from './algo-orders'
+import ui from './ui'
+import meta from './meta'
+import ws from './ws'
 
-const reducers = optionalReducers => combineReducers({
-  socketHF,
-  data,
-  algoOrders,
-  editor,
-  ...optionalReducers,
+const reducers = history => combineReducers({
+  [REDUCER_PATHS.ROUTER]: connectRouter(history),
+  [REDUCER_PATHS.WS]: ws,
+  [REDUCER_PATHS.META]: meta,
+  [REDUCER_PATHS.UI]: ui,
 })
 
 export default reducers

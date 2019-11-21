@@ -1,0 +1,50 @@
+.ReactVirtualized__Table__headerRow {
+  border-bottom: none;
+  padding-right: 0 !important;
+  height: 48px;
+}
+
+.ReactVirtualized__Table__headerColumn {
+  font-weight: normal;
+
+  > * {
+    font-size: 11px !important;
+  }
+}
+
+.ReactVirtualized__Table__headerTruncatedText {
+  margin-right: 4px;
+  font-weight: bold;
+  font-size: 13px;
+  text-transform: none;
+}
+
+.ReactVirtualized__Table__row {
+  color: #fff;
+
+  > * {
+    font-size: 13px;
+    line-height: 20px !important;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.hfui-table {
+  height: 100%;
+
+  .icons-cell > * {
+    margin-right: 8px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &:hover {
+      cursor: pointer;
+      color: #fcd206;
+    }
+  }
+}

@@ -1,0 +1,13 @@
+.hfui-strategytradestable__wrapper {
+  .ReactVirtualized__Table__headerRow {
+    border-bottom: 1px solid #20313e;
+
+    .ReactVirtualized__Table__headerColumn:first-of-type, .ReactVirtualized__Table__rowColumn:first-of-type {
+      margin-left: 24px;
+    }
+
+    .ReactVirtualized__Table__headerTruncatedText {
+      text-transform: uppercase;
+    }
+  }
+}

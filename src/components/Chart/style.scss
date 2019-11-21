@@ -1,0 +1,32 @@
+.hfui-chart__wrapper {
+  text {
+    fill: #ccc;
+  }
+
+  .hfui-chart__settings-text-overlay {
+    pointer-events: all;
+
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+
+  .hfui-select.indicator-select .hfui-select__menu {
+    width: 300px;
+  }
+
+  .hfui-panel__header-icons {
+    .fas.fa-caret-down,
+    .fas.fa-caret-up {
+      line-height: 24px;
+      height: 24px;
+      width: 24px;
+      background: #102331;
+      color: #fff;
+      font-size: 14px;
+      text-align: center;
+      margin: 0;
+    }
+  }
+}

@@ -8,7 +8,7 @@
  */
 export default (trades = [], candles = []) => {
   if (candles.length < 2) {
-    throw new Error('at least 2 candles are needed to retrieve spacing')
+    return {} // at least 2 candles are needed to retrieve spacing
   }
 
   const candleWidth = candles[1].mts - candles[0].mts

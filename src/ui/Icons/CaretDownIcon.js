@@ -1,6 +1,10 @@
 import React from 'react'
+import { propTypes, defaultProps } from './CaretDownIcon.props'
 
 export default class CaretDownIcon extends React.PureComponent {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
   render() {
     const { x, y } = this.props
 

@@ -1,0 +1,41 @@
+.hfui-layoutcontroltoolbar__wrapper {
+  padding-left: 31px;
+  padding: 23px 0 11px 23px;
+
+  .hfui-button {
+    padding: 8px 13px;
+
+    button {
+      font-size: 13px;
+      font-weight: 300;
+    }
+
+    button, i {
+      color: #fff;
+    }
+  }
+
+  .hfui-dropdown__button-wrapper {
+    background: #102331;
+
+    .hfui-dropdown__button {
+      margin-left: 0;
+      padding-left: 14px;
+      padding-right: 12px;
+
+      i {
+        margin-left: 11px;
+      }
+    }
+  }
+
+  > * {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 15px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

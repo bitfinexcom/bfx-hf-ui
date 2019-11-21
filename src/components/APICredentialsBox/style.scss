@@ -1,0 +1,57 @@
+.hfui-apicredentialsbox__wrapper {
+  padding: 16px;
+  border: 1px solid #333;
+  margin-bottom: 16px !important;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+
+  &.green {
+    border-color: #54B361;
+    background: #54B361;
+  }
+
+  &.orange {
+    border-color: #4e3300;
+    background: #231700;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .hfui-button {
+    text-transform: uppercase;
+    font-size: 14px;
+    padding: 4px 8px 4px 8px;
+  }
+
+  .hfui-apicredentialsbox__label {
+    font-size: 14px;
+    margin-bottom: 8px;
+    width: 100%;
+
+    > * {
+      display: inline-block;
+      vertical-align: middle;
+
+      &:first-child {
+        margin-right: 4px;
+      }
+
+      &:last-child {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .orange {
+    color: orange;
+  }
+
+  > p:last-child {
+    flex-shrink: 0;
+    font-size: 14px;
+    line-height: 24px;
+  }
+}

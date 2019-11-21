@@ -1,0 +1,16 @@
+.hfui-navbarbutton {
+  > * {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  i {
+    margin-left: 4px;
+  }
+
+  .tag {
+    margin-left: 4px;
+    color: #54b361;
+    font-weight: bold;
+  }
+}
