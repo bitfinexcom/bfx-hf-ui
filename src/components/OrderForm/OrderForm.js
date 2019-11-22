@@ -1,5 +1,6 @@
 import React from 'react'
 import _capitalize from 'lodash/capitalize'
+import _isEqual from 'lodash/isEqual'
 import ClassNames from 'classnames'
 import {
   Iceberg, TWAP, AccumulateDistribute, PingPong, MACrossover,
@@ -86,6 +87,10 @@ export default class OrderForm extends React.Component {
     this.onSubmitAPIKeys = this.onSubmitAPIKeys.bind(this)
     this.onUnlock = this.onUnlock.bind(this)
     this.onClearOrderLayout = this.onClearOrderLayout.bind(this)
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !(_isEqual(nextProps, this.props)) || !(_isEqual(this.state, nextState))
   }
 
   static getAOs(exID) {
@@ -416,6 +421,7 @@ export default class OrderForm extends React.Component {
         uiIcon,
       })
     })
+    console.log('order form render')
 
     // NOTE: Margin trading disabled on Binance
     return (
