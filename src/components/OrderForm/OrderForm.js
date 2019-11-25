@@ -23,7 +23,7 @@ import Dropdown from '../../ui/Dropdown'
 import Scrollbars from '../../ui/Scrollbars'
 import MarketSelect from '../MarketSelect'
 
-import ConnectingModal from './Modals/ConnectingModal'
+// import ConnectingModal from './Modals/ConnectingModal'
 import UnconfiguredModal from './Modals/UnconfiguredModal'
 import SubmitAPIKeysModal from './Modals/SubmitAPIKeysModal'
 import OrderFormMenu from './OrderFormMenu'
@@ -468,8 +468,14 @@ export default class OrderForm extends React.Component {
               />
             ),
 
-            apiClientConnecting && (
-              <ConnectingModal key='connecting' />
+            (apiClientConnecting || apiClientDisconnected) && (
+            <SubmitAPIKeysModal
+              key='submit-api-keys'
+              onClose={this.onToggleConfigureModal}
+              onSubmit={this.onSubmitAPIKeys}
+              exID={currentExchange}
+              apiClientConnecting={apiClientConnecting}
+            />
             ),
           ]}
 
