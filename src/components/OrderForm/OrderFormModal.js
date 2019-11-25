@@ -10,7 +10,7 @@ export default class OrderFormModal extends React.PureComponent {
 
   render() {
     const {
-      content, className, icon, title, form, buttons, onClick, titleColor,
+      content, className, icon, title, form, buttons, onClick, titleColor, apiClientConnecting,
     } = this.props
 
     return (
@@ -45,6 +45,12 @@ export default class OrderFormModal extends React.PureComponent {
               <div className='hfui-orderform__modal-buttons'>
                 {buttons}
               </div>
+            )}
+
+            {apiClientConnecting && (
+            <span>
+                    Connecting to exhcnage...
+            </span>
             )}
           </div>
         </Scrollbars>

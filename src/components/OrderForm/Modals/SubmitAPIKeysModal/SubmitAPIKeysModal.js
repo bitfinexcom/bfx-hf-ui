@@ -47,7 +47,7 @@ export default class SubmitAPIKeysModal extends React.Component {
   }
 
   render() {
-    const { exID, onClose } = this.props
+    const { exID, onClose, apiClientConnecting } = this.props
     const { apiKey, apiSecret, error } = this.state
 
     return (
@@ -55,6 +55,7 @@ export default class SubmitAPIKeysModal extends React.Component {
         className='nohover'
         title={`SUBMIT API KEYS FOR ${exID.toUpperCase()}`}
         icon='icon-api'
+        apiClientConnecting={apiClientConnecting}
         form={[
           <div key='form' className='row'>
             <Input
