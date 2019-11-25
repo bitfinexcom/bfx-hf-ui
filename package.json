@@ -73,7 +73,7 @@
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/ --importer=node_modules/node-sass-tilde-importer",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive --importer=node_modules/node-sass-tilde-importer",
-    "start-server": "concurrently --kill-others \"npm run start-api-server\" \"npm run start-ds-bitfinex\"",
+    "start-server": "concurrently --kill-others \"npm run start-api-server\"",
     "start-api-server": "node scripts/start-api-server.js",
     "start-ds-bitfinex": "node scripts/start-ds-bitfinex.js",
     "start": "REACT_APP_DEV=1 REACT_APP_TV_URL=http://localhost:9999 REACT_APP_WSS_URL=ws://localhost:45000 node scripts/start.js",
