@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import ClassNames from 'classnames'
 import _last from 'lodash/last'
@@ -13,6 +14,7 @@ import { AutoSizer } from 'react-virtualized'
 import { ChartCanvas, Chart as RSChart } from 'react-stockcharts/'
 import { fitWidth } from 'react-stockcharts/lib/helper'
 import { XAxis, YAxis } from 'react-stockcharts/lib/axes'
+import TradingViewWidget, { Themes } from 'react-tradingview-widget'
 
 import {
   BarSeries, CandlestickSeries, LineSeries, BollingerSeries,
@@ -697,284 +699,18 @@ class Chart extends React.Component {
     const extraIndicatorHeight = externalIndicators.length * 146
     const finalHeight = height + extraIndicatorHeight
 
-    return this.renderPanel((
-      <AutoSizer
-        disableHeight
-      >
-        {({ width }) => {
-          if (width <= 0) {
-            return null
-          }
-
-          let settingsOverlayTextCount = 0
-
-          return (
-            <ChartCanvas
-              height={finalHeight}
-              width={width - 10}
-              ratio={ratio}
-              margin={{
-                left: 50,
-                right: 100,
-                top: 10,
-                bottom: 40 + (extraIndicatorHeight),
-              }}
-
-              ref={(chart) => {
-                if (this.chartRef !== null) { // clean up old ref
-                  this.chartRef.unsubscribe('chart-events')
-                }
-
-                if (chart !== null) {
-                  this.chartRef = chart
-                  this.chartRef.subscribe('chart-events', {
-                    listener: this.onChartEvent,
-                  })
-                }
-              }}
-
-              type='hybrid'
-              seriesName='HFC'
-              data={data}
-              xScale={xScale}
-              xAccessor={xAccessor}
-              displayXAccessor={displayXAccessor}
-              xExtents={xExtents}
-              onLoadMore={this.onLoadMore}
-            >
-              <RSChart
-                id={1}
-                yExtents={[d => [d.high, d.low]]}
-              >
-                <XAxis
-                  axisAt='bottom'
-                  orient='bottom'
-                  tickStroke='#555461'
-                  stroke='#555461'
-                  ticks={5}
-                />
-
-                <YAxis
-                  axisAt='right'
-                  orient='right'
-                  tickStroke='#555461'
-                  stroke='#555461'
-                  ticks={5}
-                />
-
-                <MouseCoordinateY
-                  at='right'
-                  orient='right'
-                  displayFormat={format('~r')}
-                />
-
-                <BuyOrderAnnotation
-                  trades={trades}
-                  candles={candles}
-                />
-
-                <SellOrderAnnotation
-                  trades={trades}
-                  candles={candles}
-                />
-
-                <PriceCoordinate
-                  at='left'
-                  orient='left'
-                  price={lastCandle.close}
-                  lineStroke={lastCandle.close > lastCandle.open ? '#00D983' : '#F05359'}
-                  lineOpacity={0.75}
-                  stroke='#3490DC'
-                  strokeWidth={1}
-                  fill={lastCandle.close > lastCandle.open ? '#00D983' : '#F05359'}
-                  textFill='#ffffff'
-                  arrowWidth={7}
-                  strokeDasharray='ShortDash'
-                  displayFormat={format('~r')}
-                />
-
-                {showOrders && orders && orders.length > 0 && orders.map(o => (
-                  <PriceCoordinate
-                    key={o.id}
-                    at='right'
-                    orient='right'
-                    price={+o.price}
-                    lineStroke={o.amount > 0 ? '#00FF00' : '#FF0000'}
-                    lineOpacity={1}
-                    stroke='#3490DC'
-                    strokeWidth={1}
-                    fill='#0d101f'
-                    textFill='#eeeeee'
-                    arrowWidth={7}
-                    strokeDasharray='ShortDash'
-                    displayFormat={format('~r')}
-                  />
-                ))}
-
-                {showPositions && positions && positions.length > 0 && positions.map(p => (
-                  <PriceCoordinate
-                    key={p.symbol}
-                    at='right'
-                    orient='right'
-                    price={+p.basePrice}
-                    lineStroke='#FFFFFF'
-                    lineOpacity={0.75}
-                    stroke='#3490DC'
-                    strokeWidth={1}
-                    fill='#FFFFFF'
-                    textFill='#22292F'
-                    arrowWidth={7}
-                    strokeDasharray='ShortDash'
-                    displayFormat={format('~r')}
-                  />
-                ))}
-
-                {/* placeholder for event system */}
-                <EventAnnotation
-                  when={() => false}
-                  height={finalHeight}
-                  yOffset={30}
-                  stroke='#ff0000'
-                />
-
-                {indicators.filter(i => i.ui.position === 'overlay' && i.ui.type === 'line').map(i => [
-                  <LineSeries
-                    yAccessor={d => indicatorData[i.key][d.mts]}
-                    stroke={i.color}
-                    strokeDasharray='Solid'
-                    key={i.key}
-                  />,
-
-                  (!disableIndicatorSettings && (
-                    <SettingsTextOverlay
-                      key={`${i.key}-settings`}
-                      forLabel={i.getName()}
-                      color={i.color}
-                      onClick={() => this.onOpenSettingsModal({ type: 'indicator', i })}
-                      positionY={settingsOverlayTextCount++}
-                      chartWidth={width}
-                      right
-                    />
-                  )),
-                ])}
-
-                {indicators.filter(i => i.ui.position === 'overlay' && i.ui.type === 'lines').map(i => [
-                  i.ui.lines.map(key => (
-                    <LineSeries
-                      yAccessor={d => ((indicatorData[i.key] || {})[d.mts] || {})[key]}
-                      stroke={i.color}
-                      strokeDasharray='Solid'
-                      key={`${i.key}-${key}`}
-                    />
-                  )),
-
-                  (!disableIndicatorSettings && (
-                    <SettingsTextOverlay
-                      key={`${i.key}-settings`}
-                      forLabel={i.getName()}
-                      color={i.color}
-                      onClick={() => this.onOpenSettingsModal({ type: 'indicator', i })}
-                      positionY={settingsOverlayTextCount++}
-                      chartWidth={width}
-                      right
-                    />
-                  )),
-                ])}
-
-                {indicators.filter(i => i.ui.position === 'overlay' && i.ui.type === 'bbands').map(i => [
-                  <BollingerSeries
-                    yAccessor={d => indicatorData[i.key][d.mts]}
-
-                    stroke={i.ui.stroke || {
-                      top: '#0000ff',
-                      middle: '#0000aa',
-                      bottom: '#0000ff',
-                    }}
-
-                    fill={i.ui.fill || '#333333'}
-                    key={i.key}
-                  />,
-
-                  (!disableIndicatorSettings && (
-                    <SettingsTextOverlay
-                      key={`${i.key}-settings`}
-                      forLabel={i.getName()}
-                      color={i.color}
-                      onClick={() => this.onOpenSettingsModal({ type: 'indicator', i })}
-                      positionY={settingsOverlayTextCount++}
-                      chartWidth={width}
-                      right
-                    />
-                  )),
-                ])}
-
-                <CandlestickSeries
-                  fill={d => (d.close > d.open ? '#00D983' : '#F05359')}
-                  stroke={d => (d.close > d.open ? '#00D983' : '#F05359')}
-                  wickStroke={d => (d.close > d.open ? '#00D983' : '#F05359')}
-                />
-
-                <OHLCTooltip
-                  forChart={1}
-                  origin={[-40, 10]}
-                  xDisplayFormat={timeFormat('%Y-%m-%d')}
-                  accessor={c => ({
-                    ...c,
-                    volume: c.volume,
-                  })}
-                />
-              </RSChart>
-
-              <RSChart
-                id={2}
-                height={150}
-                yExtents={d => d.volume}
-                origin={(w, h) => [0, h - 150]}
-              >
-                <YAxis
-                  axisAt='left'
-                  orient='left'
-                  stroke='#555461'
-                  tickStroke='#555461'
-                  ticks={5}
-                  tickFormat={format('.2s')}
-                />
-
-                <MouseCoordinateX
-                  at='bottom'
-                  orient='bottom'
-                  displayFormat={timeFormat('%Y-%m-%d')}
-                />
-
-                <MouseCoordinateY
-                  at='left'
-                  orient='left'
-                  displayFormat={format('~r')}
-                />
-
-                <BarSeries
-                  yAccessor={d => d.volume}
-                  fill={d => (d.close > d.open ? 'rgba(0, 255, 0, 0.2)' : 'rgba(255, 0, 0, 0.2)')}
-                />
-              </RSChart>
-
-              {!_isEmpty(externalIndicators)
-                && renderExternalIndicators({
-                  onOpenSettings: this.onOpenSettingsModal,
-                  indicators: externalIndicators,
-                  indicatorData,
-                })
-              }
-
-              <CrossHairCursor
-                stroke='#EEEEEE'
-                opacity={1}
-              />
-            </ChartCanvas>
-          )
-        }}
-      </AutoSizer>
-    ))
+    return (
+      <TradingViewWidget
+        symbol='BTCUSD'
+        theme={Themes.DARK}
+        autosize
+        allow_symbol_change={false}
+        enable_publishing={false}
+        hideideas
+        save_image={false}
+        toolbar_bg='#fff'
+      />
+    )
   }
 }
 
