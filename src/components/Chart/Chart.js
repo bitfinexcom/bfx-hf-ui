@@ -637,71 +637,13 @@ class Chart extends React.Component {
   }
 
   render() {
-    const {
-      trades, ratio, orders: allOrders, disableIndicatorSettings, showOrders,
-      positions: allPositions, showPositions, indicators: propsIndicators,
-      indicatorData: propsIndicatorData,
-    } = this.props
-
-    const {
-      candles, data, xScale, xAccessor, displayXAccessor, focus, currentMarket,
-      currentExchange, height, indicators: stateIndicators,
-      indicatorData: stateIndicatorData,
-    } = this.state
-
-    if (data.length < 5) { // TODO: Extract
-      return this.renderPanel()
-    }
-
-    const indicators = _isEmpty(stateIndicators)
-      ? propsIndicators
-      : stateIndicators
-
-    const indicatorData = _isEmpty(stateIndicatorData)
-      ? propsIndicatorData
-      : stateIndicatorData
-
-    // TODO: Extract w/r resolution
-    const orders = Object.values(allOrders[currentExchange] || {}).filter(({ symbol }) => (
-      symbol === currentMarket[currentExchange === 'bitfinex' ? 'w' : 'r']
-    ))
-
-    const positions = Object
-      .values(allPositions[currentExchange] || {})
-      .filter(({ symbol }) => symbol === currentMarket)
-
-    const lastCandle = _last(data)
-    const start = xAccessor(data[Math.max(0, data.length - DEFAULT_ZOOM_CANDLE_COUNT)])
-    const end = xAccessor(lastCandle)
-    let xExtents = [start - 50, end + 50]
-
-    if (focus) {
-      if (focus.type === 'mts') {
-        const candleWidth = data[1].mts - data[0].mts
-        const i = data.findIndex((c) => {
-          return focus.v > c.mts && (focus.v - c.mts) <= candleWidth
-        })
-
-        xExtents = [i - (DEFAULT_ZOOM_CANDLE_COUNT / 2), i + (DEFAULT_ZOOM_CANDLE_COUNT / 2)]
-      } else if (focus.type === 'domain') {
-        xExtents = focus.v
-      } else {
-        xExtents = [focus.v - DEFAULT_ZOOM_CANDLE_COUNT, focus.v]
-      }
-    }
-
-    if (xExtents[0] > data.length) {
-      xExtents = [start - 50, end + 50]
-    }
-
-    // Add padding for indicators that render below the main chart
-    const externalIndicators = indicators.filter(i => i.ui.position === 'external')
-    const extraIndicatorHeight = externalIndicators.length * 146
-    const finalHeight = height + extraIndicatorHeight
-
+    console.log('chart rendered')
+    const { activeMarket } = this.props
+    const { base, quote } = activeMarket
+    console.log(base + quote)
     return (
       <TradingViewWidget
-        symbol='BTCUSD'
+        symbol={base + quote}
         theme={Themes.DARK}
         autosize
         allow_symbol_change={false}

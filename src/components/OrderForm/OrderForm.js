@@ -421,7 +421,6 @@ export default class OrderForm extends React.Component {
         uiIcon,
       })
     })
-    console.log('order form render')
 
     // NOTE: Margin trading disabled on Binance
     return (
