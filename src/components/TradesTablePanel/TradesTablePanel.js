@@ -182,10 +182,9 @@ export default class TradesTablePanel extends React.Component {
 
   render() {
     const {
-      label, onRemove, moveable, removeable, showExchange, showMarket, dark,
+      label, onRemove, moveable, removeable, showExchange, showMarket, dark, allMarkets,
     } = this.props
     const { currentExchange, currentMarket } = this.state
-    console.log('trades table panel rendered')
     return (
       <Panel
         dark={dark}
