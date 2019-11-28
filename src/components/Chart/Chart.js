@@ -637,10 +637,8 @@ class Chart extends React.Component {
   }
 
   render() {
-    console.log('chart rendered')
     const { activeMarket } = this.props
     const { base, quote } = activeMarket
-    console.log(base + quote)
     return (
       <TradingViewWidget
         symbol={base + quote}
