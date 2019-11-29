@@ -5,35 +5,12 @@ import _last from 'lodash/last'
 import _isEmpty from 'lodash/isEmpty'
 import _isEqual from 'lodash/isEqual'
 import RandomColor from 'randomcolor'
-import { format } from 'd3-format'
-import { timeFormat } from 'd3-time-format'
 import { TIME_FRAME_WIDTHS } from 'bfx-hf-util'
 import { nonce } from 'bfx-api-node-util'
 import Indicators from 'bfx-hf-indicators'
-import { AutoSizer } from 'react-virtualized'
-import { ChartCanvas, Chart as RSChart } from 'react-stockcharts/'
-import { fitWidth } from 'react-stockcharts/lib/helper'
-import { XAxis, YAxis } from 'react-stockcharts/lib/axes'
 import TradingViewWidget, { Themes } from 'react-tradingview-widget'
 
-import {
-  BarSeries, CandlestickSeries, LineSeries, BollingerSeries,
-} from 'react-stockcharts/lib/series'
-
-import {
-  CrossHairCursor, MouseCoordinateX, MouseCoordinateY, PriceCoordinate,
-} from 'react-stockcharts/lib/coordinates'
-
-import {
-  OHLCTooltip,
-} from 'react-stockcharts/lib/tooltip'
-
-import BuyOrderAnnotation from './BuyOrderAnnotation'
-import SellOrderAnnotation from './SellOrderAnnotation'
-import EventAnnotation from './EventAnnotation'
 import IndicatorSettingsModal from './IndicatorSettingsModal'
-import SettingsTextOverlay from './SettingsTextOverlay'
-
 import Panel from '../../ui/Panel'
 import Spinner from '../../ui/Spinner'
 
@@ -44,7 +21,6 @@ import {
   renderMarketDropdown,
   renderExchangeDropdown,
   renderTimeFrameDropdown,
-  renderExternalIndicators,
   renderAddIndicatorDropdown,
   renderRemoveIndicatorDropdown,
   calcIndicatorValuesForCandles,
@@ -58,7 +34,6 @@ import nearestMarket from '../../util/nearest_market'
 import { propTypes, defaultProps } from './Chart.props'
 import './style.css'
 
-const DEFAULT_ZOOM_CANDLE_COUNT = 100
 const HEIGHT_STEP_PX = 20
 const MIN_HEIGHT_PX = 250
 
@@ -639,19 +614,28 @@ class Chart extends React.Component {
   render() {
     const { activeMarket } = this.props
     const { base, quote } = activeMarket
+    const { currentExchange } = this.state
     return (
-      <TradingViewWidget
-        symbol={base + quote}
-        theme={Themes.DARK}
-        autosize
-        allow_symbol_change={false}
-        enable_publishing={false}
-        hideideas
-        save_image={false}
-        toolbar_bg='#fff'
-      />
+      <div style={{
+        display: 'flex',
+        flex: 1,
+        backgroundColor: '#131722',
+        height: '100%',
+      }}
+      >
+        <TradingViewWidget
+          symbol={`${currentExchange.toUpperCase()}:${base}${quote}`}
+          theme={Themes.DARK}
+          autosize
+          allow_symbol_change={false}
+          enable_publishing={false}
+          hideideas
+          save_image={false}
+          toolbar_bg='#fff'
+        />
+      </div>
     )
   }
 }
 
-export default fitWidth(Chart)
+export default Chart
