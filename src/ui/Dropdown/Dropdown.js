@@ -61,7 +61,7 @@ class Dropdown extends React.Component {
 
             <p
               className={ClassNames({
-                'with-icon': icon && !isOpen && !open,
+                'with-icon': icon,
               })}
             >
               {(options.find(o => o.value === value) || {}).label || fallback || 'Select an option'}
@@ -71,7 +71,9 @@ class Dropdown extends React.Component {
           </div>
 
           {(open || isOpen) && (
-            <ul>
+            <ul
+              className={ClassNames({ 'with-icon': icon })}
+            >
               <Scrollbars autoHeight style={{ maxHeight: '300px' }}>
                 {options.map(o => (
                   o.value === '_label' ? (

@@ -12,12 +12,11 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding-bottom: 25px;
+  padding-bottom: 30px;
 
   .hfui-tvchart__wrapper, .hfui-tradingpage__chart {
-    height: 65%;
+    height: 70%;
     padding-right: 22px;
-    padding-bottom: 10px;
   }
 
   .hfui-tvchart__wrapper > #__tvchart {
