@@ -4,9 +4,23 @@ const {
 
 const path = require('path')
 const url = require('url')
+const { fork } = require('child_process')
 
-require('../scripts/start-ds-bitfinex') // run data server
-require('../scripts/start-api-server') // run API server
+const spawnOpts = {
+  env: { ELECTRON_RUN_AS_NODE: '1' },
+}
+
+const childDSProcess = fork(
+  path.resolve(`${__dirname}/../scripts/start-ds-bitfinex.js`),
+  [],
+  spawnOpts,
+) // run data server
+
+const childAPIProcess = fork(
+  path.resolve(`${__dirname}/../scripts/start-api-server.js`),
+  [],
+  spawnOpts,
+) // run API server
 
 let mainWindow
 
@@ -70,6 +84,9 @@ app.on('window-all-closed', () => {
     unhookIntercept()
     app.quit()
   }
+
+  childAPIProcess.kill()
+  childDSProcess.kill()
 })
 
 app.on('activate', () => {
