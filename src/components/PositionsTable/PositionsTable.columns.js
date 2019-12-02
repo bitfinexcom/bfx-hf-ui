@@ -48,7 +48,7 @@ export default ({ exID, authToken, closePosition }) => [{
       <i
         role='button'
         tabIndex={0}
-        className='far fa-times-circle'
+        className='icon-cancel'
         onClick={() => closePosition(exID, authToken, rowData)}
       />
     </div>
