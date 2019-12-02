@@ -1,12 +1,18 @@
 import { connect } from 'react-redux'
 
 import WSActions from '../../redux/actions/ws'
-import { getAuthConfigured } from '../../redux/selectors/ws'
+import { getSocket, getAuthConfigured } from '../../redux/selectors/ws'
 import Authentication from './Authentication'
 
-const mapStateToProps = (state = {}) => ({
-  configured: getAuthConfigured(state),
-})
+const mapStateToProps = (state = {}) => {
+  const socket = getSocket(state)
+  const { status: wsStatus } = socket
+
+  return {
+    wsConnected: wsStatus === 'online',
+    configured: getAuthConfigured(state),
+  }
+}
 
 const mapDispatchToProps = dispatch => ({ // eslint-disable-line
   onInit: (password) => {
