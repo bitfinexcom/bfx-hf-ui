@@ -5,7 +5,7 @@ const {
 const path = require('path')
 const url = require('url')
 
-// require('../scripts/start-ds-bitfinex') // run data server
+require('../scripts/start-ds-bitfinex') // run data server
 require('../scripts/start-api-server') // run API server
 
 let mainWindow
