@@ -29,7 +29,7 @@ const COMPONENTS_FOR_ID = {
 }
 
 // Just in case we ever decide the labels are again valuable
-export const CONVERT_LABELS_TO_PLACEHOLDERS = true
+export const CONVERT_LABELS_TO_PLACEHOLDERS = false
 
 const marketToQuoteBase = market => ({
   QUOTE: market.q,
