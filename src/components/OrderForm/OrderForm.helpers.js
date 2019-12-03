@@ -13,6 +13,7 @@ import RadioInput from './FieldComponents/input.radio'
 import DateInput from './FieldComponents/input.date'
 import PercentInput from './FieldComponents/input.percent'
 import DropdownInput from './FieldComponents/input.dropdown'
+import RangeInput from './FieldComponents/input.range'
 import UICheckboxGroup from './FieldComponents/ui.checkboxGroup'
 import Button from '../../ui/Button'
 
@@ -26,6 +27,7 @@ const COMPONENTS_FOR_ID = {
   'input.percent': PercentInput,
   'input.radio': RadioInput,
   'input.date': DateInput,
+  'input.range': RangeInput,
 }
 
 // Just in case we ever decide the labels are again valuable

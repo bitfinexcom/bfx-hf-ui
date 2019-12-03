@@ -20,7 +20,7 @@ export default class Panel extends React.PureComponent {
 
     let heightOffsetPX = 0
 
-    if (label) heightOffsetPX += 45
+    if (label || tabs) heightOffsetPX += 50
     if (footer) heightOffsetPX += 35
 
     return (
