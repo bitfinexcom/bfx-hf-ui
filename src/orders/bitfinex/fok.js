@@ -4,15 +4,23 @@ export default () => ({
   uiIcon: 'fill-or-kill-active',
 
   generateOrder: (data = {}, symbol, context) => {
-    const { reduceonly, price, amount } = data
+    const {
+      reduceonly, price, amount, lev,
+    } = data
 
-    return {
-      type: context === 'm' ? 'FOK' : 'EXCHANGE FOK',
+    const orderDefinition = {
+      type: context === 'm' || context === 'f' ? 'FOK' : 'EXCHANGE FOK',
       price,
       amount,
       symbol,
       reduceonly,
     }
+
+    if (context === 'f') {
+      orderDefinition.lev = lev
+    }
+
+    return orderDefinition
   },
 
   header: {
@@ -26,6 +34,17 @@ export default () => ({
     rows: [
       ['price', 'amount'],
     ],
+  }, {
+    title: '',
+    name: 'lev',
+    fullWidth: true,
+    rows: [
+      ['lev'],
+    ],
+
+    visible: {
+      _context: { eq: 'f' },
+    },
   }],
 
   fields: {
@@ -43,6 +62,14 @@ export default () => ({
     amount: {
       component: 'input.amount',
       label: 'Amount $BASE',
+    },
+
+    lev: {
+      component: 'input.range',
+      label: 'Leverage',
+      min: 1,
+      max: 100,
+      default: 10,
     },
   },
 

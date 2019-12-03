@@ -46,7 +46,7 @@ export default class OrderForm extends React.Component {
     fieldData: {},
     validationErrors: {},
     creationError: null,
-    context: 'exchange',
+    context: 'e',
     helpOpen: false,
     configureModalOpen: false,
   }
@@ -123,6 +123,7 @@ export default class OrderForm extends React.Component {
       algoOrders,
       currentExchange: activeExchange,
       currentMarket: activeMarket,
+      context: activeMarket.contexts[0],
       fieldData: {},
       currentLayout: null,
     }
@@ -546,7 +547,10 @@ export default class OrderForm extends React.Component {
               layout: currentLayout,
               validationErrors,
               renderData,
-              fieldData,
+              fieldData: {
+                ...fieldData,
+                _context: context,
+              },
             }),
 
             creationError && (

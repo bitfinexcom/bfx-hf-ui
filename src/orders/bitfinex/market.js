@@ -4,14 +4,19 @@ export default () => ({
   customHelp: 'A Market order will fill immediately at the current market price.\n\nIf the \'reduce-only\' option is specified, the order will be cancelled if it would open or increase the size of an open position.',
 
   generateOrder: (data = {}, symbol, context) => {
-    const { reduceonly, amount } = data
-
-    return {
-      type: context === 'm' ? 'MARKET' : 'EXCHANGE MARKET',
+    const { reduceonly, amount, lev } = data
+    const orderDefinition = {
+      type: context === 'm' || context === 'f' ? 'MARKET' : 'EXCHANGE MARKET',
       amount,
       symbol,
       reduceonly,
     }
+
+    if (context === 'f') {
+      orderDefinition.lev = lev
+    }
+
+    return orderDefinition
   },
 
   header: {
@@ -25,6 +30,17 @@ export default () => ({
     rows: [
       ['price', 'amount'],
     ],
+  }, {
+    title: '',
+    name: 'lev',
+    fullWidth: true,
+    rows: [
+      ['lev'],
+    ],
+
+    visible: {
+      _context: { eq: 'f' },
+    },
   }],
 
   fields: {
@@ -44,6 +60,14 @@ export default () => ({
     amount: {
       component: 'input.amount',
       label: 'Amount $BASE',
+    },
+
+    lev: {
+      component: 'input.range',
+      label: 'Leverage',
+      min: 1,
+      max: 100,
+      default: 10,
     },
   },
 

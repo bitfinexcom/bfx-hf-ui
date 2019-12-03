@@ -20,21 +20,35 @@ export default class Notification extends React.PureComponent {
   render() {
     const { data = {} } = this.props
     const { status, text, mts } = data
+
     let icon
+
     switch (status) {
       case 'success':
         icon = <img src={check} alt='check' />
         break
+
       case 'error':
-        if (text.toLowerCase().includes('invalid password')) { icon = <img src={pass} alt='password error' /> } else { icon = <img src={error} alt='error' /> }
+        if (text.toLowerCase().includes('invalid password')) {
+          icon = <img src={pass} alt='password error' />
+        } else {
+          icon = <img src={error} alt='error' />
+        }
+
         break
+
       case 'info':
-        if (text.toLowerCase().includes('cleared user credentials & data')) { icon = <img src={clear} alt='clear' /> }
+        if (text.toLowerCase().includes('cleared user credentials & data')) {
+          icon = <img src={clear} alt='clear' />
+        }
+
         break
+
       default:
         icon = <img src={check} alt='check' />
         break
     }
+
     return (
       <li className={ClassNames('hfui-notification', {
         [status.toLowerCase()]: true,
@@ -43,6 +57,7 @@ export default class Notification extends React.PureComponent {
         <div className='hfui-notification-icon'>
           {icon}
         </div>
+
         <div className='hfui-notification-data'>
           <p className='nfui-notification-msg'>{text}</p>
           <p className='hfui-notification__ts'>{`${new Date(mts).toLocaleString()}`}</p>

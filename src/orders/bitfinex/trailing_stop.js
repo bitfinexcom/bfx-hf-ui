@@ -7,7 +7,7 @@ export default () => ({
 
   generateOrder: (data = {}, symbol, context) => {
     const {
-      reduceonly, tif, tifDate, distance, amount,
+      reduceonly, tif, tifDate, distance, amount, lev,
     } = data
 
     if (tif && (!_isFinite(tifDate) || tifDate === 0)) {
@@ -15,7 +15,7 @@ export default () => ({
     }
 
     const orderDefinition = {
-      type: context === 'm' ? 'TRAILING STOP' : 'EXCHANGE TRAILING STOP',
+      type: context === 'm' || context === 'f' ? 'TRAILING STOP' : 'EXCHANGE TRAILING STOP',
       priceTrailing: distance,
       amount,
       symbol,
@@ -24,6 +24,10 @@ export default () => ({
 
     if (tif) {
       orderDefinition.tif = new Date(+tifDate).toISOString()
+    }
+
+    if (context === 'f') {
+      orderDefinition.lev = lev
     }
 
     return orderDefinition
@@ -50,6 +54,17 @@ export default () => ({
 
     visible: {
       tif: { eq: true },
+    },
+  }, {
+    title: '',
+    name: 'lev',
+    fullWidth: true,
+    rows: [
+      ['lev'],
+    ],
+
+    visible: {
+      _context: { eq: 'f' },
     },
   }],
 
@@ -79,6 +94,14 @@ export default () => ({
     tifDate: {
       component: 'input.date',
       label: 'TIF Date',
+    },
+
+    lev: {
+      component: 'input.range',
+      label: 'Leverage',
+      min: 1,
+      max: 100,
+      default: 10,
     },
   },
 

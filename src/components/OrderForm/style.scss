@@ -158,6 +158,10 @@
 }
 
 .hfui-orderform__layout-section {
+  &.fullWidth ul > li {
+    width: calc(100% - 20px);
+  }
+
   ul {
     display: flex;
     flex-direction: row;
