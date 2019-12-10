@@ -1,0 +1,40 @@
+.hfui-settingspage__wrapper {
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch; 
+    
+    .hfui-settings__menu { 
+        flex: 1;
+        width: 35%;
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        border-right: 1px solid #102331;
+        
+        li { 
+            margin-top: 5% ;
+            background: #102331;
+            width: 30%;
+            padding: 10px 55px 10px 55px;
+            list-style: none;
+            align-self: center;
+            text-align: center;
+          }
+
+        li:hover { 
+            cursor: pointer;
+        }
+
+        .active { 
+            color: #4faa5e;
+            cursor: pointer;
+            border: 1px #4faa5e solid;
+          }
+
+    }
+    .hfui-settings__content {
+        width: 70%; 
+      }
+    
+}
