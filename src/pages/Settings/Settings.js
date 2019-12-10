@@ -38,7 +38,12 @@ export default class Settings extends React.Component {
     return (
       <div className='hfui-settingspage__wrapper'>
         <div className='hfui-settings__menu'>
-            api
+          <li className='active'>
+                API credentials
+          </li>
+          <li>
+             User settings
+          </li>
         </div>
         <div className='hfui-settings__content'>
           <SubmitAPIKeysModal
@@ -46,6 +51,7 @@ export default class Settings extends React.Component {
             onSubmit={this.onSubmitAPIKeys}
             exID={currentExchange}
             onClose={() => { return null }}
+            isModal={false}
           />
         </div>
         <StatusBar
