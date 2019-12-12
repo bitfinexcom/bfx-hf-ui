@@ -3,6 +3,8 @@ import React from 'react'
 
 import StatusBar from '../../components/StatusBar'
 import SubmitAPIKeysModal from '../../components/OrderForm/Modals/SubmitAPIKeysModal'
+import SettingsMenu from '../../components/SettingsMenu'
+
 import './style.css'
 
 export default class Settings extends React.Component {
@@ -15,9 +17,21 @@ export default class Settings extends React.Component {
 
     this.state = {
       currentExchange,
+      page: 'api',
+      pages: [
+        {
+          name: 'api',
+          title: 'API credentials',
+        },
+        {
+          name: 'user',
+          title: 'User settings',
+        },
+      ],
     }
 
     this.onSubmitAPIKeys = this.onSubmitAPIKeys.bind(this)
+    this.changePage = this.changePage.bind(this)
   }
 
   onSubmitAPIKeys({ apiKey, apiSecret, password }) {
@@ -33,19 +47,19 @@ export default class Settings extends React.Component {
     })
   }
 
+  changePage(page) {
+    this.setState({ page })
+  }
+
   render() {
-    const { currentExchange } = this.state
+    const { currentExchange, page, pages } = this.state
     return (
       <div className='hfui-settingspage__wrapper'>
         <div className='hfui-settings__menu'>
-          <li className='active'>
-                API credentials
-          </li>
-          <li>
-             User settings
-          </li>
+          <SettingsMenu pages={pages} onChange={this.changePage} page={page} />
         </div>
         <div className='hfui-settings__content'>
+          {(page === 'api' && (
           <SubmitAPIKeysModal
             key='submit-api-key'
             onSubmit={this.onSubmitAPIKeys}
@@ -53,6 +67,7 @@ export default class Settings extends React.Component {
             onClose={() => { return null }}
             isModal={false}
           />
+          ))}
         </div>
         <StatusBar
           key='statusbar'
