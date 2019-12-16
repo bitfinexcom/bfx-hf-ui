@@ -48,7 +48,7 @@ export default class SubmitAPIKeysModal extends React.Component {
 
   render() {
     const {
-      exID, onClose, apiClientConnecting, isModal = false,
+      exID, onClose, apiClientConnecting, isModal = true,
     } = this.props
     const { apiKey, apiSecret, error } = this.state
 
