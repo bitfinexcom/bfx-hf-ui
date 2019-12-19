@@ -6,11 +6,23 @@
     
     .hfui-settings__menu { 
         flex: 1;
-        width: 35%;
+        width: 100%;
         display: flex;
         justify-content: flex-start;
         flex-direction: column;
-        
+        .hfui-settings__menu-item { 
+          width:100%;
+          justify-content: space-between;
+          display: flex;
+          padding: 5% 0% 0 0;
+          .hfui-settings__menu-item-label { 
+            font-style: bold;
+            width: 35%;
+          }
+          .hfui-settings__menu-item-button { 
+            margin-right: 20px;
+          }
+        }
         li { 
             margin-top: 5% ;
             background: #102331;
