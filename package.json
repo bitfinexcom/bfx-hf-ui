@@ -87,7 +87,8 @@
     "dist": "cross-env build --mac --win --linux -c.extraMetadata.main=build/electron.js --publish never",
     "dist-win": "cross-env build --win -c.extraMetadata.main=build/electron.js --publish never",
     "dist-mac": "cross-env build --mac -c.extraMetadata.main=build/electron.js --publish never",
-    "dist-linux": "cross-env build --linux -c.extraMetadata.main=build/electron.js --publish never"
+    "dist-linux": "cross-env build --linux -c.extraMetadata.main=build/electron.js --publish never",
+    "release": "electron-builder -p always"
   },
   "author": "Bitfinex",
   "license": "Apache-2.0",
