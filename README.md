@@ -55,6 +55,4 @@ Starting the HF UI will spawn all of the Honey Framework services that are neede
 
 ## Trigger Travis build
 
-```
-git tag -a v${version} -m 'v{$version}' && git push origin --tags
-```
+Travis automatically builds and deploys this code to the github releases page whenever a commit specifying a new tag ('v3.0.4', 'v5.0.4' ect...) is merged into master.
