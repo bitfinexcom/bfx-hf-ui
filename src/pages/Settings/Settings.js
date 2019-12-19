@@ -5,6 +5,7 @@ import StatusBar from '../../components/StatusBar'
 import SubmitAPIKeysModal from '../../components/OrderForm/Modals/SubmitAPIKeysModal'
 import SettingsMenu from '../../components/SettingsMenu'
 
+import UserSettings from './UserSettings'
 import './style.css'
 
 export default class Settings extends React.Component {
@@ -67,6 +68,9 @@ export default class Settings extends React.Component {
             onClose={() => { return null }}
             isModal={false}
           />
+          ))}
+          {(page === 'user' && (
+            <UserSettings />
           ))}
         </div>
         <StatusBar
