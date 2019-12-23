@@ -112,16 +112,16 @@ export default class Chart extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     const {
-      indicators, trades, positions, exchanges, orders,
+      trades, positions, exchanges, orders,
     } = this.props
 
     const {
       currentTF, currentExchange, currentMarket, height,
-      lastInternalCandleUpdate,
+      lastInternalCandleUpdate, indicators,
     } = this.state
 
     if (
-      !_isEqual(nextProps.indicators, indicators)
+      !_isEqual(nextState.indicators, indicators)
       || !_isEqual(nextProps.trades, trades)
       || (nextState.currentTF !== currentTF)
       || (nextState.currentExchange !== currentExchange)
