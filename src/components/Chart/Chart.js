@@ -120,11 +120,12 @@ export default class Chart extends React.Component {
 
     const {
       currentTF, currentExchange, currentMarket, height,
-      lastInternalCandleUpdate, indicators,
+      lastInternalCandleUpdate, indicators, drawings,
     } = this.state
 
     if (
       !_isEqual(nextState.indicators, indicators)
+      || !_isEqual(nextState.drawings, drawings)
       || !_isEqual(nextProps.trades, trades)
       || (nextState.currentTF !== currentTF)
       || (nextState.currentExchange !== currentExchange)
