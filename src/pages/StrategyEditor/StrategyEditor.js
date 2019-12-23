@@ -108,6 +108,7 @@ export default class StrategyEditorPage extends React.Component {
     const {
       results = {}, indicators, indicatorData, focusMTS, tf,
     } = this.state
+
     const { trades = [] } = results
 
     return (
@@ -126,28 +127,30 @@ export default class StrategyEditorPage extends React.Component {
           key='main'
           className='hfui-strategiespage__right'
         >
-          <Chart
-            dark
-            showIndicatorControls={false}
-            showOrders={false}
-            showPositions={false}
-            activeMarket={activeMarket}
-            activeExchange={activeExchange}
-            indicators={Object.values(indicators)}
-            indicatorData={indicatorData}
-            trades={trades}
-            focusMTS={focusMTS}
-            moveable={false}
-            removeable={false}
-            canChangeMarket={false}
-            canChangeExchange={false}
-            showMarket={false}
-            showExchange={false}
-            disableIndicatorSettings
+          <div className='hfui-strategiespage__chart'>
+            <Chart
+              dark
+              showIndicatorControls={false}
+              showOrders={false}
+              showPositions={false}
+              activeMarket={activeMarket}
+              activeExchange={activeExchange}
+              indicators={Object.values(indicators)}
+              indicatorData={indicatorData}
+              trades={trades}
+              focusMTS={focusMTS}
+              moveable={false}
+              removeable={false}
+              canChangeMarket={false}
+              canChangeExchange={false}
+              showMarket={false}
+              showExchange={false}
+              disableIndicatorSettings
 
-            onRangeChange={this.onCurrentRangeChange}
-            onTFChange={this.onCurrentTFChange}
-          />
+              onRangeChange={this.onCurrentRangeChange}
+              onTFChange={this.onCurrentTFChange}
+            />
+          </div>
 
           <StrategyTradesTable
             dark
