@@ -8,6 +8,8 @@ export default (indicatorIDs = [], indicatorArgs = [], candles = []) => {
   const indicators = []
   const indicatorData = {}
 
+  console.log({ indicatorIDs, indicatorArgs })
+
   indicatorIDs.forEach((id, n) => {
     const I = Object.values(Indicators).find(i => i.id === id)
     const i = new I((I).args.map((arg, argN) => (indicatorArgs[n] || {})[argN] || arg.default))

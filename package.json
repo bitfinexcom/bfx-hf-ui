@@ -172,6 +172,7 @@
     "bfx-hf-server": "github:bitfinexcom/bfx-hf-server#master",
     "bfx-hf-strategy": "^1.0.1",
     "bfx-hf-util": "^1.0.1",
+    "bitfinex-chart": "^1.0.0",
     "bignumber.js": "^9.0.0",
     "camelcase": "^5.3.1",
     "classnames": "^2.2.6",
