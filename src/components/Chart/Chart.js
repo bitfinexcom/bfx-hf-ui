@@ -32,6 +32,7 @@ export default class Chart extends React.Component {
   state = {
     candles: [],
     indicators: [],
+    drawings: [],
     lastCandleUpdate: null,
     lastInternalCandleUpdate: 0,
     marketDirty: false, // if false, we update w/ saved state
@@ -91,14 +92,16 @@ export default class Chart extends React.Component {
       onTFChange(currentTF)
     }
 
+    this.chartRef = React.createRef()
+
     this.onChangeTF = this.onChangeTF.bind(this)
     this.onChangeMarket = this.onChangeMarket.bind(this)
     this.onChangeExchange = this.onChangeExchange.bind(this)
     this.onLoadMore = this.onLoadMore.bind(this)
+    this.onAddDrawing = this.onAddDrawing.bind(this)
     this.onAddIndicator = this.onAddIndicator.bind(this)
     this.onIncreaseHeight = this.onIncreaseHeight.bind(this)
     this.onDecreaseHeight = this.onDecreaseHeight.bind(this)
-    this.chartRef = null
   }
 
   componentDidMount() {
@@ -166,6 +169,15 @@ export default class Chart extends React.Component {
     }))
 
     this.deferSaveState()
+  }
+
+  onAddDrawing(D) {
+    this.setState(({ drawings }) => ({
+      drawings: [
+        new D(this.chartRef.current.chart),
+        ...drawings,
+      ],
+    }))
   }
 
   onAddIndicator(i) {
@@ -343,14 +355,16 @@ export default class Chart extends React.Component {
   render() {
     const { trades } = this.props
     const {
-      data, indicators, currentTF, currentMarket,
+      data, indicators, drawings, currentTF, currentMarket,
     } = this.state
 
     return (
       <AutoSizer>
         {({ width, height }) => width > 0 && height > 0 && (
           <BFXChart
+            ref={this.chartRef}
             indicators={indicators}
+            drawings={drawings}
             candles={data}
             trades={trades}
             candleWidth={currentTF}
@@ -359,6 +373,7 @@ export default class Chart extends React.Component {
             onLoadMore={this.onLoadMore}
             onTimeFrameChange={this.onChangeTF}
             onAddIndicator={this.onAddIndicator}
+            onAddDrawing={this.onAddDrawing}
             marketLabel={currentMarket.uiID}
             bgColor='#111'
             // bgColor='#102331'
