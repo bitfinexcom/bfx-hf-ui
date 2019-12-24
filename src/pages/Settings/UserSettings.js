@@ -3,13 +3,20 @@
 /* eslint-disable react/button-has-type */
 import React from 'react'
 import { Toggle } from 'react-toggle-component'
-// import { connect } from 'react-redux'
+import { connect } from 'react-redux'
 
 import './style.css'
 
-export default class UserSettings extends React.Component {
+class UserSettings extends React.Component {
   state = {
     socketEnabled: false,
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (JSON.stringify(this.state) === JSON.stringify(nextState)) {
+      return false
+    }
+    return true
   }
 
   onToggle(key) {
@@ -36,3 +43,8 @@ export default class UserSettings extends React.Component {
     )
   }
 }
+const mapStateToProps = (state) => {
+  console.log(state)
+}
+
+export default connect(mapStateToProps, null)(UserSettings)
