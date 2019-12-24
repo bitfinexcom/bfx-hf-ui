@@ -142,28 +142,11 @@ class Chart extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     const {
-      indicators, indicatorData, trades, focusMTS, positions, exchanges, orders,
-    } = this.props
-
-    const {
-      currentTF, currentExchange, currentMarket, indicators: stateIndicators,
-      settingsModalOpen, height, lastDomain, lastInternalCandleUpdate,
+      currentExchange, currentMarket, lastDomain, lastInternalCandleUpdate,
     } = this.state
 
-    if (
-      !_isEqual(nextProps.indicators, indicators)
-      || !_isEqual(nextProps.indicatorData, indicatorData)
-      || !_isEqual(nextProps.trades, trades)
-      || (nextProps.focusMTS !== focusMTS)
-      || (nextState.currentTF !== currentTF)
-      || (nextState.currentExchange !== currentExchange)
+    if (nextState.currentExchange !== currentExchange
       || !_isEqual(nextState.currentMarket, currentMarket)
-      || !_isEqual(nextProps.positions, positions)
-      || !_isEqual(nextState.indicators, stateIndicators)
-      || (nextState.settingsModalOpen !== settingsModalOpen)
-      || !_isEqual(nextProps.exchanges, exchanges)
-      || !_isEqual(nextProps.orders, orders)
-      || (nextState.height !== height)
     ) {
       return true
     }
@@ -173,7 +156,7 @@ class Chart extends React.Component {
     } if (nextState.lastInternalCandleUpdate === lastInternalCandleUpdate) {
       return false
     }
-    return true
+    return false
   }
 
   componentDidUpdate() {
@@ -546,7 +529,6 @@ class Chart extends React.Component {
         }))
       }
     }
-
     return (
       <Panel
         className={ClassNames('hfui-chart__wrapper', className)}
