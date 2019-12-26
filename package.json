@@ -27,7 +27,8 @@
       "category": "public.app-category.productivity",
       "target": [
         "dmg",
-        "zip"
+        "zip",
+        "mas"
       ]
     },
     "win": {
@@ -83,7 +84,7 @@
     "lint": "cross-env eslint src/**/*.js",
     "electron-dev": "cross-env concurrently \"BROWSER=none npm run start-server\"  & electron .",
     "electron": "cross-env electron .",
-    "pack": "cross-env electron-builder --dir",
+    "pack": "cross-env ./node_modules/.bin/electron-builder --dir",
     "dist": "cross-env build --mac --win --linux -c.extraMetadata.main=build/electron.js --publish never",
     "dist-win": "cross-env build --win -c.extraMetadata.main=build/electron.js --publish never",
     "dist-mac": "cross-env build --mac -c.extraMetadata.main=build/electron.js --publish never",
@@ -104,18 +105,8 @@
     "BTC"
   ],
   "devDependencies": {
-    "cjs": "0.0.11",
-    "cjs-loader": "^0.1.0",
-    "concurrently": "^4.1.0",
     "electron": "4.2.4",
-    "electron-builder": "20.41.0",
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-import": "^2.17.2",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.13.0",
-    "node-sass-chokidar": "^1.3.5",
-    "node-sass-tilde-importer": "^1.0.2"
+    "electron-builder": "22.2.0"
   },
   "dependencies": {
     "@babel/core": "7.4.3",
@@ -146,7 +137,7 @@
     "bfx-hf-util": "^1.0.1",
     "bignumber.js": "^9.0.0",
     "bufferutil": "^4.0.1",
-    "camelcase": "^5.2.0",
+    "camelcase": "^5.3.1",
     "case-sensitive-paths-webpack-plugin": "2.2.0",
     "classnames": "^2.2.6",
     "closest": "0.0.1",
@@ -161,6 +152,7 @@
     "dotenv-expand": "4.2.0",
     "email-validator": "^2.0.4",
     "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
     "eslint-config-react-app": "^4.0.1",
     "eslint-loader": "2.1.2",
     "eslint-plugin-flowtype": "2.50.1",
@@ -182,6 +174,8 @@
     "js-levenshtein": "^1.1.6",
     "lodash": "^4.17.11",
     "mini-css-extract-plugin": "0.5.0",
+    "node-sass-chokidar": "^1.3.5",
+    "node-sass-tilde-importer": "^1.0.2",
     "normalize.css": "^8.0.1",
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "pathfinding": "^0.4.18",
