@@ -1,5 +1,4 @@
 import React from 'react'
-import { Icon } from 'react-fa'
 
 import HFIcon from '../../ui/HFIcon'
 import NavbarButton from '../NavbarButton'
