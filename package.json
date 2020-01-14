@@ -27,7 +27,7 @@
       "artifactName": "${productName}-${version}-${arch}-${os}.${ext}",
       "category": "public.app-category.productivity",
       "target": [
-        "dir"
+        "zip"
       ]
     },
     "win": {
@@ -86,7 +86,7 @@
     "pack": "cross-env ./node_modules/.bin/electron-builder --dir",
     "dist": "cross-env build --mac --win --linux -c.extraMetadata.main=build/electron.js --publish never",
     "dist-win": "cross-env electron-builder --win -c.extraMetadata.main=build/electron.js --publish never",
-    "dist-mac": "npm cache clean --force && cross-env electron-builder --mac -c.extraMetadata.main=build/electron.js --publish never",
+    "dist-mac": "cross-env electron-builder --mac -c.extraMetadata.main=build/electron.js --publish never",
     "dist-linux": "cross-env electron-builder --linux -c.extraMetadata.main=build/electron.js --publish never",
     "release": "electron-builder -p always"
   },
