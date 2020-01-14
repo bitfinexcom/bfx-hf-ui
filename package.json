@@ -27,9 +27,7 @@
       "artifactName": "${productName}-${version}-${arch}-${os}.${ext}",
       "category": "public.app-category.productivity",
       "target": [
-        "dmg",
-        "zip",
-        "mas"
+        "dir"
       ]
     },
     "win": {
