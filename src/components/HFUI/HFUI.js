@@ -29,7 +29,9 @@ export default class HFUI extends React.PureComponent {
   }
 
   render() {
-    const { activeMarket, authToken, getLastVersion } = this.props
+    const {
+      activeMarket, authToken, getLastVersion, currentPage,
+    } = this.props
     const oneHour = 360000
     getLastVersion()
     setInterval(getLastVersion(), oneHour)
@@ -45,11 +47,14 @@ export default class HFUI extends React.PureComponent {
     return (
       <div className='hfui-app'>
         <Navbar />
-
-        <ExchangeInfoBar
-          selectedMarket={activeMarket}
-          onChangeMarket={this.onChangeMarket}
-        />
+        {
+          currentPage !== '/settings' && (
+            <ExchangeInfoBar
+              selectedMarket={activeMarket}
+              onChangeMarket={this.onChangeMarket}
+            />
+          )
+        }
 
         <Switch>
 
