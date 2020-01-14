@@ -1,51 +1,51 @@
 .hfui-settingspage__wrapper {
     color: white;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: stretch; 
-    
-    .hfui-settings__menu { 
-        flex: 1;
-        width: 100%;
-        display: flex;
-        justify-content: flex-start;
-        flex-direction: column;
-        .hfui-settings__menu-item { 
-          width:100%;
-          justify-content: space-between;
-          display: flex;
-          padding: 5% 0% 0 0;
-          .hfui-settings__menu-item-label { 
-            font-style: bold;
-            width: 35%;
-          }
-          .hfui-settings__menu-item-button { 
-            margin-right: 20px;
-          }
-        }
-        li { 
-            margin-top: 5% ;
-            background: #102331;
-            width: 30%;
-            padding: 10px 55px 10px 55px;
-            list-style: none;
-            align-self: center;
-            text-align: center;
-          }
-
-        li:hover { 
-            cursor: pointer;
-        }
-
-        .active { 
-            color: #4faa5e;
-            cursor: pointer;
-            border: 1px #4faa5e solid;
-          }
-
-    }
+    margin-left: 8%;
+    margin-top: 4%;
     .hfui-settings__content {
-        width: 70%; 
+      width: 100%; 
+      .hfui-settings__option-check{
+        font-size: .5em;
       }
-    
+      .hfui-settings__option-description {
+        width: 40%;
+        padding: 7px 0 7px 0;
+        color: rgb(165, 165, 165);
+      }
+      li {
+        margin-top: 3%;
+        width: 100%;
+        .hfui-settings__option-label {
+          margin-bottom: .5%;
+          font-size: 1.2em;
+        }
+      }
+      .hfui-settings__option * {
+        font-size: 1.2em;
+        .hfui-settings__item-list {
+          width: 40%;
+          margin-bottom: 7px;
+          font-size: .8em;
+        }
+        .hfui-settings__button {
+          padding: 10px;
+        }
+      }
+      .hfui-setting__select {
+        min-width: 125px !important;
+        background: #102331;
+        color: white;
+        width: 40%;
+        padding: 7px;
+      }
+  }
+
+  .hfui-settings__title {
+    font-size: 1.5em;
+    font-weight: 400;
+  }
+
 }
