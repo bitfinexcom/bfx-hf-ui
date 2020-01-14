@@ -1,11 +1,15 @@
+/* eslint-disable react/no-unused-state */
 /* eslint-disable react/prop-types */
 import React from 'react'
+import _capitalize from 'lodash/capitalize'
+import ClassNames from 'classnames'
 
 import StatusBar from '../../components/StatusBar'
-import SubmitAPIKeysModal from '../../components/OrderForm/Modals/SubmitAPIKeysModal'
-import SettingsMenu from '../../components/SettingsMenu'
+import Select from '../../ui/Select'
+import Checkbox from '../../ui/Checkbox'
+import Input from '../../ui/Input'
+import Button from '../../ui/Button'
 
-import UserSettings from './UserSettings'
 import './style.css'
 
 export default class Settings extends React.Component {
@@ -52,26 +56,75 @@ export default class Settings extends React.Component {
     this.setState({ page })
   }
 
+
   render() {
-    const { currentExchange, page, pages } = this.state
+    const themes = ['bfx-dark-theme', 'bfx-light-theme']
+    const charts = ['Trading view', 'HF custom chart']
+
     return (
       <div className='hfui-settingspage__wrapper'>
-        <div className='hfui-settings__menu'>
-          <SettingsMenu pages={pages} onChange={this.changePage} page={page} />
+        <div className='hfui-settings__title'>
+            Settings
         </div>
         <div className='hfui-settings__content'>
-          {(page === 'api' && (
-          <SubmitAPIKeysModal
-            key='submit-api-key'
-            onSubmit={this.onSubmitAPIKeys}
-            exID={currentExchange}
-            onClose={() => { return null }}
-            isModal={false}
-          />
-          ))}
-          {(page === 'user' && (
-            <UserSettings />
-          ))}
+          <div>
+            <ul className='hfui-settings__options'>
+              <li>
+                <p className='hfui-settings__option-label'>Theme</p>
+                <div className='hfui-settings__option'>
+                  <Select
+                    value={{ value: themes[0], label: _capitalize(themes[0]) }}
+                    className={ClassNames('hfui-setting__select')}
+                    options={themes.map(theme => ({ value: theme, label: _capitalize(theme) }))}
+                    onChange={() => console.log('theme select')}
+                  />
+                </div>
+              </li>
+              <li>
+                <p className='hfui-settings__option-label'>Chart</p>
+                <div className='hfui-settings__option'>
+                  <Select
+                    value={{ value: charts[0], label: _capitalize(charts[0]) }}
+                    className={ClassNames('hfui-setting__select')}
+                    options={charts.map(chart => ({ value: chart, label: _capitalize(chart) }))}
+                    onChange={() => console.log('chart select')}
+                  />
+                </div>
+              </li>
+              <li>
+                <p className='hfui-settings__option-label'>Dead Man Switch</p>
+                <p className='hfui-settings__option-description'>
+                  Enabling the deadman switch will automatically cancel all active orders when the HF disconnects
+                </p>
+                <div className='hfui-settings__option-check'>
+                  <Checkbox
+                    className={ClassNames('hfui-settings_check')}
+                    onChange={() => console.log('changed')}
+                    label='DMS'
+                  />
+                </div>
+              </li>
+              <li>
+                <p className='hfui-settings__option-label'>API credentials</p>
+                <div className='hfui-settings__option'>
+                  <Input
+                    placeholder='API Key'
+                    onChange={() => console.log('api key changed')}
+                    className={ClassNames('hfui-settings__item-list')}
+                  />
+                  <Input
+                    placeholder='API Secret'
+                    onChange={() => console.log('secret changed')}
+                    className={ClassNames('hfui-settings__item-list')}
+                  />
+                  <Button
+                    label='Save Credentials'
+                    gray
+                  />
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
         <StatusBar
           key='statusbar'
