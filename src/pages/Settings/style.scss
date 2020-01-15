@@ -23,15 +23,22 @@
           font-size: 1.2em;
         }
       }
+      .hfui-settings__option {
+        width: 40%;
+
+        .settings-save * {
+          padding: 10px 30px 10px 30px;
+        }
+      }
       .hfui-settings__option * {
         font-size: 1.2em;
+        .field-icon {
+          font-size: .8em !important;
+          margin-top: -30px;
+        }
         .hfui-settings__item-list {
-          width: 40%;
           margin-bottom: 7px;
           font-size: .8em;
-        }
-        .hfui-settings__button {
-          padding: 10px;
         }
       }
       .hfui-setting__select {
