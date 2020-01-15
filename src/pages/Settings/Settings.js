@@ -33,13 +33,25 @@ export default class Settings extends React.Component {
           title: 'User settings',
         },
       ],
+      apiKey: '',
+      apiSecret: '',
+      password: '',
     }
 
     this.onSubmitAPIKeys = this.onSubmitAPIKeys.bind(this)
-    this.changePage = this.changePage.bind(this)
+    this.onChangeAPIKey = this.onChangeAPIKey.bind(this)
+    this.onChangeAPISecret = this.onChangeAPISecret.bind(this)
   }
 
-  onSubmitAPIKeys({ apiKey, apiSecret, password }) {
+  onChangeAPISecret(apiSecret) {
+    this.setState({ apiSecret })
+  }
+
+  onChangeAPIKey(apiKey) {
+    this.setState({ apiKey })
+  }
+
+  onSubmitAPIKeys({ apiKey, apiSecret }) {
     const { submitAPIKeys, authToken } = this.props
     const { currentExchange } = this.state
 
@@ -48,14 +60,8 @@ export default class Settings extends React.Component {
       exID: currentExchange,
       apiKey,
       apiSecret,
-      password,
     })
   }
-
-  changePage(page) {
-    this.setState({ page })
-  }
-
 
   render() {
     const themes = ['bfx-dark-theme', 'bfx-light-theme']
@@ -71,7 +77,7 @@ export default class Settings extends React.Component {
             <ul className='hfui-settings__options'>
               <li>
                 <p className='hfui-settings__option-label'>Theme</p>
-                <div className='hfui-settings__option'>
+                <div className='hfui-settings__item-list'>
                   <Select
                     value={{ value: themes[0], label: _capitalize(themes[0]) }}
                     className={ClassNames('hfui-setting__select')}
@@ -82,7 +88,7 @@ export default class Settings extends React.Component {
               </li>
               <li>
                 <p className='hfui-settings__option-label'>Chart</p>
-                <div className='hfui-settings__option'>
+                <div className='hfui-settings__item-list'>
                   <Select
                     value={{ value: charts[0], label: _capitalize(charts[0]) }}
                     className={ClassNames('hfui-setting__select')}
@@ -109,17 +115,24 @@ export default class Settings extends React.Component {
                 <div className='hfui-settings__option'>
                   <Input
                     placeholder='API Key'
-                    onChange={() => console.log('api key changed')}
+                    onChange={this.onChangeAPIKey}
                     className={ClassNames('hfui-settings__item-list')}
                   />
                   <Input
+                    type='password'
                     placeholder='API Secret'
-                    onChange={() => console.log('secret changed')}
+                    onChange={this.onChangeAPISecret}
                     className={ClassNames('hfui-settings__item-list')}
                   />
+                </div>
+              </li>
+              <li>
+                <div className='hfui-settings__option'>
                   <Button
-                    label='Save Credentials'
+                    onClick={() => this.onSubmitAPIKeys(this.state)}
+                    label='Save'
                     gray
+                    className={ClassNames('settings-save')}
                   />
                 </div>
               </li>
