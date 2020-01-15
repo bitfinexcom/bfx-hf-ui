@@ -41,6 +41,7 @@ export default class Settings extends React.Component {
     this.onSubmitAPIKeys = this.onSubmitAPIKeys.bind(this)
     this.onChangeAPIKey = this.onChangeAPIKey.bind(this)
     this.onChangeAPISecret = this.onChangeAPISecret.bind(this)
+    this.onSettingsSave = this.onSettingsSave.bind(this)
   }
 
   onChangeAPISecret(apiSecret) {
@@ -61,6 +62,14 @@ export default class Settings extends React.Component {
       apiKey,
       apiSecret,
     })
+  }
+
+  onSettingsSave() {
+    const { apiKey, apiSecret } = this.state
+
+    if (apiKey.trim().length > 0 && apiSecret.trim().length > 0) {
+      this.onSubmitAPIKeys(this.state)
+    }
   }
 
   render() {
@@ -129,7 +138,7 @@ export default class Settings extends React.Component {
               <li>
                 <div className='hfui-settings__option'>
                   <Button
-                    onClick={() => this.onSubmitAPIKeys(this.state)}
+                    onClick={this.onSettingsSave}
                     label='Save'
                     gray
                     className={ClassNames('settings-save')}
