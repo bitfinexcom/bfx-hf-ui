@@ -86,7 +86,7 @@
     "pack": "cross-env ./node_modules/.bin/electron-builder --dir",
     "dist": "cross-env build --mac --win --linux -c.extraMetadata.main=build/electron.js --publish never",
     "dist-win": "cross-env electron-builder --win -c.extraMetadata.main=build/electron.js --publish never",
-    "dist-mac": "cross-env electron-packager . --platform=mas --out=./dist && electron-installer-zip ./dist/bfx-hf-ui-mas-x64 ./dist/bfx-hf-ui-mac-x64.zip",
+    "dist-mac": "cross-env electron-packager . --overwrite --platform=mas --arch=x64 --prune --icon=build/icon.png --out=dist && electron-installer-zip dist/bfx-hf-ui-mas-x64 dist/bfx-hf-ui-mac-x64.zip",
     "dist-linux": "cross-env electron-builder --linux -c.extraMetadata.main=build/electron.js --publish never",
     "release": "electron-builder -p always"
   },
