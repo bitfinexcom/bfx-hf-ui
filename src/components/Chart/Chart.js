@@ -100,6 +100,8 @@ export default class Chart extends React.Component {
     this.onLoadMore = this.onLoadMore.bind(this)
     this.onAddDrawing = this.onAddDrawing.bind(this)
     this.onAddIndicator = this.onAddIndicator.bind(this)
+    this.onDeleteIndicator = this.onDeleteIndicator.bind(this)
+    this.onUpdateIndicatorArgs = this.onUpdateIndicatorArgs.bind(this)
     this.onIncreaseHeight = this.onIncreaseHeight.bind(this)
     this.onDecreaseHeight = this.onDecreaseHeight.bind(this)
   }
@@ -115,7 +117,7 @@ export default class Chart extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     const {
-      trades, positions, exchanges, orders,
+      trades, positions, exchanges, orders, syncRanges,
     } = this.props
 
     const {
@@ -125,6 +127,7 @@ export default class Chart extends React.Component {
 
     if (
       !_isEqual(nextState.indicators, indicators)
+      || !_isEqual(nextProps.syncRanges, syncRanges)
       || !_isEqual(nextState.drawings, drawings)
       || !_isEqual(nextProps.trades, trades)
       || (nextState.currentTF !== currentTF)
@@ -188,6 +191,26 @@ export default class Chart extends React.Component {
         i,
       ],
     }))
+  }
+
+  onDeleteIndicator(index) {
+    this.setState(({ indicators }) => {
+      const nextIndicators = [...indicators]
+      nextIndicators.splice(index, 1)
+      return { indicators: nextIndicators }
+    })
+  }
+
+  onUpdateIndicatorArgs(args, index) {
+    this.setState(({ indicators }) => {
+      const nextIndicators = [...indicators]
+      const nextIndicator = [...nextIndicators[index]]
+
+      nextIndicator[1] = args
+      nextIndicators[index] = nextIndicator
+
+      return { indicators: nextIndicators }
+    })
   }
 
   onCandleSelectionChange() {
@@ -354,10 +377,22 @@ export default class Chart extends React.Component {
   }
 
   render() {
-    const { trades } = this.props
     const {
-      data, indicators, drawings, currentTF, currentMarket,
+      trades, syncRanges, disableToolbar, disableTopbar, orders, positions,
+    } = this.props
+
+    const {
+      data, indicators, drawings, currentExchange, currentTF, currentMarket,
     } = this.state
+
+    const isSyncing = !!syncRanges.find(({ exID, symbol, tf }) => (
+      exID === currentExchange && symbol === currentMarket.wsID && tf === currentTF
+    ))
+
+    const relevantPosition = (positions[currentExchange] || {})[currentMarket.wsID]
+    const relevantOrders = Object
+      .values(orders[currentExchange] || {})
+      .filter(o => o.symbol === currentMarket.wsID)
 
     return (
       <AutoSizer>
@@ -368,14 +403,21 @@ export default class Chart extends React.Component {
             drawings={drawings}
             candles={data}
             trades={trades}
+            orders={relevantOrders}
+            position={relevantPosition}
             candleWidth={currentTF}
             width={width}
             height={height}
             onLoadMore={this.onLoadMore}
             onTimeFrameChange={this.onChangeTF}
             onAddIndicator={this.onAddIndicator}
+            onUpdateIndicatorArgs={this.onUpdateIndicatorArgs}
+            onDeleteIndicator={this.onDeleteIndicator}
             onAddDrawing={this.onAddDrawing}
             marketLabel={currentMarket.uiID}
+            disableToolbar={disableToolbar}
+            disableTopbar={disableTopbar}
+            isSyncing={isSyncing}
             bgColor='#111'
             // bgColor='#102331'
             config={{

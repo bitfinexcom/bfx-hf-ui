@@ -146,6 +146,7 @@ export default class StrategyEditorPage extends React.Component {
               showMarket={false}
               showExchange={false}
               disableIndicatorSettings
+              disableToolbar
 
               onRangeChange={this.onCurrentRangeChange}
               onTFChange={this.onCurrentTFChange}

@@ -5,7 +5,7 @@ import WSActions from '../../redux/actions/ws'
 import { getExchanges } from '../../redux/selectors/meta'
 import { getComponentState, getActiveExchange } from '../../redux/selectors/ui'
 import {
-  getAllCandles, getAllPositions, getAllOrders,
+  getAllCandles, getAllPositions, getAllOrders, getAllSyncRanges,
 } from '../../redux/selectors/ws'
 
 import Chart from './Chart'
@@ -22,6 +22,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     candleData: getAllCandles(state),
     orders: getAllOrders(state),
     positions: getAllPositions(state),
+    syncRanges: getAllSyncRanges(state),
   }
 }
 

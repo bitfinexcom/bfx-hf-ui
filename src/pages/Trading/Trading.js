@@ -65,6 +65,7 @@ export default class Trading extends React.PureComponent {
                 canChangeExchange={false}
                 moveable={false}
                 removeable={false}
+                disableToolbar
               />
             </div>
 
