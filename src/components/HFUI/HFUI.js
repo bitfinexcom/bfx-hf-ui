@@ -32,9 +32,14 @@ export default class HFUI extends React.PureComponent {
   render() {
     const {
       activeMarket, authToken, getLastVersion, currentPage,
+      getSettings, settings,
     } = this.props
     const oneHour = 360000
     getLastVersion()
+    if (authToken && !Object.keys(settings).length) {
+      getSettings(authToken)
+      console.log('settings has been fetched!')
+    }
     setInterval(getLastVersion(), oneHour)
     if (!authToken) {
       return (
