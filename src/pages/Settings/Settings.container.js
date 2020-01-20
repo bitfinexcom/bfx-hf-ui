@@ -15,7 +15,9 @@ import {
 
 const mapStateToProps = (state = {}, ownProps = {}) => {
   const { layoutID, layoutI: id } = ownProps
-
+  const { ui = {} } = state
+  const { settings = {} } = ui
+  const { chart = '', theme = '', dms = true } = settings
   return {
     activeExchange: getActiveExchange(state),
     activeMarket: getActiveMarket(state),
@@ -25,6 +27,9 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     savedState: getComponentState(state, layoutID, 'orderform', id),
     authToken: getAuthToken(state),
     apiCredentials: getAPICredentials(state),
+    chart,
+    theme,
+    dms,
   }
 }
 
@@ -45,6 +50,17 @@ const mapDispatchToProps = dispatch => ({
       exID,
       apiKey,
       apiSecret,
+    ]))
+  },
+  updateSettings: ({
+    authToken, chart, dms, theme,
+  }) => {
+    dispatch(WSActions.send([
+      'settings.update',
+      authToken,
+      chart,
+      dms,
+      theme,
     ]))
   },
 })

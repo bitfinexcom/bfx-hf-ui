@@ -15,41 +15,29 @@ import './style.css'
 export default class Settings extends React.Component {
   constructor(props) {
     super(props)
-    const { savedState = {}, activeExchange } = props
+    const { savedState = {}, activeExchange, ui = {} } = props
+    const { settings = {} } = ui
+    const { chart, theme, dms } = settings
     const {
       currentExchange = activeExchange,
     } = savedState
 
     this.state = {
       currentExchange,
-      page: 'api',
-      pages: [
-        {
-          name: 'api',
-          title: 'API credentials',
-        },
-        {
-          name: 'user',
-          title: 'User settings',
-        },
-      ],
       apiKey: '',
       apiSecret: '',
       password: '',
+      chart,
+      theme,
+      dms,
     }
 
     this.onSubmitAPIKeys = this.onSubmitAPIKeys.bind(this)
-    this.onChangeAPIKey = this.onChangeAPIKey.bind(this)
-    this.onChangeAPISecret = this.onChangeAPISecret.bind(this)
     this.onSettingsSave = this.onSettingsSave.bind(this)
   }
 
-  onChangeAPISecret(apiSecret) {
-    this.setState({ apiSecret })
-  }
-
-  onChangeAPIKey(apiKey) {
-    this.setState({ apiKey })
+  onOptionChange(e, option) {
+    this.setState({ [option]: typeof e === 'object' ? e.value : e })
   }
 
   onSubmitAPIKeys({ apiKey, apiSecret }) {
@@ -64,18 +52,23 @@ export default class Settings extends React.Component {
     })
   }
 
-  onSettingsSave() {
-    const { apiKey, apiSecret } = this.state
-
+  onSettingsSave(updateSettings, authToken) {
+    const {
+      apiKey, apiSecret, chart, dms, theme,
+    } = this.state
     if (apiKey.trim().length > 0 && apiSecret.trim().length > 0) {
       this.onSubmitAPIKeys(this.state)
     }
+    updateSettings({
+      chart, dms, theme, authToken,
+    })
   }
 
   render() {
     const themes = ['bfx-dark-theme', 'bfx-light-theme']
     const charts = ['Trading view', 'HF custom chart']
-
+    const { updateSettings, authToken } = this.props
+    const { theme, chart, dms } = this.state
     return (
       <div className='hfui-settingspage__wrapper'>
         <div className='hfui-settings__title'>
@@ -88,10 +81,10 @@ export default class Settings extends React.Component {
                 <p className='hfui-settings__option-label'>Theme</p>
                 <div className='hfui-settings__item-list'>
                   <Select
-                    value={{ value: themes[0], label: _capitalize(themes[0]) }}
+                    value={{ value: theme, label: _capitalize(theme) }}
                     className={ClassNames('hfui-setting__select')}
-                    options={themes.map(theme => ({ value: theme, label: _capitalize(theme) }))}
-                    onChange={() => console.log('theme select')}
+                    options={themes.map(t => ({ value: t, label: _capitalize(t) }))}
+                    onChange={e => this.onOptionChange(e, 'theme')}
                   />
                 </div>
               </li>
@@ -99,10 +92,10 @@ export default class Settings extends React.Component {
                 <p className='hfui-settings__option-label'>Chart</p>
                 <div className='hfui-settings__item-list'>
                   <Select
-                    value={{ value: charts[0], label: _capitalize(charts[0]) }}
+                    value={{ value: chart, label: _capitalize(chart) }}
                     className={ClassNames('hfui-setting__select')}
-                    options={charts.map(chart => ({ value: chart, label: _capitalize(chart) }))}
-                    onChange={() => console.log('chart select')}
+                    options={charts.map(c => ({ value: c, label: _capitalize(c) }))}
+                    onChange={e => this.onOptionChange(e, 'chart')}
                   />
                 </div>
               </li>
@@ -114,8 +107,9 @@ export default class Settings extends React.Component {
                 <div className='hfui-settings__option-check'>
                   <Checkbox
                     className={ClassNames('hfui-settings_check')}
-                    onChange={() => console.log('changed')}
+                    onChange={e => this.onOptionChange(e, 'dms')}
                     label='DMS'
+                    value={dms}
                   />
                 </div>
               </li>
@@ -124,13 +118,13 @@ export default class Settings extends React.Component {
                 <div className='hfui-settings__option'>
                   <Input
                     placeholder='API Key'
-                    onChange={this.onChangeAPIKey}
+                    onChange={e => this.onOptionChange(e, 'apiKey')}
                     className={ClassNames('hfui-settings__item-list')}
                   />
                   <Input
                     type='password'
                     placeholder='API Secret'
-                    onChange={this.onChangeAPISecret}
+                    onChange={e => this.onOptionChange(e, 'apiSecret')}
                     className={ClassNames('hfui-settings__item-list')}
                   />
                 </div>
@@ -138,7 +132,7 @@ export default class Settings extends React.Component {
               <li>
                 <div className='hfui-settings__option'>
                   <Button
-                    onClick={this.onSettingsSave}
+                    onClick={() => this.onSettingsSave(updateSettings, authToken)}
                     label='Save'
                     gray
                     className={ClassNames('settings-save')}
