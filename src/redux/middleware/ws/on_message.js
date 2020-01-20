@@ -126,6 +126,12 @@ export default (ws, store) => (e = {}) => {
       break
     }
 
+    case 'data.settings.updated': {
+      const [, settings] = payload
+      store.dispatch(WSActions.recvUpdatedSettings(settings))
+      break
+    }
+
     case 'data.client': {
       const [, exID, status] = payload
       store.dispatch(WSActions.recvClientStatusUpdate({ exID, status }))
