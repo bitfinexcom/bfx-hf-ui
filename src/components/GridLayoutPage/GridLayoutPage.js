@@ -215,8 +215,11 @@ export default class GridLayoutPage extends React.Component {
           layoutDef={layoutDef}
           layoutID={layoutID}
           chartProps={({
-            activeMarket, ...chartProps,
+            activeMarket,
+            disableToolbar: true,
+            ...chartProps,
           })}
+
           bookProps={{ canChangeStacked: true, ...bookProps }}
           tradesProps={{ ...tradesProps }}
           ordersProps={({

@@ -16,7 +16,6 @@
 
   .hfui-tvchart__wrapper, .hfui-tradingpage__chart {
     height: 70%;
-    padding-right: 22px;
   }
 
   .hfui-tvchart__wrapper > #__tvchart {
@@ -48,6 +47,6 @@
   }
 
   .hfui-orderbook__wrapper {
-    padding-right: 31px;
+    padding: 0 20px;
   }
 }

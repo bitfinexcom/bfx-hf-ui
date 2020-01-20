@@ -7,10 +7,16 @@ import { getAuthToken } from '../../redux/selectors/ws'
 
 import HFUI from './HFUI'
 
-const mapStateToProps = (state = {}) => ({
-  activeMarket: getActiveMarket(state),
-  authToken: getAuthToken(state),
-})
+const mapStateToProps = (state = {}) => {
+  const { router } = state
+  const { location } = router
+  const { pathname } = location
+  return {
+    currentPage: pathname,
+    activeMarket: getActiveMarket(state),
+    authToken: getAuthToken(state),
+  }
+}
 
 const mapDispatchToProps = dispatch => ({
   saveLayout: (layout, id) => {
