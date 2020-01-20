@@ -27,13 +27,9 @@
       "artifactName": "${productName}-${version}-${arch}-${os}.${ext}",
       "category": "public.app-category.productivity",
       "target": [
-<<<<<<< HEAD
-        "zip"
-=======
         "dmg",
         "zip",
         "mas"
->>>>>>> dde2543... (wip) finalize
       ]
     },
     "win": {
