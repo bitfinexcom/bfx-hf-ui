@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, Switch, Redirect } from 'react-router'
 
+import SettingsPage from '../../pages/Settings'
 import TradingPage from '../../pages/Trading'
 import StrategyEditorPage from '../../pages/StrategyEditor'
 import MarketDataPage from '../../pages/MarketData'
@@ -29,7 +30,9 @@ export default class HFUI extends React.PureComponent {
   }
 
   render() {
-    const { activeMarket, authToken, getLastVersion } = this.props
+    const {
+      activeMarket, authToken, getLastVersion, currentPage,
+    } = this.props
     const oneHour = 360000
     getLastVersion()
     setInterval(getLastVersion(), oneHour)
@@ -45,11 +48,14 @@ export default class HFUI extends React.PureComponent {
     return (
       <div className='hfui-app'>
         <Navbar />
-
-        <ExchangeInfoBar
-          selectedMarket={activeMarket}
-          onChangeMarket={this.onChangeMarket}
-        />
+        {
+          currentPage !== '/settings' && (
+            <ExchangeInfoBar
+              selectedMarket={activeMarket}
+              onChangeMarket={this.onChangeMarket}
+            />
+          )
+        }
 
         <Switch>
 
@@ -76,7 +82,6 @@ export default class HFUI extends React.PureComponent {
               <MarketDataPage />
             )}
           />
-
         </Switch>
 
         <NotificationsSidebar />

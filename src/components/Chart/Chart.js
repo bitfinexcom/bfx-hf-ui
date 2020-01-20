@@ -4,8 +4,9 @@ import _last from 'lodash/last'
 import _isEmpty from 'lodash/isEmpty'
 import _isEqual from 'lodash/isEqual'
 import { TIME_FRAME_WIDTHS } from 'bfx-hf-util'
-import BFXChart from 'bitfinex-chart'
+import BFXChart from 'bfx-hf-chart'
 import { AutoSizer } from 'react-virtualized'
+import BFXI from 'bfx-hf-indicators'
 
 import {
   genChartData,
@@ -23,7 +24,6 @@ import './style.css'
 const HEIGHT_STEP_PX = 20
 const MIN_HEIGHT_PX = 250
 
-// TODO: Extract into open source component
 export default class Chart extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -49,7 +49,7 @@ export default class Chart extends React.Component {
 
     const {
       currentExchange, currentMarket = activeMarket, currentTF = '1m',
-      marketDirty, exchangeDirty, height = defaultHeight,
+      marketDirty, exchangeDirty, height = defaultHeight, indicators = [],
     } = savedState
 
     // NOTE: We don't restore the saved range, as it can be very large depending
@@ -71,6 +71,10 @@ export default class Chart extends React.Component {
 
       marketDirty,
       exchangeDirty,
+
+      indicators: indicators.map(([iClassID, iArgs, iColors]) => (
+        [Object.values(BFXI).find(i => i.id === iClassID), iArgs, iColors]
+      )),
 
       lastCandleUpdateWhenSyncRequested: null,
       lastCandleUpdate: getLastCandleUpdate(reduxState, {
@@ -191,6 +195,8 @@ export default class Chart extends React.Component {
         i,
       ],
     }))
+
+    this.deferSaveState()
   }
 
   onDeleteIndicator(index) {
@@ -199,6 +205,8 @@ export default class Chart extends React.Component {
       nextIndicators.splice(index, 1)
       return { indicators: nextIndicators }
     })
+
+    this.deferSaveState()
   }
 
   onUpdateIndicatorArgs(args, index) {
@@ -211,6 +219,8 @@ export default class Chart extends React.Component {
 
       return { indicators: nextIndicators }
     })
+
+    this.deferSaveState()
   }
 
   onCandleSelectionChange() {
@@ -354,7 +364,7 @@ export default class Chart extends React.Component {
   saveState() {
     const {
       currentExchange, currentMarket, currentTF, currentRange, marketDirty,
-      exchangeDirty, height,
+      exchangeDirty, height, indicators,
     } = this.state
 
     const {
@@ -369,6 +379,9 @@ export default class Chart extends React.Component {
       currentRange,
       currentTF,
       height,
+      indicators: indicators.map(([iClass, iArgs, iColors]) => (
+        [iClass.id, iArgs, iColors]
+      )),
     })
 
     if (onRangeChange) {
