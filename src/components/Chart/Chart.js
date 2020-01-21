@@ -152,10 +152,7 @@ export default class Chart extends React.Component {
       return true
     }
 
-    if (nextState.lastInternalCandleUpdate === lastInternalCandleUpdate) {
-      return false
-    }
-    return false
+    return nextState.lastInternalCandleUpdate !== lastInternalCandleUpdate
   }
 
   componentDidUpdate() {
