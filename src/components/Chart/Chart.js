@@ -44,12 +44,14 @@ export default class Chart extends React.Component {
 
     const {
       savedState = {}, candleData = {}, reduxState, defaultHeight = 350,
-      activeMarket,
+      activeMarket, activeExchange, indicators: propIndicators = [],
+      disableIndicators,
     } = props
 
     const {
-      currentExchange, currentMarket = activeMarket, currentTF = '1m',
-      marketDirty, exchangeDirty, height = defaultHeight, indicators = [],
+      currentExchange = activeExchange, currentMarket = activeMarket,
+      currentTF = '1m', marketDirty, exchangeDirty, height = defaultHeight,
+      indicators = [],
     } = savedState
 
     // NOTE: We don't restore the saved range, as it can be very large depending
@@ -72,9 +74,12 @@ export default class Chart extends React.Component {
       marketDirty,
       exchangeDirty,
 
-      indicators: indicators.map(([iClassID, iArgs, iColors]) => (
-        [Object.values(BFXI).find(i => i.id === iClassID), iArgs, iColors]
-      )),
+      // Use prop indicators if management is disabled
+      indicators: disableIndicators
+        ? propIndicators
+        : indicators.map(([iClassID, iArgs, iColors]) => (
+          [Object.values(BFXI).find(i => i.id === iClassID), iArgs, iColors]
+        )),
 
       lastCandleUpdateWhenSyncRequested: null,
       lastCandleUpdate: getLastCandleUpdate(reduxState, {
@@ -122,15 +127,17 @@ export default class Chart extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     const {
       trades, positions, exchanges, orders, syncRanges,
+      indicators: propIndicators,
     } = this.props
 
     const {
-      currentTF, currentExchange, currentMarket, height,
-      lastInternalCandleUpdate, indicators, drawings,
+      currentTF, currentExchange, currentMarket, height, drawings,
+      lastInternalCandleUpdate, indicators: stateIndicators,
     } = this.state
 
     if (
-      !_isEqual(nextState.indicators, indicators)
+      !_isEqual(nextState.indicators, stateIndicators)
+      || !_isEqual(nextProps.indicators, propIndicators)
       || !_isEqual(nextProps.syncRanges, syncRanges)
       || !_isEqual(nextState.drawings, drawings)
       || !_isEqual(nextProps.trades, trades)
@@ -145,10 +152,7 @@ export default class Chart extends React.Component {
       return true
     }
 
-    if (nextState.lastInternalCandleUpdate === lastInternalCandleUpdate) {
-      return false
-    }
-    return false
+    return nextState.lastInternalCandleUpdate !== lastInternalCandleUpdate
   }
 
   componentDidUpdate() {
@@ -392,15 +396,21 @@ export default class Chart extends React.Component {
   render() {
     const {
       trades, syncRanges, disableToolbar, disableTopbar, orders, positions,
+      disableIndicators, disableIndicatorSettings, indicators: propIndicators,
     } = this.props
 
     const {
-      data, indicators, drawings, currentExchange, currentTF, currentMarket,
+      data, drawings, currentExchange, currentTF, currentMarket,
+      indicators: stateIndicators,
     } = this.state
 
     const isSyncing = !!syncRanges.find(({ exID, symbol, tf }) => (
       exID === currentExchange && symbol === currentMarket.wsID && tf === currentTF
     ))
+
+    const indicators = disableIndicators
+      ? propIndicators || []
+      : stateIndicators
 
     const relevantPosition = (positions[currentExchange] || {})[currentMarket.wsID]
     const relevantOrders = Object
@@ -430,12 +440,14 @@ export default class Chart extends React.Component {
             marketLabel={currentMarket.uiID}
             disableToolbar={disableToolbar}
             disableTopbar={disableTopbar}
+            disableIndicators={disableIndicators}
+            disableIndicatorSettings={disableIndicatorSettings}
             isSyncing={isSyncing}
-            bgColor='#111'
-            // bgColor='#102331'
+            // bgColor='#111'
+            bgColor='#102331'
             config={{
               AXIS_COLOR: '#444',
-              AXIS_TICK_COLOR: '#444',
+              AXIS_TICK_COLOR: '#00000000',
             }}
           />
         )}
