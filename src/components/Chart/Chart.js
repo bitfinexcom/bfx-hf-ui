@@ -446,7 +446,7 @@ export default class Chart extends React.Component {
             // bgColor='#111'
             bgColor='#102331'
             config={{
-              AXIS_COLOR: '#666',
+              AXIS_COLOR: '#444',
               AXIS_TICK_COLOR: '#00000000',
             }}
           />
