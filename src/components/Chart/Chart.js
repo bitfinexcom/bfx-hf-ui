@@ -446,11 +446,11 @@ export default class Chart extends React.Component {
             disableIndicators={disableIndicators}
             disableIndicatorSettings={disableIndicatorSettings}
             isSyncing={isSyncing}
-            bgColor='#111'
-            // bgColor='#102331'
+            // bgColor='#111'
+            bgColor='#102331'
             config={{
-              AXIS_COLOR: '#222',
-              AXIS_TICK_COLOR: '#222',
+              AXIS_COLOR: '#666',
+              AXIS_TICK_COLOR: '#00000000',
             }}
           />
         )}
