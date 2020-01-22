@@ -17,7 +17,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
   const { layoutID, layoutI: id } = ownProps
   const { ui = {} } = state
   const { settings = {} } = ui
-  const { chart = '', theme = '', dms = true } = settings
+  const { chart, theme, dms } = settings || {}
   return {
     activeExchange: getActiveExchange(state),
     activeMarket: getActiveMarket(state),

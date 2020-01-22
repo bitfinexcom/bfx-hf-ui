@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-operators */
 /* eslint-disable react/no-unused-state */
 /* eslint-disable react/prop-types */
 import React from 'react'
@@ -15,9 +16,9 @@ import './style.css'
 export default class Settings extends React.Component {
   constructor(props) {
     super(props)
-    const { savedState = {}, activeExchange, ui = {} } = props
-    const { settings = {} } = ui
-    const { chart, theme, dms } = settings
+    const {
+      savedState = {}, activeExchange, chart, theme, dms,
+    } = props
     const {
       currentExchange = activeExchange,
     } = savedState
@@ -68,6 +69,15 @@ export default class Settings extends React.Component {
     const themes = ['bfx-dark-theme', 'bfx-light-theme']
     const charts = ['Trading view', 'HF custom chart']
     const { updateSettings, authToken } = this.props
+    // eslint-disable-next-line react/destructuring-assignment
+    if (this.props.chart && (this.state.chart === undefined || this.state.theme === undefined || this.state.dms === undefined)) {
+      const { chart, theme, dms } = this.props
+      this.setState({
+        chart,
+        theme,
+        dms,
+      })
+    }
     const { theme, chart, dms } = this.state
     return (
       <div className='hfui-settingspage__wrapper'>
@@ -83,7 +93,7 @@ export default class Settings extends React.Component {
                   <Select
                     value={{ value: theme, label: _capitalize(theme) }}
                     className={ClassNames('hfui-setting__select')}
-                    options={themes.map(t => ({ value: t, label: _capitalize(t) }))}
+                    options={themes.map(t => ({ value: t, label: t }))}
                     onChange={e => this.onOptionChange(e, 'theme')}
                   />
                 </div>
