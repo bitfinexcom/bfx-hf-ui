@@ -459,23 +459,14 @@ export default class OrderForm extends React.Component {
               />
             ),
 
-            apiClientDisconnected && !apiClientConfigured && configureModalOpen && (
+            !apiClientConnected && !apiClientConfigured && configureModalOpen && (
               <SubmitAPIKeysModal
                 key='submit-api-keys'
                 onClose={this.onToggleConfigureModal}
                 onSubmit={this.onSubmitAPIKeys}
                 exID={currentExchange}
+                apiClientConnecting={apiClientConnecting}
               />
-            ),
-
-            (apiClientConnecting || apiClientDisconnected) && (
-            <SubmitAPIKeysModal
-              key='submit-api-keys'
-              onClose={this.onToggleConfigureModal}
-              onSubmit={this.onSubmitAPIKeys}
-              exID={currentExchange}
-              apiClientConnecting={apiClientConnecting}
-            />
             ),
           ]}
 

@@ -48,9 +48,9 @@ export default class OrderFormModal extends React.PureComponent {
             )}
 
             {apiClientConnecting && (
-            <span>
-                    Connecting to exhcnage...
-            </span>
+              <span>
+                Connecting to exchange...
+              </span>
             )}
           </div>
         </Scrollbars>

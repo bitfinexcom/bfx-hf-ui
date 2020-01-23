@@ -86,14 +86,13 @@ export default class HFUI extends React.PureComponent {
               <MarketDataPage />
             )}
           />
-
+              
           <Route
             path='/settings'
             render={() => (
               <SettingsPage />
             )}
           />
-
         </Switch>
 
         <NotificationsSidebar />
