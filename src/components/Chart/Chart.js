@@ -437,6 +437,7 @@ export default class Chart extends React.Component {
             disableIndicators={disableIndicators}
             disableIndicatorSettings={disableIndicatorSettings}
             isSyncing={isSyncing}
+            candleLoadingThreshold={3} // we always get 1 candle when sub'ing
             // bgColor='#111'
             bgColor='#102331'
             config={{
