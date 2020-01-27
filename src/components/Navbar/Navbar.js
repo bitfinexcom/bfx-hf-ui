@@ -39,7 +39,6 @@ export default class Navbar extends React.PureComponent {
               ]}
             />
           </li>
-
           <li>
             <NavbarButton
               route='/settings'

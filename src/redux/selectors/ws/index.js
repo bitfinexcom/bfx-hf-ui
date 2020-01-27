@@ -27,6 +27,7 @@ import getAllOrders from './get_all_orders'
 import getAlgoOrders from './get_algo_orders'
 import getNotifications from './get_notifications'
 import getAPICredentials from './get_api_credentials'
+import getAllSyncRanges from './get_all_sync_ranges'
 
 import getAPIClientState from './get_api_client_state'
 import getAPIClientStates from './get_api_client_states'
@@ -74,4 +75,5 @@ export {
 
   getNotifications,
   getAPICredentials,
+  getAllSyncRanges,
 }

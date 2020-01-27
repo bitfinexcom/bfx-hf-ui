@@ -18,6 +18,8 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
   const { ui = {} } = state
   const { settings = {} } = ui
   const { chart, theme, dms } = settings || {}
+
+
   return {
     activeExchange: getActiveExchange(state),
     activeMarket: getActiveMarket(state),

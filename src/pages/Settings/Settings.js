@@ -79,6 +79,7 @@ export default class Settings extends React.Component {
       })
     }
     const { theme, chart, dms } = this.state
+
     return (
       <div className='hfui-settingspage__wrapper'>
         <div className='hfui-settings__title'>
