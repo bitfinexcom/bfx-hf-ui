@@ -4,10 +4,8 @@ import _last from 'lodash/last'
 import _isEmpty from 'lodash/isEmpty'
 import _isEqual from 'lodash/isEqual'
 import { TIME_FRAME_WIDTHS } from 'bfx-hf-util'
-import BFXChart from 'bfx-hf-chart'
 import { AutoSizer } from 'react-virtualized'
-import BFXI from 'bfx-hf-indicators'
-
+import BFXChart from 'bfx-hf-chart'
 import {
   genChartData,
   defaultRangeForTF,
@@ -51,7 +49,7 @@ export default class Chart extends React.Component {
     const {
       currentExchange = activeExchange, currentMarket = activeMarket,
       currentTF = '1m', marketDirty, exchangeDirty, height = defaultHeight,
-      indicators = [],
+      indicators = '[]',
     } = savedState
 
     // NOTE: We don't restore the saved range, as it can be very large depending
@@ -77,9 +75,7 @@ export default class Chart extends React.Component {
       // Use prop indicators if management is disabled
       indicators: disableIndicators
         ? propIndicators
-        : indicators.map(([iClassID, iArgs, iColors]) => (
-          [Object.values(BFXI).find(i => i.id === iClassID), iArgs, iColors]
-        )),
+        : BFXChart.unserializeIndicators(indicators),
 
       lastCandleUpdateWhenSyncRequested: null,
       lastCandleUpdate: getLastCandleUpdate(reduxState, {
@@ -383,9 +379,7 @@ export default class Chart extends React.Component {
       currentRange,
       currentTF,
       height,
-      indicators: indicators.map(([iClass, iArgs, iColors]) => (
-        [iClass.id, iArgs, iColors]
-      )),
+      indicators: BFXChart.serializeIndicators(indicators),
     })
 
     if (onRangeChange) {
@@ -443,6 +437,7 @@ export default class Chart extends React.Component {
             disableIndicators={disableIndicators}
             disableIndicatorSettings={disableIndicatorSettings}
             isSyncing={isSyncing}
+            candleLoadingThreshold={3} // we always get 1 candle when sub'ing
             // bgColor='#111'
             bgColor='#102331'
             config={{
