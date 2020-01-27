@@ -31,8 +31,7 @@ export default class HFUI extends React.PureComponent {
 
   render() {
     const {
-      activeMarket, authToken, getLastVersion, currentPage,
-      getSettings,
+      activeMarket, authToken, getLastVersion, currentPage, getSettings,
     } = this.props
     const oneHour = 360000
     getLastVersion()
@@ -86,14 +85,12 @@ export default class HFUI extends React.PureComponent {
               <MarketDataPage />
             )}
           />
-
           <Route
             path='/settings'
             render={() => (
               <SettingsPage />
             )}
           />
-
         </Switch>
 
         <NotificationsSidebar />

@@ -15,7 +15,7 @@ export default function* (action = {}) {
   if (existingChannel) {
     debug(
       'unsubscribing from channel %s %s on %s',
-      chanData[0], _last(chanData).u, exID,
+      chanData[0], _last(chanData).uiID, exID,
     )
 
     yield put(WSActions.send(['unsubscribe', exID, chanData]))
