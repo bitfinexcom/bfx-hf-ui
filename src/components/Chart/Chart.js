@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-trailing-spaces  */
 import React from 'react'
 import _last from 'lodash/last'
 import _isEmpty from 'lodash/isEmpty'
@@ -6,6 +7,8 @@ import _isEqual from 'lodash/isEqual'
 import { TIME_FRAME_WIDTHS } from 'bfx-hf-util'
 import { AutoSizer } from 'react-virtualized'
 import BFXChart from 'bfx-hf-chart'
+import TradingViewWidget, { Themes } from 'react-tradingview-widget'
+
 import {
   genChartData,
   defaultRangeForTF,
@@ -21,6 +24,10 @@ import './style.css'
 
 const HEIGHT_STEP_PX = 20
 const MIN_HEIGHT_PX = 250
+const CHART_TYPES = {
+  TRADING_VIEW: 'Trading view',
+  BFX_HF_CHART: 'Hf custom chart',
+}
 
 export default class Chart extends React.Component {
   static propTypes = propTypes
@@ -391,13 +398,14 @@ export default class Chart extends React.Component {
     const {
       trades, syncRanges, disableToolbar, disableTopbar, orders, positions,
       disableIndicators, disableIndicatorSettings, indicators: propIndicators,
+      chart, activeMarket,
     } = this.props
 
     const {
       data, drawings, currentExchange, currentTF, currentMarket,
       indicators: stateIndicators,
     } = this.state
-
+    const { base, quote } = activeMarket
     const isSyncing = !!syncRanges.find(({ exID, symbol, tf }) => (
       exID === currentExchange && symbol === currentMarket.wsID && tf === currentTF
     ))
@@ -410,6 +418,29 @@ export default class Chart extends React.Component {
     const relevantOrders = Object
       .values(orders[currentExchange] || {})
       .filter(o => o.symbol === currentMarket.wsID)
+
+    if (chart === CHART_TYPES.TRADING_VIEW) {
+      return (
+        <div style={{
+          display: 'flex',
+          flex: 1,
+          backgroundColor: '#131722',
+          height: '100%',
+        }}
+        >
+          <TradingViewWidget
+            symbol={`${currentExchange.toUpperCase()}:${base}${quote}`}
+            theme={Themes.DARK}
+            autosize
+            allow_symbol_change={false}
+            enable_publishing={false}
+            hideideas
+            save_image={false}
+            toolbar_bg='#fff'
+          />
+        </div>
+      )
+    }  
 
     return (
       <AutoSizer>

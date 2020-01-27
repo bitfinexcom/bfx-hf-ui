@@ -12,10 +12,14 @@ import Chart from './Chart'
 
 const mapStateToProps = (state = {}, ownProps = {}) => {
   const { layoutID, layoutI: id } = ownProps
+  const { ui = {} } = state
+  const { settings = {} } = ui
+  const { chart } = settings
   const activeExchange = ownProps.activeExchange || getActiveExchange(state)
 
   return {
     activeExchange,
+    chart,
     reduxState: state, // needed for internal isSyncingCandles() call
     exchanges: getExchanges(state),
     savedState: getComponentState(state, layoutID, 'chart', id),
