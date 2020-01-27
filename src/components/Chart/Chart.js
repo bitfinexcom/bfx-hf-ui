@@ -8,6 +8,7 @@ import { TIME_FRAME_WIDTHS } from 'bfx-hf-util'
 import { AutoSizer } from 'react-virtualized'
 import BFXChart from 'bfx-hf-chart'
 import TradingViewWidget, { Themes } from 'react-tradingview-widget'
+
 import {
   genChartData,
   defaultRangeForTF,
@@ -385,7 +386,7 @@ export default class Chart extends React.Component {
       currentRange,
       currentTF,
       height,
-     indicators: BFXChart.serializeIndicators(indicators),
+      indicators: BFXChart.serializeIndicators(indicators),
     })
 
     if (onRangeChange) {
