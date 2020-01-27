@@ -105,6 +105,13 @@ function reducer(state = getInitialState(), action = {}) {
       }
     }
 
+    case types.UPDATE_SETTINGS: {
+      return {
+        ...state,
+        settings: payload,
+      }
+    }
+
     case types.CREATE_LAYOUT: {
       const { id, tradingEnabled } = payload
 
