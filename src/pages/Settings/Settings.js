@@ -1,9 +1,11 @@
 /* eslint-disable no-mixed-operators */
 /* eslint-disable react/no-unused-state */
 /* eslint-disable react/prop-types */
+/* eslint-disable react/no-unescaped-entities */
 import React from 'react'
 import _capitalize from 'lodash/capitalize'
 import ClassNames from 'classnames'
+import { UserSettings } from 'bfx-hf-ui-config'
 
 import StatusBar from '../../components/StatusBar'
 import Select from '../../ui/Select'
@@ -66,8 +68,8 @@ export default class Settings extends React.Component {
   }
 
   render() {
-    const themes = ['bfx-dark-theme', 'bfx-light-theme']
-    const charts = ['Trading view', 'HF custom chart']
+    const themes = Object.keys(UserSettings.THEMES).map(key => UserSettings.THEMES[key])
+    const charts = Object.keys(UserSettings.CHARTS).map(key => UserSettings.CHARTS[key])
     const { updateSettings, authToken } = this.props
     // eslint-disable-next-line react/destructuring-assignment
     if (this.props.chart && (this.state.chart === undefined || this.state.theme === undefined || this.state.dms === undefined)) {
@@ -103,11 +105,16 @@ export default class Settings extends React.Component {
                 <p className='hfui-settings__option-label'>Chart</p>
                 <div className='hfui-settings__item-list'>
                   <Select
-                    value={{ value: chart, label: _capitalize(chart) }}
+                    value={{ value: chart, label: chart }}
                     className={ClassNames('hfui-setting__select')}
-                    options={charts.map(c => ({ value: c, label: _capitalize(c) }))}
+                    options={charts.map(c => ({ value: c, label: c }))}
                     onChange={e => this.onOptionChange(e, 'chart')}
                   />
+                  {chart && chart === UserSettings.CHARTS.TRADING_VIEW && (
+                    <div style={{ marginTop: '15px', fontSize: '11px', color: '#ee5555' }}>
+                       Attention! Orders/postions won't show up, while you are using Trading view chart.
+                    </div>
+                  )}
                 </div>
               </li>
               <li>
