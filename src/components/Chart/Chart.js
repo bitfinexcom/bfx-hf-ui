@@ -10,6 +10,7 @@ import { UserSettings } from 'bfx-hf-ui-config'
 import { AutoSizer } from 'react-virtualized'
 import BFXChart from 'bfx-hf-chart'
 import TradingViewWidget, { Themes } from 'react-tradingview-widget'
+
 import {
   genChartData,
   defaultRangeForTF,
