@@ -5,6 +5,7 @@ const {
 const fs = require('fs')
 const path = require('path')
 const url = require('url')
+const open = require('open')
 const { fork } = require('child_process')
 
 const spawnOpts = {
@@ -57,6 +58,16 @@ app.on('ready', () => {
       { type: 'separator' },
       { label: 'Quit', accelerator: 'Command+Q', click() { app.quit() } },
     ],
+  }, {
+    label: 'Diagnostics',
+    submenu: [{
+      label: 'Open Logs Folder',
+      click: () => {
+        open(`${__dirname}/../logs`).catch((e) => {
+          console.error(`failed to open logs folder: ${e.message}`)
+        })
+      },
+    }],
   }, {
     label: 'Edit',
     submenu: [
