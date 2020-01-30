@@ -2,6 +2,7 @@ const {
   app, BrowserWindow, protocol, Menu,
 } = require('electron') // eslint-disable-line
 
+const fs = require('fs')
 const path = require('path')
 const url = require('url')
 const { fork } = require('child_process')
@@ -10,26 +11,22 @@ const spawnOpts = {
   env: { ELECTRON_RUN_AS_NODE: '1' },
 }
 
+const childDSProcessLogStream = fs.openSync(`${__dirname}/../logs/ds-bitfinex-server.log`, 'a')
+const childAPIPRocessLogStream = fs.openSync(`${__dirname}/../logs/api-server.log`, 'a')
+
 const childDSProcess = fork(
   path.resolve(`${__dirname}/../scripts/start-ds-bitfinex.js`),
   [],
-  spawnOpts,
+  { ...spawnOpts, stdio: [null, childDSProcessLogStream, childDSProcessLogStream, 'ipc'] },
 ) // run data server
 
 const childAPIProcess = fork(
   path.resolve(`${__dirname}/../scripts/start-api-server.js`),
   [],
-  spawnOpts,
+  { ...spawnOpts, stdio: [null, childAPIPRocessLogStream, childAPIPRocessLogStream, 'ipc'] },
 ) // run API server
 
 let mainWindow
-
-const intercept = require('intercept-stdout')
-const fs = require('fs')
-
-const unhookIntercept = intercept((txt) => {
-  fs.appendFile(`${__dirname}/logs.log`, txt, () => {})
-})
 
 function createWindow() {
   mainWindow = new BrowserWindow({ width: 1280, height: 720 })
@@ -81,7 +78,6 @@ app.on('ready', () => {
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
-    unhookIntercept()
     app.quit()
   }
 
