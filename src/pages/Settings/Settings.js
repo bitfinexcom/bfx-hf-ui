@@ -4,7 +4,7 @@ import _capitalize from 'lodash/capitalize'
 import StatusBar from '../../components/StatusBar'
 import Select from '../../ui/Select'
 import Checkbox from '../../ui/Checkbox'
-// import Input from '../../ui/Input'
+import Input from '../../ui/Input'
 import Button from '../../ui/Button'
 
 import { propTypes, defaultProps } from './Settings.props'
@@ -153,9 +153,11 @@ export default class Settings extends React.Component {
                 </div>
               </li>
 
-              {/*
               <li>
                 <p className='hfui-settings__option-label'>API credentials</p>
+                <div className='hfui-settings__option-description'>
+                  <p>Fill in to update stored values</p>
+                </div>
                 <div className='hfui-settings__option'>
                   <Input
                     placeholder='API Key'
@@ -170,7 +172,6 @@ export default class Settings extends React.Component {
                   />
                 </div>
               </li>
-              */}
 
               <li>
                 <div className='hfui-settings__option'>
