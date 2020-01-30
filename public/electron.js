@@ -1,103 +1,38 @@
-const {
-  app, BrowserWindow, protocol, Menu,
-} = require('electron') // eslint-disable-line
-
+const { app } = require('electron') // eslint-disable-line
 const fs = require('fs')
 const path = require('path')
-const url = require('url')
-const open = require('open')
 const { fork } = require('child_process')
+const HFUIApplication = require('./lib/app')
 
-const spawnOpts = {
+const LOG_PATH = `${__dirname}/../logs`
+const LOG_PATH_DS_BITFINEX = `${LOG_PATH}/ds-bitfinex-server.log`
+const LOG_PATH_API_SERVER = `${LOG_PATH}/api-server.log`
+
+const SCRIPT_PATH = `${__dirname}/../scripts`
+const SCRIPT_PATH_DS_BITFINEX = `${SCRIPT_PATH}/start-ds-bitfinex.js`
+const SCRIPT_PATH_API_SERVER = `${SCRIPT_PATH}/start-api-server.js`
+
+const SCRIPT_SPAWN_OPTS = {
   env: { ELECTRON_RUN_AS_NODE: '1' },
 }
 
-const childDSProcessLogStream = fs.openSync(`${__dirname}/../logs/ds-bitfinex-server.log`, 'a')
-const childAPIPRocessLogStream = fs.openSync(`${__dirname}/../logs/api-server.log`, 'a')
+const dsLogStream = fs.openSync(LOG_PATH_DS_BITFINEX, 'a')
+const apiLogStream = fs.openSync(LOG_PATH_API_SERVER, 'a')
 
-const childDSProcess = fork(
-  path.resolve(`${__dirname}/../scripts/start-ds-bitfinex.js`),
-  [],
-  { ...spawnOpts, stdio: [null, childDSProcessLogStream, childDSProcessLogStream, 'ipc'] },
-) // run data server
+const childDSProcess = fork(path.resolve(SCRIPT_PATH_DS_BITFINEX), [], {
+  ...SCRIPT_SPAWN_OPTS,
+  stdio: [null, dsLogStream, dsLogStream, 'ipc'],
+})
 
-const childAPIProcess = fork(
-  path.resolve(`${__dirname}/../scripts/start-api-server.js`),
-  [],
-  { ...spawnOpts, stdio: [null, childAPIPRocessLogStream, childAPIPRocessLogStream, 'ipc'] },
-) // run API server
+const childAPIProcess = fork(path.resolve(SCRIPT_PATH_API_SERVER), [], {
+  ...SCRIPT_SPAWN_OPTS,
+  stdio: [null, apiLogStream, apiLogStream, 'ipc'],
+})
 
-let mainWindow
-
-function createWindow() {
-  mainWindow = new BrowserWindow({ width: 1280, height: 720 })
-
-  mainWindow.loadURL(url.format({
-    pathname: 'index.html',
-    protocol: 'file',
-    slashes: true,
-  }))
-
-  mainWindow.on('closed', () => {
-    mainWindow = null
-  })
-}
-
-app.on('ready', () => {
-  protocol.interceptFileProtocol('file', (request, callback) => {
-    const fileURL = request.url.substr(7) /* all urls start with 'file://' */
-
-    callback({ path: path.normalize(`${__dirname}/${fileURL}`) })
-  }, (err) => {
-    if (err) console.error('Failed to register protocol')
-  })
-  const template = [{
-    label: 'Application',
-    submenu: [
-      { label: 'About Application', selector: 'orderFrontStandardAboutPanel:' },
-      { type: 'separator' },
-      { label: 'Quit', accelerator: 'Command+Q', click() { app.quit() } },
-    ],
-  }, {
-    label: 'Diagnostics',
-    submenu: [{
-      label: 'Open Logs Folder',
-      click: () => {
-        open(`${__dirname}/../logs`).catch((e) => {
-          console.error(`failed to open logs folder: ${e.message}`)
-        })
-      },
-    }],
-  }, {
-    label: 'Edit',
-    submenu: [
-      { label: 'Undo', accelerator: 'CmdOrCtrl+Z', selector: 'undo:' },
-      { label: 'Redo', accelerator: 'Shift+CmdOrCtrl+Z', selector: 'redo:' },
-      { type: 'separator' },
-      { label: 'Cut', accelerator: 'CmdOrCtrl+X', selector: 'cut:' },
-      { label: 'Copy', accelerator: 'CmdOrCtrl+C', selector: 'copy:' },
-      { label: 'Paste', accelerator: 'CmdOrCtrl+V', selector: 'paste:' },
-      { label: 'Select All', accelerator: 'CmdOrCtrl+A', selector: 'selectAll:' },
-    ],
+new HFUIApplication({ // eslint-disable-line
+  app,
+  onExit: () => {
+    childAPIProcess.kill()
+    childDSProcess.kill()
   },
-  ]
-
-  Menu.setApplicationMenu(Menu.buildFromTemplate(template))
-
-  createWindow()
-})
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-
-  childAPIProcess.kill()
-  childDSProcess.kill()
-})
-
-app.on('activate', () => {
-  if (mainWindow === null) {
-    createWindow()
-  }
 })
