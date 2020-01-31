@@ -1,6 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react'
 import _capitalize from 'lodash/capitalize'
+import { UserSettings } from 'bfx-hf-ui-config'
 
 import StatusBar from '../../components/StatusBar'
 import Select from '../../ui/Select'
@@ -74,7 +75,8 @@ export default class Settings extends React.Component {
 
   render() {
     // const themes = ['bfx-dark-theme', 'bfx-light-theme']
-    const charts = ['Trading view', 'HF custom chart']
+    const { CHARTS } = UserSettings
+    const charts = Object.keys(CHARTS).map(key => CHARTS[key])
     const { authToken } = this.props
 
     // eslint-disable-next-line react/destructuring-assignment
