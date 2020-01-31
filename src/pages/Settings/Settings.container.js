@@ -43,6 +43,7 @@ const mapDispatchToProps = dispatch => ({
       componentID,
     }))
   },
+
   submitAPIKeys: ({
     exID, authToken, apiKey, apiSecret,
   }) => {
@@ -54,6 +55,7 @@ const mapDispatchToProps = dispatch => ({
       apiSecret,
     ]))
   },
+
   updateSettings: ({
     authToken, chart, dms, theme,
   }) => {
