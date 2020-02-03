@@ -6,7 +6,7 @@ export const propTypes = {
   activeExchange: PropTypes.string,
   chart: PropTypes.string,
   theme: PropTypes.string,
-  dms: PropTypes.number,
+  dms: PropTypes.boolean,
 }
 
 export const defaultProps = {}
