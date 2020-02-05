@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-trailing-spaces  */
 import React from 'react'
@@ -5,6 +6,7 @@ import _last from 'lodash/last'
 import _isEmpty from 'lodash/isEmpty'
 import _isEqual from 'lodash/isEqual'
 import { TIME_FRAME_WIDTHS } from 'bfx-hf-util'
+import { UserSettings } from 'bfx-hf-ui-config'
 import { AutoSizer } from 'react-virtualized'
 import BFXChart from 'bfx-hf-chart'
 import TradingViewWidget, { Themes } from 'react-tradingview-widget'
@@ -18,16 +20,13 @@ import {
 import { getLastCandleUpdate } from '../../redux/selectors/ws'
 import { getMarketsForExchange } from '../../redux/selectors/meta'
 import nearestMarket from '../../util/nearest_market'
-
 import { propTypes, defaultProps } from './Chart.props'
 import './style.css'
 
 const HEIGHT_STEP_PX = 20
 const MIN_HEIGHT_PX = 250
-const CHART_TYPES = {
-  TRADING_VIEW: 'Trading view',
-  BFX_HF_CHART: 'Hf custom chart',
-}
+const { CHARTS } = UserSettings
+const { TRADING_VIEW, BFX_HF_CUSTOM } = CHARTS
 
 export default class Chart extends React.Component {
   static propTypes = propTypes
@@ -419,65 +418,68 @@ export default class Chart extends React.Component {
       .values(orders[currentExchange] || {})
       .filter(o => o.symbol === currentMarket.wsID)
 
-    if (chart === CHART_TYPES.TRADING_VIEW) {
-      return (
-        <div style={{
-          display: 'flex',
-          flex: 1,
-          backgroundColor: '#131722',
-          height: '100%',
-        }}
-        >
-          <TradingViewWidget
-            symbol={`${currentExchange.toUpperCase()}:${base}${quote}`}
-            theme={Themes.DARK}
-            autosize
-            allow_symbol_change={false}
-            enable_publishing={false}
-            hideideas
-            save_image={false}
-            toolbar_bg='#fff'
-          />
-        </div>
-      )
-    }  
-
-    return (
-      <AutoSizer>
-        {({ width, height }) => width > 0 && height > 0 && (
-          <BFXChart
-            ref={this.chartRef}
-            indicators={indicators}
-            drawings={drawings}
-            candles={data}
-            trades={trades}
-            orders={relevantOrders}
-            position={relevantPosition}
-            candleWidth={currentTF}
-            width={width}
-            height={height}
-            onLoadMore={this.onLoadMore}
-            onTimeFrameChange={this.onChangeTF}
-            onAddIndicator={this.onAddIndicator}
-            onUpdateIndicatorArgs={this.onUpdateIndicatorArgs}
-            onDeleteIndicator={this.onDeleteIndicator}
-            onAddDrawing={this.onAddDrawing}
-            marketLabel={currentMarket.uiID}
-            disableToolbar={disableToolbar}
-            disableTopbar={disableTopbar}
-            disableIndicators={disableIndicators}
-            disableIndicatorSettings={disableIndicatorSettings}
-            isSyncing={isSyncing}
-            candleLoadingThreshold={3} // we always get 1 candle when sub'ing
-            // bgColor='#111'
-            bgColor='#102331'
-            config={{
-              AXIS_COLOR: '#444',
-              AXIS_TICK_COLOR: '#00000000',
-            }}
-          />
-        )}
-      </AutoSizer>
-    )
+    switch (chart) {
+      case TRADING_VIEW: 
+        return (
+          <div style={{
+            display: 'flex',
+            flex: 1,
+            backgroundColor: '#131722',
+            height: '100%',
+          }}
+          >
+            <TradingViewWidget
+              symbol={`${currentExchange.toUpperCase()}:${base}${quote}`}
+              theme={Themes.DARK}
+              autosize
+              allow_symbol_change={false}
+              enable_publishing={false}
+              hideideas
+              save_image={false}
+              toolbar_bg='#fff'
+            />
+          </div>
+        )
+        
+      case BFX_HF_CUSTOM: 
+      default:
+        return (
+          <AutoSizer>
+            {({ width, height }) => width > 0 && height > 0 && (
+              <BFXChart
+                ref={this.chartRef}
+                indicators={indicators}
+                drawings={drawings}
+                candles={data}
+                trades={trades}
+                orders={relevantOrders}
+                position={relevantPosition}
+                candleWidth={currentTF}
+                width={width}
+                height={height}
+                onLoadMore={this.onLoadMore}
+                onTimeFrameChange={this.onChangeTF}
+                onAddIndicator={this.onAddIndicator}
+                onUpdateIndicatorArgs={this.onUpdateIndicatorArgs}
+                onDeleteIndicator={this.onDeleteIndicator}
+                onAddDrawing={this.onAddDrawing}
+                marketLabel={currentMarket.uiID}
+                disableToolbar={disableToolbar}
+                disableTopbar={disableTopbar}
+                disableIndicators={disableIndicators}
+                disableIndicatorSettings={disableIndicatorSettings}
+                isSyncing={isSyncing}
+                candleLoadingThreshold={3} // we always get 1 candle when sub'ing
+                // bgColor='#111'
+                bgColor='#102331'
+                config={{
+                  AXIS_COLOR: '#444',
+                  AXIS_TICK_COLOR: '#00000000',
+                }}
+              />
+            )}
+          </AutoSizer>
+        )
+    }
   }
 }
