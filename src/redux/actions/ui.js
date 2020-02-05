@@ -62,6 +62,13 @@ const setRoute = route => ({
   },
 })
 
+const toggleNotifications = currState => ({
+  type: types.TOGGLE_NOTIFICATIONS,
+  payload: {
+    newState: !currState,
+  },
+})
+
 export default {
   setRoute,
   saveLayout,
@@ -71,4 +78,5 @@ export default {
   saveComponentState,
   setActiveExchange,
   saveRemoteVersion,
+  toggleNotifications,
 }
