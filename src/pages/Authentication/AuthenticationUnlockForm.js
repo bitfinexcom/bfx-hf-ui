@@ -19,6 +19,7 @@ export default class AuthenticationInit extends React.Component {
     this.onPasswordChange = this.onPasswordChange.bind(this)
     this.onUnlock = this.onUnlock.bind(this)
     this.onReset = this.onReset.bind(this)
+    this.onEnterPress = this.onEnterPress.bind(this)
   }
 
   onPasswordChange(password) {
@@ -36,12 +37,20 @@ export default class AuthenticationInit extends React.Component {
     onReset()
   }
 
+  onEnterPress({ keyCode }) {
+    const ENTER_CODE = 13
+    if (keyCode === ENTER_CODE) {
+      const { password } = this.state
+      this.onUnlock(password)
+    }
+  }
+
   render() {
     const { password } = this.state
     const submitReady = !_isEmpty(password)
 
     return (
-      <div className='hfui-authenticationpage__content'>
+      <div className='hfui-authenticationpage__content' onKeyDown={this.onEnterPress}>
         <h2>Honey Framework UI</h2>
         <p>Enter your password to unlock.</p>
 
