@@ -5,17 +5,14 @@ import NotificationsSidebar from './NotificationsSidebar'
 import UIActions from '../../redux/actions/ui'
 
 const mapStateToProps = (state = {}) => {
-  const { ui = {} } = state
-  const { isNotificationsOpened } = ui
   return {
     notifications: getNotifications(state),
-    isNotificationsOpened,
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  toggleNotifications: (currState) => {
-    dispatch(UIActions.toggleNotifications(currState))
+  closeNotificationPanel: () => {
+    dispatch(UIActions.closeNotificationPanel())
   },
 }) // eslint-disable-line
 

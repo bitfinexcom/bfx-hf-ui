@@ -100,19 +100,18 @@ export default class NotificationsSidebar extends React.Component {
 
   render() {
     const { open, liveNotifications } = this.state
-    const { notifications, isNotificationsOpened, toggleNotifications } = this.props
+    const { notifications, notificationsVisible, closeNotificationPanel } = this.props
 
     return (
       <div className={ClassNames('hfui-notificationssidebar__wrapper', {
-        visible: isNotificationsOpened,
+        visible: notificationsVisible,
       })}
       >
         <Panel
           label='NOTIFICATIONS'
           hideIcons
           type='notifications'
-          toggle={toggleNotifications}
-          isNotificationsOpened={isNotificationsOpened}
+          closePanel={closeNotificationPanel}
         >
           <ul>
             <Scrollbars height='100%'>
