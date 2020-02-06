@@ -41,8 +41,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(WSActions.addChannelRequirement(exchange, ['ticker', market]))
   },
 
-  toggleNotifications: (currentState) => {
-    dispatch(UIActions.toggleNotifications(currentState))
+  openNotifications: () => {
+    dispatch(UIActions.openNotifcationPanel())
   },
 })
 
