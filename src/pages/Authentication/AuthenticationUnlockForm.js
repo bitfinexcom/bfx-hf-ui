@@ -5,6 +5,8 @@ import Button from '../../ui/Button'
 import Input from '../../ui/Input'
 import { propTypes, defaultProps } from './AuthenticationUnlockForm.props'
 
+const ENTER_KEY_CODE = 13
+
 export default class AuthenticationInit extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -38,8 +40,7 @@ export default class AuthenticationInit extends React.Component {
   }
 
   onEnterPress({ keyCode }) {
-    const ENTER_CODE = 13
-    if (keyCode === ENTER_CODE) {
+    if (keyCode === ENTER_KEY_CODE) {
       const { password } = this.state
       this.onUnlock(password)
     }
