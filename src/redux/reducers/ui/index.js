@@ -25,7 +25,7 @@ function getInitialState() {
     route: DEFAULT_ROUTE,
     activeMarket: DEFAULT_MARKET,
     activeExchange: DEFAULT_EXCHANGE,
-    isNotificationsOpened: false,
+    notificationsVisible: false,
     previousMarket: null,
     previousExchange: null,
     remoteVersion: null,
@@ -113,11 +113,17 @@ function reducer(state = getInitialState(), action = {}) {
       }
     }
 
-    case types.TOGGLE_NOTIFICATIONS: {
-      const { newState } = payload
+    case types.OPEN_NOTIFICATIONS: {
       return {
         ...state,
-        isNotificationsOpened: newState,
+        notificationsVisible: true,
+      }
+    }
+
+    case types.CLOSE_NOTIFICATIONS: {
+      return {
+        ...state,
+        notificationsVisible: false,
       }
     }
 
