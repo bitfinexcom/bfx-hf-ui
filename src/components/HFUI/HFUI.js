@@ -31,7 +31,7 @@ export default class HFUI extends React.PureComponent {
 
   render() {
     const {
-      activeMarket, authToken, getLastVersion, currentPage, getSettings,
+      activeMarket, authToken, getLastVersion, currentPage, getSettings, notificationsVisible,
     } = this.props
     const oneHour = 360000
     getLastVersion()
@@ -93,7 +93,7 @@ export default class HFUI extends React.PureComponent {
           />
         </Switch>
 
-        <NotificationsSidebar />
+        <NotificationsSidebar notificationsVisible={notificationsVisible} />
       </div>
     )
   }

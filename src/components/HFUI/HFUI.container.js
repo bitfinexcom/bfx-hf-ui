@@ -13,10 +13,13 @@ const mapStateToProps = (state = {}) => {
   const { router } = state
   const { location } = router
   const { pathname } = location
+  const { ui } = state
+  const { notificationsVisible } = ui
   return {
     currentPage: pathname,
     activeMarket: getActiveMarket(state),
     authToken: getAuthToken(state),
+    notificationsVisible,
   }
 }
 
