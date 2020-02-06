@@ -62,11 +62,12 @@ const setRoute = route => ({
   },
 })
 
-const toggleNotifications = currState => ({
-  type: types.TOGGLE_NOTIFICATIONS,
-  payload: {
-    newState: !currState,
-  },
+const closeNotificationPanel = () => ({
+  type: types.CLOSE_NOTIFICATIONS,
+})
+
+const openNotifcationPanel = () => ({
+  type: types.OPEN_NOTIFICATIONS,
 })
 
 export default {
@@ -78,5 +79,6 @@ export default {
   saveComponentState,
   setActiveExchange,
   saveRemoteVersion,
-  toggleNotifications,
+  closeNotificationPanel,
+  openNotifcationPanel,
 }
