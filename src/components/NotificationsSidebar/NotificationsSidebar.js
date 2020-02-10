@@ -110,7 +110,6 @@ export default class NotificationsSidebar extends React.Component {
         <Panel
           label='NOTIFICATIONS'
           hideIcons
-          type='notifications'
           closePanel={closeNotificationPanel}
         >
           <ul>
