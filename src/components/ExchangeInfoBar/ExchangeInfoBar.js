@@ -128,7 +128,7 @@ export default class ExchangeInfoBar extends React.PureComponent {
           />
         </ul>
 
-        <div className='hfui-exchangeinfobar__right' onClick={() => openNotifications()}>
+        <div className='hfui-exchangeinfobar__right' onClick={openNotifications}>
           <i className='icon-notifications' />
         </div>
       </div>
