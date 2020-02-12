@@ -1,10 +1,10 @@
 import React from 'react'
+import randomColor from 'randomcolor'
 
 import StrategyEditor from '../../components/StrategyEditor'
 import StrategyTradesTable from '../../components/StrategyTradesTable'
 import Chart from '../../components/Chart'
 import StatusBar from '../../components/StatusBar'
-import { calcIndicatorValuesForCandles } from '../../components/Chart/helpers'
 import { propTypes, defaultProps } from './StrategyEditor.props'
 import './style.css'
 
@@ -15,8 +15,6 @@ export default class StrategyEditorPage extends React.Component {
   state = {
     results: {},
     indicators: [],
-    indicatorData: {},
-    currentRange: [],
     tf: '1m',
     focusMTS: null,
   }
@@ -26,73 +24,39 @@ export default class StrategyEditorPage extends React.Component {
 
     this.onResultsChange = this.onResultsChange.bind(this)
     this.onIndicatorsChange = this.onIndicatorsChange.bind(this)
-    this.onCurrentRangeChange = this.onCurrentRangeChange.bind(this)
     this.onTradeClick = this.onTradeClick.bind(this)
-    this.onCurrentTFChange = this.onCurrentTFChange.bind(this)
+    this.onTFChange = this.onTFChange.bind(this)
   }
 
   onResultsChange(results) {
     this.setState(() => ({ results }))
   }
 
-  onCurrentRangeChange(currentRange) {
-    this.setState(() => ({ currentRange }))
-  }
-
   onIndicatorsChange(indicators) {
-    const { candleData, activeMarket, activeExchange } = this.props
-    const { currentRange, tf } = this.state
-    const candleKey = `${tf}:${activeMarket.uiID}`
-    const start = +currentRange[0]
-
-    const allCandles = Object.values((candleData[activeExchange] || {})[candleKey] || {})
-    const candles = allCandles.filter(({ mts }) => mts >= start)
-    candles.sort((a, b) => a.mts - b.mts)
-
-    const indicatorData = {}
-
-    Object.values(indicators).forEach((i) => {
-      indicatorData[i.key] = calcIndicatorValuesForCandles(i, candles)
-    })
-
+    // TODO: Better color generation; to save time we generate enough colors for
+    //       all indicators here, but optimally we'd switch on i.constructor.ui
     this.setState(() => ({
-      tf,
-      indicators,
-      indicatorData,
+      indicators: Object.values(indicators).map((ind) => {
+        let colors = []
+
+        for (let i = 0; i < 5; i += 1) {
+          colors.push(randomColor())
+        }
+
+        // allow users to overwrite colors
+        if (ind.color) {
+          colors[0] = ind.color
+        } else if (ind.colors) {
+          colors = ind.colors // eslint-disable-line
+        }
+
+        return [ind.constructor, ind._args, colors]
+      }),
     }))
   }
 
-  onCurrentTFChange(tf) {
+  onTFChange(tf) {
     this.setState(() => ({ tf }))
-
-    setTimeout(() => {
-      const { indicators } = this.state
-      this.onIndicatorsChange(indicators)
-    }, 0)
-  }
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const { candleData, activeMarket, activeExchange } = nextProps
-    const { currentRange, tf, indicators } = prevState
-
-    if (indicators.length === 0) {
-      return {}
-    }
-
-    const candleKey = `${tf}:${activeMarket.uiID}`
-    const start = +currentRange[0]
-
-    const allCandles = Object.values((candleData[activeExchange] || {})[candleKey] || {})
-    const candles = allCandles.filter(({ mts }) => mts >= start)
-    candles.sort((a, b) => a.mts - b.mts)
-
-    const indicatorData = {}
-
-    Object.values(indicators).forEach((i) => {
-      indicatorData[i.key] = calcIndicatorValuesForCandles(i, candles)
-    })
-
-    return { indicatorData }
   }
 
   onTradeClick(trade) {
@@ -106,8 +70,9 @@ export default class StrategyEditorPage extends React.Component {
   render() {
     const { activeExchange, activeMarket } = this.props
     const {
-      results = {}, indicators, indicatorData, focusMTS, tf,
+      results = {}, indicators, focusMTS, tf,
     } = this.state
+
     const { trades = [] } = results
 
     return (
@@ -126,28 +91,30 @@ export default class StrategyEditorPage extends React.Component {
           key='main'
           className='hfui-strategiespage__right'
         >
-          <Chart
-            dark
-            showIndicatorControls={false}
-            showOrders={false}
-            showPositions={false}
-            activeMarket={activeMarket}
-            activeExchange={activeExchange}
-            indicators={Object.values(indicators)}
-            indicatorData={indicatorData}
-            trades={trades}
-            focusMTS={focusMTS}
-            moveable={false}
-            removeable={false}
-            canChangeMarket={false}
-            canChangeExchange={false}
-            showMarket={false}
-            showExchange={false}
-            disableIndicatorSettings
+          <div className='hfui-strategiespage__chart'>
+            <Chart
+              dark
+              showIndicatorControls={false}
+              showOrders={false}
+              showPositions={false}
+              activeMarket={activeMarket}
+              activeExchange={activeExchange}
+              indicators={indicators}
+              trades={trades}
+              focusMTS={focusMTS}
+              moveable={false}
+              removeable={false}
+              canChangeMarket={false}
+              canChangeExchange={false}
+              showMarket={false}
+              showExchange={false}
+              disableIndicatorSettings
+              disableIndicators
+              disableToolbar
 
-            onRangeChange={this.onCurrentRangeChange}
-            onTFChange={this.onCurrentTFChange}
-          />
+              onTFChange={this.onTFChange}
+            />
+          </div>
 
           <StrategyTradesTable
             dark

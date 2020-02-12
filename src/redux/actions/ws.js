@@ -1,6 +1,7 @@
 import _isString from 'lodash/isString'
 import _isFinite from 'lodash/isFinite'
 import t from '../constants/ws'
+import ui from '../constants/ui'
 
 const send = payload => ({
   type: t.BUFF_SEND,
@@ -74,6 +75,11 @@ export default {
   recvDataMarkets: (exID, markets) => ({
     type: t.DATA_MARKETS,
     payload: { exID, markets },
+  }),
+
+  recvUpdatedSettings: settings => ({
+    type: ui.UPDATE_SETTINGS,
+    payload: settings,
   }),
 
   bufferDataFromExchange: (exID, chanID, data) => ({
