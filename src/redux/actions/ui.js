@@ -62,6 +62,14 @@ const setRoute = route => ({
   },
 })
 
+const closeNotificationPanel = () => ({
+  type: types.CLOSE_NOTIFICATIONS,
+})
+
+const openNotifcationPanel = () => ({
+  type: types.OPEN_NOTIFICATIONS,
+})
+
 export default {
   setRoute,
   saveLayout,
@@ -71,4 +79,6 @@ export default {
   saveComponentState,
   setActiveExchange,
   saveRemoteVersion,
+  closeNotificationPanel,
+  openNotifcationPanel,
 }

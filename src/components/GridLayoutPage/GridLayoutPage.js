@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-undef */
 import React from 'react'
 import _isEqual from 'lodash/isEqual'
 import _min from 'lodash/min'
@@ -8,6 +9,7 @@ import AddLayoutComponentModal from '../AddLayoutComponentModal'
 import CreateNewLayoutModal from '../CreateNewLayoutModal'
 import LayoutControlToolbar from '../LayoutControlToolbar'
 import GridLayout from '../GridLayout'
+import StatusBar from '../StatusBar'
 
 import {
   layoutDefToGridLayout,
@@ -213,8 +215,11 @@ export default class GridLayoutPage extends React.Component {
           layoutDef={layoutDef}
           layoutID={layoutID}
           chartProps={({
-            activeMarket, ...chartProps,
+            activeMarket,
+            disableToolbar: true,
+            ...chartProps,
           })}
+
           bookProps={{ canChangeStacked: true, ...bookProps }}
           tradesProps={{ ...tradesProps }}
           ordersProps={({
@@ -231,24 +236,12 @@ export default class GridLayoutPage extends React.Component {
           onRemoveComponent={this.onRemoveComponentFromLayout}
         />
 
-        {/*
-        <StatusBar
-          layoutNames={Object.keys(layouts).filter(id => (
-            (layouts[id].type === 'trading' && tradingEnabled)
-            || (layouts[id].type === 'data' && !tradingEnabled)
-          ))}
 
-          layoutName={layoutID}
-          layoutCanDelete={layoutDef.canDelete}
-          layoutDirty={layoutDirty}
-          onSaveLayout={this.onSaveLayout}
-          onAddComponentToLayout={this.onAddComponentToLayout}
-          onCreateNewLayout={this.onCreateNewLayout}
-          onChangeLayout={this.onChangeLayout}
-          onDeleteLayout={this.onDeleteLayout}
-          allowTradingComponents={tradingEnabled}
+        <StatusBar
+          key='statusbar'
+          displayLayoutControls={false}
         />
-        */}
+
       </div>
     )
   }

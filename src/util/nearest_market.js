@@ -6,8 +6,6 @@ export default (market, markets) => {
     return market
   }
 
-  console.log(market)
-
   const marketsLDistance = markets.map(m => ({
     l: Levenshtein(m.uiID || m.restID, market.uiID || market.restID),
     m,

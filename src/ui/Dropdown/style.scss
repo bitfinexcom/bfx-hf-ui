@@ -6,12 +6,16 @@
 
   ul {
     position: absolute;
-    top: 30px;
+    top: 34px;
     left: 0;
     border: 1px solid #54b361;
     width: 200px;
     background: #102331;
     z-index: 999;
+
+    &.with-icon {
+      padding-left: 32px;
+    }
 
     li {
       line-height: 40px;

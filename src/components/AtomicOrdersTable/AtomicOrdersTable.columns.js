@@ -37,7 +37,7 @@ export default (exID, authToken, cancelOrder) => [{
       <i
         role='button'
         tabIndex={0}
-        className='far fa-times-circle'
+        className='icon-cancel'
         onClick={() => cancelOrder(exID, authToken, rowData)}
       />
     </div>

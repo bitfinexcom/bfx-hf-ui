@@ -10,11 +10,11 @@ export default class OrderFormModal extends React.PureComponent {
 
   render() {
     const {
-      content, className, icon, title, form, buttons, onClick, titleColor,
+      content, className, icon, title, form, buttons, onClick, titleColor, apiClientConnecting, isModal = true,
     } = this.props
 
     return (
-      <div className={ClassNames('hfui-orderform__modal-wrapper', className)}>
+      <div className={ClassNames([{ 'hfui-orderform__modal-wrapper': isModal, 'hfui-orderform__wrapper-nomodal': !isModal }, className])}>
         <Scrollbars>
           <div
             role='button'
@@ -45,6 +45,12 @@ export default class OrderFormModal extends React.PureComponent {
               <div className='hfui-orderform__modal-buttons'>
                 {buttons}
               </div>
+            )}
+
+            {apiClientConnecting && (
+              <span>
+                Connecting to exchange...
+              </span>
             )}
           </div>
         </Scrollbars>

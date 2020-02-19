@@ -7,7 +7,7 @@
 
 ```bash
 git clone https://github.com/bitfinexcom/bfx-hf-ui
-yarn  install
+npm  install
 ```
 
 ## Run in the browser
@@ -21,9 +21,12 @@ npm start
 ## Build electron app manually
 
 Generates an installable application to run independently from the browser. Once you have ran the below command navigate to the `/dist` folder and select the instillation executable file for the operating system that you are using.
+
 ```bash
-npm run pack
-npm run dist
+npm run build
+npm run dist-win # for windows
+npm run dist-mac # for mac
+npm run dist-linux # for linux
 ```
 
 ## Install pre-built electron app
@@ -49,3 +52,7 @@ Starting the HF UI will spawn all of the Honey Framework services that are neede
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+## Trigger Travis build
+
+Travis automatically builds and deploys this code to the github releases page whenever a commit specifying a new tag ('v3.0.4', 'v5.0.4' ect...) is merged into master.

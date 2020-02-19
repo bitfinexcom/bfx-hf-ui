@@ -60,7 +60,6 @@ export default class OrderBook extends React.Component {
       >
         {stackedView ? [
           <div key='header' className='hfui-orderbook__header'>
-            <p>Count</p>
             <p>Amount</p>
             <p>Total</p>
             <p>Price</p>
@@ -85,10 +84,6 @@ export default class OrderBook extends React.Component {
                     }}
                   >
                     <div className='hfui-orderbook__pl-container spread'>
-                      <p className='hfui-orderbook__pl-count'>
-                        —
-                      </p>
-
                       <p className='hfui-orderbook__pl-amount' />
                       <p className='hfui-orderbook__pl-total'>
                         {totalAmount.toFixed(2)}
@@ -113,10 +108,6 @@ export default class OrderBook extends React.Component {
                   })}
                 >
                   <div className='hfui-orderbook__pl-container'>
-                    <p className='hfui-orderbook__pl-count'>
-                      —
-                    </p>
-
                     <p className='hfui-orderbook__pl-amount'>
                       {pl[1].toFixed(2)}
                     </p>
@@ -130,7 +121,7 @@ export default class OrderBook extends React.Component {
                     <p className='hfui-orderbook__pl-price'>
                       <PLNumber
                         value={pl[1]}
-                        processFunc={() => new BigN(`${pl[0]}`).toString(10)}
+                        prepareFunc={() => new BigN(`${pl[0]}`).toString(10)}
                       />
                     </p>
 

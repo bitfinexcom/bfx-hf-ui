@@ -1,5 +1,6 @@
 import React from 'react'
 import _capitalize from 'lodash/capitalize'
+import _isEqual from 'lodash/isEqual'
 
 import TradesTable from '../TradesTable'
 import MarketSelect from '../MarketSelect'
@@ -36,6 +37,10 @@ export default class TradesTablePanel extends React.Component {
     const { currentExchange, currentMarket } = this.state
     const { addTradesRequirement } = this.props
     addTradesRequirement(currentExchange, currentMarket)
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return (!_isEqual(nextProps, this.props) || !_isEqual(nextState, this.state))
   }
 
   componentWillUnmount() {
@@ -179,9 +184,7 @@ export default class TradesTablePanel extends React.Component {
     const {
       label, onRemove, moveable, removeable, showExchange, showMarket, dark,
     } = this.props
-
     const { currentExchange, currentMarket } = this.state
-
     return (
       <Panel
         dark={dark}

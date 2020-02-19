@@ -12,7 +12,8 @@ yarn-debug.log*
 yarn-error.log*
 
 src/**/*.css
-package-lock.json
 yarn.lock
 
 todo
+/db
+/logs/*.log

@@ -3,11 +3,11 @@ import React from 'react'
 import HFIcon from '../../ui/HFIcon'
 import AuthenticationInitForm from './AuthenticationInitForm'
 import AuthenticationUnlockForm from './AuthenticationUnlockForm'
+import AuthenticationConnectingForm from './AuthenticationConnectingForm'
 import { propTypes, defaultProps } from './Authentication.props'
 import { version } from '../../../package.json'
 
 import './style.css'
-
 
 export default class Authentication extends React.PureComponent {
   static propTypes = propTypes
@@ -15,7 +15,7 @@ export default class Authentication extends React.PureComponent {
 
   render() {
     const {
-      configured, onUnlock, onInit, onReset,
+      wsConnected, configured, onUnlock, onInit, onReset,
     } = this.props
 
     return (
@@ -34,7 +34,9 @@ export default class Authentication extends React.PureComponent {
             </div>
           </div>
 
-          {configured ? (
+          {!wsConnected ? (
+            <AuthenticationConnectingForm />
+          ) : configured ? (
             <AuthenticationUnlockForm
               onUnlock={onUnlock}
               onReset={onReset}

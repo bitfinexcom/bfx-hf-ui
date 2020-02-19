@@ -1,8 +1,9 @@
 import React from 'react'
 import _capitalize from 'lodash/capitalize'
+import _isEqual from 'lodash/isEqual'
 import ClassNames from 'classnames'
 import {
-  Iceberg, TWAP, AccumulateDistribute, PingPong, MACrossover,
+  Iceberg, TWAP, AccumulateDistribute, PingPong, MACrossover, OCOCO,
 } from 'bfx-hf-algo'
 
 import {
@@ -22,7 +23,7 @@ import Dropdown from '../../ui/Dropdown'
 import Scrollbars from '../../ui/Scrollbars'
 import MarketSelect from '../MarketSelect'
 
-import ConnectingModal from './Modals/ConnectingModal'
+// import ConnectingModal from './Modals/ConnectingModal'
 import UnconfiguredModal from './Modals/UnconfiguredModal'
 import SubmitAPIKeysModal from './Modals/SubmitAPIKeysModal'
 import OrderFormMenu from './OrderFormMenu'
@@ -45,7 +46,7 @@ export default class OrderForm extends React.Component {
     fieldData: {},
     validationErrors: {},
     creationError: null,
-    context: 'exchange',
+    context: 'e',
     helpOpen: false,
     configureModalOpen: false,
   }
@@ -88,6 +89,10 @@ export default class OrderForm extends React.Component {
     this.onClearOrderLayout = this.onClearOrderLayout.bind(this)
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return !(_isEqual(nextProps, this.props)) || !(_isEqual(this.state, nextState))
+  }
+
   static getAOs(exID) {
     return [
       MACrossover,
@@ -95,6 +100,7 @@ export default class OrderForm extends React.Component {
       PingPong,
       Iceberg,
       TWAP,
+      OCOCO,
     ].map(ao => ao.meta.getUIDef({
       timeframes: Object.values(TIME_FRAMES_FOR_EXID[exID]),
     }))
@@ -118,6 +124,7 @@ export default class OrderForm extends React.Component {
       algoOrders,
       currentExchange: activeExchange,
       currentMarket: activeMarket,
+      context: activeMarket.contexts[0],
       fieldData: {},
       currentLayout: null,
     }
@@ -453,17 +460,14 @@ export default class OrderForm extends React.Component {
               />
             ),
 
-            apiClientDisconnected && !apiClientConfigured && configureModalOpen && (
+            !apiClientConnected && !apiClientConfigured && configureModalOpen && (
               <SubmitAPIKeysModal
                 key='submit-api-keys'
                 onClose={this.onToggleConfigureModal}
                 onSubmit={this.onSubmitAPIKeys}
                 exID={currentExchange}
+                apiClientConnecting={apiClientConnecting}
               />
-            ),
-
-            apiClientConnecting && (
-              <ConnectingModal key='connecting' />
             ),
           ]}
 
@@ -535,7 +539,10 @@ export default class OrderForm extends React.Component {
               layout: currentLayout,
               validationErrors,
               renderData,
-              fieldData,
+              fieldData: {
+                ...fieldData,
+                _context: context,
+              },
             }),
 
             creationError && (
