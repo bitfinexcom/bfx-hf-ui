@@ -2,8 +2,11 @@ import { connect } from 'react-redux'
 
 import UIActions from '../../redux/actions/ui'
 import WSActions from '../../redux/actions/ws'
-import { getExchanges } from '../../redux/selectors/meta'
-import { getComponentState, getActiveExchange } from '../../redux/selectors/ui'
+import { getExchanges, getMarkets } from '../../redux/selectors/meta'
+import {
+  getComponentState, getActiveExchange, getActiveMarket,
+} from '../../redux/selectors/ui'
+
 import {
   getAllCandles, getAllPositions, getAllOrders, getAllSyncRanges,
 } from '../../redux/selectors/ws'
@@ -27,6 +30,8 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     orders: getAllOrders(state),
     positions: getAllPositions(state),
     syncRanges: getAllSyncRanges(state),
+    activeMarket: getActiveMarket(state),
+    allMarkets: getMarkets(state),
   }
 }
 
