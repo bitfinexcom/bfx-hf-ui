@@ -1,19 +1,10 @@
 import PropTypes from 'prop-types'
 
 export const propTypes = {
-  onAddComponentToLayout: PropTypes.func,
-  onCreateNewLayout: PropTypes.func,
-  onChangeLayout: PropTypes.func,
-  onDeleteLayout: PropTypes.func,
-  onSaveLayout: PropTypes.func,
-  displayLayoutControls: PropTypes.bool,
-  layoutName: PropTypes.string,
-  layoutNames: PropTypes.array,
-  allowTradingComponents: PropTypes.bool,
   wsConnected: PropTypes.bool,
-  layoutCanDelete: PropTypes.bool,
+  remoteVersion: PropTypes.string,
+  apiClientStates: PropTypes.object,
+  currentExchange: PropTypes.string,
 }
 
-export const defaultProps = {
-  displayLayoutControls: true,
-}
+export const defaultProps = {}

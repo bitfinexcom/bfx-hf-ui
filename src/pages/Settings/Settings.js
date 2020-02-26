@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import React from 'react'
 import _capitalize from 'lodash/capitalize'
 import { UserSettings } from 'bfx-hf-ui-config'
