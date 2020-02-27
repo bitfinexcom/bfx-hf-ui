@@ -25,6 +25,7 @@ function getInitialState() {
     route: DEFAULT_ROUTE,
     activeMarket: DEFAULT_MARKET,
     activeExchange: DEFAULT_EXCHANGE,
+    notificationsVisible: false,
     previousMarket: null,
     previousExchange: null,
     remoteVersion: null,
@@ -102,6 +103,27 @@ function reducer(state = getInitialState(), action = {}) {
           ...state.layouts,
           [id]: layout,
         },
+      }
+    }
+
+    case types.UPDATE_SETTINGS: {
+      return {
+        ...state,
+        settings: payload,
+      }
+    }
+
+    case types.OPEN_NOTIFICATIONS: {
+      return {
+        ...state,
+        notificationsVisible: true,
+      }
+    }
+
+    case types.CLOSE_NOTIFICATIONS: {
+      return {
+        ...state,
+        notificationsVisible: false,
       }
     }
 

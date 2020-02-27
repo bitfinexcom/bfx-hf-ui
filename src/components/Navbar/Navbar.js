@@ -1,4 +1,5 @@
 import React from 'react'
+import { Icon } from 'react-fa'
 
 import HFIcon from '../../ui/HFIcon'
 import NavbarButton from '../NavbarButton'
@@ -38,7 +39,15 @@ export default class Navbar extends React.PureComponent {
               ]}
             />
           </li>
-
+          <li>
+            <NavbarButton
+              route='/settings'
+              label={[
+                <Icon name='cog' />,
+                <p key='label'>Settings</p>,
+              ]}
+            />
+          </li>
         </ul>
       </div>
     )

@@ -1,4 +1,5 @@
 process.env.DEBUG = 'bfx:hf:*'
+process.env.DEBUG_TRACE = true
 
 require('dotenv').config()
 require('bfx-hf-util/lib/catch_uncaught_errors')

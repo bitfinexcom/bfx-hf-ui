@@ -159,9 +159,10 @@ export default class GridLayoutPage extends React.Component {
     }))
   }
 
-  onDeleteLayout(id) {
+  onDeleteLayout() {
+    const { layoutID } = this.state
     const { deleteLayout, layouts, defaultLayoutID } = this.props
-    deleteLayout(id)
+    deleteLayout(layoutID)
 
     this.setState(() => ({
       layoutID: defaultLayoutID,
@@ -215,8 +216,11 @@ export default class GridLayoutPage extends React.Component {
           layoutDef={layoutDef}
           layoutID={layoutID}
           chartProps={({
-            activeMarket, ...chartProps,
+            activeMarket,
+            disableToolbar: true,
+            ...chartProps,
           })}
+
           bookProps={{ canChangeStacked: true, ...bookProps }}
           tradesProps={{ ...tradesProps }}
           ordersProps={({

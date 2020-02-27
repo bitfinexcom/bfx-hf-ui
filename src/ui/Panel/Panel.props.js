@@ -4,6 +4,7 @@ export const propTypes = {
   className: PropTypes.string,
   label: PropTypes.string,
   onRemove: PropTypes.func,
+  closeNotificationPanel: PropTypes.func,
   headerComponents: PropTypes.any,
   secondaryHeaderComponents: PropTypes.any,
   hideIcons: PropTypes.bool,

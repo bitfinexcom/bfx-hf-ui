@@ -30,6 +30,6 @@ export default [{
 }, {
   label: 'Time',
   dataKey: 'mts',
-  width: 100,
-  cellRenderer: ({ rowData = {} }) => new Date(rowData.mts).toLocaleTimeString(),
+  width: 150,
+  cellRenderer: ({ rowData = {} }) => new Date(rowData.mts).toLocaleString(),
 }]
