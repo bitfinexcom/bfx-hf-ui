@@ -2,26 +2,36 @@ import { connect } from 'react-redux'
 
 import UIActions from '../../redux/actions/ui'
 import WSActions from '../../redux/actions/ws'
-import { getExchanges } from '../../redux/selectors/meta'
-import { getComponentState, getActiveExchange } from '../../redux/selectors/ui'
+import { getExchanges, getMarkets } from '../../redux/selectors/meta'
 import {
-  getAllCandles, getAllPositions, getAllOrders,
+  getComponentState, getActiveExchange, getActiveMarket,
+} from '../../redux/selectors/ui'
+
+import {
+  getAllCandles, getAllPositions, getAllOrders, getAllSyncRanges,
 } from '../../redux/selectors/ws'
 
 import Chart from './Chart'
 
 const mapStateToProps = (state = {}, ownProps = {}) => {
   const { layoutID, layoutI: id } = ownProps
+  const { ui = {} } = state
+  const { settings = {} } = ui
+  const { chart } = settings
   const activeExchange = ownProps.activeExchange || getActiveExchange(state)
 
   return {
     activeExchange,
+    chart,
     reduxState: state, // needed for internal isSyncingCandles() call
     exchanges: getExchanges(state),
     savedState: getComponentState(state, layoutID, 'chart', id),
     candleData: getAllCandles(state),
     orders: getAllOrders(state),
     positions: getAllPositions(state),
+    syncRanges: getAllSyncRanges(state),
+    activeMarket: getActiveMarket(state),
+    allMarkets: getMarkets(state),
   }
 }
 

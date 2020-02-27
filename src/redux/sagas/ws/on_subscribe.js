@@ -13,7 +13,7 @@ export default function* (action = {}) {
   const existingChannel = yield select(getChannel, channel)
 
   if (!existingChannel) {
-    debug('subscribing to %s %s on %s', channel[0], _last(channel).u, exID)
+    debug('subscribing to %s %s on %s', channel[0], _last(channel).uiID, exID)
 
     yield put(WSActions.send(['subscribe', exID, channel]))
   }

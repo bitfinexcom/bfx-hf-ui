@@ -15,7 +15,7 @@ export default class Panel extends React.PureComponent {
       className, label, children, onRemove, headerComponents, hideIcons,
       extraIcons, moveable, removeable, modal, footer, settingsOpen,
       onToggleSettings, tabs, activeTab, onChangeTab, darkHeader, dark,
-      secondaryHeaderComponents, secondaryHeaderReverse,
+      secondaryHeaderComponents, secondaryHeaderReverse, closePanel,
     } = this.props
 
     let heightOffsetPX = 0
@@ -36,7 +36,9 @@ export default class Panel extends React.PureComponent {
           })}
         >
           {label && <p className='hfui-panel__label'>{label}</p>}
-
+          { closePanel && (
+            <p className='hfui-panel__close' onClick={closePanel}>X</p>)
+          }
           {tabs && (
             <ul className='hfui-panel__header-tabs'>
               {tabs.map(tab => (
