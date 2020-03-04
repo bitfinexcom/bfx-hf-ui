@@ -100,7 +100,7 @@ const renderLayoutElement = (layoutID, def = {}, componentProps = {}, onRemoveCo
   if (!C) {
     return (
       <p>
-Unknown component type:
+        Unknown component type:
         {c}
       </p>
     )

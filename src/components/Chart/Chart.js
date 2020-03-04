@@ -1,10 +1,6 @@
-/* eslint-disable default-case */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-trailing-spaces  */
 import React from 'react'
-import _last from 'lodash/last'
-import _isEmpty from 'lodash/isEmpty'
 import _isEqual from 'lodash/isEqual'
+import _capitalize from 'lodash/capitalize'
 import { TIME_FRAME_WIDTHS } from 'bfx-hf-util'
 import { UserSettings } from 'bfx-hf-ui-config'
 import { AutoSizer } from 'react-virtualized'
@@ -17,6 +13,8 @@ import {
   getDerivedStateFromProps,
 } from './helpers'
 
+import Select from '../../ui/Select'
+import MarketSelect from '../MarketSelect'
 import { getLastCandleUpdate } from '../../redux/selectors/ws'
 import { getMarketsForExchange } from '../../redux/selectors/meta'
 import nearestMarket from '../../util/nearest_market'
@@ -393,17 +391,58 @@ export default class Chart extends React.Component {
     }
   }
 
+  renderExchangeDropdown() {
+    const { exchangeDirty, currentExchange } = this.state
+    const { exchanges, canChangeExchange } = this.props
+
+    return (
+      <Select
+        key='exchange-dropdown'
+        disabled={!canChangeExchange}
+        className={{ yellow: exchangeDirty }}
+        onChange={this.onChangeExchange}
+        value={{
+          label: _capitalize(currentExchange),
+          value: currentExchange,
+        }}
+
+        options={exchanges.map(ex => ({
+          label: _capitalize(ex),
+          value: ex,
+        }))}
+      />
+    )
+  }
+
+  renderMarketDropdown() {
+    const { marketDirty, currentMarket, currentExchange } = this.state
+    const { allMarkets, canChangeMarket } = this.props
+    const markets = allMarkets[currentExchange] || []
+
+    return (
+      <MarketSelect
+        key='market-dropdown'
+        disabled={!canChangeMarket}
+        className={{ yellow: marketDirty }}
+        onChange={this.onChangeMarket}
+        value={currentMarket}
+        markets={markets}
+      />
+    )
+  }
+
   render() {
     const {
       trades, syncRanges, disableToolbar, disableTopbar, orders, positions,
       disableIndicators, disableIndicatorSettings, indicators: propIndicators,
-      chart, activeMarket,
+      chart, activeMarket, showExchange, showMarket,
     } = this.props
 
     const {
       data, drawings, currentExchange, currentTF, currentMarket,
       indicators: stateIndicators,
     } = this.state
+
     const { base, quote } = activeMarket
     const isSyncing = !!syncRanges.find(({ exID, symbol, tf }) => (
       exID === currentExchange && symbol === currentMarket.wsID && tf === currentTF
@@ -419,7 +458,7 @@ export default class Chart extends React.Component {
       .filter(o => o.symbol === currentMarket.wsID)
 
     switch (chart) {
-      case TRADING_VIEW: 
+      case TRADING_VIEW: {
         return (
           <div style={{
             display: 'flex',
@@ -440,9 +479,9 @@ export default class Chart extends React.Component {
             />
           </div>
         )
-        
-      case BFX_HF_CUSTOM: 
-      default:
+      }
+
+      case BFX_HF_CUSTOM: {
         return (
           <AutoSizer>
             {({ width, height }) => width > 0 && height > 0 && (
@@ -476,10 +515,28 @@ export default class Chart extends React.Component {
                   AXIS_COLOR: '#444',
                   AXIS_TICK_COLOR: '#00000000',
                 }}
+
+                showMarketLabel={!showMarket}
+                extraHeaderComponentsLeft={(showExchange || showMarket) && (
+                  <div className='hfui-chart__extra-header-components'>
+                    {showExchange && this.renderExchangeDropdown()}
+                    {showMarket && this.renderMarketDropdown()}
+                  </div>
+                )}
               />
             )}
           </AutoSizer>
         )
+      }
+
+      default: {
+        return (
+          <p>
+            Unknown chart type:
+            {chart}
+          </p>
+        )
+      }
     }
   }
 }
