@@ -1,10 +1,11 @@
 const { app } = require('electron') // eslint-disable-line
 const fs = require('fs')
+const os = require('os')
 const path = require('path')
 const { fork } = require('child_process')
 const HFUIApplication = require('./lib/app')
 
-const LOG_PATH = `${__dirname}/../logs`
+const LOG_PATH = `${os.tmpdir()}`
 const LOG_PATH_DS_BITFINEX = `${LOG_PATH}/ds-bitfinex-server.log`
 const LOG_PATH_API_SERVER = `${LOG_PATH}/api-server.log`
 
