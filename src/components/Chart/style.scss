@@ -30,3 +30,27 @@
     }
   }
 }
+
+.hfui-chart__extra-header-components {
+  display: flex;
+  flex-direction: row;
+  line-height: 33px;
+
+  svg {
+    color: #6b7b8b !important;
+  }
+
+  .hfui-select__single-value {
+    color: #54B361 !important;
+  }
+
+  .hfui-select__value-container {
+    min-width: 100px;
+  }
+
+  .hfui-select__outer {
+    padding-right: 8px;
+    margin-right: 8px;
+    border-right: 1px solid #2a2e39;
+  }
+}
