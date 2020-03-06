@@ -6,18 +6,20 @@ import Input from '../../../ui/Input'
 import { propTypes, defaultProps } from './input.number.props'
 import {
   renderString, CONVERT_LABELS_TO_PLACEHOLDERS,
-} from '../OrderForm.helpers'
+} from '../OrderForm.render.helpers'
 
 export default class NumberInput extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
-  static DEFAULT_VALUE = ''
   static processValue = v => +v
   static validateValue = (v) => {
     return _isFinite(+v)
       ? null
       : 'Must be a number'
   }
+
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
+  static DEFAULT_VALUE = ''
 
   render() {
     const {
