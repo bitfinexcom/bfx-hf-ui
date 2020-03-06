@@ -18,3 +18,5 @@ todo
 /db
 /logs/*.log
 tags
+
+Session.vim
