@@ -144,6 +144,7 @@
     "is-wsl": "^2.1.1",
     "jest": "^25.1.0",
     "jest-environment-jsdom-fourteen": "^1.0.1",
+    "jest-pnp-resolver": "^1.2.1",
     "jest-watch-typeahead": "^0.4.2",
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass-chokidar": "^1.3.5",
@@ -157,6 +158,7 @@
     "postcss-normalize": "^8.0.1",
     "postcss-preset-env": "^6.6.0",
     "postcss-safe-parser": "^4.0.2",
+    "react-test-renderer": "^16.13.0",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.1.3",
     "terser-webpack-plugin": "^2.3.5",
@@ -268,17 +270,18 @@
     "testEnvironment": "jest-environment-jsdom-fourteen",
     "transform": {
       "^.+\\.(js|jsx|ts|tsx)$": "<rootDir>/node_modules/babel-jest",
-      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
+      "^.+\\.css$": "<rootDir>/jest/cssTransform.js",
       "^(?!.*\\.(js|jsx|ts|tsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
     },
     "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$",
-      "^.+\\.module\\.(css|sass|scss)$"
+      "node_modules/(?!(bfx-hf-chart)/)"
     ],
-    "modulePaths": [],
+    "resolver": "jest-pnp-resolver",
+    "modulePaths": ["src"],
     "moduleNameMapper": {
       "^react-native$": "react-native-web",
-      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
+      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
+      "\\.(css|scss)$": "<rootDir>/jest/styleMock.js"
     },
     "moduleFileExtensions": [
       "web.js",
