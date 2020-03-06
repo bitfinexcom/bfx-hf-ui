@@ -511,8 +511,7 @@ export default class StrategyEditor extends React.PureComponent {
                 ? null
                 : _isEmpty(sectionErrors[activeContent])
                   ? <p>~</p>
-                  : <p>*</p>
-              }
+                  : <p>*</p>}
             </li>
           ))}
         </ul>

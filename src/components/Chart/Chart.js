@@ -29,7 +29,6 @@ const { TRADING_VIEW, BFX_HF_CUSTOM } = CHARTS
 export default class Chart extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
-  static getDerivedStateFromProps = getDerivedStateFromProps
 
   state = {
     candles: [],
@@ -114,6 +113,8 @@ export default class Chart extends React.Component {
     this.onIncreaseHeight = this.onIncreaseHeight.bind(this)
     this.onDecreaseHeight = this.onDecreaseHeight.bind(this)
   }
+
+  static getDerivedStateFromProps = getDerivedStateFromProps
 
   componentDidMount() {
     const { addCandlesRequirement, addTradesRequirement } = this.props

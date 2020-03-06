@@ -1,7 +1,7 @@
 import React from 'react'
 import ClassNames from 'classnames'
 
-import { renderString } from '../OrderForm.helpers'
+import { renderString } from '../OrderForm.render.helpers'
 import Checkbox from '../../../ui/Checkbox/Checkbox'
 import { propTypes, defaultProps } from './input.checkbox.props'
 

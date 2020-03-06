@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import _capitalize from 'lodash/capitalize'
 
 import Select from '../../../ui/Select'
 
-export default ({
+const renderExchangeDropdown = ({
   onChangeExchange, currentExchange, exchangeDirty, exchanges, disabled, // eslint-disable-line
 }) => (
   <Select
@@ -23,3 +24,14 @@ export default ({
     }))}
   />
 )
+
+renderExchangeDropdown.displayName = 'ExchangeDropdown'
+renderExchangeDropdown.propTypes = {
+  exchanges: PropTypes.arrayOf(PropTypes.string),
+}
+
+renderExchangeDropdown.defaultProps = {
+  exchanges: [],
+}
+
+export default renderExchangeDropdown

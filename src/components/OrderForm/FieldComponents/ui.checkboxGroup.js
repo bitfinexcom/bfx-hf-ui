@@ -1,5 +1,5 @@
 import React from 'react'
-import { renderLayoutField } from '../OrderForm.helpers'
+import { renderLayoutField } from '../OrderForm.helpers' // eslint-disable-line
 import { propTypes, defaultProps } from './ui.checkboxGroup.props'
 
 export default class UICheckboxGroup extends React.PureComponent {

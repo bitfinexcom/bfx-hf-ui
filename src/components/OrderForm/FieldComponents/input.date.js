@@ -4,13 +4,10 @@ import DatePicker from 'react-datepicker'
 import { propTypes, defaultProps } from './input.date.props'
 import {
   renderString, CONVERT_LABELS_TO_PLACEHOLDERS,
-} from '../OrderForm.helpers'
+} from '../OrderForm.render.helpers'
 
 // TODO:
 export default class DateInput extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
-
   static processValue = v => +v
   static validateValue = (v) => {
     if (`${new Date(+v)}` === 'Invalid Date') {
@@ -21,6 +18,9 @@ export default class DateInput extends React.PureComponent {
 
     return false
   }
+
+  static propTypes = propTypes
+  static defaultProps = defaultProps
 
   render() {
     const {

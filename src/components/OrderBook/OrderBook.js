@@ -150,11 +150,13 @@ export default class OrderBook extends React.Component {
           </ul>,
         ] : [
           <OBSide
+            key='bids'
             levels={bids}
             sumAmounts={sumAmounts}
           />,
 
           <OBSide
+            key='asks'
             levels={_reverse(asks)}
             sumAmounts={sumAmounts}
           />,

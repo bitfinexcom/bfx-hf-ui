@@ -37,8 +37,8 @@ export default class Panel extends React.PureComponent {
         >
           {label && <p className='hfui-panel__label'>{label}</p>}
           { closePanel && (
-            <p className='hfui-panel__close' onClick={closePanel}>X</p>)
-          }
+            <p className='hfui-panel__close' onClick={closePanel}>X</p>)}
+
           {tabs && (
             <ul className='hfui-panel__header-tabs'>
               {tabs.map(tab => (

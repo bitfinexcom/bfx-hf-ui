@@ -6,12 +6,12 @@ import {
   Iceberg, TWAP, AccumulateDistribute, PingPong, MACrossover, OCOCO,
 } from 'bfx-hf-algo'
 
+import { COMPONENTS_FOR_ID } from './FieldComponents'
 import {
   renderLayout,
   processFieldData,
   marketToQuoteBase,
   defaultDataForLayout,
-  COMPONENTS_FOR_ID,
 } from './OrderForm.helpers'
 
 import nearestMarket from '../../util/nearest_market'
