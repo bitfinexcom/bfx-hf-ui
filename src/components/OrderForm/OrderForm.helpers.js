@@ -5,52 +5,13 @@ import _isBoolean from 'lodash/isBoolean'
 import _capitalize from 'lodash/capitalize'
 import _flatten from 'lodash/flatten'
 
-import NumberInput from './FieldComponents/input.number'
-import PriceInput from './FieldComponents/input.price'
-import AmountInput from './FieldComponents/input.amount'
-import CheckboxInput from './FieldComponents/input.checkbox'
-import RadioInput from './FieldComponents/input.radio'
-import DateInput from './FieldComponents/input.date'
-import PercentInput from './FieldComponents/input.percent'
-import DropdownInput from './FieldComponents/input.dropdown'
-import RangeInput from './FieldComponents/input.range'
-import UICheckboxGroup from './FieldComponents/ui.checkboxGroup'
+import { COMPONENTS_FOR_ID } from './FieldComponents' // eslint-disable-line
 import Button from '../../ui/Button'
-
-const COMPONENTS_FOR_ID = {
-  'ui.checkbox_group': UICheckboxGroup,
-  'input.number': NumberInput,
-  'input.price': PriceInput,
-  'input.amount': AmountInput,
-  'input.dropdown': DropdownInput,
-  'input.checkbox': CheckboxInput,
-  'input.percent': PercentInput,
-  'input.radio': RadioInput,
-  'input.date': DateInput,
-  'input.range': RangeInput,
-}
-
-// Just in case we ever decide the labels are again valuable
-export const CONVERT_LABELS_TO_PLACEHOLDERS = false
 
 const marketToQuoteBase = market => ({
   QUOTE: market.q,
   BASE: market.b,
 })
-
-const renderString = (str, renderData) => {
-  const tokens = str.split(' ')
-
-  return tokens.map((t) => {
-    if (t[0] !== '$') {
-      return t
-    }
-
-    const key = t.substring(1)
-
-    return renderData[key] || ''
-  }).join(' ')
-}
 
 const verifyCondition = (condition = {}, value) => {
   if (typeof condition.eq !== 'undefined') {
@@ -344,10 +305,8 @@ const renderLayout = ({
 
 export {
   renderLayout,
-  renderString,
   processFieldData,
   renderLayoutField,
   marketToQuoteBase,
   defaultDataForLayout,
-  COMPONENTS_FOR_ID,
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import ClassNames from 'classnames'
 
 import RadioButton from '../../../ui/RadioButton'
-import { renderString } from '../OrderForm.helpers'
+import { renderString } from '../OrderForm.render.helpers'
 import { propTypes, defaultProps } from './input.radio.props'
 
 export default class RadioInput extends React.PureComponent {

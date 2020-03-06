@@ -5,7 +5,7 @@ import Dropdown from '../../../ui/Dropdown'
 import { propTypes, defaultProps } from './input.dropdown.props'
 import {
   renderString, CONVERT_LABELS_TO_PLACEHOLDERS,
-} from '../OrderForm.helpers'
+} from '../OrderForm.render.helpers'
 
 export default class DropdownInput extends React.PureComponent {
   static propTypes = propTypes

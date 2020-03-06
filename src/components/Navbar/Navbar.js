@@ -43,7 +43,7 @@ export default class Navbar extends React.PureComponent {
             <NavbarButton
               route='/settings'
               label={[
-                <Icon name='cog' />,
+                <Icon key='icon' name='cog' />,
                 <p key='label'>Settings</p>,
               ]}
             />
