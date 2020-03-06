@@ -1,7 +1,9 @@
 {
   "parser": "babel-eslint",
   "extends": [
-    "airbnb"
+    "airbnb",
+    "eslint:recommended",
+    "plugin:react/recommended"
   ],
   "rules": {
     "jsx-quotes": ["error", "prefer-single"],
@@ -19,10 +21,16 @@
     "jsx-a11y/no-static-element-interactions": 0,
     "jsx-a11y/no-noninteractive-element-interactions": 0,
     "jsx-a11y/label-has-for": 0,
+    "jsx-a11y/control-has-associated-label": 0,
     "no-plusplus": 0,
     "react/prefer-stateless-function": 0,
     "no-nested-ternary": 0,
-    "import/prefer-default-export": 0
+    "import/prefer-default-export": 0,
+    "comma-dangle": ["error", "always-multiline"],
+    "arrow-parens": [2, "as-needed", { "requireForBlockBody": true }],
+    "react/static-property-placement": ["error", "static public field"],
+    "react/state-in-constructor": 0,
+    "react/jsx-props-no-spreading": 0
   },
   "settings": {
     "import/resolver": {
