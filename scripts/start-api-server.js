@@ -8,8 +8,8 @@ const startHFServer = require('bfx-hf-server')
 const os = require('os')
 
 startHFServer({
-  uiDBPath: `${os.homedir()}/.db/ui.json`,
-  algoDBPath: `${os.homedir()}/.db/algos.json`,
+  uiDBPath: `${os.homedir()}/.hfdb/ui.json`,
+  algoDBPath: `${os.homedir()}/.hfdb/algos.json`,
   // Data servers are started by individual scripts
   // hfBitfinexDBPath: `${__dirname}/db/hf-bitfinex.json`,
   // hfBinanceDBPath: `${__dirname}/db/hf-binance.json`,

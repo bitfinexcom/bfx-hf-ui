@@ -12,7 +12,7 @@ const { schema: HFDBBitfinexSchema } = require('bfx-hf-ext-plugin-bitfinex')
 const dbBitfinex = new HFDB({
   schema: HFDBBitfinexSchema,
   adapter: HFDBLowDBAdapter({
-    dbPath: `${os.homedir()}/.db/hf-bitfinex.json`,
+    dbPath: `${os.homedir()}/.hfdb/hf-bitfinex.json`,
   }),
 })
 
