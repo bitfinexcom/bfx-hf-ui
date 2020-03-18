@@ -72,7 +72,9 @@ class Dropdown extends React.Component {
 
           {(open || isOpen) && (
             <ul
-              className={ClassNames({ 'with-icon': icon })}
+              className={ClassNames('hfui-dropdown__dropdown', {
+                'with-icon': icon,
+              })}
             >
               <Scrollbars autoHeight style={{ maxHeight: '300px' }}>
                 {options.map(o => (
