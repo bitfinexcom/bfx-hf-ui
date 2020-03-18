@@ -87,6 +87,8 @@
     "start": "cross-env REACT_APP_DEV=1 REACT_APP_TV_URL=http://localhost:9999 REACT_APP_WSS_URL=ws://localhost:45000 node scripts/start.js",
     "build": "cross-env npm run build-css &&  cross-env REACT_APP_TV_URL=http://localhost:9999 REACT_APP_WSS_URL=ws://localhost:45000 node scripts/build.js",
     "dev": "cross-env concurrently --kill-others \"npm run start-server\" \"npm run start\"",
+    "test-update-snapshots": "cross-env npm run lint && cross-env node scripts/test.js -u --no-watch",
+    "test-coverage": "cross-env npm run lint && cross-env node scripts/test.js --no-watch --coverage",
     "test": "cross-env npm run lint && cross-env node scripts/test.js --no-watch",
     "test-watch": "cross-env npm run lint && cross-env node scripts/test.js",
     "lint": "cross-env eslint src/**/*.js",
@@ -130,6 +132,9 @@
     "electron-builder": "^22.2.0",
     "electron-installer-zip": "^0.1.2",
     "electron-packager": "^14.2.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "enzyme-to-json": "^3.4.4",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-react-app": "^5.2.0",
@@ -277,7 +282,9 @@
       "node_modules/(?!(bfx-hf-chart)/)"
     ],
     "resolver": "jest-pnp-resolver",
-    "modulePaths": ["src"],
+    "modulePaths": [
+      "src"
+    ],
     "moduleNameMapper": {
       "^react-native$": "react-native-web",
       "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
@@ -298,7 +305,11 @@
     "watchPlugins": [
       "jest-watch-typeahead/filename",
       "jest-watch-typeahead/testname"
-    ]
+    ],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "coverageReporters": ["lcov", "html"]
   },
   "babel": {
     "presets": [
