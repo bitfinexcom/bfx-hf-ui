@@ -9,7 +9,6 @@ import { nonce } from 'bfx-api-node-util'
 import HFS from 'bfx-hf-strategy'
 import HFU from 'bfx-hf-util'
 import _ from 'lodash'
-import * as SRD from '@projectstorm/react-diagrams'
 
 import Templates from './templates'
 
@@ -22,17 +21,8 @@ import './style.css'
 const debug = Debug('hfui-ui:c:strategy-editor')
 const STRATEGY_SECTIONS = [
   'defineIndicators',
-  'onPriceUpdate',
-  'onEnter',
-  'onUpdate',
-  'onUpdateLong',
-  'onUpdateShort',
-  'onUpdateClosing',
-  'onPositionOpen',
-  'onPositionUpdate',
-  'onPositionClose',
-  'onStart',
-  'onStop',
+  'defineMeta',
+  'exec',
 ]
 
 export default class StrategyEditor extends React.PureComponent {
@@ -48,7 +38,6 @@ export default class StrategyEditor extends React.PureComponent {
     editorMaximised: false,
     createNewStrategyModalOpen: false,
     openExistingStrategyModalOpen: false,
-    editorMode: 'visual',
   }
 
   constructor(props) {
@@ -200,10 +189,6 @@ export default class StrategyEditor extends React.PureComponent {
     }))
   }
 
-  onSwitchEditorMode(editorMode) {
-    this.setState(() => ({ editorMode }))
-  }
-
   setSectionError(section, msg) {
     this.setState(({ sectionErrors }) => ({
       sectionErrors: {
@@ -265,8 +250,7 @@ export default class StrategyEditor extends React.PureComponent {
 
   renderPanel(content) {
     const {
-      strategy, execRunning, strategyDirty, editorMaximised,
-      editorMode, dark,
+      strategy, execRunning, strategyDirty, editorMaximised, dark,
     } = this.state
 
     const { onRemove, moveable, removeable } = this.props
@@ -280,7 +264,6 @@ export default class StrategyEditor extends React.PureComponent {
         execRunning={execRunning}
         strategyDirty={strategyDirty}
         strategy={strategy}
-        editorMode={editorMode}
         editorMaximised={editorMaximised}
         onOpenSelectModal={this.onOpenSelectModal}
         onOpenCreateModal={this.onOpenCreateModal}
@@ -346,32 +329,6 @@ export default class StrategyEditor extends React.PureComponent {
     if (!strategy) {
       return this.renderPanel(this.renderEmptyContent())
     }
-
-    // 1) setup the diagram engine
-    const engine = new SRD.DiagramEngine()
-    engine.installDefaultFactories()
-
-    // 2) setup the diagram model
-    const model = new SRD.DiagramModel()
-
-    // 3) create a default node
-    const node1 = new SRD.DefaultNodeModel('Node 1', 'rgb(0,192,255)')
-    const port1 = node1.addOutPort('Out')
-    node1.setPosition(100, 100)
-
-    // 4) create another default node
-    const node2 = new SRD.DefaultNodeModel('Node 2', 'rgb(192,255,0)')
-    const port2 = node2.addInPort('In')
-    node2.setPosition(400, 100)
-
-    // 5) link the ports
-    const link1 = port1.link(port2)
-
-    // 6) add the models to the root graph
-    model.addAll(node1, node2, link1)
-
-    // 7) load model into engine
-    engine.setDiagramModel(model)
 
     return this.renderPanel(
       <div className='hfui-strategyeditor__wrapper'>
