@@ -25,13 +25,11 @@ module.exports = class HFUIApplication {
     this.app = app
 
     this.onReady = this.onReady.bind(this)
-    this.onActivate = this.onActivate.bind(this)
     this.onAllWindowsClosed = this.onAllWindowsClosed.bind(this)
     this.onMainWindowClosed = this.onMainWindowClosed.bind(this)
 
     app.on('ready', this.onReady)
     app.on('window-all-closed', this.onAllWindowsClosed)
-    app.on('activate', this.onActivate)
   }
 
   spawnMainWindow() {
@@ -55,10 +53,6 @@ module.exports = class HFUIApplication {
 
     Menu.setApplicationMenu(Menu.buildFromTemplate(appMenuTemplate(this.app)))
 
-    this.spawnMainWindow()
-  }
-
-  onActivate() {
     this.spawnMainWindow()
   }
 
