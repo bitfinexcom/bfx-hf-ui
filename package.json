@@ -89,6 +89,7 @@
     "dev": "cross-env concurrently --kill-others \"npm run start-server\" \"npm run start\"",
     "test-update-snapshots": "cross-env npm run lint && cross-env node scripts/test.js -u --no-watch",
     "test-coverage": "cross-env npm run lint && cross-env node scripts/test.js --no-watch --coverage",
+    "unit": "",
     "test": "cross-env npm run lint && cross-env node scripts/test.js --no-watch",
     "test-watch": "cross-env npm run lint && cross-env node scripts/test.js",
     "lint": "cross-env eslint src/**/*.js",
