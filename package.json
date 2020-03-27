@@ -405,7 +405,10 @@
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ],
-    "coverageReporters": ["lcov", "html"]
+    "coverageReporters": [
+      "lcov",
+      "html"
+    ]
   },
   "babel": {
     "presets": [
