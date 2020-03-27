@@ -9,6 +9,11 @@ import {
 } from '../OrderForm.render.helpers'
 
 export default class SliderInput extends React.PureComponent {
+  static propTypes = propTypes
+  static defaultProps = defaultProps
+
+  static DEFAULT_VALUE = ''
+
   static processValue = v => +v
   static validateValue = (v) => {
     return _isFinite(+v)
@@ -16,10 +21,6 @@ export default class SliderInput extends React.PureComponent {
       : 'Must be a number'
   }
 
-  static propTypes = propTypes
-  static defaultProps = defaultProps
-
-  static DEFAULT_VALUE = ''
 
   render() {
     const {
