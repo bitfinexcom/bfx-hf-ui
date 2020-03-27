@@ -53,7 +53,7 @@ module.exports = function(webpackEnv) {
   // It requires a trailing slash, or the file assets will get an incorrect path.
   // In development, we always serve from the root. This makes config easier.
   const publicPath = isEnvProduction
-    ? paths.servedPath
+    ? paths.publicUrlOrPath
     : isEnvDevelopment && '/';
   // Some apps do not use client-side routing with pushState.
   // For these, "homepage" can be set to "." to enable relative asset paths.
@@ -597,9 +597,8 @@ module.exports = function(webpackEnv) {
         new WorkboxWebpackPlugin.GenerateSW({
           clientsClaim: true,
           exclude: [/\.map$/, /asset-manifest\.json$/],
-          importWorkboxFrom: 'cdn',
           navigateFallback: publicUrl + '/index.html',
-          navigateFallbackBlacklist: [
+          navigateFallbackDenylist: [
             // Exclude URLs starting with /_, as they're likely an API call
             new RegExp('^/_'),
             // Exclude URLs containing a dot, as they're likely a resource in

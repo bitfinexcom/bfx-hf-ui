@@ -30,7 +30,8 @@
     "arrow-parens": [2, "as-needed", { "requireForBlockBody": true }],
     "react/static-property-placement": ["error", "static public field"],
     "react/state-in-constructor": 0,
-    "react/jsx-props-no-spreading": 0
+    "react/jsx-props-no-spreading": 0,
+    "react/sort-comp": 0
   },
   "settings": {
     "import/resolver": {
