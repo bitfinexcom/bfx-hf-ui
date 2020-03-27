@@ -12,6 +12,11 @@ const LOG_PATH_API_SERVER = `${LOG_PATH}/api-server.log`
 const SCRIPT_PATH = `${__dirname}/../scripts`
 const SCRIPT_PATH_DS_BITFINEX = `${SCRIPT_PATH}/start-ds-bitfinex.js`
 const SCRIPT_PATH_API_SERVER = `${SCRIPT_PATH}/start-api-server.js`
+const Store = require('electron-store')
+
+const ui = new Store({
+  cwd: `${os.homedir()}/.db`
+})
 
 const SCRIPT_SPAWN_OPTS = {
   env: { ELECTRON_RUN_AS_NODE: '1' },
