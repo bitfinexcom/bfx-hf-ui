@@ -1,5 +1,5 @@
 import React from 'react'
-import { configure, mount } from 'enzyme'
+import { configure, mount, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import { Provider } from "react-redux"
 import configureMockStore from "redux-mock-store"
@@ -37,4 +37,17 @@ describe('Settings', () => {
         ))
         expect(component.find('.hfui-settings__option').length).toBe(2)
     })
-})
+
+    test('fill api key & api secret', () => {
+        const component = mount((
+            <Provider store={store} >
+                <Settings />
+            </Provider>
+        ))
+
+        component.find('input[type="text"]').simulate('change', {target: {
+            name: 'apiKey', value: 'api_key_test'
+        }})
+        console.log(component.find('.hfui-settings__item-list'))
+    })
+})  
