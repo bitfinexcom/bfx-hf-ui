@@ -1,8 +1,10 @@
 import React from 'react'
 import { configure, mount, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import { Provider } from "react-redux"
-import configureMockStore from "redux-mock-store"
+import { Provider } from 'react-redux'
+import configureMockStore from 'redux-mock-store'
+
+import Test from '../../testEntities'
 import Settings from './Settings'
 
 
@@ -35,6 +37,7 @@ describe('Settings', () => {
                 <Settings />
             </Provider>
         ))
+
         expect(component.find('.hfui-settings__option').length).toBe(2)
     })
 
@@ -45,9 +48,11 @@ describe('Settings', () => {
             </Provider>
         ))
 
-        component.find('input[type="text"]').simulate('change', {target: {
-            name: 'apiKey', value: 'api_key_test'
-        }})
-        console.log(component.find('.hfui-settings__item-list'))
+        const payload = {
+            target: {
+                name: 'apiKey', value: 'api_key_test'
+            }
+        }
+        Test.fireEvent(component.find('input[type="text"]'), 'change', payload)
     })
 })  
