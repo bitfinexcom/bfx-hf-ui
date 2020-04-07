@@ -22,7 +22,22 @@ describe('SubmitAPIKeysModal', () => {
                 />
             </Provider>
         ))
-        
+
         expect(component).toMatchSnapshot()
+    })
+})
+
+describe('SubmitAPIKeysModal', () => {
+    test('require api credentials', () => {
+        const component = mount((
+            <Provider store={store}>
+                <SubmitAPIKeysModal 
+                    exID='bitfinex' 
+                />
+            </Provider>
+        ))
+        expect(component.find('.error').length).toBe(0)
+        component.find('.green').simulate('click')
+        expect(component.find('.error').length).toBe(1)
     })
 })
