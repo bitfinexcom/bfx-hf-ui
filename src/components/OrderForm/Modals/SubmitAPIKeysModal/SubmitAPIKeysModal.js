@@ -66,6 +66,7 @@ export default class SubmitAPIKeysModal extends React.Component {
               key='apiKey'
               value={apiKey}
               onChange={this.onAPIKeyChange}
+              className='hfui-settings__input-api-key'
             />
 
             <Input
@@ -74,6 +75,7 @@ export default class SubmitAPIKeysModal extends React.Component {
               key='apiSecret'
               value={apiSecret}
               onChange={this.onAPISecretChange}
+              className='hfui-settings__input-api-secret'
             />
           </div>,
 
