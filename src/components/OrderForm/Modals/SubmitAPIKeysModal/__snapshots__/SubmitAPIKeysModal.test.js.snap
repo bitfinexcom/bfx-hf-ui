@@ -40,12 +40,14 @@ exports[`SubmitAPIKeysModal render modal 1`] = `
             className="row"
           >
             <Input
+              className="hfui-settings__input-api-key"
               onChange={[Function]}
               placeholder="API KEY"
               type="text"
               value=""
             />
             <Input
+              className="hfui-settings__input-api-secret"
               onChange={[Function]}
               placeholder="API SECRET"
               type="password"
@@ -127,6 +129,7 @@ exports[`SubmitAPIKeysModal render modal 1`] = `
                       key="form"
                     >
                       <Input
+                        className="hfui-settings__input-api-key"
                         key="apiKey"
                         onChange={[Function]}
                         placeholder="API KEY"
@@ -137,6 +140,7 @@ exports[`SubmitAPIKeysModal render modal 1`] = `
                           className="hfui-input"
                         >
                           <input
+                            className="hfui-settings__input-api-key"
                             onChange={[Function]}
                             placeholder="API KEY"
                             type="text"
@@ -145,6 +149,7 @@ exports[`SubmitAPIKeysModal render modal 1`] = `
                         </div>
                       </Input>
                       <Input
+                        className="hfui-settings__input-api-secret"
                         key="apiSecret"
                         onChange={[Function]}
                         placeholder="API SECRET"
@@ -155,6 +160,7 @@ exports[`SubmitAPIKeysModal render modal 1`] = `
                           className="hfui-input"
                         >
                           <input
+                            className="hfui-settings__input-api-secret"
                             onChange={[Function]}
                             placeholder="API SECRET"
                             type="password"
