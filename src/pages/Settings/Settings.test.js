@@ -4,7 +4,6 @@ import Adapter from 'enzyme-adapter-react-16'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 
-import Test from '../../testEntities'
 import Settings from './Settings'
 
 
@@ -53,6 +52,6 @@ describe('Settings', () => {
                 name: 'apiKey', value: 'api_key_test'
             }
         }
-        Test.fireEvent(component.find('input[type="text"]'), 'change', payload)
+        component.find('input[type="text"]').simulate('change', payload)
     })
 })  
