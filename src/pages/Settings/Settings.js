@@ -164,13 +164,13 @@ export default class Settings extends React.Component {
                   <Input
                     placeholder='API Key'
                     onChange={e => this.onOptionChange(e, 'apiKey')}
-                    className='hfui-settings__item-list'
+                    className='hfui-settings__item-list hfui-settings__input-api-key'
                   />
                   <Input
                     type='password'
                     placeholder='API Secret'
                     onChange={e => this.onOptionChange(e, 'apiSecret')}
-                    className='hfui-settings__item-list'
+                    className='hfui-settings__item-list hfui-settings__input-api-secret'
                   />
                 </div>
               </li>
