@@ -3,9 +3,6 @@ import { configure, shallow, mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import data from './ao.json'
 import AlgoOrdersTable from './AlgoOrdersTable'
-import Test from '../../testEntities'
-
-
 
 configure({ adapter: new Adapter() })
 
@@ -35,6 +32,6 @@ describe('AlgoOrdersTable', () => {
             />
         ))
 
-        Test.fireEvent(component.find('.fa.fa-stop'), 'click')
+        component.find('.fa.fa-stop').simulate('click')
     })
 })
