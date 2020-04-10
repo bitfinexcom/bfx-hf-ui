@@ -40,18 +40,4 @@ describe('Settings', () => {
         expect(component.find('.hfui-settings__option').length).toBe(2)
     })
 
-    test('fill api key & api secret', () => {
-        const component = mount((
-            <Provider store={store} >
-                <Settings />
-            </Provider>
-        ))
-
-        const payload = {
-            target: {
-                name: 'apiKey', value: 'api_key_test'
-            }
-        }
-        component.find('input[type="text"]').simulate('change', payload)
-    })
 })  
