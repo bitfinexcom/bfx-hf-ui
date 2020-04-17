@@ -11,6 +11,8 @@ import Navbar from '../Navbar'
 import ExchangeInfoBar from '../ExchangeInfoBar'
 import NotificationsSidebar from '../NotificationsSidebar'
 
+import ReactGA from '../../ga'
+
 import { propTypes, defaultProps } from './HFUI.props'
 import './style.css'
 
@@ -24,9 +26,13 @@ export default class HFUI extends React.PureComponent {
     this.onChangeMarket = this.onChangeMarket.bind(this)
   }
 
-  onChangeMarket(option) {
+  componentDidUpdate() {
+    ReactGA.pageview(window.location.pathname)
+  }
+
+  onChangeMarket({ value }) {
     const { saveActiveMarket } = this.props
-    saveActiveMarket(option.value)
+    saveActiveMarket(value)
   }
 
   render() {

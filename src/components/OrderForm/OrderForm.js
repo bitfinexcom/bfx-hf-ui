@@ -5,6 +5,7 @@ import ClassNames from 'classnames'
 import {
   Iceberg, TWAP, AccumulateDistribute, PingPong, MACrossover, OCOCO,
 } from 'bfx-hf-algo'
+import ReactGA from '../../ga'
 
 import { COMPONENTS_FOR_ID } from './FieldComponents'
 import {
@@ -280,6 +281,11 @@ export default class OrderForm extends React.Component {
       layout: currentLayout,
       action: 'submit',
       fieldData,
+    })
+
+    ReactGA.event({
+      category: 'Algo orders',
+      action: 'Submited algo order',
     })
 
     submitAlgoOrder({
