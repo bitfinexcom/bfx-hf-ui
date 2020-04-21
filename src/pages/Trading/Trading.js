@@ -1,4 +1,5 @@
 import React from 'react'
+import Joyride from 'react-joyride'
 
 import OrderBookPanel from '../../components/OrderBookPanel'
 import TradingStatePanel from '../../components/TradingStatePanel'
@@ -22,10 +23,29 @@ const orderDefinitions = {
 export default class Trading extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
+  state = {
+    steps: [
+      {
+        target: '.hfui-orderformmenu__wrapper',
+        content: 'This is Orders panel.\nHere you can find atomic and algo orders. Try it just now!',
+      },
+      {
+        target: ':nth-child(2) > :nth-child(1) > :nth-child(1) > .hfui-panel > .hfui-panel__header',
+        content: 'This is table with all your active orders.',
+      },
+      {
+        target: '.hfui-tradingpage__chart',
+        content: 'This is our custom chart. You can check all available charts at the Settings page.',
+      },
+    ],
+    run: true,
+    showProgress: true,
+  }
 
   render() {
     const { activeMarket, exID } = this.props
-
+    const { steps, run, showProgress } = this.state
+    console.log(steps)
     const commonComponentProps = {
       layoutID: LAYOUT_ID,
       moveable: false,
@@ -38,6 +58,14 @@ export default class Trading extends React.PureComponent {
 
     return (
       <div className='hfui-tradingpage__wrapper'>
+        <Joyride
+          steps={steps}
+          run={run}
+          showProgress={showProgress}
+          floaterProps={{
+            autoOpen: true,
+          }}
+        />
         <div className='hfui-tradingpage__inner'>
           <div className='hfui-tradingpage__column left'>
             <OrderForm
