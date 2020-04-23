@@ -2,6 +2,7 @@ import React from 'react'
 import _capitalize from 'lodash/capitalize'
 import { Icon } from 'react-fa'
 
+import ReactGA from '../../ga'
 import { propTypes, defaultProps } from './AlgoOrdersTable.props'
 import './style.css'
 
@@ -26,8 +27,20 @@ export default class AlgoOrdersTable extends React.PureComponent {
                     role='button'
                     tabIndex={0}
                     name='stop'
-                    onClick={() => cancelOrder(authToken, ao)}
-                    onKeyPress={() => cancelOrder(authToken, ao)}
+                    onClick={() => {
+                      cancelOrder(authToken, ao)
+                      ReactGA.event({
+                        category: 'Algo orders',
+                        action: 'Cancel algo order',
+                      })
+                    }}
+                    onKeyPress={() => {
+                      cancelOrder(authToken, ao)
+                      ReactGA.event({
+                        category: 'Algo orders',
+                        action: 'Cancel algo order',
+                      })
+                    }}
                   />
                 </li>
               </ul>

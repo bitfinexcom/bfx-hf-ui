@@ -90,8 +90,6 @@
     "test-update-snapshots": "cross-env npm run lint && cross-env node scripts/test.js -u --no-watch",
     "test-coverage": "cross-env npm run lint && cross-env node scripts/test.js --no-watch --coverage",
     "unit": "",
-    "cy": "npm run start-api-server & npm run start-ds-bitfinex & npm run start & ./node_modules/.bin/cypress run ",
-    "cy:debug": "DEBUG=cypress:* ./node_modules/.bin/cypress run --headless",
     "test": "cross-env npm run lint && cross-env node scripts/test.js --no-watch",
     "test-watch": "cross-env npm run lint && cross-env node scripts/test.js",
     "lint": "cross-env eslint src/**/*.js",

@@ -265,6 +265,10 @@ export default class OrderForm extends React.Component {
         authToken,
         packet,
       })
+      ReactGA.event({
+        category: 'Atomic orders',
+        action: 'Submited atomic order',
+      })
     } catch (e) {
       this.setState(() => ({ creationError: e.message }))
     }
