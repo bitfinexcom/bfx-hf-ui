@@ -1,5 +1,4 @@
 import React from 'react'
-import Joyride from 'react-joyride'
 
 import OrderBookPanel from '../../components/OrderBookPanel'
 import TradingStatePanel from '../../components/TradingStatePanel'
@@ -58,14 +57,6 @@ export default class Trading extends React.PureComponent {
 
     return (
       <div className='hfui-tradingpage__wrapper'>
-        <Joyride
-          steps={steps}
-          run={run}
-          showProgress={showProgress}
-          floaterProps={{
-            autoOpen: true,
-          }}
-        />
         <div className='hfui-tradingpage__inner'>
           <div className='hfui-tradingpage__column left'>
             <OrderForm
