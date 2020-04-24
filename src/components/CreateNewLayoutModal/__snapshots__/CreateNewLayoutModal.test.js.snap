@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateNewLayout should render modal 1`] = `
+<CreateNewLayoutModal>
+  <Modal
+    actions={
+      <Button
+        className=""
+        green={true}
+        label={
+          Array [
+            <i
+              className="icon-plus"
+            />,
+            <p>
+              Add Layout
+            </p>,
+          ]
+        }
+        onClick={[Function]}
+      />
+    }
+    className="hfui-createnewlayoutmodal__wrapper"
+    label="Add Layout"
+  >
+    <div
+      className="hfui-modal__wrapper"
+    >
+      <div
+        className="hfui-modal__content hfui-createnewlayoutmodal__wrapper"
+        onClick={[Function]}
+      >
+        <div
+          className="hfui-modal__header"
+        >
+          <p
+            className="hfui-modal__label"
+          >
+            Add Layout
+          </p>
+          <i
+            className="icon-cancel"
+          />
+        </div>
+        <Input
+          onChange={[Function]}
+          placeholder="Layout Name"
+          type="text"
+          value=""
+        >
+          <div
+            className="hfui-input"
+          >
+            <input
+              onChange={[Function]}
+              placeholder="Layout Name"
+              type="text"
+              value=""
+            />
+          </div>
+        </Input>
+        <div
+          className="hfui-modal__actions"
+        >
+          <Button
+            className=""
+            green={true}
+            label={
+              Array [
+                <i
+                  className="icon-plus"
+                />,
+                <p>
+                  Add Layout
+                </p>,
+              ]
+            }
+            onClick={[Function]}
+          >
+            <button
+              className="hfui-button green"
+              onClick={[Function]}
+              type="button"
+            >
+              <i
+                className="icon-plus"
+                key="icon"
+              />
+              <p
+                key="text"
+              >
+                Add Layout
+              </p>
+            </button>
+          </Button>
+        </div>
+      </div>
+    </div>
+  </Modal>
+</CreateNewLayoutModal>
+`;
