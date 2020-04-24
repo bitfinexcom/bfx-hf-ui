@@ -15,7 +15,7 @@ const SCRIPT_PATH_API_SERVER = `${SCRIPT_PATH}/start-api-server.js`
 const Store = require('electron-store')
 
 const ui = new Store({
-  cwd: `${os.homedir()}/.db`
+  cwd: `${os.homedir()}/.hfdb`
 })
 
 const SCRIPT_SPAWN_OPTS = {
