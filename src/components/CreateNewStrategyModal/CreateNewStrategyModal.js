@@ -47,10 +47,10 @@ export default class CreateNewStrategyModal extends React.Component {
       return
     }
 
-    ReactGA.event({
-      category: 'Strategy',
-      action: 'Created a new strategy',
-    })
+    ReactGA.event(
+      'Strategy',
+      'Created a new strategy',
+    ).send()
 
     onSubmit(label, template)
     onClose()

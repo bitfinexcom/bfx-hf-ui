@@ -265,10 +265,10 @@ export default class OrderForm extends React.Component {
         authToken,
         packet,
       })
-      ReactGA.event({
-        category: 'Atomic orders',
-        action: 'Submited atomic order',
-      })
+      ReactGA.event(
+        'Atomic orders',
+        'Submited atomic order',
+      ).send()
     } catch (e) {
       this.setState(() => ({ creationError: e.message }))
     }
@@ -287,10 +287,10 @@ export default class OrderForm extends React.Component {
       fieldData,
     })
 
-    ReactGA.event({
-      category: 'Algo orders',
-      action: 'Submited algo order',
-    })
+    ReactGA.event(
+      'Algo orders',
+      'Submited algo order',
+    ).send()
 
     submitAlgoOrder({
       id,

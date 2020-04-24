@@ -41,10 +41,10 @@ export default (exID, authToken, cancelOrder) => [{
         className='icon-cancel'
         onClick={() => {
           cancelOrder(exID, authToken, rowData)
-          ReactGA.event({
-            category: 'Atomic orders',
-            action: 'Cancel atomic order',
-          })
+          ReactGA.event(
+            'Atomic orders',
+            'Cancel atomic order',
+          ).send()
         }}
       />
     </div>

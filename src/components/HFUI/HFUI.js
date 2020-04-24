@@ -27,7 +27,7 @@ export default class HFUI extends React.PureComponent {
   }
 
   componentDidUpdate() {
-    ReactGA.pageview(window.location.pathname)
+    ReactGA.pageview(window.location.pathname).send()
   }
 
   onChangeMarket({ value }) {

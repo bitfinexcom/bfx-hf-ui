@@ -199,7 +199,6 @@
     "bignumber.js": "^9.0.0",
     "bufferutil": "^4.0.1",
     "camelcase": "^5.3.1",
-    "case-sensitive-paths-webpack-plugin": "^2.2.0",
     "classnames": "^2.2.6",
     "closest": "^0.0.1",
     "codemirror": "^5.48.0",
@@ -249,7 +248,8 @@
     "redux-saga": "^1.0.4",
     "request-promise": "^4.2.4",
     "resolve": "^1.10.0",
-    "testing-library": "^0.0.2"
+    "testing-library": "^0.0.2",
+    "universal-analytics": "^0.4.20"
   },
   "eslintConfig": {
     "extends": "react-app"

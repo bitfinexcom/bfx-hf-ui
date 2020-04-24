@@ -29,17 +29,17 @@ export default class AlgoOrdersTable extends React.PureComponent {
                     name='stop'
                     onClick={() => {
                       cancelOrder(authToken, ao)
-                      ReactGA.event({
-                        category: 'Algo orders',
-                        action: 'Cancel algo order',
-                      })
+                      ReactGA.event(
+                        'Algo orders',
+                        'Cancel algo order',
+                      ).send()
                     }}
                     onKeyPress={() => {
                       cancelOrder(authToken, ao)
-                      ReactGA.event({
-                        category: 'Algo orders',
-                        action: 'Cancel algo order',
-                      })
+                      ReactGA.event(
+                        'Algo orders',
+                        'Cancel algo order',
+                      ).send()
                     }}
                   />
                 </li>
