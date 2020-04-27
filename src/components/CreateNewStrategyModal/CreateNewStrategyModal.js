@@ -10,6 +10,7 @@ import Dropdown from '../../ui/Dropdown'
 
 import { propTypes, defaultProps } from './CreateNewStrategyModal.props'
 import './style.css'
+import ReactGA from '../../ga'
 
 export default class CreateNewStrategyModal extends React.Component {
   static propTypes = propTypes
@@ -45,6 +46,11 @@ export default class CreateNewStrategyModal extends React.Component {
       this.setState(() => ({ error: 'Label empty' }))
       return
     }
+
+    ReactGA.event(
+      'Strategy',
+      'Created a new strategy',
+    ).send()
 
     onSubmit(label, template)
     onClose()

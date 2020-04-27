@@ -5,13 +5,14 @@ import ClassNames from 'classnames'
 import {
   Iceberg, TWAP, AccumulateDistribute, PingPong, MACrossover, OCOCO,
 } from 'bfx-hf-algo'
+import ReactGA from '../../ga'
 
 import {
   renderLayout,
   processFieldData,
   marketToQuoteBase,
   defaultDataForLayout,
-  COMPONENTS_FOR_ID,
+  COMPONENTS_FOR_ID
 } from './OrderForm.helpers'
 
 import nearestMarket from '../../util/nearest_market'
@@ -264,6 +265,10 @@ export default class OrderForm extends React.Component {
         authToken,
         packet,
       })
+      ReactGA.event(
+        'Atomic orders',
+        'Submited atomic order',
+      ).send()
     } catch (e) {
       this.setState(() => ({ creationError: e.message }))
     }
@@ -281,6 +286,11 @@ export default class OrderForm extends React.Component {
       action: 'submit',
       fieldData,
     })
+
+    ReactGA.event(
+      'Algo orders',
+      'Submited algo order',
+    ).send()
 
     submitAlgoOrder({
       id,
