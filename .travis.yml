@@ -1,6 +1,7 @@
 sudo: false
 before_install:
   - npm install -g node-gyp
+  - npm install -g node-sass
 addons:
   apt:
     sources:
