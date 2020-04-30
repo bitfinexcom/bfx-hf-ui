@@ -13,7 +13,7 @@ export default class StrategyEditorPanel extends React.PureComponent {
     const {
       onRemove, moveable, removeable, children, execRunning, /* helpOpen, */
       strategyDirty, strategy, /* onToggleHelp, */ onOpenSelectModal,
-      onOpenCreateModal, onSaveStrategy, onBacktestStrategy, dark,
+      onOpenCreateModal, onSaveStrategy, dark,
       // onSwitchEditorMode, onToggleMaximiseEditor, editorMode,
       // editorMaximised,
     } = this.props
@@ -68,17 +68,6 @@ export default class StrategyEditorPanel extends React.PureComponent {
                 label={[
                   <i key='icon' className='icon-save' />,
                   <p key='text'>Save</p>,
-                ]}
-              />
-            )}
-
-            {strategy && (
-              <Button
-                disabled={execRunning}
-                onClick={onBacktestStrategy}
-                label={[
-                  <i key='icon' className='icon-run' />,
-                  <p key='text'>Run</p>,
                 ]}
               />
             )}

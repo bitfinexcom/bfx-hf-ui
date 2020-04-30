@@ -1,0 +1,51 @@
+.hfui-backtester__executionform {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  .hfui-dropdown__wrapper {
+    width: 200px;
+    background: lightgrey;
+  }
+
+  .hfui-exchangeinfobar__wrapper {
+    background: none;
+    border: none;
+  }
+
+  .input-label {
+    color: #666;
+    font-size: 11px;
+    line-height: 16px;
+    margin-top: 2px;
+  }
+
+  .hfui-backtester__flex_start {
+    display: flex;
+    flex: 1;
+    align-self: flex-start;
+    justify-self: flex-start;
+  }
+
+  .hfui-backtester_row {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    margin-bottom: 10px;
+  }
+
+  .hfui-backtester_dateInputs_wrapper {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .hfui-backtester_dateInput {
+    max-width: 300px;
+    margin-right: 20px;
+  }
+  
+}
+
+.hfui-backtester__wrapper {
+  padding: 20px;
+}

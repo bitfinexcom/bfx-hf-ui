@@ -36,7 +36,7 @@ export default class HFUI extends React.PureComponent {
 
   render() {
     const {
-      activeMarket, authToken, getLastVersion, currentPage, getSettings, notificationsVisible,
+      activeMarket, authToken, getLastVersion, getSettings, notificationsVisible,
     } = this.props
     const oneHour = 360000
     getLastVersion()
@@ -56,14 +56,6 @@ export default class HFUI extends React.PureComponent {
     return (
       <div className='hfui-app'>
         <Navbar />
-        {
-          currentPage !== '/settings' && (
-            <ExchangeInfoBar
-              selectedMarket={activeMarket}
-              onChangeMarket={this.onChangeMarket}
-            />
-          )
-        }
 
         <Switch>
 
@@ -73,7 +65,13 @@ export default class HFUI extends React.PureComponent {
             exact
             path='/'
             render={() => (
-              <TradingPage />
+              <React.Fragment>
+                <ExchangeInfoBar
+                  selectedMarket={activeMarket}
+                  onChangeMarket={this.onChangeMarket}
+                />
+                <TradingPage />
+              </React.Fragment>
             )}
           />
 
