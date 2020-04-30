@@ -1,14 +1,8 @@
 import { connect } from 'react-redux'
 
-import { getAllCandles } from '../../redux/selectors/ws'
-import { getActiveMarket, getActiveExchange } from '../../redux/selectors/ui'
 import StrategyEditor from './StrategyEditor'
 
-const mapStateToProps = (state = {}) => ({
-  activeExchange: getActiveExchange(state),
-  activeMarket: getActiveMarket(state),
-  candleData: getAllCandles(state),
-})
+const mapStateToProps = state => ({}) // eslint-disable-line
 
 const mapDispatchToProps = dispatch => ({}) // eslint-disable-line
 
