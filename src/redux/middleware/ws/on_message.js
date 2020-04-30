@@ -22,7 +22,6 @@ export default (ws, store) => (e = {}) => {
   }
 
   const [type] = payload
-
   switch (type) {
     case 'info.version': {
       debug('API version %s', payload[1])
@@ -201,6 +200,44 @@ export default (ws, store) => (e = {}) => {
     case 'data.ao.stopped': {
       const [, exID, gid] = payload
       store.dispatch(WSActions.recvDataAlgoOrderStopped({ exID, gid }))
+      break
+    }
+
+    case 'bt.exec': {
+      const [, from, to, symbol, tf, withCandles, withTrades, syncData] = payload
+      store.dispatch(WSActions.recvBacktestExecute({
+        from,
+        to,
+        symbol,
+        tf,
+        withCandles,
+        withTrades,
+        syncData,
+      }))
+      break
+    }
+
+    case 'bt.start': {
+      const [,,, from, to] = payload
+      store.dispatch(WSActions.recvBacktestStart({ from, to }))
+      break
+    }
+
+    case 'bt.candle': {
+      const [,,, candle] = payload
+      store.dispatch(WSActions.recvBacktestCandle(candle))
+      break
+    }
+
+    case 'bt.trade': {
+      const [,,, trade] = payload
+      store.dispatch(WSActions.recvBacktestTrade(trade))
+      break
+    }
+
+    case 'bt.end': {
+      const [,,, from, to] = payload
+      store.dispatch(WSActions.recvBacktestEnd({ from, to }))
       break
     }
 

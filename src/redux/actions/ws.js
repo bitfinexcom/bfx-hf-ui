@@ -234,6 +234,31 @@ export default {
     payload: { token },
   }),
 
+  recvBacktestStart: opts => ({
+    type: t.BACKTEST_START,
+    payload: opts,
+  }),
+
+  recvBacktestEnd: opts => ({
+    type: t.BACKTEST_END,
+    payload: opts,
+  }),
+
+  recvBacktestCandle: candle => ({
+    type: t.BACKTEST_CANDLE,
+    payload: candle,
+  }),
+
+  recvBacktestTrade: trade => ({
+    type: t.BACKTEST_TRADE,
+    payload: trade,
+  }),
+
+  recvBacktestExecute: opts => ({
+    type: t.BACKTEST_EXECUTE,
+    payload: opts,
+  }),
+
   initAuth: password => send(['auth.init', password]),
   auth: password => send(['auth.submit', password]),
   resetAuth: () => send(['auth.reset']),

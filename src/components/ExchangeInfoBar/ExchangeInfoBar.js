@@ -22,7 +22,7 @@ export default class ExchangeInfoBar extends React.PureComponent {
   render() {
     const {
       onChangeMarket, activeMarket, ticker, exchanges = [], activeExchange,
-      onChangeExchange, markets, openNotifications,
+      onChangeExchange, markets, openNotifications, showTicker, showNotifications,
     } = this.props
 
     const {
@@ -70,65 +70,70 @@ export default class ExchangeInfoBar extends React.PureComponent {
             )}
           />
         </div>
+        {(showTicker) && (
+          <ul>
+            <ExchangeInfoBarItem
+              text
+              vertical
+              label='Last Price'
+              value={lastPrice || '-'}
+              valuePrefix={quotePrefix(activeMarket.quote)}
+            />
 
-        <ul>
-          <ExchangeInfoBarItem
-            text
-            vertical
-            label='Last Price'
-            value={lastPrice || '-'}
-            valuePrefix={quotePrefix(activeMarket.quote)}
-          />
+            <ExchangeInfoBarItem
+              text
+              vertical
+              label='24h Change'
+              value={dailyChange || '-'}
+              valuePrefix={quotePrefix(activeMarket.quote)}
+              dataClassName={dailyChange
+                ? dailyChange < 0 ? 'hfui-red' : 'hfui-green'
+                : ''
+              }
+            />
 
-          <ExchangeInfoBarItem
-            text
-            vertical
-            label='24h Change'
-            value={dailyChange || '-'}
-            valuePrefix={quotePrefix(activeMarket.quote)}
-            dataClassName={dailyChange
-              ? dailyChange < 0 ? 'hfui-red' : 'hfui-green'
-              : ''}
-          />
+            <ExchangeInfoBarItem
+              text
+              vertical
+              label='24h Change %'
+              valueSuffix='%'
+              value={dailyChangePerc ? dailyChangePerc * 100 : '-'}
+              dataClassName={dailyChangePerc
+                ? dailyChangePerc < 0 ? 'hfui-red' : 'hfui-green'
+                : ''
+              }
+            />
 
-          <ExchangeInfoBarItem
-            text
-            vertical
-            label='24h Change %'
-            valueSuffix='%'
-            value={dailyChangePerc ? dailyChangePerc * 100 : '-'}
-            dataClassName={dailyChangePerc
-              ? dailyChangePerc < 0 ? 'hfui-red' : 'hfui-green'
-              : ''}
-          />
+            <ExchangeInfoBarItem
+              text
+              vertical
+              label='24h High'
+              valuePrefix={quotePrefix(activeMarket.quote)}
+              value={high || '-'}
+            />
 
-          <ExchangeInfoBarItem
-            text
-            vertical
-            label='24h High'
-            valuePrefix={quotePrefix(activeMarket.quote)}
-            value={high || '-'}
-          />
+            <ExchangeInfoBarItem
+              text
+              vertical
+              label='24h Low'
+              valuePrefix={quotePrefix(activeMarket.quote)}
+              value={low || '-'}
+            />
 
-          <ExchangeInfoBarItem
-            text
-            vertical
-            label='24h Low'
-            valuePrefix={quotePrefix(activeMarket.quote)}
-            value={low || '-'}
-          />
+            <ExchangeInfoBarItem
+              text
+              vertical
+              label='24h Volume'
+              value={volume || '-'}
+            />
+          </ul>
+        )}
 
-          <ExchangeInfoBarItem
-            text
-            vertical
-            label='24h Volume'
-            value={volume || '-'}
-          />
-        </ul>
-
-        <div className='hfui-exchangeinfobar__right' onClick={openNotifications}>
-          <i className='icon-notifications' />
-        </div>
+        {(showNotifications) && (
+          <div className='hfui-exchangeinfobar__right' onClick={openNotifications}>
+            <i className='icon-notifications' />
+          </div>
+        )}
       </div>
     )
   }
