@@ -11,8 +11,6 @@ import Navbar from '../Navbar'
 import ExchangeInfoBar from '../ExchangeInfoBar'
 import NotificationsSidebar from '../NotificationsSidebar'
 
-import ReactGA from '../../ga'
-
 import { propTypes, defaultProps } from './HFUI.props'
 import './style.css'
 
@@ -27,6 +25,7 @@ export default class HFUI extends React.PureComponent {
   }
 
   componentDidUpdate() {
+    const { ReactGA } = this.props
     ReactGA.pageview(window.location.pathname).send()
   }
 

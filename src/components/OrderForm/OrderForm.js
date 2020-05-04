@@ -12,7 +12,7 @@ import {
   processFieldData,
   marketToQuoteBase,
   defaultDataForLayout,
-  COMPONENTS_FOR_ID
+  COMPONENTS_FOR_ID,
 } from './OrderForm.helpers'
 
 import nearestMarket from '../../util/nearest_market'

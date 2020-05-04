@@ -400,7 +400,8 @@ export default class StrategyEditor extends React.PureComponent {
   renderEmptyContent() {
     const {
       createNewStrategyModalOpen, openExistingStrategyModalOpen,
-    } = this.state
+    } = this.state  
+    const { ReactGA } = this.props
 
     return (
       <div className='hfui-strategyeditor__empty-content'>
@@ -423,6 +424,7 @@ export default class StrategyEditor extends React.PureComponent {
 
         {createNewStrategyModalOpen && (
           <CreateNewStrategyModal
+            ReactGA={ReactGA}
             onClose={this.onCloseModals}
             onSubmit={this.onCreateNewStrategy}
           />

@@ -1,7 +1,6 @@
 import React from 'react'
-import ReactGA from '../../ga'
 
-export default (exID, authToken, cancelOrder) => [{
+export default (exID, authToken, cancelOrder, ReactGA) => [{
   label: 'Symbol',
   dataKey: 'symbol',
   width: 120,

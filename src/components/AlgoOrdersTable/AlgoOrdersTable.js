@@ -2,7 +2,6 @@ import React from 'react'
 import _capitalize from 'lodash/capitalize'
 import { Icon } from 'react-fa'
 
-import ReactGA from '../../ga'
 import { propTypes, defaultProps } from './AlgoOrdersTable.props'
 import './style.css'
 
@@ -13,7 +12,7 @@ export default class AlgoOrdersTable extends React.PureComponent {
 
   render() {
     const {
-      cancelOrder, orders, apiClientState, authToken,
+      cancelOrder, orders, apiClientState, authToken, ReactGA
     } = this.props
 
     return (

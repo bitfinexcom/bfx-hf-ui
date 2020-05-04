@@ -18,6 +18,8 @@ const debug = Debug('hfui:c:order-form')
 
 const mapStateToProps = (state = {}, ownProps = {}) => {
   const { layoutID, layoutI: id } = ownProps
+  const { meta = {} } = state
+  const { ReactGA = {}} = meta 
 
   return {
     activeExchange: getActiveExchange(state),
@@ -28,6 +30,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     savedState: getComponentState(state, layoutID, 'orderform', id),
     authToken: getAuthToken(state),
     apiCredentials: getAPICredentials(state),
+    ReactGA,
   }
 }
 

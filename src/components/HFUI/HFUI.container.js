@@ -10,16 +10,21 @@ import { getAuthToken } from '../../redux/selectors/ws'
 import HFUI from './HFUI'
 
 const mapStateToProps = (state = {}) => {
-  const { router } = state
+  const { router, meta } = state
   const { location } = router
   const { pathname } = location
   const { ui } = state
-  const { notificationsVisible } = ui
+  const { notificationsVisible, settings } = ui
+  const { ReactGA } = meta
+  const { ga } = settings
+
   return {
     currentPage: pathname,
     activeMarket: getActiveMarket(state),
     authToken: getAuthToken(state),
     notificationsVisible,
+    ReactGA,
+    ga,
   }
 }
 

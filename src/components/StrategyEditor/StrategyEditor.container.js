@@ -5,12 +5,18 @@ import { getActiveMarket, getActiveExchange } from '../../redux/selectors/ui'
 
 import StrategyEditor from './StrategyEditor'
 
-const mapStateToProps = (state = {}) => ({
-  activeExchange: getActiveExchange(state),
-  activeMarket: getActiveMarket(state),
-  candles: getAllCandles(state),
-  authToken: getAuthToken(state),
-})
+const mapStateToProps = (state = {}) => {
+  const { meta = {} } = state
+  const { ReactGA  = {} } = meta
+
+  return {
+    activeExchange: getActiveExchange(state),
+    activeMarket: getActiveMarket(state),
+    candles: getAllCandles(state),
+    authToken: getAuthToken(state),
+    ReactGA,
+  }
+}
 
 const mapDispatchToProps = dispatch => ({
   onSave: (authToken, strategy = {}) => {

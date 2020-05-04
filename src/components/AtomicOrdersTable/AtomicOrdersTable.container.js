@@ -8,9 +8,15 @@ import AtomicOrdersTable from './AtomicOrdersTable'
 
 const debug = Debug('hfui:c:atomic-orders-table')
 
-const mapStateToProps = (state = {}, ownProps = {}) => ({ // eslint-disable-line
-  authToken: getAuthToken(state),
-})
+const mapStateToProps = (state = {}, ownProps = {}) => {
+  const { meta = {} } = state
+  const { ReactGA  = {} } = meta
+
+  return { // eslint-disable-line
+    authToken: getAuthToken(state),
+    ReactGA,
+  }
+}
 
 const mapDispatchToProps = dispatch => ({
   cancelOrder: (exID, authToken, order) => {

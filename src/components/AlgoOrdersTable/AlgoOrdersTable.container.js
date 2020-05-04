@@ -9,10 +9,13 @@ const debug = Debug('hfui:c:algo-orders-table')
 
 const mapStateToProps = (state = {}, ownProps = {}) => {
   const { exID } = ownProps
+  const { meta = {} } = state
+  const { ReactGA  = {} } = meta
 
   return {
     apiClientState: getAPIClientState(state, exID),
     authToken: getAuthToken(state),
+    ReactGA,
   }
 }
 
@@ -21,7 +24,7 @@ const mapDispatchToProps = dispatch => ({
     const { gid, exID } = order
 
     debug('cancelling algo order %d', +gid)
-    dispatch(WSActions.send(['algo_order.cancel', authToken, exID, `${gid}`]))
+     dispatch(WSActions.send(['algo_order.cancel', authToken, exID, `${gid}`]))
   },
 })
 
