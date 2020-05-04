@@ -5,7 +5,6 @@ import ClassNames from 'classnames'
 import {
   Iceberg, TWAP, AccumulateDistribute, PingPong, MACrossover, OCOCO,
 } from 'bfx-hf-algo'
-import ReactGA from '../../ga'
 
 import {
   renderLayout,
@@ -250,7 +249,7 @@ export default class OrderForm extends React.Component {
       currentLayout, fieldData, context, currentExchange, currentMarket,
     } = this.state
 
-    const { submitOrder, authToken } = this.props
+    const { submitOrder, authToken, ga, ReactGA } = this.props
     const { generateOrder } = currentLayout
     const data = processFieldData({
       layout: currentLayout,
@@ -265,17 +264,19 @@ export default class OrderForm extends React.Component {
         authToken,
         packet,
       })
-      ReactGA.event(
-        'Atomic orders',
-        'Submited atomic order',
-      ).send()
+      if(ga) {
+        ReactGA.event(
+          'Atomic orders',
+          'Submited atomic order',
+        ).send()
+      }
     } catch (e) {
       this.setState(() => ({ creationError: e.message }))
     }
   }
 
   onSubmitAlgoOrder() {
-    const { submitAlgoOrder, authToken } = this.props
+    const { submitAlgoOrder, authToken, ReactGA, ga } = this.props
     const {
       currentExchange, currentMarket, currentLayout, fieldData, context,
     } = this.state
@@ -286,12 +287,12 @@ export default class OrderForm extends React.Component {
       action: 'submit',
       fieldData,
     })
-
-    ReactGA.event(
-      'Algo orders',
-      'Submited algo order',
-    ).send()
-
+    if(ga) { 
+      ReactGA.event(
+        'Algo orders',
+        'Submited algo order',
+      ).send()
+    }
     submitAlgoOrder({
       id,
       data,

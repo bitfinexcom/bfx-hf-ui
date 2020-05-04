@@ -107,6 +107,7 @@ function reducer(state = getInitialState(), action = {}) {
     }
 
     case types.UPDATE_SETTINGS: {
+      console.log('update settings', payload)
       return {
         ...state,
         settings: payload,

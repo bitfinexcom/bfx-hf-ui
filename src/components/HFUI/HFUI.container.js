@@ -14,7 +14,7 @@ const mapStateToProps = (state = {}) => {
   const { location } = router
   const { pathname } = location
   const { ui } = state
-  const { notificationsVisible, settings } = ui
+  const { notificationsVisible, settings = {} } = ui
   const { ReactGA } = meta
   const { ga } = settings
 
@@ -24,7 +24,7 @@ const mapStateToProps = (state = {}) => {
     authToken: getAuthToken(state),
     notificationsVisible,
     ReactGA,
-    ga,
+    ga
   }
 }
 

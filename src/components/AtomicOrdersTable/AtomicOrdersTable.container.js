@@ -9,12 +9,15 @@ import AtomicOrdersTable from './AtomicOrdersTable'
 const debug = Debug('hfui:c:atomic-orders-table')
 
 const mapStateToProps = (state = {}, ownProps = {}) => {
-  const { meta = {} } = state
+  const { meta = {}, ui = {} } = state
+  const { settings = {} } = ui
   const { ReactGA  = {} } = meta
+  const { ga } = settings
 
   return { // eslint-disable-line
     authToken: getAuthToken(state),
     ReactGA,
+    ga
   }
 }
 
