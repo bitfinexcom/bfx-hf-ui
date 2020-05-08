@@ -249,7 +249,7 @@ export default class OrderForm extends React.Component {
       currentLayout, fieldData, context, currentExchange, currentMarket,
     } = this.state
 
-    const { submitOrder, authToken, ga, ReactGA } = this.props
+    const { submitOrder, authToken, GAEvent } = this.props
     const { generateOrder } = currentLayout
     const data = processFieldData({
       layout: currentLayout,
@@ -264,19 +264,17 @@ export default class OrderForm extends React.Component {
         authToken,
         packet,
       })
-      if(ga) {
-        ReactGA.event(
-          'Atomic orders',
-          'Submited atomic order',
-        ).send()
-      }
+      GAEvent(
+        'Atomic orders',
+        'Submited atomic order',
+      )
     } catch (e) {
       this.setState(() => ({ creationError: e.message }))
     }
   }
 
   onSubmitAlgoOrder() {
-    const { submitAlgoOrder, authToken, ReactGA, ga } = this.props
+    const { submitAlgoOrder, authToken, GAEvent } = this.props
     const {
       currentExchange, currentMarket, currentLayout, fieldData, context,
     } = this.state
@@ -287,12 +285,10 @@ export default class OrderForm extends React.Component {
       action: 'submit',
       fieldData,
     })
-    if(ga) { 
-      ReactGA.event(
-        'Algo orders',
-        'Submited algo order',
-      ).send()
-    }
+    GAEvent(
+      'Algo orders',
+      'Submited algo order',
+    )
     submitAlgoOrder({
       id,
       data,

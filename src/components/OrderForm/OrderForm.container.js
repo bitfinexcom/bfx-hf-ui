@@ -5,6 +5,7 @@ import Debug from 'debug'
 import OrderForm from './OrderForm'
 import UIActions from '../../redux/actions/ui'
 import WSActions from '../../redux/actions/ws'
+import GAActions from '../../redux/actions/google_analytics'
 import { getExchanges, getMarkets } from '../../redux/selectors/meta'
 import {
   getAPIClientStates, getAuthToken, getAPICredentials,
@@ -18,10 +19,6 @@ const debug = Debug('hfui:c:order-form')
 
 const mapStateToProps = (state = {}, ownProps = {}) => {
   const { layoutID, layoutI: id } = ownProps
-  const { meta = {}, ui = {} } = state
-  const { settings = {} } = ui
-  const { ReactGA = {}} = meta
-  const { ga } = settings 
 
   return {
     activeExchange: getActiveExchange(state),
@@ -32,8 +29,6 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     savedState: getComponentState(state, layoutID, 'orderform', id),
     authToken: getAuthToken(state),
     apiCredentials: getAPICredentials(state),
-    ReactGA,
-    ga
   }
 }
 
@@ -58,7 +53,9 @@ const mapDispatchToProps = dispatch => ({
       ...packet,
     }]))
   },
-
+  GAEvent: (category, action) => {
+    dispatch(GAActions.event(category, action))
+  },
   submitAlgoOrder: ({
     authToken, exID, id, market, context, data,
   }) => {

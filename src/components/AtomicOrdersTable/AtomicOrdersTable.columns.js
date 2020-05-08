@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default (exID, authToken, cancelOrder, ReactGA, ga) => [{
+export default (exID, authToken, cancelOrder, GAEvent) => [{
   label: 'Symbol',
   dataKey: 'symbol',
   width: 120,
@@ -40,12 +40,10 @@ export default (exID, authToken, cancelOrder, ReactGA, ga) => [{
         className='icon-cancel'
         onClick={() => {
           cancelOrder(exID, authToken, rowData)
-          if(ga) {
-            ReactGA.event(
+            GAEvent(
               'Atomic orders',
               'Cancel atomic order',
-            ).send()
-          }
+            )
         }}
       />
     </div>

@@ -39,18 +39,16 @@ export default class CreateNewStrategyModal extends React.Component {
 
   onSubmit() {
     const { label, template } = this.state
-    const { onSubmit, onClose, ReactGA, ga} = this.props
+    const { onSubmit, onClose, GAEvent} = this.props
 
     if (_isEmpty(label)) {
       this.setState(() => ({ error: 'Label empty' }))
       return
     }
-    if(ga) {
-      ReactGA.event(
-        'Strategy',
-        'Created a new strategy',
-      ).send()
-    }
+    GAEvent(
+      'Strategy',
+      'Created a new strategy',
+    )
 
     onSubmit(label, template)
     onClose()

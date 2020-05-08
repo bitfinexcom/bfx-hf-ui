@@ -15,13 +15,13 @@ export default class Settings extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
 
+  state = {
+    apiKey: '',
+    apiSecret: '',
+  }
+  
   constructor(props) {
     super(props)
-    this.state = {
-      apiKey: '',
-      apiSecret: '',
-    }
-
     const {
       savedState = {}, activeExchange, chart, theme, dms, ga,
     } = props
@@ -73,7 +73,6 @@ export default class Settings extends React.Component {
   }
 
   render() {
-    // const themes = ['bfx-dark-theme', 'bfx-light-theme']
     const { CHARTS } = UserSettings
     const charts = Object.keys(CHARTS).map(key => CHARTS[key])
     const { authToken } = this.props
