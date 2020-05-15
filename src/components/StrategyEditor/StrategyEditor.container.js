@@ -19,8 +19,8 @@ const mapDispatchToProps = dispatch => ({
   onSave: (authToken, strategy = {}) => {
     dispatch(WSActions.send(['strategy.save', authToken, strategy]))
   },
-  GAEvent: (category, action) => {
-    dispatch(GAActions.event(category, action))
+  gaCreateStrategy: () => {
+    dispatch(GAActions.createStrategy())
   }
 })
 
