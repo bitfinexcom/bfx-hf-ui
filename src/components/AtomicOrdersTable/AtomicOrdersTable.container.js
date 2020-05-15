@@ -22,8 +22,8 @@ const mapDispatchToProps = dispatch => ({
     debug('cancelling order %d [%s]', id, symbol)
     dispatch(WSActions.send(['order.cancel', authToken, exID, symbol, id]))
   },
-  GAEvent: (category, action) => {
-    dispatch(GAActions.event(category, action))
+  gaCancelOrder: () => {
+    dispatch(GAActions.cancelAtomicOrder())
   }
 })
 

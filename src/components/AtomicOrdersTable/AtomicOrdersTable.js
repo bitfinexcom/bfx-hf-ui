@@ -11,13 +11,13 @@ export default class AtomicOrdersTable extends React.PureComponent {
 
   render() {
     const {
-      exID, orders, cancelOrder, authToken, GAEvent
+      exID, orders, cancelOrder, authToken, gaCancelOrder
     } = this.props
 
     return (
       <Table
         data={orders}
-        columns={AtomicOrdersTableColumns(exID, authToken, cancelOrder, GAEvent)}
+        columns={AtomicOrdersTableColumns(exID, authToken, cancelOrder, gaCancelOrder)}
         onRowClick={this.onRowClick}
         defaultSortBy='mts'
         defaultSortDirection='ASC'
