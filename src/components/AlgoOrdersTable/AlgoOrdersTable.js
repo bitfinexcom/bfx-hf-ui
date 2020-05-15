@@ -10,17 +10,15 @@ export default class AlgoOrdersTable extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
   
-  cancelOrder(co, authToken, ao, GAEvent) { 
-    co(authToken, ao)
-    GAEvent(
-        'Algo orders',
-        'Cancel algo order',
-      )
-    }
+  cancelOrder(ao) { 
+    const { cancelOrder, authToken, gaCancelOrder } = this.props
+    cancelOrder(authToken, ao)
+    gaCancelOrder()
+  }
 
   render() {
     const {
-      cancelOrder, orders, apiClientState, authToken, GAEvent
+      orders, apiClientState
     } = this.props
 
     return (
@@ -34,8 +32,8 @@ export default class AlgoOrdersTable extends React.PureComponent {
                     role='button'
                     tabIndex={0}
                     name='stop'
-                    onClick={() => {this.cancelOrder(cancelOrder, authToken, ao, GAEvent)}}
-                    onKeyPress={() => {this.cancelOrder(cancelOrder, authToken, ao,GAEvent)}}
+                    onClick={() => {this.cancelOrder(ao)}}
+                    onKeyPress={() => {this.cancelOrder(ao)}}
                   />
                 </li>
               </ul>

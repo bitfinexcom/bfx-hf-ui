@@ -24,8 +24,8 @@ const mapDispatchToProps = dispatch => ({
     debug('cancelling algo order %d', +gid)
      dispatch(WSActions.send(['algo_order.cancel', authToken, exID, `${gid}`]))
   },
-  GAEvent: (category, action) => {
-    dispatch(GAActions.event(category, action))
+  gaCancelOrder: () => {
+    dispatch(GAActions.cancelAO())
   }
 })
 
