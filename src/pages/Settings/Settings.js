@@ -58,7 +58,7 @@ export default class Settings extends React.Component {
   }
 
   onSettingsSave(authToken) {
-    const { updateSettings } = this.props
+    const { updateSettings, gaUpdateSettings } = this.props
     const {
       apiKey, apiSecret, chart, dms, theme, ga,
     } = this.state
@@ -70,6 +70,7 @@ export default class Settings extends React.Component {
     updateSettings({
       chart, dms, theme, authToken, ga,
     })
+    gaUpdateSettings()
   }
 
   render() {
