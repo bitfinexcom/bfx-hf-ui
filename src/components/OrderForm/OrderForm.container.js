@@ -53,8 +53,11 @@ const mapDispatchToProps = dispatch => ({
       ...packet,
     }]))
   },
-  GAEvent: (category, action) => {
-    dispatch(GAActions.event(category, action))
+  gaSubmitOrder: () => {
+    dispatch(GAActions.submitAtomicOrder())
+  },
+  gaSubmitAO: () => {
+    dispatch(GAActions.submitAO())
   },
   submitAlgoOrder: ({
     authToken, exID, id, market, context, data,
