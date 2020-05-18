@@ -6,14 +6,12 @@ import { getActiveMarket, getActiveExchange } from '../../redux/selectors/ui'
 
 import StrategyEditor from './StrategyEditor'
 
-const mapStateToProps = (state = {}) => {
-  return {
+const mapStateToProps = (state = {}) => ({
     activeExchange: getActiveExchange(state),
     activeMarket: getActiveMarket(state),
     candles: getAllCandles(state),
     authToken: getAuthToken(state),
-  }
-}
+  })
 
 const mapDispatchToProps = dispatch => ({
   onSave: (authToken, strategy = {}) => {
