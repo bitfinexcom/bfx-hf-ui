@@ -39,6 +39,7 @@ export default class DateInput extends React.PureComponent {
           timeFormat='HH:mm'
           timeIntervals={10}
           showTimeSelect
+          width='100%'
 
           selected={value}
           onChange={onChange}

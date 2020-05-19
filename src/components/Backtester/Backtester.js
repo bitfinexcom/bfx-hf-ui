@@ -62,6 +62,7 @@ export default class Backtester extends React.PureComponent {
     this.onStrategyExecWorkerMessage = this.onStrategyExecWorkerMessage.bind(this)
     this.execWorker = new StrategyExecWorker()
     this.execWorker.onmessage = this.onStrategyExecWorkerMessage
+    this.updateError = this.updateError.bind(this)
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -71,7 +72,6 @@ export default class Backtester extends React.PureComponent {
       || !_isEqual(nextProps.backtest, backtest)
       || !_isEqual(nextProps.strategyContent, strategyContent)
     ) {
-      console.log('should update')
       return true
     }
 
@@ -83,7 +83,7 @@ export default class Backtester extends React.PureComponent {
     const { backtest, backtestData } = nextProps
     const { strategyContent } = this.props
     const { loading = false, executing = false } = backtest
-    const { activeMarket } = backtestOptions
+    const { activeMarket, tf } = backtestOptions
 
     // check if component has requested a backtest
     if (!loadingBacktest) return
@@ -100,7 +100,7 @@ export default class Backtester extends React.PureComponent {
         strategyContent,
         candleData: backtestData.candles,
         tradeData: backtestData.trades,
-        tf: '1m',
+        tf,
       },
     })
     this.setState({ loadingBacktest: false })
@@ -179,35 +179,22 @@ export default class Backtester extends React.PureComponent {
 
     if (loadingBacktest) return
 
-    // Step 1: load candles
-    //  - if startDate + endDate load from dataserver
     dsExecuteBacktest(activeExchange, startDate, endDate, activeMarket, '1m')
-    this.setState({ loadingBacktest: true, backtestOptions: options })
-    //  - if filePath load from file
-    //  - if live, create a new candle feed
-  
-    // Step 2: pass candles into execWorker
-
-    // Step 3: collect results and render form
-
-    // this.execWorker.postMessage({
-    //   type: 'EXEC_STRATEGY',
-    //   data: {
-    //     exID: activeExchange,
-    //     mID: activeMarket.uiID,
-    //     strategyContent,
-    //     candleData,
-    //     tf: '1m',
-    //   },
-    // })
+    this.setState({
+      loadingBacktest: true,
+      backtestOptions: options,
+      execError: undefined,
+      results: undefined,
+    })
   }
 
   render() {
     const {
-      results = null,
       executionType = this.executionTypes[0],
       execRunning,
       loadingBacktest,
+      execError,
+      results,
     } = this.state
     const { indicators, backtestData, strategyContent } = this.props
     const opts = {
@@ -215,7 +202,8 @@ export default class Backtester extends React.PureComponent {
       executionTypes: this.executionTypes,
       backtestStrategy: this.backtestStrategy,
       executionType,
-      indicators
+      indicators,
+      updateError: this.updateError,
     }
 
     if (!strategyContent) {
@@ -227,26 +215,43 @@ export default class Backtester extends React.PureComponent {
     }
 
     if (!results) {
-      return (
-        <div className='hfui-backtester__wrapper'>
-          <executionType.form {...opts} />
-          {
-            (!execRunning && !loadingBacktest) && (
-              <p>Press start to begin backtesting.</p>
-            )
-          }
-          {
-            (!execRunning && loadingBacktest) && (
-              <p>Loading backtest candles...</p>
-            )
-          }
-          {
-            (execRunning) && (
-              <p>Executing strategy...</p>
-            )
-          }
-        </div>
-      )
+      if (execError) {
+        return (
+          <div className='hfui-backtester__wrapper'>
+            <executionType.form {...opts} />
+            <p style={{ color: 'red' }}>{execError}</p>
+          </div>
+        )
+      } else {
+        return (
+          <div className='hfui-backtester__wrapper'>
+            {
+              (!execRunning && !loadingBacktest) && (
+                <React.Fragment>
+                  <executionType.form {...opts} />
+                  <p>Press start to begin backtesting.</p>
+                </React.Fragment>
+              )
+            }
+            {
+              (!execRunning && loadingBacktest) && (
+                <React.Fragment>
+                  <executionType.form {...opts} disabled />
+                  <p>Loading backtest candles...</p>
+                </React.Fragment>
+              )
+            }
+            {
+              (execRunning) && (
+                <React.Fragment>
+                  <executionType.form {...opts} disabled />
+                  <p>Executing strategy...</p>
+                </React.Fragment>
+              )
+            }
+          </div>
+        )
+      }
     }
 
     return (

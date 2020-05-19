@@ -37,6 +37,8 @@ function reducer(state = getInitialState(), action = {}) {
     case types.BACKTEST_END: {
       return {
         ...state,
+        candles: state.candles.sort((a, b) => a.mts - b.mts),
+        trades: state.trades.sort((a, b) => a.mts - b.mts),
         loading: false,
         executing: false,
       }

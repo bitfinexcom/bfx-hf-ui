@@ -9,7 +9,7 @@ export default class ResultRow extends React.PureComponent {
     const { label, value } = this.props
 
     return (
-      <li>
+      <li className='hfui-strategyeditor__results-list-item'>
         <p className='hfui-strategyeditor__results-label'>{label}</p>
         <p className='hfui-strategyeditor__results-value'>{value}</p>
       </li>
