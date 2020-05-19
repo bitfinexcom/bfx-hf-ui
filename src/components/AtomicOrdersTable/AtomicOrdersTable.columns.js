@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default (exID, authToken, cancelOrder) => [{
+export default (exID, authToken, cancelOrder, gaCancelOrder) => [{
   label: 'Symbol',
   dataKey: 'symbol',
   width: 120,
@@ -38,7 +38,10 @@ export default (exID, authToken, cancelOrder) => [{
         role='button'
         tabIndex={0}
         className='icon-cancel'
-        onClick={() => cancelOrder(exID, authToken, rowData)}
+        onClick={() => {
+          cancelOrder(exID, authToken, rowData)
+          gaCancelOrder()
+        }}
       />
     </div>
   ),

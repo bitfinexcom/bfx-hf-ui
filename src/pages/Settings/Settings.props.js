@@ -7,6 +7,7 @@ export const propTypes = {
   chart: PropTypes.string,
   theme: PropTypes.string,
   dms: PropTypes.boolean,
+  ga: PropTypes.boolean,
 }
 
 export const defaultProps = {}

@@ -22,9 +22,8 @@ export default class Settings extends React.Component {
 
   constructor(props) {
     super(props)
-
     const {
-      savedState = {}, activeExchange, chart, theme, dms,
+      savedState = {}, activeExchange, chart, theme, dms, ga,
     } = props
 
     const { currentExchange = activeExchange } = savedState
@@ -35,6 +34,7 @@ export default class Settings extends React.Component {
       chart,
       theme,
       dms,
+      ga,
     }
 
     this.onSubmitAPIKeys = this.onSubmitAPIKeys.bind(this)
@@ -58,9 +58,9 @@ export default class Settings extends React.Component {
   }
 
   onSettingsSave(authToken) {
-    const { updateSettings } = this.props
+    const { updateSettings, gaUpdateSettings } = this.props
     const {
-      apiKey, apiSecret, chart, dms, theme,
+      apiKey, apiSecret, chart, dms, theme, ga,
     } = this.state
 
     if (apiKey.trim().length > 0 && apiSecret.trim().length > 0) {
@@ -68,23 +68,27 @@ export default class Settings extends React.Component {
     }
 
     updateSettings({
-      chart, dms, theme, authToken,
+      chart, dms, theme, authToken, ga,
     })
+    gaUpdateSettings()
   }
 
   render() {
-    // const themes = ['bfx-dark-theme', 'bfx-light-theme']
     const { CHARTS } = UserSettings
     const charts = Object.keys(CHARTS).map(key => CHARTS[key])
     const { authToken } = this.props
 
     // eslint-disable-next-line react/destructuring-assignment
     if (this.props.chart && (!this.state.chart || this.state.dms === undefined)) {
-      const { chart, theme, dms } = this.props
-      this.setState(() => ({ chart, theme, dms }))
+      const {
+        chart, theme, dms, ga,
+      } = this.props
+      this.setState(() => ({
+        chart, theme, dms, ga,
+      }))
     }
 
-    const { chart, dms } = this.state
+    const { chart, dms, ga } = this.state
 
     return (
       <div className='hfui-settingspage__wrapper'>
@@ -151,6 +155,17 @@ export default class Settings extends React.Component {
                     onChange={e => this.onOptionChange(e, 'dms')}
                     label='DMS'
                     value={dms}
+                  />
+                </div>
+              </li>
+
+              <li>
+                <div className='hfui-settings__option-check'>
+                  <Checkbox
+                    className='hfui-settings_check'
+                    onChange={e => this.onOptionChange(e, 'ga')}
+                    label='Usage reporting'
+                    value={ga}
                   />
                 </div>
               </li>

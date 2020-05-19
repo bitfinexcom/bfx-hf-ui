@@ -249,7 +249,7 @@ export default class OrderForm extends React.Component {
       currentLayout, fieldData, context, currentExchange, currentMarket,
     } = this.state
 
-    const { submitOrder, authToken } = this.props
+    const { submitOrder, authToken, gaSubmitOrder } = this.props
     const { generateOrder } = currentLayout
     const data = processFieldData({
       layout: currentLayout,
@@ -264,13 +264,14 @@ export default class OrderForm extends React.Component {
         authToken,
         packet,
       })
+      gaSubmitOrder()
     } catch (e) {
       this.setState(() => ({ creationError: e.message }))
     }
   }
 
   onSubmitAlgoOrder() {
-    const { submitAlgoOrder, authToken } = this.props
+    const { submitAlgoOrder, authToken, gaSubmitAO } = this.props
     const {
       currentExchange, currentMarket, currentLayout, fieldData, context,
     } = this.state
@@ -281,7 +282,7 @@ export default class OrderForm extends React.Component {
       action: 'submit',
       fieldData,
     })
-
+    gaSubmitAO()
     submitAlgoOrder({
       id,
       data,

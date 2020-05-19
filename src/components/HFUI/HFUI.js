@@ -24,9 +24,14 @@ export default class HFUI extends React.PureComponent {
     this.onChangeMarket = this.onChangeMarket.bind(this)
   }
 
-  onChangeMarket(option) {
+  componentDidUpdate() {
+    const { GAPageview } = this.props
+    GAPageview(window.location.pathname)
+  }
+
+  onChangeMarket({ value }) {
     const { saveActiveMarket } = this.props
-    saveActiveMarket(option.value)
+    saveActiveMarket(value)
   }
 
   render() {

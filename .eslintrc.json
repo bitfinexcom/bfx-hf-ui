@@ -22,7 +22,13 @@
     "no-plusplus": 0,
     "react/prefer-stateless-function": 0,
     "no-nested-ternary": 0,
-    "import/prefer-default-export": 0
+    "import/prefer-default-export": 0,
+    "arrow-parens": 0,
+    "react/static-property-placement": 0,
+    "react/state-in-constructor": 0,
+    "react/jsx-props-no-spreading": 0,
+    "import/no-cycle": 0,
+    "jsx-a11y/control-has-associated-label": 0
   },
   "settings": {
     "import/resolver": {

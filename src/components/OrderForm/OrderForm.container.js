@@ -5,6 +5,7 @@ import Debug from 'debug'
 import OrderForm from './OrderForm'
 import UIActions from '../../redux/actions/ui'
 import WSActions from '../../redux/actions/ws'
+import GAActions from '../../redux/actions/google_analytics'
 import { getExchanges, getMarkets } from '../../redux/selectors/meta'
 import {
   getAPIClientStates, getAuthToken, getAPICredentials,
@@ -52,7 +53,12 @@ const mapDispatchToProps = dispatch => ({
       ...packet,
     }]))
   },
-
+  gaSubmitOrder: () => {
+    dispatch(GAActions.submitAtomicOrder())
+  },
+  gaSubmitAO: () => {
+    dispatch(GAActions.submitAO())
+  },
   submitAlgoOrder: ({
     authToken, exID, id, market, context, data,
   }) => {
