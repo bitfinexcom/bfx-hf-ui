@@ -4,6 +4,8 @@ import Dropdown from '../../ui/Dropdown'
 import TimeFrames from '../../util/time_frames'
 import { propTypes, defaultProps } from './TimeFrameDropdown.props'
 
+import './style.css'
+
 export default class TimeFrameDropdown extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -21,13 +23,17 @@ export default class TimeFrameDropdown extends React.PureComponent {
     }
 
     return (
-      <Dropdown
-        key='tf-dropdown'
-        fallback='Select a time frame'
-        onChange={onChange}
-        value={tf}
-        options={options}
-      />
+      <div className='hfui-backtester__executionform'>
+        <div className='hfui-backtester__executiondropdown input-label'>
+          <Dropdown
+            key='tf-dropdown'
+            fallback='Select a time frame'
+            onChange={onChange}
+            value={tf}
+            options={options}
+          />
+        </div>
+      </div>
     )
   }
 }

@@ -7,7 +7,6 @@ import TradesTableColumns from './TradesTable.columns'
 import { propTypes, defaultProps } from './TradesTable.props'
 import './style.css'
 
-
 const DISPLAY_LIMIT = 50
 
 export default class TradesTable extends React.Component {
