@@ -23,17 +23,16 @@ export default (opts, results, backtestData) => {
     ]
   ))
 
-  console.log(candles)
   return (
     <div className='hfui-backtester__candlechart'>
-      <AutoSizer>
-        {({ width, height }) => width > 0 && height > 0 && (
+      <AutoSizer disableHeight style={{ height: 400 }}>
+        {({ width, height = 400 }) => (
           <BFXChart
             indicators={indicators}
             candles={candleArr}
             trades={trades}
             width={width}
-            height={400}
+            height={height}
             isSyncing={false}
             candleLoadingThreshold={3} // we always get 1 candle when sub'ing
             // bgColor='#111'
@@ -49,15 +48,16 @@ export default (opts, results, backtestData) => {
           />
         )}
       </AutoSizer>
-      <StrategyTradesTable
-        trades={trades}
-        onTradeClick={() => {}}
-      />
       <Results
         results={results}
         execRunning={false}
         currentTick={results.currentTick}
         totalTicks={results.totalTicks}
+      />
+      <StrategyTradesTable
+        label='Trades'
+        trades={trades}
+        onTradeClick={() => {}}
       />
     </div>
   )

@@ -1,7 +1,7 @@
 .hfui-strategyeditor__results-wrapper {
-  background: #102331;
   width: 100%;
   padding: 0 8px;
+  margin: 40px 0;
 
   > p:first-child {
     font-size: 12px;
@@ -36,9 +36,42 @@
   }
 }
 
+.hfui-strategyeditor__results-list-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 6px;
+}
+
 .hfui-strategyeditor__results-section {
   width: 50%;
   display: inline-block;
+}
+
+.hfui-strategyeditor__results-header {
+  display: flex;
+  flex-direction: row;
+  margin: 30px 0px;
+}
+
+.hfui-strategyeditor__results-header-item {
+  flex: 1;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.hfui-strategyeditor__results-header-item_wrapper {
+  width: 40px;
+  margin: auto;
+  display: block;
+
+  p {
+    color: #666;
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  h4 {
+    font-size: 23px;
+  }
 }
 
 .hfui-strategyeditor__empty-content {
