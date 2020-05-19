@@ -1,10 +1,11 @@
+/* eslint react/prop-types: 0 */
 import React from 'react'
 import _capitalize from 'lodash/capitalize'
 
 import Select from '../../../ui/Select'
 
 export default ({
-  onChangeExchange, currentExchange, exchangeDirty, exchanges, disabled, // eslint-disable-line
+  onChangeExchange, currentExchange, exchangeDirty, exchanges, disabled,
 }) => (
   <Select
     key='exchange-dropdown'

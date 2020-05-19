@@ -400,7 +400,7 @@ export default class StrategyEditor extends React.PureComponent {
   renderEmptyContent() {
     const {
       createNewStrategyModalOpen, openExistingStrategyModalOpen,
-    } = this.state  
+    } = this.state
     const { gaCreateStrategy } = this.props
 
     return (
@@ -513,8 +513,7 @@ export default class StrategyEditor extends React.PureComponent {
                 ? null
                 : _isEmpty(sectionErrors[activeContent])
                   ? <p>~</p>
-                  : <p>*</p>
-              }
+                  : <p>*</p>}
             </li>
           ))}
         </ul>

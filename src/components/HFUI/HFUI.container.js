@@ -11,7 +11,7 @@ import { getAuthToken } from '../../redux/selectors/ws'
 import HFUI from './HFUI'
 
 const mapStateToProps = (state = {}) => {
-  const { router, meta } = state
+  const { router } = state
   const { location } = router
   const { pathname } = location
   const { ui } = state
@@ -44,7 +44,7 @@ const mapDispatchToProps = dispatch => ({
   },
   GAPageview: (page) => {
     dispatch(GAActions.pageview(page))
-  }
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HFUI)

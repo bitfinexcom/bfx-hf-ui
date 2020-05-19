@@ -19,7 +19,7 @@ export default class Settings extends React.Component {
     apiKey: '',
     apiSecret: '',
   }
-  
+
   constructor(props) {
     super(props)
     const {
@@ -80,8 +80,12 @@ export default class Settings extends React.Component {
 
     // eslint-disable-next-line react/destructuring-assignment
     if (this.props.chart && (!this.state.chart || this.state.dms === undefined)) {
-      const { chart, theme, dms, ga } = this.props
-      this.setState(() => ({ chart, theme, dms, ga }))
+      const {
+        chart, theme, dms, ga,
+      } = this.props
+      this.setState(() => ({
+        chart, theme, dms, ga,
+      }))
     }
 
     const { chart, dms, ga } = this.state

@@ -9,11 +9,9 @@ import AtomicOrdersTable from './AtomicOrdersTable'
 
 const debug = Debug('hfui:c:atomic-orders-table')
 
-const mapStateToProps = (state = {}, ownProps = {}) => {
-  return { // eslint-disable-line
-    authToken: getAuthToken(state),
-  }
-}
+const mapStateToProps = (state = {}) => ({
+  authToken: getAuthToken(state),
+})
 
 const mapDispatchToProps = dispatch => ({
   cancelOrder: (exID, authToken, order) => {
@@ -24,7 +22,7 @@ const mapDispatchToProps = dispatch => ({
   },
   gaCancelOrder: () => {
     dispatch(GAActions.cancelAtomicOrder())
-  }
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AtomicOrdersTable)

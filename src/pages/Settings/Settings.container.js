@@ -19,7 +19,9 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
   const { layoutID, layoutI: id } = ownProps
   const { ui = {} } = state
   const { settings = {} } = ui
-  const { chart, theme, dms, ga } = settings || {}
+  const {
+    chart, theme, dms, ga,
+  } = settings || {}
 
   return {
     activeExchange: getActiveExchange(state),
@@ -33,7 +35,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     chart,
     theme,
     dms,
-    ga
+    ga,
   }
 }
 
@@ -69,7 +71,7 @@ const mapDispatchToProps = dispatch => ({
       chart,
       dms,
       theme,
-      ga
+      ga,
     ]))
   },
 })

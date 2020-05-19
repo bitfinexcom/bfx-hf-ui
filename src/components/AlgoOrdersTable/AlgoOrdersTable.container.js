@@ -22,11 +22,11 @@ const mapDispatchToProps = dispatch => ({
     const { gid, exID } = order
 
     debug('cancelling algo order %d', +gid)
-     dispatch(WSActions.send(['algo_order.cancel', authToken, exID, `${gid}`]))
+    dispatch(WSActions.send(['algo_order.cancel', authToken, exID, `${gid}`]))
   },
   gaCancelOrder: () => {
     dispatch(GAActions.cancelAO())
-  }
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AlgoOrdersTable)
