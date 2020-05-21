@@ -227,26 +227,26 @@ export default class Backtester extends React.PureComponent {
           <div className='hfui-backtester__wrapper'>
             {
               (!execRunning && !loadingBacktest) && (
-                <React.Fragment>
+                <>
                   <executionType.form {...opts} />
                   <p>Press start to begin backtesting.</p>
-                </React.Fragment>
+                </>
               )
             }
             {
               (!execRunning && loadingBacktest) && (
-                <React.Fragment>
+                <>
                   <executionType.form {...opts} disabled />
                   <p>Loading backtest candles...</p>
-                </React.Fragment>
+                </>
               )
             }
             {
               (execRunning) && (
-                <React.Fragment>
+                <>
                   <executionType.form {...opts} disabled />
                   <p>Executing strategy...</p>
-                </React.Fragment>
+                </>
               )
             }
           </div>

@@ -86,9 +86,10 @@ export default class ExchangeInfoBar extends React.PureComponent {
               label='24h Change'
               value={dailyChange || '-'}
               valuePrefix={quotePrefix(activeMarket.quote)}
-              dataClassName={dailyChange
-                ? dailyChange < 0 ? 'hfui-red' : 'hfui-green'
-                : ''
+              dataClassName={
+                dailyChange
+                  ? dailyChange < 0 ? 'hfui-red' : 'hfui-green'
+                  : ''
               }
             />
 
@@ -98,9 +99,10 @@ export default class ExchangeInfoBar extends React.PureComponent {
               label='24h Change %'
               valueSuffix='%'
               value={dailyChangePerc ? dailyChangePerc * 100 : '-'}
-              dataClassName={dailyChangePerc
-                ? dailyChangePerc < 0 ? 'hfui-red' : 'hfui-green'
-                : ''
+              dataClassName={
+                dailyChangePerc
+                  ? dailyChangePerc < 0 ? 'hfui-red' : 'hfui-green'
+                  : ''
               }
             />
 
