@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 export const propTypes = {
   onSave: PropTypes.func.isRequired,
   onIndicatorsChange: PropTypes.func.isRequired,
-  onResultsChange: PropTypes.func.isRequired,
+  onResultsChange: PropTypes.func,
   onRemove: PropTypes.func,
   moveable: PropTypes.bool,
   removeable: PropTypes.bool,
