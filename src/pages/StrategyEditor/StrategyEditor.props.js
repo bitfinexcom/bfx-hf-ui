@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 
 export const propTypes = {
-  candleData: PropTypes.object.isRequired,
-  activeMarket: PropTypes.object.isRequired,
-  activeExchange: PropTypes.string.isRequired,
+  candleData: PropTypes.object,
+  activeMarket: PropTypes.object,
+  activeExchange: PropTypes.string,
   dark: PropTypes.bool,
 }
 
