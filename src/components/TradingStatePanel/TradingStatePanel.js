@@ -161,22 +161,22 @@ export default class TradingStatePanel extends React.Component {
           darkHeader
         >
           <PositionsTable
-            tabTitle={`Positions ${positions.length}`}
+            tabtitle={`Positions ${positions.length}`}
             exID={activeExchange}
             positions={positions}
           />
           <AtomicOrdersTable
-            tabTitle={`Atomics ${atomicOrders.length}`}
+            tabtitle={`Atomics ${atomicOrders.length}`}
             exID={activeExchange}
             orders={atomicOrders}
           />
           <AlgoOrdersTable
-            tabTitle={`Algos ${algoOrders.length}`}
+            tabtitle={`Algos ${algoOrders.length}`}
             exID={activeExchange}
             orders={algoOrders}
           />
           <BalancesTable
-            tabTitle='Balances'
+            tabtitle='Balances'
             exID={activeExchange}
             hideZeroBalances
             balances={balances}
