@@ -42,7 +42,7 @@ export default class Panel extends React.Component {
     text: '',
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() { // eslint-disable-line
     this.reload()
   }
 

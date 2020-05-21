@@ -65,13 +65,13 @@ export default class HFUI extends React.PureComponent {
             exact
             path='/'
             render={() => (
-              <React.Fragment>
+              <>
                 <ExchangeInfoBar
                   selectedMarket={activeMarket}
                   onChangeMarket={this.onChangeMarket}
                 />
                 <TradingPage />
-              </React.Fragment>
+              </>
             )}
           />
 

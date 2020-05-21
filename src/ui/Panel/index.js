@@ -41,8 +41,8 @@ export default class Panel extends React.Component {
         >
           {label && <p className='hfui-panel__label'>{label}</p>}
           { closePanel && (
-            <p className='hfui-panel__close' onClick={closePanel}>X</p>)
-          }
+            <p className='hfui-panel__close' onClick={closePanel}>X</p>
+          )}
           {tabs.length > 0 && (
             <ul className='hfui-panel__header-tabs'>
               {tabs.map(tab => (
