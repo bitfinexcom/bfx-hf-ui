@@ -78,11 +78,11 @@ export default class StrategyEditorPage extends React.Component {
             darkHeader
           >
             <Markdown
-              tabTitle='Docs'
-              src={DocsPath}
+              tabtitle='Docs'
+              src={typeof DocsPath === 'object' ? DocsPath.default : DocsPath}
             />
             <div
-              tabTitle='Backtest'
+              tabtitle='Backtest'
               style={{ height: 1200 }}
             >
               <Backtester
