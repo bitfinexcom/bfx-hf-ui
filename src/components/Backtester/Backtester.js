@@ -22,7 +22,7 @@ import RenderImportForm from './forms/ImportForm'
 
 import './style.css'
 
-export default class Backtester extends React.PureComponent {
+export default class Backtester extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
 
@@ -78,7 +78,7 @@ export default class Backtester extends React.PureComponent {
     return false
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) { // eslint-disable-line
     const { loadingBacktest, execRunning, backtestOptions } = this.state
     const { backtest, backtestData } = nextProps
     const { strategyContent } = this.props
