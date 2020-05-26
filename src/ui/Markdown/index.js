@@ -10,12 +10,10 @@ import './style.css'
 
 const md = new Remarkable({
   html: true, // Enable HTML tags in source
-  xhtmlOut: false, // Use '/' to close single tags (<br />)
-  breaks: false, // Convert '\n' in paragraphs into <br>
-  langPrefix: 'language-', // CSS language prefix for fenced blocks
+  xhtmlOut: true, // Use '/' to close single tags (<br />)
+  breaks: true, // Convert '\n' in paragraphs into <br>
   linkify: true, // autoconvert URL-like texts to links
-  linkTarget: '', // set target to open link in
-  typographer: false, // Enable some language-neutral replacements + quotes beautification
+  typographer: true, // Enable some language-neutral replacements + quotes beautification
   // Double + single quotes replacement pairs, when typographer enabled,
   // and smartquotes on. Set doubles to '«»' for Russian, '„“' for German.
   quotes: '“”‘’',
