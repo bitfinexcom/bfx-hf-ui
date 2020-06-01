@@ -4,9 +4,6 @@ import Button from '../../../ui/Button'
 import Dropdown from '../../../ui/Dropdown'
 import { propTypes, defaultProps } from './forms.props'
 
-// const { dialog } = require('electron')
-
-
 export default class ImportForm extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -14,7 +11,6 @@ export default class ImportForm extends React.PureComponent {
   state = {}
 
   openFile = () => {
-    // dialog.showOpenDialog({ properties: ['openFile'] })
   }
 
   render() {
@@ -37,9 +33,8 @@ export default class ImportForm extends React.PureComponent {
           <div className='hfui-backtester__flex_start'>
             <div>
               <Button
-                onClick={() => this.openFile}
+                onClick={() => this.openFile()}
                 className='hfui-backtester__flex_start hfui-backtester__start-button'
-                // disabled={false}
                 label='Open file'
                 green
               />
@@ -48,7 +43,6 @@ export default class ImportForm extends React.PureComponent {
               <Button
                 onClick={() => {}}
                 className='hfui-backtester__flex_start hfui-backtester__start-button'
-                // disabled={false}
                 label='Start'
                 green
               />
