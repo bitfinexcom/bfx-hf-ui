@@ -27,7 +27,7 @@ export default class Panel extends React.Component {
 
     if (label || tabs) heightOffsetPX += 50
     if (footer) heightOffsetPX += 35
-    console.log(selectedTab)
+
     return (
       <div
         className={ClassNames('hfui-panel', className, {

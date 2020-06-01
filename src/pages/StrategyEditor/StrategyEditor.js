@@ -6,6 +6,7 @@ import Panel from '../../ui/Panel'
 import Markdown from '../../ui/Markdown'
 import StatusBar from '../../components/StatusBar'
 import Backtester from '../../components/Backtester'
+import LiveStrategyExecutor from '../../components/LiveStrategyExecutor'
 import { propTypes, defaultProps } from './StrategyEditor.props'
 
 import './style.css'
@@ -89,6 +90,13 @@ export default class StrategyEditorPage extends React.Component {
                 {...this.props}
                 strategyContent={strategyContent}
                 indicators={indicators}
+              />
+            </div>
+            <div
+              tabtitle='Execute'
+            >
+              <LiveStrategyExecutor
+                strategyContent={strategyContent}
               />
             </div>
           </Panel>
