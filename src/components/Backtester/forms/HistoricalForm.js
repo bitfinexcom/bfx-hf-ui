@@ -8,6 +8,7 @@ import { propTypes, defaultProps } from './forms.props'
 import DateInput from '../../OrderForm/FieldComponents/input.date'
 
 const markets = [
+  // TODO: get markets from 'availableMarkets'
   {
     uiID: 'tBTCUSD',
     base: 'BTC',
@@ -25,6 +26,7 @@ const markets = [
   },
 ]
 
+// TODO: use global exchangeId or allow user to change
 const exId = 'bitfinex'
 
 export default class HistoricalForm extends React.PureComponent {
@@ -121,6 +123,7 @@ export default class HistoricalForm extends React.PureComponent {
           <div>
             <Button
               onClick={this.executeBacktest}
+              style={{ marginLeft: 10 }}
               className='hfui-backtester__flex_start hfui-backtester__start-button'
               disabled={disabled}
               label='Start'
