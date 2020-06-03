@@ -74,7 +74,7 @@ export default class HistoricalForm extends React.PureComponent {
     return (
       <div className='hfui-backtester__executionform'>
         <div className='hfui-backtester_row'>
-          <div className='input-label hfui-backtester__flex_start'>
+          <div className='hfui-backtester__flex_start'>
             <Dropdown
               value={executionType.type}
               onChange={updateExecutionType}
@@ -84,7 +84,7 @@ export default class HistoricalForm extends React.PureComponent {
               }))}
             />
           </div>
-          <div className='input-label hfui-backtester__flex_start'>
+          <div className='hfui-backtester__flex_start'>
             <Dropdown
               value={selectedMarket.uiID}
               onChange={(selection) => {
@@ -97,7 +97,7 @@ export default class HistoricalForm extends React.PureComponent {
               }))}
             />
           </div>
-          <div className='input-label hfui-backtester__flex_start' style={{ marginRight: -15 }}>
+          <div className='hfui-backtester__flex_start' style={{ marginRight: -15 }}>
             <TimeFrameDropdown
               exID={exId}
               tf={selectedTimeFrame}
@@ -123,7 +123,7 @@ export default class HistoricalForm extends React.PureComponent {
           <div>
             <Button
               onClick={this.executeBacktest}
-              style={{ marginLeft: 10 }}
+              style={{ marginLeft: 5 }}
               className='hfui-backtester__flex_start hfui-backtester__start-button'
               disabled={disabled}
               label='Start'

@@ -20,7 +20,7 @@ export default class ImportForm extends React.PureComponent {
     return (
       <div className='hfui-backtester__executionform'>
         <div className='hfui-backtester_row'>
-          <div className='input-label hfui-backtester__flex_start'>
+          <div className='hfui-backtester__flex_start'>
             <Dropdown
               value={executionType.type}
               onChange={updateExecutionType}
@@ -39,7 +39,7 @@ export default class ImportForm extends React.PureComponent {
                 green
               />
             </div>
-            <div style={{ marginLeft: 10 }}>
+            <div style={{ marginLeft: 5 }}>
               <Button
                 onClick={() => {}}
                 className='hfui-backtester__flex_start hfui-backtester__start-button'
