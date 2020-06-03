@@ -2,10 +2,25 @@
   display: flex;
   flex: 1;
   flex-direction: column;
+  margin-bottom: 10px;
+
+  .hfui-backtester_row {
+    margin-bottom: 5px !important;
+  }
+
+  .hfui-dropdown__button, .react-datepicker__input-container input {
+    color: white;
+    margin-right: 5px;
+    background-color: rgb(16, 35, 49);
+  }
+
+  .react-datepicker__input-container input {
+    color: #54B361;
+    width: calc(100% - 23px);
+  }
 
   .hfui-dropdown__wrapper {
     width: 100%;
-    background: lightgrey;
   }
 
   .hfui-exchangeinfobar__wrapper {
@@ -36,6 +51,7 @@
 
   .hfui-backtester__start-button {
     padding: 10px 18px;
+    margin-right: 0px;
   }  
 
   .hfui-backtester_dateInputs_wrapper {
@@ -44,8 +60,7 @@
   }
   
   input {
-    // max-width: 300px;
-    max-width: 90%;
+    max-width: 100%;
     padding: 10px 8px;
     background-color: lightgray;
     color: #666;
