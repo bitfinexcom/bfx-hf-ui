@@ -54,7 +54,7 @@ export default class LiveStrategyExecutor extends React.Component {
     return (
       <div className='hfui-backtester__executionform hfui-live-stratgey-executor__wrapper'>
         <div className='hfui-backtester_row'>
-          <div className='input-label hfui-backtester__flex_start'>
+          <div className='hfui-backtester__flex_start'>
             <Dropdown
               value={selectedMarket.uiID}
               onChange={(selection) => {
@@ -67,7 +67,7 @@ export default class LiveStrategyExecutor extends React.Component {
               }))}
             />
           </div>
-          <div className='input-label hfui-backtester__flex_start' style={{ marginRight: -15 }}>
+          <div className='hfui-backtester__flex_start' style={{ marginRight: -15 }}>
             <TimeFrameDropdown
               exID={exId}
               tf={selectedTimeFrame}
