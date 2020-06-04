@@ -10,9 +10,7 @@ export default class Panel extends React.Component {
 
   static defaultProps = defaultProps
 
-  state = {
-    selectedTab: undefined,
-  }
+  state = {}
 
   render() {
     const {
