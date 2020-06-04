@@ -1,8 +1,11 @@
 import { connect } from 'react-redux'
 
 import LiveStrategyExecutor from './LiveStrategyExecutor'
+import { getMarkets } from '../../redux/selectors/meta'
 
-const mapStateToProps = () => ({})
+const mapStateToProps = (state = {}) => ({
+  allMarkets: getMarkets(state),
+})
 
 const mapDispatchToProps = () => ({
   dsExecuteLiveStrategy: () => {
