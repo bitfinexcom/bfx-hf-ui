@@ -75,7 +75,7 @@ export default class HistoricalForm extends React.PureComponent {
               value={selectedMarket.uiID}
               onChange={(selection) => {
                 const sel = allMarkets[exId].find(m => m.uiID === selection)
-                this.setState({ selectedMarket: sel })
+                this.setState(() => ({ selectedMarket: sel }))
               }}
               options={allMarkets[exId].map(m => ({
                 label: m.uiID,
@@ -87,21 +87,21 @@ export default class HistoricalForm extends React.PureComponent {
             <TimeFrameDropdown
               exID={exId}
               tf={selectedTimeFrame}
-              onChange={tf => this.setState({ selectedTimeFrame: tf })}
+              onChange={tf => this.setState(() => ({ selectedTimeFrame: tf }))}
             />
           </div>
         </div>
         <div className='hfui-backtester_row'>
           <div className='hfui-backtester_dateInput hfui-backtester__flex_start'>
             <DateInput
-              onChange={val => this.setState({ startDate: val })}
+              onChange={val => this.setState(() => ({ startDate: val }))}
               def={{ label: 'Start Date' }}
               value={startDate}
             />
           </div>
           <div className='hfui-backtester_dateInput hfui-backtester__flex_start'>
             <DateInput
-              onChange={val => this.setState({ endDate: val })}
+              onChange={val => this.setState(() => ({ endDate: val }))}
               def={{ label: 'End Date' }}
               value={endDate}
             />
