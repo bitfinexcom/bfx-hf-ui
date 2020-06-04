@@ -8,20 +8,16 @@ import Indicators from 'bfx-hf-indicators'
 import { nonce } from 'bfx-api-node-util'
 import HFS from 'bfx-hf-strategy'
 import HFU from 'bfx-hf-util'
-import raw from 'raw.macro'
 import _ from 'lodash'
 import * as SRD from '@projectstorm/react-diagrams'
 
 import Templates from './templates'
 
-import StrategyEditorHelp from './StrategyEditorHelp'
 import StrategyEditorPanel from './StrategyEditorPanel'
 import CreateNewStrategyModal from '../CreateNewStrategyModal'
 import OpenExistingStrategyModal from '../OpenExistingStrategyModal'
 import { propTypes, defaultProps } from './StrategyEditor.props'
 import './style.css'
-
-const generalHelp = raw('./help/general.md')
 
 const debug = Debug('hfui-ui:c:strategy-editor')
 const STRATEGY_SECTIONS = [
@@ -53,7 +49,6 @@ export default class StrategyEditor extends React.PureComponent {
     createNewStrategyModalOpen: false,
     openExistingStrategyModalOpen: false,
     editorMode: 'visual',
-    helpOpen: false,
   }
 
   constructor(props) {
@@ -67,7 +62,6 @@ export default class StrategyEditor extends React.PureComponent {
     this.onCreateNewStrategy = this.onCreateNewStrategy.bind(this)
     this.onSaveStrategy = this.onSaveStrategy.bind(this)
     this.onLoadStrategy = this.onLoadStrategy.bind(this)
-    this.onToggleHelp = this.onToggleHelp.bind(this)
     this.onToggleMaximiseEditor = this.onToggleMaximiseEditor.bind(this)
   }
 
@@ -113,12 +107,6 @@ export default class StrategyEditor extends React.PureComponent {
         this.onDefineIndicatorsChange()
       }, 0)
     }
-  }
-
-  onToggleHelp() {
-    this.setState(({ helpOpen }) => ({
-      helpOpen: !helpOpen,
-    }))
   }
 
   onOpenCreateModal() {
@@ -278,7 +266,7 @@ export default class StrategyEditor extends React.PureComponent {
 
   renderPanel(content) {
     const {
-      strategy, execRunning, strategyDirty, helpOpen, editorMaximised,
+      strategy, execRunning, strategyDirty, editorMaximised,
       editorMode, dark,
     } = this.state
 
@@ -291,12 +279,10 @@ export default class StrategyEditor extends React.PureComponent {
         moveable={moveable}
         removeable={removeable}
         execRunning={execRunning}
-        helpOpen={helpOpen}
         strategyDirty={strategyDirty}
         strategy={strategy}
         editorMode={editorMode}
         editorMaximised={editorMaximised}
-        onToggleHelp={this.onToggleHelp}
         onOpenSelectModal={this.onOpenSelectModal}
         onOpenCreateModal={this.onOpenCreateModal}
         onSaveStrategy={this.onSaveStrategy}
@@ -355,7 +341,7 @@ export default class StrategyEditor extends React.PureComponent {
     const { renderResults } = this.props
     const {
       activeContent, execError, strategy, createNewStrategyModalOpen,
-      openExistingStrategyModalOpen, sectionErrors, helpOpen, editorMaximised,
+      openExistingStrategyModalOpen, sectionErrors, editorMaximised,
     } = this.state
 
     if (!strategy) {
@@ -390,7 +376,6 @@ export default class StrategyEditor extends React.PureComponent {
 
     return this.renderPanel(
       <div className='hfui-strategyeditor__wrapper'>
-        {helpOpen && <StrategyEditorHelp source={generalHelp} />}
 
         {createNewStrategyModalOpen && (
           <CreateNewStrategyModal
