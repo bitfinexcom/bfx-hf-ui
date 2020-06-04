@@ -179,7 +179,7 @@
     "bfx-hf-algo": "github:bitfinexcom/bfx-hf-algo#master",
     "bfx-hf-backtest": "^1.0.3",
     "bfx-hf-chart": "^1.0.0",
-    "bfx-hf-data-server": "^1.3.0",
+    "bfx-hf-data-server": "^1.4.0",
     "bfx-hf-ext-plugin-bitfinex": "^1.0.0",
     "bfx-hf-indicators": "^2.0.1",
     "bfx-hf-models": "^2.1.2",
