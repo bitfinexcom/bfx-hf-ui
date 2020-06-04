@@ -34,23 +34,20 @@ export default class Backtester extends React.Component {
   constructor() {
     super()
 
-    this.executionTypes = [
+    this.backtestMethods = [
       {
         type: 'Historical',
         form: RenderHistoricalForm,
-        submitForm: () => {},
         renderReport: RenderHistoricalReport,
       },
       {
         type: 'Live',
         form: RenderLiveForm,
-        submitForm: () => {},
         renderReport: RenderLiveReport,
       },
       {
         type: 'Import',
         form: RenderImportForm,
-        submitForm: () => {},
         renderReport: RenderImportReport,
       },
     ]
@@ -159,7 +156,7 @@ export default class Backtester extends React.Component {
   }
 
   updateExecutionType = (value) => {
-    const newType = this.executionTypes.filter(f => f.type === value)[0]
+    const newType = this.backtestMethods.filter(f => f.type === value)[0]
     this.setState({ executionType: newType })
   }
 
@@ -181,7 +178,7 @@ export default class Backtester extends React.Component {
 
   render() {
     const {
-      executionType = this.executionTypes[0],
+      executionType = this.backtestMethods[0],
       execRunning,
       loadingBacktest,
       execError,
@@ -195,7 +192,7 @@ export default class Backtester extends React.Component {
     } = this.props
     const opts = {
       updateExecutionType: this.updateExecutionType,
-      executionTypes: this.executionTypes,
+      backtestMethods: this.backtestMethods,
       backtestStrategy: this.backtestStrategy,
       executionType,
       indicators,
