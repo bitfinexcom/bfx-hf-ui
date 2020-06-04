@@ -47,7 +47,7 @@ export default class LiveStrategyExecutor extends React.Component {
               value={selectedMarket.uiID}
               onChange={(selection) => {
                 const sel = markets.find(m => m.uiID === selection)
-                this.setState({ selectedMarket: sel })
+                this.setState(() => ({ selectedMarket: sel }))
               }}
               options={markets.map(m => ({
                 label: m.uiID,
@@ -59,7 +59,7 @@ export default class LiveStrategyExecutor extends React.Component {
             <TimeFrameDropdown
               exID={exId}
               tf={selectedTimeFrame}
-              onChange={tf => this.setState({ selectedTimeFrame: tf })}
+              onChange={tf => this.setState(() => ({ selectedTimeFrame: tf }))}
             />
           </div>
           <div>

@@ -52,9 +52,9 @@ export default class Panel extends React.Component {
     if (src) {
       fetch(src)
         .then(response => response.text())
-        .then(t => this.setState({ text: t }))
+        .then(t => this.setState(() => ({ text: t })))
     } else {
-      this.setState({ text })
+      this.setState(() => ({ text }))
     }
   }
 
