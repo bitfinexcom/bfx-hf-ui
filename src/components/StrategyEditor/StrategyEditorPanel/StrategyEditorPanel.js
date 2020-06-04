@@ -11,8 +11,8 @@ export default class StrategyEditorPanel extends React.PureComponent {
 
   render() {
     const {
-      onRemove, moveable, removeable, children, execRunning, /* helpOpen, */
-      strategyDirty, strategy, /* onToggleHelp, */ onOpenSelectModal,
+      onRemove, moveable, removeable, children, execRunning,
+      strategyDirty, strategy, onOpenSelectModal,
       onOpenCreateModal, onSaveStrategy, dark,
       // onSwitchEditorMode, onToggleMaximiseEditor, editorMode,
       // editorMaximised,
@@ -29,17 +29,6 @@ export default class StrategyEditorPanel extends React.PureComponent {
         removeable={removeable}
         extraIcons={[
           execRunning && (<i key='running' className='fas fa-circle-notch' />),
-          /*
-          strategy && (
-            <i
-              key='help'
-              className={ClassNames('fas fa-question', {
-                yellow: helpOpen,
-              })}
-              onClick={onToggleHelp}
-            />
-          ),
-          */
         ]}
 
         headerComponents={(
