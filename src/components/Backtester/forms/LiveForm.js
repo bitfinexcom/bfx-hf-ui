@@ -44,7 +44,7 @@ export default class HistoricalForm extends React.PureComponent {
               value={selectedMarket.uiID}
               onChange={(selection) => {
                 const sel = allMarkets[exId].find(m => m.uiID === selection)
-                this.setState({ selectedMarket: sel })
+                this.setState(() => ({ selectedMarket: sel }))
               }}
               options={allMarkets[exId].map(m => ({
                 label: m.uiID,

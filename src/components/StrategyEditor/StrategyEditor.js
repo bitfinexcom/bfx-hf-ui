@@ -150,7 +150,7 @@ export default class StrategyEditor extends React.PureComponent {
   onEditorContentChange(editor, data, code) {
     const { activeContent, strategy } = this.state
 
-    this.setState({ strategyDirty: true })
+    this.setState(() => ({ strategyDirty: true }))
     this.updateStrategy({
       ...strategy,
       [activeContent]: code,
@@ -216,7 +216,7 @@ export default class StrategyEditor extends React.PureComponent {
 
   updateStrategy(strategy) {
     const { onStrategyChange } = this.props
-    this.setState({ strategy })
+    this.setState(() => ({ strategy }))
 
     const strategyContent = {}
     let section

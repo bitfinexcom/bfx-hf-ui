@@ -84,7 +84,7 @@ export default class Backtester extends React.Component {
         tf,
       },
     })
-    this.setState({ loadingBacktest: false })
+    this.setState(() => ({ loadingBacktest: false }))
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -147,17 +147,17 @@ export default class Backtester extends React.Component {
     if (loadingBacktest) return
 
     dsExecuteBacktest(activeExchange, startDate, endDate, activeMarket, '1m')
-    this.setState({
+    this.setState(() => ({
       loadingBacktest: true,
       backtestOptions: options,
       execError: undefined,
       results: undefined,
-    })
+    }))
   }
 
   updateExecutionType = (value) => {
     const newType = this.backtestMethods.filter(f => f.type === value)[0]
-    this.setState({ executionType: newType })
+    this.setState(() => ({ executionType: newType }))
   }
 
   updateError(errMessage) {
