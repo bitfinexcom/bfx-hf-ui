@@ -22,7 +22,7 @@ export const generateResults = (btState = {}) => {
   const maxPL = _max(pls)
   const accumulatedPLs = trades.map(x => x.pl)
   const stdDeviation = std(accumulatedPLs.length > 0 ? accumulatedPLs : [0])
-  const avgPL = trades.reduce((acc, trade) => acc + trade.pl, 0) / trades.length
+  const avgPL = _sum(accumulatedPLs) / accumulatedPLs.length
 
   return {
     nTrades,
