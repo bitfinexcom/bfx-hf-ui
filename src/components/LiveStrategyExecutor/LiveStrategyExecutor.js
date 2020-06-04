@@ -8,25 +8,6 @@ import { propTypes, defaultProps } from './LiveStrategyExecutor.props'
 
 import './style.css'
 
-const markets = [
-  // TODO: get markets from 'availableMarkets'
-  {
-    uiID: 'tBTCUSD',
-    base: 'BTC',
-    quote: 'USD',
-  },
-  {
-    uiID: 'tETHUSD',
-    base: 'ETH',
-    quote: 'USD',
-  },
-  {
-    uiID: 'tXRPUSD',
-    base: 'XRP',
-    quote: 'USD',
-  },
-]
-
 // TODO: use global exchangeId or allow user to change
 const exId = 'bitfinex'
 
@@ -35,13 +16,20 @@ export default class LiveStrategyExecutor extends React.Component {
   static defaultProps = defaultProps
 
   state = {
-    selectedMarket: markets[0],
     selectedTimeFrame: '1m',
   }
 
   render() {
-    const { strategyContent, dsExecuteLiveStrategy } = this.props
-    const { selectedTimeFrame, selectedMarket } = this.state
+    const {
+      strategyContent,
+      dsExecuteLiveStrategy,
+      allMarkets,
+    } = this.props
+    const {
+      selectedTimeFrame,
+      selectedMarket = allMarkets[exId][0],
+    } = this.state
+    const markets = allMarkets[exId]
 
     if (!strategyContent) {
       return (

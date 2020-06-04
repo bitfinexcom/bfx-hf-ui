@@ -1,10 +1,7 @@
-/* eslint-disable */ 
 import React from 'react'
 import _isEqual from 'lodash/isEqual'
 
-import Chart from '../Chart'
 import { propTypes, defaultProps } from './Backtester.props'
-import Spinner from '../../ui/Spinner'
 
 import { generateResults } from './Backtester.helpers'
 import StrategyExecWorker from '../../workers/strategy_exec.worker'
@@ -65,19 +62,6 @@ export default class Backtester extends React.Component {
     this.updateError = this.updateError.bind(this)
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    const { backtest, strategyContent } = this.props
-    if (
-      !_isEqual(nextState, this.state)
-      || !_isEqual(nextProps.backtest, backtest)
-      || !_isEqual(nextProps.strategyContent, strategyContent)
-    ) {
-      return true
-    }
-
-    return false
-  }
-
   UNSAFE_componentWillReceiveProps(nextProps) { // eslint-disable-line
     const { loadingBacktest, execRunning, backtestOptions } = this.state
     const { backtest, backtestData } = nextProps
@@ -104,6 +88,19 @@ export default class Backtester extends React.Component {
       },
     })
     this.setState({ loadingBacktest: false })
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const { backtest, strategyContent } = this.props
+    if (
+      !_isEqual(nextState, this.state)
+      || !_isEqual(nextProps.backtest, backtest)
+      || !_isEqual(nextProps.strategyContent, strategyContent)
+    ) {
+      return true
+    }
+
+    return false
   }
 
   componentWillUnmount() {
@@ -143,36 +140,9 @@ export default class Backtester extends React.Component {
     }
   }
 
-  renderHistoricalReport = () => {
-    return (
-      <div />
-    )
-  }
-
-  updateResults(btState = {}) {
-    const results = generateResults(btState)
-
-    this.setState(() => ({
-      results,
-      execError: null,
-    }))
-  }
-
-  updateError(errMessage) {
-    this.setState(() => ({
-      results: null,
-      execError: errMessage,
-    }))
-  }
-
-  updateExecutionType = (value) => {
-    const newType = this.executionTypes.filter(f => f.type === value)[0]
-    this.setState({ executionType: newType })
-  }
-
   backtestStrategy = (options) => {
     const {
-      activeExchange, activeMarket, startDate, endDate
+      activeExchange, activeMarket, startDate, endDate,
     } = options
     const { dsExecuteBacktest } = this.props
     const { loadingBacktest } = this.state
@@ -188,6 +158,27 @@ export default class Backtester extends React.Component {
     })
   }
 
+  updateExecutionType = (value) => {
+    const newType = this.executionTypes.filter(f => f.type === value)[0]
+    this.setState({ executionType: newType })
+  }
+
+  updateError(errMessage) {
+    this.setState(() => ({
+      results: null,
+      execError: errMessage,
+    }))
+  }
+
+  updateResults(btState = {}) {
+    const results = generateResults(btState)
+
+    this.setState(() => ({
+      results,
+      execError: null,
+    }))
+  }
+
   render() {
     const {
       executionType = this.executionTypes[0],
@@ -196,7 +187,12 @@ export default class Backtester extends React.Component {
       execError,
       results,
     } = this.state
-    const { indicators, backtestData, strategyContent } = this.props
+    const {
+      indicators,
+      backtestData,
+      strategyContent,
+      allMarkets,
+    } = this.props
     const opts = {
       updateExecutionType: this.updateExecutionType,
       executionTypes: this.executionTypes,
@@ -204,6 +200,8 @@ export default class Backtester extends React.Component {
       executionType,
       indicators,
       updateError: this.updateError,
+      allMarkets,
+      exId: 'bitfinex', // todo: add ability to specify exchange
     }
 
     if (!strategyContent) {
@@ -222,41 +220,40 @@ export default class Backtester extends React.Component {
             <p style={{ color: 'red' }}>{execError}</p>
           </div>
         )
-      } else {
-        return (
-          <div className='hfui-backtester__wrapper'>
-            {
-              (!execRunning && !loadingBacktest) && (
-                <>
-                  <executionType.form {...opts} />
-                  <p>Press start to begin backtesting.</p>
-                </>
-              )
-            }
-            {
-              (!execRunning && loadingBacktest) && (
-                <>
-                  <executionType.form {...opts} disabled />
-                  <p>Loading backtest candles...</p>
-                </>
-              )
-            }
-            {
-              (execRunning) && (
-                <>
-                  <executionType.form {...opts} disabled />
-                  <p>Executing strategy...</p>
-                </>
-              )
-            }
-          </div>
-        )
       }
+      return (
+        <div className='hfui-backtester__wrapper'>
+          {
+            (!execRunning && !loadingBacktest) && (
+              <>
+                <executionType.form {...opts} />
+                <p>Press start to begin backtesting.</p>
+              </>
+            )
+          }
+          {
+            (!execRunning && loadingBacktest) && (
+              <>
+                <executionType.form {...opts} disabled />
+                <p>Loading backtest candles...</p>
+              </>
+            )
+          }
+          {
+            (execRunning) && (
+              <>
+                <executionType.form {...opts} disabled />
+                <p>Executing strategy...</p>
+              </>
+            )
+          }
+        </div>
+      )
     }
 
     return (
       <div className='hfui-backtester__wrapper'>
-         <executionType.form {...opts} />
+        <executionType.form {...opts} />
 
         {
           (!execRunning) && (
@@ -267,4 +264,3 @@ export default class Backtester extends React.Component {
     )
   }
 }
-/* eslint-enable */

@@ -4,42 +4,26 @@ import Button from '../../../ui/Button'
 import Dropdown from '../../../ui/Dropdown'
 import { propTypes, defaultProps } from './forms.props'
 
-const markets = [
-  {
-    uiID: 'tBTCUSD',
-    base: 'BTC',
-    quote: 'USD',
-  },
-  {
-    uiID: 'tETHUSD',
-    base: 'ETH',
-    quote: 'USD',
-  },
-  {
-    uiID: 'tXRPUSD',
-    base: 'XRP',
-    quote: 'USD',
-  },
-]
-
 export default class HistoricalForm extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
 
-  state = {
-    selectedMarket: markets[0],
-  }
+  state = {}
 
   executeBacktest = () => {
-
   }
 
   render() {
     const {
-      updateExecutionType, executionTypes, executionType, disabled = false,
+      updateExecutionType,
+      executionTypes,
+      executionType,
+      disabled = false,
+      allMarkets,
+      exId,
     } = this.props
     const {
-      selectedMarket,
+      selectedMarket = allMarkets[exId][0],
     } = this.state
 
     return (
@@ -59,10 +43,10 @@ export default class HistoricalForm extends React.PureComponent {
             <Dropdown
               value={selectedMarket.uiID}
               onChange={(selection) => {
-                const sel = markets.find(m => m.uiID === selection)
+                const sel = allMarkets[exId].find(m => m.uiID === selection)
                 this.setState({ selectedMarket: sel })
               }}
-              options={markets.map(m => ({
+              options={allMarkets[exId].map(m => ({
                 label: m.uiID,
                 value: m.uiID,
               }))}
