@@ -50,7 +50,7 @@ export default class Panel extends React.Component {
                 <li
                   key={tab.props.tabtitle}
                   className={ClassNames({ active: tab.props.tabtitle === selectedTab.props.tabtitle })}
-                  onClick={() => this.setState({ selectedTab: tab })}
+                  onClick={() => this.setState(() => ({ selectedTab: tab }))}
                 >
                   <p className='hfui-panel__label'>
                     {tab.props.tabtitle}
