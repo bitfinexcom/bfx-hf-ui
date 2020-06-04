@@ -7,34 +7,11 @@ import { propTypes, defaultProps } from './forms.props'
 
 import DateInput from '../../OrderForm/FieldComponents/input.date'
 
-const markets = [
-  // TODO: get markets from 'availableMarkets'
-  {
-    uiID: 'tBTCUSD',
-    base: 'BTC',
-    quote: 'USD',
-  },
-  {
-    uiID: 'tETHUSD',
-    base: 'ETH',
-    quote: 'USD',
-  },
-  {
-    uiID: 'tXRPUSD',
-    base: 'XRP',
-    quote: 'USD',
-  },
-]
-
-// TODO: use global exchangeId or allow user to change
-const exId = 'bitfinex'
-
 export default class HistoricalForm extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
 
   state = {
-    selectedMarket: markets[0],
     startDate: new Date(),
     endDate: new Date(),
     selectedTimeFrame: '1m',
@@ -44,6 +21,7 @@ export default class HistoricalForm extends React.PureComponent {
     const {
       backtestStrategy,
       updateError,
+      exId,
     } = this.props
     const {
       startDate,
@@ -65,10 +43,18 @@ export default class HistoricalForm extends React.PureComponent {
 
   render() {
     const {
-      updateExecutionType, executionTypes, executionType, disabled = false,
+      updateExecutionType,
+      executionTypes,
+      executionType,
+      disabled = false,
+      allMarkets,
+      exId,
     } = this.props
     const {
-      startDate, endDate, selectedMarket, selectedTimeFrame,
+      startDate,
+      endDate,
+      selectedMarket = allMarkets[exId][0],
+      selectedTimeFrame,
     } = this.state
 
     return (
@@ -88,10 +74,10 @@ export default class HistoricalForm extends React.PureComponent {
             <Dropdown
               value={selectedMarket.uiID}
               onChange={(selection) => {
-                const sel = markets.find(m => m.uiID === selection)
+                const sel = allMarkets[exId].find(m => m.uiID === selection)
                 this.setState({ selectedMarket: sel })
               }}
-              options={markets.map(m => ({
+              options={allMarkets[exId].map(m => ({
                 label: m.uiID,
                 value: m.uiID,
               }))}
