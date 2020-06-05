@@ -244,6 +244,7 @@
     "remarkable": "^2.0.0",
     "request-promise": "^4.2.4",
     "resolve": "^1.10.0",
+    "sanitize-html": "^1.26.0",
     "testing-library": "^0.0.2",
     "universal-analytics": "^0.4.20"
   },
