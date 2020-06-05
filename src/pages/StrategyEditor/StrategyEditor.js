@@ -28,6 +28,14 @@ export default class StrategyEditorPage extends React.Component {
     this.onIndicatorsChange = this.onIndicatorsChange.bind(this)
   }
 
+  componentDidMount() {
+    // load readme docs (DocsPath is an object when running in electron window)
+    const docsPath = typeof DocsPath === 'object' ? DocsPath.default : DocsPath
+    fetch(docsPath)
+      .then(response => response.text())
+      .then(t => this.setState(() => ({ docsText: t })))
+  }
+
   onIndicatorsChange(indicators) {
     // TODO: Better color generation; to save time we generate enough colors for
     //       all indicators here, but optimally we'd switch on i.constructor.ui
@@ -53,7 +61,9 @@ export default class StrategyEditorPage extends React.Component {
 
   render() {
     const {
-      indicators, strategyContent,
+      indicators,
+      strategyContent,
+      docsText = '',
     } = this.state
 
     return (
@@ -80,7 +90,7 @@ export default class StrategyEditorPage extends React.Component {
           >
             <Markdown
               tabTitle='Docs'
-              src={typeof DocsPath === 'object' ? DocsPath.default : DocsPath}
+              text={docsText}
             />
             <div
               tabTitle='Backtest'
