@@ -39,28 +39,8 @@ export default class Panel extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
 
-  state = {
-    text: '',
-  }
-
-  componentDidMount() {
-    this.reload()
-  }
-
-  reload() {
-    const { src, text } = this.props
-    // only load from file if props.src is specified
-    if (src) {
-      fetch(src)
-        .then(response => response.text())
-        .then(t => this.setState(() => ({ text: t })))
-    } else {
-      this.setState(() => ({ text }))
-    }
-  }
-
   render() {
-    const { text } = this.state
+    const { text } = this.props
     return (
       <Scrollbars
         renderTrackVertical={props => (
