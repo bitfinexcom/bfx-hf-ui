@@ -146,7 +146,10 @@ export default class Backtester extends React.Component {
 
     if (loadingBacktest) return
 
-    dsExecuteBacktest(activeExchange, startDate, endDate, activeMarket, '1m')
+    const startNum = new Date(startDate).getTime()
+    const endNum = new Date(endDate).getTime()
+
+    dsExecuteBacktest(activeExchange, startNum, endNum, activeMarket, '1m')
     this.setState(() => ({
       loadingBacktest: true,
       backtestOptions: options,
