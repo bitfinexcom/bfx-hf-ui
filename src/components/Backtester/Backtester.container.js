@@ -15,7 +15,7 @@ const mapStateToProps = (state = {}) => ({
 const mapDispatchToProps = dispatch => ({
   dsExecuteBacktest: (exchange, from, to, symbol, tf) => {
     dispatch(WSActions.send([
-      'exec.bt', [exchange, new Date(from).getTime(), new Date(to).getTime(), symbol, tf, true, true, true],
+      'exec.bt', [exchange, from, to, symbol, tf, true, true, true],
     ]))
   },
 })
