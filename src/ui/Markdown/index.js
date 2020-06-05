@@ -3,6 +3,7 @@ import Scrollbars from 'react-custom-scrollbars'
 import { Remarkable } from 'remarkable';
 import { linkify } from 'remarkable/linkify';
 import hljs from 'highlight.js'
+import sanitizeHtml from 'sanitize-html'
 
 import { propTypes, defaultProps } from './Markdown.props'
 import './style.css'
@@ -71,7 +72,7 @@ export default class Panel extends React.Component {
       >
         <div
           className='hfui-markdown__wrapper'
-          dangerouslySetInnerHTML={{ __html: md.render(text) }}
+          dangerouslySetInnerHTML={{ __html: md.render(sanitizeHtml(text)) }}
         />
       </Scrollbars>
     )
