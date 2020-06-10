@@ -5,6 +5,9 @@ const REDUCER_PATHS = {
   UI: 'ui',
 }
 
+const MAX_STORED_TRADES = 25
+
 export {
   REDUCER_PATHS, // eslint-disable-line
+  MAX_STORED_TRADES,
 }
