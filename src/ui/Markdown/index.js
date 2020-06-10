@@ -1,7 +1,7 @@
 import React from 'react'
 import Scrollbars from 'react-custom-scrollbars'
-import { Remarkable } from 'remarkable';
-import { linkify } from 'remarkable/linkify';
+import { Remarkable } from 'remarkable'
+import { linkify } from 'remarkable/linkify'
 import hljs from 'highlight.js'
 import sanitizeHtml from 'sanitize-html'
 
@@ -9,24 +9,21 @@ import { propTypes, defaultProps } from './Markdown.props'
 import './style.css'
 
 const md = new Remarkable({
-  html: true, // Enable HTML tags in source
-  xhtmlOut: true, // Use '/' to close single tags (<br />)
-  breaks: true, // Convert '\n' in paragraphs into <br>
-  linkify: true, // autoconvert URL-like texts to links
-  typographer: true, // Enable some language-neutral replacements + quotes beautification
-  // Double + single quotes replacement pairs, when typographer enabled,
-  // and smartquotes on. Set doubles to '«»' for Russian, '„“' for German.
+  typographer: true,
+  xhtmlOut: true,
+  linkify: true,
+  breaks: true,
   quotes: '“”‘’',
   highlight: (str, lang) => {
     if (lang && hljs.getLanguage(lang)) {
       try {
-        return hljs.highlight(lang, str).value;
+        return hljs.highlight(lang, str).value
       } catch (err) {
         return ''
       }
     }
     try {
-      return hljs.highlightAuto(str).value;
+      return hljs.highlightAuto(str).value
     } catch (err) {
       return ''
     }
@@ -50,7 +47,9 @@ export default class Panel extends React.Component {
       >
         <div
           className='hfui-markdown__wrapper'
-          dangerouslySetInnerHTML={{ __html: md.render(sanitizeHtml(text)) }}
+          dangerouslySetInnerHTML={{/* eslint-disable-line */
+            __html: md.render(sanitizeHtml(text)),
+          }}
         />
       </Scrollbars>
     )
