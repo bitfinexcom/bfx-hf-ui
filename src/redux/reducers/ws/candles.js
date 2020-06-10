@@ -192,6 +192,27 @@ function reducer(state = getInitialState(), action = {}) {
       }
     }
 
+    case t.PURGE_DATA_CANDLES: {
+      const { exID, channel = [] } = payload
+      const [, tf, market] = channel
+      const symbol = market.uiID
+
+      const dataKey = marketKey({ symbol, tf })
+
+      return {
+        ...state,
+
+        data: {
+          ...state.data,
+
+          [exID]: {
+            ...(state.data[exID] || {}),
+            [dataKey]: {},
+          },
+        },
+      }
+    }
+
     default: {
       return state
     }
