@@ -30,6 +30,20 @@ export default function (state = getInitialState(), action = {}) {
       }
     }
 
+    case t.PURGE_DATA_BOOK: {
+      const { exID, channel } = payload
+      const [, market] = channel
+      const symbol = market.uiID
+
+      return {
+        ...state,
+        [exID]: {
+          ...(state[exID] || {}),
+          [symbol]: [],
+        },
+      }
+    }
+
     default: {
       return state
     }

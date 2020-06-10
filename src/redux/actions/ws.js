@@ -259,6 +259,21 @@ export default {
     payload: opts,
   }),
 
+  purgeDataCandles: (exID, channel) => ({
+    type: t.PURGE_DATA_CANDLES,
+    payload: { exID, channel },
+  }),
+
+  purgeDataBook: (exID, channel) => ({
+    type: t.PURGE_DATA_BOOK,
+    payload: { exID, channel },
+  }),
+
+  purgeDataTrades: (exID, channel) => ({
+    type: t.PURGE_DATA_TRADES,
+    payload: { exID, channel },
+  }),
+
   initAuth: password => send(['auth.init', password]),
   auth: password => send(['auth.submit', password]),
   resetAuth: () => send(['auth.reset']),
