@@ -3,7 +3,6 @@
 @import '~react-datepicker/dist/react-datepicker';
 @import '~codemirror/lib/codemirror';
 @import '~codemirror/theme/monokai';
-@import '~@projectstorm/react-diagrams/dist/style.min';
 @import 'https://fonts.googleapis.com/css?family=Roboto&display=swap';
 @import '/icon_font/styles.css';
 
@@ -17,7 +16,8 @@
   background: #102331;
   border: none;
 }
-.react-datepicker__time-container { 
+
+.react-datepicker__time-container {
   border: none;
 }
 
