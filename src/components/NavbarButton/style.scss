@@ -1,11 +1,12 @@
 .hfui-navbarbutton {
-  > * {
+  p, span, .fa {
+    line-height: 30px;
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: top;
   }
 
-  i {
-    margin-left: 4px;
+  .fa {
+    margin-right: 8px;
   }
 
   .tag {
