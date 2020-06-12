@@ -11,6 +11,7 @@ export const propTypes = {
   onRemoveComponent: PropTypes.func.isRequired,
   layoutID: PropTypes.string.isRequired,
   darkPanels: PropTypes.bool,
+  shareProps: PropTypes.object,
 }
 
 export const defaultProps = {
@@ -20,4 +21,5 @@ export const defaultProps = {
   orderFormProps: {},
   ordersProps: {},
   darkPanels: false,
+  sharedProps: {},
 }

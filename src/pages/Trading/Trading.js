@@ -73,9 +73,7 @@ export default class Trading extends React.PureComponent {
                 <GridLayoutPage
                   ref={ref => { this.grid = ref }}
                   defaultLayoutID='Default Trading'
-                  tradesProps={commonComponentProps}
-                  bookProps={commonComponentProps}
-                  chartProps={commonComponentProps}
+                  sharedProps={commonComponentProps}
                   showToolbar={false}
                 />
               </div>
