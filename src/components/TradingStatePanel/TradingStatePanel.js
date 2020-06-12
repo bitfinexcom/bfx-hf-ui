@@ -11,6 +11,14 @@ import BalancesTable from '../BalancesTable'
 import { propTypes, defaultProps } from './TradingStatePanel.props'
 import './style.css'
 
+const renderCounter = (num) => {
+  if (num <= 0) {
+    return ''
+  }
+
+  return <span className='hfui-tspanel-counter'>{num}</span>
+}
+
 export default class TradingStatePanel extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -160,18 +168,19 @@ export default class TradingStatePanel extends React.Component {
           removeable={removeable}
           darkHeader
         >
+          {/* eslint-disable */}
           <PositionsTable
-            tabTitle={`Positions ${positions.length}`}
+            tabTitle={<>Positions {renderCounter(positions.length)}</>}
             exID={activeExchange}
             positions={positions}
           />
           <AtomicOrdersTable
-            tabTitle={`Atomics ${atomicOrders.length}`}
+            tabTitle={<>Atomics {renderCounter(atomicOrders.length)}</>}
             exID={activeExchange}
             orders={atomicOrders}
           />
           <AlgoOrdersTable
-            tabTitle={`Algos ${algoOrders.length}`}
+            tabTitle={<>Algos {renderCounter(algoOrders.length)}</>}
             exID={activeExchange}
             orders={algoOrders}
           />
@@ -181,6 +190,7 @@ export default class TradingStatePanel extends React.Component {
             hideZeroBalances
             balances={balances}
           />
+          {/* eslint-enable */}
         </Panel>
       </Panel>
     )
