@@ -61,7 +61,7 @@ export default class GridLayoutPage extends React.Component {
   }
 
   onLayoutChange(incomingLayout) {
-    const { tradingEnabled, autoSave } = this.props
+    const { tradingEnabled } = this.props
     const { layoutDef } = this.state
 
     const currentLayout = layoutDefToGridLayout(layoutDef)
@@ -78,10 +78,6 @@ export default class GridLayoutPage extends React.Component {
         layout: incomingLayout,
       }, layoutDef),
     }))
-
-    if (autoSave) {
-      this.onSaveLayout()
-    }
   }
 
   onSaveLayout() {

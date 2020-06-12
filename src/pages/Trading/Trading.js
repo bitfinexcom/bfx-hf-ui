@@ -52,6 +52,8 @@ export default class Trading extends React.PureComponent {
           selectedMarket={activeMarket}
           onChangeMarket={this.onChangeMarket}
           showAddComponent
+          showSave
+          onSave={() => this.grid.onSaveLayout()}
           onAddComponent={() => this.grid.onToggleAddComponentModal()}
         />
         <div className='hfui-tradingpage__wrapper'>
@@ -75,7 +77,6 @@ export default class Trading extends React.PureComponent {
                   bookProps={commonComponentProps}
                   chartProps={commonComponentProps}
                   showToolbar={false}
-                  autoSave
                 />
               </div>
             </div>

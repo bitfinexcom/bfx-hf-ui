@@ -21,5 +21,7 @@ export const defaultProps = {
   showTicker: true,
   showNotifications: true,
   showAddComponent: false,
+  showSave: false,
   onAddComponent: () => {},
+  onSave: () => {},
 }
