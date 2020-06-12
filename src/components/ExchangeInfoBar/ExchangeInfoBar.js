@@ -23,7 +23,7 @@ export default class ExchangeInfoBar extends React.PureComponent {
     const {
       onChangeMarket, activeMarket, ticker, exchanges = [], activeExchange,
       onChangeExchange, markets, openNotifications, showTicker, showNotifications,
-      showAddComponent, onAddComponent,
+      showAddComponent, onAddComponent, showSave, onSave,
     } = this.props
 
     const {
@@ -130,6 +130,12 @@ export default class ExchangeInfoBar extends React.PureComponent {
               value={volume || '-'}
             />
           </ul>
+        )}
+
+        {(showSave) && (
+          <div className='hfui-exchangeinfobar__right' onClick={onSave}>
+            <i className='icon-save' />
+          </div>
         )}
 
         {(showAddComponent) && (
