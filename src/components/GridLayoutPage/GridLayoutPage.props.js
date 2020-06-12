@@ -5,12 +5,10 @@ export const propTypes = {
   layouts: PropTypes.object.isRequired,
   tradingEnabled: PropTypes.bool,
   darkPanels: PropTypes.bool,
-  autoSave: PropTypes.bool,
 }
 
 export const defaultProps = {
   tradingEnabled: false,
   darkPanels: false,
   showToolbar: true,
-  autoSave: false,
 }
