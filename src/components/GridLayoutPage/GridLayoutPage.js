@@ -61,7 +61,7 @@ export default class GridLayoutPage extends React.Component {
   }
 
   onLayoutChange(incomingLayout) {
-    const { tradingEnabled } = this.props
+    const { tradingEnabled, autoSave } = this.props
     const { layoutDef } = this.state
 
     const currentLayout = layoutDefToGridLayout(layoutDef)
@@ -78,6 +78,10 @@ export default class GridLayoutPage extends React.Component {
         layout: incomingLayout,
       }, layoutDef),
     }))
+
+    if (autoSave) {
+      this.onSaveLayout()
+    }
   }
 
   onSaveLayout() {
@@ -176,27 +180,32 @@ export default class GridLayoutPage extends React.Component {
       addComponentModalOpen,
     } = this.state
 
+    console.log(JSON.stringify(layoutDef))
+
     const {
       activeMarket, layouts, tradingEnabled, chartProps, bookProps, tradesProps,
-      ordersProps, orderFormProps, darkPanels,
+      ordersProps, orderFormProps, darkPanels, showToolbar,
     } = this.props
 
     return (
       <div className='hfui-gridlayoutpage__wrapper'>
-        <LayoutControlToolbar
-          tradingEnabled={tradingEnabled}
-          activeLayout={layoutDef}
-          activeLayoutID={layoutID}
-          layoutDirty={layoutDirty}
-          layouts={layouts}
+        {
+          ((showToolbar) && (
+            <LayoutControlToolbar
+              tradingEnabled={tradingEnabled}
+              activeLayout={layoutDef}
+              activeLayoutID={layoutID}
+              layoutDirty={layoutDirty}
+              layouts={layouts}
 
-          onDeleteLayout={this.onDeleteLayout}
-          onSaveLayout={this.onSaveLayout}
-          onAddLayout={this.onToggleCreateNewLayoutModal}
-          onAddComponent={this.onToggleAddComponentModal}
-          onChangeLayout={this.onChangeLayout}
-        />
-
+              onDeleteLayout={this.onDeleteLayout}
+              onSaveLayout={this.onSaveLayout}
+              onAddLayout={this.onToggleCreateNewLayoutModal}
+              onAddComponent={this.onToggleAddComponentModal}
+              onChangeLayout={this.onChangeLayout}
+            />
+          ))
+        }
         {addLayoutModalOpen && (
           <CreateNewLayoutModal
             onClose={this.onToggleCreateNewLayoutModal}
