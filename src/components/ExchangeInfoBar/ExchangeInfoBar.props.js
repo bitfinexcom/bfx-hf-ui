@@ -11,6 +11,8 @@ export const propTypes = {
   markets: PropTypes.object,
   showTicker: PropTypes.bool,
   showNotifications: PropTypes.bool,
+  onAddComponent: PropTypes.func,
+  showAddComponent: PropTypes.bool,
 }
 
 export const defaultProps = {
@@ -18,4 +20,6 @@ export const defaultProps = {
   markets: {},
   showTicker: true,
   showNotifications: true,
+  showAddComponent: false,
+  onAddComponent: () => {},
 }
