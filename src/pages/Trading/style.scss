@@ -14,18 +14,10 @@
   flex-direction: column;
   padding-bottom: 30px;
 
-  .hfui-tvchart__wrapper, .hfui-tradingpage__chart {
-    height: 70%;
-  }
-
   .hfui-tvchart__wrapper > #__tvchart {
     height: calc(100% - 8px);
     padding: 4px 1px 4px 4px;
     background: #2f3240;
-  }
-
-  .hfui-tradestable__wrapper, .hfui-tradingstatepanel__wrapper {
-    height: 30%;
   }
 
   .hfui-tradingstatepanel__wrapper {
