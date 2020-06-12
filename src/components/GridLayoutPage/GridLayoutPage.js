@@ -176,11 +176,9 @@ export default class GridLayoutPage extends React.Component {
       addComponentModalOpen,
     } = this.state
 
-    console.log(JSON.stringify(layoutDef))
-
     const {
       activeMarket, layouts, tradingEnabled, chartProps, bookProps, tradesProps,
-      ordersProps, orderFormProps, darkPanels, showToolbar,
+      ordersProps, orderFormProps, sharedProps, darkPanels, showToolbar,
     } = this.props
 
     return (
@@ -232,6 +230,8 @@ export default class GridLayoutPage extends React.Component {
             market: activeMarket,
             ...ordersProps,
           })}
+
+          sharedProps={{ ...sharedProps }}
 
           orderFormProps={({
             orders: orderDefinitions,
