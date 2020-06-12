@@ -1,9 +1,13 @@
 import PropTypes from 'prop-types'
 
 export const propTypes = {
-  onSelect: PropTypes.func.isRequired,
+  onSelect: PropTypes.func,
   onRemove: PropTypes.func,
-  orders: PropTypes.array.isRequired,
+  orders: PropTypes.array,
 }
 
-export const defaultProps = {}
+export const defaultProps = {
+  orders: [],
+  onSelect: () => {},
+  onRemove: () => {},
+}

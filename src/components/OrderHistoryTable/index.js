@@ -20,12 +20,14 @@ export default class OrderHistoryTable extends React.PureComponent {
   }
 
   render() {
-    const { orders, onRemove } = this.props
+    const { orders, onRemove, dark } = this.props
 
     return (
       <Panel
         label='ORDER HISTORY'
         onRemove={onRemove}
+        dark={dark}
+        darkHeader={dark}
       >
         <Table
           data={orders}
