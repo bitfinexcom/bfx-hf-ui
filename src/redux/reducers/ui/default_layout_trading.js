@@ -12,7 +12,7 @@ export default {
       static: false,
       c: 'CHART',
     }, {
-      w: 27,
+      w: 29,
       h: 7,
       x: 71,
       y: 0,
@@ -30,7 +30,7 @@ export default {
       static: false,
       c: 'TRADING_STATE_PANEL',
     }, {
-      w: 27,
+      w: 29,
       h: 6,
       x: 71,
       y: 7,
@@ -39,7 +39,7 @@ export default {
       static: false,
       c: 'TRADES_TABLE',
     }, {
-      w: 27,
+      w: 29,
       h: 6,
       x: 71,
       y: 13,
