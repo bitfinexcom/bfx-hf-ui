@@ -35,13 +35,9 @@ export default function (state = getInitialState(), action = {}) {
       const [, market] = channel
       const symbol = market.uiID
 
-      return {
-        ...state,
-        [exID]: {
-          ...(state[exID] || {}),
-          [symbol]: [],
-        },
-      }
+      delete (state[exID] || {})[symbol] // eslint-disable-line
+
+      return state
     }
 
     default: {
