@@ -384,7 +384,6 @@ export default class OrderForm extends React.Component {
     )
   }
 
-
   render() {
     const {
       onRemove, orders, apiClientStates, apiCredentials, moveable, removeable,

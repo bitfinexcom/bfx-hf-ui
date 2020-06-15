@@ -14,7 +14,6 @@ import {
   getComponentState, getActiveExchange, getActiveMarket,
 } from '../../redux/selectors/ui'
 
-
 const mapStateToProps = (state = {}, ownProps = {}) => {
   const { layoutID, layoutI: id } = ownProps
   const { ui = {} } = state
@@ -75,6 +74,5 @@ const mapDispatchToProps = dispatch => ({
     ]))
   },
 })
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings)

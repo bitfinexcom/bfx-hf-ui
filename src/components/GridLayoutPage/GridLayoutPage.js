@@ -242,7 +242,6 @@ export default class GridLayoutPage extends React.Component {
           onRemoveComponent={this.onRemoveComponentFromLayout}
         />
 
-
         <StatusBar
           key='statusbar'
           displayLayoutControls={false}

@@ -5,7 +5,6 @@ import ResultRow from './ResultRow'
 import ResultHeader from './ResultHeader'
 import { propTypes, defaultProps } from './Results.props'
 
-
 import './style.css'
 
 const resultNumber = (value, prefix = '', maxDecimals = 2, color = true) => {

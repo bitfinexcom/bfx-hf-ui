@@ -67,7 +67,6 @@ export default class Trading extends React.PureComponent {
               />
             </div>
 
-
             <div className='hfui-tradingpage__column center'>
               <div className='hfui-marketdatapage__wrapper'>
                 <GridLayoutPage

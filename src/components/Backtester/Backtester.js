@@ -16,7 +16,6 @@ import RenderHistoricalForm from './forms/HistoricalForm'
 import RenderLiveForm from './forms/LiveForm'
 import RenderImportForm from './forms/ImportForm'
 
-
 import './style.css'
 
 export default class Backtester extends React.Component {
