@@ -199,18 +199,9 @@ function reducer(state = getInitialState(), action = {}) {
 
       const dataKey = marketKey({ symbol, tf })
 
-      return {
-        ...state,
+      delete (state.data[exID] || {})[dataKey] // eslint-disable-line
 
-        data: {
-          ...state.data,
-
-          [exID]: {
-            ...(state.data[exID] || {}),
-            [dataKey]: {},
-          },
-        },
-      }
+      return state
     }
 
     default: {
