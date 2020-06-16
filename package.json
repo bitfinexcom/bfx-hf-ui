@@ -1,6 +1,6 @@
 {
   "name": "bfx-hf-ui",
-  "version": "3.0.5",
+  "version": "3.1.1",
   "description": "Official bitfinex honey framework UI - for live trading and executing algorithmic orders/strategies",
   "engines": {
     "node": ">=6"
@@ -28,8 +28,7 @@
       "artifactName": "${productName}-${version}-${arch}-${os}.${ext}",
       "category": "public.app-category.productivity",
       "target": [
-        "mas",
-        "zip"
+        "mas"
       ]
     },
     "win": {
@@ -89,7 +88,7 @@
     "pack": "cross-env ./node_modules/.bin/electron-builder --dir",
     "dist": "cross-env build --mac --win --linux -c.extraMetadata.main=build/electron.js --publish never",
     "dist-win": "cross-env electron-builder --win -c.extraMetadata.main=build/electron.js --publish never",
-    "dist-mac": "electron-builder  --mac -c.extraMetadata.main=build/electron.js --publish never && electron-installer-zip ./dist/mas ./dist/bfx-hf-ui-mac-x64.zip",
+    "dist-mac": "cross-env electron-packager . --overwrite --platform=mas --arch=x64 --prune --icon=build/icon.png --out=./dist && zip --symlinks -r ./dist/bfx-hf-ui-mac-x64.zip ./dist/bfx-hf-ui-mas-x64",
     "dist-linux": "electron-builder --linux -c.extraMetadata.main=build/electron.js --publish never",
     "release": "electron-builder -p always"
   },
@@ -124,7 +123,6 @@
     "cypress": "^4.4.0",
     "electron": "^9.0.0",
     "electron-builder": "^22.2.0",
-    "electron-installer-zip": "^0.1.2",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "enzyme-to-json": "^3.4.4",
@@ -200,6 +198,7 @@
     "dotenv": "^8.2.0",
     "dotenv-expand": "^5.1.0",
     "electron-first-run": "^3.0.0",
+    "electron-packager": "^14.2.1",
     "electron-store": "^5.1.1",
     "file-loader": "^5.1.0",
     "fs-extra": "^8.1.0",
