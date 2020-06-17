@@ -11,6 +11,6 @@ startHFServer({
   uiDBPath: `${os.homedir()}/.hfdb/ui.json`,
   algoDBPath: `${os.homedir()}/.hfdb/algos.json`,
   // Data servers are started by individual scripts
-  // hfBitfinexDBPath: `${__dirname}/db/hf-bitfinex.json`,
-  // hfBinanceDBPath: `${__dirname}/db/hf-binance.json`,
+  hfBitfinexDBPath: `${os.homedir()}/.hfdb/hf-bitfinex.json`,
+  hfBinanceDBPath: `${os.homedir()}/.hfdb/hf-binance.json`,
 })
