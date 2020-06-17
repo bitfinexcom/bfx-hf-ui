@@ -1,3 +1,5 @@
+/* eslint-disable  */
+
 import Indicators from 'bfx-hf-indicators'
 import { execOffline } from 'bfx-hf-backtest'
 import HFS from 'bfx-hf-strategy'
@@ -51,6 +53,26 @@ const onExecStrategy = ({
 
 
   postMessage({ type: 'EXEC_STRATEGY_START' })
+
+  if (tradeData.length <= 0) {
+    postMessage({
+      type: 'EXEC_STRATEGY_ERROR',
+      data: {
+        message: 'Insufficient trade data.',
+      },
+    })
+    return
+  }
+
+  if (candleData.length <= 0) {
+    postMessage({
+      type: 'EXEC_STRATEGY_ERROR',
+      data: {
+        message: 'Insufficient candle data.',
+      },
+    })
+    return
+  }
 
   execOffline(strategy, {
     candles: candleData,

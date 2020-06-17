@@ -337,7 +337,7 @@ export default class StrategyEditor extends React.PureComponent {
   }
 
   render() {
-    const { renderResults } = this.props
+    const { renderResults, gaCreateStrategy } = this.props
     const {
       activeContent, execError, strategy, createNewStrategyModalOpen,
       openExistingStrategyModalOpen, sectionErrors, editorMaximised,
@@ -378,6 +378,7 @@ export default class StrategyEditor extends React.PureComponent {
 
         {createNewStrategyModalOpen && (
           <CreateNewStrategyModal
+            gaCreateStrategy={gaCreateStrategy}
             onClose={this.onCloseModals}
             onSubmit={this.onCreateNewStrategy}
           />

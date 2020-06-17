@@ -22,19 +22,26 @@ export default class HistoricalForm extends React.PureComponent {
       backtestStrategy,
       updateError,
       exId,
+      allMarkets,
     } = this.props
     const {
       startDate,
       endDate,
-      selectedMarket,
+      selectedMarket = allMarkets[exId][0],
       selectedTimeFrame,
     } = this.state
+
     if (!selectedTimeFrame) {
       return updateError('ERROR: Invalid timeFrame')
     }
+
+    if (endDate <= startDate) {
+      return updateError('ERROR: Invalid time period')
+    }
+
     return backtestStrategy({
       activeExchange: exId,
-      activeMarket: selectedMarket.uiID,
+      activeMarket: selectedMarket.wsID,
       tf: selectedTimeFrame,
       startDate,
       endDate,
@@ -44,8 +51,6 @@ export default class HistoricalForm extends React.PureComponent {
   render() {
     const {
       updateExecutionType,
-      executionTypes,
-      executionType,
       disabled = false,
       allMarkets,
       exId,
@@ -62,12 +67,13 @@ export default class HistoricalForm extends React.PureComponent {
         <div className='hfui-backtester_row'>
           <div className='hfui-backtester__flex_start'>
             <Dropdown
-              value={executionType.type}
+              value='Historical'
+              disabled
               onChange={updateExecutionType}
-              options={executionTypes.map(et => ({
-                label: et.type,
-                value: et.type,
-              }))}
+              options={[{
+                label: 'Historical',
+                value: 'Historical',
+              }]}
             />
           </div>
           <div className='hfui-backtester__flex_start'>

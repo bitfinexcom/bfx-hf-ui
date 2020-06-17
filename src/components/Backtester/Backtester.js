@@ -8,13 +8,9 @@ import StrategyExecWorker from '../../workers/strategy_exec.worker'
 
 // Reports
 import RenderHistoricalReport from './reports/HistoricalReport'
-import RenderLiveReport from './reports/LiveReport'
-import RenderImportReport from './reports/ImportReport'
 
 // Forms
 import RenderHistoricalForm from './forms/HistoricalForm'
-import RenderLiveForm from './forms/LiveForm'
-import RenderImportForm from './forms/ImportForm'
 
 import './style.css'
 
@@ -39,16 +35,16 @@ export default class Backtester extends React.Component {
         form: RenderHistoricalForm,
         renderReport: RenderHistoricalReport,
       },
-      {
-        type: 'Live',
-        form: RenderLiveForm,
-        renderReport: RenderLiveReport,
-      },
-      {
-        type: 'Import',
-        form: RenderImportForm,
-        renderReport: RenderImportReport,
-      },
+      // {
+      //   type: 'Live',
+      //   form: RenderLiveForm,
+      //   renderReport: RenderLiveReport,
+      // },
+      // {
+      //   type: 'Import',
+      //   form: RenderImportForm,
+      //   renderReport: RenderImportReport,
+      // },
     ]
 
     this.backtestStrategy = this.backtestStrategy.bind(this)
@@ -138,7 +134,7 @@ export default class Backtester extends React.Component {
 
   backtestStrategy = (options) => {
     const {
-      activeExchange, activeMarket, startDate, endDate,
+      activeExchange, activeMarket, startDate, endDate, tf,
     } = options
     const { dsExecuteBacktest } = this.props
     const { loadingBacktest } = this.state
@@ -148,13 +144,13 @@ export default class Backtester extends React.Component {
     const startNum = new Date(startDate).getTime()
     const endNum = new Date(endDate).getTime()
 
-    dsExecuteBacktest(activeExchange, startNum, endNum, activeMarket, '1m')
     this.setState(() => ({
       loadingBacktest: true,
       backtestOptions: options,
       execError: undefined,
       results: undefined,
     }))
+    dsExecuteBacktest(activeExchange, startNum, endNum, activeMarket, tf)
   }
 
   updateExecutionType = (value) => {
