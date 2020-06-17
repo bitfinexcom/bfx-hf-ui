@@ -9,6 +9,14 @@
 git clone https://github.com/bitfinexcom/bfx-hf-ui
 npm  install
 ```
+Create folder to store local db
+```
+mkdir ~/.hfdb
+touch ~/.hfdb/algos.json
+touch ~/.hfdb/hf-binance.json
+touch ~/.hfdb/hf-bitfinex.json
+touch ~/.hfdb/ui.json
+```
 
 ## Run in the browser
 
