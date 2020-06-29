@@ -129,7 +129,6 @@ export default class NotificationsSidebar extends React.Component {
           </ul>
         )}
 
-
       </div>
     )
   }

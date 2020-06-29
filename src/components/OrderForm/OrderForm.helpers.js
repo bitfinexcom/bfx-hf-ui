@@ -341,7 +341,6 @@ const renderLayout = ({
   )
 }
 
-
 export {
   renderLayout,
   renderString,

@@ -5,7 +5,6 @@ import { Icon } from 'react-fa'
 import { propTypes, defaultProps } from './AlgoOrdersTable.props'
 import './style.css'
 
-
 export default class AlgoOrdersTable extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
