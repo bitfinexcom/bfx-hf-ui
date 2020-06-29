@@ -30,6 +30,16 @@ export default function (state = getInitialState(), action = {}) {
       }
     }
 
+    case t.PURGE_DATA_BOOK: {
+      const { exID, channel } = payload
+      const [, market] = channel
+      const symbol = market.uiID
+
+      delete (state[exID] || {})[symbol] // eslint-disable-line
+
+      return state
+    }
+
     default: {
       return state
     }

@@ -11,7 +11,13 @@ import BalancesTable from '../BalancesTable'
 import { propTypes, defaultProps } from './TradingStatePanel.props'
 import './style.css'
 
-const DEFAULT_ACTIVE_TAB = 'positions'
+const renderCounter = (num) => {
+  if (num <= 0) {
+    return ''
+  }
+
+  return <span className='hfui-tspanel-counter'>{num}</span>
+}
 
 export default class TradingStatePanel extends React.Component {
   static propTypes = propTypes
@@ -22,7 +28,6 @@ export default class TradingStatePanel extends React.Component {
 
     const { savedState = {} } = props
     const {
-      activeTab = DEFAULT_ACTIVE_TAB,
       exchangeFilterActive = false,
       marketFilterActive = false,
     } = savedState
@@ -30,17 +35,10 @@ export default class TradingStatePanel extends React.Component {
     this.state = {
       exchangeFilterActive,
       marketFilterActive,
-      activeTab,
     }
 
-    this.onChangeTab = this.onChangeTab.bind(this)
     this.onToggleMarketFilter = this.onToggleMarketFilter.bind(this)
     this.onToggleExchangeFilter = this.onToggleExchangeFilter.bind(this)
-  }
-
-  onChangeTab(activeTab) {
-    this.setState(() => ({ activeTab }))
-    this.deferSaveState()
   }
 
   onToggleMarketFilter() {
@@ -111,12 +109,11 @@ export default class TradingStatePanel extends React.Component {
 
   saveState() {
     const { saveState, layoutID, layoutI } = this.props
-    const { activeTab, marketFilterActive, exchangeFilterActive } = this.state
+    const { marketFilterActive, exchangeFilterActive } = this.state
 
     saveState(layoutID, layoutI, {
       exchangeFilterActive,
       marketFilterActive,
-      activeTab,
     })
   }
 
@@ -125,7 +122,7 @@ export default class TradingStatePanel extends React.Component {
       onRemove, activeExchange, activeMarket, moveable, removeable,
     } = this.props
 
-    const { activeTab, exchangeFilterActive, marketFilterActive } = this.state
+    const { exchangeFilterActive, marketFilterActive } = this.state
     const atomicOrders = this.getFilteredAtomicOrders()
     const algoOrders = this.getFilteredAlgoOrders()
     const positions = this.getFilteredPositions()
@@ -169,55 +166,31 @@ export default class TradingStatePanel extends React.Component {
           onRemove={onRemove}
           moveable={moveable}
           removeable={removeable}
-          tabs={[{
-            id: 'positions',
-            label: 'Positions',
-            suffix: positions.length,
-          }, {
-            id: 'atomics',
-            label: 'Atomic Orders',
-            suffix: atomicOrders.length,
-          }, {
-            id: 'algos',
-            label: 'Algo Orders',
-            suffix: algoOrders.length,
-          }, {
-            id: 'balances',
-            label: 'Balances',
-          }]}
-
           darkHeader
-          activeTab={activeTab}
-          onChangeTab={this.onChangeTab}
         >
-          {activeTab === 'positions' && (
-            <PositionsTable
-              exID={activeExchange}
-              positions={positions}
-            />
-          )}
-
-          {activeTab === 'atomics' && (
-            <AtomicOrdersTable
-              exID={activeExchange}
-              orders={atomicOrders}
-            />
-          )}
-
-          {activeTab === 'algos' && (
-            <AlgoOrdersTable
-              exID={activeExchange}
-              orders={algoOrders}
-            />
-          )}
-
-          {activeTab === 'balances' && (
-            <BalancesTable
-              exID={activeExchange}
-              hideZeroBalances
-              balances={balances}
-            />
-          )}
+          {/* eslint-disable */}
+          <PositionsTable
+            tabTitle={<>Positions {renderCounter(positions.length)}</>}
+            exID={activeExchange}
+            positions={positions}
+          />
+          <AtomicOrdersTable
+            tabTitle={<>Atomics {renderCounter(atomicOrders.length)}</>}
+            exID={activeExchange}
+            orders={atomicOrders}
+          />
+          <AlgoOrdersTable
+            tabTitle={<>Algos {renderCounter(algoOrders.length)}</>}
+            exID={activeExchange}
+            orders={algoOrders}
+          />
+          <BalancesTable
+            tabTitle='Balances'
+            exID={activeExchange}
+            hideZeroBalances
+            balances={balances}
+          />
+          {/* eslint-enable */}
         </Panel>
       </Panel>
     )

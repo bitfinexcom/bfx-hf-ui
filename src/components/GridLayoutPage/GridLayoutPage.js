@@ -178,25 +178,28 @@ export default class GridLayoutPage extends React.Component {
 
     const {
       activeMarket, layouts, tradingEnabled, chartProps, bookProps, tradesProps,
-      ordersProps, orderFormProps, darkPanels,
+      ordersProps, orderFormProps, sharedProps, darkPanels, showToolbar,
     } = this.props
 
     return (
       <div className='hfui-gridlayoutpage__wrapper'>
-        <LayoutControlToolbar
-          tradingEnabled={tradingEnabled}
-          activeLayout={layoutDef}
-          activeLayoutID={layoutID}
-          layoutDirty={layoutDirty}
-          layouts={layouts}
+        {
+          ((showToolbar) && (
+            <LayoutControlToolbar
+              tradingEnabled={tradingEnabled}
+              activeLayout={layoutDef}
+              activeLayoutID={layoutID}
+              layoutDirty={layoutDirty}
+              layouts={layouts}
 
-          onDeleteLayout={this.onDeleteLayout}
-          onSaveLayout={this.onSaveLayout}
-          onAddLayout={this.onToggleCreateNewLayoutModal}
-          onAddComponent={this.onToggleAddComponentModal}
-          onChangeLayout={this.onChangeLayout}
-        />
-
+              onDeleteLayout={this.onDeleteLayout}
+              onSaveLayout={this.onSaveLayout}
+              onAddLayout={this.onToggleCreateNewLayoutModal}
+              onAddComponent={this.onToggleAddComponentModal}
+              onChangeLayout={this.onChangeLayout}
+            />
+          ))
+        }
         {addLayoutModalOpen && (
           <CreateNewLayoutModal
             onClose={this.onToggleCreateNewLayoutModal}
@@ -227,6 +230,8 @@ export default class GridLayoutPage extends React.Component {
             market: activeMarket,
             ...ordersProps,
           })}
+
+          sharedProps={{ ...sharedProps }}
 
           orderFormProps={({
             orders: orderDefinitions,

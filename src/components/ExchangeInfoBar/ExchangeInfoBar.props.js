@@ -9,9 +9,19 @@ export const propTypes = {
   ticker: PropTypes.object.isRequired,
   exchanges: PropTypes.array,
   markets: PropTypes.object,
+  showTicker: PropTypes.bool,
+  showNotifications: PropTypes.bool,
+  onAddComponent: PropTypes.func,
+  showAddComponent: PropTypes.bool,
 }
 
 export const defaultProps = {
   exchanges: [],
   markets: {},
+  showTicker: true,
+  showNotifications: true,
+  showAddComponent: false,
+  showSave: false,
+  onAddComponent: () => {},
+  onSave: () => {},
 }

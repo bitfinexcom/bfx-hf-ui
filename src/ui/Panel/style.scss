@@ -5,6 +5,10 @@
   overflow: hidden;
   background: hsl(206, 46%, 17%);
 
+  &.monokai {
+    background: rgb(39, 40, 34)
+  }
+
   &.dark {
     background: #102331;
   }
@@ -57,16 +61,13 @@
   flex-direction: row;
   border-bottom: 1px solid #102331;
   background: #172d3e;
-  margin: 0 24px;
+  padding: 0 10px;
   justify-content: space-between;
 
   &.has-secondary-header {
     border-bottom: none;
   }
 
-  .hfui-select__control {
-    margin-left: 16px;
-  }
   .close:hover {
     cursor: pointer;
   }

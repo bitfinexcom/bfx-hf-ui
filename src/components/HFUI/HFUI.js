@@ -8,7 +8,6 @@ import MarketDataPage from '../../pages/MarketData'
 import AuthenticationPage from '../../pages/Authentication'
 
 import Navbar from '../Navbar'
-import ExchangeInfoBar from '../ExchangeInfoBar'
 import NotificationsSidebar from '../NotificationsSidebar'
 
 import { propTypes, defaultProps } from './HFUI.props'
@@ -18,25 +17,14 @@ export default class HFUI extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
 
-  constructor(props) {
-    super(props)
-
-    this.onChangeMarket = this.onChangeMarket.bind(this)
-  }
-
   componentDidUpdate() {
     const { GAPageview } = this.props
     GAPageview(window.location.pathname)
   }
 
-  onChangeMarket({ value }) {
-    const { saveActiveMarket } = this.props
-    saveActiveMarket(value)
-  }
-
   render() {
     const {
-      activeMarket, authToken, getLastVersion, currentPage, getSettings, notificationsVisible,
+      authToken, getLastVersion, getSettings, notificationsVisible,
     } = this.props
     const oneHour = 360000
     getLastVersion()
@@ -56,14 +44,6 @@ export default class HFUI extends React.PureComponent {
     return (
       <div className='hfui-app'>
         <Navbar />
-        {
-          currentPage !== '/settings' && (
-            <ExchangeInfoBar
-              selectedMarket={activeMarket}
-              onChangeMarket={this.onChangeMarket}
-            />
-          )
-        }
 
         <Switch>
 

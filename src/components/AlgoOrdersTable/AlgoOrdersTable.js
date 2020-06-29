@@ -17,7 +17,7 @@ export default class AlgoOrdersTable extends React.PureComponent {
 
   render() {
     const {
-      orders, apiClientState,
+      orders = [], apiClientState,
     } = this.props
 
     return (

@@ -3,7 +3,7 @@
   background: #172d3e;
 
   z-index: 100;
-  height: 76px;
+  height: 60px;
 
   position: relative;
   display: flex;
@@ -46,6 +46,7 @@
 .hfui-exchangeinfobar__right {
   text-align: right;
   height: 100%;
+  margin-left: 20px;
 
   display: flex;
   flex-direction: column;

@@ -6,6 +6,25 @@ import NavbarButton from '../NavbarButton'
 import { propTypes, defaultProps } from './Navbar.props'
 import './style.css'
 
+const items = [
+  {
+    route: '/',
+    label: 'Trading Terminal',
+  },
+  {
+    route: '/data',
+    label: 'Market Data',
+  },
+  {
+    route: '/strategy-editor',
+    label: 'Strategy Editor',
+  },
+  {
+    route: '/settings',
+    label: [<Icon name='cog' key='cog' />, <p key='label'>Settings</p>],
+  },
+]
+
 export default class Navbar extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -16,38 +35,16 @@ export default class Navbar extends React.PureComponent {
         <HFIcon />
 
         <ul className='hfui-navbar__main-links'>
-          <li>
-            <NavbarButton
-              route='/'
-              label='Trading Terminal'
-            />
-          </li>
-
-          <li>
-            <NavbarButton
-              route='/data'
-              label='Market Data'
-            />
-          </li>
-
-          <li>
-            <NavbarButton
-              route='/strategy-editor'
-              label={[
-                <i key='icon' className='icon-strategy-editor-active' />,
-                <p key='label'>Strategy Editor</p>,
-              ]}
-            />
-          </li>
-          <li>
-            <NavbarButton
-              route='/settings'
-              label={[
-                <Icon name='cog' />,
-                <p key='label'>Settings</p>,
-              ]}
-            />
-          </li>
+          {
+            items.map(val => (
+              <li key={val.route}>
+                <NavbarButton
+                  route={val.route}
+                  label={val.label}
+                />
+              </li>
+            ))
+          }
         </ul>
       </div>
     )

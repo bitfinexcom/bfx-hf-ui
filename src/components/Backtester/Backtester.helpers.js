@@ -1,6 +1,7 @@
 import _sum from 'lodash/sum'
 import _min from 'lodash/min'
 import _max from 'lodash/max'
+import { std } from 'mathjs'
 
 export const generateResults = (btState = {}) => {
   const { strategy = {}, nCandles, nTrades } = btState
@@ -19,6 +20,9 @@ export const generateResults = (btState = {}) => {
   const pl = _sum(pls)
   const minPL = _min(pls)
   const maxPL = _max(pls)
+  const accumulatedPLs = trades.map(x => x.pl)
+  const stdDeviation = std(accumulatedPLs.length > 0 ? accumulatedPLs : [0])
+  const avgPL = _sum(accumulatedPLs) / accumulatedPLs.length
 
   return {
     nTrades,
@@ -31,6 +35,8 @@ export const generateResults = (btState = {}) => {
     nOpens,
     vol,
     fees,
+    stdDeviation,
+    avgPL,
 
     nGains: gains.length,
     nLosses: losses.length,

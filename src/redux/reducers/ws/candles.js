@@ -192,6 +192,18 @@ function reducer(state = getInitialState(), action = {}) {
       }
     }
 
+    case t.PURGE_DATA_CANDLES: {
+      const { exID, channel = [] } = payload
+      const [, tf, market] = channel
+      const symbol = market.uiID
+
+      const dataKey = marketKey({ symbol, tf })
+
+      delete (state.data[exID] || {})[dataKey] // eslint-disable-line
+
+      return state
+    }
+
     default: {
       return state
     }

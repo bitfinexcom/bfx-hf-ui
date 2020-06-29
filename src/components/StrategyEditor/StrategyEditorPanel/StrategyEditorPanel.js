@@ -11,9 +11,9 @@ export default class StrategyEditorPanel extends React.PureComponent {
 
   render() {
     const {
-      onRemove, moveable, removeable, children, execRunning, /* helpOpen, */
-      strategyDirty, strategy, /* onToggleHelp, */ onOpenSelectModal,
-      onOpenCreateModal, onSaveStrategy, onBacktestStrategy, dark,
+      onRemove, moveable, removeable, children, execRunning,
+      strategyDirty, strategy, onOpenSelectModal,
+      onOpenCreateModal, onSaveStrategy, dark,
       // onSwitchEditorMode, onToggleMaximiseEditor, editorMode,
       // editorMaximised,
     } = this.props
@@ -29,17 +29,6 @@ export default class StrategyEditorPanel extends React.PureComponent {
         removeable={removeable}
         extraIcons={[
           execRunning && (<i key='running' className='fas fa-circle-notch' />),
-          /*
-          strategy && (
-            <i
-              key='help'
-              className={ClassNames('fas fa-question', {
-                yellow: helpOpen,
-              })}
-              onClick={onToggleHelp}
-            />
-          ),
-          */
         ]}
 
         headerComponents={(
@@ -68,17 +57,6 @@ export default class StrategyEditorPanel extends React.PureComponent {
                 label={[
                   <i key='icon' className='icon-save' />,
                   <p key='text'>Save</p>,
-                ]}
-              />
-            )}
-
-            {strategy && (
-              <Button
-                disabled={execRunning}
-                onClick={onBacktestStrategy}
-                label={[
-                  <i key='icon' className='icon-run' />,
-                  <p key='text'>Run</p>,
                 ]}
               />
             )}

@@ -1,3 +1,5 @@
+/* eslint-disable  */
+
 import Indicators from 'bfx-hf-indicators'
 import { execOffline } from 'bfx-hf-backtest'
 import HFS from 'bfx-hf-strategy'
@@ -5,7 +7,7 @@ import HFU from 'bfx-hf-util'
 import _ from 'lodash'
 
 const onExecStrategy = ({
-  strategyContent, candleData, exID, mID, tf,
+  strategyContent, candleData, tradeData, mID, tf,
 }) => {
   let strategy = {}
   const sections = Object.keys(strategyContent)
@@ -45,22 +47,36 @@ const onExecStrategy = ({
     },
   })
 
-  const candles = Object.values((candleData[exID] || {})[`${tf}:${mID}`] || {})
+  // sort to have oldest first
+  candleData.sort((a, b) => b.mts - a.mts)
+  tradeData.sort((a, b) => b.mts - a.mts)
 
-  candles.sort((a, b) => a.mts - b.mts)
-
-  const execCandles = {
-    [mID]: candles.map(c => ({
-      ...c,
-      symbol: mID,
-      tf,
-    })),
-  }
 
   postMessage({ type: 'EXEC_STRATEGY_START' })
 
+  if (tradeData.length <= 0) {
+    postMessage({
+      type: 'EXEC_STRATEGY_ERROR',
+      data: {
+        message: 'Insufficient trade data.',
+      },
+    })
+    return
+  }
+
+  if (candleData.length <= 0) {
+    postMessage({
+      type: 'EXEC_STRATEGY_ERROR',
+      data: {
+        message: 'Insufficient candle data.',
+      },
+    })
+    return
+  }
+
   execOffline(strategy, {
-    candles: execCandles,
+    candles: candleData,
+    trades: tradeData,
   }, (currentTick, totalTicks) => {
     if (currentTick % 100 === 0) {
       postMessage({

@@ -92,6 +92,7 @@ const renderLayoutElement = (layoutID, def = {}, componentProps = {}, onRemoveCo
   const C = componentForType(c)
   const cProps = {
     ...props,
+    ...componentProps.sharedProps,
     layoutID,
     layoutI: i,
     onRemove: () => onRemoveComponent(i),

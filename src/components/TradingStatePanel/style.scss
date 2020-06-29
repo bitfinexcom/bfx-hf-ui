@@ -1,12 +1,21 @@
 .hfui-tradingstatepanel__wrapper {
+  border: 1px solid #102331;
+
+  .hfui-tspanel-counter {
+    padding: 1px 6px;
+    margin-left: 4px;
+    border-radius: 100px;
+    color: #54b361;
+    border: 1px solid #54b361;
+  }
+
   .hfui-panel__header {
     margin: 0;
-    padding-left: 24px;
-    border-top: 1px solid #102331;
+    padding-left: 10px;
 
     .hfui-panel__label {
       text-transform: none;
-      line-height: 36px;
+      line-height: 45px;
     }
 
     > .hfui-panel__label {

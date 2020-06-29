@@ -1,0 +1,72 @@
+.hfui-backtester__executionform {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-bottom: 10px;
+
+  .hfui-backtester_row {
+    margin-bottom: 5px !important;
+  }
+
+  .hfui-dropdown__button, .react-datepicker__input-container input {
+    color: white;
+    margin-right: 5px;
+    background-color: rgb(16, 35, 49);
+  }
+
+  .react-datepicker__input-container input {
+    color: #54B361;
+    width: calc(100% - 23px);
+  }
+
+  .hfui-dropdown__wrapper {
+    width: 100%;
+  }
+
+  .hfui-exchangeinfobar__wrapper {
+    background: none;
+    border: none;
+  }
+
+  .input-label {
+    color: #666;
+    font-size: 11px;
+    line-height: 16px;
+    padding-right: 15px;
+  }
+
+  .hfui-backtester__flex_start {
+    display: flex;
+    flex: 1;
+    align-self: flex-start;
+    justify-self: flex-start;
+  }
+
+  .hfui-backtester_row {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    margin-bottom: 10px;
+  }
+
+  .hfui-backtester__start-button {
+    padding: 10px 18px;
+    margin-right: 0px;
+  }  
+
+  .hfui-backtester_dateInputs_wrapper {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  input {
+    max-width: 100%;
+    padding: 10px 8px;
+    background-color: lightgray;
+    color: #666;
+  }
+}
+
+.hfui-backtester__wrapper {
+  padding: 20px;
+}

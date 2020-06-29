@@ -8,7 +8,7 @@ const appMenuTemplate = require('./app_menu_template')
 
 module.exports = class HFUIApplication {
   static createWindow() {
-    const win = new BrowserWindow({ width: 1280, height: 720 })
+    const win = new BrowserWindow({ width: 1500, height: 850 })
 
     win.loadURL(url.format({
       pathname: 'index.html',
