@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 
-
 export default class SettingsMenu extends Component {
   render() {
     // eslint-disable-next-line react/prop-types
