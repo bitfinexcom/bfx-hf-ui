@@ -33,8 +33,7 @@
     "win": {
       "icon": "build/icon.png",
       "target": [
-        "dir",
-        "zip"
+        "dir"
       ],
       "publisherName": "Honey Framework UI"
     },
@@ -45,8 +44,7 @@
       "maintainer": "<bitfinex.com>",
       "category": "Network",
       "target": [
-        "dir",
-        "zip"
+        "dir"
       ]
     },
     "dmg": {
@@ -85,13 +83,13 @@
     "electron-dev": "cross-env concurrently \"BROWSER=none npm run start-server\"  & electron .",
     "electron": "cross-env electron .",
     "pack": "cross-env ./node_modules/.bin/electron-builder --dir",
-    "dist": "cross-env build --mac --win --linux -c.extraMetadata.main=build/electron.js --publish never",
-    "dist-win": "cross-env electron-builder --win -c.extraMetadata.main=build/electron.js --publish never && npm run clear-win",
-    "dist-mac": "cross-env electron-packager --prune . --overwrite --platform=mas --arch=x64 --icon=build/icon.png --out=dist && electron-installer-zip dist/bfx-hf-ui-mac-x64 dist/bfx-hf-ui-mac-x64.zip && npm run clear-mac",
-    "dist-linux": "cross-env electron-builder --linux -c.extraMetadata.main=build/electron.js --publish never",
-    "clear-mac": "cd dist/bfx-hf-ui-mas-x64/bfx-hf-ui.app/Contents/Resources/app && sh clear.sh && node-prune ",
-    "clear-win": "cd dist/win-unpacked/resources/app && sh clear.sh && node-prune",
-    "clear-linux": "cd dist/linux-unpacked/resources/app && sh clear.sh && node-prune",
+    "dist-win-unpruned": "cross-env electron-builder --win -c.extraMetadata.main=build/electron.js --publish never",
+    "dist-win": "cross-env npm run dist-win-unpruned && npm run package-win",
+    "dist-mac": "cross-env electron-packager --prune . --overwrite --platform=mas --arch=x64 --icon=build/icon.png --out=dist && npm run package-mac",
+    "dist-linux": "cross-env electron-builder --linux -c.extraMetadata.main=build/electron.js --publish never && npm run package-linux",
+    "package-mac": "cd dist/bfx-hf-ui-mas-x64/bfx-hf-ui.app/Contents/Resources/app && sh clear.sh && node-prune && cd ../../../../../.. && zip --symlinks -r ./dist/bfx-hf-ui-mac-x64.zip ./dist/bfx-hf-ui-mas-x64",
+    "package-win": "cd dist/win-unpacked/resources/app && sh clear.sh && node-prune && cd ../../../../ && zip --symlinks -r ./dist/The.Honey.Framework-win.zip ./dist/win-unpacked",
+    "package-linux": "cd dist/linux-unpacked/resources/app && sh clear.sh && node-prune && cd ../../../.. && zip --symlinks -r ./dist/The.Honey.Framework-x64-linux.zip ./dist/linux-unpacked",
     "release": "electron-builder -p always"
   },
   "author": "Bitfinex",
@@ -141,6 +139,7 @@
     "jest-pnp-resolver": "^1.2.1",
     "jest-watch-typeahead": "^0.4.2",
     "mini-css-extract-plugin": "^0.9.0",
+    "node-prune": "^1.0.2",
     "node-sass": "^4.14.1",
     "node-sass-chokidar": "^1.3.5",
     "node-sass-tilde-importer": "^1.0.2",
@@ -235,6 +234,7 @@
     "sanitize-html": "^1.26.0",
     "thread-loader": "^2.1.2",
     "universal-analytics": "^0.4.20",
+    "wine": "^0.9.13",
     "workbox-webpack-plugin": "^5.0.0",
     "worker-loader": "^2.0.0"
   },

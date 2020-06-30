@@ -24,7 +24,7 @@ Generates an installable application to run independently from the browser. Once
 
 ```bash
 npm run build
-npm run dist-win # for windows
+npm run dist-win-unpruned # for windows
 npm run dist-mac # for mac
 npm run dist-linux # for linux
 ```
