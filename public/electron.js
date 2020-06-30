@@ -14,8 +14,14 @@ const SCRIPT_PATH_DS_BITFINEX = `${SCRIPT_PATH}/start-ds-bitfinex.js`
 const SCRIPT_PATH_API_SERVER = `${SCRIPT_PATH}/start-api-server.js`
 const Store = require('electron-store')
 
+var dir = `${os.homedir()}/.honeyframework`;
+
+if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+}
+
 const ui = new Store({
-  cwd: `${os.homedir()}/.hfdb`
+  cwd: dir
 })
 
 const SCRIPT_SPAWN_OPTS = {
