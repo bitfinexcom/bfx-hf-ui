@@ -10,8 +10,7 @@ const DataServer = require('bfx-hf-data-server')
 const HFDBLowDBAdapter = require('bfx-hf-models-adapter-lowdb')
 const { schema: HFDBBitfinexSchema } = require('bfx-hf-ext-plugin-bitfinex')
 
-const os = require('os')
-var dir = `${os.homedir()}/.honeyframework`;
+const dir = `${os.homedir()}/.honeyframework`;
 
 if (!fs.existsSync(dir)){
     fs.mkdirSync(dir);
