@@ -29,7 +29,6 @@ debug('boot version %s', Manifest.version)
 import HFUI from './components/HFUI'
 import StoreWrapper from './StoreWrapper'
 
-import './passive_listener_fix'
 import './index.css'
 
 ReactDOM.render((

@@ -1,0 +1,18 @@
+.hfui-strategyexectable__status {
+  flex-shrink: 0;
+  height: 64px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  > div {
+    width: 8px;
+    height: 8px;
+    background: #54B361;
+    border-radius: 50%;
+  }
+}
+
+.hfui-strategyexectable__actions {
+}

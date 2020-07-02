@@ -14,6 +14,8 @@ import NotificationsSidebar from '../NotificationsSidebar'
 import { propTypes, defaultProps } from './HFUI.props'
 import './style.css'
 
+const ONE_HOUR = 1 * 60 * 10000
+
 export default class HFUI extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -27,12 +29,16 @@ export default class HFUI extends React.PureComponent {
     const {
       authToken, getLastVersion, getSettings, notificationsVisible,
     } = this.props
-    const oneHour = 360000
+
+    // TODO: refactor, do not send on every render..
     getLastVersion()
+
     if (authToken) {
       getSettings(authToken)
     }
-    setInterval(getLastVersion(), oneHour)
+
+    setInterval(getLastVersion(), ONE_HOUR)
+
     if (!authToken) {
       return (
         <div className='hfui-app'>
@@ -47,7 +53,6 @@ export default class HFUI extends React.PureComponent {
         <Navbar />
 
         <Switch>
-
           <Redirect exact from='/index.html' to='/' />
 
           <Route

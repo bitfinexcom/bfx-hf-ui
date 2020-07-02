@@ -3,7 +3,7 @@ import Indicators from 'bfx-hf-indicators'
 import { execOffline } from 'bfx-hf-backtest'
 import HFS from 'bfx-hf-strategy'
 import HFU from 'bfx-hf-util'
-import _ from 'lodash'
+import _ from 'lodash' // eslint-disable-line
 
 const onExecStrategy = ({
   strategyContent, candleData, tradeData, mID, tf,

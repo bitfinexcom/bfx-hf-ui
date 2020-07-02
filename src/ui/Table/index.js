@@ -64,7 +64,10 @@ export default class HFTable extends React.PureComponent {
    * Re-generates the sorted dataset from props if the sort parameters have
    * changed. Also defers a row height recompute.
    *
-   * @param {Object} params
+   * @param {object} params - parameters
+   * @param {string} params.sortDirection - sort direction, 'ASC' or other
+   * @param {string} params.defaultSortDirection - fallback, as `sortDirection`
+   * @param {string} params.sortBy - key to sort data by
    */
   onSort({ sortDirection, defaultSortDirection, sortBy }) {
     const { data, columns } = this.props

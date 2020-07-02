@@ -15,6 +15,18 @@
     border-color: #54B361;
   }
 
+  &.transparent {
+    background: none;
+  }
+
+  &.underline {
+    text-decoration: underline;
+  }
+
+  &.bold {
+    font-weight: bold;
+  }
+
   &:hover:not(.disabled) {
     color: #fff;
     cursor: pointer;

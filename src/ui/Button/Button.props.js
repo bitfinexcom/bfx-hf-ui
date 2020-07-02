@@ -7,6 +7,9 @@ export const propTypes = {
   green: PropTypes.bool,
   blue: PropTypes.bool,
   gray: PropTypes.bool,
+  bold: PropTypes.bool,
+  underline: PropTypes.bool,
+  transparent: PropTypes.bool,
   className: PropTypes.string,
 }
 

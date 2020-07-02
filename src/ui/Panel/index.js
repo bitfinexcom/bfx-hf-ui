@@ -1,90 +1,62 @@
 import React from 'react'
-import Scrollbars from 'react-custom-scrollbars'
 import ClassNames from 'classnames'
+import Scrollbars from '../Scrollbars'
+import Header from './Header'
 
+import { getTabs } from './Panel.helpers'
 import { propTypes, defaultProps } from './Panel.props'
 import './style.css'
 
-export default class Panel extends React.Component {
+class Panel extends React.Component {
   static propTypes = propTypes
-
   static defaultProps = defaultProps
 
-  state = {}
+  state = { selectedTabIndex: 0 }
 
-  render() {
-    const {
-      className, label, children = [], onRemove, headerComponents, hideIcons,
-      extraIcons, moveable, removeable, modal, footer, settingsOpen,
-      onToggleSettings, darkHeader, dark,
-      secondaryHeaderComponents, secondaryHeaderReverse, closePanel,
-    } = this.props
-    const tabs = React.Children.toArray(children).filter(c => c && c.props.tabTitle)
-    const { selectedTab = tabs[0] } = this.state
+  onTabClick = (selectedTabIndex) => {
+    this.setState(() => ({ selectedTabIndex }))
+  }
+
+  get heightOffsetPX() {
+    const { label, tabs, footer } = this.props
     let heightOffsetPX = 0
 
-    if (label || tabs) heightOffsetPX += 50
-    if (footer) heightOffsetPX += 35
+    if (label || tabs) {
+      heightOffsetPX += 50
+    }
+
+    if (footer) {
+      heightOffsetPX += 35
+    }
+
+    return heightOffsetPX
+  }
+
+  render() {
+    const { heightOffsetPX } = this
+    const { selectedTabIndex } = this.state
+    const {
+      className, children, headerComponents, modal, footer, darkHeader, dark,
+      secondaryHeaderComponents, secondaryHeaderReverse,
+    } = this.props
+
+    const tabs = getTabs(children)
 
     return (
       <div
         className={ClassNames('hfui-panel', className, {
-          'dark-header': darkHeader,
-          dark,
+          'dark-header': darkHeader, dark,
         })}
       >
-        <div
-          className={ClassNames('hfui-panel__header', {
-            'has-secondary-header': !!secondaryHeaderComponents,
-          })}
-        >
-          {label && <p className='hfui-panel__label'>{label}</p>}
-          { closePanel && (
-            <p className='hfui-panel__close' onClick={closePanel}>X</p>
-          )}
-          {tabs.length > 0 && (
-            <ul className='hfui-panel__header-tabs'>
-              {tabs.map(tab => (
-                <li
-                  key={tab.props.tabTitle}
-                  className={ClassNames({ active: tab.props.tabTitle === selectedTab.props.tabTitle })}
-                  onClick={() => this.setState(() => ({ selectedTab: tab }))}
-                >
-                  <p className='hfui-panel__label'>
-                    {tab.props.tabTitle}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          )}
+        <Header
+          {...this.props}
 
-          {headerComponents && (
-            <div className='hfui-panel__header-components'>
-              {headerComponents}
-            </div>
-          )}
-
-          {!hideIcons && (
-            <div className='hfui-panel__header-icons'>
-              {removeable && (
-                <i onClick={onRemove} className='icon-cancel' />
-              )}
-
-              {moveable && <i className='icon-move' />}
-
-              {onToggleSettings && (
-                <i
-                  onClick={onToggleSettings}
-                  className={ClassNames('icon-settings-icon', {
-                    yellow: settingsOpen,
-                  })}
-                />
-              )}
-
-              {extraIcons}
-            </div>
-          )}
-        </div>
+          tabs={tabs}
+          components={headerComponents}
+          onTabClick={this.onTabClick}
+          selectedTabIndex={selectedTabIndex}
+          hasSecondaryHeader={!!secondaryHeaderComponents}
+        />
 
         {secondaryHeaderComponents && (
           <div
@@ -98,38 +70,19 @@ export default class Panel extends React.Component {
 
         <div
           className='hfui-panel__content'
-          style={{
-            height: `calc(100% - ${heightOffsetPX}px)`,
-          }}
+          style={{ height: `calc(100% - ${heightOffsetPX}px)` }}
         >
           {modal}
 
-          <Scrollbars
-            renderTrackVertical={props => (
-              <div {...props} className='hfui-scrollbars-track-vertical' />
-            )}
-
-            renderThumbVertical={props => (
-              <div {...props} className='hfui-scrollbars-thumb-vertical' />
-            )}
-          >
-            {
-              (tabs.length > 0) && (
-                selectedTab
-              )
-            }
-            {
-              (tabs.length === 0) && (
-                children
-              )
-            }
+          <Scrollbars>
+            {tabs[selectedTabIndex] || children}
           </Scrollbars>
         </div>
 
-        {footer && (
-          <div className='hfui-panel__footer'>{footer}</div>
-        )}
+        {footer && (<div className='hfui-panel__footer'>{footer}</div>)}
       </div>
     )
   }
 }
+
+export default Panel

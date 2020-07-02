@@ -11,6 +11,7 @@ export default class Button extends React.PureComponent {
   render() {
     const {
       onClick, label, red, green, blue, gray, className, dataProduct, disabled,
+      underline, transparent, bold,
     } = this.props
 
     return (
@@ -23,7 +24,10 @@ export default class Button extends React.PureComponent {
           blue,
           gray,
           green,
+          bold,
           disabled,
+          underline,
+          transparent,
         })}
       >
         {label}

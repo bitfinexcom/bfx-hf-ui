@@ -67,26 +67,25 @@ export default class Backtester extends React.Component {
       type: 'EXEC_STRATEGY',
       data: {
         mID: activeMarket,
-        strategyContent,
         candleData: backtestData.candles,
         tradeData: backtestData.trades,
+        strategyContent,
         tf,
       },
     })
+
     this.setState(() => ({ loadingBacktest: false }))
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const { backtest, strategyContent } = this.props
-    if (
-      !_isEqual(nextState, this.state)
-      || !_isEqual(nextProps.backtest, backtest)
-      || !_isEqual(nextProps.strategyContent, strategyContent)
-    ) {
-      return true
-    }
+     const { state } = this
+     const { backtest, strategyContent } = this.props
 
-    return false
+     return (
+       !_isEqual(nextState, state) ||
+       !_isEqual(nextProps.backtest, backtest) ||
+       !_isEqual(nextProps.strategyContent, strategyContent)
+     )
   }
 
   componentWillUnmount() {
