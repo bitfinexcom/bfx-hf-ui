@@ -6,7 +6,12 @@ import WSTypes from '../../constants/ws'
 const debug = Debug('hfui:rx:s:ws-hfui:msg-q')
 let queue = []
 
-// Place every outgoing message in a queue if connection is offline
+/**
+ * Places every outgoing message in a queue if connection is offline
+ *
+ * @generator
+ * @param {ReduxAction} action - action
+ */
 export default function* (action = {}) {
   const {
     status,

@@ -23,6 +23,9 @@ const marketKey = ({ symbol, tf }) => (
 
 let lastUpdateCounter = 0
 
+/**
+ * @returns {object} initialState
+ */
 function getInitialState() {
   return {
     syncs: {},
@@ -31,6 +34,11 @@ function getInitialState() {
   }
 }
 
+/**
+ * @param {object} state - state
+ * @param {object} action - action
+ * @returns {object} nextState
+ */
 function reducer(state = getInitialState(), action = {}) {
   const { type, payload } = action
 

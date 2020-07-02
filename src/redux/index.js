@@ -2,15 +2,24 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { createBrowserHistory } from 'history'
 import { routerMiddleware } from 'connected-react-router'
-import Debug from 'debug'
-
 import createRootReducer from './reducers'
 
-const debug = Debug('hfui:rx')
 const sagaMiddleware = createSagaMiddleware()
 
 export const history = createBrowserHistory()
 
+/**
+ * Redux store
+ *
+ * @typedef {object} ReduxStore
+ * @property {Function} getState - returns state
+ */
+
+/**
+ * @param {object} options - options
+ * @param {Array} [optionalMiddleware=null] - optional middleware
+ * @returns {ReduxStore} store
+ */
 export function configureStore(
   options = {},
   optionalMiddleware = null,
@@ -49,11 +58,6 @@ export function configureStore(
   return store
 }
 
-export function runSaga() {
-  debug('runSaga is deprecated: it is already run in configureStore')
-}
-
 export default {
   configureStore,
-  runSaga,
 }

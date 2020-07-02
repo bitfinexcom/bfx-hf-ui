@@ -12,17 +12,22 @@ const getInitialState = () => {
  * @param {object} action - action
  * @returns {object} nextState
  */
-const reducer = (state = getInitialState(), action = {}) => {
-  const { type, payload = {} } = action
+export default function (state = getInitialState(), action = {}) {
+  const { type, payload = [] } = action
 
   switch (type) {
-    case t.DATA_CLIENT_STATUS_UPDATE: {
-      const { exID, status } = payload
+    case t.DATA_STRATEGY_EXEC: {
+      const { id, exec } = payload
 
       return {
         ...state,
-        [exID]: status,
+        [id]: exec,
       }
+    }
+
+    case t.DATA_STRATEGY_EXECS: {
+      const { execs } = payload
+      return execs
     }
 
     case t.DEAUTH: {
@@ -34,5 +39,3 @@ const reducer = (state = getInitialState(), action = {}) => {
     }
   }
 }
-
-export default reducer

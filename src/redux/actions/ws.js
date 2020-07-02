@@ -154,6 +154,16 @@ export default {
     payload: { strategies },
   }),
 
+  recvStrategyExec: ({ id, exec }) => ({
+    type: t.DATA_STRATEGY,
+    payload: { id, exec },
+  }),
+
+  recvStrategyExecs: ({ execs }) => ({
+    type: t.DATA_STRATEGIES,
+    payload: { execs },
+  }),
+
   recvAPICredentialsConfigured: ({ exID }) => ({
     type: t.DATA_API_CREDENTIALS_CONFIGURED,
     payload: { exID },

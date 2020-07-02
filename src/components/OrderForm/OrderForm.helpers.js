@@ -2,6 +2,7 @@ import React from 'react'
 import ClassNames from 'classnames'
 import _isObject from 'lodash/isObject'
 import _isBoolean from 'lodash/isBoolean'
+import _isUndefined from 'lodash/isUndefined'
 import _capitalize from 'lodash/capitalize'
 import _flatten from 'lodash/flatten'
 
@@ -53,9 +54,9 @@ const renderString = (str, renderData) => {
 }
 
 const verifyCondition = (condition = {}, value) => {
-  if (typeof condition.eq !== 'undefined') {
+  if (!_isUndefined(condition.eq)) {
     return condition.eq === value
-  } if (typeof condition.neq !== 'undefined') {
+  } if (!_isUndefined(condition.neq)) {
     return condition.neq !== value
   } if (condition.lt) {
     return value < condition.lt

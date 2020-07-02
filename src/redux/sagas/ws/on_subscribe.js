@@ -7,6 +7,12 @@ import WSActions from '../../actions/ws'
 
 const debug = Debug('hfui:rx:s:ws-hfui-server:on-sub')
 
+/**
+ * Sends the necessary subscribe packet
+ *
+ * @generator
+ * @param {ReduxAction} action - action
+ */
 export default function* (action = {}) {
   const { payload = {} } = action
   const { exID, channel = [] } = payload

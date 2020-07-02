@@ -6,10 +6,20 @@ import {
   takeEvery, put, call, select,
 } from 'redux-saga/effects'
 
+/**
+ * @param {object} state - state object
+ * @returns {object} state
+ */
 function getState(state) {
   return state
 }
 
+/**
+ * @param {object} meta - REST request metadata
+ * @param {string|null} meta.section - request section
+ * @param {string|null} meta.subsection - request subsection
+ * @returns {string} actionType
+ */
 function getBFXFTType(meta = {}) {
   const {
     section = null,
@@ -25,12 +35,19 @@ function getBFXFTType(meta = {}) {
     : '?'
 }
 
+/**
+ * Performs a REST request via `axios`.
+ *
+ * @generator
+ * @param {ReduxAction} action - action
+ */
 function* externalREST(action = {}) {
   const {
     meta = {},
   } = action
   const { url, method } = meta
   const { data } = yield axios[_toLower(method)](url)
+
   yield put({
     type: 'REST_SUCCESS',
     payload: data,
@@ -38,6 +55,10 @@ function* externalREST(action = {}) {
   })
 }
 
+/**
+ * @generator
+ * @param {ReduxAction} action - action
+ */
 function* onREST(action = {}) {
   const { dataHF = {} } = yield select(getState)
   const { user } = dataHF
@@ -45,6 +66,7 @@ function* onREST(action = {}) {
     payload = {},
     meta = {},
   } = action
+
   try {
     const res = yield call(axios, {
       method: meta.method || payload.method,
@@ -95,12 +117,19 @@ function* onREST(action = {}) {
   }
 }
 
+/**
+ * Pushes a new action to store received data.
+ *
+ * @generator
+ * @param {ReduxAction} action - action
+ */
 function* onRESTSuccess(action = {}) {
   const {
     meta = {},
     payload = {},
   } = action
   const { handler, method } = meta
+
   yield put({
     type: `${handler}_${method}_RES`,
     payload,
@@ -108,10 +137,19 @@ function* onRESTSuccess(action = {}) {
   })
 }
 
+/**
+ * @todo fill in
+ */
 function onRESTError() {
   // TODO:
 }
 
+/**
+ * Listens for REST actions to execute requests via `axios` and pass received
+ * data along to the relevant receivers.
+ *
+ * @generator
+ */
 export function* restSaga() {
   yield takeEvery('REST_SUCCESS', onRESTSuccess)
   yield takeEvery('REST_ERROR', onRESTError)

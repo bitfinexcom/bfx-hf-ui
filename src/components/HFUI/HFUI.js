@@ -4,6 +4,7 @@ import { Route, Switch, Redirect } from 'react-router'
 import SettingsPage from '../../pages/Settings'
 import TradingPage from '../../pages/Trading'
 import StrategyEditorPage from '../../pages/StrategyEditor'
+import StrategyExecPage from '../../pages/StrategyExec'
 import MarketDataPage from '../../pages/MarketData'
 import AuthenticationPage from '../../pages/Authentication'
 
@@ -59,22 +60,22 @@ export default class HFUI extends React.PureComponent {
 
           <Route
             path='/strategy-editor'
-            render={() => (
-              <StrategyEditorPage />
-            )}
+            render={() => (<StrategyEditorPage />)}
+          />
+
+          <Route
+            path='/strategy-exec'
+            render={() => (<StrategyExecPage />)}
           />
 
           <Route
             path='/data'
-            render={() => (
-              <MarketDataPage />
-            )}
+            render={() => (<MarketDataPage />)}
           />
+
           <Route
             path='/settings'
-            render={() => (
-              <SettingsPage />
-            )}
+            render={() => (<SettingsPage />)}
           />
         </Switch>
 

@@ -1,14 +1,12 @@
 import React from 'react'
 import Debug from 'debug'
 import ClassNames from 'classnames'
+import _isError from 'lodash/isError'
 import _isEmpty from 'lodash/isEmpty'
 import { Controlled as CodeMirror } from 'react-codemirror2'
 import 'codemirror/mode/javascript/javascript'
 import Indicators from 'bfx-hf-indicators'
 import { nonce } from 'bfx-api-node-util'
-import HFS from 'bfx-hf-strategy'
-import HFU from 'bfx-hf-util'
-import _ from 'lodash'
 
 import Templates from './templates'
 
@@ -16,6 +14,7 @@ import StrategyEditorPanel from './StrategyEditorPanel'
 import CreateNewStrategyModal from '../CreateNewStrategyModal'
 import OpenExistingStrategyModal from '../OpenExistingStrategyModal'
 import { propTypes, defaultProps } from './StrategyEditor.props'
+import { evalStrategyMethod } from './StrategyEditor.helpers'
 import './style.css'
 
 const debug = Debug('hfui-ui:c:strategy-editor')
@@ -25,7 +24,24 @@ const STRATEGY_SECTIONS = [
   'exec',
 ]
 
-export default class StrategyEditor extends React.PureComponent {
+const CODE_MIRROR_OPTIONS = {
+  mode: {
+    name: 'javascript',
+    json: true,
+  },
+
+  theme: 'monokai',
+  lineNumbers: true,
+  tabSize: 2,
+}
+
+/**
+ * @todo refactor
+ *
+ * @class
+ * @augments React.PureComponent
+ */
+class StrategyEditor extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
 
@@ -43,7 +59,6 @@ export default class StrategyEditor extends React.PureComponent {
   constructor(props) {
     super(props)
 
-    this.onEditorContentChange = this.onEditorContentChange.bind(this)
     this.onClearError = this.onClearError.bind(this)
     this.onOpenSelectModal = this.onOpenSelectModal.bind(this)
     this.onOpenCreateModal = this.onOpenCreateModal.bind(this)
@@ -136,7 +151,7 @@ export default class StrategyEditor extends React.PureComponent {
     this.onCloseModals()
   }
 
-  onEditorContentChange(editor, data, code) {
+  onEditorContentChange = (code) => {
     const { activeContent, strategy } = this.state
 
     this.setState(() => ({ strategyDirty: true }))
@@ -189,11 +204,11 @@ export default class StrategyEditor extends React.PureComponent {
     }))
   }
 
-  setSectionError(section, msg) {
+  setSectionError(section, err) {
     this.setState(({ sectionErrors }) => ({
       sectionErrors: {
         ...sectionErrors,
-        [section]: msg,
+        [section]: _isError(err) ? err.message : err,
       },
     }))
   }
@@ -212,40 +227,24 @@ export default class StrategyEditor extends React.PureComponent {
         strategyContent[section] = content
       }
     }
-    onStrategyChange(strategyContent)
+
+    onStrategyChange(strategyContent, strategy)
   }
 
   clearSectionError(section) {
     this.setSectionError(section, '')
   }
 
-  evalSectionContent(section, providedContent) {
+  evalSectionContent(section, contentOverride) {
     const { strategy } = this.state
-    const content = providedContent || strategy[section] || ''
 
-    // We don't immediately exec the 2 possible 'define' methods
-    if (section.substring(0, 6) === 'define') {
-      try {
-        const func = eval(content) // eslint-disable-line
-        this.clearSectionError(section)
-        return func
-      } catch (e) {
-        this.setSectionError(section, e.message)
-        return null
-      }
-    } else if (section.substring(0, 2) === 'on') {
-      try {
-        const func = eval(content)({ HFS, HFU, _ }) // eslint-disable-line
-        this.clearSectionError(section)
-        return func
-      } catch (e) {
-        this.setSectionError(section, e.message)
-        return null
-      }
-    } else {
-      console.error(`unrecognised setion handler prefix: ${section}`)
-      return null
-    }
+    evalStrategyMethod({
+      section,
+      strategy,
+      contentOverride,
+      onFail: this.setSectionError.bind(this, section),
+      onSuccess: this.clearSectionError.bind(this, section),
+    })
   }
 
   renderPanel(content) {
@@ -277,10 +276,10 @@ export default class StrategyEditor extends React.PureComponent {
   }
 
   renderEmptyContent() {
+    const { gaCreateStrategy } = this.props
     const {
       createNewStrategyModalOpen, openExistingStrategyModalOpen,
     } = this.state
-    const { gaCreateStrategy } = this.props
 
     return (
       <div className='hfui-strategyeditor__empty-content'>
@@ -378,21 +377,12 @@ export default class StrategyEditor extends React.PureComponent {
             })}
           >
             <CodeMirror
+              options={CODE_MIRROR_OPTIONS}
               value={strategy[activeContent] || ''}
-              onBeforeChange={this.onEditorContentChange}
-              options={{
-                mode: {
-                  name: 'javascript',
-                  json: true,
-                },
-
-                theme: 'monokai',
-                lineNumbers: true,
-                tabSize: 2,
-              }}
+              onBeforeChange={(_, __, code) => (
+                this.onEditorContentChange(code)
+              )}
             />
-
-            <SRD.DiagramWidget diagramEngine={engine} />
 
             {execError || sectionErrors[activeContent] ? (
               <div className='hfui-strategyeditor__editor-error-output'>
@@ -410,3 +400,5 @@ export default class StrategyEditor extends React.PureComponent {
     )
   }
 }
+
+export default StrategyEditor

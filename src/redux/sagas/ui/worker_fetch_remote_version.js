@@ -9,6 +9,12 @@ const REMOTE_MANIFEST_URL = 'https://raw.githubusercontent.com/bitfinexcom/bfx-h
 
 const debug = Debug('hfui:rx:s:ws-hfui:worker-fetch-remote-version')
 
+/**
+ * Stores the latest app version number from **Github** in the store on an
+ * interval.
+ *
+ * @generator
+ */
 export default function* () {
   while (true) {
     let remoteManifestData

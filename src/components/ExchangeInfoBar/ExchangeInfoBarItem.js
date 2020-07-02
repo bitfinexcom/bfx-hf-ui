@@ -1,5 +1,6 @@
 import React from 'react'
 import ClassNames from 'classnames'
+import _isNumber from 'lodash/isNumber'
 
 import { propTypes, defaultProps } from './ExchangeInfoBarItem.props'
 
@@ -25,7 +26,9 @@ export default class ExchangeInfoBarItem extends React.PureComponent {
           className={ClassNames('hfui-exchangeinfobar__item-data', dataClassName)}
         >
           {valuePrefix}
-          {typeof value === 'number' ? value.toLocaleString('en-US', { maximumFractionDigits: 8 }) : value}
+          {_isNumber(value)
+            ? value.toLocaleString('en-US', { maximumFractionDigits: 8 })
+            : value}
           {valueSuffix}
         </div>
       </li>

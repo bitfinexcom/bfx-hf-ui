@@ -1,17 +1,11 @@
+/* eslint-disable */
+
 import React from 'react'
-import _isEqual from 'lodash/isEqual'
-
 import { propTypes, defaultProps } from './Backtester.props'
-
 import { generateResults } from './Backtester.helpers'
 import StrategyExecWorker from '../../workers/strategy_exec.worker'
-
-// Reports
 import RenderHistoricalReport from './reports/HistoricalReport'
-
-// Forms
 import RenderHistoricalForm from './forms/HistoricalForm'
-
 import './style.css'
 
 export default class Backtester extends React.Component {
@@ -26,9 +20,10 @@ export default class Backtester extends React.Component {
     results: null,
   }
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
+    // TODO: Extract as constant
     this.backtestMethods = [
       {
         type: 'Historical',
@@ -56,8 +51,7 @@ export default class Backtester extends React.Component {
 
   UNSAFE_componentWillReceiveProps(nextProps) { // eslint-disable-line
     const { loadingBacktest, execRunning, backtestOptions } = this.state
-    const { backtest, backtestData } = nextProps
-    const { strategyContent } = this.props
+    const { strategyContent, backtest, backtestData } = nextProps
     const { loading = false, executing = false } = backtest
     const { activeMarket, tf } = backtestOptions
 

@@ -2,6 +2,12 @@ import { put, select } from 'redux-saga/effects'
 import A from '../../actions/ws'
 import { getChannelByID } from '../../selectors/ws'
 
+/**
+ * Routes received data to the relevant reducer
+ *
+ * @generator
+ * @param {ReduxAction} action - action
+ */
 export default function* (action = {}) {
   const { payload = {} } = action
   const { updates = [] } = payload

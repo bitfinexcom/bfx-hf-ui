@@ -1,0 +1,37 @@
+.hfui-strategyexecpage__wrapper {
+  padding: 0 32px;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 32px - 33px - 16px);
+
+  .hfui-strategyexecpage__tab,
+  .hfui-strategyexecpage__inner {
+    height: calc(100% - 46px);
+  }
+
+  .hfui-strategyexecpage__tab.empty {
+    text-align: center;
+
+    p {
+      margin-top: 2rem;
+    }
+  }
+
+  .hfui-table {
+    padding: 0 16px;
+
+    .ReactVirtualized__Table__headerColumn > *,
+    .ReactVirtualized__Table__rowColumn {
+      font-size: 14px !important;
+    }
+  }
+
+  &.empty {
+    padding: 32px;
+
+    .hfui-button {
+      font-size: 1rem;
+      align-items: center;
+    }
+  }
+}

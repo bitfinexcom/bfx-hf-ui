@@ -18,6 +18,7 @@ import getLastCandleUpdate from './get_last_candle_update'
 import getAuthToken from './get_auth_token'
 import getAuthConfigured from './get_auth_configured'
 import getStrategies from './get_strategies'
+import getStrategyExecs from './get_strategy_execs'
 import getPositions from './get_positions'
 import getAllPositions from './get_all_positions'
 import getAllBalances from './get_all_balances'
@@ -61,6 +62,7 @@ export {
   isSyncingCandles,
   getLastCandleUpdate,
   getStrategies,
+  getStrategyExecs,
 
   getBacktestState,
   getBacktestData,
