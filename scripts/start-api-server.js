@@ -5,18 +5,14 @@ require('dotenv').config()
 require('bfx-hf-util/lib/catch_uncaught_errors')
 
 const startHFServer = require('bfx-hf-server')
-const os = require('os')
-const fs = require('fs')
-const dir = `${os.homedir()}/.honeyframework`;
+const DB_DIR = require('../public/lib/db_dir')
+const LOG_DIR = require('../public/lib/log_dir')
 
-if (!fs.existsSync(dir)){
-    fs.mkdirSync(dir);
-}
+// TODO: Add logging
 
 startHFServer({
-  uiDBPath: `${dir}/ui.json`,
-  algoDBPath: `${dir}/algos.json`,
-  // Data servers are started by individual scripts
-  // hfBitfinexDBPath: `${__dirname}/db/hf-bitfinex.json`,
-  // hfBinanceDBPath: `${__dirname}/db/hf-binance.json`,
+  uiDBPath: `${DB_DIR}/ui.json`,
+  algoDBPath: `${DB_DIR}/algos.json`,
+  strategyDBDir: DB_DIR,
+  strategyLogDir: LOG_DIR,
 })

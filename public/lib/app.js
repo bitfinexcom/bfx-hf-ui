@@ -1,81 +1,51 @@
-const url = require('url')
-const path = require('path')
-const {
-  BrowserWindow, protocol, Menu,
-} = require('electron') // eslint-disable-line
+const openWindow = require('./open_window')
 
-const appMenuTemplate = require('./app_menu_template')
+const DEFAULT_MAX_WINDOWS = 6
 
-module.exports = class HFUIApplication {
-  static createWindow() {
-    const win = new BrowserWindow({ width: 1500, height: 850 })
+/* @todo add proper logging */
+class HFUIApplication {
+  constructor(config = {}) {
+    const { maxOpenWindows = DEFAULT_MAX_WINDOWS } = config
 
-    win.loadURL(url.format({
-      pathname: 'index.html',
-      protocol: 'file',
-      slashes: true,
-    }))
-
-    return win
+    this.config = config
+    this.openWindows = 0
+    this.maxOpenWindows = maxOpenWindows
+    this.windows = []
   }
 
-  constructor({ app, onExit }) {
-    this.mainWindow = null
-    this.onExitCB = onExit
-    this.app = app
-
-    this.onReady = this.onReady.bind(this)
-    this.onActivate = this.onActivate.bind(this)
-    this.onAllWindowsClosed = this.onAllWindowsClosed.bind(this)
-    this.onMainWindowClosed = this.onMainWindowClosed.bind(this)
-
-    app.on('ready', this.onReady)
-    app.on('window-all-closed', this.onAllWindowsClosed)
-    app.on('activate', this.onActivate)
+  getOpenWindowCount() {
+    return this.openWindows
   }
 
-  spawnMainWindow() {
-    if (this.mainWindow !== null) {
+  closeWindow(windowIndex) {
+    if (windowIndex > this.windows.length) {
+      console.error(`Tried to close unknown window ${windowIndex}`)
+    }
+
+    const win = this.windows[windowIndex]
+
+    if (win) {
+      win.close()
+    } else {
+      console.error(`Window ${windowIndex} not found`)
+    }
+  }
+
+  openWindow(options = {}) {
+    if (this.openWindows >= this.maxOpenWindows) {
       return
     }
 
-    this.mainWindow = HFUIApplication.createWindow()
-    this.mainWindow.on('closed', this.onMainWindowClosed)
+    const win = openWindow(this, options)
+
+    win.on('closed', this.onWindowClosed)
+
+    this.windows.push(win)
   }
 
-  onReady() {
-    protocol.interceptFileProtocol('file', (request, callback) => {
-      const fileURL = request.url.substr(7) // all urls start with 'file://'
-
-      callback({ // eslint-disable-line
-        path: path.normalize(`${__dirname}/../${fileURL}`),
-      })
-    }, (err) => {
-      if (err) {
-        console.error('Failed to register protocol')
-      }
-    })
-
-    Menu.setApplicationMenu(Menu.buildFromTemplate(appMenuTemplate(this.app)))
-
-    this.spawnMainWindow()
-  }
-
-  onActivate() {
-    this.spawnMainWindow()
-  }
-
-  onMainWindowClosed() {
-    this.mainWindow = null
-  }
-
-  onAllWindowsClosed() {
-    if (process.platform !== 'darwin') {
-      this.app.quit()
-    }
-
-    if (this.onExitCB) {
-      this.onExitCB()
-    }
+  onWindowClosed = () => {
+    this.openWindows -= 1
   }
 }
+
+module.exports = HFUIApplication
