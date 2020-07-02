@@ -46,7 +46,10 @@ module.exports = class HFUIApplication {
   onReady() {
     protocol.interceptFileProtocol('file', (request, callback) => {
       const fileURL = request.url.substr(7) // all urls start with 'file://'
-      callback({ path: path.normalize(`${__dirname}/../${fileURL}`) })
+
+      callback({ // eslint-disable-line
+        path: path.normalize(`${__dirname}/../${fileURL}`),
+      })
     }, (err) => {
       if (err) {
         console.error('Failed to register protocol')

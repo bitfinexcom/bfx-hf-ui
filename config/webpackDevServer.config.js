@@ -86,7 +86,7 @@ module.exports = function (proxy, allowedHost) {
     // src/node_modules is not ignored to support absolute imports
     // https://github.com/facebook/create-react-app/issues/1065
     watchOptions: {
-      ignored: ignoredFiles(paths.appSrc),
+      ignored: ignoredFiles(paths.appSrc)
     },
     https: getHttpsConfig(),
     host,
@@ -95,12 +95,12 @@ module.exports = function (proxy, allowedHost) {
       // Paths with dots should still use the history fallback.
       // See https://github.com/facebook/create-react-app/issues/387.
       disableDotRule: true,
-      index: paths.publicUrlOrPath,
+      index: paths.publicUrlOrPath
     },
     public: allowedHost,
     // `proxy` is run between `before` and `after` `webpack-dev-server` hooks
     proxy,
-    before(app, server) {
+    before (app, server) {
       // Keep `evalSourceMapMiddleware` and `errorOverlayMiddleware`
       // middlewares before `redirectServedPath` otherwise will not have any effect
       // This lets us fetch source contents from webpack for the error overlay
@@ -113,7 +113,7 @@ module.exports = function (proxy, allowedHost) {
         require(paths.proxySetup)(app)
       }
     },
-    after(app) {
+    after (app) {
       // Redirect to `PUBLIC_URL` or `homepage` from `package.json` if url not match
       app.use(redirectServedPath(paths.publicUrlOrPath))
 
@@ -123,6 +123,6 @@ module.exports = function (proxy, allowedHost) {
       // it used the same host and port.
       // https://github.com/facebook/create-react-app/issues/2272#issuecomment-302832432
       app.use(noopServiceWorkerMiddleware(paths.publicUrlOrPath))
-    },
+    }
   }
 }
