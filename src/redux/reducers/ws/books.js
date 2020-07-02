@@ -2,10 +2,19 @@ import Debug from 'debug'
 import t from '../../constants/ws'
 
 const debug = Debug('hfui:rx:r:ws-hfui-server:books')
+
+/**
+ * @returns {object} initialState
+ */
 const getInitialState = () => {
   return {}
 }
 
+/**
+ * @param {object} state - state
+ * @param {object} action - action
+ * @returns {object} nextState
+ */
 export default function (state = getInitialState(), action = {}) {
   const { type, payload = [] } = action
 

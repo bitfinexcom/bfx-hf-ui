@@ -1,5 +1,6 @@
 import React from 'react'
 import randomColor from 'randomcolor'
+import _isObject from 'lodash/isObject'
 
 import StrategyEditor from '../../components/StrategyEditor'
 import Panel from '../../ui/Panel'
@@ -11,7 +12,7 @@ import { propTypes, defaultProps } from './StrategyEditor.props'
 
 import './style.css'
 
-const DocsPath = require('bfx-hf-strategy/docs/api.md')
+const DocsPath = require('bfx-hf-strategy/docs/runtime.md')
 
 export default class StrategyEditorPage extends React.Component {
   static propTypes = propTypes
@@ -20,6 +21,7 @@ export default class StrategyEditorPage extends React.Component {
   state = {
     indicators: [],
     strategyContent: null,
+    strategy: null,
   }
 
   constructor(props) {
@@ -30,8 +32,9 @@ export default class StrategyEditorPage extends React.Component {
 
   componentDidMount() {
     // load readme docs (DocsPath is an object when running in electron window)
-    const docsPath = typeof DocsPath === 'object' ? DocsPath.default : DocsPath
-    fetch(docsPath)
+    const docsPath = _isObject(DocsPath) ? DocsPath.default : DocsPath
+
+    fetch(docsPath) // eslint-disable-line
       .then(response => response.text())
       .then(t => this.setState(() => ({ docsText: t })))
   }
@@ -59,10 +62,15 @@ export default class StrategyEditorPage extends React.Component {
     }))
   }
 
+  onStrategyContentChange = (strategyContent, strategy) => {
+    this.setState(() => ({ strategy, strategyContent }))
+  }
+
   render() {
     const {
       indicators,
       strategyContent,
+      strategy,
       docsText = '',
     } = this.state
 
@@ -70,12 +78,12 @@ export default class StrategyEditorPage extends React.Component {
       <div className='hfui-strategyeditorpage__wrapper'>
         <StrategyEditor
           dark
-          onStrategyChange={content => this.setState(() => ({ strategyContent: content }))}
+          tf='1m'
           key='editor'
-          onIndicatorsChange={this.onIndicatorsChange}
           moveable={false}
           removeable={false}
-          tf='1m'
+          onIndicatorsChange={this.onIndicatorsChange}
+          onStrategyChange={this.onStrategyContentChange}
         />
 
         <div
@@ -83,29 +91,27 @@ export default class StrategyEditorPage extends React.Component {
           className='hfui-strategiespage__right'
         >
           <Panel
+            label=''
             className='hfui-strategiespage__pannel-wrapper'
             moveable={false}
             removeable={false}
             darkHeader
           >
             <Markdown
-              tabTitle='Docs'
+              tabtitle='Docs'
               text={docsText}
             />
-            <div
-              tabTitle='Backtest'
-              style={{ height: 1200 }}
-            >
-              <Backtester
-                {...this.props}
-                strategyContent={strategyContent}
-                indicators={indicators}
-              />
-            </div>
-            <div
-              tabTitle='Execute'
-            >
+
+            <Backtester
+              tabtitle='Backtest'
+              strategy={strategy}
+              strategyContent={strategyContent}
+              indicators={indicators}
+            />
+
+            <div tabtitle='Execute'>
               <LiveStrategyExecutor
+                strategy={strategy}
                 strategyContent={strategyContent}
               />
             </div>

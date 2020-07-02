@@ -3,6 +3,11 @@ import A from '../../actions/ws'
 
 let wasConnected = false
 
+/**
+ * Triggers a notification and signals if this was a reconnect event
+ *
+ * @generator
+ */
 export default function* () {
   yield put(A.flushQueue())
 

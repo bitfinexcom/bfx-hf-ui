@@ -42,12 +42,12 @@ export const getSortFunctions = (columns = []) => {
  * before comparison via localeCompare(). The transformers map is optional,
  * and can be used to process field values before casting/comparison.
  *
- * @param {Object} params
- * @param {string} params.sortBy - used as key into transformers map
- * @param {string} params.sortDirection
- * @param {Array} params.data
- * @param {Object} params.transfomers - data transform functions, key'ed by col
- * @return {Array} sortedData
+ * @param {object} args - parameters
+ * @param {string} args.sortBy - used as key into transformers map
+ * @param {string} args.sortDirection - sort direction ('ASC' or other)
+ * @param {Array} args.data - data
+ * @param {object} args.transfomers - data transform functions, key'ed by col
+ * @returns {Array} sortedData
  */
 export const getSortedData = (args = {}) => {
   const {
@@ -82,6 +82,11 @@ export const getSortedData = (args = {}) => {
   return sortedData
 }
 
+/**
+ * @param {object} args - arguments
+ * @param {object} props - props
+ * @returns {Array} sortedData
+ */
 export function sortData(args = {}, props = {}) {
   const { getSortedData: getData, sortedDataPostProcessor } = props
   const sortedData = getData(args)

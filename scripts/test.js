@@ -26,10 +26,10 @@ const isInGitRepository = () => {
   }
 }
 
-if (argv.indexOf('--no-watch') !== -1) {
+if (argv.indexOf('--no-watch') !== -1) { // eslint-disable-line
   jest.run()
 } else {
-  if (!process.env.CI && argv.indexOf('--watchAll') === -1) {
+  if (!process.env.CI && argv.indexOf('--watchAll') === -1) { // eslint-disable-line
     argv.push(isInGitRepository() ? '--watch' : '--watchAll')
   }
 

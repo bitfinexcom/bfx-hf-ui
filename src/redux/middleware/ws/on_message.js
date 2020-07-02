@@ -100,10 +100,10 @@ export default (ws, store) => (e = {}) => {
     }
 
     case 'error': {
-      const [, message] = payload
+      const [, message, stack] = payload
       store.dispatch(WSActions.recvNotification({
         status: 'error',
-        text: message,
+        text: `Server error: ${message}${stack ? `\n${stack}` : ''}`,
         mts: Date.now(),
       }))
       break

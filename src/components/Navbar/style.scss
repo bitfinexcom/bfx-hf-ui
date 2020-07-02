@@ -21,15 +21,6 @@
     color: #eee;
   }
 
-  > p {
-    flex-shrink: 0;
-    margin-right: 32px;
-  }
-
-  p, button {
-    line-height: 32px;
-  }
-
   button {
     background: transparent;
     border: none;
@@ -55,6 +46,7 @@
 
   li {
     margin-right: 8px;
+    padding: 0 8px;
     flex-shrink: 0;
 
     &.full-width {

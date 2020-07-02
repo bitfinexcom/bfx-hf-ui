@@ -1,10 +1,18 @@
 import types from '../../constants/ws'
 
+/**
+ * @returns {object} initialState
+ */
 const initialState = () => ({
   status: 'offline',
   lastActivity: null,
 })
 
+/**
+ * @param {object} state - state
+ * @param {object} action - action
+ * @returns {object} nextState
+ */
 export default function (state = initialState(), action = {}) {
   const { type } = action
   const lastActivity = Date.now()

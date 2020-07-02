@@ -1,4 +1,6 @@
 import React from 'react'
+import _isObject from 'lodash/isObject'
+import _isUndefined from 'lodash/isUndefined'
 import _capitalize from 'lodash/capitalize'
 import { UserSettings } from 'bfx-hf-ui-config'
 
@@ -23,7 +25,7 @@ export default class Settings extends React.Component {
   constructor(props) {
     super(props)
     const {
-      savedState = {}, activeExchange, chart, theme, dms, ga,
+      savedState = {}, activeExchange, chart, theme, dms, ga, bgStrategyExec,
     } = props
 
     const { currentExchange = activeExchange } = savedState
@@ -31,6 +33,7 @@ export default class Settings extends React.Component {
     this.state = {
       ...this.state,
       currentExchange,
+      bgStrategyExec,
       chart,
       theme,
       dms,
@@ -42,7 +45,7 @@ export default class Settings extends React.Component {
   }
 
   onOptionChange(e, option) {
-    this.setState(() => ({ [option]: typeof e === 'object' ? e.value : e }))
+    this.setState(() => ({ [option]: _isObject(e) ? e.value : e }))
   }
 
   onSubmitAPIKeys({ apiKey, apiSecret }) {
@@ -60,7 +63,7 @@ export default class Settings extends React.Component {
   onSettingsSave(authToken) {
     const { updateSettings, gaUpdateSettings } = this.props
     const {
-      apiKey, apiSecret, chart, dms, theme, ga,
+      apiKey, apiSecret, chart, dms, theme, ga, bgStrategyExec,
     } = this.state
 
     if (apiKey.trim().length > 0 && apiSecret.trim().length > 0) {
@@ -68,8 +71,9 @@ export default class Settings extends React.Component {
     }
 
     updateSettings({
-      chart, dms, theme, authToken, ga,
+      chart, dms, theme, authToken, ga, bgStrategyExec,
     })
+
     gaUpdateSettings()
   }
 
@@ -79,16 +83,19 @@ export default class Settings extends React.Component {
     const { authToken } = this.props
 
     // eslint-disable-next-line react/destructuring-assignment
-    if (this.props.chart && (!this.state.chart || this.state.dms === undefined)) {
+    if (this.props.chart && (!this.state.chart || _isUndefined(this.state.dms))) {
       const {
-        chart, theme, dms, ga,
+        chart, theme, dms, ga, bgStrategyExec,
       } = this.props
+
       this.setState(() => ({
-        chart, theme, dms, ga,
+        chart, theme, dms, ga, bgStrategyExec,
       }))
     }
 
-    const { chart, dms, ga } = this.state
+    const {
+      chart, dms, ga, bgStrategyExec,
+    } = this.state
 
     return (
       <div className='hfui-settingspage__wrapper'>
@@ -155,6 +162,35 @@ export default class Settings extends React.Component {
                     onChange={e => this.onOptionChange(e, 'dms')}
                     label='DMS'
                     value={dms}
+                  />
+                </div>
+              </li>
+
+              <li>
+                <p className='hfui-settings__option-label'>
+                  Background Strategy Execution
+                </p>
+                <div className='hfui-settings__option-description'>
+                  <p>
+                    When enabled, strategies will be executed in a separate
+                    long-lived process that remains active even when the HF UI
+                    application is closed.
+                  </p>
+                  <p className='important'>
+                    <em>
+                      It is recommended to enable this option when a strategy
+                      must not be interrupted, or must run for long periods of
+                      time.
+                    </em>
+                  </p>
+                </div>
+
+                <div className='hfui-settings__option-check'>
+                  <Checkbox
+                    className='hfui-settings_check'
+                    onChange={e => this.onOptionChange(e, 'bgStrategyExec')}
+                    label='Background Strategy Execution'
+                    value={bgStrategyExec}
                   />
                 </div>
               </li>

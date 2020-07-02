@@ -1,10 +1,18 @@
 import t from '../../constants/ws'
 
+/**
+ * @returns {object} initialState
+ */
 const getInitialState = () => {
   return {}
 }
 
-export default function (state = getInitialState(), action = {}) {
+/**
+ * @param {object} state - state
+ * @param {object} action - action
+ * @returns {object} nextState
+ */
+const reducer = (state = getInitialState(), action = {}) => {
   const { type, payload = {} } = action
 
   switch (type) {
@@ -26,3 +34,5 @@ export default function (state = getInitialState(), action = {}) {
     }
   }
 }
+
+export default reducer

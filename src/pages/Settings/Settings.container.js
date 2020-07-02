@@ -19,7 +19,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
   const { ui = {} } = state
   const { settings = {} } = ui
   const {
-    chart, theme, dms, ga,
+    chart, theme, dms, ga, bgStrategyExec,
   } = settings || {}
 
   return {
@@ -31,6 +31,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     savedState: getComponentState(state, layoutID, 'orderform', id),
     authToken: getAuthToken(state),
     apiCredentials: getAPICredentials(state),
+    bgStrategyExec,
     chart,
     theme,
     dms,
@@ -52,24 +53,27 @@ const mapDispatchToProps = dispatch => ({
   }) => {
     dispatch(WSActions.send([
       'api_credentials.save',
-      authToken,
-      exID,
-      apiKey,
       apiSecret,
+      authToken,
+      apiKey,
+      exID,
     ]))
   },
+
   gaUpdateSettings: () => {
     dispatch(GAActions.updateSettings())
   },
+
   updateSettings: ({
-    authToken, chart, dms, theme, ga,
+    authToken, chart, dms, theme, ga, bgStrategyExec,
   }) => {
     dispatch(WSActions.send([
       'settings.update',
+      bgStrategyExec,
       authToken,
+      theme,
       chart,
       dms,
-      theme,
       ga,
     ]))
   },

@@ -4,6 +4,7 @@ import { Route, Switch, Redirect } from 'react-router'
 import SettingsPage from '../../pages/Settings'
 import TradingPage from '../../pages/Trading'
 import StrategyEditorPage from '../../pages/StrategyEditor'
+import StrategyExecPage from '../../pages/StrategyExec'
 import MarketDataPage from '../../pages/MarketData'
 import AuthenticationPage from '../../pages/Authentication'
 
@@ -12,6 +13,8 @@ import NotificationsSidebar from '../NotificationsSidebar'
 
 import { propTypes, defaultProps } from './HFUI.props'
 import './style.css'
+
+const ONE_HOUR = 1 * 60 * 10000
 
 export default class HFUI extends React.PureComponent {
   static propTypes = propTypes
@@ -26,12 +29,16 @@ export default class HFUI extends React.PureComponent {
     const {
       authToken, getLastVersion, getSettings, notificationsVisible,
     } = this.props
-    const oneHour = 360000
+
+    // TODO: refactor, do not send on every render..
     getLastVersion()
+
     if (authToken) {
       getSettings(authToken)
     }
-    setInterval(getLastVersion(), oneHour)
+
+    setInterval(getLastVersion(), ONE_HOUR)
+
     if (!authToken) {
       return (
         <div className='hfui-app'>
@@ -46,7 +53,6 @@ export default class HFUI extends React.PureComponent {
         <Navbar />
 
         <Switch>
-
           <Redirect exact from='/index.html' to='/' />
 
           <Route
@@ -59,22 +65,22 @@ export default class HFUI extends React.PureComponent {
 
           <Route
             path='/strategy-editor'
-            render={() => (
-              <StrategyEditorPage />
-            )}
+            render={() => (<StrategyEditorPage />)}
+          />
+
+          <Route
+            path='/strategy-exec'
+            render={() => (<StrategyExecPage />)}
           />
 
           <Route
             path='/data'
-            render={() => (
-              <MarketDataPage />
-            )}
+            render={() => (<MarketDataPage />)}
           />
+
           <Route
             path='/settings'
-            render={() => (
-              <SettingsPage />
-            )}
+            render={() => (<SettingsPage />)}
           />
         </Switch>
 

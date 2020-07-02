@@ -6,6 +6,12 @@ import WSActions from '../../actions/ws'
 
 const debug = Debug('hfui:rx:s:ws-hfui-server:on-unsub')
 
+/**
+ * Sends the necessary unsubscribe packet
+ *
+ * @generator
+ * @param {ReduxAction} action - action
+ */
 export default function* (action = {}) {
   const { payload = {} } = action
   const { exID, chanData } = payload

@@ -18,16 +18,32 @@ export default class LiveStrategyExecutor extends React.Component {
     selectedTimeFrame: '1m',
   }
 
-  render() {
+  onExecuteStrategy = () => {
     const {
-      strategyContent,
-      dsExecuteLiveStrategy,
-      allMarkets,
+      strategy, dsExecuteLiveStrategy, authToken, allMarkets,
     } = this.props
+
+    const {
+      selectedTimeFrame: tf, selectedMarket = allMarkets[exId][0],
+    } = this.state
+
+    // TODO: Optionally refactor to pass full market object. Not needed if
+    // only Bitfinex environment.
+    const { wsID } = selectedMarket
+    const { id: strategyID } = strategy
+
+    dsExecuteLiveStrategy({
+      authToken, strategyID, tf, wsID,
+    })
+  }
+
+  render() {
+    const { strategyContent, allMarkets } = this.props
     const {
       selectedTimeFrame,
       selectedMarket = allMarkets[exId][0],
     } = this.state
+
     const markets = allMarkets[exId]
 
     if (!strategyContent) {
@@ -63,7 +79,7 @@ export default class LiveStrategyExecutor extends React.Component {
           </div>
           <div>
             <Button
-              onClick={() => dsExecuteLiveStrategy()}
+              onClick={this.onExecuteStrategy}
               className='hfui-backtester__flex_start hfui-backtester__start-button'
               label='Start'
               green

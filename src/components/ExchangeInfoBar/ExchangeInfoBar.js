@@ -75,16 +75,14 @@ export default class ExchangeInfoBar extends React.PureComponent {
           <ul>
             <ExchangeInfoBarItem
               text
-              vertical
-              label='Last Price'
+              label='Last'
               value={lastPrice || '-'}
               valuePrefix={quotePrefix(activeMarket.quote)}
             />
 
             <ExchangeInfoBarItem
               text
-              vertical
-              label='24h Change'
+              label='24h Δ'
               value={dailyChange || '-'}
               valuePrefix={quotePrefix(activeMarket.quote)}
               dataClassName={
@@ -96,10 +94,12 @@ export default class ExchangeInfoBar extends React.PureComponent {
 
             <ExchangeInfoBarItem
               text
-              vertical
-              label='24h Change %'
+              label='24h Δ %'
               valueSuffix='%'
-              value={dailyChangePerc ? dailyChangePerc * 100 : '-'}
+              value={dailyChangePerc
+                ? (dailyChangePerc * 100).toFixed(2)
+                : '-'}
+
               dataClassName={
                 dailyChangePerc
                   ? dailyChangePerc < 0 ? 'hfui-red' : 'hfui-green'
@@ -109,24 +109,21 @@ export default class ExchangeInfoBar extends React.PureComponent {
 
             <ExchangeInfoBarItem
               text
-              vertical
-              label='24h High'
+              label='24h H'
               valuePrefix={quotePrefix(activeMarket.quote)}
               value={high || '-'}
             />
 
             <ExchangeInfoBarItem
               text
-              vertical
-              label='24h Low'
+              label='24h L'
               valuePrefix={quotePrefix(activeMarket.quote)}
               value={low || '-'}
             />
 
             <ExchangeInfoBarItem
               text
-              vertical
-              label='24h Volume'
+              label='24h Vol'
               value={volume || '-'}
             />
           </ul>

@@ -3,6 +3,12 @@ import { select, put } from 'redux-saga/effects'
 import WSActions from '../../actions/ws'
 import { getChannelRequirements } from '../../selectors/ws'
 
+/**
+ * Unsubscribes from the requested channel if it is no longer required
+ *
+ * @generator
+ * @param {ReduxAction} action - action
+ */
 export default function* (action = {}) {
   const { payload = {} } = action
   const { exID, channel = [] } = payload

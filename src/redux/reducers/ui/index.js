@@ -20,6 +20,9 @@ const DEFAULT_MARKET = {
   uiID: 'BTC/USD',
 }
 
+/**
+ * @returns {object} initialState
+ */
 function getInitialState() {
   const defaultState = {
     route: DEFAULT_ROUTE,
@@ -80,6 +83,11 @@ function getInitialState() {
   return defaultState
 }
 
+/**
+ * @param {object} state - state
+ * @param {object} action - action
+ * @returns {object} nextState
+ */
 function reducer(state = getInitialState(), action = {}) {
   const { type, payload = {} } = action
 
@@ -210,6 +218,11 @@ function reducer(state = getInitialState(), action = {}) {
   }
 }
 
+/**
+ * @param {object} state - state
+ * @param {object} action - action
+ * @returns {object} nextState
+ */
 function reducerWithStorage(state = getInitialState(), action = {}) {
   const newState = reducer(state, action)
 

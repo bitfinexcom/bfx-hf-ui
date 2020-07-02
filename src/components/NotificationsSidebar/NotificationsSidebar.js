@@ -109,8 +109,8 @@ export default class NotificationsSidebar extends React.Component {
       >
         <Panel
           label='NOTIFICATIONS'
+          onClosePanel={closeNotificationPanel}
           hideIcons
-          closePanel={closeNotificationPanel}
         >
           <ul>
             <Scrollbars height='100%'>

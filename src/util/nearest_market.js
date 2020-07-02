@@ -11,6 +11,6 @@ export default (market, markets) => {
     m,
   }))
 
-  const minLD = _minBy(marketsLDistance, o => o.l).l
+  const minLD = _minBy(marketsLDistance, 'l').l
   return marketsLDistance.find(o => o.l === minLD).m
 }

@@ -32,6 +32,7 @@ const mapDispatchToProps = dispatch => ({
   getLastVersion: () => {
     dispatch(updateGithubAppVersion())
   },
+  // TODO: extract packet send into dedicated action
   getSettings: (authToken) => {
     dispatch(WSActions.send(['get.settings', authToken]))
   },

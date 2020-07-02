@@ -1,16 +1,11 @@
 import defineIndicators from './defineIndicators'
 import defineMeta from './defineMeta'
-
-import onEnter from './onEnter'
-import onUpdateLong from './onUpdateLong'
-import onUpdateShort from './onUpdateShort'
+import exec from './exec'
 
 export default {
   label: 'Basic EMA Cross',
 
   defineIndicators,
   defineMeta,
-  onEnter,
-  onUpdateLong,
-  onUpdateShort,
+  exec,
 }

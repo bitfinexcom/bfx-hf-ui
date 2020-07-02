@@ -54,7 +54,7 @@ export default class IndicatorSettingsModal extends React.Component {
       <Modal onClose={onClose}>
         <div className='hfui-indicatorsettingsmodal__wrapper'>
           <h3>
-Settings:
+            Settings:
             {humanLabel}
           </h3>
           <ul className='hfui-indicatorsettingsmodal__args'>

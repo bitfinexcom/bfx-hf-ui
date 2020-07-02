@@ -3,7 +3,7 @@
   background: #172d3e;
 
   z-index: 100;
-  height: 60px;
+  height: 40px;
 
   position: relative;
   display: flex;
@@ -16,23 +16,24 @@
     flex-direction: row;
     flex-wrap: wrap;
     flex: 1;
-    margin-left: 55px;
+
+    margin-left: 16px;
   }
 
   li {
     min-width: fit-content;
     display: inline-block;
     vertical-align: middle;
-    padding-bottom: 23px;
+    line-height: 40px;
 
-    &:first-child {
-      margin-right: 16px;
+    &:not(:last-child) {
+      margin-right: 24px;
     }
 
     &.text {
       .hfui-exchangeinfobar__item-label,
       .hfui-exchangeinfobar__item-data {
-        line-height: 32px;
+        line-height: 40px;
       }
     }
   }
@@ -53,40 +54,11 @@
   justify-content: center;
 
   i {
-    font-size: 20px;
-  }
-  i:hover {
-    cursor: pointer;
-  }
-}
+    font-size: 16px;
 
-.hfui-exchangeinfobar__item.vertical {
-  display: block;
-  padding: 0;
-  margin-right: 59px !important;
-
-  &:last-child {
-    margin-right: 0 !important;
-  }
-
-  .hfui-exchangeinfobar__item-label,
-  .hfui-exchangeinfobar__item-data {
-    display: block;
-    width: 100%;
-  }
-
-  .hfui-exchangeinfobar__item-label {
-    text-transform: none;
-    line-height: 11px;
-    height: 11px;
-    margin-bottom: 8px;
-    margin-right: 0;
-  }
-
-  .hfui-exchangeinfobar__item-data {
-    line-height: 15px;
-    height: 15px;
-    margin-bottom: 20px;
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 
@@ -99,6 +71,8 @@
 
 .hfui-exchangeinfobar__item-label {
   color: #e2e5e7;
+  opacity: 0.6;
+
   user-select: none;
   margin-right: 6px;
   text-transform: uppercase;
@@ -113,7 +87,6 @@
   }
 
   .hfui-select {
-    margin-top: -2px;
     min-width: 100px;
   }
 
@@ -123,5 +96,10 @@
 
   .hfui-select__single-value {
     color: #16b157 !important;
+  }
+
+  .hfui-select__single-value + div {
+    margin: 0;
+    padding: 0;
   }
 }

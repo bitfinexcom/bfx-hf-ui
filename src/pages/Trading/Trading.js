@@ -46,42 +46,45 @@ export default class Trading extends React.PureComponent {
       dark: true,
     }
 
-    return (
-      <>
-        <ExchangeInfoBar
-          selectedMarket={activeMarket}
-          onChangeMarket={this.onChangeMarket}
-          showAddComponent
-          showSave
-          onSave={() => this.grid.onSaveLayout()}
-          onAddComponent={() => this.grid.onToggleAddComponentModal()}
-        />
-        <div className='hfui-tradingpage__wrapper'>
-          <div className='hfui-tradingpage__inner'>
-            <div className='hfui-tradingpage__column left'>
-              <OrderForm
-                layoutI='orderform'
-                orders={orderDefinitions}
-                moveable={false}
-                removeable={false}
-              />
-            </div>
+    return ([(
+      <ExchangeInfoBar
+        selectedMarket={activeMarket}
+        onChangeMarket={this.onChangeMarket}
+        onSave={() => this.grid.onSaveLayout()}
+        onAddComponent={() => this.grid.onToggleAddComponentModal()}
+        key='exchange-info-bar'
+        showAddComponent
+        showSave
+      />
+    ), (
+      <div
+        className='hfui-tradingpage__wrapper'
+        key='trading-wrapper'
+      >
+        <div className='hfui-tradingpage__inner'>
+          <div className='hfui-tradingpage__column left'>
+            <OrderForm
+              layoutI='orderform'
+              orders={orderDefinitions}
+              moveable={false}
+              removeable={false}
+            />
+          </div>
 
-            <div className='hfui-tradingpage__column center'>
-              <div className='hfui-marketdatapage__wrapper'>
-                <GridLayoutPage
-                  ref={ref => { this.grid = ref }}
-                  defaultLayoutID='Default Trading'
-                  sharedProps={commonComponentProps}
-                  showToolbar={false}
-                />
-              </div>
+          <div className='hfui-tradingpage__column center'>
+            <div className='hfui-marketdatapage__wrapper'>
+              <GridLayoutPage
+                ref={ref => { this.grid = ref }}
+                defaultLayoutID='Default Trading'
+                sharedProps={commonComponentProps}
+                showToolbar={false}
+              />
             </div>
           </div>
 
           <StatusBar />
         </div>
-      </>
-    )
+      </div>
+    )])
   }
 }

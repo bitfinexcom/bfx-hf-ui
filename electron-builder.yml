@@ -1,0 +1,64 @@
+{
+  "productName": "The Honey Framework",
+  "files": [
+    "build/**/*",
+    "node_modules/**/*",
+    "src/**/*",
+    "scripts/**/*",
+    "public/**/*",
+    "clear.sh"
+  ],
+  "asar": false,
+  "appId": "com.bfx-hf-ui",
+  "directories": {
+    "buildResources": "public"
+  },
+  "mac": {
+    "icon": "build/icon.png",
+    "hardenedRuntime": true,
+    "artifactName": "${productName}-${version}-${arch}-${os}.${ext}",
+    "category": "public.app-category.productivity",
+    "target": [
+      "dmg",
+      "zip",
+      "mas"
+    ]
+  },
+  "win": {
+    "icon": "build/icon.png",
+    "target": [
+      "dir"
+    ],
+    "publisherName": "Honey Framework UI"
+  },
+  "linux": {
+    "icon": "build/icon.png",
+    "artifactName": "${productName}-${version}-${arch}-${os}.${ext}",
+    "description": "Honey Framework UI",
+    "maintainer": "<bitfinex.com>",
+    "category": "Network",
+    "target": [
+      "dir"
+    ]
+  },
+  "dmg": {
+    "iconSize": 100,
+    "contents": [
+      {
+        "x": 380,
+        "y": 280,
+        "type": "link",
+        "path": "/Applications"
+      },
+      {
+        "x": 110,
+        "y": 280,
+        "type": "file"
+      }
+    ],
+    "window": {
+      "width": 500,
+      "height": 500
+    }
+  }
+}

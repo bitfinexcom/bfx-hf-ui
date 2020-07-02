@@ -2,9 +2,9 @@
  * Returns a map key'd by candle timestamp, with values being arrays of strategy
  * trades/orders executed within those candles
  *
- * @param {Object[]} trades
- * @param {Object[]} candles
- * @return {Object} mtsMap
+ * @param {object[]} trades - trades
+ * @param {object[]} candles - candles
+ * @returns {object} mtsMap
  */
 export default (trades = [], candles = []) => {
   if (candles.length < 2) {

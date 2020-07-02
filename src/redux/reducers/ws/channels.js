@@ -10,6 +10,11 @@ const getInitialState = () => {
   }
 }
 
+/**
+ * @param {object} state - state
+ * @param {object} action - action
+ * @returns {object} nextState
+ */
 export default function (state = getInitialState(), action = {}) {
   const { type, payload = [] } = action
 

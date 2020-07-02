@@ -1,8 +1,10 @@
 {
   "parser": "babel-eslint",
+
   "extends": [
     "airbnb"
   ],
+
   "rules": {
     "jsx-quotes": ["error", "prefer-single"],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
@@ -28,8 +30,10 @@
     "react/state-in-constructor": 0,
     "react/jsx-props-no-spreading": 0,
     "import/no-cycle": 0,
-    "jsx-a11y/control-has-associated-label": 0
+    "jsx-a11y/control-has-associated-label": 0,
+    "func-names": 0
   },
+
   "settings": {
     "import/resolver": {
       "node": {
@@ -40,6 +44,7 @@
       }
     }
   },
+
   "env": {
     "browser": true,
     "jest": true

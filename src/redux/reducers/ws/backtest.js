@@ -1,5 +1,8 @@
 import types from '../../constants/ws'
 
+/**
+ * @returns {object} initialState
+ */
 function getInitialState() {
   return {
     currentTest: {},
@@ -10,6 +13,11 @@ function getInitialState() {
   }
 }
 
+/**
+ * @param {object} state - state
+ * @param {object} action - action
+ * @returns {object} nextState
+ */
 function reducer(state = getInitialState(), action = {}) {
   const { type, payload = {} } = action
   switch (type) {

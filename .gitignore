@@ -17,3 +17,5 @@ yarn.lock
 todo
 /db
 /logs/*.log
+.undodir
+tags

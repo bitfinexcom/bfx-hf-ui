@@ -4,8 +4,8 @@ import { preparePrice, prepareAmount } from 'bfx-api-node-util'
 /**
  * Generates a basic info label (i.e. for tooltips) for the provided strat trade
  *
- * @param {Object} trade
- * @return {string} label
+ * @param {StrategyTrade} trade - trade
+ * @returns {string} label
  */
 export default ({
   label, amount, price, pl,

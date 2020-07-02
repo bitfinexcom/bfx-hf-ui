@@ -1,10 +1,9 @@
-/* eslint-disable  */
-
+import _isFunction from 'lodash/isFunction'
 import Indicators from 'bfx-hf-indicators'
 import { execOffline } from 'bfx-hf-backtest'
 import HFS from 'bfx-hf-strategy'
 import HFU from 'bfx-hf-util'
-import _ from 'lodash'
+import _ from 'lodash' // eslint-disable-line
 
 const onExecStrategy = ({
   strategyContent, candleData, tradeData, mID, tf,
@@ -21,7 +20,7 @@ const onExecStrategy = ({
     try {
       if (section.substring(0, 6) === 'define') {
         strategy[section] = eval(sectionContent) // eslint-disable-line
-      } else if (section.substring(0, 2) === 'on') {
+      } else {
         strategy[section] = eval(sectionContent)({ HFS, HFU, _ }) // eslint-disable-line
       }
     } catch (e) {
@@ -38,19 +37,22 @@ const onExecStrategy = ({
   }
 
   strategy = HFS.define({
-    ...strategy,
+    ...(_isFunction(strategy.defineMeta) ? strategy.defineMeta() : {}),
 
     tf,
     symbol: mID,
+    exec: strategy.exec,
     indicators: {
-      ...strategy.defineIndicators(Indicators),
+      ...(_isFunction(strategy.defineIndicators)
+        ? strategy.defineIndicators(Indicators)
+        : {}
+      ),
     },
   })
 
   // sort to have oldest first
   candleData.sort((a, b) => b.mts - a.mts)
   tradeData.sort((a, b) => b.mts - a.mts)
-
 
   postMessage({ type: 'EXEC_STRATEGY_START' })
 
@@ -103,7 +105,7 @@ const onExecStrategy = ({
     postMessage({
       type: 'EXEC_STRATEGY_ERROR',
       data: {
-        message: e.message,
+        message: e.stack,
       },
     })
   })

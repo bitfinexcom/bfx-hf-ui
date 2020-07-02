@@ -10,6 +10,11 @@ import {
 
 const debug = Debug('hfui:rx:s:ws-hfui-server:on-reconnected')
 
+/**
+ * Re-subscribes to previously subscribed channels
+ *
+ * @generator
+ */
 export default function* () {
   const reqs = yield select(getAllChannelRequirements)
   const reqKeys = Object.keys(reqs)

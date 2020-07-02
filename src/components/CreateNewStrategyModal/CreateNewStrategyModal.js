@@ -45,8 +45,8 @@ export default class CreateNewStrategyModal extends React.Component {
       this.setState(() => ({ error: 'Label empty' }))
       return
     }
-    gaCreateStrategy()
 
+    gaCreateStrategy()
     onSubmit(label, template)
     onClose()
   }
