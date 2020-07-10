@@ -182,6 +182,7 @@ export default class Backtester extends React.Component {
       loadingBacktest,
       execError,
       results,
+      backtestOptions,
     } = this.state
     const {
       indicators,
@@ -262,7 +263,7 @@ export default class Backtester extends React.Component {
         <executionType.form {...opts} />
         {
           (!execRunning) && (
-            executionType.renderReport({ ...opts }, results, backtestData)
+            executionType.renderReport({ ...opts }, results, backtestData, backtestOptions)
           )
         }
       </div>
