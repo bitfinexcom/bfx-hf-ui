@@ -44,6 +44,16 @@ function reducer(state = getInitialState(), action = {}) {
       }
     }
 
+    case types.PURGE_DATA_BACKTEST: {
+      return {
+        candles: [],
+        trades: [],
+        loading: false,
+        executing: false,
+        ...state,
+      }
+    }
+
     case types.BACKTEST_CANDLE: {
       state.candles.push(payload)
       return state
