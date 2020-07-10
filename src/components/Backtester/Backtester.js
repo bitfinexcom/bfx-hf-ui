@@ -56,30 +56,32 @@ export default class Backtester extends React.Component {
 
   UNSAFE_componentWillReceiveProps(nextProps) { // eslint-disable-line
     const { loadingBacktest, execRunning, backtestOptions } = this.state
-    const { backtest, backtestData } = nextProps
+    const { backtestData } = nextProps
     const { strategyContent } = this.props
-    const { loading = false, executing = false } = backtest
     const { activeMarket, tf } = backtestOptions
 
+    /* eslint-disable */
     // check if component has requested a backtest
     if (!loadingBacktest) return
     // check if backtest data still being streamed
-    if (loading || executing) return
+    if (this.props.backtest.loading) return
     // check if the worker is already executing
     if (execRunning) return
-
-    // start worker with data
-    this.execWorker.postMessage({
-      type: 'EXEC_STRATEGY',
-      data: {
-        mID: activeMarket,
-        strategyContent,
-        candleData: backtestData.candles,
-        tradeData: backtestData.trades,
-        tf,
-      },
-    })
-    this.setState(() => ({ loadingBacktest: false }))
+    if (this.props.backtest.executing && !nextProps.backtest.executing) {
+      /* eslint-enable */
+      // start worker with data
+      this.execWorker.postMessage({
+        type: 'EXEC_STRATEGY',
+        data: {
+          mID: activeMarket,
+          strategyContent,
+          candleData: backtestData.candles,
+          tradeData: backtestData.trades,
+          tf,
+        },
+      })
+      this.setState(() => ({ loadingBacktest: false }))
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {

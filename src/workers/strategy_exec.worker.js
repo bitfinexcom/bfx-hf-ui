@@ -64,16 +64,6 @@ const onExecStrategy = ({
     return
   }
 
-  if (candleData.length <= 0) {
-    postMessage({
-      type: 'EXEC_STRATEGY_ERROR',
-      data: {
-        message: 'Insufficient candle data.',
-      },
-    })
-    return
-  }
-
   execOffline(strategy, {
     candles: candleData,
     trades: tradeData,
