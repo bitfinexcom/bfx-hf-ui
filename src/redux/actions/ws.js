@@ -274,6 +274,10 @@ export default {
     payload: { exID, channel },
   }),
 
+  purgeBacktestData: () => ({
+    type: t.PURGE_DATA_BACKTEST,
+  }),
+
   initAuth: password => send(['auth.init', password]),
   auth: password => send(['auth.submit', password]),
   resetAuth: () => send(['auth.reset']),
