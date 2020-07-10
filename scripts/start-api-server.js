@@ -6,12 +6,7 @@ require('bfx-hf-util/lib/catch_uncaught_errors')
 
 const startHFServer = require('bfx-hf-server')
 const os = require('os')
-const fs = require('fs')
 const dir = `${os.homedir()}/.honeyframework`;
-
-if (!fs.existsSync(dir)){
-    fs.mkdirSync(dir);
-}
 
 startHFServer({
   uiDBPath: `${dir}/ui.json`,
