@@ -6,10 +6,11 @@ import Results from '../Results'
 
 import StrategyTradesTable from '../../StrategyTradesTable'
 
-export default (opts, results, backtestData) => {
+export default (opts, results, backtestData, backtestOptions) => {
   const { trades = [] } = results
   const { indicators } = opts
   const { candles = [] } = backtestData
+  const { tf } = backtestOptions
 
   // convert candles to array for the chart
   const candleArr = Object.values(candles).map(c => (
@@ -41,7 +42,7 @@ export default (opts, results, backtestData) => {
               AXIS_COLOR: '#444',
               AXIS_TICK_COLOR: '#00000000',
             }}
-            candleWidth='1m'
+            candleWidth={tf}
             disableToolbar
             disableIndicatorSettings
             showMarketLabel={false}
