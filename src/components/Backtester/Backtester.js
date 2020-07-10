@@ -86,7 +86,8 @@ export default class Backtester extends React.Component {
     const { backtest, strategyContent } = this.props
     if (
       !_isEqual(nextState, this.state)
-      || !_isEqual(nextProps.backtest, backtest)
+      || !_isEqual(nextProps.backtest.loading, backtest.loading)
+      || !_isEqual(nextProps.backtest.executing, backtest.executing)
       || !_isEqual(nextProps.strategyContent, strategyContent)
     ) {
       return true
@@ -188,6 +189,7 @@ export default class Backtester extends React.Component {
       strategyContent,
       allMarkets,
     } = this.props
+    const formState = this.state[`${executionType.type}_formState`] || {} // eslint-disable-line
     const opts = {
       updateExecutionType: this.updateExecutionType,
       backtestMethods: this.backtestMethods,
@@ -197,6 +199,15 @@ export default class Backtester extends React.Component {
       updateError: this.updateError,
       allMarkets,
       exId: 'bitfinex', // todo: add ability to specify exchange
+      formState,
+      setFormState: (setStateFunc) => {
+        this.setState(() => ({
+          [`${executionType.type}_formState`]: {
+            ...formState,
+            ...setStateFunc(),
+          },
+        }))
+      },
     }
 
     if (!strategyContent) {
@@ -249,10 +260,9 @@ export default class Backtester extends React.Component {
     return (
       <div className='hfui-backtester__wrapper'>
         <executionType.form {...opts} />
-
         {
           (!execRunning) && (
-            executionType.renderReport(opts, results, backtestData)
+            executionType.renderReport({ ...opts }, results, backtestData)
           )
         }
       </div>
