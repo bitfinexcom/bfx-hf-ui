@@ -2,7 +2,7 @@ import types from '../../constants/ws'
 
 function getInitialState() {
   return {
-    currentTest: {},
+    currentTest: null,
     loading: false,
     executing: false,
     trades: [],
