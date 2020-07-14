@@ -9,6 +9,7 @@ import AuthenticationPage from '../../pages/Authentication'
 
 import Navbar from '../Navbar'
 import NotificationsSidebar from '../NotificationsSidebar'
+import FeedbackModal from '../FeedbackModal'
 
 import { propTypes, defaultProps } from './HFUI.props'
 import './style.css'
@@ -25,6 +26,7 @@ export default class HFUI extends React.PureComponent {
   render() {
     const {
       authToken, getLastVersion, getSettings, notificationsVisible,
+      feedbackVisible,
     } = this.props
     const oneHour = 360000
     getLastVersion()
@@ -44,7 +46,8 @@ export default class HFUI extends React.PureComponent {
     return (
       <div className='hfui-app'>
         <Navbar />
-
+        {feedbackVisible
+        && (<FeedbackModal />)}
         <Switch>
 
           <Redirect exact from='/index.html' to='/' />
@@ -77,7 +80,6 @@ export default class HFUI extends React.PureComponent {
             )}
           />
         </Switch>
-
         <NotificationsSidebar notificationsVisible={notificationsVisible} />
       </div>
     )

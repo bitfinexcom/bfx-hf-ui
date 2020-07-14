@@ -26,6 +26,7 @@ function getInitialState() {
     activeMarket: DEFAULT_MARKET,
     activeExchange: DEFAULT_EXCHANGE,
     notificationsVisible: false,
+    feedbackVisible: false,
     previousMarket: null,
     previousExchange: null,
     remoteVersion: null,
@@ -110,6 +111,13 @@ function reducer(state = getInitialState(), action = {}) {
       return {
         ...state,
         settings: payload,
+      }
+    }
+
+    case 'UI_TOGGLE_FEEDBACK': {
+      return {
+        ...state,
+        feedbackVisible: !payload,
       }
     }
 
