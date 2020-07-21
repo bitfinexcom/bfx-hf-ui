@@ -4,6 +4,7 @@ import {
 } from '../../constants/ga'
 
 const ReactGA = ua('UA-163797164-1')
+ReactGA.set('aip', '1')
 
 export default () => {
   return store => next => (action = {}) => {
