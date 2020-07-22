@@ -23,6 +23,7 @@ touch ~/.hfdb/ui.json
 ```
 npm run build
 npm run start-server
+npm run start-ds-bitfinex
 npm start
 ```
 
