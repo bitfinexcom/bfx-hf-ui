@@ -26,6 +26,12 @@ export default (opts, results, backtestData, backtestOptions) => {
 
   return (
     <div className='hfui-backtester__candlechart'>
+      <Results
+        results={results}
+        execRunning={false}
+        currentTick={results.currentTick}
+        totalTicks={results.totalTicks}
+      />
       <AutoSizer disableHeight style={{ height: 400 }}>
         {({ width, height = 400 }) => (
           <BFXChart
@@ -49,12 +55,6 @@ export default (opts, results, backtestData, backtestOptions) => {
           />
         )}
       </AutoSizer>
-      <Results
-        results={results}
-        execRunning={false}
-        currentTick={results.currentTick}
-        totalTicks={results.totalTicks}
-      />
       <StrategyTradesTable
         label='Trades'
         trades={trades}
