@@ -67,6 +67,11 @@ export default {
     payload: { exID, channel },
   }),
 
+  setBacktestLoading: () => ({
+    type: t.SET_BACKTEST_LOADING,
+    payload: {},
+  }),
+
   recvDataExchanges: exchanges => ({
     type: t.DATA_EXCHANGES,
     payload: { exchanges },
@@ -241,6 +246,11 @@ export default {
 
   recvBacktestEnd: opts => ({
     type: t.BACKTEST_END,
+    payload: opts,
+  }),
+
+  recvBacktestResults: opts => ({
+    type: t.BACKTEST_RESULTS,
     payload: opts,
   }),
 
