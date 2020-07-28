@@ -241,6 +241,12 @@ export default (ws, store) => (e = {}) => {
       break
     }
 
+    case 'bt.btresult': {
+      const [, res] = payload
+      store.dispatch(WSActions.recvBacktestResults(res))
+      break
+    }
+
     case 'refresh': {
       window.location.reload()
       break

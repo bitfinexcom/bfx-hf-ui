@@ -29,8 +29,6 @@ export default (opts, results, backtestData, backtestOptions) => {
       <Results
         results={results}
         execRunning={false}
-        currentTick={results.currentTick}
-        totalTicks={results.totalTicks}
       />
       <AutoSizer disableHeight style={{ height: 400 }}>
         {({ width, height = 400 }) => (
