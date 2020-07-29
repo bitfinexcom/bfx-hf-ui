@@ -1,12 +1,12 @@
 import React from 'react'
 import _capitalize from 'lodash/capitalize'
-import { UserSettings } from 'bfx-hf-ui-config'
 
 import StatusBar from '../../components/StatusBar'
 import Select from '../../ui/Select'
 import Checkbox from '../../ui/Checkbox'
 import Input from '../../ui/Input'
 import Button from '../../ui/Button'
+import UserSettings from '../../user_settings'
 
 import { propTypes, defaultProps } from './Settings.props'
 import './style.css'
