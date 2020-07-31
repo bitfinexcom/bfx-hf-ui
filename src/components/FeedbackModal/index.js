@@ -52,7 +52,7 @@ export default connect(null, mapDispatchToProps)(class FeedbackModal extends Rea
       >
         <Dropdown
           value='Reason'
-          options={[{ label: 'Reason', value: 'Reason' }]}
+          options={[{ label: 'Bug', value: 'Bug' }, { label: 'Feature', value: 'Feature' }, { label: 'Other', value: 'Other' }]}
         />
         <Input
           className='textarea'
