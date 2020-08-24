@@ -44,7 +44,7 @@ export default class GridLayout extends React.PureComponent {
         className='layout'
         draggableHandle='.icon-move'
         cols={{
-          lg: 100, md: 20, sm: 20, xs: 20, xxs: 20,
+          lg: 100, md: 100, sm: 100, xs: 100, xxs: 100,
         }}
         rowHeight={25}
         margin={[16, 16]}
