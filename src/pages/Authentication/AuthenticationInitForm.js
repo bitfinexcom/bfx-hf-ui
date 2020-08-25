@@ -5,6 +5,8 @@ import Button from '../../ui/Button'
 import Input from '../../ui/Input'
 import { propTypes, defaultProps } from './AuthenticationInitForm.props'
 
+const ENTER_KEY_CODE = 13
+
 export default class AuthenticationInit extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -25,6 +27,12 @@ export default class AuthenticationInit extends React.Component {
 
   onPasswordChange(password) {
     this.setState(() => ({ password }))
+  }
+
+  onEnterPress({ keyCode }, submitReady) {
+    if (submitReady && keyCode === ENTER_KEY_CODE) {
+      this.onSubmit()
+    }
   }
 
   onConfirmPasswordChange(confirmPassword) {
@@ -52,7 +60,7 @@ export default class AuthenticationInit extends React.Component {
     )
 
     return (
-      <div className='hfui-authenticationpage__content'>
+      <div className='hfui-authenticationpage__content' onKeyDown={(e) => this.onEnterPress(e, submitReady)}>
         <h2>Honey Framework UI</h2>
         <p>Create a password to encrypt your API credentials &amp; strategies. All data is stored locally, and your password is hashed.</p>
 
