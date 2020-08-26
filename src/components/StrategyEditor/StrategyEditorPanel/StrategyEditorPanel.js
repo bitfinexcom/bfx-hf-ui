@@ -34,6 +34,7 @@ export default class StrategyEditorPanel extends React.PureComponent {
         headerComponents={(
           <div className='hfui-strategyeditor__header'>
             <Button
+              className='hfui-open-strategy__btn'
               onClick={onOpenSelectModal}
               label={[
                 <i key='icon' className='icon-open' />,
@@ -43,6 +44,7 @@ export default class StrategyEditorPanel extends React.PureComponent {
 
             <Button
               green
+              className='hfui-create-strategy__btn'
               onClick={onOpenCreateModal}
               label={[
                 <i key='icon' className='icon-strategy-editor-passive' />,
