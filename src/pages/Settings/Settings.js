@@ -2,6 +2,8 @@ import React from 'react'
 import _capitalize from 'lodash/capitalize'
 import { UserSettings } from 'bfx-hf-ui-config'
 
+import Joyride from 'react-joyride'
+
 import StatusBar from '../../components/StatusBar'
 import Select from '../../ui/Select'
 import Checkbox from '../../ui/Checkbox'
@@ -35,6 +37,28 @@ export default class Settings extends React.Component {
       theme,
       dms,
       ga,
+      steps: [
+        {
+          target: '.chart',
+          content: 'This is my awesome feature!',
+        },
+        {
+          target: '.dms',
+          content: 'This another awesome feature!',
+        },
+        {
+          target: '.ga',
+          content: 'This another awesome feature!',
+        },
+        {
+          target: '.api-key',
+          content: 'This another awesome feature!',
+        },
+        {
+          target: '.api-secret',
+          content: 'This another awesome feature!',
+        },
+      ],
     }
 
     this.onSubmitAPIKeys = this.onSubmitAPIKeys.bind(this)
@@ -88,14 +112,20 @@ export default class Settings extends React.Component {
       }))
     }
 
-    const { chart, dms, ga } = this.state
+    const {
+      chart, dms, ga, steps,
+    } = this.state
 
     return (
       <div className='hfui-settingspage__wrapper'>
         <div className='hfui-settings__title'>
           Settings
         </div>
-
+        <Joyride
+          steps={steps}
+          run
+          continuous
+        />
         <div className='hfui-settings__content'>
           <div>
             <ul className='hfui-settings__options'>
@@ -122,7 +152,7 @@ export default class Settings extends React.Component {
                   </p>
                 </div>
 
-                <div className='hfui-settings__item-list'>
+                <div className='hfui-settings__item-list chart'>
                   <Select
                     value={{ value: chart, label: _capitalize(chart) }}
                     className='hfui-setting__select'
@@ -149,7 +179,7 @@ export default class Settings extends React.Component {
                     application is started up again.
                   </p>
                 </div>
-                <div className='hfui-settings__option-check'>
+                <div className='hfui-settings__option-check dms'>
                   <Checkbox
                     className='hfui-settings_check'
                     onChange={e => this.onOptionChange(e, 'dms')}
@@ -160,7 +190,7 @@ export default class Settings extends React.Component {
               </li>
 
               <li>
-                <div className='hfui-settings__option-check'>
+                <div className='hfui-settings__option-check ga'>
                   <Checkbox
                     className='hfui-settings_check'
                     onChange={e => this.onOptionChange(e, 'ga')}
@@ -179,13 +209,13 @@ export default class Settings extends React.Component {
                   <Input
                     placeholder='API Key'
                     onChange={e => this.onOptionChange(e, 'apiKey')}
-                    className='hfui-settings__item-list'
+                    className='hfui-settings__item-list api-key'
                   />
                   <Input
                     type='password'
                     placeholder='API Secret'
                     onChange={e => this.onOptionChange(e, 'apiSecret')}
-                    className='hfui-settings__item-list'
+                    className='hfui-settings__item-list api-secret'
                   />
                 </div>
               </li>
