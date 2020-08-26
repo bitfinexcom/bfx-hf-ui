@@ -1,5 +1,6 @@
 import React from 'react'
 import randomColor from 'randomcolor'
+import Joyride from 'react-joyride'
 
 import StrategyEditor from '../../components/StrategyEditor'
 import Panel from '../../ui/Panel'
@@ -20,6 +21,16 @@ export default class StrategyEditorPage extends React.Component {
   state = {
     indicators: [],
     strategyContent: null,
+    steps: [
+      {
+        target: '.hfui-create-strategy__btn',
+        content: 'Create your own strategies.',
+      },
+      {
+        target: '.hfui-open-strategy__btn',
+        content: 'Or open existing one.',
+      },
+    ],
   }
 
   constructor(props) {
@@ -64,6 +75,7 @@ export default class StrategyEditorPage extends React.Component {
       indicators,
       strategyContent,
       docsText = '',
+      steps,
     } = this.state
 
     return (
@@ -76,6 +88,11 @@ export default class StrategyEditorPage extends React.Component {
           moveable={false}
           removeable={false}
           tf='1m'
+        />
+        <Joyride
+          steps={steps}
+          run
+          continuous
         />
 
         <div
