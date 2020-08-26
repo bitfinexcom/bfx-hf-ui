@@ -11,6 +11,8 @@ import Button from '../../ui/Button'
 import { propTypes, defaultProps } from './Settings.props'
 import './style.css'
 
+const ENTER_KEY_CODE = 13
+
 export default class Settings extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -73,6 +75,12 @@ export default class Settings extends React.Component {
     gaUpdateSettings()
   }
 
+  onEnterPress({ keyCode }, authToken) {
+    if (keyCode === ENTER_KEY_CODE) {
+      this.onSettingsSave(authToken)
+    }
+  }
+
   render() {
     const { CHARTS } = UserSettings
     const charts = Object.keys(CHARTS).map(key => CHARTS[key])
@@ -91,7 +99,7 @@ export default class Settings extends React.Component {
     const { chart, dms, ga } = this.state
 
     return (
-      <div className='hfui-settingspage__wrapper'>
+      <div className='hfui-settingspage__wrapper' onKeyDown={(e) => this.onEnterPress(e, authToken)}>
         <div className='hfui-settings__title'>
           Settings
         </div>
