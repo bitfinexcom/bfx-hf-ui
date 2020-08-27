@@ -1,4 +1,5 @@
 import React from 'react'
+import Joyride from 'react-joyride'
 
 import OrderForm from '../../components/OrderForm'
 import StatusBar from '../../components/StatusBar'
@@ -20,7 +21,26 @@ const orderDefinitions = {
 export default class Trading extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
-
+  state = {
+    steps: [
+      {
+        target: '.icon-plus',
+        content: 'By clicking on this button you can add a new components to this page.',
+      },
+      {
+        target: '.icon-save',
+        content: 'You can save your layout, after you have customized it.',
+      },
+      {
+        target: '.icon-notifications',
+        content: 'Here you can find all your notifications.',
+      },
+      {
+        target: '.hfui-statusbar__wrapper',
+        content: 'This bar shows all statuses you need to know.',
+      },
+    ],
+  }
   constructor(props) {
     super(props)
 
@@ -35,6 +55,7 @@ export default class Trading extends React.PureComponent {
 
   render() {
     const { activeMarket } = this.props
+    const { steps } = this.state
     const commonComponentProps = {
       layoutID: LAYOUT_ID,
       moveable: true,
@@ -48,6 +69,11 @@ export default class Trading extends React.PureComponent {
 
     return (
       <>
+        <Joyride
+          steps={steps}
+          run
+          continuous
+        />
         <ExchangeInfoBar
           selectedMarket={activeMarket}
           onChangeMarket={this.onChangeMarket}
