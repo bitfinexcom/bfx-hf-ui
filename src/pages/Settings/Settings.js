@@ -40,23 +40,27 @@ export default class Settings extends React.Component {
       steps: [
         {
           target: '.chart',
-          content: 'This is my awesome feature!',
+          content: 'Here you can select a chart you want to use. It is shown on the Trading page.',
         },
         {
           target: '.dms',
-          content: 'This another awesome feature!',
+          content: 'With this button you can enable/disable DMS switch.',
         },
         {
           target: '.ga',
-          content: 'This another awesome feature!',
+          content: 'If you will enable Google analytics it will help us make our app even better. Thank you!',
         },
         {
           target: '.api-key',
-          content: 'This another awesome feature!',
+          content: 'In this field you should provide your API key to your bitfinex account.',
         },
         {
           target: '.api-secret',
-          content: 'This another awesome feature!',
+          content: 'And here you should provide your secret key.',
+        },
+        {
+          target: '.settings-save',
+          content: 'After all steps press this button, to update your settings.',
         },
       ],
     }
