@@ -30,6 +30,10 @@ export default class StrategyEditorPage extends React.Component {
         target: '.hfui-open-strategy__btn',
         content: 'Or open existing one.',
       },
+      {
+        target: '.hfui-markdown__wrapper',
+        content: 'here you can find all documentation you need, to code yourn own strategies.',
+      },
     ],
   }
 
