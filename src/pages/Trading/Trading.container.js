@@ -11,6 +11,7 @@ const mapStateToProps = (state = {}) => ({
   layouts: getLayouts(state),
   activeMarket: getActiveMarket(state),
   exID: getActiveExchange(state),
+  firstLogin: state.ui.firstLogin,
 })
 
 const mapDispatchToProps = dispatch => ({
