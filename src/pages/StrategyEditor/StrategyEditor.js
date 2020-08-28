@@ -81,7 +81,7 @@ export default class StrategyEditorPage extends React.Component {
       docsText = '',
       steps,
     } = this.state
-
+    const { firstLogin } = this.props
     return (
       <div className='hfui-strategyeditorpage__wrapper'>
         <StrategyEditor
@@ -93,12 +93,14 @@ export default class StrategyEditorPage extends React.Component {
           removeable={false}
           tf='1m'
         />
-        <Joyride
-          steps={steps}
-          run
-          continuous
-        />
-
+        {firstLogin
+         && (
+         <Joyride
+           steps={steps}
+           run
+           continuous
+         />
+         )}
         <div
           key='main'
           className='hfui-strategiespage__right'
