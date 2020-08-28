@@ -54,7 +54,7 @@ export default class Trading extends React.PureComponent {
   }
 
   render() {
-    const { activeMarket } = this.props
+    const { activeMarket, firstLogin } = this.props
     const { steps } = this.state
     const commonComponentProps = {
       layoutID: LAYOUT_ID,
@@ -69,11 +69,14 @@ export default class Trading extends React.PureComponent {
 
     return (
       <>
-        <Joyride
-          steps={steps}
-          run
-          continuous
-        />
+        {firstLogin
+         && (
+         <Joyride
+           steps={steps}
+           run
+           continuous
+         />
+         )}
         <ExchangeInfoBar
           selectedMarket={activeMarket}
           onChangeMarket={this.onChangeMarket}
