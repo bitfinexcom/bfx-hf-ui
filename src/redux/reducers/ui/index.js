@@ -29,6 +29,7 @@ function getInitialState() {
     previousMarket: null,
     previousExchange: null,
     remoteVersion: null,
+    firstLogin: false,
   }
 
   if (!localStorage) {
@@ -203,7 +204,12 @@ function reducer(state = getInitialState(), action = {}) {
         route,
       }
     }
-
+    case types.FIRST_LOGIN: {
+      return {
+        ...state,
+        firstLogin: true,
+      }
+    }
     default: {
       return state
     }

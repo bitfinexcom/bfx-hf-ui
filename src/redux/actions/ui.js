@@ -70,6 +70,10 @@ const openNotifcationPanel = () => ({
   type: types.OPEN_NOTIFICATIONS,
 })
 
+const firstLogin = () => ({
+  type: types.FIRST_LOGIN,
+})
+
 export default {
   setRoute,
   saveLayout,
@@ -81,4 +85,5 @@ export default {
   saveRemoteVersion,
   closeNotificationPanel,
   openNotifcationPanel,
+  firstLogin,
 }
