@@ -104,7 +104,7 @@ export default class Settings extends React.Component {
   render() {
     const { CHARTS } = UserSettings
     const charts = Object.keys(CHARTS).map(key => CHARTS[key])
-    const { authToken } = this.props
+    const { authToken, firstLogin } = this.props
 
     // eslint-disable-next-line react/destructuring-assignment
     if (this.props.chart && (!this.state.chart || this.state.dms === undefined)) {
@@ -125,11 +125,14 @@ export default class Settings extends React.Component {
         <div className='hfui-settings__title'>
           Settings
         </div>
-        <Joyride
-          steps={steps}
-          run
-          continuous
-        />
+        {firstLogin
+         && (
+         <Joyride
+           steps={steps}
+           run
+           continuous
+         />
+         )}
         <div className='hfui-settings__content'>
           <div>
             <ul className='hfui-settings__options'>
