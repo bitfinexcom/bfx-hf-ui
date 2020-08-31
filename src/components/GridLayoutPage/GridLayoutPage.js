@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-no-undef */
 import React from 'react'
+import Joyride from 'react-joyride'
 import _isEqual from 'lodash/isEqual'
 import _min from 'lodash/min'
 import _max from 'lodash/max'
@@ -37,6 +38,28 @@ export default class GridLayoutPage extends React.Component {
     layoutDirty: false,
     addLayoutModalOpen: false,
     addComponentModalOpen: false,
+    steps: [
+      {
+        target: '.hfui-button',
+        content: 'Create new component.',
+      },
+      {
+        target: '.hfui-button.green',
+        content: 'Add custom component.',
+      },
+      {
+        target: '.hfui-dropdown__button.highlight',
+        content: 'Select your layout.',
+      },
+      {
+        target: '.hfui-save-layout__btn',
+        content: 'With this button you can save your custom layout.',
+      },
+      {
+        target: '.hfui-remove-layout__btn',
+        content: 'Or delete it',
+      },
+    ],
   }
 
   constructor(props) {
@@ -173,7 +196,7 @@ export default class GridLayoutPage extends React.Component {
   render() {
     const {
       layoutDef, layoutID, layoutDirty, addLayoutModalOpen,
-      addComponentModalOpen,
+      addComponentModalOpen, steps,
     } = this.state
 
     const {
@@ -183,6 +206,11 @@ export default class GridLayoutPage extends React.Component {
 
     return (
       <div className='hfui-gridlayoutpage__wrapper'>
+        <Joyride
+          steps={steps}
+          run
+          continuous
+        />
         {
           ((showToolbar) && (
             <LayoutControlToolbar
