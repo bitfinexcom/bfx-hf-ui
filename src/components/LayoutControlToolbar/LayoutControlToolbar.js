@@ -57,6 +57,7 @@ export default class LayoutControlToolbar extends React.PureComponent {
           green={layoutDirty}
           disabled={!layoutDirty}
           onClick={onSaveLayout}
+          className='hfui-save-layout__btn'
           label={[
             <i key='icon' className='icon-save' />,
             <p key='text'>Save</p>,
@@ -66,6 +67,7 @@ export default class LayoutControlToolbar extends React.PureComponent {
         <Button
           onClick={onDeleteLayout}
           disabled={!canDelete}
+          className='hfui-remove-layout__btn'
           label={[
             <i key='icon' className='icon-clear' />,
             <p key='text'>Delete</p>,
