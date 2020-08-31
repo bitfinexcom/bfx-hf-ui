@@ -36,8 +36,16 @@ export default class Trading extends React.PureComponent {
         content: 'Here you can find all your notifications.',
       },
       {
+        target: '.hfui-orderformmenu__wrapper',
+        content: 'Here you can find all orders you need.',
+      },
+      {
         target: '.hfui-statusbar__wrapper',
         content: 'This bar shows all statuses you need to know.',
+      },
+      {
+        target: '.hfui-statusbar__left',
+        content: 'Version of your app, there will be "Update" button, if you are running old version.',
       },
     ],
   }
