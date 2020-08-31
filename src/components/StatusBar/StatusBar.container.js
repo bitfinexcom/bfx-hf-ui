@@ -10,6 +10,7 @@ const mapStateToProps = (state = {}) => {
   const { status: wsStatus } = socket
   const { ui } = state
   const exchange = ui.activeExchange
+  const { feedbackVisible } = ui
 
   return {
     wsConnected: wsStatus === 'online',
@@ -17,12 +18,16 @@ const mapStateToProps = (state = {}) => {
     remoteVersion: getRemoteVersion(state),
     apiClientStates: getAPIClientStates(state),
     currentExchange: exchange,
+    feedbackVisible,
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   navigate: (route) => {
     dispatch(push(route))
+  },
+  toggleFeedback: (status) => {
+    dispatch({ type: 'UI_TOGGLE_FEEDBACK', payload: status })
   },
 })
 

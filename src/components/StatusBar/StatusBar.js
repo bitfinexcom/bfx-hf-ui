@@ -8,10 +8,9 @@ import './style.css'
 export default class StatusBar extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
-
   render() {
     const {
-      wsConnected, remoteVersion, apiClientStates, currentExchange,
+      wsConnected, remoteVersion, apiClientStates, currentExchange, toggleFeedback, feedbackVisible,
     } = this.props
 
     const apiClientState = apiClientStates[currentExchange]
@@ -38,6 +37,12 @@ export default class StatusBar extends React.Component {
             {apiClientConnected
               ? `UNLOCKED FOR ${currentExchange.toUpperCase()}`
               : 'LOCKED'}
+          </p>
+          <p
+            className='feedback'
+            onClick={() => toggleFeedback(feedbackVisible)}
+          >
+            Feedback
           </p>
         </div>
 

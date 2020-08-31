@@ -27,7 +27,6 @@ export default class GridLayout extends React.PureComponent {
       layoutDef, chartProps, bookProps, tradesProps, orderFormProps, ordersProps,
       onRemoveComponent, layoutID, darkPanels, sharedProps,
     } = this.props
-
     const componentProps = {
       orderForm: orderFormProps,
       trades: tradesProps,
