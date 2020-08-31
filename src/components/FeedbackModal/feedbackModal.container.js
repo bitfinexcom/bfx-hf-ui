@@ -2,9 +2,11 @@ import { connect } from 'react-redux'
 
 import feedbackModal from './feedbackModal.view'
 
+import UIActions from '../../redux/actions/ui'
+
 const mapDispatchToProps = dispatch => ({
   toggleFeedback: (status) => {
-    dispatch({ type: 'UI_TOGGLE_FEEDBACK', payload: status })
+    dispatch(UIActions.toggleFeedbackModal(status))
   },
 })
 
