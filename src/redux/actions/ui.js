@@ -70,6 +70,11 @@ const openNotifcationPanel = () => ({
   type: types.OPEN_NOTIFICATIONS,
 })
 
+const toggleFeedbackModal = (status) => ({
+  type: types.TOGGLE_FEEDBACK_MODAL,
+  payload: status,
+})
+
 export default {
   setRoute,
   saveLayout,
@@ -81,4 +86,5 @@ export default {
   saveRemoteVersion,
   closeNotificationPanel,
   openNotifcationPanel,
+  toggleFeedbackModal,
 }
