@@ -1,0 +1,58 @@
+import React from 'react'
+import PropTypes from 'prop-types'
+
+import Modal from '../../ui/Modal'
+import Dropdown from '../../ui/Dropdown'
+import Input from '../../ui/Input'
+import Button from '../../ui/Button'
+
+import './style.css'
+
+export default class FeedbackModal extends React.PureComponent {
+  static propTypes = {
+    toggleFeedback: PropTypes.func,
+  }
+  static defaultProps = {
+    toggleFeedback: () => {},
+  }
+  state = {
+    label: '',
+  }
+
+  onLabelChange(label) {
+    this.setState(() => ({ label }))
+  }
+
+  render() {
+    const { label } = this.state
+    const { toggleFeedback } = this.props
+
+    return (
+      <Modal
+        label='Feedback Modal'
+        onClose={toggleFeedback}
+        actions={(
+          <Button
+            green
+            onClick={this.onSubmit}
+            label={[
+              <i key='icon' className='icon-sms' />,
+              <p key='text'>Submit Feedback</p>,
+            ]}
+          />
+      )}
+      >
+        <Dropdown
+          value='Reason'
+          options={[{ label: 'Bug', value: 'Bug' }, { label: 'Feature', value: 'Feature' }, { label: 'Other', value: 'Other' }]}
+        />
+        <Input
+          className='textarea'
+          value={label}
+          onChange={(e) => this.onLabelChange(e)}
+          placeholder='Provide your feedback here'
+        />
+      </Modal>
+    )
+  }
+}
