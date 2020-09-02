@@ -1,0 +1,31 @@
+{
+    "ru-RU": {
+        "settings": "Настройки",
+        "chart": "График",
+        "chartNote": "ПРИМЕЧАНИЕ: Только график «Hf chart» поддерживает отображение ордеров и позиционных линий.",
+        "DMSNote": "При активироанном Dead Man switch все активные ордера автоматически отменятся, когда приложение закрывается.",
+        "DMSCaution": "Отключать эту функцию стоит с осторожностью!",
+        "DMSDescription": "Алгоритмические ордера отменяются при закрытии приложения; без Dead Man switch любые атомарные оредера, созданные с помощью АО, останутся открытыми и при повторном запуске приложения состояние может быть потеряно.",
+        "usageReporting": "Отчет об использовании",
+        "apiCredentials": "Учетные данные API",
+        "apiCredentialsDescrition": "Заполните, чтобы обновить хранящиеся данные.",
+        "apiKey":"API Ключ",
+        "apiSecret":"API Секрет",
+        "save": "Сохранить"
+
+    },
+    "en-EN": {
+        "settings": "Settings",
+        "chart": "Chart",
+        "chartNote": "NOTE: Only the HF UI Chart supports rendering order and position lines.",
+        "DMSNote": "Enabling the Dead Man switch will automatically cancel all active orders when the application closes.",
+        "DMSCaution": "Disabling this should be done with caution!",
+        "DMSDescription": "Algorithmic orders are cancelled on application close; without the Dead Man switch, any atomic orders created by an AO will remain open, and state may be lost when the application is started up again.",
+        "usageReporting": "Usage reporting",
+        "apiCredentials": "API credentials",
+        "apiCredentialsDescrition": "Fill in to update stored values",
+        "apiKey":"API Key",
+        "apiSecret":"API Secret",
+        "save": "Save"
+    }
+}

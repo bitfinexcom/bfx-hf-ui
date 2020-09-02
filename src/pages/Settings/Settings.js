@@ -1,6 +1,7 @@
 import React from 'react'
 import _capitalize from 'lodash/capitalize'
 import { UserSettings } from 'bfx-hf-ui-config'
+import detectBrowserLanguage from 'detect-browser-language'
 
 import StatusBar from '../../components/StatusBar'
 import Select from '../../ui/Select'
@@ -9,9 +10,10 @@ import Input from '../../ui/Input'
 import Button from '../../ui/Button'
 
 import { propTypes, defaultProps } from './Settings.props'
+import i18n from './i18n.json'
 import './style.css'
 
-export default class Settings extends React.Component {
+export default class Settings extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
 
@@ -77,6 +79,8 @@ export default class Settings extends React.Component {
     const { CHARTS } = UserSettings
     const charts = Object.keys(CHARTS).map(key => CHARTS[key])
     const { authToken } = this.props
+    const lng = detectBrowserLanguage()
+    const dictionary = i18n[lng]
 
     // eslint-disable-next-line react/destructuring-assignment
     if (this.props.chart && (!this.state.chart || this.state.dms === undefined)) {
@@ -89,11 +93,11 @@ export default class Settings extends React.Component {
     }
 
     const { chart, dms, ga } = this.state
-
+    console.log('rerender')
     return (
       <div className='hfui-settingspage__wrapper'>
         <div className='hfui-settings__title'>
-          Settings
+          {dictionary.settings}
         </div>
 
         <div className='hfui-settings__content'>
@@ -114,11 +118,10 @@ export default class Settings extends React.Component {
               */}
 
               <li>
-                <p className='hfui-settings__option-label'>Chart</p>
+                <p className='hfui-settings__option-label'>{dictionary.chart}</p>
                 <div className='hfui-settings__option-description'>
                   <p>
-                    NOTE: Only the HF UI Chart supports rendering order and position
-                    lines
+                    {dictionary.chartNote}
                   </p>
                 </div>
 
@@ -136,17 +139,13 @@ export default class Settings extends React.Component {
                 <p className='hfui-settings__option-label'>Dead Man Switch</p>
                 <div className='hfui-settings__option-description'>
                   <p>
-                    Enabling the Dead Man switch will automatically cancel all
-                    active orders when the application closes.
+                    {dictionary.DMSNote}
                   </p>
                   <p className='important'>
-                    <em>Disabling this should be done with caution!</em>
+                    <em>{dictionary.DMSCaution}</em>
                   </p>
                   <p>
-                    Algorithmic orders are cancelled on application close;
-                    without the Dead Man switch, any atomic orders created by an
-                    AO will remain open, and state may be lost when the
-                    application is started up again.
+                    {dictionary.DMSDescription}
                   </p>
                 </div>
                 <div className='hfui-settings__option-check'>
@@ -164,26 +163,26 @@ export default class Settings extends React.Component {
                   <Checkbox
                     className='hfui-settings_check'
                     onChange={e => this.onOptionChange(e, 'ga')}
-                    label='Usage reporting'
+                    label={dictionary.usageReporting}
                     value={ga}
                   />
                 </div>
               </li>
 
               <li>
-                <p className='hfui-settings__option-label'>API credentials</p>
+                <p className='hfui-settings__option-label'>{dictionary.apiCredetials}</p>
                 <div className='hfui-settings__option-description'>
-                  <p>Fill in to update stored values</p>
+                  <p>{dictionary.apiCredetialsDescription}</p>
                 </div>
                 <div className='hfui-settings__option'>
                   <Input
-                    placeholder='API Key'
+                    placeholder={dictionary.apiKey}
                     onChange={e => this.onOptionChange(e, 'apiKey')}
                     className='hfui-settings__item-list'
                   />
                   <Input
                     type='password'
-                    placeholder='API Secret'
+                    placeholder={dictionary.apiSecret}
                     onChange={e => this.onOptionChange(e, 'apiSecret')}
                     className='hfui-settings__item-list'
                   />
@@ -194,7 +193,7 @@ export default class Settings extends React.Component {
                 <div className='hfui-settings__option'>
                   <Button
                     onClick={() => this.onSettingsSave(authToken)}
-                    label='Save'
+                    label={dictionary.save}
                     className='settings-save'
                     green
                   />
