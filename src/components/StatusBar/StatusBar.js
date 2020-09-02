@@ -1,8 +1,10 @@
 import React from 'react'
+import detectBrowserLanguage from 'detect-browser-language'
 import ClassNames from 'classnames'
 import NavbarButton from '../NavbarButton'
 import MANIFEST from '../../../package.json'
 import { propTypes, defaultProps } from './StatusBar.props'
+import i18n from './i18n.json'
 import './style.css'
 
 export default class StatusBar extends React.Component {
@@ -12,6 +14,9 @@ export default class StatusBar extends React.Component {
     const {
       wsConnected, remoteVersion, apiClientStates, currentExchange, toggleFeedback, feedbackVisible,
     } = this.props
+
+    const lng = detectBrowserLanguage()
+    const dictionary = i18n[lng]
 
     const apiClientState = apiClientStates[currentExchange]
     const apiClientConnected = apiClientState === 2
@@ -24,7 +29,7 @@ export default class StatusBar extends React.Component {
           <p>
             {remoteVersion && remoteVersion !== MANIFEST.version ? (
               <NavbarButton
-                label='Update to latest version'
+                label={dictionary.update}
                 external='https://github.com/bitfinexcom/bfx-hf-ui/releases'
               />
             ) : null}
@@ -35,24 +40,24 @@ export default class StatusBar extends React.Component {
 
           <p>
             {apiClientConnected
-              ? `UNLOCKED FOR ${currentExchange.toUpperCase()}`
-              : 'LOCKED'}
+              ? `${dictionary.unlockedFor} ${currentExchange.toUpperCase()}`
+              : `${dictionary.locked}`}
           </p>
           <p
             className='feedback'
             onClick={() => toggleFeedback(feedbackVisible)}
           >
-            Feedback
+            {dictionary.feedback}
           </p>
         </div>
 
         <div className='hfui-statusbar__right'>
           <p>
             {apiClientConnected
-              ? 'HF Connected'
+              ? dictionary.hfConnected
               : apiClientConnecting
-                ? 'HF Connecting'
-                : 'HF Disconnected'}
+                ? dictionary.hfConnecting
+                : dictionary.hfDisconnected}
           </p>
 
           <span className={ClassNames('hfui-statusbar__statuscircle', {
@@ -62,7 +67,7 @@ export default class StatusBar extends React.Component {
           })}
           />
 
-          <p>{wsConnected ? 'WS Connected' : 'WS Disconnected'}</p>
+          <p>{wsConnected ? dictionary.wsConnected : dictionary.wsDisconnected}</p>
 
           <span className={ClassNames('hfui-statusbar__statuscircle', {
             green: wsConnected,

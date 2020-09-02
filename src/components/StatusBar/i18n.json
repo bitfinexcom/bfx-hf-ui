@@ -1,0 +1,24 @@
+{
+    "ru-RU": {
+        "update": "Обновить до последней версии",
+        "unlockedFor": "ОТКРЫТО ДЛЯ", 
+        "locked": "ЗАКРЫТО",
+        "feedback": "Обратная Связь",
+        "hfConnected": "HF Соединен",
+        "hfDisconnected": "HF Отсоединен",
+        "hfConnecting": "Идет Соединение HF",
+        "wsConnected": "WS Соединен",
+        "wsDisconnected": "WS Отсоединен"
+    }, 
+    "en-EN": {
+        "update": "Update to latest version",
+        "unlockedFor": "UNLOCKED FOR", 
+        "locked": "LOCKED",
+        "feedback": "feedback",
+        "hfConnected": "HF Connected",
+        "hfDisconnected": "HF Disconnected",
+        "hfConnecting": "HF Connecting",
+        "wsConnected": "WS Connected",
+        "wsDisconnected": "WS Disconnected"
+    }
+}
