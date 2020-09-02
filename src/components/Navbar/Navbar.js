@@ -1,27 +1,31 @@
 import React from 'react'
 import { Icon } from 'react-fa'
+import detectBrowserLanguage from 'detect-browser-language'
 
 import HFIcon from '../../ui/HFIcon'
 import NavbarButton from '../NavbarButton'
 import { propTypes, defaultProps } from './Navbar.props'
+import i18n from './i18n.json'
 import './style.css'
 
+const lng = detectBrowserLanguage()
+const dictionary = i18n[lng]
 const items = [
   {
     route: '/',
-    label: 'Trading Terminal',
+    label: dictionary.tradingTerminal,
   },
   {
     route: '/data',
-    label: 'Market Data',
+    label: dictionary.marketData,
   },
   {
     route: '/strategy-editor',
-    label: 'Strategy Editor',
+    label: dictionary.strategyEditor,
   },
   {
     route: '/settings',
-    label: [<Icon name='cog' key='cog' />, <p key='label'>Settings</p>],
+    label: [<Icon name='cog' key='cog' />, <p key='label'>{dictionary.settings}</p>],
   },
 ]
 

@@ -1,0 +1,14 @@
+{
+    "ru-RU": {
+        "tradingTerminal": "Торговый терминал",
+        "marketData": "Рыночные данные",
+        "strategyEditor": "Редактор стратегий",
+        "settings": "Настройки"
+    }, 
+    "en-EN": {
+        "tradingTerminal": "Trading terminal",
+        "marketData": "Market data",
+        "strategyEditor": "Strategy editor",
+        "settings": "Settings"
+    }
+}
