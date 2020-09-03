@@ -10,6 +10,10 @@ import quotePrefix from '../../util/quote_prefix'
 import { propTypes, defaultProps } from './ExchangeInfoBar.props'
 import './style.css'
 
+import i18n from './i18n.json'
+
+const dictionary = i18n['ru-RU']
+
 export default class ExchangeInfoBar extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -36,7 +40,7 @@ export default class ExchangeInfoBar extends React.PureComponent {
       <div className='hfui-exchangeinfobar__wrapper'>
         <div className='hfui-exchangeinfobar__left'>
           <ExchangeInfoBarItem
-            label='Exchange'
+            label={dictionary.exchange}
             value={(
               <Select
                 onChange={({ value }) => {
@@ -59,7 +63,7 @@ export default class ExchangeInfoBar extends React.PureComponent {
           />
 
           <ExchangeInfoBarItem
-            label='Market'
+            label={dictionary.market}
             value={(
               <MarketSelect
                 markets={marketsForActiveExchange}
@@ -76,7 +80,7 @@ export default class ExchangeInfoBar extends React.PureComponent {
             <ExchangeInfoBarItem
               text
               vertical
-              label='Last Price'
+              label={dictionary.lastPrice}
               value={lastPrice || '-'}
               valuePrefix={quotePrefix(activeMarket.quote)}
             />
@@ -84,7 +88,7 @@ export default class ExchangeInfoBar extends React.PureComponent {
             <ExchangeInfoBarItem
               text
               vertical
-              label='24h Change'
+              label={dictionary.change24}
               value={dailyChange || '-'}
               valuePrefix={quotePrefix(activeMarket.quote)}
               dataClassName={
@@ -97,7 +101,7 @@ export default class ExchangeInfoBar extends React.PureComponent {
             <ExchangeInfoBarItem
               text
               vertical
-              label='24h Change %'
+              label={dictionary.change24percent}
               valueSuffix='%'
               value={dailyChangePerc ? dailyChangePerc * 100 : '-'}
               dataClassName={
@@ -110,7 +114,7 @@ export default class ExchangeInfoBar extends React.PureComponent {
             <ExchangeInfoBarItem
               text
               vertical
-              label='24h High'
+              label={dictionary.high24}
               valuePrefix={quotePrefix(activeMarket.quote)}
               value={high || '-'}
             />
@@ -118,7 +122,7 @@ export default class ExchangeInfoBar extends React.PureComponent {
             <ExchangeInfoBarItem
               text
               vertical
-              label='24h Low'
+              label={dictionary.low24}
               valuePrefix={quotePrefix(activeMarket.quote)}
               value={low || '-'}
             />
@@ -126,7 +130,7 @@ export default class ExchangeInfoBar extends React.PureComponent {
             <ExchangeInfoBarItem
               text
               vertical
-              label='24h Volume'
+              label={dictionary.volume24}
               value={volume || '-'}
             />
           </ul>
