@@ -1,0 +1,22 @@
+{
+    "ru-RU": {
+        "exchange": "Биржа",
+        "market": "Рынок",
+        "lastPrice": "Последняя Цена",
+        "change24": "24ч Изменение",
+        "change24percent": "24ч Изменение %",
+        "low24": "Нижнее 24ч",
+        "high24": "Высшее 24ч",
+        "volume": "Объем 24ч"
+    },
+    "en-EN": {
+        "exchange": "Exchange",
+        "market": "Market",
+        "lastPrice": "Last Price",
+        "change24": "24h Change",
+        "change24percent": "24h Change %",
+        "low24": "24h Low",
+        "high24": "24h High",
+        "volume": "Volume 24h"
+    }
+}
