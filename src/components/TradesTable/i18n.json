@@ -1,0 +1,12 @@
+{
+    "ru-RU": {
+        "time": "Время",
+        "amount": "Количество",
+        "price": "Цена"
+    }, 
+    "en-EN": {
+        "time": "Time",
+        "amount": "Total",
+        "price": "Price"
+    }
+}
