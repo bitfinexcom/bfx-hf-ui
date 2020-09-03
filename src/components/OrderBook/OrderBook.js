@@ -9,11 +9,13 @@ import PLNumber from '../../ui/PLNumber'
 import OBSide from './OBSide'
 import Spinner from '../../ui/Spinner'
 import { propTypes, defaultProps } from './OrderBook.props'
+import i18n from './i18n.json'
 import './style.css'
 
 // Temporary restriction to suit the design mockups;
 // Remove once the design can handle deep OBs
 const TEMP_OB_SIDE_LENGTH_LIMIT = 12
+const dictionary = i18n['ru-RU']
 
 // TODO: Unified/split views
 export default class OrderBook extends React.Component {
@@ -60,9 +62,9 @@ export default class OrderBook extends React.Component {
       >
         {stackedView ? [
           <div key='header' className='hfui-orderbook__header'>
-            <p>Amount</p>
-            <p>Total</p>
-            <p>Price</p>
+            <p>{dictionary.amount}</p>
+            <p>{dictionary.total}</p>
+            <p>{dictionary.price}</p>
           </div>,
 
           <ul key='ob'>

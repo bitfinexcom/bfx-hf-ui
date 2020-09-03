@@ -1,0 +1,12 @@
+{
+    "ru-RU": {
+       "amount": "Количество",
+       "total": "Сумма",
+       "price": "Цена" 
+    },
+    "en-EN": {
+       "amount": "Amount",
+       "total": "Total",
+       "price": "Price" 
+    }
+}
