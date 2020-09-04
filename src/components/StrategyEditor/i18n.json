@@ -1,0 +1,21 @@
+{
+    "ru-RU": {
+        "create": "Создайте",
+        "aNewStrategyOr": "новую стратегию или",
+        "open": "откройте",
+        "existingOne": "существующую.",
+        "strategyEditor": "Редактор",
+        "newStrategy": "Новая Стратегия",
+        "save": "Сохранить",
+        "openBtn": "Открыть"
+    },
+    "en-EN": {
+        "create": "Create",
+        "aNewStrategyOr": "a new Strategy or",
+        "open": "open",
+        "existingOne": "an existing one.",
+        "strategyEditor": "Strategy Editor",
+        "newStrategy": "New Strategy",
+        "openBtn": "Open"
+    }
+}

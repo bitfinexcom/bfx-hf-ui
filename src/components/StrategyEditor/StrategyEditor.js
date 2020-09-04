@@ -19,6 +19,10 @@ import OpenExistingStrategyModal from '../OpenExistingStrategyModal'
 import { propTypes, defaultProps } from './StrategyEditor.props'
 import './style.css'
 
+import i18n from './i18n.json'
+
+const dictionary = i18n['ru-RU']
+
 const debug = Debug('hfui-ui:c:strategy-editor')
 const STRATEGY_SECTIONS = [
   'defineIndicators',
@@ -306,16 +310,16 @@ export default class StrategyEditor extends React.PureComponent {
             className='button'
             onClick={this.onOpenCreateModal}
           >
-            Create
+            {dictionary.create}
           </p>
-          <p>a new strategy or</p>
+          <p>{dictionary.aNewStrategyOr}</p>
           <p
             className='button'
             onClick={this.onOpenSelectModal}
           >
-            open
+            {dictionary.open}
           </p>
-          <p>an existing one.</p>
+          <p>{dictionary.existingOne}</p>
         </div>
 
         {createNewStrategyModalOpen && (
