@@ -9,7 +9,10 @@ import Dropdown from '../../ui/Dropdown'
 import { propTypes, defaultProps } from './OpenExistingStrategyModal.props'
 import './style.css'
 
+import i18n from './i18n.json'
+
 const debug = Debug('hfui:c:open-existing-strategy-modal')
+const dictionary = i18n['ru-RU']
 
 export default class OpenExistingStrategyModal extends React.Component {
   static propTypes = propTypes
@@ -59,7 +62,7 @@ export default class OpenExistingStrategyModal extends React.Component {
       <Modal
         onClose={onClose}
         className='hfui-openexistingstrategymodal__wrapper'
-        label='Open Strategy'
+        label={dictionary.openStrategy}
         actions={(
           <Button
             onClick={this.onSubmit}
