@@ -6,6 +6,10 @@ import OnClickOutside from 'react-onclickoutside'
 import { propTypes, defaultProps } from './Dropdown.props'
 import './style.css'
 
+import i18n from './i18n.json'
+
+const dictionary = i18n['ru-RU']
+
 class Dropdown extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -64,7 +68,7 @@ class Dropdown extends React.Component {
                 'with-icon': icon,
               })}
             >
-              {(options.find(o => o.value === value) || {}).label || fallback || 'Select an option'}
+              {(options.find(o => o.value === value) || {}).label || fallback || dictionary.select}
             </p>
 
             <i className='icon-arrow-down-passive' />

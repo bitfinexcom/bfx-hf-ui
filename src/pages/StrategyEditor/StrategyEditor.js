@@ -11,6 +11,10 @@ import { propTypes, defaultProps } from './StrategyEditor.props'
 
 import './style.css'
 
+import i18n from './i18n.json'
+
+const dictionary = i18n['ru-RU']
+
 const DocsPath = require('bfx-hf-strategy/docs/api.md')
 
 export default class StrategyEditorPage extends React.Component {
@@ -89,11 +93,11 @@ export default class StrategyEditorPage extends React.Component {
             darkHeader
           >
             <Markdown
-              tabTitle='Docs'
+              tabTitle={dictionary.docs}
               text={docsText}
             />
             <div
-              tabTitle='Backtest'
+              tabTitle={dictionary.backtest}
               style={{ height: 1200 }}
             >
               <Backtester
@@ -103,7 +107,7 @@ export default class StrategyEditorPage extends React.Component {
               />
             </div>
             <div
-              tabTitle='Execute'
+              tabTitle={dictionary.execute}
             >
               <LiveStrategyExecutor
                 strategyContent={strategyContent}
