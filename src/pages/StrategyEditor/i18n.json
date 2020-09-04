@@ -1,0 +1,12 @@
+{
+    "ru-RU": {
+        "docs": "Документы",
+        "backtest": "Бэктест",
+        "execute": "Выполнить"
+    }, 
+    "en-EN": {
+        "docs": "Docs",
+        "backtest": "Backtest",
+        "execute": "Execute"
+    }
+}

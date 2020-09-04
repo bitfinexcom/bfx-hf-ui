@@ -2,8 +2,11 @@ import React from 'react'
 
 import Button from '../../../ui/Button'
 import Panel from '../../../ui/Panel'
+import i18n from '../i18n.json'
 
 import { propTypes, defaultProps } from './StrategyEditorPanel.props'
+
+const dictionary = i18n['ru-RU']
 
 export default class StrategyEditorPanel extends React.PureComponent {
   static propTypes = propTypes
@@ -20,7 +23,7 @@ export default class StrategyEditorPanel extends React.PureComponent {
 
     return (
       <Panel
-        label='STRATEGY EDITOR'
+        label={dictionary.strategyEditor}
         className='hfui-strategyeditor__panel'
         dark={dark}
         darkHeader={dark}
@@ -37,7 +40,7 @@ export default class StrategyEditorPanel extends React.PureComponent {
               onClick={onOpenSelectModal}
               label={[
                 <i key='icon' className='icon-open' />,
-                <p key='text'>Open</p>,
+                <p key='text'>{dictionary.openBtn}</p>,
               ]}
             />
 
@@ -46,7 +49,7 @@ export default class StrategyEditorPanel extends React.PureComponent {
               onClick={onOpenCreateModal}
               label={[
                 <i key='icon' className='icon-strategy-editor-passive' />,
-                <p key='text'>New Strategy</p>,
+                <p key='text'>{dictionary.newStrategy}</p>,
               ]}
             />
 
@@ -56,7 +59,7 @@ export default class StrategyEditorPanel extends React.PureComponent {
                 disabled={!strategyDirty}
                 label={[
                   <i key='icon' className='icon-save' />,
-                  <p key='text'>Save</p>,
+                  <p key='text'>{dictionary.save}</p>,
                 ]}
               />
             )}
