@@ -11,6 +11,10 @@ import Dropdown from '../../ui/Dropdown'
 import { propTypes, defaultProps } from './CreateNewStrategyModal.props'
 import './style.css'
 
+import i18n from './i18n.json'
+
+const dictionary = i18n['ru-RU']
+
 export default class CreateNewStrategyModal extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -18,7 +22,7 @@ export default class CreateNewStrategyModal extends React.Component {
   state = {
     label: '',
     error: '',
-    template: 'Blank',
+    template: dictionary.blank,
   }
 
   constructor(props) {
@@ -42,7 +46,7 @@ export default class CreateNewStrategyModal extends React.Component {
     const { onSubmit, onClose, gaCreateStrategy } = this.props
 
     if (_isEmpty(label)) {
-      this.setState(() => ({ error: 'Label empty' }))
+      this.setState(() => ({ error: dictionary.labelError }))
       return
     }
     gaCreateStrategy()
@@ -59,20 +63,20 @@ export default class CreateNewStrategyModal extends React.Component {
       <Modal
         onClose={onClose}
         className='hfui-createnewstrategymodal__wrapper'
-        label='Create a New Strategy'
+        label={dictionary.createStrategy}
         actions={(
           <Button
             green
-            label='Create'
+            label={dictionary.create}
             onClick={this.onSubmit}
           />
         )}
       >
-        <p className='notice'>Your strategy will be encrypted with a password before being sent to the server</p>
+        <p className='notice'>{dictionary.notice}</p>
 
         <Input
           type='text'
-          placeholder='Label'
+          placeholder={dictionary.label}
           value={label}
           onChange={this.onLabelChange}
         />

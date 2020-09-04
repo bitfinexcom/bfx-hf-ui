@@ -1,0 +1,18 @@
+{
+    "ru-RU": {
+        "label": "Метка",
+        "create": "Создать",
+        "createStrategy": "Создать новую Стратегию",
+        "notice": "Ваша стратегия будет зашифрована паролем перед отправкой на сервер",
+        "labelError": "Метка пуста",
+        "blank": "Пусто"
+    },
+    "en-EN": {
+        "label": "Label",
+        "create": "Create",
+        "createStrategy": "Create a new Strategy",
+        "notice": "Your strategy will be encrypted with a password before being sent to the server",
+        "labelError": "Lable empty",
+        "blank": "Blank"
+    }
+}
