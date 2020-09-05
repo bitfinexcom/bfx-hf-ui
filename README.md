@@ -7,6 +7,7 @@
 
 ```bash
 git clone https://github.com/bitfinexcom/bfx-hf-ui
+cd bfx-hf-ui
 npm  install
 ```
 Create folder to store local db
