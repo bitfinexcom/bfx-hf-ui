@@ -8,5 +8,10 @@
         "docs": "Docs",
         "backtest": "Backtest",
         "execute": "Execute"
+    },
+    "zh-ZH": {
+        "docs": "文件资料",
+        "backtest": "回测",
+        "execute": "执行"
     }
 }
