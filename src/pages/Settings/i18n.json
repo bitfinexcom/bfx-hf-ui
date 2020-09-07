@@ -27,5 +27,19 @@
         "apiKey":"API Key",
         "apiSecret":"API Secret",
         "save": "Save"
+    },
+    "zh-ZH": {
+        "settings": "设定值",
+        "chart": "图表",
+        "chartNote": "注意：仅HF UI图表支持渲染顺序和位置线。",
+        "DMSNote": "当应用程序关闭时，启用“ Dead Man”开关将自动取消所有活动订单。",
+        "DMSCaution": "禁用此功能时应格外小心！",
+        "DMSDescription": "算法订单在应用程序关闭时被取消； 如果没有“死人”开关，则由AO创建的任何原子顺序将保持打开状态，并且在再次启动应用程序时，状态可能会丢失。",
+        "usageReporting": "使用情况报告",
+        "apiCredentials": "API凭证",
+        "apiCredentialsDescrition": "填写以更新存储的值",
+        "apiKey":"API密钥",
+        "apiSecret":"API秘密",
+        "save": "保存"
     }
 }
