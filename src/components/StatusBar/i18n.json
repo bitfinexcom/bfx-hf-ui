@@ -20,5 +20,16 @@
         "hfConnecting": "HF Connecting",
         "wsConnected": "WS Connected",
         "wsDisconnected": "WS Disconnected"
+    },
+    "zh-ZH": {
+        "update": "更新到最新版本",
+        "unlockedFor": "解锁", 
+        "locked": "已锁定",
+        "feedback": "反馈",
+        "hfConnected": "HF连接的",
+        "hfDisconnected": "HF断线",
+        "hfConnecting": "HF连接中",
+        "wsConnected": "WS连接的",
+        "wsDisconnected": "WS断线"
     }
 }
