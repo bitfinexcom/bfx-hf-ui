@@ -17,5 +17,14 @@
         "strategyEditor": "Strategy Editor",
         "newStrategy": "New Strategy",
         "openBtn": "Open"
+    },
+    "zh-ZH": {
+        "create": "创造",
+        "aNewStrategyOr": "新策略或",
+        "open": "打开",
+        "existingOne": "现有的。",
+        "strategyEditor": "策略编辑",
+        "newStrategy": "新策略",
+        "openBtn": "打开"
     }
 }
