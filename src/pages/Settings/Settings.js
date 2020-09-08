@@ -1,7 +1,6 @@
 import React from 'react'
 import _capitalize from 'lodash/capitalize'
 import { UserSettings } from 'bfx-hf-ui-config'
-import detectBrowserLanguage from 'detect-browser-language'
 
 import StatusBar from '../../components/StatusBar'
 import Select from '../../ui/Select'
@@ -37,6 +36,7 @@ export default class Settings extends React.PureComponent {
       theme,
       dms,
       ga,
+      lang: 'en-EN',
     }
 
     this.onSubmitAPIKeys = this.onSubmitAPIKeys.bind(this)
@@ -77,10 +77,11 @@ export default class Settings extends React.PureComponent {
 
   render() {
     const { CHARTS } = UserSettings
+    const languages = ['ru-RU', 'en-EN', 'zh-ZH']
     const charts = Object.keys(CHARTS).map(key => CHARTS[key])
     const { authToken } = this.props
-    const lng = detectBrowserLanguage()
-    const dictionary = i18n[lng]
+    const { lang } = this.state
+    const dictionary = i18n[lang]
 
     // eslint-disable-next-line react/destructuring-assignment
     if (this.props.chart && (!this.state.chart || this.state.dms === undefined)) {
@@ -134,7 +135,23 @@ export default class Settings extends React.PureComponent {
                   />
                 </div>
               </li>
+              <li>
+                <p className='hfui-settings__option-label'>{dictionary.chart}</p>
+                <div className='hfui-settings__option-description'>
+                  <p>
+                    {dictionary.chartNote}
+                  </p>
+                </div>
 
+                <div className='hfui-settings__item-list'>
+                  <Select
+                    value={{ value: lang, label: lang }}
+                    className='hfui-setting__select'
+                    options={languages.map(l => ({ value: l, label: l }))}
+                    onChange={e => this.onOptionChange(e, 'lang')}
+                  />
+                </div>
+              </li>
               <li>
                 <p className='hfui-settings__option-label'>Dead Man Switch</p>
                 <div className='hfui-settings__option-description'>
