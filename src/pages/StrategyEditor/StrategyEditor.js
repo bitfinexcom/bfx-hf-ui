@@ -31,6 +31,7 @@ export default class StrategyEditorPage extends React.Component {
         content: 'Or open an existing one',
       },
       {
+        locale: { last: 'Finish' },
         target: '.hfui-markdown__wrapper',
         content: 'In this section you find the available function declarations to code your own strategies',
       },

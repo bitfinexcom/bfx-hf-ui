@@ -44,6 +44,7 @@ export default class Trading extends React.PureComponent {
         content: 'This bar shows all statuses you need to know',
       },
       {
+        locale: { last: 'Finish' },
         target: '.hfui-statusbar__left',
         content: 'Here you can find the current version of your app, in case there is an update, there will be an update button',
       },

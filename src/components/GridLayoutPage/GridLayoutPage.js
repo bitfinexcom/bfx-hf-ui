@@ -56,6 +56,7 @@ export default class GridLayoutPage extends React.Component {
         content: 'With this button you can save your custom layout',
       },
       {
+        locale: { last: 'Finish' },
         target: '.hfui-remove-layout__btn',
         content: 'Or delete it',
       },
