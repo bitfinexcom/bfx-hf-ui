@@ -111,7 +111,6 @@ export default class StrategyEditorPage extends React.Component {
            callback={this.onGuideFinish}
            run={isGuideActive}
            continuous
-           scrollToFirstStep
            showProgress
            showSkipButton
            styles={{

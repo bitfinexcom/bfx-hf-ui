@@ -95,7 +95,6 @@ export default class Trading extends React.PureComponent {
            steps={steps}
            run={isGuideActive}
            continuous
-           scrollToFirstStep
            showProgress
            showSkipButton
            styles={{

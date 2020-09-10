@@ -225,7 +225,6 @@ export default class GridLayoutPage extends React.Component {
            steps={steps}
            run={isGuideActive}
            continuous
-           scrollToFirstStep
            showProgress
            showSkipButton
            styles={{
