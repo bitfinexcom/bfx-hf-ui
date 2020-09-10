@@ -2,8 +2,6 @@ import React from 'react'
 import _capitalize from 'lodash/capitalize'
 import { UserSettings } from 'bfx-hf-ui-config'
 
-import Joyride from 'react-joyride'
-
 import StatusBar from '../../components/StatusBar'
 import Select from '../../ui/Select'
 import Checkbox from '../../ui/Checkbox'
@@ -37,32 +35,6 @@ export default class Settings extends React.Component {
       theme,
       dms,
       ga,
-      steps: [
-        {
-          target: '.chart',
-          content: 'Here you can select a chart you want to use. It is shown on the Trading page.',
-        },
-        {
-          target: '.dms',
-          content: 'With this button you can enable/disable DMS switch.',
-        },
-        {
-          target: '.ga',
-          content: 'If you will enable Google analytics it will help us make our app even better. Thank you!',
-        },
-        {
-          target: '.api-key',
-          content: 'In this field you should provide your API key to your bitfinex account.',
-        },
-        {
-          target: '.api-secret',
-          content: 'And here you should provide your secret key.',
-        },
-        {
-          target: '.settings-save',
-          content: 'After all steps press this button, to update your settings.',
-        },
-      ],
     }
 
     this.onSubmitAPIKeys = this.onSubmitAPIKeys.bind(this)
@@ -104,7 +76,7 @@ export default class Settings extends React.Component {
   render() {
     const { CHARTS } = UserSettings
     const charts = Object.keys(CHARTS).map(key => CHARTS[key])
-    const { authToken, firstLogin } = this.props
+    const { authToken } = this.props
 
     // eslint-disable-next-line react/destructuring-assignment
     if (this.props.chart && (!this.state.chart || this.state.dms === undefined)) {
@@ -117,7 +89,7 @@ export default class Settings extends React.Component {
     }
 
     const {
-      chart, dms, ga, steps,
+      chart, dms, ga,
     } = this.state
 
     return (
@@ -125,14 +97,6 @@ export default class Settings extends React.Component {
         <div className='hfui-settings__title'>
           Settings
         </div>
-        {firstLogin
-         && (
-         <Joyride
-           steps={steps}
-           run
-           continuous
-         />
-         )}
         <div className='hfui-settings__content'>
           <div>
             <ul className='hfui-settings__options'>

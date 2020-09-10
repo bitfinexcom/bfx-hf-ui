@@ -1,6 +1,6 @@
 import React from 'react'
 import randomColor from 'randomcolor'
-import Joyride from 'react-joyride'
+import Joyride, { STATUS } from 'react-joyride'
 
 import StrategyEditor from '../../components/StrategyEditor'
 import Panel from '../../ui/Panel'
@@ -24,15 +24,15 @@ export default class StrategyEditorPage extends React.Component {
     steps: [
       {
         target: '.hfui-create-strategy__btn',
-        content: 'Create your own strategies.',
+        content: 'Create your own strategies',
       },
       {
         target: '.hfui-open-strategy__btn',
-        content: 'Or open existing one.',
+        content: 'Or open an existing one',
       },
       {
         target: '.hfui-markdown__wrapper',
-        content: 'here you can find all documentation you need, to code yourn own strategies.',
+        content: 'In this section you find the available function declarations to code your own strategies',
       },
     ],
   }
@@ -41,6 +41,7 @@ export default class StrategyEditorPage extends React.Component {
     super(props)
 
     this.onIndicatorsChange = this.onIndicatorsChange.bind(this)
+    this.onGuideFinish = this.onGuideFinish.bind(this)
   }
 
   componentDidMount() {
@@ -74,6 +75,16 @@ export default class StrategyEditorPage extends React.Component {
     }))
   }
 
+  onGuideFinish(data) {
+    const { finishGuide } = this.props
+    const { status } = data
+    const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED]
+
+    if (finishedStatuses.includes(status)) {
+      finishGuide()
+    }
+  }
+
   render() {
     const {
       indicators,
@@ -81,7 +92,7 @@ export default class StrategyEditorPage extends React.Component {
       docsText = '',
       steps,
     } = this.state
-    const { firstLogin } = this.props
+    const { firstLogin, isGuideActive } = this.props
     return (
       <div className='hfui-strategyeditorpage__wrapper'>
         <StrategyEditor
@@ -97,8 +108,17 @@ export default class StrategyEditorPage extends React.Component {
          && (
          <Joyride
            steps={steps}
-           run
+           callback={this.onGuideFinish}
+           run={isGuideActive}
            continuous
+           scrollToFirstStep
+           showProgress
+           showSkipButton
+           styles={{
+             options: {
+               zIndex: 10000,
+             },
+           }}
          />
          )}
         <div

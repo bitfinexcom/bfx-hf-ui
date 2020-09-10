@@ -1,6 +1,8 @@
 import { connect } from 'react-redux'
 
 import UIActions from '../../redux/actions/ui'
+import { TRADING_PAGE } from '../../redux/constants/ui'
+
 import {
   getLayouts, getActiveMarket, getActiveExchange,
 } from '../../redux/selectors/ui'
@@ -12,6 +14,7 @@ const mapStateToProps = (state = {}) => ({
   activeMarket: getActiveMarket(state),
   exID: getActiveExchange(state),
   firstLogin: state.ui.firstLogin,
+  isGuideActive: state.ui[`${TRADING_PAGE}_GUIDE_ACTIVE`],
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -25,6 +28,10 @@ const mapDispatchToProps = dispatch => ({
 
   deleteLayout: (id) => {
     dispatch(UIActions.deleteLayout(id))
+  },
+
+  finishGuide() {
+    dispatch(UIActions.finishGuide(TRADING_PAGE))
   },
 })
 

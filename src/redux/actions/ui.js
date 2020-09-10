@@ -74,6 +74,11 @@ const firstLogin = () => ({
   type: types.FIRST_LOGIN,
 })
 
+const finishGuide = (page) => ({
+  type: types.FINISH_GUIDE,
+  payload: page,
+})
+
 export default {
   setRoute,
   saveLayout,
@@ -86,4 +91,5 @@ export default {
   closeNotificationPanel,
   openNotifcationPanel,
   firstLogin,
+  finishGuide,
 }
