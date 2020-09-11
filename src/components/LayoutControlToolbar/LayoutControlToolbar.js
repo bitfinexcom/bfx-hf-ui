@@ -4,7 +4,9 @@ import Button from '../../ui/Button'
 import Dropdown from '../../ui/Dropdown'
 import { propTypes, defaultProps } from './LayoutControlToolbar.props'
 import './style.css'
+import i18n from './i18n.json'
 
+const dictionary = i18n['ru-RU']
 export default class LayoutControlToolbar extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -40,7 +42,7 @@ export default class LayoutControlToolbar extends React.PureComponent {
           onClick={onAddLayout}
           label={[
             <i key='icon' className='icon-plus' />,
-            <p key='text'>Add Layout</p>,
+            <p key='text'>{dictionary.addLayout}</p>,
           ]}
         />
 
@@ -49,7 +51,7 @@ export default class LayoutControlToolbar extends React.PureComponent {
           onClick={onAddComponent}
           label={[
             <i key='icon' className='icon-plus' />,
-            <p key='text'>Add Component</p>,
+            <p key='text'>{dictionary.addComponent}</p>,
           ]}
         />
 
@@ -59,7 +61,7 @@ export default class LayoutControlToolbar extends React.PureComponent {
           onClick={onSaveLayout}
           label={[
             <i key='icon' className='icon-save' />,
-            <p key='text'>Save</p>,
+            <p key='text'>{dictionary.save}</p>,
           ]}
         />
 
@@ -68,7 +70,7 @@ export default class LayoutControlToolbar extends React.PureComponent {
           disabled={!canDelete}
           label={[
             <i key='icon' className='icon-clear' />,
-            <p key='text'>Delete</p>,
+            <p key='text'>{dictionary.delete}</p>,
           ]}
         />
       </div>
