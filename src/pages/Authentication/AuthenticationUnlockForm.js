@@ -4,8 +4,10 @@ import _isEmpty from 'lodash/isEmpty'
 import Button from '../../ui/Button'
 import Input from '../../ui/Input'
 import { propTypes, defaultProps } from './AuthenticationUnlockForm.props'
+import i18n from './i18n.json'
 
 const ENTER_KEY_CODE = 13
+const dictionary = i18n['ru-RU']
 
 export default class AuthenticationInit extends React.Component {
   static propTypes = propTypes
@@ -53,7 +55,7 @@ export default class AuthenticationInit extends React.Component {
     return (
       <div className='hfui-authenticationpage__content' onKeyDown={this.onEnterPress}>
         <h2>Honey Framework UI</h2>
-        <p>Enter your password to unlock.</p>
+        <p>{dictionary.enterPassword}</p>
 
         <form className='hfui-authenticationpage__inner-form'>
           <Input
@@ -66,7 +68,7 @@ export default class AuthenticationInit extends React.Component {
           <Input
             type='password'
             autocomplete='current-password'
-            placeholder='Password'
+            placeholder={dictionary.password}
             value={password}
             onChange={this.onPasswordChange}
           />
@@ -74,17 +76,17 @@ export default class AuthenticationInit extends React.Component {
           <Button
             onClick={this.onUnlock}
             disabled={!submitReady}
-            label='Unlock'
+            label={dictionary.unlock}
             green
           />
         </form>
 
         <div className='hfui-authenticationpage__clear'>
-          <p>Alternatively, clear your credentials &amp; and stored data to set a new password.</p>
+          <p>{dictionary.clearCredentials}</p>
 
           <Button
             onClick={this.onReset}
-            label='Clear Data &amp; Reset'
+            label={dictionary.clearData}
             red
           />
         </div>

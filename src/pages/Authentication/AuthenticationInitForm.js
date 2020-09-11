@@ -4,7 +4,9 @@ import _isEmpty from 'lodash/isEmpty'
 import Button from '../../ui/Button'
 import Input from '../../ui/Input'
 import { propTypes, defaultProps } from './AuthenticationInitForm.props'
+import i18n from './i18n.json'
 
+const dictionary = i18n['ru-RU']
 export default class AuthenticationInit extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -54,7 +56,7 @@ export default class AuthenticationInit extends React.Component {
     return (
       <div className='hfui-authenticationpage__content'>
         <h2>Honey Framework UI</h2>
-        <p>Create a password to encrypt your API credentials &amp; strategies. All data is stored locally, and your password is hashed.</p>
+        <p>{dictionary.createPassword}</p>
 
         <form className='hfui-authenticationpage__inner-form'>
           <Input
@@ -68,7 +70,7 @@ export default class AuthenticationInit extends React.Component {
           <Input
             type='password'
             autocomplete='new-password'
-            placeholder='Password'
+            placeholder={dictionary.password}
             value={password}
             onChange={this.onPasswordChange}
           />
@@ -76,7 +78,7 @@ export default class AuthenticationInit extends React.Component {
           <Input
             type='password'
             autocomplete='new-password'
-            placeholder='Confirm password'
+            placeholder={dictionary.confirmPassword}
             value={confirmPassword}
             onChange={this.onConfirmPasswordChange}
           />
@@ -84,7 +86,7 @@ export default class AuthenticationInit extends React.Component {
           <Button
             onClick={this.onSubmit}
             disabled={!submitReady}
-            label='Save Credentials'
+            label={dictionary.saveCredentials}
             green
           />
 

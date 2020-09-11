@@ -1,0 +1,24 @@
+{
+    "ru-RU": {
+        "start": "Загружаем приложение...",
+        "enterPassword": "Введите ваш пароль для разблокировки.",
+        "password": "Пароль",
+        "unlock": "Разблокировать",
+        "clearCredentials": "Альтернативно, очистите свои данные учетной записи  & и хранимые данные для обновления пароля.",
+        "clearData": "Очистить данные",
+        "createPassword": "Создайте пароль для шифрования ваших API данные & стратегий. Все данные хранятся локально и ваши пароли зашифрованны.",
+        "confirmPassword": "Подтвердите Пароль",
+        "saveCredentials": "Сохранить Данные"
+    },
+    "en-EN": {
+        "start": "Starting up app...",
+        "enterPassword": "Enter your password to unlock.",
+        "password": "Password",
+        "unlock": "Unlock",
+        "clearCredentials": "Alternatively, clear your credentials & and stored data to set a new password.",
+        "clearData": "Clear data & reset",
+        "createPassword": "Create a password to encrypt your API credentials & strategies. All data is stored locally, and your password is hashed.",
+        "confirmPassword": "Confirm Password",
+        "saveCredentials": "Save Credentials"
+    }
+}
