@@ -10,6 +10,9 @@ import {
 
 import { propTypes, defaultProps } from './AddLayoutComponentModal.props'
 import './style.css'
+import i18n from './i18n.json'
+
+const dictionary = i18n['ru-RU']
 
 export default class AddLayoutComponentModal extends React.Component {
   static propTypes = propTypes
@@ -36,7 +39,7 @@ export default class AddLayoutComponentModal extends React.Component {
     const { onSubmit, onClose } = this.props
 
     if (_isEmpty(componentType) || !COMPONENT_LABELS[componentType]) {
-      this.setState(() => ({ error: 'Invalid Component' }))
+      this.setState(() => ({ error: dictionary.invalidComponent }))
       return
     }
 
@@ -52,14 +55,14 @@ export default class AddLayoutComponentModal extends React.Component {
       <Modal
         onClose={onClose}
         className='hfui-addlayoutcomponentmodal__wrapper'
-        label='Add Component'
+        label={dictionary.addComponent}
         actions={(
           <Button
             green
             onClick={this.onSubmit}
             label={[
               <i key='icon' className='icon-plus' />,
-              <p key='text'>Add Component</p>,
+              <p key='text'>{dictionary.addComponent}</p>,
             ]}
           />
         )}

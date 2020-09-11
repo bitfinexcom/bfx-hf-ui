@@ -1,0 +1,10 @@
+{
+    "ru-RU": {
+        "addComponent": "Добавить Компонент",
+        "invalidComponent": "Неправильный Компонент"
+    },
+    "en-EN": {
+        "addComponent": "Add Component",
+        "invalidComponent": "Invalid Component"
+    }
+}
