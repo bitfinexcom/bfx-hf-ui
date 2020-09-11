@@ -6,8 +6,10 @@ import Modal from '../../ui/Modal'
 import Button from '../../ui/Button'
 
 import { propTypes, defaultProps } from './CreateNewLayoutModal.props'
+import i18n from './i18n.json'
 import './style.css'
 
+const dictionary = i18n['ru-RU']
 export default class CreateNewLayoutModal extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -33,7 +35,7 @@ export default class CreateNewLayoutModal extends React.Component {
     const { onSubmit, onClose } = this.props
 
     if (_isEmpty(label)) {
-      this.setState(() => ({ error: 'Label empty' }))
+      this.setState(() => ({ error: dictionary.labelEmpty }))
       return
     }
 
@@ -49,21 +51,21 @@ export default class CreateNewLayoutModal extends React.Component {
       <Modal
         onClose={onClose}
         className='hfui-createnewlayoutmodal__wrapper'
-        label='Add Layout'
+        label={dictionary.addLayout}
         actions={(
           <Button
             green
             onClick={this.onSubmit}
             label={[
               <i key='icon' className='icon-plus' />,
-              <p key='text'>Add Layout</p>,
+              <p key='text'>{dictionary.addLayout}</p>,
             ]}
           />
         )}
       >
         <Input
           type='text'
-          placeholder='Layout Name'
+          placeholder={dictionary.layoutName}
           value={label}
           onChange={this.onLabelChange}
         />

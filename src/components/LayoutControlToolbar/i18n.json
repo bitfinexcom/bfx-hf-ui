@@ -1,0 +1,14 @@
+{
+    "ru-RU": {
+        "addComponent": "Добавить Компонент",
+        "addLayout": "Добавить Макет",
+        "save": "Сохранить",
+        "delete": "Удалить"
+    },
+    "en-EN": {
+        "addComponent": "Add Component",
+        "addLayout": "Add Layout",
+        "save": "Save",
+        "delete": "Delete"
+    }
+}

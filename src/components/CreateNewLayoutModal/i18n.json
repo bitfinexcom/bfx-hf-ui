@@ -1,0 +1,15 @@
+{
+    "ru-RU": {
+        "addLayout": "Добавить Макет",
+        "layoutName": "Имя Макета",
+        "labelEmpty": "Поле Пусто"
+    },
+    "en-EN": {
+        "addLayout": "Add Layout",
+        "layoutName": "Layout Name",
+        "label": "Label Empty"
+    },
+    "zh-ZH": {
+
+    }
+}
