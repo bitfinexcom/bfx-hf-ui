@@ -11,6 +11,10 @@ import Panel from '../../ui/Panel'
 import nearestMarket from '../../util/nearest_market'
 import { propTypes, defaultProps } from './OrderBookPanel.props'
 
+import i18n from './i18n.json'
+
+const dictionary = i18n['ru-RU']
+
 export default class OrderBookPanel extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -215,7 +219,7 @@ export default class OrderBookPanel extends React.Component {
 
     return (
       <Panel
-        label='ORDER BOOK'
+        label={dictionary.orderBook}
         dark={dark}
         darkHeader={dark}
         onRemove={onRemove}
