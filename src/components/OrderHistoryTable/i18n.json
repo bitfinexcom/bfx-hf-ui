@@ -1,0 +1,14 @@
+{
+    "ru-RU": {
+        "orderHistory": "ИСТОРИЯ ОРДЕРОВ",
+        "price":"Цена",
+        "amount":"Количество",
+        "type": "Тип"
+    }, 
+    "en-EN": {
+        "orderHistory": "ORDER HISTORY",
+        "price":"Price",
+        "amount":"Amount",
+        "type": "Type"
+    }
+}

@@ -5,6 +5,10 @@ import Panel from '../../ui/Panel'
 import OrderHistoryTableColumns from './OrderHistoryTable.columns'
 import { propTypes, defaultProps } from './OrderHistoryTable.props'
 
+import i18n from './i18n.json'
+
+const dictionary = i18n['ru-RU']
+
 export default class OrderHistoryTable extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -24,7 +28,7 @@ export default class OrderHistoryTable extends React.PureComponent {
 
     return (
       <Panel
-        label='ORDER HISTORY'
+        label={dictionary.orderHistory}
         onRemove={onRemove}
         dark={dark}
         darkHeader={dark}
