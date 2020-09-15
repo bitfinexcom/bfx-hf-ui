@@ -1,5 +1,9 @@
 import PropTypes from 'prop-types'
 
+import i18n from './i18n.json'
+
+const dictionary = i18n['ru-RU']
+
 export const propTypes = {
   label: PropTypes.string,
   layoutID: PropTypes.string.isRequired,
@@ -23,7 +27,7 @@ export const propTypes = {
 }
 
 export const defaultProps = {
-  label: 'TRADES',
+  label: dictionary.trades,
   canChangeExchange: true,
   canChangeMarket: true,
   dark: false,
