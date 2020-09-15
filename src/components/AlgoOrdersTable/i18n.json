@@ -1,0 +1,18 @@
+{
+    "ru-RU": {
+        "name": "Имя",
+        "exchange":"Обменник",
+        "context": "Контекст",
+        "created": "Созданно",
+        "symbol": "Символ",
+        "label": "Метка"
+    },
+    "en-EN": {
+        "name": "Name",
+        "exchange":"Exchange",
+        "context": "Context",
+        "created": "Created",
+        "symbol": "Symbol",
+        "label": "Label"
+    }
+}

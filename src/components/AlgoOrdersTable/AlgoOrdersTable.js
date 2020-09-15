@@ -5,6 +5,10 @@ import { Icon } from 'react-fa'
 import { propTypes, defaultProps } from './AlgoOrdersTable.props'
 import './style.css'
 
+import i18n from './i18n.json'
+
+const dictionary = i18n['ru-RU']
+
 export default class AlgoOrdersTable extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -43,33 +47,33 @@ export default class AlgoOrdersTable extends React.PureComponent {
             <div className='hfui-ao-list__entry-row'>
               <div className='hfui-ao-list__entry-row-elm'>
                 <p className='hfui-ao-list__entry-row-elm-value'>{ao.name}</p>
-                <p className='hfui-ao-list__entry-row-elm-label'>Name</p>
+                <p className='hfui-ao-list__entry-row-elm-label'>{dictionary.name}</p>
               </div>
 
               <div className='hfui-ao-list__entry-row-elm'>
                 <p className='hfui-ao-list__entry-row-elm-value'>{_capitalize(ao.exID)}</p>
-                <p className='hfui-ao-list__entry-row-elm-label'>Exchange</p>
+                <p className='hfui-ao-list__entry-row-elm-label'>{dictionary.exchange}</p>
               </div>
 
               <div className='hfui-ao-list__entry-row-elm'>
                 <p className='hfui-ao-list__entry-row-elm-value'>{ao.args._margin ? 'Margin' : 'Exchange'}</p>
-                <p className='hfui-ao-list__entry-row-elm-label'>Context</p>
+                <p className='hfui-ao-list__entry-row-elm-label'>{dictionary.context}</p>
               </div>
 
               <div className='hfui-ao-list__entry-row-elm'>
                 <p className='hfui-ao-list__entry-row-elm-value'>{new Date(+ao.gid).toLocaleString()}</p>
-                <p className='hfui-ao-list__entry-row-elm-label'>Created</p>
+                <p className='hfui-ao-list__entry-row-elm-label'>{dictionary.created}</p>
               </div>
             </div>
 
             <div className='hfui-ao-list__entry-row'>
               <div className='hfui-ao-list__entry-row-elm'>
                 <p className='hfui-ao-list__entry-row-elm-value'>{ao.args.symbol}</p>
-                <p className='hfui-ao-list__entry-row-elm-label'>Symbol</p>
+                <p className='hfui-ao-list__entry-row-elm-label'>{dictionary.symbol}</p>
               </div>
               <div className='hfui-ao-list__entry-row-elm'>
                 <p className='hfui-ao-list__entry-row-elm-value'>{ao.label}</p>
-                <p className='hfui-ao-list__entry-row-elm-label'>Label</p>
+                <p className='hfui-ao-list__entry-row-elm-label'>{dictionary.label}</p>
               </div>
             </div>
           </li>
