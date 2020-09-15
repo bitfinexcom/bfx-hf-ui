@@ -11,6 +11,10 @@ import BalancesTable from '../BalancesTable'
 import { propTypes, defaultProps } from './TradingStatePanel.props'
 import './style.css'
 
+import i18n from './i18n.json'
+
+const dictionary = i18n['ru-RU']
+
 const renderCounter = (num) => {
   if (num <= 0) {
     return ''
@@ -130,7 +134,7 @@ export default class TradingStatePanel extends React.Component {
 
     return (
       <Panel
-        label='TRADING STAGE'
+        label={dictionary.tradingStage}
         className='hfui-tradingstatepanel__wrapper'
         moveable={false}
         removeable={false}
@@ -158,7 +162,7 @@ export default class TradingStatePanel extends React.Component {
           </div>
         ), (
           <div key='filter-by'>
-            <p className='hfui-uppercase'>Filter By:</p>
+            <p className='hfui-uppercase'>{dictionary.filtredBy}</p>
           </div>
         )]}
       >
@@ -170,22 +174,22 @@ export default class TradingStatePanel extends React.Component {
         >
           {/* eslint-disable */}
           <PositionsTable
-            tabTitle={<>Positions {renderCounter(positions.length)}</>}
+            tabTitle={<>{dictionary.positions} {renderCounter(positions.length)}</>}
             exID={activeExchange}
             positions={positions}
           />
           <AtomicOrdersTable
-            tabTitle={<>Atomics {renderCounter(atomicOrders.length)}</>}
+            tabTitle={<>{dictionary.atomics} {renderCounter(atomicOrders.length)}</>}
             exID={activeExchange}
             orders={atomicOrders}
           />
           <AlgoOrdersTable
-            tabTitle={<>Algos {renderCounter(algoOrders.length)}</>}
+            tabTitle={<>{dictionary.algos} {renderCounter(algoOrders.length)}</>}
             exID={activeExchange}
             orders={algoOrders}
           />
           <BalancesTable
-            tabTitle='Balances'
+            tabTitle={dictionary.balances}
             exID={activeExchange}
             hideZeroBalances
             balances={balances}

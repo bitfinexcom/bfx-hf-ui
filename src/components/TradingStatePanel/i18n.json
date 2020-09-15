@@ -1,0 +1,18 @@
+{
+    "ru-RU" : {
+        "tradingStage": "ЭТАП ТОРГОВЛИ",
+        "filtredBy": "Фильтры:",
+        "positions":"Позиции",
+        "atomics":"Атомарные",
+        "algos":"Алго",
+        "balances":"Балансы"
+    }, 
+    "en-EN": {
+        "tradingStage": "TRADING STAGE",
+        "filtredBy": "Filtred by:",
+        "positions":"Positions",
+        "atomics":"Atomics",
+        "algos":"Algos",
+        "balances":"Balances"
+    }
+}
