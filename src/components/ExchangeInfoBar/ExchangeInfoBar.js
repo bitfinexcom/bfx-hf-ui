@@ -12,8 +12,6 @@ import './style.css'
 
 import i18n from './i18n.json'
 
-const dictionary = i18n['ru-RU']
-
 export default class ExchangeInfoBar extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -27,13 +25,14 @@ export default class ExchangeInfoBar extends React.PureComponent {
     const {
       onChangeMarket, activeMarket, ticker, exchanges = [], activeExchange,
       onChangeExchange, markets, openNotifications, showTicker, showNotifications,
-      showAddComponent, onAddComponent, showSave, onSave,
+      showAddComponent, onAddComponent, showSave, onSave, lang,
     } = this.props
 
     const {
       lastPrice, dailyChange, dailyChangePerc, high, low, volume,
     } = ticker
 
+    const dictionary = i18n[lang]
     const marketsForActiveExchange = markets[activeExchange] || []
 
     return (
