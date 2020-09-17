@@ -1,5 +1,4 @@
 import React from 'react'
-import detectBrowserLanguage from 'detect-browser-language'
 import ClassNames from 'classnames'
 import NavbarButton from '../NavbarButton'
 import MANIFEST from '../../../package.json'
@@ -12,11 +11,10 @@ export default class StatusBar extends React.Component {
   static defaultProps = defaultProps
   render() {
     const {
-      wsConnected, remoteVersion, apiClientStates, currentExchange, toggleFeedback, feedbackVisible,
+      wsConnected, remoteVersion, apiClientStates, currentExchange, toggleFeedback, feedbackVisible, lang,
     } = this.props
 
-    const lng = detectBrowserLanguage()
-    const dictionary = i18n[lng]
+    const dictionary = i18n[lang] || {}
 
     const apiClientState = apiClientStates[currentExchange]
     const apiClientConnected = apiClientState === 2
