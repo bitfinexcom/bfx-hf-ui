@@ -18,5 +18,15 @@
         "low24": "24h Low",
         "high24": "24h High",
         "volume": "Volume 24h"
+    },
+    "zh-ZH": {
+        "exchange": "交换",
+        "market": "市场",
+        "lastPrice": "最后价格",
+        "change24": "24小时变更",
+        "change24percent": "24小时变化％",
+        "low24": "24小时低",
+        "high24": "24小时最高",
+        "volume": "24小时"
     }
 }
