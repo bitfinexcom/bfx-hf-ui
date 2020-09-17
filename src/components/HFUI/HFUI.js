@@ -19,14 +19,15 @@ export default class HFUI extends React.PureComponent {
   static defaultProps = defaultProps
 
   componentDidUpdate() {
-    const { GAPageview } = this.props
+    const { GAPageview, lang } = this.props
     GAPageview(window.location.pathname)
+    console.log('updated', lang)
   }
 
   render() {
     const {
       authToken, getLastVersion, getSettings, notificationsVisible,
-      feedbackVisible,
+      feedbackVisible, lang,
     } = this.props
     const oneHour = 360000
     getLastVersion()
@@ -45,7 +46,7 @@ export default class HFUI extends React.PureComponent {
 
     return (
       <div className='hfui-app'>
-        <Navbar />
+        <Navbar lang={lang} />
         {feedbackVisible
         && (<FeedbackModal />)}
         <Switch>

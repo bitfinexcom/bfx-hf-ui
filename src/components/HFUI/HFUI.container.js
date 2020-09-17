@@ -15,7 +15,7 @@ const mapStateToProps = (state = {}) => {
   const { location } = router
   const { pathname } = location
   const { ui } = state
-  const { notificationsVisible, feedbackVisible } = ui
+  const { notificationsVisible, feedbackVisible, lang } = ui
 
   return {
     currentPage: pathname,
@@ -23,6 +23,7 @@ const mapStateToProps = (state = {}) => {
     authToken: getAuthToken(state),
     notificationsVisible,
     feedbackVisible,
+    lang,
   }
 }
 
