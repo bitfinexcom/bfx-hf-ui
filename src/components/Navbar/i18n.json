@@ -10,5 +10,11 @@
         "marketData": "Market data",
         "strategyEditor": "Strategy editor",
         "settings": "Settings"
+    },
+    "zh-ZH": {
+        "tradingTerminal": "交易终端",
+        "marketData": "市场数据",
+        "strategyEditor": "策略编辑",
+        "settings": "设定值"
     }
 }
