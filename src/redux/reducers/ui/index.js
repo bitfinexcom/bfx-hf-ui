@@ -30,6 +30,7 @@ function getInitialState() {
     previousMarket: null,
     previousExchange: null,
     remoteVersion: null,
+    lang: 'en-EN',
   }
 
   if (!localStorage) {
@@ -209,6 +210,14 @@ function reducer(state = getInitialState(), action = {}) {
       return {
         ...state,
         route,
+      }
+    }
+
+    case types.СHANGE_LANGUAGE: {
+      const lang = payload
+      return {
+        ...state,
+        lang,
       }
     }
 
