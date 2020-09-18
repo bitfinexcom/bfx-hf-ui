@@ -75,6 +75,11 @@ const toggleFeedbackModal = (status) => ({
   payload: status,
 })
 
+const changeLanguage = (lang) => ({
+  type: types.СHANGE_LANGUAGE,
+  payload: lang,
+})
+
 export default {
   setRoute,
   saveLayout,
@@ -87,4 +92,5 @@ export default {
   closeNotificationPanel,
   openNotifcationPanel,
   toggleFeedbackModal,
+  changeLanguage,
 }
