@@ -69,6 +69,7 @@ export default class StrategyEditorPage extends React.Component {
       strategyContent,
       docsText = '',
     } = this.state
+    const { lang } = this.props
 
     return (
       <div className='hfui-strategyeditorpage__wrapper'>
@@ -119,6 +120,7 @@ export default class StrategyEditorPage extends React.Component {
         <StatusBar
           key='statusbar'
           displayLayoutControls={false}
+          lang={lang}
         />
       </div>
     )

@@ -2,7 +2,9 @@ import { connect } from 'react-redux'
 
 import StrategyEditor from './StrategyEditor'
 
-const mapStateToProps = state => ({}) // eslint-disable-line
+const mapStateToProps = state => ({
+  lang: state.ui.lang,
+}) // eslint-disable-line
 
 const mapDispatchToProps = dispatch => ({}) // eslint-disable-line
 
