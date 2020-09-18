@@ -34,7 +34,7 @@ export default class Trading extends React.PureComponent {
   }
 
   render() {
-    const { activeMarket } = this.props
+    const { activeMarket, lang } = this.props
     const commonComponentProps = {
       layoutID: LAYOUT_ID,
       moveable: true,
@@ -55,6 +55,7 @@ export default class Trading extends React.PureComponent {
           showSave
           onSave={() => this.grid.onSaveLayout()}
           onAddComponent={() => this.grid.onToggleAddComponentModal()}
+          lang={lang}
         />
         <div className='hfui-tradingpage__wrapper'>
           <div className='hfui-tradingpage__inner'>
@@ -64,6 +65,7 @@ export default class Trading extends React.PureComponent {
                 orders={orderDefinitions}
                 moveable={false}
                 removeable={false}
+                lang={lang}
               />
             </div>
 
@@ -74,12 +76,13 @@ export default class Trading extends React.PureComponent {
                   defaultLayoutID='Default Trading'
                   sharedProps={commonComponentProps}
                   showToolbar={false}
+                  lang={lang}
                 />
               </div>
             </div>
           </div>
 
-          <StatusBar />
+          <StatusBar lang={lang} />
         </div>
       </>
     )

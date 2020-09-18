@@ -11,6 +11,7 @@ const mapStateToProps = (state = {}) => ({
   layouts: getLayouts(state),
   activeMarket: getActiveMarket(state),
   exID: getActiveExchange(state),
+  lang: state.ui.lang,
 })
 
 const mapDispatchToProps = dispatch => ({
