@@ -17,7 +17,7 @@ import {
 const mapStateToProps = (state = {}, ownProps = {}) => {
   const { layoutID, layoutI: id } = ownProps
   const { ui = {} } = state
-  const { settings = {} } = ui
+  const { settings = {}, lang } = ui
   const {
     chart, theme, dms, ga,
   } = settings || {}
@@ -35,6 +35,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     theme,
     dms,
     ga,
+    lang,
   }
 }
 
@@ -72,6 +73,9 @@ const mapDispatchToProps = dispatch => ({
       theme,
       ga,
     ]))
+  },
+  changeLanguage: (lang) => {
+    dispatch(UIActions.changeLanguage(lang))
   },
 })
 

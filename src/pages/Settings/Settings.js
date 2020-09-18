@@ -36,7 +36,6 @@ export default class Settings extends React.PureComponent {
       theme,
       dms,
       ga,
-      lang: 'en-EN',
     }
 
     this.onSubmitAPIKeys = this.onSubmitAPIKeys.bind(this)
@@ -79,8 +78,8 @@ export default class Settings extends React.PureComponent {
     const { CHARTS } = UserSettings
     const languages = ['ru-RU', 'en-EN', 'zh-ZH']
     const charts = Object.keys(CHARTS).map(key => CHARTS[key])
-    const { authToken } = this.props
-    const { lang } = this.state
+    const { authToken, changeLanguage } = this.props
+    const { lang } = this.props
     const dictionary = i18n[lang]
 
     // eslint-disable-next-line react/destructuring-assignment
@@ -148,7 +147,7 @@ export default class Settings extends React.PureComponent {
                     value={{ value: lang, label: lang }}
                     className='hfui-setting__select'
                     options={languages.map(l => ({ value: l, label: l }))}
-                    onChange={e => this.onOptionChange(e, 'lang')}
+                    onChange={({ value }) => changeLanguage(value)}
                   />
                 </div>
               </li>
@@ -220,6 +219,7 @@ export default class Settings extends React.PureComponent {
           </div>
         </div>
         <StatusBar
+          lang={lang}
           key='statusbar'
           displayLayoutControls={false}
         />
