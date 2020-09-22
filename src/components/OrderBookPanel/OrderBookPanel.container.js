@@ -21,6 +21,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     savedState: getComponentState(state, layoutID, 'book', id),
     exchanges: getExchanges(state),
     allMarkets: getMarkets(state),
+    lang: state.ui.lang,
   }
 }
 

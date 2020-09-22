@@ -13,8 +13,6 @@ import { propTypes, defaultProps } from './OrderBookPanel.props'
 
 import i18n from './i18n.json'
 
-const dictionary = i18n['ru-RU']
-
 export default class OrderBookPanel extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -210,8 +208,10 @@ export default class OrderBookPanel extends React.Component {
   render() {
     const {
       onRemove, showExchange, showMarket, canChangeStacked, moveable,
-      removeable, dark,
+      removeable, dark, lang,
     } = this.props
+
+    const dictionary = i18n[lang]
 
     const {
       currentExchange, currentMarket, settingsOpen, sumAmounts, stackedView,
