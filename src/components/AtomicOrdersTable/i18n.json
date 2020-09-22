@@ -1,0 +1,22 @@
+{
+    "ru-RU": {
+        "symbol": "Символ",
+        "type": "Тип",
+        "amount": "Количество",
+        "price": "Цена",
+        "status": "Статус",
+        "actions": "Действия"
+
+    },
+    "en-EN": {
+        "symbol": "Symbol",
+        "type": "Type",
+        "amount": "Amount",
+        "price": "Price",
+        "status": "Status",
+        "actions": "Actions"
+    }, 
+    "zh-ZH": {
+
+    }
+}
