@@ -1,17 +1,17 @@
 import React from 'react'
 
-export default (exID, authToken, cancelOrder, gaCancelOrder) => [{
-  label: 'Symbol',
+export default (exID, authToken, cancelOrder, gaCancelOrder, dictionary) => [{
+  label: dictionary.symbol,
   dataKey: 'symbol',
   width: 120,
   cellRenderer: ({ rowData = {} }) => rowData.symbol,
 }, {
-  label: 'Type',
+  label: dictionary.type,
   dataKey: 'type',
   width: 120,
   cellRenderer: ({ rowData = {} }) => rowData.type,
 }, {
-  label: 'Amount',
+  label: dictionary.amount,
   dataKey: 'amount',
   width: 120,
   cellRenderer: ({ rowData = {} }) => (rowData.amount < 0 // eslint-disable-line
@@ -19,17 +19,17 @@ export default (exID, authToken, cancelOrder, gaCancelOrder) => [{
     : <span className='hfui-green'>{rowData.amount}</span>
   ),
 }, {
-  label: 'Price',
+  label: dictionary.price,
   dataKey: 'price',
   width: 120,
   cellRenderer: ({ rowData = {} }) => rowData.price,
 }, {
-  label: 'Status',
+  label: dictionary.status,
   dataKey: 'status',
   width: 100,
   cellRenderer: ({ rowData = {} }) => rowData.status,
 }, {
-  label: 'Actions',
+  label: dictionary.actions,
   dataKey: 'cid',
   width: 100,
   cellRenderer: ({ rowData = {} }) => ( // eslint-disable-line
