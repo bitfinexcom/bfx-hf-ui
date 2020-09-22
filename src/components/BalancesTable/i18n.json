@@ -1,0 +1,16 @@
+{
+    "en-EN": {
+        "exchange": "Exchange",
+        "context": "Context",
+        "currency": "Currency",
+        "balance": "Balance",
+        "available": "Available"
+    },
+    "ru-RU": {
+        "exchange": "Биржа",
+        "context": "Контекст",
+        "currency": "Валюта",
+        "balance": "Баланс",
+        "available": "Доступно"
+    }
+}
