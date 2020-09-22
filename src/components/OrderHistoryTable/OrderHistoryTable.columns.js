@@ -1,10 +1,6 @@
 import React from 'react'
 
-import i18n from './i18n.json'
-
-const dictionary = i18n['ru-RU']
-
-export default [{
+export default (dictionary) => [{
   label: dictionary.price,
   dataKey: 'price',
   width: 120,
