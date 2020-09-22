@@ -13,8 +13,6 @@ import './style.css'
 
 import i18n from './i18n.json'
 
-const dictionary = i18n['ru-RU']
-
 const renderCounter = (num) => {
   if (num <= 0) {
     return ''
@@ -123,9 +121,9 @@ export default class TradingStatePanel extends React.Component {
 
   render() {
     const {
-      onRemove, activeExchange, activeMarket, moveable, removeable,
+      onRemove, activeExchange, activeMarket, moveable, removeable, lang,
     } = this.props
-
+    const dictionary = i18n[lang]
     const { exchangeFilterActive, marketFilterActive } = this.state
     const atomicOrders = this.getFilteredAtomicOrders()
     const algoOrders = this.getFilteredAlgoOrders()
@@ -177,11 +175,13 @@ export default class TradingStatePanel extends React.Component {
             tabTitle={<>{dictionary.positions} {renderCounter(positions.length)}</>}
             exID={activeExchange}
             positions={positions}
+            lang={lang}
           />
           <AtomicOrdersTable
             tabTitle={<>{dictionary.atomics} {renderCounter(atomicOrders.length)}</>}
             exID={activeExchange}
             orders={atomicOrders}
+            lang={lang}
           />
           <AlgoOrdersTable
             tabTitle={<>{dictionary.algos} {renderCounter(algoOrders.length)}</>}

@@ -22,6 +22,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     atomicOrders: getAllOrders(state),
     positions: getAllPositions(state),
     balances: getAllBalances(state),
+    lang: state.ui.lang,
   }
 }
 
