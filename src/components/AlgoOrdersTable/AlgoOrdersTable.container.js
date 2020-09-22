@@ -14,6 +14,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
   return {
     apiClientState: getAPIClientState(state, exID),
     authToken: getAuthToken(state),
+    lang: state.ui.lang,
   }
 }
 

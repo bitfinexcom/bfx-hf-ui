@@ -7,8 +7,6 @@ import './style.css'
 
 import i18n from './i18n.json'
 
-const dictionary = i18n['ru-RU']
-
 export default class AlgoOrdersTable extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -21,9 +19,9 @@ export default class AlgoOrdersTable extends React.PureComponent {
 
   render() {
     const {
-      orders = [], apiClientState,
+      orders = [], apiClientState, lang,
     } = this.props
-
+    const dictionary = i18n[lang]
     return (
       <ul className='hfui-ao-list__wrapper'>
         {orders.map(ao => (
