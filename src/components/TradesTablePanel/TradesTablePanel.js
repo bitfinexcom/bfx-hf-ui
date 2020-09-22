@@ -182,7 +182,7 @@ export default class TradesTablePanel extends React.Component {
 
   render() {
     const {
-      label, onRemove, moveable, removeable, showExchange, showMarket, dark,
+      label, onRemove, moveable, removeable, showExchange, showMarket, dark, lang,
     } = this.props
     const { currentExchange, currentMarket } = this.state
     return (
@@ -202,6 +202,7 @@ export default class TradesTablePanel extends React.Component {
         <TradesTable
           exchange={currentExchange}
           market={currentMarket}
+          lang={lang}
         />
       </Panel>
     )

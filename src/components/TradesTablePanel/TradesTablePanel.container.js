@@ -18,6 +18,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     activeMarket: getActiveMarket(state),
     exchanges: getExchanges(state),
     allMarkets: getMarkets(state),
+    lang: state.ui.lang,
   }
 }
 
