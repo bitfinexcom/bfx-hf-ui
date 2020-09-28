@@ -9,6 +9,7 @@ import Panel from '../../ui/Panel'
 import Select from '../../ui/Select'
 import nearestMarket from '../../util/nearest_market'
 import { propTypes, defaultProps } from './TradesTablePanel.props'
+import i18n from './i18n.json'
 
 export default class TradesTablePanel extends React.Component {
   static propTypes = propTypes
@@ -182,14 +183,16 @@ export default class TradesTablePanel extends React.Component {
 
   render() {
     const {
-      label, onRemove, moveable, removeable, showExchange, showMarket, dark, lang,
+      onRemove, moveable, removeable, showExchange, showMarket, dark, lang,
     } = this.props
     const { currentExchange, currentMarket } = this.state
+    const dictionary = i18n[lang]
+    console.log('trades table', lang)
     return (
       <Panel
         dark={dark}
         darkHeader={dark}
-        label={label}
+        label={dictionary.trades}
         onRemove={onRemove}
         moveable={moveable}
         removeable={removeable}

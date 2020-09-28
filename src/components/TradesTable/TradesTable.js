@@ -7,6 +7,8 @@ import TradesTableColumns from './TradesTable.columns'
 import { propTypes, defaultProps } from './TradesTable.props'
 import './style.css'
 
+import i18n from './i18n.json'
+
 const DISPLAY_LIMIT = 50
 
 export default class TradesTable extends React.Component {
@@ -28,13 +30,13 @@ export default class TradesTable extends React.Component {
     return flag
   }
   render() {
-    const { trades } = this.props
+    const { trades, lang } = this.props
     const limitedTrades = _take(trades, DISPLAY_LIMIT)
-
+    const dictionary = i18n[lang]
     return (
       <Table
         data={limitedTrades}
-        columns={TradesTableColumns}
+        columns={TradesTableColumns(dictionary)}
         onRowClick={this.onRowClick}
         defaultSortBy='mts'
         defaultSortDirection='DESC'

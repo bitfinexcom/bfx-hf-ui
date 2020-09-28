@@ -7,6 +7,7 @@ import LayoutControlToolbar from './LayoutControlToolbar'
 
 const mapStateToProps = (state = {}) => ({
   layouts: getLayouts(state),
+  lang: state.ui.lang,
 })
 
 const mapDispatchToProps = dispatch => ({

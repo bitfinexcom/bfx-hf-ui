@@ -6,7 +6,6 @@ import { propTypes, defaultProps } from './LayoutControlToolbar.props'
 import './style.css'
 import i18n from './i18n.json'
 
-const dictionary = i18n['ru-RU']
 export default class LayoutControlToolbar extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -14,9 +13,9 @@ export default class LayoutControlToolbar extends React.PureComponent {
   render() {
     const {
       layouts, tradingEnabled, onAddLayout, onDeleteLayout, onSaveLayout,
-      onAddComponent, activeLayout, layoutDirty, onChangeLayout, activeLayoutID,
+      onAddComponent, activeLayout, layoutDirty, onChangeLayout, activeLayoutID, lang,
     } = this.props
-
+    const dictionary = i18n[lang]
     const layoutNames = Object.keys(layouts).filter(id => (
       (layouts[id].type === 'trading' && tradingEnabled)
       || (layouts[id].type === 'data' && !tradingEnabled)

@@ -14,6 +14,8 @@ import {
   COMPONENTS_FOR_ID,
 } from './OrderForm.helpers'
 
+import i18n from './i18n.json'
+
 import nearestMarket from '../../util/nearest_market'
 import TIME_FRAMES_FOR_EXID from '../../util/time_frames'
 
@@ -387,9 +389,9 @@ export default class OrderForm extends React.Component {
   render() {
     const {
       onRemove, orders, apiClientStates, apiCredentials, moveable, removeable,
-      showExchange, showMarket,
+      showExchange, showMarket, lang,
     } = this.props
-
+    const dictionary = i18n[lang]
     const {
       fieldData, validationErrors, creationError, context, currentLayout,
       helpOpen, configureModalOpen, currentExchange, currentMarket, algoOrders,
@@ -427,7 +429,7 @@ export default class OrderForm extends React.Component {
     // NOTE: Margin trading disabled on Binance
     return (
       <Panel
-        label='EXECUTE ORDER'
+        label={dictionary.executeOrder}
         className='hfui-orderform__panel'
         moveable={moveable}
         removeable={removeable}
@@ -500,6 +502,7 @@ export default class OrderForm extends React.Component {
                   atomicOrderTypes={atomicOrderTypes}
                   algoOrderTypes={algoOrderTypes}
                   onSelect={({ label }) => this.onChangeActiveOrderLayout(label)}
+                  dictionary={dictionary}
                 />
               </Scrollbars>
             </div>

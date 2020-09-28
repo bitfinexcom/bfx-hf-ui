@@ -15,7 +15,6 @@ import './style.css'
 // Temporary restriction to suit the design mockups;
 // Remove once the design can handle deep OBs
 const TEMP_OB_SIDE_LENGTH_LIMIT = 12
-const dictionary = i18n['ru-RU']
 
 // TODO: Unified/split views
 export default class OrderBook extends React.Component {
@@ -37,8 +36,10 @@ export default class OrderBook extends React.Component {
   }
 
   render() {
-    const { ob: fullOB, sumAmounts, stackedView } = this.props
-
+    const {
+      ob: fullOB, sumAmounts, stackedView, lang,
+    } = this.props
+    const dictionary = i18n[lang]
     if (fullOB.length === 0) {
       return (<Spinner />)
     }

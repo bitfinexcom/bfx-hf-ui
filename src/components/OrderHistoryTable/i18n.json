@@ -10,5 +10,11 @@
         "price":"Price",
         "amount":"Amount",
         "type": "Type"
+    },
+    "zh-ZH": {
+        "orderHistory": "订单历史",
+        "price":"价钱",
+        "amount":"量",
+        "type": "类型"
     }
 }

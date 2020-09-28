@@ -4,5 +4,8 @@
     },
     "en-EN": {
         "orderBook": "ORDER BOOK"
+    },
+    "zh-ZH": {
+        "orderBook": "订购书"
     }
 }

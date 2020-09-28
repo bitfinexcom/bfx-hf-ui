@@ -6,6 +6,8 @@ import Select from '../../ui/Select'
 import Panel from '../../ui/Panel'
 import { propTypes, defaultProps } from './AtomicOrdersTablePanel.props'
 
+import i18n from './i18n.json'
+
 export default class AtomicOrdersTablePanel extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -93,11 +95,14 @@ export default class AtomicOrdersTablePanel extends React.Component {
 
   render() {
     // const { currentExchange } = this.state
-    const { onRemove, activeMarket, activeExchange } = this.props
+    const {
+      onRemove, activeMarket, activeExchange, lang,
+    } = this.props
+    const dictionary = i18n[lang]
 
     return (
       <Panel
-        label='ATOMIC ORDERS'
+        label={dictionary.atomicOrders}
         onRemove={onRemove}
         headerComponents={[
           // this.renderExchangeDropdown(),

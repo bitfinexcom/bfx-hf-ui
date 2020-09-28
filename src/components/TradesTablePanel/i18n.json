@@ -4,5 +4,8 @@
     },
     "en-EN": {
         "trades": "TRADES"
+    },
+    "zh-ZH": {
+        "trades": "交易"
     }
 }

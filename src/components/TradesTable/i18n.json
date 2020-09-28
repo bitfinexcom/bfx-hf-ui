@@ -8,5 +8,10 @@
         "time": "Time",
         "amount": "Total",
         "price": "Price"
+    },
+    "zh-ZH": {
+        "time": "时间",
+        "amount": "总",
+        "price": "价钱"
     }
 }

@@ -59,7 +59,7 @@ export default class Settings extends React.PureComponent {
   }
 
   onSettingsSave(authToken) {
-    const { updateSettings, gaUpdateSettings } = this.props
+    const { updateSettings, gaUpdateSettings, lang } = this.props
     const {
       apiKey, apiSecret, chart, dms, theme, ga,
     } = this.state
@@ -71,6 +71,7 @@ export default class Settings extends React.PureComponent {
     updateSettings({
       chart, dms, theme, authToken, ga,
     })
+    window.localStorage.setItem('bfx-hf-ui__lang', lang)
     gaUpdateSettings()
   }
 
@@ -80,6 +81,17 @@ export default class Settings extends React.PureComponent {
     const charts = Object.keys(CHARTS).map(key => CHARTS[key])
     const { authToken, changeLanguage } = this.props
     const { lang } = this.props
+    const langMap = {
+      'ru-RU': 'Russian',
+      'zh-ZH': 'Chineese',
+      'en-EN': 'English',
+    }
+    const lngKey = {
+      Russian: 'ru-RU',
+      Chineese: 'zh-ZH',
+      English: 'en-EN',
+    }
+    console.log('settings lang ', lang)
     const dictionary = i18n[lang]
 
     // eslint-disable-next-line react/destructuring-assignment
@@ -144,10 +156,10 @@ export default class Settings extends React.PureComponent {
 
                 <div className='hfui-settings__item-list'>
                   <Select
-                    value={{ value: lang, label: lang }}
+                    value={{ value: langMap[lang], label: langMap[lang] }}
                     className='hfui-setting__select'
-                    options={languages.map(l => ({ value: l, label: l }))}
-                    onChange={({ value }) => changeLanguage(value)}
+                    options={languages.map(l => ({ value: langMap[l], label: langMap[l] }))}
+                    onChange={({ value }) => changeLanguage(lngKey[value])}
                   />
                 </div>
               </li>

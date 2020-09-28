@@ -20,5 +20,16 @@
         "createPassword": "Create a password to encrypt your API credentials & strategies. All data is stored locally, and your password is hashed.",
         "confirmPassword": "Confirm Password",
         "saveCredentials": "Save Credentials"
+    },
+    "zh-ZH": {
+        "start": "正在启动应用",
+        "enterPassword": "输入密码进行解锁。",
+        "password": "密码",
+        "unlock": "开锁",
+        "clearCredentials": "或者清除您的凭据和存储的数据以设置新密码",
+        "clearData": "清除数据并重置",
+        "createPassword": "创建密码以加密您的API凭证和策略。所有数据都存储在本地并且您的密码被散列。",
+        "confirmPassword": "确认密码",
+        "saveCredentials": "保存凭证"
     }
 }

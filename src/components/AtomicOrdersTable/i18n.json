@@ -17,6 +17,11 @@
         "actions": "Actions"
     }, 
     "zh-ZH": {
-        
+        "symbol": "符号",
+        "type": "类型",
+        "amount": "量",
+        "price": "价钱",
+        "status": "状态",
+        "actions": "动作"
     }
 }

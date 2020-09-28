@@ -19,9 +19,8 @@ export default class HFUI extends React.PureComponent {
   static defaultProps = defaultProps
 
   componentDidUpdate() {
-    const { GAPageview, lang } = this.props
+    const { GAPageview } = this.props
     GAPageview(window.location.pathname)
-    console.log('updated', lang)
   }
 
   render() {

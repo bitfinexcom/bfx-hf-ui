@@ -12,8 +12,6 @@ import { propTypes, defaultProps } from './AddLayoutComponentModal.props'
 import './style.css'
 import i18n from './i18n.json'
 
-const dictionary = i18n['ru-RU']
-
 export default class AddLayoutComponentModal extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -36,8 +34,8 @@ export default class AddLayoutComponentModal extends React.Component {
 
   onSubmit() {
     const { componentType } = this.state
-    const { onSubmit, onClose } = this.props
-
+    const { onSubmit, onClose, lang } = this.props
+    const dictionary = i18n[lang]
     if (_isEmpty(componentType) || !COMPONENT_LABELS[componentType]) {
       this.setState(() => ({ error: dictionary.invalidComponent }))
       return
@@ -48,9 +46,9 @@ export default class AddLayoutComponentModal extends React.Component {
   }
 
   render() {
-    const { onClose } = this.props
+    const { onClose, lang } = this.props
     const { componentType, error } = this.state
-
+    const dictionary = i18n[lang]
     return (
       <Modal
         onClose={onClose}

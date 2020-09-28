@@ -178,7 +178,7 @@ export default class GridLayoutPage extends React.Component {
 
     const {
       activeMarket, layouts, tradingEnabled, chartProps, bookProps, tradesProps,
-      ordersProps, orderFormProps, sharedProps, darkPanels, showToolbar,
+      ordersProps, orderFormProps, sharedProps, darkPanels, showToolbar, lang,
     } = this.props
 
     return (
@@ -211,6 +211,7 @@ export default class GridLayoutPage extends React.Component {
           <AddLayoutComponentModal
             onClose={this.onToggleAddComponentModal}
             onSubmit={this.onAddComponentToLayout}
+            lang={lang}
           />
         )}
 
@@ -245,6 +246,7 @@ export default class GridLayoutPage extends React.Component {
         <StatusBar
           key='statusbar'
           displayLayoutControls={false}
+          lang={lang}
         />
 
       </div>

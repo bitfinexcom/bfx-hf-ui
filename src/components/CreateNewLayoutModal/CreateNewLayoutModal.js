@@ -9,7 +9,6 @@ import { propTypes, defaultProps } from './CreateNewLayoutModal.props'
 import i18n from './i18n.json'
 import './style.css'
 
-const dictionary = i18n['ru-RU']
 export default class CreateNewLayoutModal extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -32,8 +31,8 @@ export default class CreateNewLayoutModal extends React.Component {
 
   onSubmit() {
     const { label } = this.state
-    const { onSubmit, onClose } = this.props
-
+    const { onSubmit, onClose, lang } = this.props
+    const dictionary = i18n[lang]
     if (_isEmpty(label)) {
       this.setState(() => ({ error: dictionary.labelEmpty }))
       return
@@ -45,8 +44,8 @@ export default class CreateNewLayoutModal extends React.Component {
 
   render() {
     const { onClose } = this.props
-    const { label, error } = this.state
-
+    const { label, error, lang } = this.state
+    const dictionary = i18n[lang]
     return (
       <Modal
         onClose={onClose}

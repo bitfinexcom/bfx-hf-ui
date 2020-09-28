@@ -8,5 +8,10 @@
        "amount": "Amount",
        "total": "Total",
        "price": "Price" 
+    },
+    "zh-ZH": {
+         "amount": "量",
+         "total": "总",
+         "price": "价钱" 
     }
 }

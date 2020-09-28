@@ -1,0 +1,11 @@
+{
+    "en-EN": {
+        "atomicOrders": "Atomic orders"
+    },
+    "ru-RU": {
+        "atomicOrders": "Атомарные Ордера"
+    },
+    "zh-ZH": {
+        "atomicOrders": "原子序"
+    }
+}

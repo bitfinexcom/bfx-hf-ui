@@ -1,12 +1,14 @@
 import React from 'react'
 import _isEmpty from 'lodash/isEmpty'
+import detectBrowserLanguage from 'detect-browser-language'
 
 import Button from '../../ui/Button'
 import Input from '../../ui/Input'
 import { propTypes, defaultProps } from './AuthenticationInitForm.props'
 import i18n from './i18n.json'
 
-const dictionary = i18n['ru-RU']
+const lang = window.localStorage.getItem('bfx-hf-ui__lang') || detectBrowserLanguage() || 'en-EN'
+const dictionary = i18n[lang]
 export default class AuthenticationInit extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps

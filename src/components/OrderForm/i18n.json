@@ -1,0 +1,17 @@
+{
+    "ru-RU": {
+        "executeOrder": "Выполнить Ордер",
+        "atomicOrders": "Aтомарные Ордера",
+        "algorithmicOrders": "Алгоритмические Ордера"
+    },
+    "en-EN": {
+        "executeOrder": "Execute Order",
+        "atomicOrders": "Atomic Orders",
+        "algorithmicOrders": "Algorithmic Orders"
+    },
+    "zh-ZH": {
+        "executeOrder": "执行订单",
+        "atomicOrders": "原子序",
+        "algorithmicOrders": "算法顺序"
+    }
+}

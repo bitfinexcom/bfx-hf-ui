@@ -7,11 +7,13 @@ export default class OrderFormMenu extends React.PureComponent {
   static defaultProps = defaultProps
 
   render() {
-    const { atomicOrderTypes, algoOrderTypes, onSelect } = this.props
+    const {
+      atomicOrderTypes, algoOrderTypes, onSelect, dictionary,
+    } = this.props
 
     return (
       <div className='hfui-orderformmenu__wrapper'>
-        <h4>Atomic Orders</h4>
+        <h4>{dictionary.atomicOrders}</h4>
         <ul>
           {atomicOrderTypes.map(type => (
             <li
@@ -26,7 +28,7 @@ export default class OrderFormMenu extends React.PureComponent {
           ))}
         </ul>
 
-        <h4>Algorithmic Orders</h4>
+        <h4>{dictionary.algorithmicOrders}</h4>
         <ul>
           {algoOrderTypes.map(type => (
             <li

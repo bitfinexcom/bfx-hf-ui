@@ -5,6 +5,7 @@ import OrderBook from './OrderBook'
 
 const mapStateToProps = (state = {}, ownProps = {}) => ({
   ob: getOrderBook(state, ownProps.exchange, ownProps.market),
+  lang: state.ui.lang,
 })
 
 const mapDispatchToProps = dispatch => ({}) // eslint-disable-line

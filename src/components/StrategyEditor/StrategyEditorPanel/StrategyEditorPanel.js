@@ -2,11 +2,8 @@ import React from 'react'
 
 import Button from '../../../ui/Button'
 import Panel from '../../../ui/Panel'
-import i18n from '../i18n.json'
 
 import { propTypes, defaultProps } from './StrategyEditorPanel.props'
-
-const dictionary = i18n['ru-RU']
 
 export default class StrategyEditorPanel extends React.PureComponent {
   static propTypes = propTypes
@@ -16,7 +13,7 @@ export default class StrategyEditorPanel extends React.PureComponent {
     const {
       onRemove, moveable, removeable, children, execRunning,
       strategyDirty, strategy, onOpenSelectModal,
-      onOpenCreateModal, onSaveStrategy, dark,
+      onOpenCreateModal, onSaveStrategy, dark, dictionary,
       // onSwitchEditorMode, onToggleMaximiseEditor, editorMode,
       // editorMaximised,
     } = this.props

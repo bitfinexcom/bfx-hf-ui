@@ -14,5 +14,13 @@
         "atomics":"Atomics",
         "algos":"Algos",
         "balances":"Balances"
+    },
+    "zh-ZH": {
+        "tradingStage": "交易阶段",
+        "filtredBy": "筛选依据",
+        "positions":"职位",
+        "atomics":"原子学",
+        "algos":"阿尔戈斯",
+        "balances":"天平"
     }
 }

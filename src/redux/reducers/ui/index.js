@@ -30,7 +30,7 @@ function getInitialState() {
     previousMarket: null,
     previousExchange: null,
     remoteVersion: null,
-    lang: 'en-EN',
+    lang: window.localStorage.getItem('bfx-hf-ui__lang') || 'en-EN',
   }
 
   if (!localStorage) {

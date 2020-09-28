@@ -21,8 +21,6 @@ import './style.css'
 
 import i18n from './i18n.json'
 
-const dictionary = i18n['ru-RU']
-
 const debug = Debug('hfui-ui:c:strategy-editor')
 const STRATEGY_SECTIONS = [
   'defineIndicators',
@@ -273,8 +271,10 @@ export default class StrategyEditor extends React.PureComponent {
       editorMode, dark,
     } = this.state
 
-    const { onRemove, moveable, removeable } = this.props
-
+    const {
+      onRemove, moveable, removeable, lang,
+    } = this.props
+    const dictionary = i18n[lang]
     return (
       <StrategyEditorPanel
         dark={dark}
@@ -291,6 +291,7 @@ export default class StrategyEditor extends React.PureComponent {
         onSaveStrategy={this.onSaveStrategy}
         onSwitchEditorMode={this.onSwitchEditorMode}
         onToggleMaximiseEditor={this.onToggleMaximiseEditor}
+        dictionary={dictionary}
       >
         {content}
       </StrategyEditorPanel>
@@ -301,8 +302,8 @@ export default class StrategyEditor extends React.PureComponent {
     const {
       createNewStrategyModalOpen, openExistingStrategyModalOpen,
     } = this.state
-    const { gaCreateStrategy } = this.props
-
+    const { gaCreateStrategy, lang } = this.props
+    const dictionary = i18n[lang]
     return (
       <div className='hfui-strategyeditor__empty-content'>
         <div>
@@ -346,7 +347,6 @@ export default class StrategyEditor extends React.PureComponent {
       activeContent, execError, strategy, createNewStrategyModalOpen,
       openExistingStrategyModalOpen, sectionErrors, editorMaximised,
     } = this.state
-
     if (!strategy) {
       return this.renderPanel(this.renderEmptyContent())
     }
