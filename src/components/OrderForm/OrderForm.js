@@ -410,13 +410,7 @@ export default class OrderForm extends React.Component {
       uiIcon,
     }))
 
-    // NOTE: Iceberg is disabled on Binance [native iceberg support pending implementation]
-    algoOrders.filter((ao) => {
-      return (
-        (currentExchange === 'bitfinex')
-        || (currentExchange === 'binance' && ao.id !== 'bfx-iceberg')
-      )
-    }).forEach(({ label, id, uiIcon }) => {
+    algoOrders.forEach(({ label, id, uiIcon }) => {
       algoOrderTypes.push({
         id,
         label,
