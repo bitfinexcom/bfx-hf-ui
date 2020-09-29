@@ -80,8 +80,8 @@ export default class StrategyEditorPage extends React.Component {
     const { finishGuide } = this.props
     const { status } = data
     const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED]
-
-    if (finishedStatuses.includes(status)) {
+    const CLOSE = 'close'
+    if (finishedStatuses.includes(status) || data.action === CLOSE) {
       finishGuide()
     }
   }

@@ -61,8 +61,8 @@ export default class Trading extends React.PureComponent {
     const { finishGuide } = this.props
     const { status } = data
     const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED]
-
-    if (finishedStatuses.includes(status)) {
+    const CLOSE = 'close'
+    if (finishedStatuses.includes(status) || data.action === CLOSE) {
       finishGuide()
     }
   }
