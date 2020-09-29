@@ -1,7 +1,7 @@
 import React from 'react'
 import Scrollbars from 'react-custom-scrollbars'
-import { Remarkable } from 'remarkable';
-import { linkify } from 'remarkable/linkify';
+import { Remarkable } from 'remarkable'
+import { linkify } from 'remarkable/linkify'
 import hljs from 'highlight.js'
 import sanitizeHtml from 'sanitize-html'
 
@@ -20,13 +20,13 @@ const md = new Remarkable({
   highlight: (str, lang) => {
     if (lang && hljs.getLanguage(lang)) {
       try {
-        return hljs.highlight(lang, str).value;
+        return hljs.highlight(lang, str).value
       } catch (err) {
         return ''
       }
     }
     try {
-      return hljs.highlightAuto(str).value;
+      return hljs.highlightAuto(str).value
     } catch (err) {
       return ''
     }
@@ -50,6 +50,7 @@ export default class Panel extends React.Component {
       >
         <div
           className='hfui-markdown__wrapper'
+          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: md.render(sanitizeHtml(text)) }}
         />
       </Scrollbars>

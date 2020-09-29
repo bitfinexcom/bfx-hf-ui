@@ -29,6 +29,9 @@ module.exports = class HFUIApplication {
     this.onAllWindowsClosed = this.onAllWindowsClosed.bind(this)
     this.onMainWindowClosed = this.onMainWindowClosed.bind(this)
 
+
+    // increase memory size
+    app.commandLine.appendSwitch('js-flags', '--max-old-space-size=2048');
     app.on('ready', this.onReady)
     app.on('window-all-closed', this.onAllWindowsClosed)
     app.on('activate', this.onActivate)

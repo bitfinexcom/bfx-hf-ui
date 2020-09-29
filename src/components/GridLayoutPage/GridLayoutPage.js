@@ -21,12 +21,10 @@ import {
 } from '../GridLayout/GridLayout.helpers'
 
 import BitfinexOrders from '../../orders/bitfinex'
-import BinanceOrders from '../../orders/binance'
 import { propTypes, defaultProps } from './GridLayoutPage.props'
 
 const orderDefinitions = {
   bitfinex: Object.values(BitfinexOrders).map(uiDef => uiDef()),
-  binance: Object.values(BinanceOrders).map(uiDef => uiDef()),
 }
 
 export default class GridLayoutPage extends React.Component {

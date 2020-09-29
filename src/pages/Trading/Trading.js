@@ -6,7 +6,6 @@ import StatusBar from '../../components/StatusBar'
 import ExchangeInfoBar from '../../components/ExchangeInfoBar'
 
 import BitfinexOrders from '../../orders/bitfinex'
-import BinanceOrders from '../../orders/binance'
 import { propTypes, defaultProps } from './Trading.props'
 import GridLayoutPage from '../../components/GridLayoutPage'
 
@@ -15,7 +14,6 @@ import './style.css'
 const LAYOUT_ID = '__hfui_trading_page'
 const orderDefinitions = {
   bitfinex: Object.values(BitfinexOrders).map(uiDef => uiDef()),
-  binance: Object.values(BinanceOrders).map(uiDef => uiDef()),
 }
 
 export default class Trading extends React.PureComponent {
@@ -25,28 +23,24 @@ export default class Trading extends React.PureComponent {
     steps: [
       {
         target: '.icon-plus',
-        content: 'By clicking on this button you can add a new component to this page',
+        content: 'You can easily add new components with this button',
       },
       {
         target: '.icon-save',
-        content: 'You can save your layout, after you have customized it',
+        content: 'Customized layouts can be saved here',
       },
       {
         target: '.icon-notifications',
-        content: 'Here you can find all your notifications',
+        content: 'You can find your notifications here',
       },
       {
         target: '.hfui-orderformmenu__wrapper',
-        content: 'Here you can find all orders you need',
-      },
-      {
-        target: '.hfui-statusbar__wrapper',
-        content: 'This bar shows all statuses you need to know',
+        content: 'If you want to create an order, this menu contains all orders available',
       },
       {
         locale: { last: 'Finish' },
         target: '.hfui-statusbar__left',
-        content: 'Here you can find the current version of your app, in case there is an update, there will be an update button',
+        content: 'Here you can find the current version of your app. In case there is an update, there will be an update button',
       },
     ],
   }

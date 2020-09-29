@@ -7,29 +7,27 @@ import { propTypes, defaultProps } from './forms.props'
 
 import DateInput from '../../OrderForm/FieldComponents/input.date'
 
+const ONE_MIN = 1000 * 60
+const ONE_HOUR = ONE_MIN * 60
+const ONE_DAY = ONE_HOUR * 24
+
 export default class HistoricalForm extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
-
-  state = {
-    startDate: new Date(),
-    endDate: new Date(),
-    selectedTimeFrame: '1m',
-  }
 
   executeBacktest = () => {
     const {
       backtestStrategy,
       updateError,
       exId,
-      allMarkets,
+      formState,
     } = this.props
     const {
       startDate,
       endDate,
-      selectedMarket = allMarkets[exId][0],
+      selectedMarket,
       selectedTimeFrame,
-    } = this.state
+    } = this.defaultFormState(formState)
 
     if (!selectedTimeFrame) {
       return updateError('ERROR: Invalid timeFrame')
@@ -48,19 +46,32 @@ export default class HistoricalForm extends React.PureComponent {
     })
   }
 
+  defaultFormState(formState) {
+    const { allMarkets, exId } = this.props
+    return {
+      startDate: new Date() - ONE_DAY,
+      endDate: new Date(Date.now() - (ONE_MIN * 15)),
+      selectedTimeFrame: '15m',
+      selectedMarket: allMarkets[exId][0],
+      ...formState,
+    }
+  }
+
   render() {
     const {
       updateExecutionType,
       disabled = false,
       allMarkets,
       exId,
+      setFormState,
+      formState,
     } = this.props
     const {
       startDate,
       endDate,
-      selectedMarket = allMarkets[exId][0],
+      selectedMarket,
       selectedTimeFrame,
-    } = this.state
+    } = this.defaultFormState(formState)
 
     return (
       <div className='hfui-backtester__executionform'>
@@ -81,7 +92,7 @@ export default class HistoricalForm extends React.PureComponent {
               value={selectedMarket.uiID}
               onChange={(selection) => {
                 const sel = allMarkets[exId].find(m => m.uiID === selection)
-                this.setState(() => ({ selectedMarket: sel }))
+                setFormState(() => ({ selectedMarket: sel }))
               }}
               options={allMarkets[exId].map(m => ({
                 label: m.uiID,
@@ -93,21 +104,23 @@ export default class HistoricalForm extends React.PureComponent {
             <TimeFrameDropdown
               exID={exId}
               tf={selectedTimeFrame}
-              onChange={tf => this.setState(() => ({ selectedTimeFrame: tf }))}
+              onChange={tf => {
+                setFormState(() => ({ selectedTimeFrame: tf }))
+              }}
             />
           </div>
         </div>
         <div className='hfui-backtester_row'>
           <div className='hfui-backtester_dateInput hfui-backtester__flex_start'>
             <DateInput
-              onChange={val => this.setState(() => ({ startDate: val }))}
+              onChange={val => setFormState(() => ({ startDate: val }))}
               def={{ label: 'Start Date' }}
               value={startDate}
             />
           </div>
           <div className='hfui-backtester_dateInput hfui-backtester__flex_start'>
             <DateInput
-              onChange={val => this.setState(() => ({ endDate: val }))}
+              onChange={val => setFormState(() => ({ endDate: val }))}
               def={{ label: 'End Date' }}
               value={endDate}
             />
