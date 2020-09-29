@@ -10,25 +10,9 @@ export default class MarketData extends React.PureComponent {
   state = {
     steps: [
       {
-        target: '.hfui-button',
-        content: 'Create new layout',
-      },
-      {
-        target: '.hfui-button.green',
-        content: 'Add custom component',
-      },
-      {
-        target: '.hfui-dropdown__button.highlight',
-        content: 'Select your layout.',
-      },
-      {
-        target: '.hfui-save-layout__btn',
-        content: 'With this button you can save your custom layout',
-      },
-      {
         locale: { last: 'Finish' },
-        target: '.hfui-remove-layout__btn',
-        content: 'Or delete it',
+        target: '.hfui-button.green',
+        content: 'To customize your layout, you can add components to it',
       },
     ],
   }
