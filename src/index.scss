@@ -7,6 +7,18 @@
 @import 'https://fonts.googleapis.com/css?family=Roboto&display=swap';
 @import '/icon_font/styles.css';
 
+
+body button:focus {
+  outline: none;
+  border: none;
+}
+
+body button {
+  outline: none;
+}
+
+
+
 .react-datepicker {
   background-color: #102331;
   color: #ccc;

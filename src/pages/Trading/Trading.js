@@ -1,4 +1,5 @@
 import React from 'react'
+import Joyride, { STATUS } from 'react-joyride'
 
 import OrderForm from '../../components/OrderForm'
 import StatusBar from '../../components/StatusBar'
@@ -18,12 +19,41 @@ const orderDefinitions = {
 export default class Trading extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
-
+  state = {
+    steps: [
+      {
+        target: '.icon-plus',
+        content: 'By clicking on this button you can add a new component to this page',
+      },
+      {
+        target: '.icon-save',
+        content: 'You can save your layout, after you have customized it',
+      },
+      {
+        target: '.icon-notifications',
+        content: 'Here you can find all your notifications',
+      },
+      {
+        target: '.hfui-orderformmenu__wrapper',
+        content: 'Here you can find all orders you need',
+      },
+      {
+        target: '.hfui-statusbar__wrapper',
+        content: 'This bar shows all statuses you need to know',
+      },
+      {
+        locale: { last: 'Finish' },
+        target: '.hfui-statusbar__left',
+        content: 'Here you can find the current version of your app, in case there is an update, there will be an update button',
+      },
+    ],
+  }
   constructor(props) {
     super(props)
 
     this.grid = React.createRef()
     this.onChangeMarket = this.onChangeMarket.bind(this)
+    this.onGuideFinish = this.onGuideFinish.bind(this)
   }
 
   onChangeMarket({ value }) {
@@ -31,8 +61,19 @@ export default class Trading extends React.PureComponent {
     saveActiveMarket(value)
   }
 
+  onGuideFinish(data) {
+    const { finishGuide } = this.props
+    const { status } = data
+    const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED]
+
+    if (finishedStatuses.includes(status)) {
+      finishGuide()
+    }
+  }
+
   render() {
-    const { activeMarket } = this.props
+    const { activeMarket, firstLogin, isGuideActive } = this.props
+    const { steps } = this.state
     const commonComponentProps = {
       layoutID: LAYOUT_ID,
       moveable: true,
@@ -46,6 +87,22 @@ export default class Trading extends React.PureComponent {
 
     return (
       <>
+        {firstLogin
+         && (
+         <Joyride
+           callback={this.onGuideFinish}
+           steps={steps}
+           run={isGuideActive}
+           continuous
+           showProgress
+           showSkipButton
+           styles={{
+             options: {
+               zIndex: 10000,
+             },
+           }}
+         />
+         )}
         <ExchangeInfoBar
           selectedMarket={activeMarket}
           onChangeMarket={this.onChangeMarket}
