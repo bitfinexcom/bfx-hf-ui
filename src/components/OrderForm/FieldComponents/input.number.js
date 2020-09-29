@@ -38,7 +38,7 @@ export default class NumberInput extends React.PureComponent {
           onChange={onChange}
           disabled={disabled}
           value={value}
-          placeholder={CONVERT_LABELS_TO_PLACEHOLDERS && renderedLabel}
+          placeholder={CONVERT_LABELS_TO_PLACEHOLDERS ? renderedLabel : undefined}
         />
 
         {!CONVERT_LABELS_TO_PLACEHOLDERS && (
