@@ -76,7 +76,6 @@ export default class Trading extends React.PureComponent {
   render() {
     const { activeMarket, firstLogin, isGuideActive } = this.props
     const { steps } = this.state
-    console.log('trading page guide')
     const commonComponentProps = {
       layoutID: LAYOUT_ID,
       moveable: true,
