@@ -80,8 +80,8 @@ export default class StrategyEditorPage extends React.Component {
     const { finishGuide } = this.props
     const { status } = data
     const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED]
-
-    if (finishedStatuses.includes(status)) {
+    const CLOSE = 'close'
+    if (finishedStatuses.includes(status) || data.action === CLOSE) {
       finishGuide()
     }
   }
@@ -94,6 +94,7 @@ export default class StrategyEditorPage extends React.Component {
       steps,
     } = this.state
     const { firstLogin, isGuideActive } = this.props
+    console.log('strategy editor guide')
     return (
       <div className='hfui-strategyeditorpage__wrapper'>
         <StrategyEditor

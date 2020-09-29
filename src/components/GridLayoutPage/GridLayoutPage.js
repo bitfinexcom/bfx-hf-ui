@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-no-undef */
 import React from 'react'
-import Joyride, { STATUS } from 'react-joyride'
 import _isEqual from 'lodash/isEqual'
 import _min from 'lodash/min'
 import _max from 'lodash/max'
@@ -38,29 +37,6 @@ export default class GridLayoutPage extends React.Component {
     layoutDirty: false,
     addLayoutModalOpen: false,
     addComponentModalOpen: false,
-    steps: [
-      {
-        target: '.hfui-button',
-        content: 'Create new layout',
-      },
-      {
-        target: '.hfui-button.green',
-        content: 'Add custom component',
-      },
-      {
-        target: '.hfui-dropdown__button.highlight',
-        content: 'Select your layout.',
-      },
-      {
-        target: '.hfui-save-layout__btn',
-        content: 'With this button you can save your custom layout',
-      },
-      {
-        locale: { last: 'Finish' },
-        target: '.hfui-remove-layout__btn',
-        content: 'Or delete it',
-      },
-    ],
   }
 
   constructor(props) {
@@ -75,7 +51,6 @@ export default class GridLayoutPage extends React.Component {
     this.onDeleteLayout = this.onDeleteLayout.bind(this)
     this.onToggleCreateNewLayoutModal = this.onToggleCreateNewLayoutModal.bind(this)
     this.onToggleAddComponentModal = this.onToggleAddComponentModal.bind(this)
-    this.onGuideFinish = this.onGuideFinish.bind(this)
 
     this.state = {
       ...this.state,
@@ -195,46 +170,18 @@ export default class GridLayoutPage extends React.Component {
     }))
   }
 
-  onGuideFinish(data) {
-    const { finishGuide } = this.props
-    const { status } = data
-    const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED]
-
-    if (finishedStatuses.includes(status)) {
-      finishGuide()
-    }
-  }
-
   render() {
     const {
       layoutDef, layoutID, layoutDirty, addLayoutModalOpen,
-      addComponentModalOpen, steps,
+      addComponentModalOpen,
     } = this.state
 
     const {
       activeMarket, layouts, tradingEnabled, chartProps, bookProps, tradesProps,
-      ordersProps, orderFormProps, sharedProps, darkPanels, showToolbar, isGuideActive,
-      firstLogin,
+      ordersProps, orderFormProps, sharedProps, darkPanels, showToolbar,
     } = this.props
-
     return (
       <div className='hfui-gridlayoutpage__wrapper'>
-        {firstLogin
-         && (
-         <Joyride
-           callback={this.onGuideFinish}
-           steps={steps}
-           run={isGuideActive}
-           continuous
-           showProgress
-           showSkipButton
-           styles={{
-             options: {
-               zIndex: 10000,
-             },
-           }}
-         />
-         )}
         {
           ((showToolbar) && (
             <LayoutControlToolbar

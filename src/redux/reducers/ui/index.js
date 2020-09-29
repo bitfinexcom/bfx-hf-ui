@@ -30,6 +30,7 @@ function getInitialState() {
     previousExchange: null,
     remoteVersion: null,
     firstLogin: false,
+    TRADING_PAGE_IS_GUIDE_ACTIVE: true,
   }
 
   if (!localStorage) {
