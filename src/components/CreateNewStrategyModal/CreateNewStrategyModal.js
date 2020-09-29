@@ -68,7 +68,6 @@ export default class CreateNewStrategyModal extends React.Component {
           />
         )}
       >
-        <p className='notice'>Your strategy will be encrypted with a password before being sent to the server</p>
 
         <Input
           type='text'

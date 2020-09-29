@@ -67,6 +67,11 @@ export default {
     payload: { exID, channel },
   }),
 
+  setBacktestLoading: () => ({
+    type: t.SET_BACKTEST_LOADING,
+    payload: {},
+  }),
+
   recvDataExchanges: exchanges => ({
     type: t.DATA_EXCHANGES,
     payload: { exchanges },
@@ -244,6 +249,11 @@ export default {
     payload: opts,
   }),
 
+  recvBacktestResults: opts => ({
+    type: t.BACKTEST_RESULTS,
+    payload: opts,
+  }),
+
   recvBacktestCandle: candle => ({
     type: t.BACKTEST_CANDLE,
     payload: candle,
@@ -272,6 +282,10 @@ export default {
   purgeDataTrades: (exID, channel) => ({
     type: t.PURGE_DATA_TRADES,
     payload: { exID, channel },
+  }),
+
+  purgeBacktestData: () => ({
+    type: t.PURGE_DATA_BACKTEST,
   }),
 
   initAuth: password => send(['auth.init', password]),

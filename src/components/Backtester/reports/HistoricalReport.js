@@ -6,10 +6,11 @@ import Results from '../Results'
 
 import StrategyTradesTable from '../../StrategyTradesTable'
 
-export default (opts, results, backtestData) => {
+export default (opts, results, backtestData, backtestOptions) => {
   const { trades = [] } = results
   const { indicators } = opts
   const { candles = [] } = backtestData
+  const { tf } = backtestOptions
 
   // convert candles to array for the chart
   const candleArr = Object.values(candles).map(c => (
@@ -25,6 +26,10 @@ export default (opts, results, backtestData) => {
 
   return (
     <div className='hfui-backtester__candlechart'>
+      <Results
+        results={results}
+        execRunning={false}
+      />
       <AutoSizer disableHeight style={{ height: 400 }}>
         {({ width, height = 400 }) => (
           <BFXChart
@@ -41,19 +46,13 @@ export default (opts, results, backtestData) => {
               AXIS_COLOR: '#444',
               AXIS_TICK_COLOR: '#00000000',
             }}
-            candleWidth='1m'
+            candleWidth={tf}
             disableToolbar
             disableIndicatorSettings
             showMarketLabel={false}
           />
         )}
       </AutoSizer>
-      <Results
-        results={results}
-        execRunning={false}
-        currentTick={results.currentTick}
-        totalTicks={results.totalTicks}
-      />
       <StrategyTradesTable
         label='Trades'
         trades={trades}

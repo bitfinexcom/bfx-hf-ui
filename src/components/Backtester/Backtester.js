@@ -1,15 +1,8 @@
 import React from 'react'
-import _isEqual from 'lodash/isEqual'
 
 import { propTypes, defaultProps } from './Backtester.props'
 
-import { generateResults } from './Backtester.helpers'
-import StrategyExecWorker from '../../workers/strategy_exec.worker'
-
-// Reports
 import RenderHistoricalReport from './reports/HistoricalReport'
-
-// Forms
 import RenderHistoricalForm from './forms/HistoricalForm'
 
 import './style.css'
@@ -48,109 +41,24 @@ export default class Backtester extends React.Component {
     ]
 
     this.backtestStrategy = this.backtestStrategy.bind(this)
-    this.onStrategyExecWorkerMessage = this.onStrategyExecWorkerMessage.bind(this)
-    this.execWorker = new StrategyExecWorker()
-    this.execWorker.onmessage = this.onStrategyExecWorkerMessage
     this.updateError = this.updateError.bind(this)
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) { // eslint-disable-line
-    const { loadingBacktest, execRunning, backtestOptions } = this.state
-    const { backtest, backtestData } = nextProps
-    const { strategyContent } = this.props
-    const { loading = false, executing = false } = backtest
-    const { activeMarket, tf } = backtestOptions
-
-    // check if component has requested a backtest
-    if (!loadingBacktest) return
-    // check if backtest data still being streamed
-    if (loading || executing) return
-    // check if the worker is already executing
-    if (execRunning) return
-
-    // start worker with data
-    this.execWorker.postMessage({
-      type: 'EXEC_STRATEGY',
-      data: {
-        mID: activeMarket,
-        strategyContent,
-        candleData: backtestData.candles,
-        tradeData: backtestData.trades,
-        tf,
-      },
-    })
-    this.setState(() => ({ loadingBacktest: false }))
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    const { backtest, strategyContent } = this.props
-    if (
-      !_isEqual(nextState, this.state)
-      || !_isEqual(nextProps.backtest, backtest)
-      || !_isEqual(nextProps.strategyContent, strategyContent)
-    ) {
-      return true
-    }
-
-    return false
-  }
-
-  componentWillUnmount() {
-    this.execWorker.terminate()
-  }
-
-  onStrategyExecWorkerMessage(incomingMessage = {}) {
-    const { data: messageData } = incomingMessage
-    const { type, data = {} } = messageData
-
-    if (type === 'EXEC_STRATEGY_PARSE_ERROR') {
-      const { message, section } = data
-
-      this.setSectionError(section, message)
-    } else if (type === 'EXEC_STRATEGY_START') {
-      this.setState(() => ({
-        execRunning: true,
-        results: null,
-      }))
-    } else if (type === 'EXEC_STRATEGY_ERROR') {
-      const { message } = data
-      this.updateError(message)
-      this.setState(() => ({ execRunning: false, loadingBacktest: false }))
-    } else if (type === 'EXEC_STRATEGY_TICK') {
-      const { currentTick, totalTicks } = data
-      const { totalTicks: currentTotalTicks } = this.state
-
-      if (totalTicks !== currentTotalTicks || currentTick % 100 === 0) {
-        this.setState(() => ({
-          currentTick,
-          totalTicks,
-        }))
-      }
-    } else if (type === 'EXEC_STRATEGY_END') {
-      this.setState(() => ({ execRunning: false }))
-      this.updateResults(data)
-    }
   }
 
   backtestStrategy = (options) => {
     const {
       activeExchange, activeMarket, startDate, endDate, tf,
     } = options
-    const { dsExecuteBacktest } = this.props
-    const { loadingBacktest } = this.state
-
-    if (loadingBacktest) return
+    const { dsExecuteBacktest, strategyContent } = this.props
 
     const startNum = new Date(startDate).getTime()
     const endNum = new Date(endDate).getTime()
 
     this.setState(() => ({
-      loadingBacktest: true,
       backtestOptions: options,
       execError: undefined,
-      results: undefined,
     }))
-    dsExecuteBacktest(activeExchange, startNum, endNum, activeMarket, tf)
+
+    dsExecuteBacktest(activeExchange, startNum, endNum, activeMarket, tf, strategyContent)
   }
 
   updateExecutionType = (value) => {
@@ -165,29 +73,20 @@ export default class Backtester extends React.Component {
     }))
   }
 
-  updateResults(btState = {}) {
-    const results = generateResults(btState)
-
-    this.setState(() => ({
-      results,
-      execError: null,
-    }))
-  }
-
   render() {
     const {
       executionType = this.backtestMethods[0],
-      execRunning,
-      loadingBacktest,
-      execError,
-      results,
+      backtestOptions,
     } = this.state
     const {
       indicators,
       backtestData,
       strategyContent,
       allMarkets,
+      backtestResults,
     } = this.props
+
+    const formState = this.state[`${executionType.type}_formState`] || {} // eslint-disable-line
     const opts = {
       updateExecutionType: this.updateExecutionType,
       backtestMethods: this.backtestMethods,
@@ -197,6 +96,15 @@ export default class Backtester extends React.Component {
       updateError: this.updateError,
       allMarkets,
       exId: 'bitfinex', // todo: add ability to specify exchange
+      formState,
+      setFormState: (setStateFunc) => {
+        this.setState(() => ({
+          [`${executionType.type}_formState`]: {
+            ...formState,
+            ...setStateFunc(),
+          },
+        }))
+      },
     }
 
     if (!strategyContent) {
@@ -207,52 +115,40 @@ export default class Backtester extends React.Component {
       )
     }
 
-    if (!results) {
-      if (execError) {
-        return (
-          <div className='hfui-backtester__wrapper'>
-            <executionType.form {...opts} />
-            <p style={{ color: 'red' }}>{execError}</p>
-          </div>
-        )
-      }
+    if (backtestResults.error) {
       return (
         <div className='hfui-backtester__wrapper'>
-          {
-            (!execRunning && !loadingBacktest) && (
-              <>
-                <executionType.form {...opts} />
-                <p>Press start to begin backtesting.</p>
-              </>
-            )
-          }
-          {
-            (!execRunning && loadingBacktest) && (
-              <>
-                <executionType.form {...opts} disabled />
-                <p>Loading backtest candles...</p>
-              </>
-            )
-          }
-          {
-            (execRunning) && (
-              <>
-                <executionType.form {...opts} disabled />
-                <p>Executing strategy...</p>
-              </>
-            )
-          }
+          <executionType.form {...opts} />
+          <p style={{ color: 'red' }}>{backtestResults.error}</p>
+        </div>
+      )
+    }
+
+    if (!backtestResults.executing && !backtestResults.loading && backtestResults.finished) {
+      return (
+        <div className='hfui-backtester__wrapper'>
+          <executionType.form {...opts} />
+          { executionType.renderReport({ ...opts }, backtestResults, backtestData, backtestOptions) }
         </div>
       )
     }
 
     return (
       <div className='hfui-backtester__wrapper'>
-        <executionType.form {...opts} />
-
         {
-          (!execRunning) && (
-            executionType.renderReport(opts, results, backtestData)
+          (!backtestResults.loading) && (
+            <>
+              <executionType.form {...opts} />
+              <p>Press start to begin backtesting.</p>
+            </>
+          )
+        }
+        {
+          (backtestResults.loading) && (
+            <>
+              <executionType.form {...opts} disabled />
+              <p>Loading candles and executing strategy...</p>
+            </>
           )
         }
       </div>
