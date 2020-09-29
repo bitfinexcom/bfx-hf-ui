@@ -168,19 +168,18 @@ export default class TradingStatePanel extends React.Component {
           removeable={removeable}
           darkHeader
         >
-          {/* eslint-disable */}
           <PositionsTable
-            tabTitle={<>Positions {renderCounter(positions.length)}</>}
+            tabTitle={`Positions ${renderCounter(positions.length)}`}
             exID={activeExchange}
             positions={positions}
           />
           <AtomicOrdersTable
-            tabTitle={<>Atomics {renderCounter(atomicOrders.length)}</>}
+            tabTitle={`Atomics ${renderCounter(atomicOrders.length)}`}
             exID={activeExchange}
             orders={atomicOrders}
           />
           <AlgoOrdersTable
-            tabTitle={<>Algos {renderCounter(algoOrders.length)}</>}
+            tabTitle={`Algos ${renderCounter(algoOrders.length)}`}
             exID={activeExchange}
             orders={algoOrders}
           />
@@ -190,7 +189,6 @@ export default class TradingStatePanel extends React.Component {
             hideZeroBalances
             balances={balances}
           />
-          {/* eslint-enable */}
         </Panel>
       </Panel>
     )
