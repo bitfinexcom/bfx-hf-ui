@@ -40,7 +40,10 @@ export default class TradingStatePanel extends React.Component {
     this.onToggleMarketFilter = this.onToggleMarketFilter.bind(this)
     this.onToggleExchangeFilter = this.onToggleExchangeFilter.bind(this)
   }
-
+  shouldComponentUpdate(nextProps, nextState) {
+    return (JSON.stringify(nextProps) !== JSON.stringify(this.props)
+            || JSON.stringify(nextState) !== JSON.stringify(this.state))
+  }
   onToggleMarketFilter() {
     this.setState(({ marketFilterActive }) => ({
       marketFilterActive: !marketFilterActive,
@@ -121,7 +124,6 @@ export default class TradingStatePanel extends React.Component {
     const {
       onRemove, activeExchange, activeMarket, moveable, removeable,
     } = this.props
-
     const { exchangeFilterActive, marketFilterActive } = this.state
     const atomicOrders = this.getFilteredAtomicOrders()
     const algoOrders = this.getFilteredAlgoOrders()
