@@ -101,9 +101,8 @@ export default class NotificationsSidebar extends React.Component {
   render() {
     const { open, liveNotifications } = this.state
     const { notifications, notificationsVisible, closeNotificationPanel } = this.props
-
     return (
-      <div className={ClassNames('hfui-notificationssidebar__wrapper', {
+      <div className={ClassNames(`hfui-notificationssidebar__wrapper ${notificationsVisible ? 'absoulute' : ''}`, {
         visible: notificationsVisible,
       })}
       >
