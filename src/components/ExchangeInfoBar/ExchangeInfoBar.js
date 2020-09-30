@@ -44,12 +44,10 @@ export default class ExchangeInfoBar extends React.PureComponent {
                   const newMarket = nearestMarket(activeMarket, marketsForEx)
                   onChangeExchange(activeExchange, value, activeMarket, newMarket)
                 }}
-
                 value={{
                   label: _capitalize(activeExchange),
                   value: activeExchange,
                 }}
-
                 options={exchanges.map(ex => ({
                   label: _capitalize(ex),
                   value: ex,

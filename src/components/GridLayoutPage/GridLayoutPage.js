@@ -188,7 +188,6 @@ export default class GridLayoutPage extends React.Component {
               activeLayoutID={layoutID}
               layoutDirty={layoutDirty}
               layouts={layouts}
-
               onDeleteLayout={this.onDeleteLayout}
               onSaveLayout={this.onSaveLayout}
               onAddLayout={this.onToggleCreateNewLayoutModal}
@@ -220,21 +219,17 @@ export default class GridLayoutPage extends React.Component {
             disableToolbar: true,
             ...chartProps,
           })}
-
           bookProps={{ canChangeStacked: true, ...bookProps }}
           tradesProps={{ ...tradesProps }}
           ordersProps={({
             market: activeMarket,
             ...ordersProps,
           })}
-
           sharedProps={{ ...sharedProps }}
-
           orderFormProps={({
             orders: orderDefinitions,
             ...orderFormProps,
           })}
-
           onLayoutChange={this.onLayoutChange}
           onRemoveComponent={this.onRemoveComponentFromLayout}
         />

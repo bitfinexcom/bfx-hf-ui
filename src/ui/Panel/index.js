@@ -108,7 +108,6 @@ export default class Panel extends React.Component {
             renderTrackVertical={props => (
               <div {...props} className='hfui-scrollbars-track-vertical' />
             )}
-
             renderThumbVertical={props => (
               <div {...props} className='hfui-scrollbars-thumb-vertical' />
             )}
