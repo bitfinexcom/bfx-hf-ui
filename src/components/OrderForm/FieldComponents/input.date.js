@@ -40,7 +40,6 @@ export default class DateInput extends React.PureComponent {
           timeIntervals={10}
           showTimeSelect
           width='100%'
-
           selected={value}
           onChange={onChange}
           placeholder={CONVERT_LABELS_TO_PLACEHOLDERS && renderedLabel}

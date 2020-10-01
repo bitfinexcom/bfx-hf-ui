@@ -357,7 +357,6 @@ export default class OrderForm extends React.Component {
           label: _capitalize(currentExchange),
           value: currentExchange,
         }}
-
         options={exchanges.map(ex => ({
           label: _capitalize(ex),
           value: ex,
@@ -430,7 +429,6 @@ export default class OrderForm extends React.Component {
           showExchange && this.renderExchangeDropdown(),
           showMarket && this.renderMarketDropdown(),
         ]}
-
         extraIcons={(
           !HELP_ICON_DISABLED && apiClientConnected && currentLayout && currentLayout.customHelp && (
             <i
