@@ -21,17 +21,14 @@ export default class MarketSelect extends React.PureComponent {
         onChange={(selection) => {
           onChange(markets.find(m => m.uiID === selection.value))
         }}
-
         value={{
           label: value.uiID || `${value.base}/${value.quote}`,
           value: value.uiID,
         }}
-
         options={markets.map(m => ({
           label: m.uiID || `${m.base}/${m.quote}`,
           value: m.uiID,
         }))}
-
         {...otherProps}
       />
     )

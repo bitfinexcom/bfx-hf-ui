@@ -14,6 +14,7 @@ export const propTypes = {
   modal: PropTypes.any,
   darkHeader: PropTypes.bool,
   dark: PropTypes.bool,
+  htmlKey: PropTypes.string,
 }
 
 export const defaultProps = {

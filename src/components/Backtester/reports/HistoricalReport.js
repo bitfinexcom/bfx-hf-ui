@@ -40,7 +40,6 @@ export default (opts, results, backtestData, backtestOptions) => {
             height={height}
             isSyncing={false}
             candleLoadingThreshold={3} // we always get 1 candle when sub'ing
-            // bgColor='#111'
             bgColor='#102331'
             config={{
               AXIS_COLOR: '#444',

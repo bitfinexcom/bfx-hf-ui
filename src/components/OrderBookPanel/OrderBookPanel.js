@@ -176,7 +176,6 @@ export default class OrderBookPanel extends React.Component {
           label: _capitalize(currentExchange),
           value: currentExchange,
         }}
-
         options={exchanges.map(ex => ({
           label: _capitalize(ex),
           value: ex,
@@ -225,7 +224,6 @@ export default class OrderBookPanel extends React.Component {
           showExchange && this.renderExchangeDropdown(),
           showMarket && this.renderMarketDropdown(),
         ]}
-
         settingsOpen={settingsOpen}
         onToggleSettings={this.onToggleSettings}
       >
@@ -239,7 +237,6 @@ export default class OrderBookPanel extends React.Component {
                 value={sumAmounts}
                 onChange={this.onChangeSumAmounts}
               />,
-
               canChangeStacked && (
               <Checkbox
                 key='stacked-view'
