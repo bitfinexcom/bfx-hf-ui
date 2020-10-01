@@ -83,7 +83,6 @@ export default class SubmitAPIKeysModal extends React.Component {
             </div>
           ),
         ]}
-
         buttons={(
           <div className='row'>
             <Button

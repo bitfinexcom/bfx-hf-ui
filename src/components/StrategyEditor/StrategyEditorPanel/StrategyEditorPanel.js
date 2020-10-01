@@ -30,7 +30,6 @@ export default class StrategyEditorPanel extends React.PureComponent {
         extraIcons={[
           execRunning && (<i key='running' className='fas fa-circle-notch' />),
         ]}
-
         headerComponents={(
           <div className='hfui-strategyeditor__header'>
             <Button

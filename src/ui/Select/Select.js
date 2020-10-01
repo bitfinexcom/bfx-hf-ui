@@ -38,7 +38,6 @@ export default class Select extends React.PureComponent {
           onChange={onChange}
           value={value}
           options={options}
-
           {...otherProps}
         />
       </div>

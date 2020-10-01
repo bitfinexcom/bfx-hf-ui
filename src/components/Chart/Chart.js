@@ -405,7 +405,6 @@ export default class Chart extends React.Component {
           label: _capitalize(currentExchange),
           value: currentExchange,
         }}
-
         options={exchanges.map(ex => ({
           label: _capitalize(ex),
           value: ex,
@@ -509,13 +508,11 @@ export default class Chart extends React.Component {
                 disableIndicatorSettings={disableIndicatorSettings}
                 isSyncing={isSyncing}
                 candleLoadingThreshold={3} // we always get 1 candle when sub'ing
-                // bgColor='#111'
                 bgColor='#102331'
                 config={{
                   AXIS_COLOR: '#444',
                   AXIS_TICK_COLOR: '#00000000',
                 }}
-
                 showMarketLabel={!showMarket}
                 extraHeaderComponentsLeft={(showExchange || showMarket) && (
                   <div className='hfui-chart__extra-header-components'>

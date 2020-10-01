@@ -111,15 +111,12 @@ export default class HFTable extends React.PureComponent {
             <Table
               height={height}
               width={width}
-
               rowHeight={rowHeight}
               rowGetter={({ index }) => data[index]}
               rowCount={data.length}
               onRowClick={onRowClick}
-
               headerHeight={headerHeight}
               disableHeader={false}
-
               gridStyle={{ outline: 'none' }}
               sort={this.onSort}
               sortBy={sortBy}

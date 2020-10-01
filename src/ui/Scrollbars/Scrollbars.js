@@ -16,7 +16,6 @@ export default class Scrollbars extends React.PureComponent {
         renderTrackVertical={props => (
           <div {...props} className='hfui-scrollbars-track-vertical' />
         )}
-
         renderThumbVertical={props => (
           <div {...props} className='hfui-scrollbars-thumb-vertical' />
         )}
