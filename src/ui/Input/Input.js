@@ -33,7 +33,7 @@ export default class Input extends React.PureComponent {
         <div className='hfui-input'>
           <input
             type={hidden ? 'password' : 'text'}
-            placeholder={this.isPlaceholderValid(placeholder) ? placeholder : 'undefined'}
+            placeholder={this.isPlaceholderValid(placeholder) ? placeholder : null}
             className={className}
             onChange={e => onChange(e.target.value)}
             value={value}
@@ -59,7 +59,7 @@ export default class Input extends React.PureComponent {
           autoComplete={autocomplete}
           className={className}
           onChange={e => onChange(e.target.value)}
-          placeholder={this.isPlaceholderValid(placeholder) ? placeholder : 'undefined'}
+          placeholder={this.isPlaceholderValid(placeholder) ? placeholder : null}
           disabled={disabled}
           style={style}
           value={value}
