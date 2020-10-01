@@ -28,7 +28,7 @@ export default class DropdownInput extends React.PureComponent {
         <Dropdown
           value={value}
           onChange={onChange}
-          placeholder={CONVERT_LABELS_TO_PLACEHOLDERS && renderedLabel}
+          placeholder={CONVERT_LABELS_TO_PLACEHOLDERS ? renderedLabel : undefined}
           options={Object.keys(options).map(opt => ({
             label: options[opt],
             value: opt,

@@ -19,7 +19,7 @@ export default class Panel extends React.Component {
       onToggleSettings, darkHeader, dark,
       secondaryHeaderComponents, secondaryHeaderReverse, closePanel,
     } = this.props
-    const tabs = React.Children.toArray(children).filter(c => c && c.props.tabTitle)
+    const tabs = React.Children.toArray(children).filter(c => c && c.props.tabtitle)
     const { selectedTab = tabs[0] } = this.state
     let heightOffsetPX = 0
 
@@ -46,12 +46,12 @@ export default class Panel extends React.Component {
             <ul className='hfui-panel__header-tabs'>
               {tabs.map(tab => (
                 <li
-                  key={tab.props.tabTitle}
-                  className={ClassNames({ active: tab.props.tabTitle === selectedTab.props.tabTitle })}
+                  key={tab.props.tabtitle}
+                  className={ClassNames({ active: tab.props.tabtitle === selectedTab.props.tabtitle })}
                   onClick={() => this.setState(() => ({ selectedTab: tab }))}
                 >
                   <p className='hfui-panel__label'>
-                    {tab.props.tabTitle}
+                    {tab.props.tabtitle}
                   </p>
                 </li>
               ))}

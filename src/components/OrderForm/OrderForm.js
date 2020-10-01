@@ -427,6 +427,7 @@ export default class OrderForm extends React.Component {
     // NOTE: Margin trading disabled on Binance
     return (
       <Panel
+        key='execute-order'
         label='EXECUTE ORDER'
         className='hfui-orderform__panel'
         moveable={moveable}
@@ -450,7 +451,7 @@ export default class OrderForm extends React.Component {
           )
         )}
       >
-        <div className='hfui-orderform__wrapper'>
+        <div key='orderform-wrapper' className='hfui-orderform__wrapper'>
           {[
             apiClientDisconnected && !apiClientConfigured && !configureModalOpen && (
               <UnconfiguredModal
@@ -472,7 +473,7 @@ export default class OrderForm extends React.Component {
           ]}
 
           {helpOpen && currentLayout && currentLayout.customHelp && (
-            <div className='hfui-orderform__overlay-wrapper'>
+            <div key='overlay-wrapper' className='hfui-orderform__overlay-wrapper'>
               <Scrollbars>
                 <div className='hfui-orderform__help-inner'>
                   <p className='hfui-orderform__help-title'>
@@ -494,7 +495,7 @@ export default class OrderForm extends React.Component {
           )}
 
           {!currentLayout && (
-            <div className='hfui-orderform__overlay-wrapper'>
+            <div key='order-form-menu' className='hfui-orderform__overlay-wrapper'>
               <Scrollbars>
                 <OrderFormMenu
                   atomicOrderTypes={atomicOrderTypes}
@@ -518,10 +519,11 @@ export default class OrderForm extends React.Component {
             </div>,
 
             <ul className='hfui-orderform__header' key='of-header'>
-              <li>
+              <li key='item'>
                 <Dropdown
                   icon='exchange-passive'
                   value={context}
+                  key='dropdown-orderform'
                   onChange={this.onContextChange}
                   options={currentMarket.contexts.filter(ctx => (
                     currentExchange === 'bitfinex' || ctx !== 'm'

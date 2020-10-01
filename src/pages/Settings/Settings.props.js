@@ -6,8 +6,11 @@ export const propTypes = {
   activeExchange: PropTypes.string,
   chart: PropTypes.string,
   theme: PropTypes.string,
-  dms: PropTypes.boolean,
-  ga: PropTypes.boolean,
+  dms: PropTypes.bool,
+  ga: PropTypes.bool,
 }
 
-export const defaultProps = {}
+export const defaultProps = {
+  dms: true,
+  ga: false,
+}
