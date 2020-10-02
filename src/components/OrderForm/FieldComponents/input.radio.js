@@ -11,20 +11,17 @@ export default class RadioInput extends React.PureComponent {
 
   render() {
     const {
-      def = {}, renderData, value, onChange, disabled, key,
+      def = {}, renderData, value, onChange, disabled,
     } = this.props
-
     const { options } = def
-
     return (
       <div className={ClassNames('hfui-orderform__input', {
         disabled,
       })}
       >
-        {options.map(o => (
+        {options.map((o, i) => (
           <RadioButton
-            key={o}
-            id={key}
+            key={i} //eslint-disable-line
             label={renderString(o, renderData)}
             value={value === o}
             onChange={() => onChange(o)}

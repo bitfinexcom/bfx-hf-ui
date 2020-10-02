@@ -23,10 +23,8 @@ export default class NumberInput extends React.PureComponent {
     const {
       def = {}, renderData = {}, value, disabled, onChange, validationError,
     } = this.props
-
     const { label } = def
     const renderedLabel = renderString(label, renderData)
-
     return (
       <div className={ClassNames('hfui-orderform__input', {
         disabled,

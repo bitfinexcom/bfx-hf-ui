@@ -178,6 +178,7 @@ export default class Settings extends React.Component {
                 </div>
                 <div className='hfui-settings__option'>
                   <Input
+                    type='text'
                     placeholder='API Key'
                     onChange={e => this.onOptionChange(e, 'apiKey')}
                     className='hfui-settings__item-list api-key'

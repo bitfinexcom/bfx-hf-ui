@@ -76,7 +76,7 @@ export default class OrderBook extends React.Component {
               if (i > 0 && pl[1] > 0 && ob[i - 1][1] < 0) {
                 html.push(
                   <li
-                    key='spread'
+                    key={`spread-${i}`} // eslint-disable-line
                     className='spread'
                     style={{
                       marginTop: `calc(100% / ${ob.length})`,

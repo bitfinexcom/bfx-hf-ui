@@ -14,7 +14,9 @@ export default class Input extends React.PureComponent {
       hidden: true,
     }
   }
-
+  isPlaceholderValid(placeholder) { // eslint-disable-line
+    return typeof placeholder !== 'boolean' || typeof placeholder === 'undefined'
+  }
   toggleShow() {
     this.setState(({ hidden }) => ({ hidden: !hidden }))
   }
@@ -26,13 +28,12 @@ export default class Input extends React.PureComponent {
     } = this.props
 
     const { hidden } = this.state
-
     if (type === 'password') {
       return (
         <div className='hfui-input'>
           <input
             type={hidden ? 'password' : 'text'}
-            placeholder={placeholder}
+            placeholder={this.isPlaceholderValid(placeholder) ? placeholder : null}
             className={className}
             onChange={e => onChange(e.target.value)}
             value={value}
@@ -47,7 +48,6 @@ export default class Input extends React.PureComponent {
         </div>
       )
     }
-
     return (
       <div className='hfui-input'>
         {label && (
@@ -59,7 +59,7 @@ export default class Input extends React.PureComponent {
           autoComplete={autocomplete}
           className={className}
           onChange={e => onChange(e.target.value)}
-          placeholder={placeholder}
+          placeholder={this.isPlaceholderValid(placeholder) ? placeholder : null}
           disabled={disabled}
           style={style}
           value={value}

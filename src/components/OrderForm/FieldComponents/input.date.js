@@ -42,7 +42,7 @@ export default class DateInput extends React.PureComponent {
           width='100%'
           selected={value}
           onChange={onChange}
-          placeholder={CONVERT_LABELS_TO_PLACEHOLDERS && renderedLabel}
+          placeholder={CONVERT_LABELS_TO_PLACEHOLDERS ? renderedLabel : undefined}
         />
 
         {!CONVERT_LABELS_TO_PLACEHOLDERS && (

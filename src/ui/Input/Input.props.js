@@ -9,4 +9,6 @@ export const propTypes = {
   value: PropTypes.any,
 }
 
-export const defaultProps = {}
+export const defaultProps = {
+  onChange: () => {},
+}

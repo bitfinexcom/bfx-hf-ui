@@ -98,7 +98,12 @@ const defaultDataForLayout = (layout = {}) => {
 
   return defaultData
 }
-
+const getValidValue = val => {
+  if (typeof val === 'string' && val.length > 0) return val
+  if (typeof val === 'number') return val.toString()
+  if (typeof val === 'string' && val.length === 0) return ' '
+  return val
+}
 const processFieldData = ({ action, layout = {}, fieldData = {} }) => {
   const { fields = {} } = layout
   const data = {}
@@ -154,7 +159,7 @@ const renderLayoutComponent = ({
       renderData={renderData}
       onFieldChange={onFieldChange}
       onChange={v => onFieldChange(fieldName, v)}
-      value={fieldData[fieldName]}
+      value={getValidValue(fieldData[fieldName])}
       key={`${fieldName}-component`}
       id={`${fieldName}-component`}
       validationError={validationErrors[fieldName]}
@@ -335,7 +340,7 @@ const renderLayout = ({
   html.push(renderLayoutActions({ layout, onSubmit }))
 
   return (
-    <div className='hfui-orderform__layout'>
+    <div className='hfui-orderform__layout' key='orderform-layout'>
       {html}
     </div>
   )

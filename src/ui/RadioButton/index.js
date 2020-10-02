@@ -10,7 +10,6 @@ export default class RadioButton extends React.PureComponent {
     const {
       onChange, value, label, id, uppercase,
     } = this.props
-
     return (
       <div className='pretty p-default p-round hfui-radio-button'>
         <input

@@ -172,7 +172,7 @@ export default class TradingStatePanel extends React.Component {
         >
           <PositionsTable
             htmlKey='Positions'
-            tabTitle={(
+            tabtitle={(
               <span>
                 Positions
                 {renderCounter(positions.length)}
@@ -183,7 +183,7 @@ export default class TradingStatePanel extends React.Component {
           />
           <AtomicOrdersTable
             htmlKey='Atomics'
-            tabTitle={(
+            tabtitle={(
               <span>
                 Atomics
                 {renderCounter(atomicOrders.length)}
@@ -194,7 +194,7 @@ export default class TradingStatePanel extends React.Component {
           />
           <AlgoOrdersTable
             htmlKey='Algos'
-            tabTitle={(
+            tabtitle={(
               <span>
                 Algos
                 {renderCounter(algoOrders.length)}
@@ -204,7 +204,7 @@ export default class TradingStatePanel extends React.Component {
             orders={algoOrders}
           />
           <BalancesTable
-            tabTitle='Balances'
+            tabtitle='Balances'
             exID={activeExchange}
             hideZeroBalances
             balances={balances}

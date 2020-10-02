@@ -132,11 +132,11 @@ export default class StrategyEditorPage extends React.Component {
             darkHeader
           >
             <Markdown
-              tabTitle='Docs'
+              tabtitle='Docs'
               text={docsText}
             />
             <div
-              tabTitle='Backtest'
+              tabtitle='Backtest' // lowercase name for div is requiered
               style={{ height: 1200 }}
             >
               <Backtester
@@ -146,7 +146,7 @@ export default class StrategyEditorPage extends React.Component {
               />
             </div>
             <div
-              tabTitle='Execute'
+              tabtitle='Execute' // lowercase name for div is requiered
             >
               <LiveStrategyExecutor
                 strategyContent={strategyContent}
