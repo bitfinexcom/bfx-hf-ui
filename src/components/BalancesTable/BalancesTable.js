@@ -11,7 +11,7 @@ export default class BalancesTable extends React.PureComponent {
   static defaultProps = defaultProps
 
   render() {
-    const { balances = [], hideZeroBalances } = this.props
+    const { filtredBalances: balances = [], hideZeroBalances } = this.props
 
     const filteredBalances = hideZeroBalances
       ? balances.filter(b => +b.balance > 0)

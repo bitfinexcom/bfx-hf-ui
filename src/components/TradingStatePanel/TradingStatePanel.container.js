@@ -33,6 +33,9 @@ const mapDispatchToProps = dispatch => ({
       componentID,
     }))
   },
+  setFiltredValueWithKey: (key, value) => {
+    dispatch(UIActions.setFiltredValueWithKey(key, value))
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TradingStatePanel)

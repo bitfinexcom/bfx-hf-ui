@@ -11,7 +11,7 @@ export default class AtomicOrdersTable extends React.PureComponent {
 
   render() {
     const {
-      exID, orders, cancelOrder, authToken, gaCancelOrder,
+      exID, filtredAtomicOrders: orders, cancelOrder, authToken, gaCancelOrder,
     } = this.props
 
     return (
