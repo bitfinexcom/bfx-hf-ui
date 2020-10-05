@@ -2,8 +2,6 @@ import React from 'react'
 import _isEqual from 'lodash/isEqual'
 import _capitalize from 'lodash/capitalize'
 import { TIME_FRAME_WIDTHS } from 'bfx-hf-util'
-import { UserSettings } from 'bfx-hf-ui-config'
-import { AutoSizer } from 'react-virtualized'
 import BFXChart from 'bfx-hf-chart'
 import TradingViewWidget, { Themes } from 'react-tradingview-widget'
 
@@ -23,8 +21,6 @@ import './style.css'
 
 const HEIGHT_STEP_PX = 20
 const MIN_HEIGHT_PX = 250
-const { CHARTS } = UserSettings
-const { TRADING_VIEW, BFX_HF_CUSTOM } = CHARTS
 
 export default class Chart extends React.Component {
   static propTypes = propTypes
@@ -432,108 +428,32 @@ export default class Chart extends React.Component {
 
   render() {
     const {
-      trades, syncRanges, disableToolbar, disableTopbar, orders, positions,
-      disableIndicators, disableIndicatorSettings, indicators: propIndicators,
-      chart, activeMarket, showExchange, showMarket,
+      activeMarket,
     } = this.props
 
     const {
-      data, drawings, currentExchange, currentTF, currentMarket,
-      indicators: stateIndicators,
+      currentExchange,
     } = this.state
-
     const { base, quote } = activeMarket
-    const isSyncing = !!syncRanges.find(({ exID, symbol, tf }) => (
-      exID === currentExchange && symbol === currentMarket.wsID && tf === currentTF
-    ))
-
-    const indicators = disableIndicators
-      ? propIndicators || []
-      : stateIndicators
-
-    const relevantPosition = (positions[currentExchange] || {})[currentMarket.wsID]
-    const relevantOrders = Object
-      .values(orders[currentExchange] || {})
-      .filter(o => o.symbol === currentMarket.wsID)
-
-    switch (chart) {
-      case TRADING_VIEW: {
-        return (
-          <div style={{
-            display: 'flex',
-            flex: 1,
-            backgroundColor: '#131722',
-            height: '100%',
-          }}
-          >
-            <TradingViewWidget
-              symbol={`${currentExchange.toUpperCase()}:${base}${quote}`}
-              theme={Themes.DARK}
-              autosize
-              allow_symbol_change={false}
-              enable_publishing={false}
-              hideideas
-              save_image={false}
-              toolbar_bg='#fff'
-            />
-          </div>
-        )
-      }
-
-      case BFX_HF_CUSTOM: {
-        return (
-          <AutoSizer>
-            {({ width, height }) => width > 0 && height > 0 && (
-              <BFXChart
-                ref={this.chartRef}
-                indicators={indicators}
-                drawings={drawings}
-                candles={data}
-                trades={trades}
-                orders={relevantOrders}
-                position={relevantPosition}
-                candleWidth={currentTF}
-                width={width}
-                height={height}
-                onLoadMore={this.onLoadMore}
-                onTimeFrameChange={this.onChangeTF}
-                onAddIndicator={this.onAddIndicator}
-                onUpdateIndicatorArgs={this.onUpdateIndicatorArgs}
-                onDeleteIndicator={this.onDeleteIndicator}
-                onAddDrawing={this.onAddDrawing}
-                marketLabel={currentMarket.uiID}
-                disableToolbar={disableToolbar}
-                disableTopbar={disableTopbar}
-                disableIndicators={disableIndicators}
-                disableIndicatorSettings={disableIndicatorSettings}
-                isSyncing={isSyncing}
-                candleLoadingThreshold={3} // we always get 1 candle when sub'ing
-                bgColor='#102331'
-                config={{
-                  AXIS_COLOR: '#444',
-                  AXIS_TICK_COLOR: '#00000000',
-                }}
-                showMarketLabel={!showMarket}
-                extraHeaderComponentsLeft={(showExchange || showMarket) && (
-                  <div className='hfui-chart__extra-header-components'>
-                    {showExchange && this.renderExchangeDropdown()}
-                    {showMarket && this.renderMarketDropdown()}
-                  </div>
-                )}
-              />
-            )}
-          </AutoSizer>
-        )
-      }
-
-      default: {
-        return (
-          <p>
-            Unknown chart type:
-            {chart}
-          </p>
-        )
-      }
-    }
+    return (
+      <div style={{
+        display: 'flex',
+        flex: 1,
+        backgroundColor: '#131722',
+        height: '100%',
+      }}
+      >
+        <TradingViewWidget
+          symbol={`${currentExchange.toUpperCase()}:${base}${quote}`}
+          theme={Themes.DARK}
+          autosize
+          allow_symbol_change={false}
+          enable_publishing={false}
+          hideideas
+          save_image={false}
+          toolbar_bg='#fff'
+        />
+      </div>
+    )
   }
 }

@@ -63,14 +63,12 @@ const mapDispatchToProps = dispatch => ({
     dispatch(GAActions.updateSettings())
   },
   updateSettings: ({
-    authToken, chart, dms, theme, ga,
+    authToken, dms, ga,
   }) => {
     dispatch(WSActions.send([
       'settings.update',
       authToken,
-      chart,
       dms,
-      theme,
       ga,
     ]))
   },
