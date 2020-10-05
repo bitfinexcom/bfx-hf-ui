@@ -77,6 +77,7 @@
     "start": "cross-env REACT_APP_DEV=1 REACT_APP_TV_URL=http://localhost:9999 REACT_APP_WSS_URL=ws://localhost:45000 node scripts/start.js",
     "build": "GENERATE_SOURCEMAP=false cross-env npm run build-css &&  cross-env REACT_APP_TV_URL=http://localhost:9999 REACT_APP_WSS_URL=ws://localhost:45000 node scripts/build.js",
     "dev": "cross-env concurrently --kill-others \"npm run start-server\" \"npm run start\"",
+    "web:dev": "npm run start & npm run start-api-server & npm run start-ds-bitfinex",
     "test": "cross-env npm run lint && cross-env node scripts/test.js",
     "unit": "",
     "lint": "cross-env eslint src/**/*.js",
