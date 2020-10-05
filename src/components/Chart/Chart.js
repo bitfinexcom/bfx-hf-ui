@@ -2,7 +2,6 @@ import React from 'react'
 import _isEqual from 'lodash/isEqual'
 import _capitalize from 'lodash/capitalize'
 import { TIME_FRAME_WIDTHS } from 'bfx-hf-util'
-import BFXChart from 'bfx-hf-chart'
 import TradingViewWidget, { Themes } from 'react-tradingview-widget'
 
 import {
@@ -29,7 +28,6 @@ export default class Chart extends React.Component {
 
   state = {
     candles: [],
-    indicators: [],
     drawings: [],
     lastCandleUpdate: null,
     lastInternalCandleUpdate: 0,
@@ -42,14 +40,12 @@ export default class Chart extends React.Component {
 
     const {
       savedState = {}, candleData = {}, reduxState, defaultHeight = 350,
-      activeMarket, activeExchange, indicators: propIndicators = [],
-      disableIndicators,
+      activeMarket, activeExchange,
     } = props
 
     const {
       currentExchange = activeExchange, currentMarket = activeMarket,
       currentTF = '1m', marketDirty, exchangeDirty, height = defaultHeight,
-      indicators = '[]',
     } = savedState
 
     // NOTE: We don't restore the saved range, as it can be very large depending
@@ -71,11 +67,6 @@ export default class Chart extends React.Component {
 
       marketDirty,
       exchangeDirty,
-
-      // Use prop indicators if management is disabled
-      indicators: disableIndicators
-        ? propIndicators
-        : BFXChart.unserializeIndicators(indicators),
 
       lastCandleUpdateWhenSyncRequested: null,
       lastCandleUpdate: getLastCandleUpdate(reduxState, {
@@ -104,9 +95,6 @@ export default class Chart extends React.Component {
     this.onChangeExchange = this.onChangeExchange.bind(this)
     this.onLoadMore = this.onLoadMore.bind(this)
     this.onAddDrawing = this.onAddDrawing.bind(this)
-    this.onAddIndicator = this.onAddIndicator.bind(this)
-    this.onDeleteIndicator = this.onDeleteIndicator.bind(this)
-    this.onUpdateIndicatorArgs = this.onUpdateIndicatorArgs.bind(this)
     this.onIncreaseHeight = this.onIncreaseHeight.bind(this)
     this.onDecreaseHeight = this.onDecreaseHeight.bind(this)
   }
@@ -123,18 +111,14 @@ export default class Chart extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     const {
       trades, positions, exchanges, orders, syncRanges,
-      indicators: propIndicators,
     } = this.props
 
     const {
       currentTF, currentExchange, currentMarket, height, drawings,
-      lastInternalCandleUpdate, indicators: stateIndicators,
+      lastInternalCandleUpdate,
     } = this.state
 
-    if (
-      !_isEqual(nextState.indicators, stateIndicators)
-      || !_isEqual(nextProps.indicators, propIndicators)
-      || !_isEqual(nextProps.syncRanges, syncRanges)
+    if (!_isEqual(nextProps.syncRanges, syncRanges)
       || !_isEqual(nextState.drawings, drawings)
       || !_isEqual(nextProps.trades, trades)
       || (nextState.currentTF !== currentTF)
@@ -186,41 +170,6 @@ export default class Chart extends React.Component {
         ...drawings,
       ],
     }))
-  }
-
-  onAddIndicator(i) {
-    this.setState(({ indicators }) => ({
-      indicators: [
-        ...indicators,
-        i,
-      ],
-    }))
-
-    this.deferSaveState()
-  }
-
-  onDeleteIndicator(index) {
-    this.setState(({ indicators }) => {
-      const nextIndicators = [...indicators]
-      nextIndicators.splice(index, 1)
-      return { indicators: nextIndicators }
-    })
-
-    this.deferSaveState()
-  }
-
-  onUpdateIndicatorArgs(args, index) {
-    this.setState(({ indicators }) => {
-      const nextIndicators = [...indicators]
-      const nextIndicator = [...nextIndicators[index]]
-
-      nextIndicator[1] = args
-      nextIndicators[index] = nextIndicator
-
-      return { indicators: nextIndicators }
-    })
-
-    this.deferSaveState()
   }
 
   onCandleSelectionChange() {
@@ -364,7 +313,7 @@ export default class Chart extends React.Component {
   saveState() {
     const {
       currentExchange, currentMarket, currentTF, currentRange, marketDirty,
-      exchangeDirty, height, indicators,
+      exchangeDirty, height,
     } = this.state
 
     const {
@@ -379,7 +328,6 @@ export default class Chart extends React.Component {
       currentRange,
       currentTF,
       height,
-      indicators: BFXChart.serializeIndicators(indicators),
     })
 
     if (onRangeChange) {
