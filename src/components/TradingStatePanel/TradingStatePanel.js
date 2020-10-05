@@ -44,6 +44,17 @@ export default class TradingStatePanel extends React.Component {
     return (JSON.stringify(nextProps) !== JSON.stringify(this.props)
             || JSON.stringify(nextState) !== JSON.stringify(this.state))
   }
+  componentDidUpdate() {}
+  getSnapshotBeforeUpdate() {
+    const atomicOrders = this.getFilteredAtomicOrders()
+    const algoOrders = this.getFilteredAlgoOrders()
+    const positions = this.getFilteredPositions()
+    const balances = this.getFilteredBalances()
+    this.setState({
+      algoOrders, atomicOrders, positions, balances,
+    })
+    return null
+  }
   onToggleMarketFilter() {
     this.setState(({ marketFilterActive }) => ({
       marketFilterActive: !marketFilterActive,
@@ -57,51 +68,61 @@ export default class TradingStatePanel extends React.Component {
   }
 
   getFilteredAtomicOrders() {
-    const { activeExchange, activeMarket, atomicOrders } = this.props
+    const {
+      activeExchange, activeMarket, atomicOrders, setFiltredValueWithKey,
+    } = this.props
     const { exchangeFilterActive, marketFilterActive } = this.state
 
     const filteredByExchange = exchangeFilterActive
       ? Object.values(atomicOrders[activeExchange] || {})
       : _flatten(Object.values(atomicOrders).map(Object.values))
-
-    return marketFilterActive
+    const filtredAtomicOrders = marketFilterActive
       ? filteredByExchange.filter(o => o.symbol === activeMarket.wsID)
       : filteredByExchange
+    setFiltredValueWithKey('filtredAtomicOrders', filtredAtomicOrders)
+    return filtredAtomicOrders
   }
 
   getFilteredAlgoOrders() {
-    const { activeExchange, activeMarket, algoOrders } = this.props
+    const {
+      activeExchange, activeMarket, algoOrders, setFiltredValueWithKey,
+    } = this.props
     const { exchangeFilterActive, marketFilterActive } = this.state
 
     const filteredByExchange = exchangeFilterActive
       ? Object.values(algoOrders[activeExchange] || {})
       : _flatten(Object.values(algoOrders).map(Object.values))
-
-    return marketFilterActive
+    const filtredAO = marketFilterActive
       ? filteredByExchange.filter(ao => ao.args.symbol === activeMarket.wsID)
       : filteredByExchange
+    setFiltredValueWithKey('filtredAO', filtredAO)
+    return filtredAO
   }
 
   getFilteredPositions() {
-    const { activeExchange, activeMarket, positions } = this.props
+    const {
+      activeExchange, activeMarket, positions, setFiltredValueWithKey,
+    } = this.props
     const { exchangeFilterActive, marketFilterActive } = this.state
 
     const filteredByExchange = exchangeFilterActive
       ? Object.values(positions[activeExchange] || {})
       : _flatten(Object.values(positions).map(Object.values))
-
-    return marketFilterActive
+    const filtredPositions = marketFilterActive
       ? filteredByExchange.filter(p => p.symbol === activeMarket.wsID)
       : filteredByExchange
+    setFiltredValueWithKey('filtredPositions', filtredPositions)
+    return filtredPositions
   }
 
   getFilteredBalances() {
-    const { activeExchange, balances } = this.props
+    const { activeExchange, balances, setFiltredValueWithKey } = this.props
     const { exchangeFilterActive } = this.state
-
-    return exchangeFilterActive
+    const filtredBalances = exchangeFilterActive
       ? Object.values(balances[activeExchange] || {})
       : _flatten(Object.values(balances).map(Object.values))
+    setFiltredValueWithKey('filtredBalances', filtredBalances)
+    return filtredBalances
   }
 
   deferSaveState() {
@@ -124,11 +145,9 @@ export default class TradingStatePanel extends React.Component {
     const {
       onRemove, activeExchange, activeMarket, moveable, removeable,
     } = this.props
-    const { exchangeFilterActive, marketFilterActive } = this.state
-    const atomicOrders = this.getFilteredAtomicOrders()
-    const algoOrders = this.getFilteredAlgoOrders()
-    const positions = this.getFilteredPositions()
-    const balances = this.getFilteredBalances()
+    const {
+      exchangeFilterActive, marketFilterActive, atomicOrders = [], algoOrders = [], positions = [],
+    } = this.state
 
     return (
       <Panel
@@ -179,7 +198,6 @@ export default class TradingStatePanel extends React.Component {
               </span>
             )}
             exID={activeExchange}
-            positions={positions}
           />
           <AtomicOrdersTable
             htmlKey='Atomics'
@@ -190,7 +208,6 @@ export default class TradingStatePanel extends React.Component {
               </span>
             )}
             exID={activeExchange}
-            orders={atomicOrders}
           />
           <AlgoOrdersTable
             htmlKey='Algos'
@@ -201,13 +218,12 @@ export default class TradingStatePanel extends React.Component {
               </span>
             )}
             exID={activeExchange}
-            orders={algoOrders}
           />
           <BalancesTable
+            htmlKey='Balances'
             tabtitle='Balances'
             exID={activeExchange}
             hideZeroBalances
-            balances={balances}
           />
         </Panel>
       </Panel>
