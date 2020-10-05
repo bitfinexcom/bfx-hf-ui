@@ -24,7 +24,7 @@ export default [{
     />
   ),
 }, {
-  label: 'Total',
+  label: 'Amount',
   dataKey: 'amount',
   width: 120,
   cellRenderer: ({ rowData = {} }) => ( // eslint-disable-line
