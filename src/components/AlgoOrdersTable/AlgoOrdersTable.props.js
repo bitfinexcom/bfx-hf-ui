@@ -2,10 +2,10 @@ import PropTypes from 'prop-types'
 
 export const propTypes = {
   cancelOrder: PropTypes.func.isRequired,
-  orders: PropTypes.array,
+  filtredAO: PropTypes.array,
   apiClientState: PropTypes.number.isRequired,
 }
 
 export const defaultProps = {
-  orders: [],
+  filtredAO: [],
 }

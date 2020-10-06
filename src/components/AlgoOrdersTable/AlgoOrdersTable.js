@@ -17,7 +17,7 @@ export default class AlgoOrdersTable extends React.PureComponent {
 
   render() {
     const {
-      apiClientState, filtredAO: orders = [],
+      apiClientState, filtredAO: orders,
     } = this.props
     return (
       <ul className='hfui-ao-list__wrapper'>
