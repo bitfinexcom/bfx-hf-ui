@@ -11,6 +11,4 @@ export const propTypes = {
 }
 
 export const defaultProps = {
-  dms: true,
-  ga: false,
 }
