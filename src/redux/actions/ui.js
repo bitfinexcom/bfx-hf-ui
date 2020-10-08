@@ -42,6 +42,14 @@ const setActiveExchange = (exchange, market) => ({
   payload: { exchange, market },
 })
 
+const setFiltredValueWithKey = (key, value) => ({
+  type: types.SET_FILTRED_VALUE,
+  payload: {
+    key,
+    value,
+  },
+})
+
 const saveComponentState = ({
   layoutID,
   componentID,
@@ -92,4 +100,5 @@ export default {
   openNotifcationPanel,
   firstLogin,
   finishGuide,
+  setFiltredValueWithKey,
 }

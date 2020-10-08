@@ -6,6 +6,7 @@ import { history, configureStore } from './redux'
 import sagas from './redux/sagas'
 import wsMiddleware from './redux/middleware/ws'
 import gaMiddleware from './redux/middleware/ga'
+import uiMiddleware from './redux/middleware/ui'
 
 const config = {
   development: true,
@@ -15,6 +16,7 @@ const config = {
 const optionalMiddleware = [
   wsMiddleware(),
   gaMiddleware(),
+  uiMiddleware(),
 ]
 
 const store = configureStore(
