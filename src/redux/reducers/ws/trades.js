@@ -28,11 +28,14 @@ export default function (state = getInitialState(), action = {}) {
     }
 
     case t.DATA_TRADES: {
-      const { exID, channel, trades = [] } = payload
+      const { exID = {}, channel, trades = [] } = payload
       const [, market] = channel
-      const symbol = market.uiID
-      const tradesToKeep = MAX_STORED_TRADES - trades.length
-
+      const symbol = market.uiID || ''
+      const currentTrades = state[exID] && state[exID][symbol] ? state[exID][symbol] : []
+      const totalTrades = currentTrades.length + trades.length
+      if (totalTrades >= MAX_STORED_TRADES) {
+        currentTrades.splice(-(totalTrades - MAX_STORED_TRADES))
+      }
       return {
         ...state,
 
@@ -40,7 +43,7 @@ export default function (state = getInitialState(), action = {}) {
           ...(state[exID] || {}),
           [symbol]: [
             ...trades,
-            ...((state[exID] || {})[symbol] || []).slice(0, tradesToKeep > 0 ? tradesToKeep : 0),
+            ...currentTrades,
           ],
         },
       }
