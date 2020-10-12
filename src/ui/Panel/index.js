@@ -11,7 +11,14 @@ export default class Panel extends React.Component {
   static defaultProps = defaultProps
 
   state = {}
-
+  getTabTitle(tab) { //eslint-disable-line
+    const { htmlKey, tabtitle } = tab.props
+    if (typeof tabtitle === 'string') {
+      return tabtitle
+    }
+    if (!htmlKey) console.trace('htmlKey missing')
+    return htmlKey
+  }
   render() {
     const {
       className, label, children = [], onRemove, headerComponents, hideIcons,
@@ -47,7 +54,7 @@ export default class Panel extends React.Component {
               {tabs.map(tab => (
                 <li
                   key={tab.props.htmlKey || tab.props.tabtitle}
-                  className={ClassNames({ active: tab.props.htmlKey === selectedTab.props.htmlKey })}
+                  className={ClassNames({ active: this.getTabTitle(tab) === this.getTabTitle(selectedTab) })}
                   onClick={() => this.setState(() => ({ selectedTab: tab }))}
                 >
                   <p className='hfui-panel__label'>
