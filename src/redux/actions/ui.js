@@ -79,6 +79,11 @@ const finishGuide = (page) => ({
   payload: page,
 })
 
+const recvNotification = notification => ({
+  type: types.DATA_NOTIFICATION,
+  payload: { notification },
+})
+
 export default {
   setRoute,
   saveLayout,
@@ -92,4 +97,5 @@ export default {
   openNotifcationPanel,
   firstLogin,
   finishGuide,
+  recvNotification,
 }

@@ -1,4 +1,4 @@
-import WSActions from '../../actions/ws'
+import UIActions from '../../actions/ui'
 import UITypes from '../../constants/ui'
 
 export default () => {
@@ -7,7 +7,7 @@ export default () => {
 
     switch (type) {
       case UITypes.SAVE_LAYOUT: {
-        store.dispatch(WSActions.recvNotification({
+        store.dispatch(UIActions.recvNotification({
           mts: Date.now(),
           status: 'success',
           text: 'Successfully saved layout',
