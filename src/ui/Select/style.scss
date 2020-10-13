@@ -53,10 +53,13 @@
   border-radius: 0 !important;
   border-top: none;
   margin-top: 0 !important;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .hfui-select__menu-list {
   padding-top: 0 !important;
+  overflow-x: hidden;
 }
 
 .hfui-select__option {
