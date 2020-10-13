@@ -197,6 +197,14 @@ function reducer(state = getInitialState(), action = {}) {
       }
     }
 
+    case types.SET_FILTRED_VALUE: {
+      const { key, value } = payload
+      return {
+        ...state,
+        [key]: value,
+      }
+    }
+
     case types.SET_ROUTE: {
       const { route } = payload
 
