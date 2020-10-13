@@ -44,7 +44,8 @@ export default class OrderBook extends React.Component {
     const allBids = fullOB.filter(pl => pl[1] > 0)
     const allAsks = fullOB.filter(pl => pl[1] < 0)
     const bids = allBids.slice(0, TEMP_OB_SIDE_LENGTH_LIMIT)
-    const asks = allAsks.slice(0, TEMP_OB_SIDE_LENGTH_LIMIT)
+    const asks = allAsks.slice(allAsks.length - TEMP_OB_SIDE_LENGTH_LIMIT)
+
     const ob = [...asks, ...bids]
     const maxVol = _max(ob.map(pl => Math.abs(pl[1])))
     const totalBuyAmount = _sum(ob.filter(pl => pl[1] > 0).map(pl => pl[1]))

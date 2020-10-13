@@ -1,4 +1,5 @@
-import types from '../../constants/ws'
+import WSTypes from '../../constants/ws'
+import UITypes from '../../constants/ui'
 import { notificationAdapter } from '../../adapters/ws'
 
 function getInitialState() {
@@ -9,9 +10,9 @@ function reducer(state = getInitialState(), action = {}) {
   const { type, payload = [] } = action
 
   switch (type) {
-    case types.DATA_NOTIFICATION: {
+    case UITypes.DATA_NOTIFICATION:
+    case WSTypes.DATA_NOTIFICATION: {
       const { notification = [] } = payload
-
       return [
         notificationAdapter(notification),
         ...state,

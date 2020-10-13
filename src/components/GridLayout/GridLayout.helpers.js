@@ -2,7 +2,7 @@ import React from 'react'
 
 import OrderForm from '../OrderForm'
 import OrderBookPanel from '../OrderBookPanel'
-import Chart from '../Chart'
+import ChartPanel from '../ChartPanel'
 import AtomicOrdersTablePanel from '../AtomicOrdersTablePanel'
 import AlgoOrdersTable from '../AlgoOrdersTable'
 import OrderHistoryTable from '../OrderHistoryTable'
@@ -53,7 +53,7 @@ const COMPONENT_DIMENSIONS = {
 const componentForType = (c) => {
   switch (c) {
     case COMPONENT_TYPES.CHART:
-      return Chart
+      return ChartPanel
 
     case COMPONENT_TYPES.ORDER_BOOK:
       return OrderBookPanel
@@ -107,7 +107,7 @@ const renderLayoutElement = (layoutID, def = {}, componentProps = {}, onRemoveCo
     )
   }
 
-  if (C === Chart && componentProps.chart) {
+  if (C === ChartPanel && componentProps.chart) {
     Object.assign(cProps, componentProps.chart)
   } else if (C === OrderBookPanel && componentProps.book) {
     Object.assign(cProps, componentProps.book)
@@ -118,7 +118,6 @@ const renderLayoutElement = (layoutID, def = {}, componentProps = {}, onRemoveCo
   } else if (C === AtomicOrdersTablePanel && componentProps.orders) {
     Object.assign(cProps, componentProps.orders)
   }
-
   return <C {...cProps} />
 }
 
