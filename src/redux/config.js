@@ -3,6 +3,7 @@ const REDUCER_PATHS = {
   ROUTER: 'router',
   META: 'meta',
   UI: 'ui',
+  NOTIFICATIONS: 'notifications',
 }
 
 const MAX_STORED_TRADES = 25

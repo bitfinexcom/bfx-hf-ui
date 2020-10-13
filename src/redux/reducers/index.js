@@ -5,12 +5,14 @@ import { REDUCER_PATHS } from '../config'
 import ui from './ui'
 import meta from './meta'
 import ws from './ws'
+import notifications from './notifications'
 
 const reducers = history => combineReducers({
   [REDUCER_PATHS.ROUTER]: connectRouter(history),
   [REDUCER_PATHS.WS]: ws,
   [REDUCER_PATHS.META]: meta,
   [REDUCER_PATHS.UI]: ui,
+  [REDUCER_PATHS.NOTIFICATIONS]: notifications,
 })
 
 export default reducers
