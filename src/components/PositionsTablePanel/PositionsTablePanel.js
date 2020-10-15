@@ -64,18 +64,18 @@ export default class PositionsTablePanel extends React.Component {
   }
   getFilteredPositions() {
     const {
-      activeExchange, activeMarket, positions, setFiltredValueWithKey,
+      activeExchange, activeMarket, positions, setFilteredValueWithKey,
     } = this.props
     const { exchangeFilterActive, marketFilterActive } = this.state
 
     const filteredByExchange = exchangeFilterActive
       ? Object.values(positions[activeExchange] || {})
       : _flatten(Object.values(positions).map(Object.values))
-    const filtredPositions = marketFilterActive
+    const filteredPositions = marketFilterActive
       ? filteredByExchange.filter(p => p.symbol === activeMarket.wsID)
       : filteredByExchange
-    setFiltredValueWithKey('filtredPositions', filtredPositions)
-    return filtredPositions
+    setFilteredValueWithKey('filteredPositions', filteredPositions)
+    return filteredPositions
   }
 
   deferSaveState() {
@@ -124,7 +124,7 @@ export default class PositionsTablePanel extends React.Component {
       >
         <PositionsTable
           exID={currentExchange}
-          filtredPositions={positions}
+          filteredPositions={positions}
         />
       </Panel>
     )

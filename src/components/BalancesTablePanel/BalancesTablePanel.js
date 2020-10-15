@@ -86,13 +86,13 @@ export default class BalancesTablePanel extends React.Component {
   }
 
   getFilteredBalances() {
-    const { activeExchange, balances, setFiltredValueWithKey } = this.props
+    const { activeExchange, balances, setFilteredValueWithKey } = this.props
     const { exchangeFilterActive } = this.state
-    const filtredBalances = exchangeFilterActive
+    const filteredBalances = exchangeFilterActive
       ? Object.values(balances[activeExchange] || {})
       : _flatten(Object.values(balances).map(Object.values))
-    setFiltredValueWithKey('filtredBalances', filtredBalances)
-    return filtredBalances
+    setFilteredValueWithKey('filteredBalances', filteredBalances)
+    return filteredBalances
   }
 
   deferSaveState() {

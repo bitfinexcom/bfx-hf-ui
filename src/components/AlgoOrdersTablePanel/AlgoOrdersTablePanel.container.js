@@ -23,8 +23,8 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  setFiltredValueWithKey: (key, value) => {
-    dispatch(UIActions.setFiltredValueWithKey(key, value))
+  setFilteredValueWithKey: (key, value) => {
+    dispatch(UIActions.setFilteredValueWithKey(key, value))
   },
 })
 

@@ -29,8 +29,8 @@ const mapDispatchToProps = dispatch => ({
       componentID,
     }))
   },
-  setFiltredValueWithKey: (key, value) => {
-    dispatch(UIActions.setFiltredValueWithKey(key, value))
+  setFilteredValueWithKey: (key, value) => {
+    dispatch(UIActions.setFilteredValueWithKey(key, value))
   },
 })
 
