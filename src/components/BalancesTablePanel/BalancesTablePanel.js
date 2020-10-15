@@ -133,7 +133,9 @@ export default class BalancesTablePanel extends React.Component {
   }
 
   render() {
-    const { currentExchange, settingsOpen, hideZeroBalances } = this.state
+    const {
+      currentExchange, settingsOpen, hideZeroBalances, balances = [],
+    } = this.state
     const { onRemove, showExchange } = this.props
 
     // TODO: Extract settings panel/wrapper into own component
@@ -159,6 +161,7 @@ export default class BalancesTablePanel extends React.Component {
         ) : (
           <BalancesTable
             exID={currentExchange}
+            filtredBalances={balances}
             hideZeroBalances={hideZeroBalances}
           />
         )}
