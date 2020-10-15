@@ -1,112 +1,52 @@
 import React from 'react'
-import _capitalize from 'lodash/capitalize'
-
+import { flatten as _flatten, isEqual as _isEqual } from 'lodash'
 import AtomicOrdersTable from '../AtomicOrdersTable'
-import Select from '../../ui/Select'
 import Panel from '../../ui/Panel'
 import { propTypes, defaultProps } from './AtomicOrdersTablePanel.props'
 
 export default class AtomicOrdersTablePanel extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
-
-  constructor(props) {
-    super(props)
-
-    const { savedState = {} } = props
-    const { currentExchange, exchangeDirty } = savedState
-
-    this.state = {
-      currentExchange,
-      exchangeDirty,
-    }
-
-    this.onChangeExchange = this.onChangeExchange.bind(this)
+  state = {
+    atomicOrders: [],
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    return (!_isEqual(nextProps, this.props) || !_isEqual(nextState, this.state))
+  }
+  componentDidUpdate() {}
+  getSnapshotBeforeUpdate() {
+    const atomicOrders = this.getFilteredAtomicOrders()
+    this.setState({ atomicOrders })
+    return null
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const { exchangeDirty, currentExchange } = prevState
-    const { activeExchange } = nextProps
+  getFilteredAtomicOrders() {
+    const {
+      activeExchange, activeMarket, setFiltredValueWithKey, atomicOrders = [],
+    } = this.props
+    const { exchangeFilterActive, marketFilterActive } = this.state
 
-    if (exchangeDirty || activeExchange === currentExchange) {
-      return {}
-    }
-
-    return {
-      currentExchange: activeExchange,
-    }
-  }
-
-  onChangeExchange(option) {
-    const { value: exchange } = option
-    const { currentExchange } = this.state
-
-    if (exchange === currentExchange) {
-      return
-    }
-
-    this.setState(() => ({
-      currentExchange: exchange,
-      exchangeDirty: true,
-    }))
-
-    this.deferSaveState()
-  }
-
-  deferSaveState() {
-    setTimeout(() => {
-      this.saveState()
-    }, 0)
-  }
-
-  saveState() {
-    const { saveState, layoutID, layoutI } = this.props
-    const { currentExchange, exchangeDirty } = this.state
-
-    saveState(layoutID, layoutI, {
-      currentExchange,
-      exchangeDirty,
-    })
-  }
-
-  renderExchangeDropdown() {
-    const { exchangeDirty, currentExchange } = this.state
-    const { exchanges } = this.props
-
-    return (
-      <Select
-        key='exchange'
-        className={{ yellow: exchangeDirty }}
-        onChange={this.onChangeExchange}
-        value={{
-          label: _capitalize(currentExchange),
-          value: currentExchange,
-        }}
-        options={exchanges.map(ex => ({
-          label: _capitalize(ex),
-          value: ex,
-        }))}
-      />
-    )
+    const filteredByExchange = exchangeFilterActive
+      ? Object.values(atomicOrders[activeExchange] || {})
+      : _flatten(Object.values(atomicOrders).map(Object.values))
+    const filtredAtomicOrders = marketFilterActive
+      ? filteredByExchange.filter(o => o.symbol === activeMarket.wsID)
+      : filteredByExchange
+    setFiltredValueWithKey('filtredAtomicOrders', filtredAtomicOrders)
+    return filtredAtomicOrders
   }
 
   render() {
-    // const { currentExchange } = this.state
-    const { onRemove, activeMarket, activeExchange } = this.props
-
+    const { onRemove, activeExchange } = this.props
+    const { atomicOrders } = this.state
     return (
       <Panel
         label='ATOMIC ORDERS'
         onRemove={onRemove}
-        headerComponents={[
-          // this.renderExchangeDropdown(),
-          <p key='market'>
-            {activeMarket.uiID}
-          </p>,
-        ]}
       >
         <AtomicOrdersTable
           exID={activeExchange}
+          filtredAtomicOrders={atomicOrders}
         />
       </Panel>
     )

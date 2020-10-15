@@ -4,7 +4,7 @@ import OrderForm from '../OrderForm'
 import OrderBookPanel from '../OrderBookPanel'
 import ChartPanel from '../ChartPanel'
 import AtomicOrdersTablePanel from '../AtomicOrdersTablePanel'
-import AlgoOrdersTable from '../AlgoOrdersTable'
+import AlgoOrdersTablePanel from '../AlgoOrdersTablePanel'
 import OrderHistoryTable from '../OrderHistoryTable'
 import TradesTablePanel from '../TradesTablePanel'
 import PositionsTablePanel from '../PositionsTablePanel'
@@ -68,7 +68,7 @@ const componentForType = (c) => {
       return AtomicOrdersTablePanel
 
     case COMPONENT_TYPES.ALGO_ORDERS_TABLE:
-      return AlgoOrdersTable
+      return AlgoOrdersTablePanel
 
     case COMPONENT_TYPES.ORDER_HISTORY_TABLE:
       return OrderHistoryTable

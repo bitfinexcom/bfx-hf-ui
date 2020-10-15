@@ -1,6 +1,7 @@
 import React from 'react'
 import _capitalize from 'lodash/capitalize'
-
+import _flatten from 'lodash/flatten'
+import _isEqual from 'lodash/isEqual'
 import PositionsTable from '../PositionsTable'
 import Select from '../../ui/Select'
 import Panel from '../../ui/Panel'
@@ -24,6 +25,15 @@ export default class PositionsTablePanel extends React.Component {
     this.onChangeExchange = this.onChangeExchange.bind(this)
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return (!_isEqual(nextProps, this.props) || !_isEqual(nextState, this.state))
+  }
+  componentDidUpdate() {}
+  getSnapshotBeforeUpdate() {
+    const positions = this.getFilteredPositions()
+    this.setState({ positions })
+    return null
+  }
   static getDerivedStateFromProps(nextProps, prevState) {
     const { exchangeDirty, currentExchange } = prevState
     const { activeExchange } = nextProps
@@ -51,6 +61,21 @@ export default class PositionsTablePanel extends React.Component {
     }))
 
     this.deferSaveState()
+  }
+  getFilteredPositions() {
+    const {
+      activeExchange, activeMarket, positions, setFiltredValueWithKey,
+    } = this.props
+    const { exchangeFilterActive, marketFilterActive } = this.state
+
+    const filteredByExchange = exchangeFilterActive
+      ? Object.values(positions[activeExchange] || {})
+      : _flatten(Object.values(positions).map(Object.values))
+    const filtredPositions = marketFilterActive
+      ? filteredByExchange.filter(p => p.symbol === activeMarket.wsID)
+      : filteredByExchange
+    setFiltredValueWithKey('filtredPositions', filtredPositions)
+    return filtredPositions
   }
 
   deferSaveState() {
@@ -88,11 +113,9 @@ export default class PositionsTablePanel extends React.Component {
       />
     )
   }
-
   render() {
-    const { currentExchange } = this.state
+    const { currentExchange, positions = [] } = this.state
     const { onRemove } = this.props
-
     return (
       <Panel
         label='POSITIONS'
@@ -101,6 +124,7 @@ export default class PositionsTablePanel extends React.Component {
       >
         <PositionsTable
           exID={currentExchange}
+          filtredPositions={positions}
         />
       </Panel>
     )

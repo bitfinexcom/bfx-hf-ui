@@ -1,5 +1,5 @@
 import React from 'react'
-import _capitalize from 'lodash/capitalize'
+import { flatten as _flatten, isEqual as _isEqual, capitalize as _capitalize } from 'lodash'
 
 import BalancesTable from '../BalancesTable'
 import Checkbox from '../../ui/Checkbox'
@@ -34,6 +34,16 @@ export default class BalancesTablePanel extends React.Component {
     this.onChangeExchange = this.onChangeExchange.bind(this)
     this.onToggleSettings = this.onToggleSettings.bind(this)
     this.onChangeHideZeroBalances = this.onChangeHideZeroBalances.bind(this)
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return (!_isEqual(nextProps, this.props) || !_isEqual(nextState, this.state))
+  }
+  componentDidUpdate() {}
+  getSnapshotBeforeUpdate() {
+    const balances = this.getFilteredBalances()
+    this.setState({ balances })
+    return null
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -73,6 +83,16 @@ export default class BalancesTablePanel extends React.Component {
     }))
 
     this.deferSaveState()
+  }
+
+  getFilteredBalances() {
+    const { activeExchange, balances, setFiltredValueWithKey } = this.props
+    const { exchangeFilterActive } = this.state
+    const filtredBalances = exchangeFilterActive
+      ? Object.values(balances[activeExchange] || {})
+      : _flatten(Object.values(balances).map(Object.values))
+    setFiltredValueWithKey('filtredBalances', filtredBalances)
+    return filtredBalances
   }
 
   deferSaveState() {
