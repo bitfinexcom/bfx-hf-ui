@@ -161,7 +161,7 @@ export default class BalancesTablePanel extends React.Component {
         ) : (
           <BalancesTable
             exID={currentExchange}
-            filtredBalances={balances}
+            filteredBalances={balances}
             hideZeroBalances={hideZeroBalances}
           />
         )}
