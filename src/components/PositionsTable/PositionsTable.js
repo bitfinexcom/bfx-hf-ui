@@ -11,7 +11,7 @@ export default class PositionsTable extends React.PureComponent {
 
   render() {
     const {
-      exID, filtredPositions: positions = [], closePosition, authToken,
+      exID, filteredPositions: positions = [], closePosition, authToken,
     } = this.props
 
     return (

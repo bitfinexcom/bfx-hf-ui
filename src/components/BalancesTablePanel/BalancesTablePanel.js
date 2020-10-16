@@ -1,5 +1,5 @@
 import React from 'react'
-import _capitalize from 'lodash/capitalize'
+import { flatten as _flatten, isEqual as _isEqual, capitalize as _capitalize } from 'lodash'
 
 import BalancesTable from '../BalancesTable'
 import Checkbox from '../../ui/Checkbox'
@@ -34,6 +34,16 @@ export default class BalancesTablePanel extends React.Component {
     this.onChangeExchange = this.onChangeExchange.bind(this)
     this.onToggleSettings = this.onToggleSettings.bind(this)
     this.onChangeHideZeroBalances = this.onChangeHideZeroBalances.bind(this)
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return (!_isEqual(nextProps, this.props) || !_isEqual(nextState, this.state))
+  }
+  componentDidUpdate() {}
+  getSnapshotBeforeUpdate() {
+    const balances = this.getFilteredBalances()
+    this.setState({ balances })
+    return null
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -75,6 +85,16 @@ export default class BalancesTablePanel extends React.Component {
     this.deferSaveState()
   }
 
+  getFilteredBalances() {
+    const { activeExchange, balances, setFilteredValueWithKey } = this.props
+    const { exchangeFilterActive } = this.state
+    const filteredBalances = exchangeFilterActive
+      ? Object.values(balances[activeExchange] || {})
+      : _flatten(Object.values(balances).map(Object.values))
+    setFilteredValueWithKey('filteredBalances', filteredBalances)
+    return filteredBalances
+  }
+
   deferSaveState() {
     setTimeout(() => {
       this.saveState()
@@ -113,7 +133,9 @@ export default class BalancesTablePanel extends React.Component {
   }
 
   render() {
-    const { currentExchange, settingsOpen, hideZeroBalances } = this.state
+    const {
+      currentExchange, settingsOpen, hideZeroBalances, balances = [],
+    } = this.state
     const { onRemove, showExchange } = this.props
 
     // TODO: Extract settings panel/wrapper into own component
@@ -139,6 +161,7 @@ export default class BalancesTablePanel extends React.Component {
         ) : (
           <BalancesTable
             exID={currentExchange}
+            filteredBalances={balances}
             hideZeroBalances={hideZeroBalances}
           />
         )}

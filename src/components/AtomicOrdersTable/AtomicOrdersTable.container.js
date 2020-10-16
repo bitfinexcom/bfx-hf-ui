@@ -11,7 +11,7 @@ const debug = Debug('hfui:c:atomic-orders-table')
 
 const mapStateToProps = (state = {}) => ({
   authToken: getAuthToken(state),
-  filtredAtomicOrders: state.ui.filtredAtomicOrders,
+  filteredAtomicOrders: state.ui.filteredAtomicOrders,
 })
 
 const mapDispatchToProps = dispatch => ({

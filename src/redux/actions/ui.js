@@ -42,7 +42,7 @@ const setActiveExchange = (exchange, market) => ({
   payload: { exchange, market },
 })
 
-const setFiltredValueWithKey = (key, value) => ({
+const setFilteredValueWithKey = (key, value) => ({
   type: types.SET_FILTRED_VALUE,
   payload: {
     key,
@@ -105,6 +105,6 @@ export default {
   openNotifcationPanel,
   firstLogin,
   finishGuide,
-  setFiltredValueWithKey,
+  setFilteredValueWithKey,
   recvNotification,
 }

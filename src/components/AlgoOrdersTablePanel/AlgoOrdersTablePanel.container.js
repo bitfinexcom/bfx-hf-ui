@@ -3,35 +3,29 @@ import { connect } from 'react-redux'
 import {
   getComponentState, getActiveExchange, getActiveMarket,
 } from '../../redux/selectors/ui'
-import { getAllOrders } from '../../redux/selectors/ws'
+import { getAlgoOrders } from '../../redux/selectors/ws'
 import { getExchanges } from '../../redux/selectors/meta'
 import UIActions from '../../redux/actions/ui'
 
-import AtomicOrdersTablePanel from './AtomicOrdersTablePanel'
+import AlgoOrdersTablePanel from './AlgoOrdersTablePanel'
 
 const mapStateToProps = (state = {}, ownProps = {}) => {
   const { layoutID, layoutI: id } = ownProps
+  const activeExchange = getActiveExchange(state)
 
   return {
-    activeExchange: getActiveExchange(state),
+    activeExchange,
     savedState: getComponentState(state, layoutID, 'atomic-orders', id),
     activeMarket: getActiveMarket(state),
     exchanges: getExchanges(state),
-    atomicOrders: getAllOrders(state),
+    algoOrders: getAlgoOrders(state),
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  saveState: (layoutID, componentID, state) => {
-    dispatch(UIActions.saveComponentState({
-      state,
-      layoutID,
-      componentID,
-    }))
-  },
   setFilteredValueWithKey: (key, value) => {
     dispatch(UIActions.setFilteredValueWithKey(key, value))
   },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(AtomicOrdersTablePanel)
+export default connect(mapStateToProps, mapDispatchToProps)(AlgoOrdersTablePanel)
