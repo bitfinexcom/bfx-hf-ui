@@ -204,7 +204,7 @@ export default class OrderBookPanel extends React.Component {
 
   render() {
     const {
-      onRemove, showExchange, showMarket, canChangeStacked, moveable,
+      onRemove, showMarket, canChangeStacked, moveable,
       removeable, dark,
     } = this.props
 
@@ -221,7 +221,6 @@ export default class OrderBookPanel extends React.Component {
         moveable={moveable}
         removeable={removeable}
         secondaryHeaderComponents={[
-          showExchange && this.renderExchangeDropdown(),
           showMarket && this.renderMarketDropdown(),
         ]}
         settingsOpen={settingsOpen}
