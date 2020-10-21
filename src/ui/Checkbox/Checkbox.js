@@ -11,7 +11,7 @@ export default class Checkbox extends React.PureComponent {
       label, value, onChange, id, uppercase,
     } = this.props
     return (
-      <div className='hfui-checkbox pretty p-default'>
+      <div className='hfui-checkbox pretty p-curve p-default'>
         <input
           className='hfui-input'
           type='checkbox'
