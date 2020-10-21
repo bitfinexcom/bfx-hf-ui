@@ -68,60 +68,60 @@ export default class TradingStatePanel extends React.Component {
 
   getFilteredAtomicOrders() {
     const {
-      activeExchange, activeMarket, atomicOrders, setFiltredValueWithKey,
+      activeExchange, activeMarket, atomicOrders, setFilteredValueWithKey,
     } = this.props
     const { exchangeFilterActive, marketFilterActive } = this.state
 
     const filteredByExchange = exchangeFilterActive
       ? Object.values(atomicOrders[activeExchange] || {})
       : _flatten(Object.values(atomicOrders).map(Object.values))
-    const filtredAtomicOrders = marketFilterActive
+    const filteredAtomicOrders = marketFilterActive
       ? filteredByExchange.filter(o => o.symbol === activeMarket.wsID)
       : filteredByExchange
-    setFiltredValueWithKey('filtredAtomicOrders', filtredAtomicOrders)
-    return filtredAtomicOrders
+    setFilteredValueWithKey('filteredAtomicOrders', filteredAtomicOrders)
+    return filteredAtomicOrders
   }
 
   getFilteredAlgoOrders() {
     const {
-      activeExchange, activeMarket, algoOrders, setFiltredValueWithKey,
+      activeExchange, activeMarket, algoOrders, setFilteredValueWithKey,
     } = this.props
     const { exchangeFilterActive, marketFilterActive } = this.state
 
     const filteredByExchange = exchangeFilterActive
       ? Object.values(algoOrders[activeExchange] || {})
       : _flatten(Object.values(algoOrders).map(Object.values))
-    const filtredAO = marketFilterActive
+    const filteredAO = marketFilterActive
       ? filteredByExchange.filter(ao => ao.args.symbol === activeMarket.wsID)
       : filteredByExchange
-    setFiltredValueWithKey('filtredAO', filtredAO)
-    return filtredAO
+    setFilteredValueWithKey('filteredAO', filteredAO)
+    return filteredAO
   }
 
   getFilteredPositions() {
     const {
-      activeExchange, activeMarket, positions, setFiltredValueWithKey,
+      activeExchange, activeMarket, positions, setFilteredValueWithKey,
     } = this.props
     const { exchangeFilterActive, marketFilterActive } = this.state
 
     const filteredByExchange = exchangeFilterActive
       ? Object.values(positions[activeExchange] || {})
       : _flatten(Object.values(positions).map(Object.values))
-    const filtredPositions = marketFilterActive
+    const filteredPositions = marketFilterActive
       ? filteredByExchange.filter(p => p.symbol === activeMarket.wsID)
       : filteredByExchange
-    setFiltredValueWithKey('filtredPositions', filtredPositions)
-    return filtredPositions
+    setFilteredValueWithKey('filteredPositions', filteredPositions)
+    return filteredPositions
   }
 
   getFilteredBalances() {
-    const { activeExchange, balances, setFiltredValueWithKey } = this.props
+    const { activeExchange, balances, setFilteredValueWithKey } = this.props
     const { exchangeFilterActive } = this.state
-    const filtredBalances = exchangeFilterActive
+    const filteredBalances = exchangeFilterActive
       ? Object.values(balances[activeExchange] || {})
       : _flatten(Object.values(balances).map(Object.values))
-    setFiltredValueWithKey('filtredBalances', filtredBalances)
-    return filtredBalances
+    setFilteredValueWithKey('filteredBalances', filteredBalances)
+    return filteredBalances
   }
 
   deferSaveState() {

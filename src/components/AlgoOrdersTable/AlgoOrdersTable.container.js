@@ -11,7 +11,7 @@ const debug = Debug('hfui:c:algo-orders-table')
 
 const mapStateToProps = (state = {}, ownProps = {}) => {
   const { exID } = ownProps
-  const { filtredAO = [] } = state.ui
+  const { filteredAO = [] } = state.ui
   const activeExchange = getActiveExchange(state)
   const activeMarket = getActiveMarket(state)
   return {
@@ -20,7 +20,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     algoOrders: getAlgoOrders(state),
     activeExchange,
     activeMarket,
-    filtredAO,
+    filteredAO,
   }
 }
 

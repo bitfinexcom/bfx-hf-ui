@@ -116,11 +116,6 @@ export default {
     payload: { exID, channel, ticker },
   }),
 
-  recvDataTrade: (exID, channel, trade) => ({
-    type: t.DATA_TRADE,
-    payload: { exID, channel, trade },
-  }),
-
   recvDataTrades: (exID, channel, trades) => ({
     type: t.DATA_TRADES,
     payload: { exID, channel, trades },

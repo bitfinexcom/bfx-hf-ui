@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 
 import { getComponentState, getActiveExchange } from '../../redux/selectors/ui'
+import { getAllBalances } from '../../redux/selectors/ws'
 import { getExchanges } from '../../redux/selectors/meta'
 import UIActions from '../../redux/actions/ui'
 
@@ -14,6 +15,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     activeExchange,
     savedState: getComponentState(state, layoutID, 'balances', id),
     exchanges: getExchanges(state),
+    balances: getAllBalances(state),
   }
 }
 
@@ -24,6 +26,9 @@ const mapDispatchToProps = dispatch => ({
       layoutID,
       componentID,
     }))
+  },
+  setFilteredValueWithKey: (key, value) => {
+    dispatch(UIActions.setFilteredValueWithKey(key, value))
   },
 })
 

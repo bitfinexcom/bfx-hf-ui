@@ -86,8 +86,7 @@ function reducer(state = getInitialState(), action = {}) {
       }
     }
 
-    case t.DATA_TRADES:
-    case t.DATA_TRADE: {
+    case t.DATA_TRADES: {
       const { exID, channel } = payload
       const [, market] = channel
       const trade = payload.trade || payload.trades[0]

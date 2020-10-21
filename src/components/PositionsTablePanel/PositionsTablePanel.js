@@ -18,11 +18,9 @@ export default class PositionsTablePanel extends React.Component {
       currentExchange,
     }
   }
-
   render() {
-    const { currentExchange } = this.state
+    const { currentExchange, positions = [] } = this.state
     const { onRemove } = this.props
-
     return (
       <Panel
         label='POSITIONS'
@@ -30,6 +28,7 @@ export default class PositionsTablePanel extends React.Component {
       >
         <PositionsTable
           exID={currentExchange}
+          filteredPositions={positions}
         />
       </Panel>
     )
