@@ -226,6 +226,13 @@ function reducer(state = getInitialState(), action = {}) {
         [`${page}_GUIDE_ACTIVE`]: false,
       }
     }
+    case types.STRATEGY_SELECT: {
+      const { content = {} } = payload
+      return {
+        ...state,
+        content,
+      }
+    }
     default: {
       return state
     }

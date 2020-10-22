@@ -43,7 +43,6 @@ export default class Backtester extends React.Component {
     this.backtestStrategy = this.backtestStrategy.bind(this)
     this.updateError = this.updateError.bind(this)
   }
-
   backtestStrategy = (options) => {
     const {
       activeExchange, activeMarket, startDate, endDate, tf,
@@ -85,13 +84,12 @@ export default class Backtester extends React.Component {
       allMarkets,
       backtestResults,
     } = this.props
-
     const formState = this.state[`${executionType.type}_formState`] || {} // eslint-disable-line
     const opts = {
       updateExecutionType: this.updateExecutionType,
       backtestMethods: this.backtestMethods,
       backtestStrategy: this.backtestStrategy,
-      executionType,
+      executionType: executionType.type,
       indicators,
       updateError: this.updateError,
       allMarkets,
