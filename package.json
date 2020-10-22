@@ -87,9 +87,9 @@
     "dist-win": "cross-env npm run dist-win-unpruned && npm run package-win",
     "dist-mac": "cross-env electron-packager --prune . --overwrite --platform=mas --arch=x64 --icon=build/icon.png --out=dist && npm run package-mac",
     "dist-linux": "cross-env electron-builder --linux -c.extraMetadata.main=build/electron.js --publish never && npm run package-linux",
-    "package-mac": "cd dist/bfx-hf-ui-mas-x64/bfx-hf-ui.app/Contents/Resources/app && sh clear.sh && node-prune && cd ../../../../../../ && zip --symlinks -r ./dist/bfx-hf-ui-mac-x64.zip ./dist/bfx-hf-ui-mas-x64",
-    "package-win": "cd dist/win-unpacked/resources/app && sh clear.sh && node-prune && cd ../../../../ && zip --symlinks -r ./dist/The.Honey.Framework-win.zip ./dist/win-unpacked",
-    "package-linux": "cd dist/linux-unpacked/resources/app && sh clear.sh && node-prune && cd ../../../.. && zip --symlinks -r ./dist/The.Honey.Framework-x64-linux.zip ./dist/linux-unpacked",
+    "package-mac": "cd dist/bfx-hf-ui-mas-x64/bfx-hf-ui.app/Contents/Resources/app && sh clear.sh && node-prune && cd ../../../../../../ && zip --symlinks -r ./dist/bfx-hf-ui-mac-x64.zip ./dist/bfx-hf-ui-mas-x64 && cd ./dist/ && sha256sum bfx-hf-ui-mac-x64.zip >> shasums.txt && cd ..",
+    "package-win": "cd dist/win-unpacked/resources/app && sh clear.sh && node-prune && cd ../../../../ && zip --symlinks -r ./dist/The.Honey.Framework-win.zip ./dist/win-unpacked && cd ./dist/ && sha256sum The.Honey.Framework-win.zip >> shasums.txt && cd ..",
+    "package-linux": "cd dist/linux-unpacked/resources/app && sh clear.sh && node-prune && cd ../../../.. && zip --symlinks -r ./dist/The.Honey.Framework-x64-linux.zip ./dist/linux-unpacked && cd ./dist/ && sha256sum The.Honey.Framework-x64-linux.zip >> shasums.txt && cd ..",
     "release": "electron-builder -p always"
   },
   "author": "Bitfinex",
