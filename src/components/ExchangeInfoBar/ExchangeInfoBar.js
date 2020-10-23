@@ -1,10 +1,7 @@
 import React from 'react'
-import _capitalize from 'lodash/capitalize'
 
-import Select from '../../ui/Select'
 import MarketSelect from '../MarketSelect'
 import ExchangeInfoBarItem from './ExchangeInfoBarItem'
-import nearestMarket from '../../util/nearest_market'
 import quotePrefix from '../../util/quote_prefix'
 
 import { propTypes, defaultProps } from './ExchangeInfoBar.props'
@@ -21,8 +18,8 @@ export default class ExchangeInfoBar extends React.PureComponent {
 
   render() {
     const {
-      onChangeMarket, activeMarket, ticker, exchanges = [], activeExchange,
-      onChangeExchange, markets, openNotifications, showTicker, showNotifications,
+      onChangeMarket, activeMarket, ticker, activeExchange,
+      markets, openNotifications, showTicker, showNotifications,
       showAddComponent, onAddComponent, showSave, onSave,
     } = this.props
 
@@ -35,27 +32,6 @@ export default class ExchangeInfoBar extends React.PureComponent {
     return (
       <div className='hfui-exchangeinfobar__wrapper'>
         <div className='hfui-exchangeinfobar__left'>
-          <ExchangeInfoBarItem
-            label='Exchange'
-            value={(
-              <Select
-                onChange={({ value }) => {
-                  const marketsForEx = markets[value] || []
-                  const newMarket = nearestMarket(activeMarket, marketsForEx)
-                  onChangeExchange(activeExchange, value, activeMarket, newMarket)
-                }}
-                value={{
-                  label: _capitalize(activeExchange),
-                  value: activeExchange,
-                }}
-                options={exchanges.map(ex => ({
-                  label: _capitalize(ex),
-                  value: ex,
-                }))}
-              />
-            )}
-          />
-
           <ExchangeInfoBarItem
             label='Market'
             value={(

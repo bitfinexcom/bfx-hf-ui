@@ -1,6 +1,5 @@
 import React from 'react'
 import ClassNames from 'classnames'
-import _capitalize from 'lodash/capitalize'
 import _flatten from 'lodash/flatten'
 
 import Panel from '../../ui/Panel'
@@ -146,7 +145,7 @@ export default class TradingStatePanel extends React.Component {
       onRemove, activeExchange, activeMarket, moveable, removeable,
     } = this.props
     const {
-      exchangeFilterActive, marketFilterActive, atomicOrders = [], algoOrders = [], positions = [],
+      marketFilterActive, atomicOrders = [], algoOrders = [], positions = [],
     } = this.state
 
     return (
@@ -156,17 +155,6 @@ export default class TradingStatePanel extends React.Component {
         moveable={false}
         removeable={false}
         extraIcons={[(
-          <div
-            key='filter-exchange'
-            onClick={this.onToggleExchangeFilter}
-            className={ClassNames('hfui-tspanel-header-button', {
-              active: exchangeFilterActive,
-            })}
-          >
-            <i className='icon-filter-active' />
-            <p>{_capitalize(activeExchange)}</p>
-          </div>
-        ), (
           <div
             key='filter-market'
             onClick={this.onToggleMarketFilter}
