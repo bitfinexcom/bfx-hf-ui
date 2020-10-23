@@ -9,14 +9,13 @@
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-  padding: 0 32px;
+  padding: 0 1%;
 
   ul {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     flex: 1;
-    margin-left: 55px;
+    margin-left: 1%;
   }
 
   li {
@@ -63,7 +62,7 @@
 .hfui-exchangeinfobar__item.vertical {
   display: block;
   padding: 0;
-  margin-right: 59px !important;
+  margin-right: 3% !important;
 
   &:last-child {
     margin-right: 0 !important;
