@@ -1,6 +1,5 @@
 import React from 'react'
 import _capitalize from 'lodash/capitalize'
-import { Icon } from 'react-fa'
 
 import { propTypes, defaultProps } from './AlgoOrdersTable.props'
 import './style.css'
@@ -26,12 +25,11 @@ export default class AlgoOrdersTable extends React.PureComponent {
             {apiClientState === 2 && (
               <ul className='hfui-ao-list__entry-controls'>
                 <li>
-                  <Icon
+                  <i
                     role='button'
                     tabIndex={0}
-                    name='stop'
+                    className='icon-cancel'
                     onClick={() => { this.cancelOrder(ao) }}
-                    onKeyPress={() => { this.cancelOrder(ao) }}
                   />
                 </li>
               </ul>
