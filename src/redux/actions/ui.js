@@ -92,6 +92,11 @@ const recvNotification = notification => ({
   payload: { notification },
 })
 
+const strategySelect = content => ({
+  type: types.STRATEGY_SELECT,
+  payload: { content },
+})
+
 export default {
   setRoute,
   saveLayout,
@@ -107,4 +112,5 @@ export default {
   finishGuide,
   setFilteredValueWithKey,
   recvNotification,
+  strategySelect,
 }

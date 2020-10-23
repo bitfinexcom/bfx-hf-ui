@@ -11,6 +11,7 @@ const mapStateToProps = (state = {}) => ({
   backtestData: getBacktestData(state),
   allMarkets: getMarkets(state),
   backtestResults: getBacktestResults(state),
+  strategyContent: state.ui.content,
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -52,7 +52,9 @@ export default class StrategyEditorPage extends React.Component {
       .then(response => response.text())
       .then(t => this.setState(() => ({ docsText: t })))
   }
-
+  componentWillUnmount() {
+    this.setContent(null)
+  }
   onIndicatorsChange(indicators) {
     // TODO: Better color generation; to save time we generate enough colors for
     //       all indicators here, but optimally we'd switch on i.constructor.ui
@@ -86,6 +88,12 @@ export default class StrategyEditorPage extends React.Component {
     }
   }
 
+  setContent(content) {
+    const { setStrategyContent } = this.props
+    this.setState(() => ({ strategyContent: content }))
+    setStrategyContent(content)
+  }
+
   render() {
     const {
       indicators,
@@ -98,7 +106,7 @@ export default class StrategyEditorPage extends React.Component {
       <div className='hfui-strategyeditorpage__wrapper'>
         <StrategyEditor
           dark
-          onStrategyChange={content => this.setState(() => ({ strategyContent: content }))}
+          onStrategyChange={content => this.setContent(content)}
           key='editor'
           onIndicatorsChange={this.onIndicatorsChange}
           moveable={false}
