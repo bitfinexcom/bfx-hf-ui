@@ -149,7 +149,7 @@ export default class OrderBook extends React.Component {
             })}
           </ul>,
         ] : [
-          <div className='hfui-orderbook__header-container'>
+          <div key='header-container-non-stacked' className='hfui-orderbook__header-container'>
             <div key='header-buy' className='hfui-orderbook__header'>
               <p>Amount</p>
               <p>Price</p>
@@ -159,7 +159,7 @@ export default class OrderBook extends React.Component {
               <p>Amount</p>
             </div>
           </div>,
-          <div className='hfui-orderbook__side-container'>
+          <div key='content-container-non-stacked' className='hfui-orderbook__side-container'>
             <OBSide
               key='ob-bids'
               levels={bids}
