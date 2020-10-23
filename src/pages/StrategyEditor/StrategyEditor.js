@@ -52,7 +52,9 @@ export default class StrategyEditorPage extends React.Component {
       .then(response => response.text())
       .then(t => this.setState(() => ({ docsText: t })))
   }
-
+  componentWillUnmount() {
+    this.setContent(null)
+  }
   onIndicatorsChange(indicators) {
     // TODO: Better color generation; to save time we generate enough colors for
     //       all indicators here, but optimally we'd switch on i.constructor.ui
