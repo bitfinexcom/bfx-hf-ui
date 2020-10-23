@@ -53,7 +53,6 @@ export default class OrderBook extends React.Component {
     const totalAmount = totalBuyAmount + totalSellAmount
     let remSellAmount = totalSellAmount
     let buyAmountSum = 0
-
     return (
       <div className={ClassNames('hfui-orderbook__wrapper', {
         stacked: stackedView,
@@ -66,7 +65,7 @@ export default class OrderBook extends React.Component {
             <p>Price</p>
           </div>,
 
-          <ul key='ob'>
+          <ul key='ob' className='hfui-orderbook__pl-container-stacked'>
             {ob.map((pl, i) => {
               if (pl[1] > 0) {
                 buyAmountSum += pl[1]
@@ -150,17 +149,28 @@ export default class OrderBook extends React.Component {
             })}
           </ul>,
         ] : [
-          <OBSide
-            key='ob-bids'
-            levels={bids}
-            sumAmounts={sumAmounts}
-          />,
-
-          <OBSide
-            key='ob-asks'
-            levels={_reverse(asks)}
-            sumAmounts={sumAmounts}
-          />,
+          <div className='hfui-orderbook__header-container'>
+            <div key='header-buy' className='hfui-orderbook__header'>
+              <p>Amount</p>
+              <p>Price</p>
+            </div>
+            <div key='header-sell' className='hfui-orderbook__header'>
+              <p>Price</p>
+              <p>Amount</p>
+            </div>
+          </div>,
+          <div className='hfui-orderbook__side-container'>
+            <OBSide
+              key='ob-bids'
+              levels={bids}
+              sumAmounts={sumAmounts}
+            />
+            <OBSide
+              key='ob-asks'
+              levels={_reverse(asks)}
+              sumAmounts={sumAmounts}
+            />
+          </div>,
         ]}
       </div>
     )
