@@ -120,13 +120,18 @@
   }
 }
 
-.hfui-orderbook__pl-container-stacked .hfui-orderbook__pl-vol {
-    background: #204143;
-    position: absolute;
-    top: 0;
-    left: 0;
+.hfui-orderbook__header-right {
+  margin-left: 25px;
+  * {
+    text-align: left;
+  }
 }
-
+.hfui-orderbook__header-left {
+  margin-right: 25px;
+  * {
+    text-align: right;
+  }
+}
 
 .hfui-orderbook__pl-count,
 .hfui-orderbook__pl-total,
@@ -136,6 +141,28 @@
 
 .hfui-orderbook__pl-price {
   text-align: center;
+}
+
+.hfui-orderbook__pl-container-stacked .hfui-orderbook__pl-vol {
+  background: #204143;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.hfui-orderbook__side .hfui-orderbook__pl {
+  &.sell {
+    .hfui-orderbook__pl-container *{
+      padding-left: 10px;
+      text-align: left;
+    }
+  }
+  &.buy {
+    .hfui-orderbook__pl-container *{
+      text-align: right;
+      padding-right: 8px;
+    }
+  }
 }
 
 .hfui-orderbook__side {

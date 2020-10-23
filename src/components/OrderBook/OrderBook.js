@@ -150,11 +150,11 @@ export default class OrderBook extends React.Component {
           </ul>,
         ] : [
           <div key='header-container-non-stacked' className='hfui-orderbook__header-container'>
-            <div key='header-buy' className='hfui-orderbook__header'>
+            <div key='header-buy' className='hfui-orderbook__header hfui-orderbook__header-left'>
               <p>Amount</p>
               <p>Price</p>
             </div>
-            <div key='header-sell' className='hfui-orderbook__header'>
+            <div key='header-sell' className='hfui-orderbook__header hfui-orderbook__header-right'>
               <p>Price</p>
               <p>Amount</p>
             </div>
