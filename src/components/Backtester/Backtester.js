@@ -45,7 +45,7 @@ export default class Backtester extends React.Component {
   }
   backtestStrategy = (options) => {
     const {
-      activeExchange, activeMarket, startDate, endDate, tf,
+      activeExchange, activeMarket, startDate, endDate, tf, trades, candles,
     } = options
     const { dsExecuteBacktest, strategyContent } = this.props
 
@@ -57,7 +57,7 @@ export default class Backtester extends React.Component {
       execError: undefined,
     }))
 
-    dsExecuteBacktest(activeExchange, startNum, endNum, activeMarket, tf, strategyContent)
+    dsExecuteBacktest(activeExchange, startNum, endNum, activeMarket, tf, candles, trades, strategyContent)
   }
 
   updateExecutionType = (value) => {
@@ -95,13 +95,13 @@ export default class Backtester extends React.Component {
       allMarkets,
       exId: 'bitfinex', // todo: add ability to specify exchange
       formState,
-      setFormState: (setStateFunc) => {
+      setFormState: (setStateFunc, callback) => {
         this.setState(() => ({
           [`${executionType.type}_formState`]: {
             ...formState,
             ...setStateFunc(),
           },
-        }))
+        }), callback)
       },
     }
 
