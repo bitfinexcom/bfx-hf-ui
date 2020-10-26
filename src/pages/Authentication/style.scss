@@ -80,8 +80,7 @@
     background-color:#102331;
     border: none;
     width: 45%;
-  
-
+    border-radius: 4px;
   }
 
   .hfui-authenticationpage__inner-form {
@@ -94,6 +93,7 @@
   .hfui-input, .hfui-button {
     text-transform: uppercase;
     margin-top: 16px;
+    border-radius: 4px;
   }
 
   .hfui-button {
