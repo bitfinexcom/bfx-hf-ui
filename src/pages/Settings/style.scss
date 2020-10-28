@@ -26,7 +26,10 @@
 
     .hfui-settings__option {
       width: 40%;
-
+      .settings-save {
+        width: 15%;
+        height: 44px;
+      }
       .settings-save * {
         padding: 10px 30px 10px 30px;
       }
