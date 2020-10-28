@@ -12,6 +12,7 @@ import apiClients from './api_clients'
 import positions from './positions'
 import balances from './balances'
 import orders from './orders'
+import orderHistory from './order_history'
 import algoOrders from './algo_orders'
 import backtest from './backtest'
 
@@ -21,6 +22,7 @@ export default combineReducers({
   positions,
   balances,
   orders,
+  orderHistory,
   apiClients,
   strategies,
   tickers,

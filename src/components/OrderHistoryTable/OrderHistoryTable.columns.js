@@ -16,6 +16,11 @@ export default [{
 }, {
   label: 'Type',
   dataKey: 'type',
-  width: 100,
+  width: 150,
   cellRenderer: ({ rowData = {} }) => rowData.type,
+}, {
+  label: 'Status',
+  dataKey: 'status',
+  width: 100,
+  cellRenderer: ({ rowData = {} }) => rowData.status,
 }]
