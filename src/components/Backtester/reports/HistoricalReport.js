@@ -30,6 +30,7 @@ export default (opts, results, backtestData, backtestOptions) => {
         results={results}
         execRunning={false}
       />
+      {candles.length && (
       <AutoSizer disableHeight style={{ height: 400 }}>
         {({ width, height = 400 }) => (
           <BFXChart
@@ -52,6 +53,7 @@ export default (opts, results, backtestData, backtestOptions) => {
           />
         )}
       </AutoSizer>
+      )}
       <StrategyTradesTable
         label='Trades'
         trades={trades}
