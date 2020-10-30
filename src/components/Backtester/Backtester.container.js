@@ -15,10 +15,10 @@ const mapStateToProps = (state = {}) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  dsExecuteBacktest: (exchange, from, to, symbol, tf, strategy) => {
+  dsExecuteBacktest: (exchange, from, to, symbol, tf, candles, trades, strategy) => {
     dispatch(WSActions.purgeBacktestData())
     dispatch(WSActions.send([
-      'exec.str', [exchange, from, to, symbol, tf, true, true, true, strategy],
+      'exec.str', [exchange, from, to, symbol, tf, candles, trades, true, strategy],
     ]))
     dispatch(WSActions.setBacktestLoading())
   },
