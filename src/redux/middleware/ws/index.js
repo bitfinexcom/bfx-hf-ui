@@ -21,12 +21,15 @@ export default () => {
           debug('requested connect, but already connected. closing...')
           socket.close()
         }
-
-        socket = new window.WebSocket(payload.destination)
-        socket.onmessage = onWSMessage(socket, store)
-        socket.onclose = onWSClose(socket, store)
-        socket.onopen = onWSOpen(socket, store)
-
+        if (window.navigator.onLine) {
+          socket = new window.WebSocket(payload.destination)
+          socket.onmessage = onWSMessage(socket, store)
+          socket.onclose = onWSClose(socket, store)
+          socket.onopen = onWSOpen(socket, store)
+        }
+        window.addEventListener('offline', () => {
+          socket.close()
+        })
         return
       }
 
