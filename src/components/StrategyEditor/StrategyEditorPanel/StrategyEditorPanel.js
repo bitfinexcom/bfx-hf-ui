@@ -12,12 +12,12 @@ export default class StrategyEditorPanel extends React.PureComponent {
   render() {
     const {
       onRemove, moveable, removeable, children, execRunning,
-      strategyDirty, strategy, onOpenSelectModal,
-      onOpenCreateModal, onSaveStrategy, dark,
+      strategyDirty, strategy = {}, onOpenSelectModal,
+      onOpenCreateModal, onSaveStrategy, onRemoveStrategy, dark, strategyId,
       // onSwitchEditorMode, onToggleMaximiseEditor, editorMode,
       // editorMaximised,
     } = this.props
-
+    const { id = strategyId } = strategy || {}
     return (
       <Panel
         label='STRATEGY EDITOR'
@@ -58,6 +58,18 @@ export default class StrategyEditorPanel extends React.PureComponent {
                 label={[
                   <i key='icon' className='icon-save' />,
                   <p key='text'>Save</p>,
+                ]}
+              />
+            )}
+
+            {strategy && (
+              <Button
+                className='hfui-remove-strategy__btn'
+                onClick={onRemoveStrategy}
+                disabled={!id}
+                label={[
+                  <i key='icon' className='icon-delete1' />,
+                  <p key='text'>Remove</p>,
                 ]}
               />
             )}
