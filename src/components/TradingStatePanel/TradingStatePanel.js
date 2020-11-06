@@ -58,7 +58,6 @@ export default class TradingStatePanel extends React.Component {
     this.setState(({ marketFilterActive }) => ({
       marketFilterActive: !marketFilterActive,
     }))
-    (this.getFilteredBalances())
   }
 
   onToggleExchangeFilter() {
