@@ -16,6 +16,7 @@ export default class StrategyEditorPanel extends React.PureComponent {
   constructor(props) {
     super(props)
     this.validateInput = this.validateInput.bind(this)
+    this.removeStrategy = this.removeStrategy.bind(this)
   }
   validateInput(text) {
     const { strategy, strategyLabel } = this.props
@@ -26,11 +27,16 @@ export default class StrategyEditorPanel extends React.PureComponent {
       this.setState(() => ({ canDeleteStrategy: false }))
     }
   }
+  removeStrategy() {
+    const { onRemoveStrategy } = this.props
+    onRemoveStrategy()
+    this.setState(() => ({ canDeleteStrategy: false }))
+  }
   render() {
     const {
       onRemove, moveable, removeable, children, execRunning,
       strategyDirty, strategy = {}, onOpenSelectModal,
-      onOpenCreateModal, onSaveStrategy, onRemoveStrategy, dark,
+      onOpenCreateModal, onSaveStrategy, dark,
       strategyId, isRemoveModalOpened, onOpenRemoveModal,
       onCloseModals,
     } = this.props
@@ -112,7 +118,7 @@ export default class StrategyEditorPanel extends React.PureComponent {
                 key='delete'
                 green
                 disabled={!canDeleteStrategy}
-                onClick={onRemoveStrategy}
+                onClick={this.removeStrategy}
                 label={[
                   <p key='text'>Delete</p>,
                 ]}
