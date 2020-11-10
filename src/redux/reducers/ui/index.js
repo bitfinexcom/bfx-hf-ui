@@ -233,6 +233,16 @@ function reducer(state = getInitialState(), action = {}) {
         content,
       }
     }
+    case types.UPDATE_STRATEGY_ID: {
+      const { id } = payload
+      return {
+        ...state,
+        content: {
+          ...state.content,
+          id,
+        },
+      }
+    }
     default: {
       return state
     }

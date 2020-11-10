@@ -4,6 +4,16 @@
   height: 100%;
 }
 
+.hfui-removestrategymodal__wrapper {
+  button {
+    margin-right: 10px;
+  }
+  .hfui-removestrategymodal__content p{ 
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+}
+
 .hfui-strategyeditor__editor-wrapper {
   width: 100%;
   display: flex;
