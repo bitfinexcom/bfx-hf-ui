@@ -15,6 +15,11 @@ export default () => {
         next(action)
         break
       }
+      case UITypes.STRATEGY_SELECT: {
+        store.dispatch(UIActions.updateStrategyId(null))
+        next(action)
+        break
+      }
       case 'WS_DATA_STRATEGY': {
         const { id } = payload
         store.dispatch(UIActions.updateStrategyId(id))

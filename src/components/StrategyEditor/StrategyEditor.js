@@ -88,7 +88,7 @@ export default class StrategyEditor extends React.PureComponent {
       sectionErrors: {},
       strategyDirty: true,
     }))
-    this.updateStrategy(strategy)
+    this.selectStrategy(strategy)
 
     if (strategy.defineIndicators) {
       setTimeout(() => {
@@ -103,7 +103,7 @@ export default class StrategyEditor extends React.PureComponent {
       strategyDirty: false,
       strategy,
     }))
-    this.updateStrategy(strategy)
+    this.selectStrategy(strategy)
 
     if (strategy.defineIndicators) {
       setTimeout(() => {
@@ -144,9 +144,11 @@ export default class StrategyEditor extends React.PureComponent {
   }
 
   onSaveStrategy() {
-    const { authToken, onSave } = this.props
+    const { authToken, onSave, strategyId = '' } = this.props
     const { strategy } = this.state
-
+    if (!('id' in strategy)) {
+      strategy.id = strategyId
+    }
     onSave(authToken, strategy)
 
     this.setState(() => ({ strategyDirty: false }))
@@ -236,7 +238,22 @@ export default class StrategyEditor extends React.PureComponent {
       },
     }))
   }
+  selectStrategy(strategy) {
+    const { onStrategySelect } = this.props
+    this.setState(() => ({ strategy }))
 
+    const strategyContent = {}
+    let section
+    for (let i = 0; i < STRATEGY_SECTIONS.length; i += 1) {
+      section = STRATEGY_SECTIONS[i]
+      const content = strategy[section]
+
+      if (!_isEmpty(content)) {
+        strategyContent[section] = content
+      }
+    }
+    onStrategySelect(strategyContent)
+  }
   updateStrategy(strategy) {
     const { onStrategyChange } = this.props
     this.setState(() => ({ strategy }))

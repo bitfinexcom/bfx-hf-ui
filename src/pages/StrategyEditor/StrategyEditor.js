@@ -94,6 +94,12 @@ export default class StrategyEditorPage extends React.Component {
     setStrategyContent(content)
   }
 
+  selectStrategy(content) {
+    const { selectStrategy } = this.props
+    selectStrategy()
+    this.setContent(content)
+  }
+
   render() {
     const {
       indicators,
@@ -106,6 +112,7 @@ export default class StrategyEditorPage extends React.Component {
       <div className='hfui-strategyeditorpage__wrapper'>
         <StrategyEditor
           dark
+          onStrategySelect={content => this.selectStrategy(content)}
           onStrategyChange={content => this.setContent(content)}
           key='editor'
           onIndicatorsChange={this.onIndicatorsChange}
