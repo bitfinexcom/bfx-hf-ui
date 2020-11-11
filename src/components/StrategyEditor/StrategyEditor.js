@@ -146,10 +146,8 @@ export default class StrategyEditor extends React.PureComponent {
   onSaveStrategy() {
     const { authToken, onSave, strategyId = '' } = this.props
     const { strategy } = this.state
-    if (!('id' in strategy)) {
-      strategy.id = strategyId
-    }
-    onSave(authToken, strategy)
+
+    onSave(authToken, { id: strategyId, ...strategy })
 
     this.setState(() => ({ strategyDirty: false }))
     this.onCloseModals()
