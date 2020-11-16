@@ -1,4 +1,8 @@
 const symbolToLabel = (symbol) => {
+  if (symbol.includes(':')) {
+    const pair = symbol.split(':')
+    return `${pair[0]}/${pair[1]}`
+  }
   return `${symbol.substring(1, 4)}/${symbol.substring(4)}`
 }
 const getPriceFromStatus = (status) => {
