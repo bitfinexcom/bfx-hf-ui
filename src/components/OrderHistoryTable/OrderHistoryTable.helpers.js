@@ -14,4 +14,4 @@ export {
   symbolToLabel,
   getPriceFromStatus,
   getFormatedStatus,
-} //eslint-disable-line 
+}
