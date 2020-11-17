@@ -1,7 +1,10 @@
 const symbolToLabel = (symbol) => {
   if (symbol.includes(':')) {
-    const pair = symbol.split(':')
-    return `${pair[0]}/${pair[1]}`
+    let [base, quote] = symbol.split(':') //eslint-disable-line
+    if (base.includes('t')) {
+      base = base.substring(1, base.length)
+    }
+    return `${base}/${quote}`
   }
   return `${symbol.substring(1, 4)}/${symbol.substring(4)}`
 }
