@@ -32,6 +32,6 @@ export default [{
 }, {
   label: 'Symbol',
   dataKey: 'symbol',
-  width: 100,
+  width: 150,
   cellRenderer: ({ rowData = {} }) => symbolToLabel(rowData.symbol),
 }]
