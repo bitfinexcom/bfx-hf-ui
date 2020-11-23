@@ -29,6 +29,7 @@ export default class Results extends React.PureComponent {
       nCandles, nTrades, nGains, nLosses, nStrategyTrades, nOpens, pl, pf,
       maxPL, minPL, fees, vol, stdDeviation, avgPL,
     } = results || {}
+    const hasTrades = !!vol
 
     return (
       <div className='hfui-strategyeditor__results-wrapper'>
