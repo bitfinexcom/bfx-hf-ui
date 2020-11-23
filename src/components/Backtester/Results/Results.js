@@ -43,10 +43,15 @@ export default class Results extends React.PureComponent {
           <ul>
             <ResultRow label='Backtest Candles' value={nCandles} />
             <ResultRow label='Backtest Trades' value={nTrades} />
-            <ResultRow label='Trades' value={nStrategyTrades} />
-            <ResultRow label='Positions' value={nOpens} />
-            <ResultRow label='Gains' value={nGains} />
-            <ResultRow label='Losses' value={nLosses} />
+            {hasTrades
+              && (
+                <>
+                  <ResultRow label='Trades' value={nStrategyTrades} />
+                  <ResultRow label='Positions' value={nOpens} />
+                  <ResultRow label='Gains' value={nGains} />
+                  <ResultRow label='Losses' value={nLosses} />
+                </>
+              )}
           </ul>
         </div>
 
@@ -54,10 +59,15 @@ export default class Results extends React.PureComponent {
           <ul>
             <ResultRow label='Fees' value={resultNumber(preparePrice(fees), '$')} />
             <ResultRow label='Profit/Loss' value={resultNumber(preparePrice(pl), '$')} />
-            <ResultRow label='Profit Factor' value={resultNumber(pf, '', 2, false)} />
-            <ResultRow label='Volume' value={resultNumber(vol, '$')} />
-            <ResultRow label='Largest Gain' value={resultNumber(preparePrice(maxPL), '$')} />
-            <ResultRow label='Largest Loss' value={resultNumber(preparePrice(minPL), '$')} />
+            {hasTrades
+              && (
+                <>
+                  <ResultRow label='Profit Factor' value={resultNumber(pf, '', 2, false)} />
+                  <ResultRow label='Volume' value={resultNumber(vol, '$')} />
+                  <ResultRow label='Largest Gain' value={resultNumber(preparePrice(maxPL), '$')} />
+                  <ResultRow label='Largest Loss' value={resultNumber(preparePrice(minPL), '$')} />
+                </>
+              )}
           </ul>
         </div>
       </div>
