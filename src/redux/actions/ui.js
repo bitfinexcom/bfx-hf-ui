@@ -97,6 +97,11 @@ const strategySelect = content => ({
   payload: { content },
 })
 
+const setBacktestingPage = page => ({
+  type: types.SET_BACKTESTING_PAGE,
+  payload: { page },
+})
+
 export default {
   setRoute,
   saveLayout,
@@ -113,4 +118,5 @@ export default {
   setFilteredValueWithKey,
   recvNotification,
   strategySelect,
+  setBacktestingPage,
 }

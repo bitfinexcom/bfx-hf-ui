@@ -1,3 +1,68 @@
+.manageData { 
+  position: fixed;
+  top: 60px;
+  right: 30px;
+  text-transform: uppercase;
+  font-size: 13px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  cursor: pointer;
+  p {
+    padding-top: 3px;
+    margin-left: 5px;
+  }
+  &.active {
+    color:  #54B361;
+  }
+}
+.btn-block {
+  width: 100%;
+  margin-top: 20px;
+  display:flex;
+  justify-content: flex-end;
+  button {
+    padding: 10px 30px 10px 30px;
+    margin-left: 10px;
+  }
+}
+.data-container { 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #54B361;
+  border-bottom: 1px solid rgba(196, 196, 196, 0.5);
+  .remove { 
+    margin-bottom: 6px;
+    font-size: large;
+    color: white;
+  }
+}
+.hfui-backtester__wrapper .navbar { 
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 28px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 15px;
+  text-transform: uppercase;
+  .item { 
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #C4C4C4;
+  }
+  .item:hover {
+    cursor: pointer;
+  }
+  .active {
+    border-bottom: 2px solid #54B361;
+    color:  #54B361;
+  }
+}
 .hfui-backtester__executionform {
   display: flex;
   flex: 1;
@@ -13,7 +78,6 @@
     margin-right: 5px;
     background-color: rgb(16, 35, 49);
   }
-
   .react-datepicker__input-container input {
     color: #54B361;
     width: calc(100% - 23px);
