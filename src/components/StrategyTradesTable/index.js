@@ -25,13 +25,28 @@ export default class StrategyTradesTable extends React.PureComponent {
         moveable={false}
         className='hfui-strategytradestable__wrapper'
       >
-        <Table
-          data={trades}
-          columns={StrategyTradesTableColumns}
-          defaultSortBy='mts'
-          defaultSortDirection='DESC'
-          onRowClick={({ rowData }) => onTradeClick(rowData)}
-        />
+        { hasTrades
+          ? (
+            <Table
+              data={trades}
+              columns={StrategyTradesTableColumns}
+              defaultSortBy='mts'
+              defaultSortDirection='DESC'
+              onRowClick={({ rowData }) => onTradeClick(rowData)}
+            />
+          ) : (
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: '100%',
+            }}
+            >
+              <span style={{ display: 'flex', alignItems: 'center' }}>
+                There were no trades in this timeframe
+              </span>
+            </div>
+          )}
       </Panel>
     )
   }
