@@ -14,6 +14,7 @@ export default class StrategyTradesTable extends React.PureComponent {
     const {
       label, trades, onTradeClick, dark,
     } = this.props
+    const hasTrades = trades.length !== 0
 
     return (
       <Panel
