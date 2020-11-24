@@ -25,7 +25,7 @@ export default class StrategyTradesTable extends React.PureComponent {
         moveable={false}
         className='hfui-strategytradestable__wrapper'
       >
-        { hasTrades
+        {hasTrades
           ? (
             <Table
               data={trades}
@@ -35,14 +35,8 @@ export default class StrategyTradesTable extends React.PureComponent {
               onRowClick={({ rowData }) => onTradeClick(rowData)}
             />
           ) : (
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '100%',
-            }}
-            >
-              <span style={{ display: 'flex', alignItems: 'center' }}>
+            <div className='no-trades__wrapper'>
+              <span className='no-trades__notification'>
                 There were no trades in this timeframe
               </span>
             </div>
