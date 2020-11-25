@@ -226,11 +226,11 @@ function reducer(state = getInitialState(), action = {}) {
         [`${page}_GUIDE_ACTIVE`]: false,
       }
     }
-    case types.STRATEGY_SELECT: {
+    case types.UPDATE_STRATEGY_CONTENT: {
       const { content = {} } = payload
       return {
         ...state,
-        content,
+        ...content,
       }
     }
     case types.UPDATE_STRATEGY_ID: {

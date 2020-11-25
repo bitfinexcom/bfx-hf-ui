@@ -92,8 +92,12 @@ const recvNotification = notification => ({
   payload: { notification },
 })
 
-const strategySelect = content => ({
+const strategySelect = () => ({
   type: types.STRATEGY_SELECT,
+})
+
+const updateStrategyContent = content => ({
+  type: types.UPDATE_STRATEGY_CONTENT,
   payload: { content },
 })
 
@@ -118,5 +122,6 @@ export default {
   setFilteredValueWithKey,
   recvNotification,
   strategySelect,
+  updateStrategyContent,
   updateStrategyId,
 }
