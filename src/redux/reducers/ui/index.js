@@ -230,7 +230,10 @@ function reducer(state = getInitialState(), action = {}) {
       const { content = {} } = payload
       return {
         ...state,
-        ...content,
+        content: {
+          ...content,
+          ...state.content,
+        },
       }
     }
     case types.UPDATE_STRATEGY_ID: {
