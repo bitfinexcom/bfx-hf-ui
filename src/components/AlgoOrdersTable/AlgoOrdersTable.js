@@ -1,5 +1,4 @@
 import React from 'react'
-import _capitalize from 'lodash/capitalize'
 
 import { propTypes, defaultProps } from './AlgoOrdersTable.props'
 import './style.css'
@@ -41,11 +40,6 @@ export default class AlgoOrdersTable extends React.PureComponent {
               <div className='hfui-ao-list__entry-row-elm'>
                 <p className='hfui-ao-list__entry-row-elm-value'>{ao.name}</p>
                 <p className='hfui-ao-list__entry-row-elm-label'>Name</p>
-              </div>
-
-              <div className='hfui-ao-list__entry-row-elm'>
-                <p className='hfui-ao-list__entry-row-elm-value'>{_capitalize(ao.exID)}</p>
-                <p className='hfui-ao-list__entry-row-elm-label'>Exchange</p>
               </div>
 
               <div className='hfui-ao-list__entry-row-elm'>

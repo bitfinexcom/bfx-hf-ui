@@ -6,16 +6,25 @@ import { getActiveMarket, getActiveExchange } from '../../redux/selectors/ui'
 
 import StrategyEditor from './StrategyEditor'
 
-const mapStateToProps = (state = {}) => ({
-  activeExchange: getActiveExchange(state),
-  activeMarket: getActiveMarket(state),
-  candles: getAllCandles(state),
-  authToken: getAuthToken(state),
-})
+const mapStateToProps = (state = {}) => {
+  const { ui = {} } = state
+  const { content = {} } = ui
+  const { id = '' } = content || {}
+  return {
+    activeExchange: getActiveExchange(state),
+    activeMarket: getActiveMarket(state),
+    candles: getAllCandles(state),
+    authToken: getAuthToken(state),
+    strategyId: id,
+  }
+}
 
 const mapDispatchToProps = dispatch => ({
   onSave: (authToken, strategy = {}) => {
     dispatch(WSActions.send(['strategy.save', authToken, strategy]))
+  },
+  onRemove: (authToken, id) => {
+    dispatch(WSActions.send(['strategy.remove', authToken, id]))
   },
   gaCreateStrategy: () => {
     dispatch(GAActions.createStrategy())

@@ -10,12 +10,17 @@ export default function (state = getInitialState(), action = {}) {
 
   switch (type) {
     case t.DATA_STRATEGY: {
-      const { id, strategy } = payload
-
+      const { strategy } = payload
       return {
         ...state,
-        [id]: strategy,
+        [strategy.id]: strategy,
       }
+    }
+    case t.DATA_REMOVE_STRATEGY: {
+      const { id } = payload
+      const strategies = { ...state }
+      delete strategies[id]
+      return strategies
     }
 
     case t.DATA_STRATEGIES: {

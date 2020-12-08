@@ -14,6 +14,7 @@ export default class StrategyTradesTable extends React.PureComponent {
     const {
       label, trades, onTradeClick, dark,
     } = this.props
+    const hasTrades = trades.length !== 0
 
     return (
       <Panel
@@ -24,13 +25,22 @@ export default class StrategyTradesTable extends React.PureComponent {
         moveable={false}
         className='hfui-strategytradestable__wrapper'
       >
-        <Table
-          data={trades}
-          columns={StrategyTradesTableColumns}
-          defaultSortBy='mts'
-          defaultSortDirection='DESC'
-          onRowClick={({ rowData }) => onTradeClick(rowData)}
-        />
+        {hasTrades
+          ? (
+            <Table
+              data={trades}
+              columns={StrategyTradesTableColumns}
+              defaultSortBy='mts'
+              defaultSortDirection='DESC'
+              onRowClick={({ rowData }) => onTradeClick(rowData)}
+            />
+          ) : (
+            <div className='no-trades__wrapper'>
+              <span className='no-trades__notification'>
+                There were no trades in this timeframe
+              </span>
+            </div>
+          )}
       </Panel>
     )
   }

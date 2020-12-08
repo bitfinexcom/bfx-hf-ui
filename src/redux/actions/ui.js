@@ -92,14 +92,23 @@ const recvNotification = notification => ({
   payload: { notification },
 })
 
-const strategySelect = content => ({
+const strategySelect = () => ({
   type: types.STRATEGY_SELECT,
+})
+
+const updateStrategyContent = content => ({
+  type: types.UPDATE_STRATEGY_CONTENT,
   payload: { content },
 })
 
 const setBacktestingPage = page => ({
   type: types.SET_BACKTESTING_PAGE,
   payload: { page },
+})
+
+const updateStrategyId = id => ({
+  type: types.UPDATE_STRATEGY_ID,
+  payload: { id },
 })
 
 export default {
@@ -119,4 +128,6 @@ export default {
   recvNotification,
   strategySelect,
   setBacktestingPage,
+  updateStrategyContent,
+  updateStrategyId,
 }
