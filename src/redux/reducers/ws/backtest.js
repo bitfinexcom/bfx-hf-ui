@@ -60,6 +60,10 @@ function reducer(state = getInitialState(), action = {}) {
       }
     }
 
+    case types.CLEAN_BACKTEST_RESULTS: {
+      return getInitialState()
+    }
+
     case types.DAZAAR_LIST: {
       return {
         ...state,

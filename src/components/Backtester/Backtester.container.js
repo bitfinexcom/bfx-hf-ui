@@ -33,6 +33,7 @@ const mapDispatchToProps = dispatch => ({
   },
   setBacktestingPage: (page) => {
     dispatch(UIActions.setBacktestingPage(page))
+    dispatch(WSActions.cleanBacktestResults())
   },
   getHyperCores: () => {
     dispatch(WSActions.send(['dazaar.ls', ['ls']]))
