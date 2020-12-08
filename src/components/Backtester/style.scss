@@ -37,6 +37,14 @@
     font-size: large;
     color: white;
   }
+  .remove:hover { 
+    cursor: pointer;
+  }
+  .date { 
+    white-space: nowrap;                      
+    overflow: hidden; 
+    text-overflow: ellipsis;
+  }
 }
 .hfui-backtester__wrapper .navbar { 
   display: flex;

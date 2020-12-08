@@ -13,7 +13,10 @@ const ONE_DAY = ONE_HOUR * 24
 export default class HistoricalForm extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
-
+  state = {
+    trades: true,
+    candles: false,
+  }
   executeBacktest = () => {
     const {
       backtestStrategy,
@@ -21,12 +24,12 @@ export default class HistoricalForm extends React.PureComponent {
       exId,
       formState,
     } = this.props
+    const { trades, candles } = this.state
     const {
       startDate,
       endDate,
       selectedMarket,
       selectedTimeFrame,
-      isTrades = true,
     } = this.defaultFormState(formState)
 
     if (!selectedTimeFrame) {
@@ -43,8 +46,8 @@ export default class HistoricalForm extends React.PureComponent {
       tf: selectedTimeFrame,
       startDate,
       endDate,
-      candles: !isTrades,
-      trades: isTrades,
+      candles,
+      trades,
     })
   }
 
@@ -55,15 +58,13 @@ export default class HistoricalForm extends React.PureComponent {
       endDate: new Date(Date.now() - (ONE_MIN * 15)),
       selectedTimeFrame: '15m',
       selectedMarket: allMarkets[exId][0],
-      trades: true,
-      candles: false,
       checkboxErr: false,
       ...formState,
     }
   }
 
   render() {
-    const allOptions = ['Trades', 'Candles']
+    const allOptions = ['Trades', 'Candles', 'Trades & Candles']
     const {
       disabled = false,
       allMarkets,
@@ -100,9 +101,22 @@ export default class HistoricalForm extends React.PureComponent {
               onChange={(selection) => {
                 const sel = allOptions.find(m => m === selection)
                 if (sel === 'Trades') {
-                  return setFormState(() => ({ isTrades: true, selectedOption: sel }))
+                  this.setState(() => ({
+                    trades: true,
+                    candles: false,
+                  }))
+                } else if (sel === 'Candles') {
+                  this.setState(() => ({
+                    candles: true,
+                    trades: false,
+                  }))
+                } else {
+                  this.setState(() => ({
+                    trades: true,
+                    candles: true,
+                  }))
                 }
-                return setFormState(() => ({ isTrades: false, selectedOption: sel }))
+                return setFormState(() => ({ selectedOption: sel }))
               }}
               options={allOptions.map(o => ({
                 label: o,

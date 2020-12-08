@@ -16,11 +16,13 @@ const dbBitfinex = new HFDB({
   adapter: HFDBLowDBAdapter({
     dbPath: `${os.homedir()}/.honeyframework/hf-bitfinex.json`,
   }),
+  dir
 })
 
 const dsBitfinex = new DataServer({
   port: 23521,
   db: dbBitfinex,
+  dir
 })
 
 dsBitfinex.open()

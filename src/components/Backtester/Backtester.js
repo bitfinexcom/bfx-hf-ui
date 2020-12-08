@@ -4,8 +4,8 @@ import { propTypes, defaultProps } from './Backtester.props'
 
 import RenderHistoricalReport from './reports/HistoricalReport'
 import RenderHistoricalForm from './forms/HistoricalForm'
-import RenderDaazarReport from './reports/DaazarReport'
-import RenderDaazarForm from './forms/DaazarForm'
+import RenderDazaarReport from './reports/DazaarReport'
+import RenderDazaarForm from './forms/DazaarForm'
 import RenderManageDataPage from './ManageDataPage'
 import Navbar from './Navbar'
 import './style.css'
@@ -33,9 +33,9 @@ export default class Backtester extends React.Component {
         renderReport: RenderHistoricalReport,
       },
       {
-        type: 'Daazar',
-        form: RenderDaazarForm,
-        renderReport: RenderDaazarReport,
+        type: 'Dazaar',
+        form: RenderDazaarForm,
+        renderReport: RenderDazaarReport,
       },
     ]
 
@@ -43,12 +43,12 @@ export default class Backtester extends React.Component {
     this.updateError = this.updateError.bind(this)
     this.setBacktestingPage = this.setBacktestingPage.bind(this)
     this.closeManageData = this.closeManageData.bind(this)
+    this.dsExecuteDazaar = this.dsExecuteDazaar.bind(this)
   }
 
   setBacktestingPage(page) {
-    const { setBacktestingPage, getHyperCores } = this.props
+    const { setBacktestingPage } = this.props
     const { manageDataOpened } = this.state
-    getHyperCores()
     if (manageDataOpened) {
       this.closeManageData()
     }
@@ -77,6 +77,22 @@ export default class Backtester extends React.Component {
     this.setState(() => ({ executionType: newType }))
   }
 
+  dsExecuteDazaar(options) {
+    const {
+      activeExchange, startDate, endDate, tf, ids, opts, activeMarket,
+    } = options
+    const { dsExecuteDazaar, strategyContent } = this.props
+
+    const startNum = new Date(startDate).getTime()
+    const endNum = new Date(endDate).getTime()
+
+    this.setState(() => ({
+      backtestOptions: options,
+      execError: undefined,
+    }))
+    dsExecuteDazaar(activeExchange, startNum, endNum, activeMarket, ids, tf, opts, strategyContent)
+  }
+
   updateError(errMessage) {
     this.setState(() => ({
       results: null,
@@ -85,6 +101,8 @@ export default class Backtester extends React.Component {
   }
 
   openManageData() {
+    const { getHyperCores } = this.props
+    getHyperCores()
     this.setState(() => ({
       manageDataOpened: true,
     }))
@@ -111,7 +129,10 @@ export default class Backtester extends React.Component {
       allMarkets,
       backtestResults,
       backtestingPage = 'classic',
+      dazaarCoresList,
+      removeCores,
     } = this.props
+    const tos = !!(window.localStorage.getItem('tos') || '').length
     if (backtestingPage === 'classic' && executionType !== this.backtestMethods[0]) {
       executionType = this.backtestMethods[0] // eslint-disable-line
     } else if (backtestingPage === 'daazar' && executionType !== this.backtestMethods[1]) {
@@ -122,6 +143,7 @@ export default class Backtester extends React.Component {
       updateExecutionType: this.updateExecutionType,
       backtestMethods: this.backtestMethods,
       backtestStrategy: this.backtestStrategy,
+      dsExecuteDazaar: this.dsExecuteDazaar,
       executionType: executionType.type,
       indicators,
       updateError: this.updateError,
@@ -154,7 +176,7 @@ export default class Backtester extends React.Component {
       )
     }
 
-    if (!backtestResults.executing && !backtestResults.loading && backtestResults.finished && backtestingPage === 'classic') {
+    if (!backtestResults.executing && !backtestResults.loading && backtestResults.finished && !manageDataOpened) {
       return (
         <div className='hfui-backtester__wrapper'>
           <Navbar backtestingPage={backtestingPage} setBacktestingPage={this.setBacktestingPage} openManageData={() => this.openManageData()} manageDataOpened={manageDataOpened} />
@@ -167,13 +189,13 @@ export default class Backtester extends React.Component {
       return (
         <div className='hfui-backtester__wrapper'>
           <Navbar backtestingPage={backtestingPage} setBacktestingPage={this.setBacktestingPage} openManageData={() => this.openManageData()} manageDataOpened={manageDataOpened} />
-          <RenderManageDataPage closeManageData={this.closeManageData} data={['October 23, 2020 3:51 PM', 'October 23, 2020 3:51 PM', 'October 23, 2020 3:51 PM']} />
+          <RenderManageDataPage closeManageData={this.closeManageData} data={dazaarCoresList} removeCores={removeCores} />
         </div>
       )
     }
     return (
       <div className='hfui-backtester__wrapper'>
-        <Navbar backtestingPage={backtestingPage} setBacktestingPage={this.setBacktestingPage} openManageData={() => this.openManageData()} manageDataOpened={manageDataOpened} />
+        { tos && (<Navbar backtestingPage={backtestingPage} setBacktestingPage={this.setBacktestingPage} openManageData={() => this.openManageData()} manageDataOpened={manageDataOpened} />) }
         {
           (!backtestResults.loading) && (
             <>

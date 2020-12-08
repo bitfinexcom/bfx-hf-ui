@@ -264,6 +264,11 @@ export default {
     payload: opts,
   }),
 
+  recvDazaarCoresList: list => ({
+    type: t.DAZAAR_LIST,
+    payload: list,
+  }),
+
   purgeDataCandles: (exID, channel) => ({
     type: t.PURGE_DATA_CANDLES,
     payload: { exID, channel },
