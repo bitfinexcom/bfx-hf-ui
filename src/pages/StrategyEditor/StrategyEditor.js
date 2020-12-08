@@ -91,7 +91,14 @@ export default class StrategyEditorPage extends React.Component {
   setContent(content) {
     const { setStrategyContent } = this.props
     this.setState(() => ({ strategyContent: content }))
+    this.setState(() => ({ forcedTab: 'Backtest' }))
     setStrategyContent(content)
+  }
+
+  selectStrategy(content) {
+    const { selectStrategy } = this.props
+    selectStrategy()
+    this.setContent(content)
   }
 
   render() {
@@ -100,12 +107,14 @@ export default class StrategyEditorPage extends React.Component {
       strategyContent,
       docsText = '',
       steps,
+      forcedTab = '',
     } = this.state
     const { firstLogin, isGuideActive } = this.props
     return (
       <div className='hfui-strategyeditorpage__wrapper'>
         <StrategyEditor
           dark
+          onStrategySelect={content => this.selectStrategy(content)}
           onStrategyChange={content => this.setContent(content)}
           key='editor'
           onIndicatorsChange={this.onIndicatorsChange}
@@ -137,6 +146,7 @@ export default class StrategyEditorPage extends React.Component {
             className='hfui-strategiespage__pannel-wrapper'
             moveable={false}
             removeable={false}
+            forcedTab={forcedTab}
             darkHeader
           >
             <Markdown

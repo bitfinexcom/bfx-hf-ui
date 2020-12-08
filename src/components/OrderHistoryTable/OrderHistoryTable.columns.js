@@ -1,4 +1,5 @@
 import React from 'react'
+import { symbolToLabel, getFormatedStatus, getPriceFromStatus } from './OrderHistoryTable.helpers'
 
 export default [{
   label: 'Price',
@@ -22,5 +23,15 @@ export default [{
   label: 'Status',
   dataKey: 'status',
   width: 100,
-  cellRenderer: ({ rowData = {} }) => rowData.status,
+  cellRenderer: ({ rowData = {} }) => getFormatedStatus(rowData.status),
+}, {
+  label: 'Average Execution Price',
+  dataKey: 'avgExecPrice',
+  width: 120,
+  cellRenderer: ({ rowData = {} }) => getPriceFromStatus(rowData.status),
+}, {
+  label: 'Symbol',
+  dataKey: 'symbol',
+  width: 150,
+  cellRenderer: ({ rowData = {} }) => symbolToLabel(rowData.symbol),
 }]

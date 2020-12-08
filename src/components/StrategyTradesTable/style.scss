@@ -10,4 +10,16 @@
       text-transform: uppercase;
     }
   }
+
+  .no-trades__wrapper {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .no-trades__notification {
+    display: flex;
+    align-items: center;
+  }
 }

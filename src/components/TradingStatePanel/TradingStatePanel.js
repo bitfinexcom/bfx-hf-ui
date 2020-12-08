@@ -115,11 +115,15 @@ export default class TradingStatePanel extends React.Component {
   }
 
   getFilteredBalances() {
-    const { activeExchange, balances, setFilteredValueWithKey } = this.props
-    const { exchangeFilterActive } = this.state
-    const filteredBalances = exchangeFilterActive
+    const {
+      activeExchange, balances, setFilteredValueWithKey, activeMarket,
+    } = this.props
+    const { base, quote } = activeMarket
+    const { exchangeFilterActive, marketFilterActive } = this.state
+    let filteredBalances = exchangeFilterActive
       ? Object.values(balances[activeExchange] || {})
       : _flatten(Object.values(balances).map(Object.values))
+    filteredBalances = marketFilterActive ? filteredBalances.filter(({ currency }) => currency === base || currency === quote) : filteredBalances
     setFilteredValueWithKey('filteredBalances', filteredBalances)
     return filteredBalances
   }

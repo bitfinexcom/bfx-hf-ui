@@ -149,6 +149,11 @@ export default {
     payload: { id, strategy },
   }),
 
+  recvRemovedStrategy: (id) => ({
+    type: t.DATA_REMOVE_STRATEGY,
+    payload: { id },
+  }),
+
   recvStrategies: ({ strategies }) => ({
     type: t.DATA_STRATEGIES,
     payload: { strategies },
