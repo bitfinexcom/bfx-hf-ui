@@ -24,7 +24,7 @@ const mapDispatchToProps = dispatch => ({
     ]))
     dispatch(WSActions.setBacktestLoading())
   },
-  dsExecuteDazaar: (exchange, from, to, symbol, tf, strategy, ids, opts) => {
+  dsExecuteDazaar: (exchange, from, to, symbol, ids, tf, opts, strategy) => {
     dispatch(WSActions.purgeBacktestData())
     dispatch(WSActions.send([
       'exec.dazaar', [exchange, from, to, symbol, ids, tf, opts, strategy],
