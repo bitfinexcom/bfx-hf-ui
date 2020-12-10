@@ -6,6 +6,9 @@ export const propTypes = {
   value: PropTypes.any.isRequired,
   onChange: PropTypes.func.isRequired,
   validationError: PropTypes.string,
+  maxDate: PropTypes.instanceOf(Date),
 }
 
-export const defaultProps = {}
+export const defaultProps = {
+  maxDate: null,
+}
