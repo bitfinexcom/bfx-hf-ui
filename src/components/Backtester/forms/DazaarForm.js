@@ -82,7 +82,7 @@ export default class HistoricalForm extends React.PureComponent {
       ids,
     })
   }
-  symbolToLabel(symbol) { //eslint-disable-line
+  symbolToLabel(symbol) {
     if (symbol.includes(':')) {
       let [base, quote] = symbol.split(':') //eslint-disable-line
       if (base.includes('t')) {

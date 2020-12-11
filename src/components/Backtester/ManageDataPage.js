@@ -18,7 +18,7 @@ export default class ManageDataPage extends React.PureComponent {
     this.onRemove = this.onRemove.bind(this)
     this.onSave = this.onSave.bind(this)
   }
-  onRemove(id) { // eslint-disable-line
+  onRemove(id) {
     const { idsToDelete } = this.state
     this.setState(() => ({
       idsToDelete: [
@@ -35,7 +35,7 @@ export default class ManageDataPage extends React.PureComponent {
     }
     closeManageData()
   }
-  symbolToLabel(symbol) { //eslint-disable-line
+  symbolToLabel(symbol) {
     if (symbol.includes(':')) {
       let [base, quote] = symbol.split(':') //eslint-disable-line
       if (base.includes('t')) {

@@ -28,7 +28,8 @@
     "react/state-in-constructor": 0,
     "react/jsx-props-no-spreading": 0,
     "import/no-cycle": 0,
-    "jsx-a11y/control-has-associated-label": 0
+    "jsx-a11y/control-has-associated-label": 0,
+    "class-methods-use-this": 0
   },
   "settings": {
     "import/resolver": {

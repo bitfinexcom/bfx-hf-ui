@@ -134,9 +134,9 @@ export default class Backtester extends React.Component {
     } = this.props
     const tos = !!(window.localStorage.getItem('tos') || '').length
     if (backtestingPage === 'classic' && executionType !== this.backtestMethods[0]) {
-      executionType = this.backtestMethods[0] // eslint-disable-line
+      [executionType] = this.backtestMethods
     } else if (backtestingPage === 'daazar' && executionType !== this.backtestMethods[1]) {
-      executionType = this.backtestMethods[1] // eslint-disable-line
+      [, executionType] = this.backtestMethods
     }
     const formState = this.state[`${executionType.type}_formState`] || {} // eslint-disable-line
     const opts = {
