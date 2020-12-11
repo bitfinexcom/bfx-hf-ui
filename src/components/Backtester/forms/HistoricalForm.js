@@ -9,6 +9,7 @@ import DateInput from '../../OrderForm/FieldComponents/input.date'
 const ONE_MIN = 1000 * 60
 const ONE_HOUR = ONE_MIN * 60
 const ONE_DAY = ONE_HOUR * 24
+const MAX_DATE = new Date()
 
 export default class HistoricalForm extends React.PureComponent {
   static propTypes = propTypes
@@ -131,6 +132,7 @@ export default class HistoricalForm extends React.PureComponent {
               onChange={val => setFormState(() => ({ startDate: val }))}
               def={{ label: 'Start Date' }}
               value={startDate}
+              maxDate={MAX_DATE}
             />
           </div>
           <div className='hfui-backtester_dateInput hfui-backtester__flex_start'>
@@ -138,6 +140,7 @@ export default class HistoricalForm extends React.PureComponent {
               onChange={val => setFormState(() => ({ endDate: val }))}
               def={{ label: 'End Date' }}
               value={endDate}
+              maxDate={MAX_DATE}
             />
           </div>
           <div>
