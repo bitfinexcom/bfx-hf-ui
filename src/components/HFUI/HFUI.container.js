@@ -4,7 +4,7 @@ import UIActions from '../../redux/actions/ui'
 import WSActions from '../../redux/actions/ws'
 
 import GAActions from '../../redux/actions/google_analytics'
-import { updateGithubAppVersion } from '../../redux/actions/data'
+import { updateGithubAppVersion, getTOS } from '../../redux/actions/data'
 import { getActiveMarket } from '../../redux/selectors/ui'
 import { getAuthToken } from '../../redux/selectors/ws'
 
@@ -14,7 +14,9 @@ const mapStateToProps = (state = {}) => {
   const { router } = state
   const { location } = router
   const { pathname } = location
-  const { ui } = state
+  const { ui, meta } = state
+  const { rest } = meta
+  const { tos = '' } = rest
   const { notificationsVisible } = ui
 
   return {
@@ -22,6 +24,7 @@ const mapStateToProps = (state = {}) => {
     activeMarket: getActiveMarket(state),
     authToken: getAuthToken(state),
     notificationsVisible,
+    terms: tos,
   }
 }
 
@@ -38,7 +41,9 @@ const mapDispatchToProps = dispatch => ({
   saveActiveMarket: (market) => {
     dispatch(UIActions.saveActiveMarket(market))
   },
-
+  getLastTOS: () => {
+    dispatch(getTOS())
+  },
   navigate: (route) => {
     dispatch(UIActions.setRoute(route))
   },

@@ -1,6 +1,5 @@
 import React from 'react'
 import { Route, Switch, Redirect } from 'react-router'
-import terms from 'bitfinex-terminal-terms-of-use'
 
 import SettingsPage from '../../pages/Settings'
 import TradingPage from '../../pages/Trading'
@@ -27,6 +26,7 @@ export default class HFUI extends React.PureComponent {
     GAPageview(window.location.pathname)
   }
   onSubmit() {
+    const { terms } = this.props
     window.localStorage.setItem('tos', terms)
     this.onModalClose()
   }
@@ -39,11 +39,13 @@ export default class HFUI extends React.PureComponent {
   render() {
     const {
       authToken, getLastVersion, getSettings, notificationsVisible,
+      getLastTOS, terms,
     } = this.props
     const { tosModalOpened } = this.state
     const tos = window.localStorage.getItem('tos') || ''
     const oneHour = 360000
     getLastVersion()
+    getLastTOS()
     if (authToken) {
       getSettings(authToken)
     }
@@ -64,7 +66,7 @@ export default class HFUI extends React.PureComponent {
         <Switch>
 
           <Redirect exact from='/index.html' to='/' />
-          {tosModalOpened && !tos.length
+          {tosModalOpened && (!tos.length || tos !== terms)
           && (
           <Modal
             onClose={() => this.onModalClose()}

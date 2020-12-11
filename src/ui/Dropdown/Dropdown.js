@@ -20,10 +20,6 @@ class Dropdown extends React.Component {
     this.onToggleOpen = this.onToggleOpen.bind(this)
   }
 
-  handleClickOutside() {
-    this.setState(() => ({ open: false }))
-  }
-
   onSelect(value) {
     const { onChange } = this.props
     onChange(value)
@@ -35,6 +31,9 @@ class Dropdown extends React.Component {
     this.setState(({ open }) => ({ open: !open }))
   }
 
+  handleClickOutside() {
+    this.setState(() => ({ open: false }))
+  }
   render() {
     const { open } = this.state
     const {
