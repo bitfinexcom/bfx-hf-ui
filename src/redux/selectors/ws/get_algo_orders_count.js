@@ -4,6 +4,6 @@ import { REDUCER_PATHS } from '../../config'
 const path = REDUCER_PATHS.WS
 
 export default (state) => {
-  const algoOrders = _get(state, `${path}.algoOrders.bitfinex`, [])
+  const algoOrders = _get(state, `${path}.algoOrders.bitfinex`, {})
   return Object.keys(algoOrders).length
 }
