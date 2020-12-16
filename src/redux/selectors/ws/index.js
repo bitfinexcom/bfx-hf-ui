@@ -28,9 +28,6 @@ import getAlgoOrders from './get_algo_orders'
 import getNotifications from './get_notifications'
 import getAPICredentials from './get_api_credentials'
 import getAllSyncRanges from './get_all_sync_ranges'
-import getAlgoOrdersCount from './get_algo_orders_count'
-import getAtomicOrdersCount from './get_atomic_orders_count'
-import getPositionsCount from './get_positions_count'
 
 import getBacktestState from './get_backtest_state'
 import getBacktestData from './get_backtest_data'
@@ -83,9 +80,6 @@ export {
   getOrders,
   getAllOrders,
   getAlgoOrders,
-  getAlgoOrdersCount,
-  getAtomicOrdersCount,
-  getPositionsCount,
 
   getNotifications,
   getAPICredentials,

@@ -6,12 +6,14 @@ import {
   getAlgoOrders,
   getAllBalances,
   getAllPositions,
+} from '../../redux/selectors/ws'
+import {
+  getActiveMarket,
+  getComponentState,
+  getActiveExchange,
   getPositionsCount,
   getAlgoOrdersCount,
   getAtomicOrdersCount,
-} from '../../redux/selectors/ws'
-import {
-  getComponentState, getActiveExchange, getActiveMarket,
 } from '../../redux/selectors/ui'
 
 import TradingStatePanel from './TradingStatePanel'
