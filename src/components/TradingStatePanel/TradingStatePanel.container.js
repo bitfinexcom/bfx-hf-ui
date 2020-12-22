@@ -2,11 +2,18 @@ import { connect } from 'react-redux'
 
 import UIActions from '../../redux/actions/ui'
 import {
-  getAlgoOrders, getAllOrders, getAllPositions, getAllBalances,
+  getAllOrders,
+  getAlgoOrders,
+  getAllBalances,
+  getAllPositions,
 } from '../../redux/selectors/ws'
-
 import {
-  getComponentState, getActiveExchange, getActiveMarket,
+  getActiveMarket,
+  getComponentState,
+  getActiveExchange,
+  getPositionsCount,
+  getAlgoOrdersCount,
+  getAtomicOrdersCount,
 } from '../../redux/selectors/ui'
 
 import TradingStatePanel from './TradingStatePanel'
@@ -22,6 +29,9 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     atomicOrders: getAllOrders(state),
     positions: getAllPositions(state),
     balances: getAllBalances(state),
+    algoOrdersCount: getAlgoOrdersCount(state),
+    atomicOrdersCount: getAtomicOrdersCount(state),
+    positionsCount: getPositionsCount(state),
   }
 }
 

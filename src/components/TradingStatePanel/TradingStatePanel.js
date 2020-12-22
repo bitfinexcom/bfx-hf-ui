@@ -45,13 +45,10 @@ export default class TradingStatePanel extends React.Component {
   }
   componentDidUpdate() {}
   getSnapshotBeforeUpdate() {
-    const atomicOrders = this.getFilteredAtomicOrders()
-    const algoOrders = this.getFilteredAlgoOrders()
-    const positions = this.getFilteredPositions()
-    const balances = this.getFilteredBalances()
-    this.setState({
-      algoOrders, atomicOrders, positions, balances,
-    })
+    this.getFilteredAtomicOrders()
+    this.getFilteredAlgoOrders()
+    this.getFilteredPositions()
+    this.getFilteredBalances()
     return null
   }
   onToggleMarketFilter() {
@@ -146,11 +143,16 @@ export default class TradingStatePanel extends React.Component {
 
   render() {
     const {
-      onRemove, activeExchange, activeMarket, moveable, removeable,
+      onRemove,
+      moveable,
+      removeable,
+      activeMarket,
+      activeExchange,
+      positionsCount,
+      algoOrdersCount,
+      atomicOrdersCount,
     } = this.props
-    const {
-      marketFilterActive, atomicOrders = [], algoOrders = [], positions = [],
-    } = this.state
+    const { marketFilterActive } = this.state
 
     return (
       <Panel
@@ -186,7 +188,7 @@ export default class TradingStatePanel extends React.Component {
             tabtitle={(
               <span>
                 Positions
-                {renderCounter(positions.length)}
+                {renderCounter(positionsCount)}
               </span>
             )}
             exID={activeExchange}
@@ -196,7 +198,7 @@ export default class TradingStatePanel extends React.Component {
             tabtitle={(
               <span>
                 Atomics
-                {renderCounter(atomicOrders.length)}
+                {renderCounter(atomicOrdersCount)}
               </span>
             )}
             exID={activeExchange}
@@ -206,7 +208,7 @@ export default class TradingStatePanel extends React.Component {
             tabtitle={(
               <span>
                 Algos
-                {renderCounter(algoOrders.length)}
+                {renderCounter(algoOrdersCount)}
               </span>
             )}
             exID={activeExchange}
