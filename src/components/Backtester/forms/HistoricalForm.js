@@ -2,6 +2,7 @@ import React from 'react'
 
 import Button from '../../../ui/Button'
 import Dropdown from '../../../ui/Dropdown'
+import MarketSelect from '../../MarketSelect'
 import TimeFrameDropdown from '../../TimeFrameDropdown'
 import { propTypes, defaultProps } from './forms.props'
 
@@ -26,10 +27,10 @@ export default class HistoricalForm extends React.PureComponent {
     const {
       startDate,
       endDate,
-      selectedMarket,
       selectedTimeFrame,
       candles,
       trades,
+      selectedMarket,
     } = this.defaultFormState(formState)
 
     if (!selectedTimeFrame) {
@@ -52,15 +53,15 @@ export default class HistoricalForm extends React.PureComponent {
   }
 
   defaultFormState(formState) {
-    const { allMarkets, exId } = this.props
+    const { allMarkets, exID = 'bitfinex' } = this.props
     return {
       startDate: new Date() - ONE_DAY,
       endDate: new Date(Date.now() - (ONE_MIN * 15)),
       selectedTimeFrame: '15m',
-      selectedMarket: allMarkets[exId][0],
       trades: true,
       candles: true,
       checkboxErr: false,
+      selectedMarket: allMarkets[exID][0],
       ...formState,
     }
   }
@@ -119,16 +120,13 @@ export default class HistoricalForm extends React.PureComponent {
             />
           </div>
           <div className='hfui-backtester__flex_start'>
-            <Dropdown
-              value={selectedMarket.uiID}
+            <MarketSelect
+              value={selectedMarket}
               onChange={(selection) => {
-                const sel = allMarkets[exId].find(m => m.uiID === selection)
+                const sel = allMarkets[exId].find(m => m.uiID === selection.uiID)
                 setFormState(() => ({ selectedMarket: sel }))
               }}
-              options={allMarkets[exId].map(m => ({
-                label: m.uiID,
-                value: m.uiID,
-              }))}
+              markets={allMarkets[exId]}
             />
           </div>
           <div className='hfui-backtester__flex_start' style={{ marginRight: -15 }}>
