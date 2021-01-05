@@ -101,6 +101,11 @@ const updateStrategyContent = content => ({
   payload: { content },
 })
 
+const setBacktestingPage = page => ({
+  type: types.SET_BACKTESTING_PAGE,
+  payload: { page },
+})
+
 const updateStrategyId = id => ({
   type: types.UPDATE_STRATEGY_ID,
   payload: { id },
@@ -122,6 +127,7 @@ export default {
   setFilteredValueWithKey,
   recvNotification,
   strategySelect,
+  setBacktestingPage,
   updateStrategyContent,
   updateStrategyId,
 }

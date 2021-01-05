@@ -4,7 +4,10 @@ import { propTypes, defaultProps } from './Backtester.props'
 
 import RenderHistoricalReport from './reports/HistoricalReport'
 import RenderHistoricalForm from './forms/HistoricalForm'
-
+import RenderDazaarReport from './reports/DazaarReport'
+import RenderDazaarForm from './forms/DazaarForm'
+import RenderManageDataPage from './ManageDataPage'
+import Navbar from './Navbar'
 import './style.css'
 
 export default class Backtester extends React.Component {
@@ -17,6 +20,7 @@ export default class Backtester extends React.Component {
     loadingBacktest: false,
     execRunning: false,
     results: null,
+    manageDataOpened: false,
   }
 
   constructor() {
@@ -28,21 +32,29 @@ export default class Backtester extends React.Component {
         form: RenderHistoricalForm,
         renderReport: RenderHistoricalReport,
       },
-      // {
-      //   type: 'Live',
-      //   form: RenderLiveForm,
-      //   renderReport: RenderLiveReport,
-      // },
-      // {
-      //   type: 'Import',
-      //   form: RenderImportForm,
-      //   renderReport: RenderImportReport,
-      // },
+      {
+        type: 'Dazaar',
+        form: RenderDazaarForm,
+        renderReport: RenderDazaarReport,
+      },
     ]
 
     this.backtestStrategy = this.backtestStrategy.bind(this)
     this.updateError = this.updateError.bind(this)
+    this.setBacktestingPage = this.setBacktestingPage.bind(this)
+    this.closeManageData = this.closeManageData.bind(this)
+    this.dsExecuteDazaar = this.dsExecuteDazaar.bind(this)
   }
+
+  setBacktestingPage(page) {
+    const { setBacktestingPage } = this.props
+    const { manageDataOpened } = this.state
+    if (manageDataOpened) {
+      this.closeManageData()
+    }
+    setBacktestingPage(page)
+  }
+
   backtestStrategy = (options) => {
     const {
       activeExchange, activeMarket, startDate, endDate, tf, trades, candles,
@@ -65,6 +77,22 @@ export default class Backtester extends React.Component {
     this.setState(() => ({ executionType: newType }))
   }
 
+  dsExecuteDazaar(options) {
+    const {
+      activeExchange, startDate, endDate, tf, ids, opts, activeMarket,
+    } = options
+    const { dsExecuteDazaar, strategyContent } = this.props
+
+    const startNum = new Date(startDate).getTime()
+    const endNum = new Date(endDate).getTime()
+
+    this.setState(() => ({
+      backtestOptions: options,
+      execError: undefined,
+    }))
+    dsExecuteDazaar(activeExchange, startNum, endNum, activeMarket, ids, tf, opts, strategyContent)
+  }
+
   updateError(errMessage) {
     this.setState(() => ({
       results: null,
@@ -72,10 +100,27 @@ export default class Backtester extends React.Component {
     }))
   }
 
+  openManageData() {
+    const { getHyperCores } = this.props
+    getHyperCores()
+    this.setState(() => ({
+      manageDataOpened: true,
+    }))
+  }
+
+  closeManageData() {
+    this.setState(() => ({
+      manageDataOpened: false,
+    }))
+  }
+
   render() {
-    const {
+    let {
       executionType = this.backtestMethods[0],
+    } = this.state
+    const {
       backtestOptions,
+      manageDataOpened,
     } = this.state
     const {
       indicators,
@@ -83,12 +128,22 @@ export default class Backtester extends React.Component {
       strategyContent,
       allMarkets,
       backtestResults,
+      backtestingPage = 'classic',
+      dazaarCoresList,
+      removeCores,
     } = this.props
+    const tos = !!(window.localStorage.getItem('tos') || '').length
+    if (backtestingPage === 'classic' && executionType !== this.backtestMethods[0]) {
+      [executionType] = this.backtestMethods
+    } else if (backtestingPage === 'daazar' && executionType !== this.backtestMethods[1]) {
+      [, executionType] = this.backtestMethods
+    }
     const formState = this.state[`${executionType.type}_formState`] || {} // eslint-disable-line
     const opts = {
       updateExecutionType: this.updateExecutionType,
       backtestMethods: this.backtestMethods,
       backtestStrategy: this.backtestStrategy,
+      dsExecuteDazaar: this.dsExecuteDazaar,
       executionType: executionType.type,
       indicators,
       updateError: this.updateError,
@@ -104,7 +159,6 @@ export default class Backtester extends React.Component {
         }), callback)
       },
     }
-
     if (!strategyContent) {
       return (
         <div className='hfui-backtester__wrapper'>
@@ -122,22 +176,30 @@ export default class Backtester extends React.Component {
       )
     }
 
-    if (!backtestResults.executing && !backtestResults.loading && backtestResults.finished) {
+    if (!backtestResults.executing && !backtestResults.loading && backtestResults.finished && !manageDataOpened) {
       return (
         <div className='hfui-backtester__wrapper'>
+          <Navbar backtestingPage={backtestingPage} setBacktestingPage={this.setBacktestingPage} openManageData={() => this.openManageData()} manageDataOpened={manageDataOpened} />
           <executionType.form {...opts} />
           { executionType.renderReport({ ...opts }, backtestResults, backtestData, backtestOptions) }
         </div>
       )
     }
-
+    if (backtestingPage === 'daazar' && manageDataOpened) {
+      return (
+        <div className='hfui-backtester__wrapper'>
+          <Navbar backtestingPage={backtestingPage} setBacktestingPage={this.setBacktestingPage} openManageData={() => this.openManageData()} manageDataOpened={manageDataOpened} />
+          <RenderManageDataPage closeManageData={this.closeManageData} data={dazaarCoresList} removeCores={removeCores} />
+        </div>
+      )
+    }
     return (
       <div className='hfui-backtester__wrapper'>
+        { tos && (<Navbar backtestingPage={backtestingPage} setBacktestingPage={this.setBacktestingPage} openManageData={() => this.openManageData()} manageDataOpened={manageDataOpened} />) }
         {
           (!backtestResults.loading) && (
             <>
               <executionType.form {...opts} />
-              <p>Press start to begin backtesting.</p>
             </>
           )
         }

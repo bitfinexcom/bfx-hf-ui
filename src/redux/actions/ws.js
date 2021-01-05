@@ -269,6 +269,11 @@ export default {
     payload: opts,
   }),
 
+  recvDazaarCoresList: list => ({
+    type: t.DAZAAR_LIST,
+    payload: list,
+  }),
+
   purgeDataCandles: (exID, channel) => ({
     type: t.PURGE_DATA_CANDLES,
     payload: { exID, channel },
@@ -286,6 +291,10 @@ export default {
 
   purgeBacktestData: () => ({
     type: t.PURGE_DATA_BACKTEST,
+  }),
+
+  cleanBacktestResults: () => ({
+    type: t.CLEAN_BACKTEST_RESULTS,
   }),
 
   initAuth: password => send(['auth.init', password]),

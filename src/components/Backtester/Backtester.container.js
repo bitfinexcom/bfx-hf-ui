@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
-
 import WSActions from '../../redux/actions/ws'
+import UIActions from '../../redux/actions/ui'
 import { getBacktestState, getBacktestData, getBacktestResults } from '../../redux/selectors/ws'
 import { getMarkets } from '../../redux/selectors/meta'
 
@@ -12,6 +12,8 @@ const mapStateToProps = (state = {}) => ({
   allMarkets: getMarkets(state),
   backtestResults: getBacktestResults(state),
   strategyContent: state.ui.content,
+  backtestingPage: state.ui.backtestingPage,
+  dazaarCoresList: state.ws.backtest.dazaarCoresList,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -21,6 +23,23 @@ const mapDispatchToProps = dispatch => ({
       'exec.str', [exchange, from, to, symbol, tf, candles, trades, true, strategy],
     ]))
     dispatch(WSActions.setBacktestLoading())
+  },
+  dsExecuteDazaar: (exchange, from, to, symbol, ids, tf, opts, strategy) => {
+    dispatch(WSActions.purgeBacktestData())
+    dispatch(WSActions.send([
+      'exec.dazaar', [exchange, from, to, symbol, ids, tf, opts, strategy],
+    ]))
+    dispatch(WSActions.setBacktestLoading())
+  },
+  setBacktestingPage: (page) => {
+    dispatch(UIActions.setBacktestingPage(page))
+    dispatch(WSActions.cleanBacktestResults())
+  },
+  getHyperCores: () => {
+    dispatch(WSActions.send(['dazaar.ls', ['ls']]))
+  },
+  removeCores: (cores) => {
+    dispatch(WSActions.send(['dazaar.rm', ['rm', { dirs: cores }]]))
   },
 })
 

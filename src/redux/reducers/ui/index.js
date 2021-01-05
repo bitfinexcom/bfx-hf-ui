@@ -246,6 +246,13 @@ function reducer(state = getInitialState(), action = {}) {
         },
       }
     }
+    case types.SET_BACKTESTING_PAGE: {
+      const { page = '' } = payload
+      return {
+        ...state,
+        backtestingPage: page,
+      }
+    }
     default: {
       return state
     }

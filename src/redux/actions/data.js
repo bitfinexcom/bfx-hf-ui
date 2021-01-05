@@ -7,4 +7,13 @@ const updateGithubAppVersion = () => ({
   },
 })
 
-export { updateGithubAppVersion }
+const getTOS = () => ({
+  type: 'REST_EXTERNAL',
+  meta: {
+    url: 'https://raw.githubusercontent.com/bitfinexcom/bitfinex-terminal/master/terms-of-use/README.md',
+    method: 'GET',
+    handler: 'TOS_DATA',
+  },
+})
+
+export { updateGithubAppVersion, getTOS }

@@ -253,6 +253,12 @@ export default (ws, store) => (e = {}) => {
       break
     }
 
+    case 'dazaar.lsresult': {
+      const [, res] = payload
+      store.dispatch(WSActions.recvDazaarCoresList(res))
+      break
+    }
+
     case 'refresh': {
       window.location.reload()
       break

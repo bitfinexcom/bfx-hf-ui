@@ -60,6 +60,17 @@ function reducer(state = getInitialState(), action = {}) {
       }
     }
 
+    case types.CLEAN_BACKTEST_RESULTS: {
+      return getInitialState()
+    }
+
+    case types.DAZAAR_LIST: {
+      return {
+        ...state,
+        dazaarCoresList: payload,
+      }
+    }
+
     case types.PURGE_DATA_BACKTEST: {
       return {
         candles: [],

@@ -1,7 +1,20 @@
 .hfui-app {
   height: 100%;
 }
-
+.tos { 
+  overflow: scroll;
+  .hfui-modal__actions { 
+    margin-top: 30px;
+  }
+}
+.tos-content {
+  overflow-x: auto; /* Use horizontal scroller if needed */
+  white-space: pre-wrap; /* css-3 */
+  white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
+  white-space : normal;
+  max-height: 400px;
+}
 .hfui-app__content {
   // display: flex;
   // flex-direction: row;
