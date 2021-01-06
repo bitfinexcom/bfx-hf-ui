@@ -2,6 +2,7 @@ import React from 'react'
 
 import Button from '../../../ui/Button'
 import Dropdown from '../../../ui/Dropdown'
+import MarketSelect from '../../MarketSelect'
 import TimeFrameDropdown from '../../TimeFrameDropdown'
 import { propTypes, defaultProps } from './forms.props'
 
@@ -11,6 +12,7 @@ import Checkbox from '../../../ui/Checkbox/Checkbox'
 const ONE_MIN = 1000 * 60
 const ONE_HOUR = ONE_MIN * 60
 const ONE_DAY = ONE_HOUR * 24
+const MAX_DATE = new Date()
 
 export default class HistoricalForm extends React.PureComponent {
   static propTypes = propTypes
@@ -26,10 +28,10 @@ export default class HistoricalForm extends React.PureComponent {
     const {
       startDate,
       endDate,
-      selectedMarket,
       selectedTimeFrame,
       candles,
       trades,
+      selectedMarket,
     } = this.defaultFormState(formState)
 
     if (!selectedTimeFrame) {
@@ -58,7 +60,7 @@ export default class HistoricalForm extends React.PureComponent {
       endDate: new Date(Date.now() - (ONE_MIN * 15)),
       selectedTimeFrame: '15m',
       selectedMarket: allMarkets[exId][0],
-      trades: true,
+      trades: false,
       candles: true,
       checkboxErr: false,
       ...formState,
@@ -119,16 +121,13 @@ export default class HistoricalForm extends React.PureComponent {
             />
           </div>
           <div className='hfui-backtester__flex_start'>
-            <Dropdown
-              value={selectedMarket.uiID}
+            <MarketSelect
+              value={selectedMarket}
               onChange={(selection) => {
-                const sel = allMarkets[exId].find(m => m.uiID === selection)
+                const sel = allMarkets[exId].find(m => m.uiID === selection.uiID)
                 setFormState(() => ({ selectedMarket: sel }))
               }}
-              options={allMarkets[exId].map(m => ({
-                label: m.uiID,
-                value: m.uiID,
-              }))}
+              markets={allMarkets[exId]}
             />
           </div>
           <div className='hfui-backtester__flex_start' style={{ marginRight: -15 }}>
@@ -147,6 +146,7 @@ export default class HistoricalForm extends React.PureComponent {
               onChange={val => setFormState(() => ({ startDate: val }))}
               def={{ label: 'Start Date' }}
               value={startDate}
+              maxDate={MAX_DATE}
             />
           </div>
           <div className='hfui-backtester_dateInput hfui-backtester__flex_start'>
@@ -154,6 +154,7 @@ export default class HistoricalForm extends React.PureComponent {
               onChange={val => setFormState(() => ({ endDate: val }))}
               def={{ label: 'End Date' }}
               value={endDate}
+              maxDate={MAX_DATE}
             />
           </div>
           <div>

@@ -41,7 +41,14 @@
     align-self: flex-start;
     justify-self: flex-start;
   }
-
+  .hfui-select__outer {
+    display: block;
+    min-width: 97%;
+    min-height: 100%;
+    padding-top:7px;
+    padding-bottom: 7px;
+    background-color: #102331;
+  }
   .hfui-backtester_row {
     display: flex;
     flex-direction: row;
