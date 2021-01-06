@@ -58,10 +58,10 @@ export default class HistoricalForm extends React.PureComponent {
       startDate: new Date() - ONE_DAY,
       endDate: new Date(Date.now() - (ONE_MIN * 15)),
       selectedTimeFrame: '15m',
-      trades: true,
+      selectedMarket: allMarkets[exID][0],
+      trades: false,
       candles: true,
       checkboxErr: false,
-      selectedMarket: allMarkets[exID][0],
       ...formState,
     }
   }
