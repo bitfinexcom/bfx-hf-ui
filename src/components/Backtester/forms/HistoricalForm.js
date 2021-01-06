@@ -54,12 +54,12 @@ export default class HistoricalForm extends React.PureComponent {
   }
 
   defaultFormState(formState) {
-    const { allMarkets, exID = 'bitfinex' } = this.props
+    const { allMarkets, exId } = this.props
     return {
       startDate: new Date() - ONE_DAY,
       endDate: new Date(Date.now() - (ONE_MIN * 15)),
       selectedTimeFrame: '15m',
-      selectedMarket: allMarkets[exID][0],
+      selectedMarket: allMarkets[exId][0],
       trades: false,
       candles: true,
       checkboxErr: false,
