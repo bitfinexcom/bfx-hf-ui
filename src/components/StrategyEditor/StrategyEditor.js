@@ -49,6 +49,7 @@ export default class StrategyEditor extends React.PureComponent {
     createNewStrategyModalOpen: false,
     openExistingStrategyModalOpen: false,
     editorMode: 'visual',
+    isRemoveModalOpened: false,
   }
 
   constructor(props) {
@@ -61,8 +62,10 @@ export default class StrategyEditor extends React.PureComponent {
     this.onCloseModals = this.onCloseModals.bind(this)
     this.onCreateNewStrategy = this.onCreateNewStrategy.bind(this)
     this.onSaveStrategy = this.onSaveStrategy.bind(this)
+    this.onRemoveStrategy = this.onRemoveStrategy.bind(this)
     this.onLoadStrategy = this.onLoadStrategy.bind(this)
     this.onToggleMaximiseEditor = this.onToggleMaximiseEditor.bind(this)
+    this.onOpenRemoveModal = this.onOpenRemoveModal.bind(this)
   }
 
   onCreateNewStrategy(label, templateLabel) {
@@ -85,7 +88,7 @@ export default class StrategyEditor extends React.PureComponent {
       sectionErrors: {},
       strategyDirty: true,
     }))
-    this.updateStrategy(strategy)
+    this.selectStrategy(strategy)
 
     if (strategy.defineIndicators) {
       setTimeout(() => {
@@ -100,7 +103,7 @@ export default class StrategyEditor extends React.PureComponent {
       strategyDirty: false,
       strategy,
     }))
-    this.updateStrategy(strategy)
+    this.selectStrategy(strategy)
 
     if (strategy.defineIndicators) {
       setTimeout(() => {
@@ -113,6 +116,7 @@ export default class StrategyEditor extends React.PureComponent {
     this.setState(() => ({
       createNewStrategyModalOpen: true,
       openExistingStrategyModalOpen: false,
+      isRemoveModalOpened: false,
     }))
   }
 
@@ -120,6 +124,7 @@ export default class StrategyEditor extends React.PureComponent {
     this.setState(() => ({
       createNewStrategyModalOpen: false,
       openExistingStrategyModalOpen: true,
+      isRemoveModalOpened: false,
     }))
   }
 
@@ -127,6 +132,7 @@ export default class StrategyEditor extends React.PureComponent {
     this.setState(() => ({
       createNewStrategyModalOpen: false,
       openExistingStrategyModalOpen: false,
+      isRemoveModalOpened: false,
     }))
   }
 
@@ -138,12 +144,30 @@ export default class StrategyEditor extends React.PureComponent {
   }
 
   onSaveStrategy() {
-    const { authToken, onSave } = this.props
+    const { authToken, onSave, strategyId = '' } = this.props
     const { strategy } = this.state
 
-    onSave(authToken, strategy)
+    onSave(authToken, { id: strategyId, ...strategy })
 
     this.setState(() => ({ strategyDirty: false }))
+    this.onCloseModals()
+  }
+  onOpenRemoveModal() {
+    this.setState(() => ({
+      createNewStrategyModalOpen: false,
+      openExistingStrategyModalOpen: false,
+      isRemoveModalOpened: true,
+    }))
+  }
+  onRemoveStrategy() {
+    const {
+      authToken, onRemove, onStrategyChange, strategyId,
+    } = this.props
+    const { strategy } = this.state
+    const { id = strategyId } = strategy
+    onRemove(authToken, id)
+    this.setState(() => ({ strategy: null }))
+    onStrategyChange(null)
     this.onCloseModals()
   }
 
@@ -212,7 +236,22 @@ export default class StrategyEditor extends React.PureComponent {
       },
     }))
   }
+  selectStrategy(strategy) {
+    const { onStrategySelect } = this.props
+    this.setState(() => ({ strategy }))
 
+    const strategyContent = {}
+    let section
+    for (let i = 0; i < STRATEGY_SECTIONS.length; i += 1) {
+      section = STRATEGY_SECTIONS[i]
+      const content = strategy[section]
+
+      if (!_isEmpty(content)) {
+        strategyContent[section] = content
+      }
+    }
+    onStrategySelect(strategyContent)
+  }
   updateStrategy(strategy) {
     const { onStrategyChange } = this.props
     this.setState(() => ({ strategy }))
@@ -262,14 +301,15 @@ export default class StrategyEditor extends React.PureComponent {
       return null
     }
   }
-
   renderPanel(content) {
     const {
       strategy, execRunning, strategyDirty, editorMaximised,
-      editorMode, dark,
+      editorMode, dark, isRemoveModalOpened,
     } = this.state
 
-    const { onRemove, moveable, removeable } = this.props
+    const {
+      moveable, removeable, strategyId, onRemove,
+    } = this.props
 
     return (
       <StrategyEditorPanel
@@ -280,13 +320,18 @@ export default class StrategyEditor extends React.PureComponent {
         execRunning={execRunning}
         strategyDirty={strategyDirty}
         strategy={strategy}
+        strategyId={strategyId}
         editorMode={editorMode}
         editorMaximised={editorMaximised}
         onOpenSelectModal={this.onOpenSelectModal}
         onOpenCreateModal={this.onOpenCreateModal}
+        onOpenRemoveModal={this.onOpenRemoveModal}
+        onCloseModals={this.onCloseModals}
         onSaveStrategy={this.onSaveStrategy}
+        onRemoveStrategy={this.onRemoveStrategy}
         onSwitchEditorMode={this.onSwitchEditorMode}
         onToggleMaximiseEditor={this.onToggleMaximiseEditor}
+        isRemoveModalOpened={isRemoveModalOpened}
       >
         {content}
       </StrategyEditorPanel>

@@ -11,6 +11,7 @@ export default (opts, results, backtestData, backtestOptions) => {
   const { indicators } = opts
   const { candles = [] } = backtestData
   const { tf } = backtestOptions
+  const hasCandles = candles.length !== 0
 
   // convert candles to array for the chart
   const candleArr = Object.values(candles).map(c => (
@@ -30,7 +31,7 @@ export default (opts, results, backtestData, backtestOptions) => {
         results={results}
         execRunning={false}
       />
-      {candles.length && (
+      {hasCandles && (
       <AutoSizer disableHeight style={{ height: 400 }}>
         {({ width, height = 400 }) => (
           <BFXChart
