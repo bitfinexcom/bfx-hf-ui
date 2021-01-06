@@ -2,6 +2,7 @@ import React from 'react'
 
 import Button from '../../../ui/Button'
 import Dropdown from '../../../ui/Dropdown'
+import MarketSelect from '../../MarketSelect'
 import TimeFrameDropdown from '../../TimeFrameDropdown'
 import { propTypes, defaultProps } from './forms.props'
 
@@ -120,16 +121,13 @@ export default class HistoricalForm extends React.PureComponent {
             />
           </div>
           <div className='hfui-backtester__flex_start'>
-            <Dropdown
-              value={selectedMarket.uiID}
+            <MarketSelect
+              value={selectedMarket}
               onChange={(selection) => {
-                const sel = allMarkets[exId].find(m => m.uiID === selection)
+                const sel = allMarkets[exId].find(m => m.uiID === selection.uiID)
                 setFormState(() => ({ selectedMarket: sel }))
               }}
-              options={allMarkets[exId].map(m => ({
-                label: m.uiID,
-                value: m.uiID,
-              }))}
+              markets={allMarkets[exId]}
             />
           </div>
           <div className='hfui-backtester__flex_start' style={{ marginRight: -15 }}>
