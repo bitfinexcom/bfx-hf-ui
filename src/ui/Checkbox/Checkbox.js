@@ -8,7 +8,7 @@ export default class Checkbox extends React.PureComponent {
 
   render() {
     const {
-      label, value, onChange, id, uppercase,
+      label, value, onChange, id, uppercase, disabled,
     } = this.props
     return (
       <div className='hfui-checkbox pretty p-curve p-default'>
@@ -16,6 +16,7 @@ export default class Checkbox extends React.PureComponent {
           className='hfui-input'
           type='checkbox'
           checked={value}
+          disabled={disabled}
           onChange={e => onChange(e.target.checked)}
           id={id}
         />

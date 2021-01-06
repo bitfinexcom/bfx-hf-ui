@@ -15,3 +15,9 @@
     }
   }
 }
+
+.hfui-openexistingstrategymodal__wrapper li, .hfui-openexistingstrategymodal__wrapper  p{
+  white-space: nowrap;                      
+  overflow: hidden;              /* "overflow" value must be different from "visible" */    
+  text-overflow: ellipsis;
+}

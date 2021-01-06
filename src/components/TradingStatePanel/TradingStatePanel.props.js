@@ -14,7 +14,13 @@ export const propTypes = {
   balances: PropTypes.object.isRequired,
   moveable: PropTypes.bool,
   removeable: PropTypes.bool,
+  positionsCount: PropTypes.number,
+  algoOrdersCount: PropTypes.number,
+  atomicOrdersCount: PropTypes.number,
 }
 
 export const defaultProps = {
+  positionsCount: 0,
+  algoOrdersCount: 0,
+  atomicOrdersCount: 0,
 }

@@ -99,6 +99,12 @@ export default (ws, store) => (e = {}) => {
       break
     }
 
+    case 'data.strategy.removed': {
+      const [, id] = payload
+      store.dispatch(WSActions.recvRemovedStrategy(id))
+      break
+    }
+
     case 'error': {
       const [, message] = payload
       store.dispatch(WSActions.recvNotification({

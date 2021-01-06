@@ -19,15 +19,22 @@ export default class Panel extends React.Component {
     if (!htmlKey) console.trace('htmlKey missing')
     return htmlKey
   }
+  getForcedTab(forcedTab, tabs) { //eslint-disable-line
+    for (let i = 0; i < tabs.length; i++) {
+      if (tabs[i].props.tabtitle === forcedTab) {
+        return tabs[i]
+      }
+    }
+  }
   render() {
     const {
       className, label, children = [], onRemove, headerComponents, hideIcons,
       extraIcons, moveable, removeable, modal, footer, settingsOpen,
       onToggleSettings, darkHeader, dark,
-      secondaryHeaderComponents, secondaryHeaderReverse, closePanel,
+      secondaryHeaderComponents, secondaryHeaderReverse, closePanel, forcedTab = '',
     } = this.props
     const tabs = React.Children.toArray(children).filter(c => c && c.props.tabtitle)
-    const { selectedTab = tabs[0] } = this.state
+    const { selectedTab = forcedTab.length ? this.getForcedTab(forcedTab, tabs) : tabs[0] } = this.state
     let heightOffsetPX = 0
 
     if (label || tabs) heightOffsetPX += 50
