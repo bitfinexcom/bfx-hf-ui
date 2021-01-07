@@ -7,6 +7,7 @@ function getInitialState() {
     executing: false,
     trades: [],
     candles: [],
+    backtestOptions: {},
   }
 }
 
@@ -51,8 +52,22 @@ function reducer(state = getInitialState(), action = {}) {
       }
     }
 
+    case types.SET_BACKTEST_OPTIONS: {
+      const { options = {} } = payload
+      if (!Object.keys(options).length) {
+        return {
+          ...state,
+        }
+      }
+      return {
+        ...state,
+        backtestOptions: options,
+      }
+    }
+
     case types.BACKTEST_RESULTS: {
       return {
+        ...state,
         ...payload,
         loading: false,
         executing: false,

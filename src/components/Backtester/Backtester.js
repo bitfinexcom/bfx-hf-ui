@@ -12,7 +12,6 @@ export default class Backtester extends React.Component {
   static defaultProps = defaultProps
 
   state = {
-    backtestOptions: {},
     execError: null,
     loadingBacktest: false,
     execRunning: false,
@@ -47,13 +46,12 @@ export default class Backtester extends React.Component {
     const {
       activeExchange, activeMarket, startDate, endDate, tf, trades, candles,
     } = options
-    const { dsExecuteBacktest, strategyContent } = this.props
-
+    const { dsExecuteBacktest, strategyContent, setBacktestOptions } = this.props
+    setBacktestOptions(options)
     const startNum = new Date(startDate).getTime()
     const endNum = new Date(endDate).getTime()
 
     this.setState(() => ({
-      backtestOptions: options,
       execError: undefined,
     }))
 
@@ -75,7 +73,6 @@ export default class Backtester extends React.Component {
   render() {
     const {
       executionType = this.backtestMethods[0],
-      backtestOptions,
     } = this.state
     const {
       indicators,
@@ -83,6 +80,7 @@ export default class Backtester extends React.Component {
       strategyContent,
       allMarkets,
       backtestResults,
+      backtestOptions,
     } = this.props
     const formState = this.state[`${executionType.type}_formState`] || {} // eslint-disable-line
     const opts = {

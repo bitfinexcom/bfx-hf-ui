@@ -284,6 +284,11 @@ export default {
     payload: { exID, channel },
   }),
 
+  setBacktestOptions: options => ({
+    type: t.SET_BACKTEST_OPTIONS,
+    payload: { options },
+  }),
+
   purgeBacktestData: () => ({
     type: t.PURGE_DATA_BACKTEST,
   }),
