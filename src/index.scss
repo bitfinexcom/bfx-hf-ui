@@ -17,8 +17,6 @@ body button {
   outline: none;
 }
 
-
-
 .react-datepicker {
   background-color: #102331;
   color: #ccc;
@@ -51,7 +49,8 @@ body button {
 .react-datepicker-time__header,
 .react-datepicker-year-header {
   color: #ccc;
-  border:none;
+  border: none;
+  padding-bottom: 6px;
 }
 
 .react-datepicker__header {
@@ -83,6 +82,30 @@ body button {
 .react-datepicker__input-container {
   width: 100%;
   border:none;
+}
+
+.react-datepicker__navigation--previous,
+.react-datepicker__navigation--next {
+  display: none;
+}
+
+.react-datepicker__year-dropdown-container--select,
+.react-datepicker__month-dropdown-container--select,
+.react-datepicker__month-year-dropdown-container--select,
+.react-datepicker__year-dropdown-container--scroll,
+.react-datepicker__month-dropdown-container--scroll,
+.react-datepicker__month-year-dropdown-container--scroll {
+  margin: 0 5px;
+
+  select {
+    color: #ccc;
+    background-color: #000;
+    font-weight: bold;
+
+    &:focus {
+      outline: none;
+    }
+  }
 }
 
 body {
