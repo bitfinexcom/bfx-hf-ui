@@ -5,6 +5,7 @@ import { getMarkets } from '../../redux/selectors/meta'
 
 const mapStateToProps = (state = {}) => ({
   allMarkets: getMarkets(state),
+  strategyContent: state.ui.content,
 })
 
 const mapDispatchToProps = () => ({
