@@ -2,11 +2,8 @@ import React from 'react'
 import DatePicker from 'react-datepicker'
 
 import { propTypes, defaultProps } from './input.date.props'
-import {
-  renderString, CONVERT_LABELS_TO_PLACEHOLDERS,
-} from '../OrderForm.helpers'
+import { renderString, CONVERT_LABELS_TO_PLACEHOLDERS } from '../OrderForm.helpers'
 
-// TODO:
 export default class DateInput extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -24,23 +21,32 @@ export default class DateInput extends React.PureComponent {
 
   render() {
     const {
-      def = {}, renderData, validationError, value, onChange, maxDate,
+      value,
+      minDate,
+      maxDate,
+      onChange,
+      def = {},
+      renderData,
+      validationError,
     } = this.props
-
     const { label } = def
     const renderedLabel = renderString(label, renderData)
 
     return (
       <div className='hfui-orderform__input fullWidth hfui-input'>
         <DatePicker
+          width='100%'
           popperPlacement='bottom-start'
           dateFormat='MMMM d, yyyy h:mm aa'
           timeCaption='Time'
           timeFormat='HH:mm'
-          timeIntervals={10}
+          dropdownMode='select'
           showTimeSelect
-          width='100%'
+          showYearDropdown
+          showMonthDropdown
+          timeIntervals={10}
           selected={value}
+          minDate={minDate}
           maxDate={maxDate}
           onChange={onChange}
           placeholder={CONVERT_LABELS_TO_PLACEHOLDERS ? renderedLabel : undefined}
