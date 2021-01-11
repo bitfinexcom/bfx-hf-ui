@@ -12,6 +12,7 @@ const mapStateToProps = (state = {}) => ({
   allMarkets: getMarkets(state),
   backtestResults: getBacktestResults(state),
   strategyContent: state.ui.content,
+  backtestOptions: state.ws.backtest.backtestOptions || {},
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -21,6 +22,9 @@ const mapDispatchToProps = dispatch => ({
       'exec.str', [exchange, from, to, symbol, tf, candles, trades, true, strategy],
     ]))
     dispatch(WSActions.setBacktestLoading())
+  },
+  setBacktestOptions: options => {
+    dispatch(WSActions.setBacktestOptions(options))
   },
 })
 
