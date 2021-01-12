@@ -24,7 +24,7 @@ export default class TimeFrameDropdown extends React.PureComponent {
 
     return (
       <div className='hfui-backtester__executionform'>
-        <div className='hfui-backtester__executiondropdown input-label'>
+        <div className='hfui-backtester__executiondropdown hfui_backtester__input-label'>
           <Dropdown
             key='tf-dropdown'
             fallback='Select a time frame'

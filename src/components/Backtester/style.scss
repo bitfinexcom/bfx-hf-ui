@@ -1,4 +1,4 @@
-.manageData { 
+.hfui-backtester__data { 
   position: fixed;
   top: 60px;
   right: 30px;
@@ -16,7 +16,7 @@
     color:  #54B361;
   }
 }
-.btn-block {
+.hfui-backtester__data-btn-block {
   width: 100%;
   margin-top: 20px;
   display:flex;
@@ -26,7 +26,7 @@
     margin-left: 10px;
   }
 }
-.data-container { 
+.hfui-backtester__data-container { 
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -46,7 +46,7 @@
     text-overflow: ellipsis;
   }
 }
-.hfui-backtester__wrapper .navbar { 
+.hfui-backtester__wrapper .hfui-backtester__navbar { 
   display: flex;
   justify-content: space-around;
   padding-bottom: 28px;
@@ -56,14 +56,14 @@
   font-size: 13px;
   line-height: 15px;
   text-transform: uppercase;
-  .item { 
+  .hfui-backtester__navbar-item { 
     width: 50%;
     display: flex;
     justify-content: center;
     padding-bottom: 8px;
     border-bottom: 1px solid #C4C4C4;
   }
-  .item:hover {
+  .hfui-backtester__navbar-item:hover {
     cursor: pointer;
   }
   .active {
@@ -100,7 +100,7 @@
     border: none;
   }
 
-  .input-label {
+  .hfui_backtester__input-label {
     color: #666;
     font-size: 11px;
     line-height: 16px;

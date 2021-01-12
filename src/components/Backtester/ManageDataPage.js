@@ -53,7 +53,7 @@ export default class ManageDataPage extends React.PureComponent {
       return (
         <>
           There is no data yet.
-          <div className='btn-block'>
+          <div className='hfui-backtester__data-btn-block'>
             <Button
               dark
               label={[
@@ -80,7 +80,7 @@ export default class ManageDataPage extends React.PureComponent {
       <>
         { preparedData.map(d => (
           !idsToDelete.includes(d.reverse().join('_')) && (
-          <div className='data-container'>
+          <div className='hfui-backtester__data-container'>
             <div className='date'>
               {
                 `${this.symbolToLabel(d[2])} ${_startCase(d[1])} ${d[0]}`
@@ -96,7 +96,7 @@ export default class ManageDataPage extends React.PureComponent {
           </div>
           )
         ))}
-        <div className='btn-block'>
+        <div className='hfui-backtester__data-btn-block'>
           <Button
             dark
             label={[

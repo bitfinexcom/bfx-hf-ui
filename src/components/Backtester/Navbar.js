@@ -17,14 +17,14 @@ export default class Navbar extends React.PureComponent {
 
     return (
       <>
-        <div className='navbar'>
-          <div className={`item ${backtestingPage === 'classic' ? 'active' : ''}`} onClick={() => setBacktestingPage('classic')}>Classic API</div>
-          <div className={`item ${backtestingPage === 'daazar' ? 'active' : ''}`} onClick={() => setBacktestingPage('daazar')}>Daazar</div>
+        <div className='hfui-backtester__navbar'>
+          <div className={`hfui-backtester__navbar-item ${backtestingPage === 'classic' ? 'active' : ''}`} onClick={() => setBacktestingPage('classic')}>Classic API</div>
+          <div className={`hfui-backtester__navbar-item ${backtestingPage === 'daazar' ? 'active' : ''}`} onClick={() => setBacktestingPage('daazar')}>Daazar</div>
         </div>
         {
             (backtestingPage === 'daazar') && (
             <div
-              className={`manageData ${manageDataOpened ? 'active' : ''}`}
+              className={`hfui-backtester__data ${manageDataOpened ? 'active' : ''}`}
               onClick={() => {
                 openManageData()
               }}
