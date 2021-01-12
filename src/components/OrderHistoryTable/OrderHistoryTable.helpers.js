@@ -9,7 +9,7 @@ const symbolToLabel = (symbol) => {
   return `${symbol.substring(1, 4)}/${symbol.substring(4)}`
 }
 const getPriceFromStatus = (status) => {
-  if (status.includes('CANCELED') || status.includes('LIQ_CANCEL') || status.includes('RSN_BOOK_EMPTY')) {
+  if (!status.includes('@')) {
     return '0.00'
   }
   return `${status.split('@')[1].split('(')[0]}`
