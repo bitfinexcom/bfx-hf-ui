@@ -24,7 +24,7 @@ export default class DateInput extends React.PureComponent {
 
   render() {
     const {
-      def = {}, renderData, validationError, value, onChange,
+      def = {}, renderData, validationError, value, onChange, maxDate,
     } = this.props
 
     const { label } = def
@@ -41,6 +41,7 @@ export default class DateInput extends React.PureComponent {
           showTimeSelect
           width='100%'
           selected={value}
+          maxDate={maxDate}
           onChange={onChange}
           placeholder={CONVERT_LABELS_TO_PLACEHOLDERS ? renderedLabel : undefined}
         />
