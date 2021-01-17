@@ -11,12 +11,13 @@ export default class MarketSelect extends React.PureComponent {
 
   render() {
     const {
-      value, onChange, markets, className, renderLabel, ...otherProps
+      value, onChange, markets, className, renderLabel, onFavoriteSelect, ...otherProps
     } = this.props
 
     return (
       <Select
         label={renderLabel && 'Market'}
+        onFavoriteSelect={(pair, isAddition) => onFavoriteSelect(pair, isAddition)}
         className={ClassNames('hfui-marketselect', className)}
         onChange={(selection) => {
           onChange(markets.find(m => m.uiID === selection.value))

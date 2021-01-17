@@ -274,6 +274,11 @@ export default {
     payload: { exID, channel },
   }),
 
+  recvUpdatedFavoritePairs: pairs => ({
+    type: t.UPDATE_FAVORITE_PAIRS,
+    payload: pairs,
+  }),
+
   purgeDataBook: (exID, channel) => ({
     type: t.PURGE_DATA_BOOK,
     payload: { exID, channel },

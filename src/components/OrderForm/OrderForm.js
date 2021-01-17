@@ -21,6 +21,7 @@ import Panel from '../../ui/Panel'
 import Select from '../../ui/Select'
 import Dropdown from '../../ui/Dropdown'
 import Scrollbars from '../../ui/Scrollbars'
+import FavoriteTradingPairs from '../FavoriteTradingPairs'
 import MarketSelect from '../MarketSelect'
 
 // import ConnectingModal from './Modals/ConnectingModal'
@@ -386,7 +387,8 @@ export default class OrderForm extends React.Component {
   render() {
     const {
       onRemove, orders, apiClientStates, apiCredentials, moveable, removeable,
-      showExchange, showMarket,
+      showExchange, showMarket, favoritePairs, savePairs, authToken, onChangeMarket, allMarkets,
+      activeExchange, activeMarket,
     } = this.props
 
     const {
@@ -419,134 +421,144 @@ export default class OrderForm extends React.Component {
 
     // NOTE: Margin trading disabled on Binance
     return (
-      <Panel
-        key='execute-order'
-        label='EXECUTE ORDER'
-        className='hfui-orderform__panel'
-        moveable={moveable}
-        removeable={removeable}
-        onRemove={onRemove}
-        headerComponents={[
-          showExchange && this.renderExchangeDropdown(),
-          showMarket && this.renderMarketDropdown(),
-        ]}
-        extraIcons={(
-          !HELP_ICON_DISABLED && apiClientConnected && currentLayout && currentLayout.customHelp && (
-            <i
-              role='button'
-              tabIndex={0}
-              onClick={this.onToggleHelp}
-              className={ClassNames('fas fa-question', {
-                yellow: helpOpen,
-              })}
-            />
-          )
-        )}
-      >
-        <div key='orderform-wrapper' className='hfui-orderform__wrapper'>
-          {[
-            apiClientDisconnected && !apiClientConfigured && !configureModalOpen && (
-              <UnconfiguredModal
-                key='unconfigured'
-                exID={currentExchange}
-                onClick={this.onToggleConfigureModal}
-              />
-            ),
-
-            !apiClientConnected && !apiClientConfigured && configureModalOpen && (
-              <SubmitAPIKeysModal
-                key='submit-api-keys'
-                onClose={this.onToggleConfigureModal}
-                onSubmit={this.onSubmitAPIKeys}
-                exID={currentExchange}
-                apiClientConnecting={apiClientConnecting}
-              />
-            ),
+      <>
+        <FavoriteTradingPairs
+          allMarkets={allMarkets}
+          prevMarket={activeMarket}
+          exchange={activeExchange}
+          onSelect={onChangeMarket}
+          savePairs={(props) => savePairs(props, authToken)}
+          favoritePairs={favoritePairs}
+        />
+        <Panel
+          key='execute-order'
+          label='EXECUTE ORDER'
+          className='hfui-orderform__panel'
+          moveable={moveable}
+          removeable={removeable}
+          onRemove={onRemove}
+          headerComponents={[
+            showExchange && this.renderExchangeDropdown(),
+            showMarket && this.renderMarketDropdown(),
           ]}
-
-          {helpOpen && currentLayout && currentLayout.customHelp && (
-            <div key='overlay-wrapper' className='hfui-orderform__overlay-wrapper'>
-              <Scrollbars>
-                <div className='hfui-orderform__help-inner'>
-                  <p className='hfui-orderform__help-title'>
-                    <span className='prefix'>HELP:</span>
-                    {currentLayout.label}
-                    <i
-                      role='button'
-                      tabIndex={0}
-                      onClick={this.onToggleHelp}
-                      className='far fa-times-circle'
-                    />
-                  </p>
-                  <p className='hfui-orderform__help-content'>
-                    {currentLayout.customHelp}
-                  </p>
-                </div>
-              </Scrollbars>
-            </div>
-          )}
-
-          {!currentLayout && (
-            <div key='order-form-menu' className='hfui-orderform__overlay-wrapper'>
-              <Scrollbars>
-                <OrderFormMenu
-                  atomicOrderTypes={atomicOrderTypes}
-                  algoOrderTypes={algoOrderTypes}
-                  onSelect={({ label }) => this.onChangeActiveOrderLayout(label)}
-                />
-              </Scrollbars>
-            </div>
-          )}
-
-          {currentLayout && [
-            <div className='hfui-orderform__layout-label' key='layout-label'>
+          extraIcons={(
+            !HELP_ICON_DISABLED && apiClientConnected && currentLayout && currentLayout.customHelp && (
               <i
-                className='icon-back-arrow'
-                onClick={this.onClearOrderLayout}
+                role='button'
+                tabIndex={0}
+                onClick={this.onToggleHelp}
+                className={ClassNames('fas fa-question', {
+                  yellow: helpOpen,
+                })}
               />
-              <div className='hfui-orderform__layout-label-inner'>
-                <i className={`icon-${currentLayout.uiIcon}`} />
-                <p>{currentLayout.label}</p>
-              </div>
-            </div>,
-
-            <ul className='hfui-orderform__header' key='of-header'>
-              <li key='item'>
-                <Dropdown
-                  icon='exchange-passive'
-                  value={context}
-                  key='dropdown-orderform'
-                  onChange={this.onContextChange}
-                  options={currentMarket.contexts.filter(ctx => (
-                    currentExchange === 'bitfinex' || ctx !== 'm'
-                  )).map(ctx => ({
-                    label: CONTEXT_LABELS[ctx],
-                    value: ctx,
-                  }))}
+            )
+          )}
+        >
+          <div key='orderform-wrapper' className='hfui-orderform__wrapper'>
+            {[
+              apiClientDisconnected && !apiClientConfigured && !configureModalOpen && (
+                <UnconfiguredModal
+                  key='unconfigured'
+                  exID={currentExchange}
+                  onClick={this.onToggleConfigureModal}
                 />
-              </li>
-            </ul>,
+              ),
 
-            renderLayout({
-              onSubmit: this.onSubmit,
-              onFieldChange: this.onFieldChange,
-              layout: currentLayout,
-              validationErrors,
-              renderData,
-              fieldData: {
-                ...fieldData,
-                _context: context,
-              },
-            }),
+              !apiClientConnected && !apiClientConfigured && configureModalOpen && (
+                <SubmitAPIKeysModal
+                  key='submit-api-keys'
+                  onClose={this.onToggleConfigureModal}
+                  onSubmit={this.onSubmitAPIKeys}
+                  exID={currentExchange}
+                  apiClientConnecting={apiClientConnecting}
+                />
+              ),
+            ]}
 
-            creationError && (
-              <div className='hfui-orderform__creation-error' key='of-error'>
-                <p>{creationError}</p>
+            {helpOpen && currentLayout && currentLayout.customHelp && (
+              <div key='overlay-wrapper' className='hfui-orderform__overlay-wrapper'>
+                <Scrollbars>
+                  <div className='hfui-orderform__help-inner'>
+                    <p className='hfui-orderform__help-title'>
+                      <span className='prefix'>HELP:</span>
+                      {currentLayout.label}
+                      <i
+                        role='button'
+                        tabIndex={0}
+                        onClick={this.onToggleHelp}
+                        className='far fa-times-circle'
+                      />
+                    </p>
+                    <p className='hfui-orderform__help-content'>
+                      {currentLayout.customHelp}
+                    </p>
+                  </div>
+                </Scrollbars>
               </div>
-            ),
-          ]}
-        </div>
-      </Panel>
+            )}
+
+            {!currentLayout && (
+              <div key='order-form-menu' className='hfui-orderform__overlay-wrapper'>
+                <Scrollbars>
+                  <OrderFormMenu
+                    atomicOrderTypes={atomicOrderTypes}
+                    algoOrderTypes={algoOrderTypes}
+                    onSelect={({ label }) => this.onChangeActiveOrderLayout(label)}
+                  />
+                </Scrollbars>
+              </div>
+            )}
+
+            {currentLayout && [
+              <div className='hfui-orderform__layout-label' key='layout-label'>
+                <i
+                  className='icon-back-arrow'
+                  onClick={this.onClearOrderLayout}
+                />
+                <div className='hfui-orderform__layout-label-inner'>
+                  <i className={`icon-${currentLayout.uiIcon}`} />
+                  <p>{currentLayout.label}</p>
+                </div>
+              </div>,
+
+              <ul className='hfui-orderform__header' key='of-header'>
+                <li key='item'>
+                  <Dropdown
+                    icon='exchange-passive'
+                    value={context}
+                    key='dropdown-orderform'
+                    onChange={this.onContextChange}
+                    options={currentMarket.contexts.filter(ctx => (
+                      currentExchange === 'bitfinex' || ctx !== 'm'
+                    )).map(ctx => ({
+                      label: CONTEXT_LABELS[ctx],
+                      value: ctx,
+                    }))}
+                  />
+                </li>
+              </ul>,
+
+              renderLayout({
+                onSubmit: this.onSubmit,
+                onFieldChange: this.onFieldChange,
+                layout: currentLayout,
+                validationErrors,
+                renderData,
+                fieldData: {
+                  ...fieldData,
+                  _context: context,
+                },
+              }),
+
+              creationError && (
+                <div className='hfui-orderform__creation-error' key='of-error'>
+                  <p>{creationError}</p>
+                </div>
+              ),
+            ]}
+          </div>
+        </Panel>
+      </>
     )
   }
 }

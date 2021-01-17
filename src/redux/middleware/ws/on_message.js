@@ -104,7 +104,11 @@ export default (ws, store) => (e = {}) => {
       store.dispatch(WSActions.recvRemovedStrategy(id))
       break
     }
-
+    case 'data.favourite_trading_pairs.saved': {
+      const [, pairs] = payload
+      store.dispatch(WSActions.recvUpdatedFavoritePairs(pairs))
+      break
+    }
     case 'error': {
       const [, message] = payload
       store.dispatch(WSActions.recvNotification({
