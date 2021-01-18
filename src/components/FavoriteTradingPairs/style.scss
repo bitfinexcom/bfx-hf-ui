@@ -10,11 +10,20 @@
 }
 
 .hfui-favoritepair__content {
-    height: 100px;
+    height: 82px;
     max-width: 100%;
     text-transform: uppercase;
     padding-top: 10px;
-    overflow: scroll;
+    overflow-y: auto;
+}
+.hfui-favoritepair__content::-webkit-scrollbar {
+    width: 5px;
+}
+
+.hfui-favoritepair__content::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 3px rgba(0,0,0,0.5); 
+    -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.5); 
 }
 .hfui-favoritepair__content-notice {
     font-weight: 300;
@@ -36,6 +45,7 @@
     display: inline-block;
     padding: 8px;
     margin: 4px;
+    font-size: 13px;
     cursor: pointer; 
     &.active { 
         border: 1px solid #16B157;
@@ -50,7 +60,7 @@
 }
 .empty { 
     color:#FFFFFF;
-    font-size: 1em;
+    font-size: 0.8em;
     font-weight: 300;
     display: flex;
     justify-content: center;
