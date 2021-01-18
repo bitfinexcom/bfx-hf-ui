@@ -6,7 +6,7 @@ import { propTypes, defaultProps } from './Select.props'
 import './style.css'
 
 const customOption = (componentProps, onFavoriteSelect, favoritePairs) => {
-  const { innerProps, children, data  } = componentProps
+  const { innerProps, children, data } = componentProps
   const { value } = data
   const isSelected = favoritePairs.includes(value)
   return (
