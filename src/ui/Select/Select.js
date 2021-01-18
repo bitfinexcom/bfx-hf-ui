@@ -5,7 +5,8 @@ import FavoriteIcon from '../Icons/FavoriteIcon'
 import { propTypes, defaultProps } from './Select.props'
 import './style.css'
 
-const customOption = ({ innerProps, children, data }, onFavoriteSelect, favoritePairs) => {
+const customOption = (componentProps, onFavoriteSelect, favoritePairs) => {
+  const { innerProps, children, data  } = componentProps
   const { value } = data
   const isSelected = favoritePairs.includes(value)
   return (
