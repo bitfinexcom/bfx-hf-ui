@@ -46,9 +46,12 @@ export default class NumberInput extends React.PureComponent {
 
         {!CONVERT_LABELS_TO_PLACEHOLDERS && (
           <p className='hfui-orderform__input-label'>
-            <Tooltip tooltipContent={customHelp}>
               {renderedLabel}
-            </Tooltip>
+            {customHelp && (
+              <Tooltip tooltipContent={customHelp}>
+                <i className='fa fa-info-circle' />
+              </Tooltip>
+            )}
           </p>
         )}
 

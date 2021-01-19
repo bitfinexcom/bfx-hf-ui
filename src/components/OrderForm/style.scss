@@ -302,7 +302,9 @@
     font-size: 11px;
     line-height: 16px;
     margin-top: 2px;
+    display: flex;
     flex-shrink: 0;
+    justify-content: space-between;
   }
 
   .hfui-orderform__input-error-label {
