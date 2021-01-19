@@ -3,10 +3,9 @@ import ClassNames from 'classnames'
 import _isFinite from 'lodash/isFinite'
 
 import Input from '../../../ui/Input'
+import Tooltip from '../../../ui/Tooltip'
 import { propTypes, defaultProps } from './input.number.props'
-import {
-  renderString, CONVERT_LABELS_TO_PLACEHOLDERS,
-} from '../OrderForm.helpers'
+import { renderString, CONVERT_LABELS_TO_PLACEHOLDERS } from '../OrderForm.helpers'
 
 export default class NumberInput extends React.PureComponent {
   static propTypes = propTypes
@@ -21,10 +20,16 @@ export default class NumberInput extends React.PureComponent {
 
   render() {
     const {
-      def = {}, renderData = {}, value, disabled, onChange, validationError,
+      value,
+      def = {},
+      disabled,
+      onChange,
+      renderData = {},
+      validationError,
     } = this.props
-    const { label } = def
+    const { label, customHelp } = def
     const renderedLabel = renderString(label, renderData)
+
     return (
       <div className={ClassNames('hfui-orderform__input', {
         disabled,
@@ -41,7 +46,9 @@ export default class NumberInput extends React.PureComponent {
 
         {!CONVERT_LABELS_TO_PLACEHOLDERS && (
           <p className='hfui-orderform__input-label'>
-            {renderedLabel}
+            <Tooltip tooltipContent={customHelp}>
+              {renderedLabel}
+            </Tooltip>
           </p>
         )}
 
