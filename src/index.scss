@@ -6,6 +6,7 @@
 @import '~@projectstorm/react-diagrams/dist/style.min';
 @import 'https://fonts.googleapis.com/css?family=Roboto&display=swap';
 @import '/icon_font/styles.css';
+@import '~react-popper-tooltip/dist/styles';
 
 
 body button:focus {
@@ -112,6 +113,84 @@ body button {
     &:focus {
       outline: none;
     }
+  }
+}
+
+.ui-tooltip__wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  pointer-events: none;
+
+  .__react-tooltip {
+    z-index: 99999;
+    line-height: initial;
+    position: relative;
+    pointer-events: auto;
+  }
+}
+
+.tooltip-container {
+  z-index: 1001;
+}
+
+.ui-tooltip {
+  display: inline-block;
+
+  .token {
+    margin: 0 4px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+div.__react-tooltip {
+  max-width: 250px;
+  font-size: 12px;
+  padding: 4px 12px;
+  text-align: center;
+}
+
+.tooltip-arrow {
+  pointer-events: none;
+}
+
+.__react_component_tooltip {
+  border: 1px solid darken(#6E8CA8, 4%);
+  background-color: darken(#6E8CA8, 20%);
+  color: #BFC3C6;
+}
+
+.tooltip-arrow[data-placement*='left']:after {
+  border-left-color: darken(#6E8CA8, 4%) !important;
+}
+
+.tooltip-arrow[data-placement*='top']:after {
+  border-top-color: darken(#6E8CA8, 4%) !important;
+}
+
+.tooltip-arrow[data-placement*='right'] {
+  margin-left: -0.75rem;
+
+  &:before {
+    border-color: transparent;
+  }
+
+  &:after {
+    border-right-color: darken(#6E8CA8, 4%) !important;
+  }
+}
+
+.tooltip-arrow[data-placement*='bottom'] {
+  &:before {
+    border-color: transparent;
+  }
+
+  &:after {
+    border-bottom-color: darken(#6E8CA8, 4%) !important;
   }
 }
 
