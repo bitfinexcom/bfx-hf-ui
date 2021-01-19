@@ -12,7 +12,6 @@
 .hfui-favoritepair__content {
     height: 82px;
     max-width: 100%;
-    text-transform: uppercase;
     padding-top: 10px;
     overflow-y: auto;
 }
@@ -43,6 +42,7 @@
 .hfui-favoritepair__content-item {
     background-color: #102331;
     display: inline-block;
+    text-transform: uppercase;
     padding: 8px;
     margin: 4px;
     font-size: 13px;
