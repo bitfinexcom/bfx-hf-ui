@@ -15,6 +15,7 @@ import orders from './orders'
 import orderHistory from './order_history'
 import algoOrders from './algo_orders'
 import backtest from './backtest'
+import favoriteTradingPairs from './favorite_pairs'
 
 export default combineReducers({
   channelData: channels,
@@ -32,4 +33,5 @@ export default combineReducers({
   books,
   auth,
   backtest,
+  favoriteTradingPairs,
 })

@@ -8,7 +8,17 @@
     text-transform: uppercase;
   }
 }
-
+.hfui-market__option-container {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 10px 5px 10px 5px;
+}
+.hfui-market__option-pair {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .hfui-select__control {
   background-color: transparent !important;
   border: none !important;

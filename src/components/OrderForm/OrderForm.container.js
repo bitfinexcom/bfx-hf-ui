@@ -10,7 +10,6 @@ import { getExchanges, getMarkets } from '../../redux/selectors/meta'
 import {
   getAPIClientStates, getAuthToken, getAPICredentials,
 } from '../../redux/selectors/ws'
-
 import {
   getComponentState, getActiveExchange, getActiveMarket,
 } from '../../redux/selectors/ui'
@@ -19,7 +18,9 @@ const debug = Debug('hfui:c:order-form')
 
 const mapStateToProps = (state = {}, ownProps = {}) => {
   const { layoutID, layoutI: id } = ownProps
-
+  const { ws = {} } = state
+  const { favoriteTradingPairs = {} } = ws
+  const { favoritePairs = [] } = favoriteTradingPairs
   return {
     activeExchange: getActiveExchange(state),
     activeMarket: getActiveMarket(state),
@@ -29,6 +30,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     savedState: getComponentState(state, layoutID, 'orderform', id),
     authToken: getAuthToken(state),
     apiCredentials: getAPICredentials(state),
+    favoritePairs,
   }
 }
 
@@ -82,6 +84,20 @@ const mapDispatchToProps = dispatch => ({
       apiKey,
       apiSecret,
     ]))
+  },
+
+  savePairs: (pairs, authToken) => {
+    dispatch(WSActions.send([
+      'favourite_trading_pairs.save',
+      authToken,
+      pairs,
+    ]))
+  },
+
+  onChangeMarket: (exchange, market, prevMarket) => {
+    dispatch(WSActions.removeChannelRequirement(exchange, ['ticker', prevMarket]))
+    dispatch(UIActions.setActiveMarket(market))
+    dispatch(WSActions.addChannelRequirement(exchange, ['ticker', market]))
   },
 })
 

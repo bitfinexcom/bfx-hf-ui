@@ -45,6 +45,12 @@ const mapDispatchToProps = dispatch => ({
   GAPageview: (page) => {
     dispatch(GAActions.pageview(page))
   },
+  getFavoritePairs: (authToken) => {
+    dispatch(WSActions.send([
+      'get.favourite_trading_pairs',
+      authToken,
+    ]))
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HFUI)

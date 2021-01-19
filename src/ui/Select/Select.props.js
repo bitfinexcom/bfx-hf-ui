@@ -5,6 +5,7 @@ export const propTypes = {
   value: PropTypes.object.isRequired,
   options: PropTypes.array.isRequired,
   className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  componentProps: PropTypes.object,
 }
 
 export const defaultProps = {

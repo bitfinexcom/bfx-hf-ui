@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import WSActions from '../../redux/actions/ws'
 import UIActions from '../../redux/actions/ui'
 import { getActiveMarket, getActiveExchange } from '../../redux/selectors/ui'
-import { getTicker } from '../../redux/selectors/ws'
+import { getTicker, getAuthToken } from '../../redux/selectors/ws'
 import { getExchanges, getMarkets } from '../../redux/selectors/meta'
 
 import ExchangeInfoBar from './ExchangeInfoBar'
@@ -11,9 +11,10 @@ import ExchangeInfoBar from './ExchangeInfoBar'
 const mapStateToProps = (state = {}) => {
   const activeExchange = getActiveExchange(state)
   const activeMarket = getActiveMarket(state)
-  const { ui = {} } = state
+  const { ui = {}, ws = {} } = state
   const { isNotificationsOpened } = ui
-
+  const { favoriteTradingPairs = {} } = ws
+  const { favoritePairs = [] } = favoriteTradingPairs
   return {
     activeExchange,
     activeMarket,
@@ -21,6 +22,8 @@ const mapStateToProps = (state = {}) => {
     exchanges: getExchanges(state),
     markets: getMarkets(state),
     isNotificationsOpened,
+    authToken: getAuthToken(state),
+    favoritePairs,
   }
 }
 
@@ -43,6 +46,14 @@ const mapDispatchToProps = dispatch => ({
 
   openNotifications: () => {
     dispatch(UIActions.openNotifcationPanel())
+  },
+
+  savePairs: (pairs, authToken) => {
+    dispatch(WSActions.send([
+      'favourite_trading_pairs.save',
+      authToken,
+      pairs,
+    ]))
   },
 })
 
