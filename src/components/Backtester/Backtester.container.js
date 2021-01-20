@@ -1,7 +1,9 @@
 import { connect } from 'react-redux'
 
 import WSActions from '../../redux/actions/ws'
-import { getBacktestState, getBacktestData, getBacktestResults } from '../../redux/selectors/ws'
+import {
+  getBacktestState, getBacktestData, getBacktestResults, getAuthToken,
+} from '../../redux/selectors/ws'
 import { getMarkets } from '../../redux/selectors/meta'
 
 import Backtester from './Backtester'
@@ -13,6 +15,8 @@ const mapStateToProps = (state = {}) => ({
   backtestResults: getBacktestResults(state),
   strategyContent: state.ui.content,
   backtestOptions: state.ws.backtest.backtestOptions || {},
+  favoritePairs: state.ws.favoriteTradingPairs.favoritePairs,
+  authToken: getAuthToken(state),
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -25,6 +29,13 @@ const mapDispatchToProps = dispatch => ({
   },
   setBacktestOptions: options => {
     dispatch(WSActions.setBacktestOptions(options))
+  },
+  savePairs: (pairs, authToken) => {
+    dispatch(WSActions.send([
+      'favourite_trading_pairs.save',
+      authToken,
+      pairs,
+    ]))
   },
 })
 

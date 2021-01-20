@@ -5,7 +5,7 @@ import FavoriteIcon from '../Icons/FavoriteIcon'
 import { propTypes, defaultProps } from './Select.props'
 import './style.css'
 
-const customOption = (componentProps, onFavoriteSelect, favoritePairs) => {
+const customOption = (componentProps, onFavoriteSelect, favoritePairs = []) => {
   const { innerProps, children, data } = componentProps
   const { value } = data
   const isSelected = favoritePairs.includes(value)
@@ -23,7 +23,7 @@ export default class Select extends React.PureComponent {
   static defaultProps = defaultProps
   render() {
     const {
-      onChange, value, options, className, disabled, isDisabled, label, onFavoriteSelect, favoritePairs, renderWithFavorites,
+      onChange, value, options, className, disabled, isDisabled, label, onFavoriteSelect, favoritePairs = [], renderWithFavorites,
       ...otherProps
     } = this.props
     if (!renderWithFavorites) {

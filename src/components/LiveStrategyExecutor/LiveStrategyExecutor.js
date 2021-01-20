@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Button from '../../ui/Button'
-import Dropdown from '../../ui/Dropdown'
+import MarketSelect from '../MarketSelect'
 import TimeFrameDropdown from '../TimeFrameDropdown'
 import { propTypes, defaultProps } from './LiveStrategyExecutor.props'
 
@@ -18,11 +18,22 @@ export default class LiveStrategyExecutor extends React.Component {
     selectedTimeFrame: '1m',
   }
 
+  favoriteSelect(pair, isAddition) {
+    const { savePairs, authToken, favoritePairs = [] } = this.props
+    if (isAddition) {
+      savePairs([...favoritePairs, pair], authToken)
+    } else {
+      const filtredPairs = favoritePairs.filter(p => p !== pair)
+      savePairs(filtredPairs, authToken)
+    }
+  }
+
   render() {
     const {
       strategyContent,
       dsExecuteLiveStrategy,
       allMarkets,
+      favoritePairs,
     } = this.props
     const {
       selectedTimeFrame,
@@ -42,16 +53,16 @@ export default class LiveStrategyExecutor extends React.Component {
       <div className='hfui-backtester__executionform hfui-live-stratgey-executor__wrapper'>
         <div className='hfui-backtester_row'>
           <div className='hfui-backtester__flex_start'>
-            <Dropdown
-              value={selectedMarket.uiID}
+            <MarketSelect
+              value={selectedMarket}
+              favoritePairs={favoritePairs}
+              onFavoriteSelect={(pair, isFilled) => this.favoriteSelect(pair, isFilled)}
               onChange={(selection) => {
-                const sel = markets.find(m => m.uiID === selection)
+                const sel = markets.find(m => m.uiID === selection.uiID)
                 this.setState(() => ({ selectedMarket: sel }))
               }}
-              options={markets.map(m => ({
-                label: m.uiID,
-                value: m.uiID,
-              }))}
+              markets={markets}
+              renderWithFavorites
             />
           </div>
           <div className='hfui-backtester__flex_start' style={{ marginRight: -15 }}>

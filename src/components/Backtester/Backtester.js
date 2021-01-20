@@ -81,6 +81,9 @@ export default class Backtester extends React.Component {
       allMarkets,
       backtestResults,
       backtestOptions,
+      favoritePairs,
+      savePairs,
+      authToken,
     } = this.props
     const formState = this.state[`${executionType.type}_formState`] || {} // eslint-disable-line
     const opts = {
@@ -89,10 +92,14 @@ export default class Backtester extends React.Component {
       backtestStrategy: this.backtestStrategy,
       executionType: executionType.type,
       indicators,
+      onFavoriteSelect: this.favoriteSelect,
+      favoritePairs,
+      savePairs,
       updateError: this.updateError,
       allMarkets,
       exId: 'bitfinex', // todo: add ability to specify exchange
       formState,
+      authToken,
       setFormState: (setStateFunc, callback) => {
         this.setState(() => ({
           [`${executionType.type}_formState`]: {
