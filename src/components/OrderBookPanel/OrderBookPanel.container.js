@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import {
   getActiveMarket, getComponentState, getActiveExchange,
 } from '../../redux/selectors/ui'
+import { getAuthToken } from '../../redux/selectors/ws'
 
 import { getExchanges, getMarkets } from '../../redux/selectors/meta'
 import WSActions from '../../redux/actions/ws'
@@ -14,13 +15,16 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
   const { layoutID, layoutI: id } = ownProps
   const activeExchange = getActiveExchange(state)
   const activeMarket = getActiveMarket(state)
-
+  const { favoriteTradingPairs = {} } = state.ws
+  const { favoritePairs = [] } = favoriteTradingPairs
   return {
     activeExchange,
     activeMarket,
     savedState: getComponentState(state, layoutID, 'book', id),
     exchanges: getExchanges(state),
     allMarkets: getMarkets(state),
+    authToken: getAuthToken(state),
+    favoritePairs,
   }
 }
 
@@ -39,6 +43,14 @@ const mapDispatchToProps = dispatch => ({
       layoutID,
       componentID,
     }))
+  },
+
+  savePairs: (pairs, authToken) => {
+    dispatch(WSActions.send([
+      'favourite_trading_pairs.save',
+      authToken,
+      pairs,
+    ]))
   },
 })
 
