@@ -88,6 +88,16 @@ export default class HistoricalForm extends React.PureComponent {
     })
   }
 
+  favoriteSelect(pair, isAddition) {
+    const { savePairs, authToken, favoritePairs = [] } = this.props
+    if (isAddition) {
+      savePairs([...favoritePairs, pair], authToken)
+    } else {
+      const filtredPairs = favoritePairs.filter(p => p !== pair)
+      savePairs(filtredPairs, authToken)
+    }
+  }
+
   render() {
     const {
       updateExecutionType,
@@ -96,6 +106,7 @@ export default class HistoricalForm extends React.PureComponent {
       exId,
       setFormState,
       formState,
+      favoritePairs,
     } = this.props
     const {
       startDate,
@@ -123,11 +134,14 @@ export default class HistoricalForm extends React.PureComponent {
           <div className='hfui-backtester__flex_start'>
             <MarketSelect
               value={selectedMarket}
+              favoritePairs={favoritePairs}
+              onFavoriteSelect={(pair, isFilled) => this.favoriteSelect(pair, isFilled)}
               onChange={(selection) => {
                 const sel = allMarkets[exId].find(m => m.uiID === selection.uiID)
                 setFormState(() => ({ selectedMarket: sel }))
               }}
               markets={allMarkets[exId]}
+              renderWithFavorites
             />
           </div>
           <div className='hfui-backtester__flex_start' style={{ marginRight: -15 }}>
