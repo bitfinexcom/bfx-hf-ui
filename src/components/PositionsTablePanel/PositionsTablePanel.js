@@ -19,7 +19,7 @@ export default class PositionsTablePanel extends React.Component {
     }
   }
   render() {
-    const { currentExchange, positions = [] } = this.state
+    const { currentExchange = 'bitfinex', positions = [] } = this.state
     const { onRemove } = this.props
     return (
       <Panel
