@@ -4,7 +4,7 @@ export const propTypes = {
   onSelect: PropTypes.func,
   prevMarket: PropTypes.object,
   exchange: PropTypes.string,
-  allMarkets: PropTypes.array,
+  allMarkets: PropTypes.object,
 }
 
 export const defaultProps = {}

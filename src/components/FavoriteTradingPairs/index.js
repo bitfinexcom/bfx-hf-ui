@@ -50,7 +50,7 @@ export default class FavoriteTradingPairs extends React.PureComponent {
             <div className='hfui-favoritepair__content'>
               {
                 favoritePairs.map((pair) => (
-                  <div className={`hfui-favoritepair__content-item ${pair === selectedPair ? 'active' : ''}`}>
+                  <div key={`${pair}-favorite`} className={`hfui-favoritepair__content-item ${pair === selectedPair ? 'active' : ''}`}>
                     <div className='hfui-favoritepair__item-wrapper'>
                       <FavoriteIcon isSelected={pair === selectedPair} onClick={() => this.removePair(pair)} key={pair} />
                       <p onClick={() => this.onSelect(pair)}>{pair}</p>
