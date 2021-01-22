@@ -12,11 +12,11 @@ npm  install
 ```
 Create folder to store local db
 ```
-mkdir ~/.hfdb
-touch ~/.hfdb/algos.json
-touch ~/.hfdb/hf-binance.json
-touch ~/.hfdb/hf-bitfinex.json
-touch ~/.hfdb/ui.json
+mkdir ~/.honeyframework
+touch ~/.honeyframework/algos.json
+touch ~/.honeyframework/hf-binance.json
+touch ~/.honeyframework/hf-bitfinex.json
+touch ~/.honeyframework/ui.json
 ```
 
 ## Run in the browser
