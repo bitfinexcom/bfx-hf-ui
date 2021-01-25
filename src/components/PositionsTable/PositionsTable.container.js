@@ -5,13 +5,14 @@ import Debug from 'debug'
 import { getAuthToken } from '../../redux/selectors/ws'
 import BFXOrders from '../../orders/bitfinex'
 import WSActions from '../../redux/actions/ws'
+import UIActions from '../../redux/actions/ui'
 import PositionsTable from './PositionsTable'
 
 const debug = Debug('hfui:c:positions-table')
 
 const mapStateToProps = (state = {}, ownProps = {}) => ({ // eslint-disable-line
   authToken: getAuthToken(state),
-  filteredPositions: state.ui.filteredPositions,
+  positions: state.ws.positions,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -34,6 +35,9 @@ const mapDispatchToProps = dispatch => ({
         debug('closePosition unimplemented for %s', exID)
       }
     }
+  },
+  setFilteredValueWithKey: (key, value) => {
+    dispatch(UIActions.setFilteredValueWithKey(key, value))
   },
 })
 
