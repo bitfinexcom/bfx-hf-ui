@@ -24,9 +24,11 @@ const mapDispatchToProps = dispatch => ({
 
         const packet = generateOrder({
           amount: prepareAmount(-1 * amount),
+          reduceonly: true,
         }, symbol, 'm')
 
         debug('closing position on %s %f @ %f', symbol, amount, basePrice)
+        console.log(packet)
         dispatch(WSActions.send(['order.submit', authToken, exID, packet]))
         break
       }
