@@ -1,8 +1,7 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import TooltipTrigger from 'react-popper-tooltip'
-
-import { propTypes, defaultProps } from './Tooltip.props'
 
 const Tooltip = (children, classes) => ({
   arrowRef,
@@ -44,8 +43,17 @@ const Trigger = ({
 )
 
 export default class TooltipWrapper extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+  static propTypes = {
+    tagName: PropTypes.string,
+    placement: PropTypes.string,
+    tooltipContent: PropTypes.node,
+    children: PropTypes.node.isRequired,
+  }
+  static defaultProps = {
+    tagName: 'span',
+    placement: 'auto',
+    tooltipContent: null,
+  }
 
   render() {
     const {
