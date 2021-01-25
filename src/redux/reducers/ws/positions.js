@@ -22,7 +22,6 @@ function reducer(state = getInitialState(), action = {}) {
 
     case types.DATA_POSITION: {
       const { exID, position = [] } = payload
-
       return {
         ...state,
 
