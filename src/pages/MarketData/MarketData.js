@@ -31,13 +31,14 @@ export default class MarketData extends React.PureComponent {
   }
   render() {
     const commonComponentProps = {
-      canChangeMarket: true,
-      canChangeExchange: true,
-      showMarket: true,
-      showExchange: true,
       dark: true,
       darkHeader: true,
+      showMarket: true,
+      showExchange: true,
       renderInPanel: true,
+      canChangeMarket: true,
+      showChartMarket: true,
+      canChangeExchange: true,
     }
     const { steps } = this.state
     const { isGuideActive, firstLogin } = this.props
