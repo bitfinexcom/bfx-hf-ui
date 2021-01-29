@@ -28,10 +28,27 @@ export default class Panel extends React.Component {
   }
   render() {
     const {
-      className, label, children = [], onRemove, headerComponents, hideIcons,
-      extraIcons, moveable, removeable, modal, footer, settingsOpen,
-      onToggleSettings, darkHeader, dark,
-      secondaryHeaderComponents, secondaryHeaderReverse, closePanel, forcedTab = '',
+      label,
+      className,
+      onRemove,
+      hideIcons,
+      children = [],
+      headerComponents,
+      extraIcons,
+      moveable,
+      removeable,
+      modal,
+      footer,
+      settingsOpen,
+      onToggleSettings,
+      darkHeader,
+      dark,
+      showChartMarket,
+      chartMarketSelect,
+      secondaryHeaderComponents,
+      secondaryHeaderReverse,
+      closePanel,
+      forcedTab = '',
     } = this.props
     const tabs = React.Children.toArray(children).filter(c => c && c.props.tabtitle)
     const { selectedTab = forcedTab.length ? this.getForcedTab(forcedTab, tabs) : tabs[0] } = this.state
@@ -85,6 +102,12 @@ export default class Panel extends React.Component {
               )}
 
               {moveable && <i className='icon-move' />}
+
+              {showChartMarket && (
+                <div className='hfui-panel__chart-market-select'>
+                  { chartMarketSelect }
+                </div>
+              )}
 
               {onToggleSettings && (
                 <i
