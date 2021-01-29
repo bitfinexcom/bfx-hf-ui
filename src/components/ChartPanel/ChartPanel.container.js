@@ -1,21 +1,52 @@
 import { connect } from 'react-redux'
 
-import {
-  getActiveMarket, getActiveExchange,
-} from '../../redux/selectors/ui'
-
 import ChartPanel from './ChartPanel'
+import UIActions from '../../redux/actions/ui'
+import WSActions from '../../redux/actions/ws'
+import { getAuthToken } from '../../redux/selectors/ws'
+import { getExchanges, getMarkets } from '../../redux/selectors/meta'
+import { getActiveMarket, getComponentState, getActiveExchange } from '../../redux/selectors/ui'
 
-const mapStateToProps = (state = {}) => {
+const mapStateToProps = (state = {}, ownProps = {}) => {
+  const { layoutID, layoutI: id } = ownProps
   const activeExchange = getActiveExchange(state)
-  const activeMarket = getActiveMarket(state)
-
+  const { favoriteTradingPairs = {} } = state.ws
+  const { favoritePairs = [] } = favoriteTradingPairs
   return {
     activeExchange,
-    activeMarket,
+    savedState: getComponentState(state, layoutID, 'trades', id),
+    activeMarket: getActiveMarket(state),
+    exchanges: getExchanges(state),
+    allMarkets: getMarkets(state),
+    authToken: getAuthToken(state),
+    favoritePairs,
   }
 }
 
-const mapDispatchToProps = dispatch => ({ }) //eslint-disable-line
+const mapDispatchToProps = dispatch => ({
+  addTradesRequirement: (exchange, market) => {
+    dispatch(WSActions.addChannelRequirement(exchange, ['trades', market]))
+  },
+
+  removeTradesRequirement: (exchange, market) => {
+    dispatch(WSActions.removeChannelRequirement(exchange, ['trades', market]))
+  },
+
+  saveState: (layoutID, componentID, state) => {
+    dispatch(UIActions.saveComponentState({
+      state,
+      layoutID,
+      componentID,
+    }))
+  },
+
+  savePairs: (pairs, authToken) => {
+    dispatch(WSActions.send([
+      'favourite_trading_pairs.save',
+      authToken,
+      pairs,
+    ]))
+  },
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChartPanel)
