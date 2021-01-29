@@ -71,14 +71,15 @@ export default class Trading extends React.PureComponent {
     const { activeMarket, firstLogin, isGuideActive } = this.props
     const { steps } = this.state
     const commonComponentProps = {
-      layoutID: LAYOUT_ID,
+      dark: true,
       moveable: true,
       removeable: true,
-      canChangeExchange: false,
-      canChangeMarket: false,
-      showExchange: false,
       showMarket: false,
-      dark: true,
+      showExchange: false,
+      layoutID: LAYOUT_ID,
+      showChartMarket: false,
+      canChangeMarket: false,
+      canChangeExchange: false,
     }
 
     return (
