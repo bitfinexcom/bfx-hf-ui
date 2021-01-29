@@ -1,56 +1,6 @@
 .hfui-chart__wrapper {
-  text {
-    fill: #ccc;
-  }
-
-  .hfui-chart__settings-text-overlay {
-    pointer-events: all;
-
-    &:hover {
-      cursor: pointer;
-      text-decoration: underline;
-    }
-  }
-
-  .hfui-select.indicator-select .hfui-select__menu {
-    width: 300px;
-  }
-
-  .hfui-panel__header-icons {
-    .fas.fa-caret-down,
-    .fas.fa-caret-up {
-      line-height: 24px;
-      height: 24px;
-      width: 24px;
-      background: #102331;
-      color: #fff;
-      font-size: 14px;
-      text-align: center;
-      margin: 0;
-    }
-  }
-}
-
-.hfui-chart__extra-header-components {
+  flex: 1;
   display: flex;
-  flex-direction: row;
-  line-height: 33px;
-
-  svg {
-    color: #6b7b8b !important;
-  }
-
-  .hfui-select__single-value {
-    color: #54B361 !important;
-  }
-
-  .hfui-select__value-container {
-    min-width: 100px;
-  }
-
-  .hfui-select__outer {
-    padding-right: 8px;
-    margin-right: 8px;
-    border-right: 1px solid #2a2e39;
-  }
+  height: 100%;
+  background-color: #131722;
 }
