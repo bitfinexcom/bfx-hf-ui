@@ -35,7 +35,6 @@ export default class MarketData extends React.PureComponent {
       darkHeader: true,
       showMarket: true,
       showExchange: true,
-      renderInPanel: true,
       canChangeMarket: true,
       showChartMarket: true,
       canChangeExchange: true,

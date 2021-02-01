@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import _isEqual from 'lodash/isEqual'
 import _capitalize from 'lodash/capitalize'
 
@@ -8,31 +9,93 @@ import MarketSelect from '../MarketSelect'
 import Panel from '../../ui/Panel'
 import Select from '../../ui/Select'
 import nearestMarket from '../../util/nearest_market'
-import { propTypes, defaultProps } from './ChartPanel.props'
 
 export default class ChartPanel extends React.Component {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+  static propTypes = {
+    dark: PropTypes.bool,
+    label: PropTypes.string,
+    onRemove: PropTypes.func,
+    moveable: PropTypes.bool,
+    removeable: PropTypes.bool,
+    activeMarket: PropTypes.shape({
+      base: PropTypes.string,
+      quote: PropTypes.string,
+      restID: PropTypes.string,
+    }),
+    saveState: PropTypes.func,
+    savePairs: PropTypes.func,
+    authToken: PropTypes.string,
+    canChangeMarket: PropTypes.bool,
+    showChartMarket: PropTypes.bool,
+    activeExchange: PropTypes.string,
+    canChangeExchange: PropTypes.bool,
+    layoutI: PropTypes.string.isRequired,
+    addTradesRequirement: PropTypes.func,
+    layoutID: PropTypes.string.isRequired,
+    removeTradesRequirement: PropTypes.func,
+    savedState: PropTypes.shape({
+      currentExchange: PropTypes.string,
+      currentMarket: PropTypes.objectOf(PropTypes.oneOfType(
+        PropTypes.array,
+        PropTypes.string,
+      )),
+      marketDirty: PropTypes.bool,
+      exchangeDirty: PropTypes.bool,
+    }),
+    allMarkets: PropTypes.objectOf(PropTypes.array),
+    exchanges: PropTypes.arrayOf(PropTypes.string),
+    favoritePairs: PropTypes.arrayOf(PropTypes.string),
+  }
+
+  static defaultProps = {
+    dark: true,
+    label: null,
+    allMarkets: {},
+    savedState: {},
+    moveable: true,
+    removeable: true,
+    onRemove: () => {},
+    activeMarket: {
+      base: 'BTC',
+      quote: 'USD',
+      restID: 'tBTCUSD',
+    },
+    authToken: null,
+    favoritePairs: [],
+    savePairs: () => {},
+    saveState: () => {},
+    showChartMarket: false,
+    canChangeMarket: false,
+    exchanges: ['bitfinex'],
+    canChangeExchange: false,
+    activeExchange: 'bitfinex',
+    addTradesRequirement: () => {},
+    removeTradesRequirement: () => {},
+
+  }
 
   constructor(props) {
     super(props)
 
-    const { savedState = {}, activeMarket } = props
+    const { savedState, activeMarket } = props
     const {
-      currentMarket = activeMarket, currentExchange, marketDirty, exchangeDirty,
+      marketDirty,
+      exchangeDirty,
+      currentExchange,
+      currentMarket = activeMarket,
     } = savedState
 
     this.state = {
-      currentMarket,
-      currentExchange,
-      exchangeDirty,
       marketDirty,
+      currentMarket,
+      exchangeDirty,
+      currentExchange,
     }
   }
 
   componentDidMount() {
-    const { currentExchange, currentMarket } = this.state
     const { addTradesRequirement } = this.props
+    const { currentExchange, currentMarket } = this.state
     addTradesRequirement(currentExchange, currentMarket)
   }
 
@@ -41,18 +104,23 @@ export default class ChartPanel extends React.Component {
   }
 
   componentWillUnmount() {
-    const { currentExchange, currentMarket } = this.state
     const { removeTradesRequirement } = this.props
+    const { currentExchange, currentMarket } = this.state
     removeTradesRequirement(currentExchange, currentMarket)
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const {
-      currentExchange, currentMarket, exchangeDirty, marketDirty,
+      marketDirty,
+      exchangeDirty,
+      currentMarket,
+      currentExchange,
     } = prevState
 
     const {
-      activeExchange, activeMarket, addTradesRequirement,
+      activeMarket,
+      activeExchange,
+      addTradesRequirement,
       removeTradesRequirement,
     } = nextProps
 
@@ -74,7 +142,9 @@ export default class ChartPanel extends React.Component {
   onChangeMarket = (market) => {
     const { currentMarket } = this.state
     const {
-      activeExchange, addTradesRequirement, removeTradesRequirement,
+      activeExchange,
+      addTradesRequirement,
+      removeTradesRequirement,
     } = this.props
 
     if (market.restID === currentMarket.restID) {
@@ -95,7 +165,9 @@ export default class ChartPanel extends React.Component {
     const { value: exchange } = option
     const { currentExchange, currentMarket } = this.state
     const {
-      addTradesRequirement, removeTradesRequirement, allMarkets,
+      allMarkets,
+      addTradesRequirement,
+      removeTradesRequirement,
     } = this.props
 
     if (exchange === currentExchange) {
@@ -126,7 +198,10 @@ export default class ChartPanel extends React.Component {
   saveState() {
     const { saveState, layoutID, layoutI } = this.props
     const {
-      currentMarket, currentExchange, exchangeDirty, marketDirty,
+      marketDirty,
+      currentMarket,
+      exchangeDirty,
+      currentExchange,
     } = this.state
 
     saveState(layoutID, layoutI, {
@@ -138,7 +213,7 @@ export default class ChartPanel extends React.Component {
   }
 
   favoriteSelect(pair, isAddition) {
-    const { savePairs, authToken, favoritePairs = [] } = this.props
+    const { savePairs, authToken, favoritePairs } = this.props
     if (isAddition) {
       savePairs([...favoritePairs, pair], authToken)
     } else {
@@ -148,30 +223,30 @@ export default class ChartPanel extends React.Component {
   }
 
   renderExchangeDropdown() {
-    const { exchangeDirty, currentExchange } = this.state
     const { exchanges, canChangeExchange } = this.props
+    const { exchangeDirty, currentExchange } = this.state
 
     return (
       <Select
         key='exchange-dropdown'
         disabled={!canChangeExchange}
-        className={{ yellow: exchangeDirty }}
         onChange={this.onChangeExchange}
+        className={{ yellow: exchangeDirty }}
         value={{
-          label: _capitalize(currentExchange),
           value: currentExchange,
+          label: _capitalize(currentExchange),
         }}
         options={exchanges.map(ex => ({
-          label: _capitalize(ex),
           value: ex,
+          label: _capitalize(ex),
         }))}
       />
     )
   }
 
   renderMarketDropdown() {
-    const { marketDirty, currentMarket, currentExchange } = this.state
     const { allMarkets, canChangeMarket, favoritePairs } = this.props
+    const { marketDirty, currentMarket, currentExchange } = this.state
     const markets = allMarkets[currentExchange] || []
 
     return (
@@ -199,6 +274,9 @@ export default class ChartPanel extends React.Component {
       activeExchange,
       showChartMarket,
     } = this.props
+
+    console.log('CHART PANEL props', this.props)
+
     const { currentMarket } = this.state
 
     return (
