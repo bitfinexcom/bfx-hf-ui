@@ -1,28 +1,27 @@
 const { app } = require('electron') // eslint-disable-line
 const fs = require('fs')
-const os = require('os')
 const path = require('path')
 const { fork } = require('child_process')
-const HFUIApplication = require('./lib/app')
-
-const LOG_PATH = `${os.tmpdir()}`
-const LOG_PATH_DS_BITFINEX = `${LOG_PATH}/ds-bitfinex-server.log`
-const LOG_PATH_API_SERVER = `${LOG_PATH}/api-server.log`
-
-const SCRIPT_PATH = `${__dirname}/../scripts`
-const SCRIPT_PATH_DS_BITFINEX = `${SCRIPT_PATH}/start-ds-bitfinex.js`
-const SCRIPT_PATH_API_SERVER = `${SCRIPT_PATH}/start-api-server.js`
 const Store = require('electron-store')
+const HFUIApplication = require('./lib/app')
+const {
+  LOG_PATH,
+  LOG_PATH_DS_BITFINEX,
+  LOG_PATH_API_SERVER,
+  SCRIPT_PATH_DS_BITFINEX,
+  SCRIPT_PATH_API_SERVER,
+  LOCAL_STORE_CWD
+} = require('./constants')
 
-const dir = `${os.homedir()}/.honeyframework`;
+const REQUIRED_PATHS = [LOCAL_STORE_CWD, LOG_PATH]
 
-if (!fs.existsSync(dir)){
-    fs.mkdirSync(dir);
-}
-
-const ui = new Store({
-  cwd: dir
+REQUIRED_PATHS.forEach((dir) => {
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir)
+  }
 })
+
+const ui = new Store({ cwd: LOCAL_STORE_CWD })
 
 const SCRIPT_SPAWN_OPTS = {
   env: { ELECTRON_RUN_AS_NODE: '1' },
