@@ -71,7 +71,6 @@ export default class ChartPanel extends React.Component {
     activeExchange: 'bitfinex',
     addTradesRequirement: () => {},
     removeTradesRequirement: () => {},
-
   }
 
   constructor(props) {
