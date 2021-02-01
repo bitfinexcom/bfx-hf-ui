@@ -12,10 +12,14 @@ export default class CheckboxInput extends React.PureComponent {
 
   render() {
     const {
-      def = {}, renderData, value, onChange, disabled, id,
+      id,
+      value,
+      def = {},
+      onChange,
+      disabled,
+      renderData,
     } = this.props
-
-    const { label } = def
+    const { label, customHelp } = def
 
     return (
       <div
@@ -24,12 +28,13 @@ export default class CheckboxInput extends React.PureComponent {
         })}
       >
         <Checkbox
+          id={id}
           uppercase
-          label={renderString(label, renderData)}
+          value={value}
           onChange={onChange}
           disabled={disabled}
-          value={value}
-          id={id}
+          customHelp={customHelp}
+          label={renderString(label, renderData)}
         />
       </div>
     )

@@ -1,11 +1,10 @@
 import React from 'react'
 import ClassNames from 'classnames'
 
+import Tooltip from '../../../ui/Tooltip'
 import Dropdown from '../../../ui/Dropdown'
 import { propTypes, defaultProps } from './input.dropdown.props'
-import {
-  renderString, CONVERT_LABELS_TO_PLACEHOLDERS,
-} from '../OrderForm.helpers'
+import { renderString, CONVERT_LABELS_TO_PLACEHOLDERS } from '../OrderForm.helpers'
 
 export default class DropdownInput extends React.PureComponent {
   static propTypes = propTypes
@@ -13,10 +12,14 @@ export default class DropdownInput extends React.PureComponent {
 
   render() {
     const {
-      def = {}, renderData = {}, value, disabled, onChange, validationError,
+      value,
+      disabled,
+      onChange,
+      def = {},
+      validationError,
+      renderData = {},
     } = this.props
-
-    const { label, options } = def
+    const { label, options, customHelp } = def
     const renderedLabel = renderString(label, renderData)
 
     return (
@@ -37,7 +40,12 @@ export default class DropdownInput extends React.PureComponent {
 
         {!CONVERT_LABELS_TO_PLACEHOLDERS && (
           <p className='hfui-orderform__input-label'>
-            {renderedLabel}
+              {renderedLabel}
+            {customHelp && (
+              <Tooltip tooltipContent={customHelp}>
+                <i className='fa fa-info-circle' />
+              </Tooltip>
+            )}
           </p>
         )}
 
