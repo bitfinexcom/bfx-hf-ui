@@ -274,9 +274,6 @@ export default class ChartPanel extends React.Component {
       activeExchange,
       showChartMarket,
     } = this.props
-
-    console.log('CHART PANEL props', this.props)
-
     const { currentMarket } = this.state
 
     return (
