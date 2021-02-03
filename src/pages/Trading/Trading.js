@@ -6,6 +6,9 @@ import OrderForm from '../../components/OrderForm'
 import StatusBar from '../../components/StatusBar'
 import ExchangeInfoBar from '../../components/ExchangeInfoBar'
 
+import Modal from '../../ui/Modal'
+import Button from '../../ui/Button'
+
 import BitfinexOrders from '../../orders/bitfinex'
 import GridLayoutPage from '../../components/GridLayoutPage'
 import ActiveAlgoOrdersModal from '../../components/ActiveAlgoOrdersModal'
@@ -90,6 +93,17 @@ export default class Trading extends React.PureComponent {
     }
   }
 
+  onTradingModeModalClose() {
+    const { changeTradingModeModalState } = this.props
+    changeTradingModeModalState(false)
+  }
+
+  onTradingModeModalSubmit() {
+    const { changeTradingMode, isPaperTrading } = this.props
+    changeTradingMode(!isPaperTrading)
+    window.location.reload()
+  }
+
   render() {
     const {
       firstLogin,
@@ -97,7 +111,9 @@ export default class Trading extends React.PureComponent {
       showAlgoModal,
       apiClientConnected,
       hasActiveAlgoOrders,
+      isTradingModeModalVisible,
     } = this.props
+
     const { steps } = this.state
     const commonComponentProps = {
       dark: true,
@@ -150,6 +166,22 @@ export default class Trading extends React.PureComponent {
 
             <div className='hfui-tradingpage__column center'>
               <div className='hfui-marketdatapage__wrapper'>
+                { isTradingModeModalVisible && (
+                  <Modal
+                    onClose={() => this.onTradingModeModalClose()}
+                    actions={(
+                      <Button
+                        green
+                        onClick={() => this.onTradingModeModalSubmit()}
+                        label={[
+                          <p key='text'>Okay</p>,
+                        ]}
+                      />
+                    )}
+                  >
+                    <p>The app will reboot after you press Okay. It&apos;s required for switching trading mode.</p>
+                  </Modal>
+                )}
                 <GridLayoutPage
                   showToolbar={false}
                   ref={ref => { this.grid = ref }}
