@@ -8,10 +8,12 @@ import Authentication from './Authentication'
 const mapStateToProps = (state = {}) => {
   const socket = getSocket(state)
   const { status: wsStatus } = socket
+  const { isPaperTrading } = state.ui
 
   return {
     wsConnected: wsStatus === 'online',
     configured: getAuthConfigured(state),
+    isPaperTrading,
   }
 }
 
@@ -21,8 +23,11 @@ const mapDispatchToProps = dispatch => ({ // eslint-disable-line
     dispatch(UIActions.firstLogin())
   },
 
-  onUnlock: (password) => {
-    dispatch(WSActions.auth(password))
+  onUnlock: (password, mode) => {
+    const isPaperTrading = mode === 'paper'
+    dispatch(WSActions.auth(password, mode))
+    dispatch(UIActions.setMarketFromStore(isPaperTrading))
+    dispatch(UIActions.setTradingMode(isPaperTrading))
   },
 
   onReset: () => {
