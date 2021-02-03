@@ -12,7 +12,7 @@ const mapStateToProps = (state = {}) => {
   const activeExchange = getActiveExchange(state)
   const activeMarket = getActiveMarket(state)
   const { ui = {}, ws = {} } = state
-  const { isNotificationsOpened } = ui
+  const { isNotificationsOpened, isPaperTrading, isTradingModeModalVisible } = ui
   const { favoriteTradingPairs = {} } = ws
   const { favoritePairs = [] } = favoriteTradingPairs
   return {
@@ -24,6 +24,8 @@ const mapStateToProps = (state = {}) => {
     isNotificationsOpened,
     authToken: getAuthToken(state),
     favoritePairs,
+    isPaperTrading,
+    isTradingModeModalVisible,
   }
 }
 
@@ -46,6 +48,10 @@ const mapDispatchToProps = dispatch => ({
 
   openNotifications: () => {
     dispatch(UIActions.openNotifcationPanel())
+  },
+
+  openTradingModeModal: () => {
+    dispatch(UIActions.changeTradingModeModalState(true))
   },
 
   savePairs: (pairs, authToken) => {

@@ -7,7 +7,9 @@ import DEFAULT_MARKET_DATA_COMPONENT_STATE from './default_component_state_marke
 const LAYOUTS_KEY = 'HF_UI_LAYOUTS'
 const LAYOUTS_STATE_KEY = 'HF_UI_LAYOUTS_STATE'
 const ACTIVE_MARKET_KEY = 'HF_UI_ACTIVE_MARKET'
+const ACTIVE_MARKET_PAPER_KEY = 'HF_UI_PAPER_ACTIVE_MARKET'
 const ACTIVE_EXCHANGE_KEY = 'HF_UI_ACTIVE_EXCHANGE'
+const IS_PAPER_TRADING = 'IS_PAPER_TRADING'
 
 const DEFAULT_ROUTE = '/'
 const DEFAULT_EXCHANGE = 'bitfinex'
@@ -30,16 +32,18 @@ function getInitialState() {
     previousExchange: null,
     remoteVersion: null,
     firstLogin: false,
+    isPaperTrading: false,
     TRADING_PAGE_IS_GUIDE_ACTIVE: true,
+    isTradingModeModalVisible: false,
   }
 
   if (!localStorage) {
     return defaultState
   }
 
+  const isPaperTrading = localStorage.getItem(IS_PAPER_TRADING) === 'true'
   const layoutsJSON = localStorage.getItem(LAYOUTS_KEY)
   const layoutsComponentStateJSON = localStorage.getItem(LAYOUTS_STATE_KEY)
-  const activeMarketJSON = localStorage.getItem(ACTIVE_MARKET_KEY)
 
   try {
     defaultState.layouts = JSON.parse(layoutsJSON)
@@ -67,17 +71,11 @@ function getInitialState() {
     }
   }
 
-  if (activeMarketJSON) {
-    try {
-      defaultState.activeMarket = JSON.parse(activeMarketJSON)
-    } catch (e) {
-      console.error(`err load active market, check storage ${ACTIVE_MARKET_KEY}`)
-    }
-  }
-
   if (localStorage.getItem(ACTIVE_EXCHANGE_KEY)) {
     defaultState.activeExchange = localStorage.getItem(ACTIVE_EXCHANGE_KEY)
   }
+
+  defaultState.isPaperTrading = isPaperTrading
 
   return defaultState
 }
@@ -184,7 +182,16 @@ function reducer(state = getInitialState(), action = {}) {
         activeMarket: market,
       }
     }
+    case types.SET_MARKET_FROM_STORE: {
+      const { isPaperTrading } = payload
+      const activeMarket = JSON.parse(localStorage.getItem(isPaperTrading ? ACTIVE_MARKET_PAPER_KEY : ACTIVE_MARKET_KEY))
 
+      return {
+        ...state,
+        previousMarket: state.activeMarket,
+        activeMarket,
+      }
+    }
     case types.SET_ACTIVE_EXCHANGE: {
       const { exchange, market } = payload
 
@@ -246,6 +253,20 @@ function reducer(state = getInitialState(), action = {}) {
         },
       }
     }
+    case types.SET_TRADING_MODE: {
+      const { isPaperTrading } = payload
+      return {
+        ...state,
+        isPaperTrading,
+      }
+    }
+    case types.CHANGE_TRADING_MODAL_STATE: {
+      const { isVisible } = payload
+      return {
+        ...state,
+        isTradingModeModalVisible: isVisible,
+      }
+    }
     default: {
       return state
     }
@@ -270,7 +291,11 @@ function reducerWithStorage(state = getInitialState(), action = {}) {
         localStorage.setItem(LAYOUTS_STATE_KEY, JSON.stringify(layoutComponentState))
         break
       }
-
+      case types.SET_TRADING_MODE: {
+        const { isPaperTrading } = newState
+        localStorage.setItem(IS_PAPER_TRADING, isPaperTrading)
+        break
+      }
       case types.SET_ACTIVE_EXCHANGE: {
         const { activeExchange, activeMarket } = newState
         localStorage.setItem(ACTIVE_EXCHANGE_KEY, activeExchange)
@@ -279,8 +304,8 @@ function reducerWithStorage(state = getInitialState(), action = {}) {
       }
 
       case types.SET_ACTIVE_MARKET: {
-        const { activeMarket } = newState
-        localStorage.setItem(ACTIVE_MARKET_KEY, JSON.stringify(activeMarket))
+        const { activeMarket, isPaperTrading } = newState
+        localStorage.setItem(isPaperTrading ? ACTIVE_MARKET_PAPER_KEY : ACTIVE_MARKET_KEY, JSON.stringify(activeMarket))
         break
       }
 

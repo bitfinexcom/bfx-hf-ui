@@ -17,7 +17,7 @@ import {
 const mapStateToProps = (state = {}, ownProps = {}) => {
   const { layoutID, layoutI: id } = ownProps
   const { ui = {} } = state
-  const { settings = {}, firstLogin } = ui
+  const { settings = {}, firstLogin, isPaperTrading } = ui
   const {
     chart, theme, dms, ga,
   } = settings || {}
@@ -36,6 +36,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     dms,
     ga,
     firstLogin,
+    mode: isPaperTrading ? 'paper' : 'main',
   }
 }
 
@@ -50,13 +51,14 @@ const mapDispatchToProps = dispatch => ({
 
   submitAPIKeys: ({
     exID, authToken, apiKey, apiSecret,
-  }) => {
+  }, mode) => {
     dispatch(WSActions.send([
       'api_credentials.save',
       authToken,
       exID,
       apiKey,
       apiSecret,
+      mode,
     ]))
   },
   gaUpdateSettings: () => {

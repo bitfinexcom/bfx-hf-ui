@@ -6,7 +6,7 @@
 
   input {
     width: calc(100% - 16px);
-    color: #54B361;
+    color: #54b361;
     background: #102331;
     border: 0.5px solid #102331;
     padding: 4px 8px;
@@ -15,20 +15,18 @@
     outline: none;
     border-radius: 4px;
   }
-  
 }
 
 .field-icon {
   float: right;
-  margin-left: -25px;
-  margin-top: -23px;
+  margin-top: -30px;
   position: relative;
   border: none;
-  color: #54B361;
+  color: #54b361;
   background: none;
   z-index: 2;
   outline: none;
-  
+
   span {
     font-size: 13px;
   }

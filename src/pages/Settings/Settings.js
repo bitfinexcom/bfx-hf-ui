@@ -62,7 +62,7 @@ export default class Settings extends React.Component {
   }
 
   onSubmitAPIKeys({ apiKey, apiSecret }) {
-    const { submitAPIKeys, authToken } = this.props
+    const { submitAPIKeys, authToken, mode } = this.props
     const { currentExchange } = this.state
 
     submitAPIKeys({
@@ -70,7 +70,7 @@ export default class Settings extends React.Component {
       exID: currentExchange,
       apiKey,
       apiSecret,
-    })
+    }, mode)
   }
 
   onSettingsSave(authToken) {

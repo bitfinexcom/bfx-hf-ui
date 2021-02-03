@@ -14,6 +14,8 @@ const mapStateToProps = (state = {}) => ({
   activeMarket: getActiveMarket(state),
   exID: getActiveExchange(state),
   firstLogin: state.ui.firstLogin,
+  isPaperTrading: state.ui.isPaperTrading,
+  isTradingModeModalVisible: state.ui.isTradingModeModalVisible,
   isGuideActive: state.ui[`${TRADING_PAGE}_GUIDE_ACTIVE`],
 })
 
@@ -32,6 +34,14 @@ const mapDispatchToProps = dispatch => ({
 
   finishGuide() {
     dispatch(UIActions.finishGuide(TRADING_PAGE))
+  },
+
+  changeTradingModeModalState(isVisible) {
+    dispatch(UIActions.changeTradingModeModalState(isVisible))
+  },
+
+  changeTradingMode: (isPaperTrading) => {
+    dispatch(UIActions.setTradingMode(isPaperTrading))
   },
 })
 
