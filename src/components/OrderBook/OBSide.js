@@ -32,7 +32,7 @@ export default class OBSide extends React.PureComponent {
             >
               <div className='hfui-orderbook__pl-container'>
                 <p className='hfui-orderbook__pl-amount'>
-                  {+prepareAmount(sumAmounts ? cumAmountSum : pl[1])}
+                  {+prepareAmount(sumAmounts ? cumAmountSum : Math.abs(pl[1]))}
                 </p>
 
                 <p className='hfui-orderbook__pl-price'>{preparePrice(pl[0])}</p>
