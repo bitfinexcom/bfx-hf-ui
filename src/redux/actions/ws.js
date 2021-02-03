@@ -302,7 +302,7 @@ export default {
     type: t.PURGE_DATA_BACKTEST,
   }),
 
-  initAuth: password => send(['auth.init', password]),
+  initAuth: password => send(['auth.init', password, 'main']),
   auth: (password, mode) => send(['auth.submit', password, mode]),
   resetAuth: () => send(['auth.reset']),
 }
