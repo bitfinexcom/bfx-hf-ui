@@ -58,7 +58,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(UIActions.changeTradingModeModalState(true))
   },
   onRefillClick: () => {
-    console.log('*click*')
     dispatch(UIActions.changeReffilBalanceModalState(true))
   },
 })
