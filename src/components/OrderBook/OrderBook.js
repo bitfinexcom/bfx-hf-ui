@@ -53,6 +53,7 @@ export default class OrderBook extends React.Component {
     const totalAmount = totalBuyAmount + totalSellAmount
     let remSellAmount = totalSellAmount
     let buyAmountSum = 0
+
     return (
       <div className={ClassNames('hfui-orderbook__wrapper', {
         stacked: stackedView,
@@ -109,7 +110,7 @@ export default class OrderBook extends React.Component {
                 >
                   <div className='hfui-orderbook__pl-container'>
                     <p className='hfui-orderbook__pl-amount'>
-                      {pl[1].toFixed(2)}
+                      {Math.abs(pl[1].toFixed(2))}
                     </p>
 
                     <p className='hfui-orderbook__pl-total'>
