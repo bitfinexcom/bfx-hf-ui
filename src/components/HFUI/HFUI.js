@@ -24,13 +24,13 @@ export default class HFUI extends React.PureComponent {
 
   render() {
     const {
-      authToken, getLastVersion, getSettings, notificationsVisible, getFavoritePairs,
+      authToken, getLastVersion, getSettings, notificationsVisible, getFavoritePairs, currentMode,
     } = this.props
     const oneHour = 360000
     getLastVersion()
     if (authToken) {
       getSettings(authToken)
-      getFavoritePairs(authToken)
+      getFavoritePairs(authToken, currentMode)
     }
     setInterval(getLastVersion(), oneHour)
     if (!authToken) {
