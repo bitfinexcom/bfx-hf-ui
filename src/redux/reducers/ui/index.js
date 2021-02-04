@@ -3,6 +3,7 @@ import DEFAULT_TRADING_LAYOUT from './default_layout_trading'
 import DEFAULT_MARKET_DATA_LAYOUT from './default_layout_market_data'
 import DEFAULT_TRADING_COMPONENT_STATE from './default_component_state_trading'
 import DEFAULT_MARKET_DATA_COMPONENT_STATE from './default_component_state_market_data'
+import DEFAULT_ACTIVE_MARKET_STATE from './default_active_market_state'
 
 const LAYOUTS_KEY = 'HF_UI_LAYOUTS'
 const LAYOUTS_STATE_KEY = 'HF_UI_LAYOUTS_STATE'
@@ -10,6 +11,8 @@ const ACTIVE_MARKET_KEY = 'HF_UI_ACTIVE_MARKET'
 const ACTIVE_MARKET_PAPER_KEY = 'HF_UI_PAPER_ACTIVE_MARKET'
 const ACTIVE_EXCHANGE_KEY = 'HF_UI_ACTIVE_EXCHANGE'
 const IS_PAPER_TRADING = 'IS_PAPER_TRADING'
+const PAPER_MODE = 'paper'
+const MAIN_MODE = 'main'
 
 const DEFAULT_ROUTE = '/'
 const DEFAULT_EXCHANGE = 'bitfinex'
@@ -184,7 +187,9 @@ function reducer(state = getInitialState(), action = {}) {
     }
     case types.SET_MARKET_FROM_STORE: {
       const { isPaperTrading } = payload
-      const activeMarket = JSON.parse(localStorage.getItem(isPaperTrading ? ACTIVE_MARKET_PAPER_KEY : ACTIVE_MARKET_KEY))
+      const mode = isPaperTrading ? PAPER_MODE : MAIN_MODE
+      const activeMarketJSON = localStorage.getItem(isPaperTrading ? ACTIVE_MARKET_PAPER_KEY : ACTIVE_MARKET_KEY)
+      const activeMarket = JSON.parse(activeMarketJSON) || DEFAULT_ACTIVE_MARKET_STATE[mode].activeMarket
 
       return {
         ...state,
@@ -258,6 +263,7 @@ function reducer(state = getInitialState(), action = {}) {
       return {
         ...state,
         isPaperTrading,
+        currentMode: isPaperTrading ? PAPER_MODE : MAIN_MODE,
       }
     }
     case types.CHANGE_TRADING_MODAL_STATE: {

@@ -17,7 +17,7 @@ import {
 const mapStateToProps = (state = {}, ownProps = {}) => {
   const { layoutID, layoutI: id } = ownProps
   const { ui = {} } = state
-  const { settings = {}, firstLogin, isPaperTrading } = ui
+  const { settings = {}, firstLogin } = ui
   const {
     chart, theme, dms, ga,
   } = settings || {}
@@ -36,7 +36,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     dms,
     ga,
     firstLogin,
-    mode: isPaperTrading ? 'paper' : 'main',
+    currentMode: state.ui.currentMode,
   }
 }
 

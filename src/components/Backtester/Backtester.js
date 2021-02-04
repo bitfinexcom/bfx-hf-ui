@@ -81,7 +81,6 @@ export default class Backtester extends React.Component {
       allMarkets,
       backtestResults,
       backtestOptions,
-      favoritePairs,
       savePairs,
       authToken,
     } = this.props
@@ -93,7 +92,6 @@ export default class Backtester extends React.Component {
       executionType: executionType.type,
       indicators,
       onFavoriteSelect: this.favoriteSelect,
-      favoritePairs,
       savePairs,
       updateError: this.updateError,
       allMarkets,
