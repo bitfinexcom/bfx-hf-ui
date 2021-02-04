@@ -19,7 +19,6 @@ export default class AuthenticationInit extends React.Component {
     this.state = {
       password: '',
       mode: isPaperTrading ? 'paper' : 'main',
-
     }
     this.onPasswordChange = this.onPasswordChange.bind(this)
     this.onUnlock = this.onUnlock.bind(this)

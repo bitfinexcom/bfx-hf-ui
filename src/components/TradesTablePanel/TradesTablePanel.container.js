@@ -12,8 +12,6 @@ import {
 const mapStateToProps = (state = {}, ownProps = {}) => {
   const { layoutID, layoutI: id } = ownProps
   const activeExchange = getActiveExchange(state)
-  const { favoriteTradingPairs = {} } = state.ws
-  const { favoritePairs = [] } = favoriteTradingPairs
   return {
     activeExchange,
     savedState: getComponentState(state, layoutID, 'trades', id),
@@ -21,7 +19,6 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     exchanges: getExchanges(state),
     allMarkets: getMarkets(state),
     authToken: getAuthToken(state),
-    favoritePairs,
   }
 }
 
@@ -40,14 +37,6 @@ const mapDispatchToProps = dispatch => ({
       layoutID,
       componentID,
     }))
-  },
-
-  savePairs: (pairs, authToken) => {
-    dispatch(WSActions.send([
-      'favourite_trading_pairs.save',
-      authToken,
-      pairs,
-    ]))
   },
 })
 

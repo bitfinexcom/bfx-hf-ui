@@ -22,6 +22,7 @@ const mapStateToProps = (state = {}) => {
     activeMarket: getActiveMarket(state),
     authToken: getAuthToken(state),
     notificationsVisible,
+    currentMode: state.ui.currentMode,
   }
 }
 
@@ -45,10 +46,11 @@ const mapDispatchToProps = dispatch => ({
   GAPageview: (page) => {
     dispatch(GAActions.pageview(page))
   },
-  getFavoritePairs: (authToken) => {
+  getFavoritePairs: (authToken, mode) => {
     dispatch(WSActions.send([
       'get.favourite_trading_pairs',
       authToken,
+      mode,
     ]))
   },
 })

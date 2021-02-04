@@ -11,10 +11,9 @@ import ExchangeInfoBar from './ExchangeInfoBar'
 const mapStateToProps = (state = {}) => {
   const activeExchange = getActiveExchange(state)
   const activeMarket = getActiveMarket(state)
-  const { ui = {}, ws = {} } = state
+  const { ui = {} } = state
   const { isNotificationsOpened, isPaperTrading, isTradingModeModalVisible } = ui
-  const { favoriteTradingPairs = {} } = ws
-  const { favoritePairs = [] } = favoriteTradingPairs
+
   return {
     activeExchange,
     activeMarket,
@@ -23,7 +22,6 @@ const mapStateToProps = (state = {}) => {
     markets: getMarkets(state),
     isNotificationsOpened,
     authToken: getAuthToken(state),
-    favoritePairs,
     isPaperTrading,
     isTradingModeModalVisible,
   }
@@ -52,14 +50,6 @@ const mapDispatchToProps = dispatch => ({
 
   openTradingModeModal: () => {
     dispatch(UIActions.changeTradingModeModalState(true))
-  },
-
-  savePairs: (pairs, authToken) => {
-    dispatch(WSActions.send([
-      'favourite_trading_pairs.save',
-      authToken,
-      pairs,
-    ]))
   },
 })
 

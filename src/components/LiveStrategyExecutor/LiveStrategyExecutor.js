@@ -18,22 +18,11 @@ export default class LiveStrategyExecutor extends React.Component {
     selectedTimeFrame: '1m',
   }
 
-  favoriteSelect(pair, isAddition) {
-    const { savePairs, authToken, favoritePairs = [] } = this.props
-    if (isAddition) {
-      savePairs([...favoritePairs, pair], authToken)
-    } else {
-      const filtredPairs = favoritePairs.filter(p => p !== pair)
-      savePairs(filtredPairs, authToken)
-    }
-  }
-
   render() {
     const {
       strategyContent,
       dsExecuteLiveStrategy,
       allMarkets,
-      favoritePairs,
     } = this.props
     const {
       selectedTimeFrame,
@@ -55,8 +44,6 @@ export default class LiveStrategyExecutor extends React.Component {
           <div className='hfui-backtester__flex_start'>
             <MarketSelect
               value={selectedMarket}
-              favoritePairs={favoritePairs}
-              onFavoriteSelect={(pair, isFilled) => this.favoriteSelect(pair, isFilled)}
               onChange={(selection) => {
                 const sel = markets.find(m => m.uiID === selection.uiID)
                 this.setState(() => ({ selectedMarket: sel }))

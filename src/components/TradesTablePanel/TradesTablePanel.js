@@ -140,16 +140,6 @@ export default class TradesTablePanel extends React.Component {
     })
   }
 
-  favoriteSelect(pair, isAddition) {
-    const { savePairs, authToken, favoritePairs = [] } = this.props
-    if (isAddition) {
-      savePairs([...favoritePairs, pair], authToken)
-    } else {
-      const filtredPairs = favoritePairs.filter(p => p !== pair)
-      savePairs(filtredPairs, authToken)
-    }
-  }
-
   renderExchangeDropdown() {
     const { exchangeDirty, currentExchange } = this.state
     const { exchanges, canChangeExchange } = this.props
@@ -174,14 +164,12 @@ export default class TradesTablePanel extends React.Component {
 
   renderMarketDropdown() {
     const { marketDirty, currentMarket, currentExchange } = this.state
-    const { allMarkets, canChangeMarket, favoritePairs } = this.props
+    const { allMarkets, canChangeMarket } = this.props
     const markets = allMarkets[currentExchange] || []
 
     return (
       <MarketSelect
         key='market-dropdown'
-        favoritePairs={favoritePairs}
-        onFavoriteSelect={(pair, isFilled) => this.favoriteSelect(pair, isFilled)}
         disabled={!canChangeMarket}
         className={{ yellow: marketDirty }}
         onChange={this.onChangeMarket}
