@@ -12,7 +12,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   savePairs: (pairs, authToken, currentMode) => {
-    console.log(currentMode)
     dispatch(WSActions.send([
       'favourite_trading_pairs.save',
       authToken,
