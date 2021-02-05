@@ -12,7 +12,12 @@ const mapStateToProps = (state = {}) => {
   const activeExchange = getActiveExchange(state)
   const activeMarket = getActiveMarket(state)
   const { ui = {} } = state
-  const { isNotificationsOpened, isPaperTrading, isTradingModeModalVisible } = ui
+  const {
+    isNotificationsOpened,
+    isPaperTrading,
+    isTradingModeModalVisible,
+    isRefillBalanceModalVisible,
+  } = ui
 
   return {
     activeExchange,
@@ -24,6 +29,7 @@ const mapStateToProps = (state = {}) => {
     authToken: getAuthToken(state),
     isPaperTrading,
     isTradingModeModalVisible,
+    isRefillBalanceModalVisible,
   }
 }
 
@@ -50,6 +56,10 @@ const mapDispatchToProps = dispatch => ({
 
   openTradingModeModal: () => {
     dispatch(UIActions.changeTradingModeModalState(true))
+  },
+  onRefillClick: () => {
+    console.log('*click*')
+    dispatch(UIActions.changeReffilBalanceModalState(true))
   },
 })
 

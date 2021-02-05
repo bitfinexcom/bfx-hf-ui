@@ -7,6 +7,7 @@ import ExchangeInfoBar from '../../components/ExchangeInfoBar'
 
 import Modal from '../../ui/Modal'
 import Button from '../../ui/Button'
+import Input from '../../ui/Input'
 
 import BitfinexOrders from '../../orders/bitfinex'
 import { propTypes, defaultProps } from './Trading.props'
@@ -81,14 +82,23 @@ export default class Trading extends React.PureComponent {
     window.location.reload()
   }
 
+  onRefillBalanceModalClose() {
+    const { changeRefillBalanceModalState } = this.props
+    changeRefillBalanceModalState(false)
+  }
+
+  onRefillBalanceModalSubmit() { //eslint-disable-line
+    // todo
+  }
+
   render() {
     const {
       activeMarket,
       firstLogin,
       isGuideActive,
       isTradingModeModalVisible,
+      isRefillBalanceModalVisible,
     } = this.props
-
     const { steps } = this.state
     const commonComponentProps = {
       dark: true,
@@ -155,6 +165,30 @@ export default class Trading extends React.PureComponent {
                     )}
                   >
                     <p>The app will reboot after you press Okay. It&apos;s required for switching trading mode.</p>
+                  </Modal>
+                )}
+                { isRefillBalanceModalVisible && (
+                  <Modal
+                    label='REFILLING PAPER BALANCES'
+                    onClose={() => this.onRefillBalanceModalClose()}
+                    className='hfui-refillbalance__modal'
+                    actions={(
+                      <Button
+                        green
+                        onClick={() => this.onRefillBalanceModalSubmit()}
+                        label={[
+                          <p key='text'>Submit</p>,
+                        ]}
+                      />
+                    )}
+                  >
+                    <div className='modal-content'>
+                      <Input placeholder='AAA' />
+                      <Input placeholder='BBB' />
+                      <Input placeholder='TESTBTC' />
+                      <Input placeholder='TESTUSDT' />
+                      <Input placeholder='TESTUSD' />
+                    </div>
                   </Modal>
                 )}
                 <GridLayoutPage

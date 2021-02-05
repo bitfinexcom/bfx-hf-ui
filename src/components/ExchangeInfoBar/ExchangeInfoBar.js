@@ -40,6 +40,7 @@ export default class ExchangeInfoBar extends React.PureComponent {
       onSave,
       isPaperTrading,
       isTradingModeModalVisible,
+      onRefillClick,
     } = this.props
     const {
       lastPrice, dailyChange, dailyChangePerc, high, low, volume,
@@ -140,7 +141,7 @@ export default class ExchangeInfoBar extends React.PureComponent {
               />
             </div>
             <div className='hfui-tradingpaper__control-refill'>
-              <RefillIcon />
+              <RefillIcon onClick={onRefillClick} />
             </div>
           </div>
         </div>

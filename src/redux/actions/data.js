@@ -7,4 +7,16 @@ const updateGithubAppVersion = () => ({
   },
 })
 
-export { updateGithubAppVersion }
+const getCandlesHistory = (url) => ({
+  type: 'REST_EXTERNAL',
+  meta: {
+    url,
+    method: 'GET',
+    handler: 'FETCH_CANDLES_HISTORY',
+  },
+})
+
+export {
+  updateGithubAppVersion,
+  getCandlesHistory,
+}
