@@ -121,6 +121,11 @@ const changeTradingModeModalState = (isVisible) => ({
   payload: { isVisible },
 })
 
+const changeReffilBalanceModalState = isVisible => ({
+  type: types.CHANGE_REFILL_BALANCE_MODAL_STATE,
+  payload: { isVisible },
+})
+
 export default {
   setRoute,
   saveLayout,
@@ -142,4 +147,5 @@ export default {
   setTradingMode,
   setMarketFromStore,
   changeTradingModeModalState,
+  changeReffilBalanceModalState,
 }

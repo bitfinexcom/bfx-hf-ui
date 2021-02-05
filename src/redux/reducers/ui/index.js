@@ -38,6 +38,7 @@ function getInitialState() {
     isPaperTrading: false,
     TRADING_PAGE_IS_GUIDE_ACTIVE: true,
     isTradingModeModalVisible: false,
+    isRefillBalanceModalVisible: false,
   }
 
   if (!localStorage) {
@@ -271,6 +272,14 @@ function reducer(state = getInitialState(), action = {}) {
       return {
         ...state,
         isTradingModeModalVisible: isVisible,
+      }
+    }
+    case types.CHANGE_REFILL_BALANCE_MODAL_STATE: {
+      const { isVisible } = payload
+
+      return {
+        ...state,
+        isRefillBalanceModalVisible: isVisible,
       }
     }
     default: {

@@ -18,6 +18,7 @@ const mapStateToProps = (state = {}) => ({
   hasActiveAlgoOrders: getHasActiveAlgoOrders(state),
   isPaperTrading: state.ui.isPaperTrading,
   isTradingModeModalVisible: state.ui.isTradingModeModalVisible,
+  isRefillBalanceModalVisible: state.ui.isRefillBalanceModalVisible,
   isGuideActive: state.ui[`${TRADING_PAGE}_GUIDE_ACTIVE`],
 })
 
