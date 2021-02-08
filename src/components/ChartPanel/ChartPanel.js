@@ -1,14 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import _isEqual from 'lodash/isEqual'
-import _capitalize from 'lodash/capitalize'
 
 import Chart from '../Chart'
 import MarketSelect from '../MarketSelect'
 
 import Panel from '../../ui/Panel'
-import Select from '../../ui/Select'
-import nearestMarket from '../../util/nearest_market'
 
 export default class ChartPanel extends React.Component {
   static propTypes = {
@@ -28,22 +25,21 @@ export default class ChartPanel extends React.Component {
     canChangeMarket: PropTypes.bool,
     showChartMarket: PropTypes.bool,
     activeExchange: PropTypes.string,
-    canChangeExchange: PropTypes.bool,
     layoutI: PropTypes.string.isRequired,
     addTradesRequirement: PropTypes.func,
     layoutID: PropTypes.string.isRequired,
     removeTradesRequirement: PropTypes.func,
     savedState: PropTypes.shape({
       currentExchange: PropTypes.string,
-      currentMarket: PropTypes.objectOf(PropTypes.oneOfType(
-        PropTypes.array,
-        PropTypes.string,
-      )),
+      currentMarket: PropTypes.shape({
+        base: PropTypes.string,
+        quote: PropTypes.string,
+        restID: PropTypes.string,
+      }),
       marketDirty: PropTypes.bool,
       exchangeDirty: PropTypes.bool,
     }),
     allMarkets: PropTypes.objectOf(PropTypes.array),
-    exchanges: PropTypes.arrayOf(PropTypes.string),
     favoritePairs: PropTypes.arrayOf(PropTypes.string),
   }
 
@@ -66,8 +62,6 @@ export default class ChartPanel extends React.Component {
     saveState: () => {},
     showChartMarket: false,
     canChangeMarket: false,
-    exchanges: ['bitfinex'],
-    canChangeExchange: false,
     activeExchange: 'bitfinex',
     addTradesRequirement: () => {},
     removeTradesRequirement: () => {},
@@ -111,7 +105,6 @@ export default class ChartPanel extends React.Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const {
       marketDirty,
-      exchangeDirty,
       currentMarket,
       currentExchange,
     } = prevState
@@ -123,8 +116,8 @@ export default class ChartPanel extends React.Component {
       removeTradesRequirement,
     } = nextProps
 
-    if ((marketDirty || exchangeDirty) || (
-      activeMarket.restID === currentMarket.restID && activeExchange === currentExchange
+    if ((marketDirty) || (
+      activeMarket.restID === currentMarket.restID
     )) {
       return {}
     }
@@ -160,34 +153,6 @@ export default class ChartPanel extends React.Component {
     this.deferSaveState()
   }
 
-  onChangeExchange = (option) => {
-    const { value: exchange } = option
-    const { currentExchange, currentMarket } = this.state
-    const {
-      allMarkets,
-      addTradesRequirement,
-      removeTradesRequirement,
-    } = this.props
-
-    if (exchange === currentExchange) {
-      return
-    }
-
-    const markets = allMarkets[exchange] || []
-    const newMarket = nearestMarket(currentMarket, markets)
-
-    this.setState(() => ({
-      currentExchange: exchange,
-      currentMarket: newMarket,
-      exchangeDirty: true,
-      marketDirty: true,
-    }))
-
-    removeTradesRequirement(currentExchange, currentMarket)
-    addTradesRequirement(exchange, newMarket)
-    this.deferSaveState()
-  }
-
   deferSaveState() {
     setTimeout(() => {
       this.saveState()
@@ -219,28 +184,6 @@ export default class ChartPanel extends React.Component {
       const filtredPairs = favoritePairs.filter(p => p !== pair)
       savePairs(filtredPairs, authToken)
     }
-  }
-
-  renderExchangeDropdown() {
-    const { exchanges, canChangeExchange } = this.props
-    const { exchangeDirty, currentExchange } = this.state
-
-    return (
-      <Select
-        key='exchange-dropdown'
-        disabled={!canChangeExchange}
-        onChange={this.onChangeExchange}
-        className={{ yellow: exchangeDirty }}
-        value={{
-          value: currentExchange,
-          label: _capitalize(currentExchange),
-        }}
-        options={exchanges.map(ex => ({
-          value: ex,
-          label: _capitalize(ex),
-        }))}
-      />
-    )
   }
 
   renderMarketDropdown() {
