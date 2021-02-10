@@ -93,7 +93,12 @@ const defaultDataForLayout = (layout = {}) => {
     const { component, default: defaultValue } = field
     const C = COMPONENTS_FOR_ID[component] || {}
 
-    defaultData[fieldName] = defaultValue || C.DEFAULT_VALUE
+    let v = C.DEFAULT_VALUE
+    if (defaultValue || defaultValue === 0) {
+      v = defaultValue
+    }
+
+    defaultData[fieldName] = v
   })
 
   return defaultData
