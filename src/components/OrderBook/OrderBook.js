@@ -62,7 +62,7 @@ export default class OrderBook extends React.Component {
         {stackedView ? [
           <div key='header' className='hfui-orderbook__header'>
             <p>Amount</p>
-            <p>Total</p>
+            {sumAmounts && (<p>Total</p>)}
             <p>Price</p>
           </div>,
 
@@ -89,7 +89,6 @@ export default class OrderBook extends React.Component {
                       <p className='hfui-orderbook__pl-total'>
                         {totalAmount.toFixed(2)}
                       </p>
-
                       <p className='hfui-orderbook__pl-price'>
                         {new BigN(`${ob[i - 1][0]}`).minus(new BigN(`${pl[0]}`)).toString(10)}
                       </p>
@@ -113,11 +112,11 @@ export default class OrderBook extends React.Component {
                       {Math.abs(pl[1].toFixed(2))}
                     </p>
 
-                    <p className='hfui-orderbook__pl-total'>
-                      {(sumAmounts
-                        ? pl[1] < 0 ? remSellAmount : buyAmountSum
-                        : pl[1]).toFixed(2)}
-                    </p>
+                    { sumAmounts && (
+                      <p className='hfui-orderbook__pl-total'>
+                        {(pl[1] < 0 ? remSellAmount : buyAmountSum).toFixed(2)}
+                      </p>
+                    )}
 
                     <p className='hfui-orderbook__pl-price'>
                       <PLNumber
