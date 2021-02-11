@@ -1,33 +1,59 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import ClassNames from 'classnames'
 
-import { propTypes, defaultProps } from './Button.props'
 import './style.css'
 
-export default class Button extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+const Button = ({
+  red,
+  blue,
+  gray,
+  label,
+  green,
+  onClick,
+  disabled,
+  className,
+  showSpinner,
+}) => (
+  <button
+    type='button'
+    onClick={disabled ? () => {} : onClick}
+    className={ClassNames('hfui-button', className, {
+      red,
+      blue,
+      gray,
+      green,
+      disabled,
+    })}
+  >
+    {disabled && showSpinner
+      ? <i className='fa fa-circle-o-notch fa-spin' />
+      : label}
+  </button>
+)
 
-  render() {
-    const {
-      onClick, label, red, green, blue, gray, className, dataProduct, disabled,
-    } = this.props
-
-    return (
-      <button
-        type='button'
-        onClick={disabled ? () => {} : onClick}
-        data-product={dataProduct}
-        className={ClassNames('hfui-button', className, {
-          red,
-          blue,
-          gray,
-          green,
-          disabled,
-        })}
-      >
-        {label}
-      </button>
-    )
-  }
+Button.propTypes = {
+  red: PropTypes.bool,
+  green: PropTypes.bool,
+  blue: PropTypes.bool,
+  gray: PropTypes.bool,
+  onClick: PropTypes.func,
+  disabled: PropTypes.bool,
+  showSpinner: PropTypes.bool,
+  className: PropTypes.string,
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
 }
+
+Button.defaultProps = {
+  label: null,
+  red: false,
+  gray: false,
+  blue: false,
+  green: false,
+  className: '',
+  disabled: false,
+  showSpinner: false,
+  onClick: () => {},
+}
+
+export default React.memo(Button)
