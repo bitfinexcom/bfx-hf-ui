@@ -5,8 +5,9 @@ import Debug from 'debug'
 import OrderForm from './OrderForm'
 import UIActions from '../../redux/actions/ui'
 import WSActions from '../../redux/actions/ws'
+import { getMarkets } from '../../redux/selectors/meta'
 import GAActions from '../../redux/actions/google_analytics'
-import { getExchanges, getMarkets } from '../../redux/selectors/meta'
+import { getLatestFeedbackTS } from '../../redux/selectors/notifications'
 import {
   getAPIClientStates, getAuthToken, getAPICredentials,
 } from '../../redux/selectors/ws'
@@ -22,15 +23,15 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
   const { favoriteTradingPairs = {} } = ws
   const { favoritePairs = [] } = favoriteTradingPairs
   return {
-    activeExchange: getActiveExchange(state),
-    activeMarket: getActiveMarket(state),
-    exchanges: getExchanges(state),
-    apiClientStates: getAPIClientStates(state),
-    allMarkets: getMarkets(state),
-    savedState: getComponentState(state, layoutID, 'orderform', id),
-    authToken: getAuthToken(state),
-    apiCredentials: getAPICredentials(state),
     favoritePairs,
+    allMarkets: getMarkets(state),
+    authToken: getAuthToken(state),
+    activeMarket: getActiveMarket(state),
+    apiCredentials: getAPICredentials(state),
+    activeExchange: getActiveExchange(state),
+    apiClientStates: getAPIClientStates(state),
+    latestFeedbackTS: getLatestFeedbackTS(state),
+    savedState: getComponentState(state, layoutID, 'orderform', id),
   }
 }
 
@@ -55,12 +56,15 @@ const mapDispatchToProps = dispatch => ({
       ...packet,
     }]))
   },
+
   gaSubmitOrder: () => {
     dispatch(GAActions.submitAtomicOrder())
   },
+
   gaSubmitAO: () => {
     dispatch(GAActions.submitAO())
   },
+
   submitAlgoOrder: ({
     authToken, exID, id, market, context, data,
   }) => {
