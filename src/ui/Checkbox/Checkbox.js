@@ -1,18 +1,33 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import Tooltip from '../Tooltip'
-import { propTypes, defaultProps } from './Checkbox.props'
 import './style.css'
 
 export default class Checkbox extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+  static propTypes = {
+    id: PropTypes.string,
+    label: PropTypes.string,
+    disabled: PropTypes.bool,
+    uppercase: PropTypes.bool,
+    customHelp: PropTypes.string,
+    value: PropTypes.bool.isRequired,
+    onChange: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = {
+    id: null,
+    label: null,
+    disabled: false,
+    customHelp: null,
+    uppercase: false,
+  }
 
   render() {
     const {
       id,
-      label,
       value,
+      label,
       onChange,
       disabled,
       uppercase,
