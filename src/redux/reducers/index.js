@@ -6,6 +6,7 @@ import ui from './ui'
 import meta from './meta'
 import ws from './ws'
 import notifications from './notifications'
+import algoOrders from './ao'
 
 const reducers = history => combineReducers({
   [REDUCER_PATHS.ROUTER]: connectRouter(history),
@@ -13,6 +14,7 @@ const reducers = history => combineReducers({
   [REDUCER_PATHS.META]: meta,
   [REDUCER_PATHS.UI]: ui,
   [REDUCER_PATHS.NOTIFICATIONS]: notifications,
+  [REDUCER_PATHS.AOS]: algoOrders,
 })
 
 export default reducers

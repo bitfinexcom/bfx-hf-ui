@@ -1,7 +1,9 @@
 import _isArray from 'lodash/isArray'
 import Debug from 'debug'
 
+import UIActions from '../../actions/ui'
 import WSActions from '../../actions/ws'
+import AOActions from '../../actions/ao'
 
 const debug = Debug('hfui:rx:m:ws-hfui-server:msg')
 
@@ -254,6 +256,19 @@ export default (ws, store) => (e = {}) => {
     case 'bt.btresult': {
       const [, res] = payload
       store.dispatch(WSActions.recvBacktestResults(res))
+      break
+    }
+
+    case 'algo.active_orders': {
+      const [, activeAlgoOrders] = payload
+      store.dispatch(AOActions.setActiveAlgoOrders(activeAlgoOrders))
+      break
+    }
+
+    case 'algo.cancel_orders': {
+      store.dispatch(WSActions.clearAlgoOrders())
+      store.dispatch(UIActions.setFilteredValueWithKey('filteredAO', []))
+      store.dispatch(AOActions.showActiveOrdersModal(true))
       break
     }
 
