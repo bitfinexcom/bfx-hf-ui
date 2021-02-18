@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Joyride, { STATUS } from 'react-joyride'
 
 import OrderForm from '../../components/OrderForm'
@@ -6,8 +7,8 @@ import StatusBar from '../../components/StatusBar'
 import ExchangeInfoBar from '../../components/ExchangeInfoBar'
 
 import BitfinexOrders from '../../orders/bitfinex'
-import { propTypes, defaultProps } from './Trading.props'
 import GridLayoutPage from '../../components/GridLayoutPage'
+import ActiveAlgoOrdersModal from '../../components/ActiveAlgoOrdersModal'
 
 import './style.css'
 
@@ -17,8 +18,25 @@ const orderDefinitions = {
 }
 
 export default class Trading extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+  static propTypes = {
+    firstLogin: PropTypes.bool,
+    showAlgoModal: PropTypes.bool,
+    isGuideActive: PropTypes.bool,
+    hasActiveAlgoOrders: PropTypes.bool,
+    finishGuide: PropTypes.func.isRequired,
+    getActiveAOs: PropTypes.func.isRequired,
+    showActiveAOsModal: PropTypes.func.isRequired,
+  }
+
+  static defaultProps ={
+    firstLogin: false,
+    showAlgoModal: false,
+    isGuideActive: false,
+    hasActiveAlgoOrders: false,
+  }
+
+  grid = React.createRef()
+
   state = {
     steps: [
       {
@@ -44,20 +62,23 @@ export default class Trading extends React.PureComponent {
       },
     ],
   }
-  constructor(props) {
-    super(props)
 
-    this.grid = React.createRef()
-    this.onChangeMarket = this.onChangeMarket.bind(this)
-    this.onGuideFinish = this.onGuideFinish.bind(this)
+  componentDidMount() {
+    const { getActiveAOs } = this.props
+    getActiveAOs()
   }
 
-  onChangeMarket({ value }) {
-    const { saveActiveMarket } = this.props
-    saveActiveMarket(value)
+  componentDidUpdate() {
+    const { getActiveAOs } = this.props
+    getActiveAOs()
   }
 
-  onGuideFinish(data) {
+  onCloseAlgoModal = () => {
+    const { showActiveAOsModal } = this.props
+    showActiveAOsModal(false)
+  }
+
+  onGuideFinish = (data) => {
     const { finishGuide } = this.props
     const { status } = data
     const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED]
@@ -68,7 +89,12 @@ export default class Trading extends React.PureComponent {
   }
 
   render() {
-    const { activeMarket, firstLogin, isGuideActive } = this.props
+    const {
+      firstLogin,
+      isGuideActive,
+      showAlgoModal,
+      hasActiveAlgoOrders,
+    } = this.props
     const { steps } = this.state
     const commonComponentProps = {
       dark: true,
@@ -100,11 +126,11 @@ export default class Trading extends React.PureComponent {
            }}
          />
          )}
+        {showAlgoModal && hasActiveAlgoOrders
+          && <ActiveAlgoOrdersModal onClose={() => this.onCloseAlgoModal()} />}
         <ExchangeInfoBar
-          selectedMarket={activeMarket}
-          onChangeMarket={this.onChangeMarket}
-          showAddComponent
           showSave
+          showAddComponent
           onSave={() => this.grid.onSaveLayout()}
           onAddComponent={() => this.grid.onToggleAddComponentModal()}
         />
@@ -113,24 +139,23 @@ export default class Trading extends React.PureComponent {
             <div className='hfui-tradingpage__column left'>
               <OrderForm
                 layoutI='orderform'
-                orders={orderDefinitions}
                 moveable={false}
                 removeable={false}
+                orders={orderDefinitions}
               />
             </div>
 
             <div className='hfui-tradingpage__column center'>
               <div className='hfui-marketdatapage__wrapper'>
                 <GridLayoutPage
+                  showToolbar={false}
                   ref={ref => { this.grid = ref }}
                   defaultLayoutID='Default Trading'
                   sharedProps={commonComponentProps}
-                  showToolbar={false}
                 />
               </div>
             </div>
           </div>
-
           <StatusBar />
         </div>
       </>
