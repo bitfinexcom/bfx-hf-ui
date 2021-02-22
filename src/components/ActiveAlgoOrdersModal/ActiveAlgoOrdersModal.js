@@ -96,7 +96,7 @@ const ActiveAlgoOrdersModal = ({
           key='orders_resume'
           onClick={() => onSubmit('resume')}
           disabled={_isEmpty(selectedOrders)}
-          className='hfui-active-ao-modal-btn mr-10'
+          className='hfui-active-ao-modal-btn'
           label={[
             <p key='text'>Resume</p>,
           ]}
