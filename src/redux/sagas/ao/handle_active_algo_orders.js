@@ -8,9 +8,10 @@ export default function* handleActiveAlgoOrders({ payload }) {
   const { type, selectedOrders, unselectedOrders } = payload
   const authToken = yield select(getAuthToken)
   if (type === 'resume') {
-    yield put(WSActions.send(['algo_order.load', authToken, selectedOrders]))
     yield put(WSActions.send(['algo_order.remove', authToken, unselectedOrders]))
-  } else if (type === 'cancel') {
+    yield put(WSActions.send(['algo_order.load', authToken, selectedOrders]))
+  }
+  if (type === 'cancel') {
     yield put(WSActions.send(['algo_order.remove', authToken, selectedOrders]))
     yield put(WSActions.send(['algo_order.load', authToken, unselectedOrders]))
   }
