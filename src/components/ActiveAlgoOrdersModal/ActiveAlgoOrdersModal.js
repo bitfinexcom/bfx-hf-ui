@@ -100,7 +100,7 @@ const ActiveAlgoOrdersModal = ({
       ), (
         <Button
           green
-          key='orders_resume'
+          key='continue'
           onClick={() => onClose()}
           className='hfui-active-ao-modal-btn'
           label={[
