@@ -10,7 +10,7 @@ const mapStateToProps = (state = {}) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  handleActiveOrders: (type, orders) => dispatch(handleActiveOrders({ type, orders })),
+  handleActiveOrders: data => dispatch(handleActiveOrders(data)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ActiveAlgoOrdersModal)

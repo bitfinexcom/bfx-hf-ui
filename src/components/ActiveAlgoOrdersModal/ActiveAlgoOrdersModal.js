@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import _isEqual from 'lodash/isEqual'
 import _isEmpty from 'lodash/isEmpty'
@@ -16,16 +16,12 @@ const ActiveAlgoOrdersModal = ({
   activeAlgoOrders,
   handleActiveOrders,
 }) => {
-  const firstRender = useRef(true)
   const [ordersList, setOrdersList] = useState([])
   const [selectedOrders, setSelectedOrders] = useState([])
 
   useEffect(() => {
-    if (firstRender.current) {
-      setOrdersList(activeAlgoOrders)
-      firstRender.current = false
-    } else if (_isEmpty(ordersList)) onClose()
-  }, [ordersList])
+    setOrdersList(activeAlgoOrders)
+  }, [])
 
   const onOrderSelect = (e, gid, algoID) => {
     if (e) {
@@ -63,15 +59,19 @@ const ActiveAlgoOrdersModal = ({
     return _isEqual(allOrders, selectedOrders)
   }
 
-  const updateOrdersList = () => {
-    const updatedOrdersList = _differenceBy(ordersList, selectedOrders, 'gid')
-    setOrdersList(updatedOrdersList)
+  const prepareOrders = (orders) => {
+    const preparedOrders = []
+    orders.forEach(order => {
+      const { gid, algoID } = order
+      preparedOrders.push({ gid, algoID })
+    })
+    return preparedOrders
   }
 
   const onSubmit = (type) => {
-    handleActiveOrders(type, selectedOrders)
-    setSelectedOrders([])
-    updateOrdersList()
+    const ordersLeft = _differenceBy(ordersList, selectedOrders, 'gid')
+    const unselectedOrders = prepareOrders(ordersLeft)
+    handleActiveOrders({ type, selectedOrders, unselectedOrders })
   }
 
   return (
@@ -83,7 +83,7 @@ const ActiveAlgoOrdersModal = ({
         <Button
           green
           key='orders_cancel'
-          onClick={() => onSubmit('algo_order.remove')}
+          onClick={() => onSubmit('cancel')}
           disabled={_isEmpty(selectedOrders)}
           className='hfui-active-ao-modal-btn mr-10'
           label={[
@@ -94,25 +94,14 @@ const ActiveAlgoOrdersModal = ({
         <Button
           green
           key='orders_resume'
-          onClick={() => onSubmit('algo_order.load')}
+          onClick={() => onSubmit('resume')}
           disabled={_isEmpty(selectedOrders)}
           className='hfui-active-ao-modal-btn mr-10'
           label={[
             <p key='text'>Resume</p>,
           ]}
         />
-      ), (
-        <Button
-          green
-          key='continue'
-          onClick={() => onClose()}
-          className='hfui-active-ao-modal-btn'
-          label={[
-            <p key='text'>Continue</p>,
-          ]}
-        />
-      ),
-      ]}
+      )]}
     >
       <AlgoOrdersTable
         orders={ordersList}
