@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import _isEqual from 'lodash/isEqual'
 import _isEmpty from 'lodash/isEmpty'
@@ -16,12 +16,16 @@ const ActiveAlgoOrdersModal = ({
   activeAlgoOrders,
   handleActiveOrders,
 }) => {
+  const firstRender = useRef(true)
   const [ordersList, setOrdersList] = useState([])
   const [selectedOrders, setSelectedOrders] = useState([])
 
   useEffect(() => {
-    setOrdersList(activeAlgoOrders)
-  }, [])
+    if (firstRender.current) {
+      setOrdersList(activeAlgoOrders)
+      firstRender.current = false
+    } else if (_isEmpty(ordersList)) onClose()
+  }, [ordersList])
 
   const onOrderSelect = (e, gid, algoID) => {
     if (e) {
