@@ -22,6 +22,7 @@ export default class Trading extends React.PureComponent {
     firstLogin: PropTypes.bool,
     showAlgoModal: PropTypes.bool,
     isGuideActive: PropTypes.bool,
+    apiClientConnected: PropTypes.bool,
     hasActiveAlgoOrders: PropTypes.bool,
     finishGuide: PropTypes.func.isRequired,
     getActiveAOs: PropTypes.func.isRequired,
@@ -32,6 +33,7 @@ export default class Trading extends React.PureComponent {
     firstLogin: false,
     showAlgoModal: false,
     isGuideActive: false,
+    apiClientConnected: false,
     hasActiveAlgoOrders: false,
   }
 
@@ -93,6 +95,7 @@ export default class Trading extends React.PureComponent {
       firstLogin,
       isGuideActive,
       showAlgoModal,
+      apiClientConnected,
       hasActiveAlgoOrders,
     } = this.props
     const { steps } = this.state
@@ -126,7 +129,7 @@ export default class Trading extends React.PureComponent {
            }}
          />
          )}
-        {showAlgoModal && hasActiveAlgoOrders
+        {showAlgoModal && hasActiveAlgoOrders && apiClientConnected
           && <ActiveAlgoOrdersModal onClose={() => this.onCloseAlgoModal()} />}
         <ExchangeInfoBar
           showSave

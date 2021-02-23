@@ -3,6 +3,6 @@ import { REDUCER_PATHS } from '../../config'
 
 const path = REDUCER_PATHS.WS
 
-export default (state, exID) => {
-  return _get(state, `${path}.apiClients.${exID}`, 0) === 2
+export default (state) => {
+  return _get(state, `${path}.apiClients.bitfinex`, 0) === 2
 }

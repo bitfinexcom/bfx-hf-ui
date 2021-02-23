@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 
 import UIActions from '../../redux/actions/ui'
 import { TRADING_PAGE } from '../../redux/constants/ui'
+import { apiClientConnected } from '../../redux/selectors/ws'
 import { getLayouts, getActiveExchange } from '../../redux/selectors/ui'
 import { getActiveAlgoOrders, showActiveOrdersModal } from '../../redux/actions/ao'
 import { getHasActiveAlgoOrders, getShowActiveAlgoModal } from '../../redux/selectors/ao'
@@ -13,6 +14,7 @@ const mapStateToProps = (state = {}) => ({
   exID: getActiveExchange(state),
   firstLogin: state.ui.firstLogin,
   showAlgoModal: getShowActiveAlgoModal(state),
+  apiClientConnected: apiClientConnected(state),
   hasActiveAlgoOrders: getHasActiveAlgoOrders(state),
   isGuideActive: state.ui[`${TRADING_PAGE}_GUIDE_ACTIVE`],
 })
