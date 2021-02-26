@@ -4,6 +4,7 @@ const REDUCER_PATHS = {
   META: 'meta',
   UI: 'ui',
   NOTIFICATIONS: 'notifications',
+  AOS: 'aos',
 }
 
 const MAX_STORED_TRADES = 25

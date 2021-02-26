@@ -1,15 +1,34 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import ClassNames from 'classnames'
-import { propTypes, defaultProps } from './Modal.props'
+
 import './style.css'
 
 export default class Modal extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+  static propTypes = {
+    fixed: PropTypes.bool,
+    label: PropTypes.string,
+    className: PropTypes.string,
+    onClose: PropTypes.func.isRequired,
+    actions: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+    children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
+  }
+
+  static defaultProps = {
+    label: '',
+    fixed: true,
+    actions: [],
+    className: '',
+  }
 
   render() {
     const {
-      children, className, onClose, fixed, actions, label,
+      fixed,
+      label,
+      onClose,
+      actions,
+      children,
+      className,
     } = this.props
 
     return (

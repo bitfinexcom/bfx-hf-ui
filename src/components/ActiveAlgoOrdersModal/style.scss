@@ -1,0 +1,121 @@
+.hfui-active-ao-modal__wrapper {
+  &.hfui-modal__content {
+    width: 75vw;
+    max-width: 1156px;
+    max-height: 483px;
+    padding: 0 26px 38px 26px;
+  }
+
+  .hfui-modal__header {
+    padding-bottom: 15px;
+  }
+
+  .hfui-active-ao-modal-btn {
+    border-radius: 0;
+
+    &.mr-10 {
+      margin-right: 10px;
+    }
+  }
+
+  .hfui-modal__actions {
+    margin-top: 30px;
+  }
+
+  .hfui-ao-list__wrapper {
+    overflow: scroll;
+    height: 315px;
+  }
+
+  .hfui-ao-list__entry {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    position: relative;
+    border-bottom: 1px solid rgba(196,196,196,0.6);
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.1);
+    }
+  }
+  
+  .hfui-ao-list__header-row {
+    display: flex;
+    flex-direction: row;
+    padding: 15px 20px;
+    border-bottom: 1px solid rgb(255,255,255);
+
+    .hfui-ao-list__header-row-elm {
+      margin-right: 25px;
+    
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    .hfui-ao-list__header-row-elm-label {
+      color: #fff;
+      font-size: 15px;
+      font-weight: 500;
+
+      &.order-name,
+      &.order-created {
+        min-width: 138px;
+      }
+    }
+  }
+
+  .hfui-ao-list__entry-row {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 16px;
+  
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  .hfui-ao-list__entry-row-elm {
+    margin-right: 25px;
+    display: flex;
+    align-items: center;
+  
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &.ao-checkbox {
+      min-width: 43px;
+    }
+  }
+  
+  .hfui-ao-list__entry-row-elm-value {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.5;
+
+    &.ao-name {
+      min-width: 135px;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .hfui-ao-list__footer-row {
+    display: flex;
+    flex-direction: row;
+    padding: 0px 20px;
+
+    .hfui-ao-list__footer-row-elm {
+      margin-right: 25px;
+
+      &.ao-checkbox {
+        min-width: 43px;
+      }
+    
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}

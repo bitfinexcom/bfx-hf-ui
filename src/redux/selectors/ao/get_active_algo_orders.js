@@ -1,8 +1,8 @@
 import _get from 'lodash/get'
 import { REDUCER_PATHS } from '../../config'
 
-const path = REDUCER_PATHS.WS
+const path = REDUCER_PATHS.AOS
 
 export default (state) => {
-  return _get(state, `${path}.apiClients.bitfinex`, 0) === 2
+  return _get(state, `${path}.activeAlgoOrders`, [])
 }
