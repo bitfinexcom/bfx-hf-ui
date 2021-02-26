@@ -10,7 +10,7 @@ export default class MarketSelect extends React.PureComponent {
     value: PropTypes.instanceOf(Object).isRequired,
     onChange: PropTypes.func.isRequired,
     markets: PropTypes.instanceOf(Array).isRequired,
-    renderLabel: PropTypes.bool.isRequired,
+    renderLabel: PropTypes.bool,
     className: PropTypes.string,
     currentMode: PropTypes.string,
     savePairs: PropTypes.func.isRequired,
@@ -21,6 +21,7 @@ export default class MarketSelect extends React.PureComponent {
     className: '',
     favoritePairs: [],
     currentMode: '',
+    renderLabel: false,
   }
 
   favoriteSelect(pair, isPairSelected) {
