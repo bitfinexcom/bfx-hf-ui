@@ -173,7 +173,7 @@
     "bfx-hf-algo": "^3.0.0",
     "bfx-hf-backtest": "^2.0.0",
     "bfx-hf-chart": "^1.0.0",
-    "bfx-hf-data-server": "^2.0.0",
+    "bfx-hf-data-server": "^3.0.0",
     "bfx-hf-ext-plugin-bitfinex": "^1.0.0",
     "bfx-hf-indicators": "^2.0.1",
     "bfx-hf-models": "^2.2.0",
