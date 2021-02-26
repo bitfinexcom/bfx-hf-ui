@@ -3,7 +3,7 @@ import React from 'react'
 import Switch from 'react-switch'
 
 import MarketSelect from '../MarketSelect'
-import RefillIcon from '../../ui/Icons/RefillIcon'
+// import RefillIcon from '../../ui/Icons/RefillIcon'
 import ExchangeInfoBarItem from './ExchangeInfoBarItem'
 import quotePrefix from '../../util/quote_prefix'
 
@@ -40,7 +40,7 @@ export default class ExchangeInfoBar extends React.PureComponent {
       onSave,
       isPaperTrading,
       isTradingModeModalVisible,
-      onRefillClick,
+      // onRefillClick,
     } = this.props
     const {
       lastPrice, dailyChange, dailyChangePerc, high, low, volume,
@@ -140,9 +140,9 @@ export default class ExchangeInfoBar extends React.PureComponent {
                 width={35}
               />
             </div>
-            <div className='hfui-tradingpaper__control-refill'>
+            {/* <div className='hfui-tradingpaper__control-refill'>
               <RefillIcon onClick={onRefillClick} />
-            </div>
+            </div> */}
           </div>
         </div>
 
