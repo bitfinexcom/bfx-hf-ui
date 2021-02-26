@@ -3,10 +3,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 class Chart extends React.Component {
-  constructor(props) {
-    super(props)
-    console.log(props)
-  }
   render() {
     const { market } = this.props
     const { wsID, base, quote } = market
