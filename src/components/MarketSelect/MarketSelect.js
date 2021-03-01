@@ -11,14 +11,14 @@ export default class MarketSelect extends React.PureComponent {
     onChange: PropTypes.func.isRequired,
     markets: PropTypes.instanceOf(Array).isRequired,
     renderLabel: PropTypes.bool,
-    className: PropTypes.string,
+    className: PropTypes.instanceOf(Object),
     currentMode: PropTypes.string,
     savePairs: PropTypes.func.isRequired,
     authToken: PropTypes.string.isRequired,
     favoritePairs: PropTypes.instanceOf(Array),
   }
   static defaultProps = {
-    className: '',
+    className: {},
     favoritePairs: [],
     currentMode: '',
     renderLabel: false,

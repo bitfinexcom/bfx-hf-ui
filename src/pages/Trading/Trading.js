@@ -28,9 +28,15 @@ export default class Trading extends React.PureComponent {
     isGuideActive: PropTypes.bool,
     apiClientConnected: PropTypes.bool,
     hasActiveAlgoOrders: PropTypes.bool,
+    isPaperTrading: PropTypes.bool.isRequired,
+    isTradingModeModalVisible: PropTypes.bool.isRequired,
+    isRefillBalanceModalVisible: PropTypes.bool.isRequired,
     finishGuide: PropTypes.func.isRequired,
     getActiveAOs: PropTypes.func.isRequired,
     showActiveAOsModal: PropTypes.func.isRequired,
+    changeTradingModeModalState: PropTypes.func.isRequired,
+    changeTradingMode: PropTypes.func.isRequired,
+    changeRefillBalanceModalState: PropTypes.func,
   }
 
   static defaultProps ={
@@ -39,6 +45,7 @@ export default class Trading extends React.PureComponent {
     isGuideActive: false,
     apiClientConnected: false,
     hasActiveAlgoOrders: false,
+    changeRefillBalanceModalState: () => {},
   }
 
   grid = React.createRef()

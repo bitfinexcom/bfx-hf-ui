@@ -2,13 +2,14 @@ import React from 'react'
 
 import PropTypes from 'prop-types'
 
+const CHART_URL = 'https://bitfinexcom.github.io/bfx-hf-tradingview'
 class Chart extends React.Component {
   render() {
     const { market } = this.props
     const { wsID, base, quote } = market
     return (
       <iframe
-        src={`https://antonnazarenko.github.io/bfx-hf-tradingview/?wsID=${wsID}&base=${base}&quote=${quote}`}
+        src={`${CHART_URL}/?wsID=${wsID}&base=${base}&quote=${quote}`}
         title='thumbnails'
         frameBorder='0'
         style={{

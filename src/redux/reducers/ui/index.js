@@ -195,6 +195,7 @@ function reducer(state = getInitialState(), action = {}) {
       return {
         ...state,
         previousMarket: state.activeMarket,
+        currentMode: mode,
         activeMarket,
       }
     }
