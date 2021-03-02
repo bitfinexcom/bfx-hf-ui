@@ -36,6 +36,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     dms,
     ga,
     firstLogin,
+    currentMode: state.ui.currentMode,
   }
 }
 
@@ -50,13 +51,14 @@ const mapDispatchToProps = dispatch => ({
 
   submitAPIKeys: ({
     exID, authToken, apiKey, apiSecret,
-  }) => {
+  }, mode) => {
     dispatch(WSActions.send([
       'api_credentials.save',
       authToken,
       exID,
       apiKey,
       apiSecret,
+      mode,
     ]))
   },
   gaUpdateSettings: () => {

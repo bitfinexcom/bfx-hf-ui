@@ -6,7 +6,6 @@ const getInitialState = () => {
 
 export default function (state = getInitialState(), action = {}) {
   const { type, payload = [] } = action
-
   switch (type) {
     case t.DATA_AUTH_CONFIGURED: {
       const { configured } = payload

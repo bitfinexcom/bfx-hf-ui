@@ -11,10 +11,11 @@ import ExchangeInfoBar from './ExchangeInfoBar'
 const mapStateToProps = (state = {}) => {
   const activeExchange = getActiveExchange(state)
   const activeMarket = getActiveMarket(state)
-  const { ui = {}, ws = {} } = state
-  const { isNotificationsOpened } = ui
-  const { favoriteTradingPairs = {} } = ws
-  const { favoritePairs = [] } = favoriteTradingPairs
+  const { ui = {} } = state
+  const {
+    isNotificationsOpened,
+  } = ui
+
   return {
     activeExchange,
     activeMarket,
@@ -23,7 +24,6 @@ const mapStateToProps = (state = {}) => {
     markets: getMarkets(state),
     isNotificationsOpened,
     authToken: getAuthToken(state),
-    favoritePairs,
   }
 }
 
@@ -47,13 +47,8 @@ const mapDispatchToProps = dispatch => ({
   openNotifications: () => {
     dispatch(UIActions.openNotifcationPanel())
   },
-
-  savePairs: (pairs, authToken) => {
-    dispatch(WSActions.send([
-      'favourite_trading_pairs.save',
-      authToken,
-      pairs,
-    ]))
+  onRefillClick: () => {
+    dispatch(UIActions.changeReffilBalanceModalState(true))
   },
 })
 

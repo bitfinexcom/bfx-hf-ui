@@ -28,7 +28,6 @@ const mapDispatchToProps = dispatch => ({
         }, symbol, 'm')
 
         debug('closing position on %s %f @ %f', symbol, amount, basePrice)
-        console.log(packet)
         dispatch(WSActions.send(['order.submit', authToken, exID, packet]))
         break
       }

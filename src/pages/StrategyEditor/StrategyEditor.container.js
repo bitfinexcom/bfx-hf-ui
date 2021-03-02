@@ -1,11 +1,12 @@
 import { connect } from 'react-redux'
 import { STRATEGY_PAGE } from '../../redux/constants/ui'
+import { getFirstLogin } from '../../redux/selectors/ui'
 import UIActions from '../../redux/actions/ui'
 
 import StrategyEditor from './StrategyEditor'
 
 const mapStateToProps = state => ({
-  firstLogin: state.ui.firstLogin,
+  firstLogin: getFirstLogin(state),
   isGuideActive: state.ui[`${STRATEGY_PAGE}_GUIDE_ACTIVE`],
   strategyId: state.ui.id,
 }) // eslint-disable-line

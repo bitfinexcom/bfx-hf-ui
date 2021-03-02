@@ -1,42 +1,38 @@
 import React from 'react'
+
 import PropTypes from 'prop-types'
-import TradingViewWidget, { Themes } from 'react-tradingview-widget'
 
-import './style.css'
-
-const Chart = ({ market, exchange }) => {
-  const { base, quote } = market
-
+const CHART_URL = 'https://bitfinexcom.github.io/bfx-hf-tradingview'
+function Chart(props) {
+  const { market } = props
+  const { wsID, base, quote } = market
   return (
-    <div className='hfui-chart__wrapper'>
-      <TradingViewWidget
-        autosize
-        hideideas
-        toolbar_bg='#fff'
-        save_image={false}
-        theme={Themes.DARK}
-        enable_publishing={false}
-        allow_symbol_change={false}
-        symbol={`${exchange.toUpperCase()}:${base}${quote}`}
-      />
-    </div>
+    <iframe
+      src={`${CHART_URL}/?wsID=${wsID}&base=${base}&quote=${quote}`}
+      title='thumbnails'
+      frameBorder='0'
+      style={{
+        width: '100%',
+        height: '100%',
+      }}
+    />
   )
 }
 
 Chart.propTypes = {
   market: PropTypes.shape({
+    wsID: PropTypes.string,
     base: PropTypes.string,
     quote: PropTypes.string,
   }),
-  exchange: PropTypes.string,
 }
 
 Chart.defaultProps = {
   market: {
     base: 'BTC',
     quote: 'USD',
+    wsID: 'tBTCUSD',
   },
-  exchange: 'bitfinex',
 }
 
 export default React.memo(Chart)

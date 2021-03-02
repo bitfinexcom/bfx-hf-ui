@@ -4,6 +4,7 @@ import getChannels from './get_channels'
 import getChannel from './get_channel'
 import getChannelID from './get_channel_id'
 import getChannelByID from './get_channel_by_id'
+import getFavoritePairs from './get_favorite_pairs'
 import getOrderBook from './get_order_book'
 import getAllOrderBooks from './get_all_order_books'
 import getSyncRanges from './get_sync_ranges'
@@ -80,6 +81,7 @@ export {
   getOrders,
   getAllOrders,
   getAlgoOrders,
+  getFavoritePairs,
 
   getNotifications,
   getAPICredentials,

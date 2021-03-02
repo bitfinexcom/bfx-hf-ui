@@ -106,6 +106,26 @@ const updateStrategyId = id => ({
   payload: { id },
 })
 
+const setTradingMode = (isPaperTrading) => ({
+  type: types.SET_TRADING_MODE,
+  payload: { isPaperTrading },
+})
+
+const setMarketFromStore = (isPaperTrading) => ({
+  type: types.SET_MARKET_FROM_STORE,
+  payload: { isPaperTrading },
+})
+
+const changeTradingModeModalState = (isVisible) => ({
+  type: types.CHANGE_TRADING_MODAL_STATE,
+  payload: { isVisible },
+})
+
+const changeReffilBalanceModalState = isVisible => ({
+  type: types.CHANGE_REFILL_BALANCE_MODAL_STATE,
+  payload: { isVisible },
+})
+
 export default {
   setRoute,
   saveLayout,
@@ -124,4 +144,8 @@ export default {
   strategySelect,
   updateStrategyContent,
   updateStrategyId,
+  setTradingMode,
+  setMarketFromStore,
+  changeTradingModeModalState,
+  changeReffilBalanceModalState,
 }

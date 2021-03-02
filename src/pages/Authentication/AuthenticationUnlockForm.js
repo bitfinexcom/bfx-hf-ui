@@ -3,6 +3,8 @@ import _isEmpty from 'lodash/isEmpty'
 
 import Button from '../../ui/Button'
 import Input from '../../ui/Input'
+import Select from '../../ui/Select'
+
 import { propTypes, defaultProps } from './AuthenticationUnlockForm.props'
 
 const ENTER_KEY_CODE = 13
@@ -11,13 +13,13 @@ export default class AuthenticationInit extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
 
-  state = {
-    password: '',
-  }
-
   constructor(props) {
     super(props)
-
+    const { isPaperTrading } = this.props
+    this.state = {
+      password: '',
+      mode: isPaperTrading ? 'paper' : 'main',
+    }
     this.onPasswordChange = this.onPasswordChange.bind(this)
     this.onUnlock = this.onUnlock.bind(this)
     this.onReset = this.onReset.bind(this)
@@ -29,9 +31,9 @@ export default class AuthenticationInit extends React.Component {
   }
 
   onUnlock() {
-    const { password } = this.state
+    const { password, mode } = this.state
     const { onUnlock } = this.props
-    onUnlock(password)
+    onUnlock(password, mode)
   }
 
   onReset() {
@@ -46,10 +48,14 @@ export default class AuthenticationInit extends React.Component {
     }
   }
 
-  render() {
-    const { password } = this.state
-    const submitReady = !_isEmpty(password)
+  selectMode(mode) {
+    this.setState(() => ({ mode }))
+  }
 
+  render() {
+    const { password, mode } = this.state
+    const submitReady = !_isEmpty(password) && !_isEmpty(mode)
+    const options = [{ value: 'main', label: 'Production' }, { value: 'paper', label: 'Paper Trading' }]
     return (
       <div className='hfui-authenticationpage__content' onKeyDown={this.onEnterPress}>
         <h2>Honey Framework UI</h2>
@@ -70,6 +76,17 @@ export default class AuthenticationInit extends React.Component {
             value={password}
             onChange={this.onPasswordChange}
           />
+          <div className='hfui-authenticationpage__mode-select'>
+            <p>Select trading mode</p>
+
+            <Select
+              className='hfui-authenticationpage__trading-mode'
+              placeholder='Select trading mode...'
+              value={options.find(o => o.value === mode)}
+              options={options}
+              onChange={({ value }) => this.selectMode(value)}
+            />
+          </div>
 
           <Button
             onClick={this.onUnlock}

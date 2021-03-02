@@ -15,7 +15,6 @@ const mapStateToProps = (state = {}) => ({
   backtestResults: getBacktestResults(state),
   strategyContent: state.ui.content,
   backtestOptions: state.ws.backtest.backtestOptions || {},
-  favoritePairs: state.ws.favoriteTradingPairs.favoritePairs,
   authToken: getAuthToken(state),
 })
 
