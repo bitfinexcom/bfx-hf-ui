@@ -34,7 +34,7 @@ function getInitialState() {
     previousMarket: null,
     previousExchange: null,
     remoteVersion: null,
-    firstLogin: false,
+    firstLogin: true,
     isPaperTrading: false,
     TRADING_PAGE_IS_GUIDE_ACTIVE: true,
     isTradingModeModalVisible: false,
@@ -262,10 +262,11 @@ function reducer(state = getInitialState(), action = {}) {
     }
     case types.SET_TRADING_MODE: {
       const { isPaperTrading } = payload
+      const mode = isPaperTrading ? PAPER_MODE : MAIN_MODE
       return {
         ...state,
         isPaperTrading,
-        currentMode: isPaperTrading ? PAPER_MODE : MAIN_MODE,
+        currentMode: mode,
       }
     }
     case types.CHANGE_TRADING_MODAL_STATE: {

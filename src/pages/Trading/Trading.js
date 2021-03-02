@@ -13,6 +13,7 @@ import Input from '../../ui/Input'
 import BitfinexOrders from '../../orders/bitfinex'
 import GridLayoutPage from '../../components/GridLayoutPage'
 import ActiveAlgoOrdersModal from '../../components/ActiveAlgoOrdersModal'
+import TradingModeModal from '../../components/TradingModeModal'
 
 import './style.css'
 
@@ -28,14 +29,10 @@ export default class Trading extends React.PureComponent {
     isGuideActive: PropTypes.bool,
     apiClientConnected: PropTypes.bool,
     hasActiveAlgoOrders: PropTypes.bool,
-    isPaperTrading: PropTypes.bool.isRequired,
-    isTradingModeModalVisible: PropTypes.bool.isRequired,
     isRefillBalanceModalVisible: PropTypes.bool.isRequired,
     finishGuide: PropTypes.func.isRequired,
     getActiveAOs: PropTypes.func.isRequired,
     showActiveAOsModal: PropTypes.func.isRequired,
-    changeTradingModeModalState: PropTypes.func.isRequired,
-    changeTradingMode: PropTypes.func.isRequired,
     changeRefillBalanceModalState: PropTypes.func,
   }
 
@@ -101,17 +98,6 @@ export default class Trading extends React.PureComponent {
     }
   }
 
-  onTradingModeModalClose() {
-    const { changeTradingModeModalState } = this.props
-    changeTradingModeModalState(false)
-  }
-
-  onTradingModeModalSubmit() {
-    const { changeTradingMode, isPaperTrading } = this.props
-    changeTradingMode(!isPaperTrading)
-    window.location.reload()
-  }
-
   onRefillBalanceModalClose() {
     const { changeRefillBalanceModalState } = this.props
     changeRefillBalanceModalState(false)
@@ -128,7 +114,6 @@ export default class Trading extends React.PureComponent {
       showAlgoModal,
       apiClientConnected,
       hasActiveAlgoOrders,
-      isTradingModeModalVisible,
       isRefillBalanceModalVisible,
     } = this.props
     const { steps } = this.state
@@ -145,7 +130,7 @@ export default class Trading extends React.PureComponent {
     }
 
     return (
-      <>
+      <div>
         {firstLogin
          && (
          <Joyride
@@ -183,22 +168,7 @@ export default class Trading extends React.PureComponent {
 
             <div className='hfui-tradingpage__column center'>
               <div className='hfui-marketdatapage__wrapper'>
-                { isTradingModeModalVisible && (
-                  <Modal
-                    onClose={() => this.onTradingModeModalClose()}
-                    actions={(
-                      <Button
-                        green
-                        onClick={() => this.onTradingModeModalSubmit()}
-                        label={[
-                          <p key='text'>Okay</p>,
-                        ]}
-                      />
-                    )}
-                  >
-                    <p>The app will reboot after you press Okay. It&apos;s required for switching trading mode.</p>
-                  </Modal>
-                )}
+                <TradingModeModal />
                 { isRefillBalanceModalVisible && (
                   <Modal
                     label='REFILLING PAPER BALANCES'
@@ -234,7 +204,7 @@ export default class Trading extends React.PureComponent {
           </div>
           <StatusBar />
         </div>
-      </>
+      </div>
     )
   }
 }

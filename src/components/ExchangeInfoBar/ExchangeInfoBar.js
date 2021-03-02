@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Switch from 'react-switch'
+import SwitchMode from '../SwitchMode'
 
 import MarketSelect from '../MarketSelect'
 // import RefillIcon from '../../ui/Icons/RefillIcon'
@@ -38,8 +38,6 @@ export default class ExchangeInfoBar extends React.PureComponent {
       onAddComponent,
       showSave,
       onSave,
-      isPaperTrading,
-      isTradingModeModalVisible,
       // onRefillClick,
     } = this.props
     const {
@@ -130,15 +128,7 @@ export default class ExchangeInfoBar extends React.PureComponent {
           <div className='hfui-tradingpaper__control'>
             <div className='hfui-tradingpaper__control-toggle'>
               <p>Paper Trading</p>
-              <Switch
-                checked={isPaperTrading}
-                onChange={() => this.toggleTradingMode()}
-                disabled={isTradingModeModalVisible}
-                onColor='#54B361'
-                offColor='#d8d8d8'
-                height={21}
-                width={35}
-              />
+              <SwitchMode />
             </div>
             {/* <div className='hfui-tradingpaper__control-refill'>
               <RefillIcon onClick={onRefillClick} />

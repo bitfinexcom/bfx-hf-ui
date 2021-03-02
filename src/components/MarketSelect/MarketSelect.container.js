@@ -1,13 +1,14 @@
 import { connect } from 'react-redux'
 
 import WSActions from '../../redux/actions/ws'
-import { getAuthToken } from '../../redux/selectors/ws'
+import { getAuthToken, getFavoritePairs } from '../../redux/selectors/ws'
+import { getCurrentMode } from '../../redux/selectors/ui'
 import MarketSelect from './MarketSelect'
 
 const mapStateToProps = state => ({
-  favoritePairs: state.ws.favoriteTradingPairs.favoritePairs,
+  favoritePairs: getFavoritePairs(state),
   authToken: getAuthToken(state),
-  currentMode: state.ui.currentMode,
+  currentMode: getCurrentMode(state),
 })
 
 const mapDispatchToProps = dispatch => ({

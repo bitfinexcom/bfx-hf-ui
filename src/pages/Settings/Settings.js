@@ -1,6 +1,7 @@
 import React from 'react'
 
 import StatusBar from '../../components/StatusBar'
+import SwitchMode from '../../components/SwitchMode'
 import Checkbox from '../../ui/Checkbox'
 import Input from '../../ui/Input'
 import Button from '../../ui/Button'
@@ -99,89 +100,97 @@ export default class Settings extends React.Component {
       dms, ga,
     } = this.state
     return (
-      <div className='hfui-settingspage__wrapper'>
-        <div className='hfui-settings__title'>
-          Settings
+      <>
+        <div className='hfui-settings__control-toggle'>
+          <p>
+            Paper Trading
+          </p>
+          <SwitchMode />
         </div>
-        <div className='hfui-settings__content'>
-          <ul className='hfui-settings__options'>
+        <div className='hfui-settingspage__wrapper'>
+          <div className='hfui-settings__title'>
+            Settings
+          </div>
+          <div className='hfui-settings__content'>
+            <ul className='hfui-settings__options'>
 
-            <li>
-              <p className='hfui-settings__option-label'>Dead Man Switch</p>
-              <div className='hfui-settings__option-description'>
-                <p>
-                  Enabling the Dead Man switch will automatically cancel all
-                  active orders when the application closes.
-                </p>
-                <p className='important'>
-                  <em>Disabling this should be done with caution!</em>
-                </p>
-                <p>
-                  Algorithmic orders are cancelled on application close;
-                  without the Dead Man switch, any atomic orders created by an
-                  AO will remain open, and state may be lost when the
-                  application is started up again.
-                </p>
-              </div>
-              <div className='hfui-settings__option-check dms'>
-                <Checkbox
-                  className='hfui-settings_check'
-                  onChange={e => this.onOptionChange(e, 'dms')}
-                  label='DMS'
-                  value={this.getValidBool(dms)} // eslint-disable-line
-                />
-              </div>
-            </li>
+              <li>
+                <p className='hfui-settings__option-label'>Dead Man Switch</p>
+                <div className='hfui-settings__option-description'>
+                  <p>
+                    Enabling the Dead Man switch will automatically cancel all
+                    active orders when the application closes.
+                  </p>
+                  <p className='important'>
+                    <em>Disabling this should be done with caution!</em>
+                  </p>
+                  <p>
+                    Algorithmic orders are cancelled on application close;
+                    without the Dead Man switch, any atomic orders created by an
+                    AO will remain open, and state may be lost when the
+                    application is started up again.
+                  </p>
+                </div>
+                <div className='hfui-settings__option-check dms'>
+                  <Checkbox
+                    className='hfui-settings_check'
+                    onChange={e => this.onOptionChange(e, 'dms')}
+                    label='DMS'
+                    value={this.getValidBool(dms)} // eslint-disable-line
+                  />
+                </div>
+              </li>
 
-            <li>
-              <div className='hfui-settings__option-check ga'>
-                <Checkbox
-                  className='hfui-settings_check'
-                  onChange={e => this.onOptionChange(e, 'ga')}
-                  label='Usage reporting'
-                  value={this.getValidBool(ga)} // eslint-disable-line
-                />
-              </div>
-            </li>
+              <li>
+                <div className='hfui-settings__option-check ga'>
+                  <Checkbox
+                    className='hfui-settings_check'
+                    onChange={e => this.onOptionChange(e, 'ga')}
+                    label='Usage reporting'
+                    value={this.getValidBool(ga)} // eslint-disable-line
+                  />
+                </div>
+              </li>
 
-            <li>
-              <p className='hfui-settings__option-label'>API credentials</p>
-              <div className='hfui-settings__option-description'>
-                <p>Fill in to update stored values</p>
-              </div>
-              <div className='hfui-settings__option'>
-                <Input
-                  type='text'
-                  placeholder='API Key'
-                  onChange={e => this.onOptionChange(e, 'apiKey')}
-                  className='hfui-settings__item-list api-key'
-                />
-                <Input
-                  type='password'
-                  placeholder='API Secret'
-                  onChange={e => this.onOptionChange(e, 'apiSecret')}
-                  className='hfui-settings__item-list api-secret'
-                />
-              </div>
-            </li>
+              <li>
+                <p className='hfui-settings__option-label'>API credentials</p>
+                <div className='hfui-settings__option-description'>
+                  <p>Fill in to update stored values</p>
+                </div>
+                <div className='hfui-settings__option'>
+                  <Input
+                    type='text'
+                    placeholder='API Key'
+                    onChange={e => this.onOptionChange(e, 'apiKey')}
+                    className='hfui-settings__item-list api-key'
+                  />
+                  <Input
+                    type='password'
+                    placeholder='API Secret'
+                    onChange={e => this.onOptionChange(e, 'apiSecret')}
+                    className='hfui-settings__item-list api-secret'
+                  />
+                </div>
+              </li>
 
-            <li>
-              <div className='hfui-settings__option'>
-                <Button
-                  onClick={() => this.onSettingsSave(authToken)}
-                  label='Save'
-                  className='settings-save'
-                  green
-                />
-              </div>
-            </li>
-          </ul>
+              <li>
+                <div className='hfui-settings__option'>
+                  <Button
+                    onClick={() => this.onSettingsSave(authToken)}
+                    label='Save'
+                    className='settings-save'
+                    green
+                  />
+                </div>
+              </li>
+            </ul>
+          </div>
+          <StatusBar
+            key='statusbar'
+            displayLayoutControls={false}
+          />
         </div>
-        <StatusBar
-          key='statusbar'
-          displayLayoutControls={false}
-        />
-      </div>
+      </>
     )
   }
 }

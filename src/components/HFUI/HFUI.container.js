@@ -5,7 +5,7 @@ import WSActions from '../../redux/actions/ws'
 
 import GAActions from '../../redux/actions/google_analytics'
 import { updateGithubAppVersion } from '../../redux/actions/data'
-import { getActiveMarket } from '../../redux/selectors/ui'
+import { getActiveMarket, getCurrentMode } from '../../redux/selectors/ui'
 import { getAuthToken } from '../../redux/selectors/ws'
 
 import HFUI from './HFUI'
@@ -22,7 +22,7 @@ const mapStateToProps = (state = {}) => {
     activeMarket: getActiveMarket(state),
     authToken: getAuthToken(state),
     notificationsVisible,
-    currentMode: state.ui.currentMode,
+    currentMode: getCurrentMode(state),
   }
 }
 

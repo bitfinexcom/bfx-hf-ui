@@ -1,10 +1,13 @@
 .hfui-strategyeditorpage__wrapper {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   height: calc(100% - 100px);
-  width: 100%;
   padding-bottom: 64px;
-
+  .hfui-strategyeditorpage__content-wrapper {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+  }
   .hfui-panel {
     margin: 16px;
   }

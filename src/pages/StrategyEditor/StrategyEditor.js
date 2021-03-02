@@ -8,6 +8,8 @@ import Markdown from '../../ui/Markdown'
 import StatusBar from '../../components/StatusBar'
 import Backtester from '../../components/Backtester'
 import LiveStrategyExecutor from '../../components/LiveStrategyExecutor'
+import ExchangeInfoBar from '../../components/ExchangeInfoBar'
+import TradingModeModal from '../../components/TradingModeModal'
 import { propTypes, defaultProps } from './StrategyEditor.props'
 
 import './style.css'
@@ -112,65 +114,69 @@ export default class StrategyEditorPage extends React.Component {
     const { firstLogin, isGuideActive } = this.props
     return (
       <div className='hfui-strategyeditorpage__wrapper'>
-        <StrategyEditor
-          dark
-          onStrategySelect={content => this.selectStrategy(content)}
-          onStrategyChange={content => this.setContent(content)}
-          key='editor'
-          onIndicatorsChange={this.onIndicatorsChange}
-          moveable={false}
-          removeable={false}
-          tf='1m'
-        />
-        {firstLogin
-         && (
-         <Joyride
-           steps={steps}
-           callback={this.onGuideFinish}
-           run={isGuideActive}
-           continuous
-           showProgress
-           showSkipButton
-           styles={{
-             options: {
-               zIndex: 10000,
-             },
-           }}
-         />
-         )}
-        <div
-          key='main'
-          className='hfui-strategiespage__right'
-        >
-          <Panel
-            className='hfui-strategiespage__pannel-wrapper'
+        <TradingModeModal />
+        <ExchangeInfoBar />
+        <div className='hfui-strategyeditorpage__content-wrapper'>
+          <StrategyEditor
+            dark
+            onStrategySelect={content => this.selectStrategy(content)}
+            onStrategyChange={content => this.setContent(content)}
+            key='editor'
+            onIndicatorsChange={this.onIndicatorsChange}
             moveable={false}
             removeable={false}
-            forcedTab={forcedTab}
-            darkHeader
+            tf='1m'
+          />
+          {firstLogin
+          && (
+          <Joyride
+            steps={steps}
+            callback={this.onGuideFinish}
+            run={isGuideActive}
+            continuous
+            showProgress
+            showSkipButton
+            styles={{
+              options: {
+                zIndex: 10000,
+              },
+            }}
+          />
+          )}
+          <div
+            key='main'
+            className='hfui-strategiespage__right'
           >
-            <Markdown
-              tabtitle='Docs'
-              text={docsText}
-            />
-            <div
-              tabtitle='Backtest' // lowercase name for div is requiered
-              style={{ height: 1200 }}
+            <Panel
+              className='hfui-strategiespage__pannel-wrapper'
+              moveable={false}
+              removeable={false}
+              forcedTab={forcedTab}
+              darkHeader
             >
-              <Backtester
-                {...this.props}
-                strategyContent={strategyContent}
-                indicators={indicators}
+              <Markdown
+                tabtitle='Docs'
+                text={docsText}
               />
-            </div>
-            <div
-              tabtitle='Execute' // lowercase name for div is requiered
-            >
-              <LiveStrategyExecutor
-                strategyContent={strategyContent}
-              />
-            </div>
-          </Panel>
+              <div
+                tabtitle='Backtest' // lowercase name for div is requiered
+                style={{ height: 1200 }}
+              >
+                <Backtester
+                  {...this.props}
+                  strategyContent={strategyContent}
+                  indicators={indicators}
+                />
+              </div>
+              <div
+                tabtitle='Execute' // lowercase name for div is requiered
+              >
+                <LiveStrategyExecutor
+                  strategyContent={strategyContent}
+                />
+              </div>
+            </Panel>
+          </div>
         </div>
 
         <StatusBar

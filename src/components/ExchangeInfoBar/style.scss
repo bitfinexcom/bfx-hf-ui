@@ -36,23 +36,7 @@
     }
   }
 }
-.hfui-tradingpaper__control {
-  display: flex;
-  gap: 13px;
-  border-right: 1px solid #102331;
-  padding-right: 15px;
-  flex-direction: row;
-  .hfui-tradingpaper__control-toggle {
-    p {
-      font-weight: 300;
-      font-size: 13px;
-    }
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-  }
-}
+
 .hfui-exchangeinfobar__left {
   display: flex;
   flex-direction: row;
@@ -143,4 +127,22 @@
 
 .react-switch-bg svg * {
   display: none;
+}
+
+.hfui-tradingpaper__control {
+  display: flex;
+  gap: 13px;
+  border-right: 1px solid #102331;
+  padding-right: 15px;
+  flex-direction: row;
+  .hfui-tradingpaper__control-toggle {
+    p {
+      font-weight: 300;
+      font-size: 13px;
+    }
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+  }
 }
