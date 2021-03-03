@@ -7,8 +7,7 @@ export default function* (action = {}) {
   const { payload = {} } = action
   const { exID, channel = [] } = payload
   const req = yield select(getChannelRequirements, exID, channel)
-
-  if (req !== 1) { // only subscribe on the first requirement
+  if (req > 1) {
     return
   }
 

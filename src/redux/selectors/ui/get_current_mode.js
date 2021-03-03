@@ -4,5 +4,5 @@ import { REDUCER_PATHS } from '../../config'
 const path = REDUCER_PATHS.UI
 
 export default (state) => {
-  return _get(state, `${path}.currentMode`, 'paper')
+  return _get(state, `${path}.currentMode`, 'main')
 }

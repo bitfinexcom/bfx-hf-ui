@@ -2,6 +2,7 @@ import React from 'react'
 
 import StatusBar from '../../components/StatusBar'
 import SwitchMode from '../../components/SwitchMode'
+import TradingModeModal from '../../components/TradingModeModal'
 import Checkbox from '../../ui/Checkbox'
 import Input from '../../ui/Input'
 import Button from '../../ui/Button'
@@ -105,6 +106,7 @@ export default class Settings extends React.Component {
           <p>
             Paper Trading
           </p>
+          <TradingModeModal />
           <SwitchMode />
         </div>
         <div className='hfui-settingspage__wrapper'>
