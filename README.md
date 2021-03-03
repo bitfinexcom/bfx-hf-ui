@@ -31,6 +31,7 @@ npm start
 ### Dev Enviroment Config
 
 > For a full reference, refer to the [CRA environment config docs](https://create-react-app.dev/docs/adding-custom-environment-variables)
+> All values below may be placed in a `.env` fle within the project root
 
 Several env vars are available for configuring the behavior of the live-reload
 webpack server & build system. These only affect the server responsible for
