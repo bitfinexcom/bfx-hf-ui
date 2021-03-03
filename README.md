@@ -28,6 +28,39 @@ npm run start-ds-bitfinex
 npm start
 ```
 
+### Dev Enviroment Config
+
+> For a full reference, refer to the [CRA environment config docs](https://create-react-app.dev/docs/adding-custom-environment-variables)
+
+Several env vars are available for configuring the behavior of the live-reload
+webpack server & build system. These only affect the server responsible for
+the static react app content, and are as follows (all optional):
+
+```sh
+# Static SPA server (live-reload)
+PUBLIC_URL='/' # URL prefix for all assets
+HOST='0.0.0.0'
+PORT=10
+
+# HTTPS handling, cert & key are relative to app root
+HTTPS='true' # only valid value
+SSL_CRT_FILE='...'
+SSL_KEY_FILE='...'
+
+# General
+BABEL_ENV='development'
+NODE_ENV='development'
+
+# As per CRA, this allows one to override the path to the node_modules folder
+NODE_PATH="$(pwd)"
+```
+
+*Note: `bfx-hf-ui` is an exploded CRA, and as such the exact env vars available
+ay not match the latest CRA release. Consult
+[config/env.js](/blob/master/config/env.js) and
+[config/getHttpsConfig.js](/blob/master/config/getHttpsConfig.js) for the exact
+vars in use.*
+
 ## Build electron app manually
 
 Generates an installable application to run independently from the browser. Once you have ran the below command navigate to the `/dist` folder and select the instillation executable file for the operating system that you are using.
