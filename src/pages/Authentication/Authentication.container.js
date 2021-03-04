@@ -19,6 +19,7 @@ const mapStateToProps = (state = {}) => {
 
 const mapDispatchToProps = dispatch => ({ // eslint-disable-line
   onInit: (password) => {
+    dispatch(UIActions.setTradingMode(false))
     dispatch(WSActions.initAuth(password))
     dispatch(UIActions.firstLogin())
   },
@@ -32,7 +33,7 @@ const mapDispatchToProps = dispatch => ({ // eslint-disable-line
 
   onReset: () => {
     dispatch(WSActions.resetAuth())
-    window.localStorage.clear()
+    window.localStorage.setItem('IS_PAPER_TRADING', false)
   },
 })
 
