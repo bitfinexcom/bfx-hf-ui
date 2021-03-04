@@ -32,6 +32,7 @@ const mapDispatchToProps = dispatch => ({ // eslint-disable-line
 
   onReset: () => {
     dispatch(WSActions.resetAuth())
+    window.localStorage.clear()
   },
 })
 
