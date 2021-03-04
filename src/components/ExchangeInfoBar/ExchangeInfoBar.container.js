@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import _isEqual from 'lodash/isEqual'
 
 import WSActions from '../../redux/actions/ws'
 import UIActions from '../../redux/actions/ui'
@@ -33,6 +34,9 @@ const mapDispatchToProps = dispatch => ({
   },
 
   onChangeMarket: (exchange, market, prevMarket) => {
+    if (_isEqual(market, prevMarket)) {
+      return
+    }
     dispatch(WSActions.removeChannelRequirement(exchange, ['ticker', prevMarket]))
     dispatch(UIActions.setActiveMarket(market))
     dispatch(WSActions.addChannelRequirement(exchange, ['ticker', market]))
