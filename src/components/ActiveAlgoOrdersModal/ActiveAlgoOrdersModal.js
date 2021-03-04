@@ -12,7 +12,6 @@ import AlgoOrdersTable from './ActiveAlgoOrdersModal.table'
 import './style.css'
 
 const ActiveAlgoOrdersModal = ({
-  onClose,
   activeAlgoOrders,
   handleActiveOrders,
 }) => {
@@ -70,24 +69,29 @@ const ActiveAlgoOrdersModal = ({
 
   const onSubmit = (type) => {
     const ordersLeft = _differenceBy(ordersList, selectedOrders, 'gid')
+    const allOrders = prepareOrders(ordersList)
     const unselectedOrders = prepareOrders(ordersLeft)
-    handleActiveOrders({ type, selectedOrders, unselectedOrders })
+    handleActiveOrders({
+      type,
+      allOrders,
+      selectedOrders,
+      unselectedOrders,
+    })
   }
 
   return (
     <Modal
-      onClose={onClose}
+      onClose={() => onSubmit('cancel_all')}
       label='Active Orders'
       className='hfui-active-ao-modal__wrapper'
       actions={[(
         <Button
           green
           key='orders_cancel'
-          onClick={() => onSubmit('cancel')}
-          disabled={_isEmpty(selectedOrders)}
+          onClick={() => onSubmit('cancel_all')}
           className='hfui-active-ao-modal-btn mr-10'
           label={[
-            <p key='text'>Cancel</p>,
+            <p key='text'>Cancel All</p>,
           ]}
         />
       ), (
@@ -115,7 +119,6 @@ const ActiveAlgoOrdersModal = ({
 }
 
 ActiveAlgoOrdersModal.propTypes = {
-  onClose: PropTypes.func.isRequired,
   handleActiveOrders: PropTypes.func.isRequired,
   activeAlgoOrders: PropTypes.arrayOf(PropTypes.object),
 }

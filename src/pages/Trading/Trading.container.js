@@ -2,8 +2,8 @@ import { connect } from 'react-redux'
 
 import UIActions from '../../redux/actions/ui'
 import { TRADING_PAGE } from '../../redux/constants/ui'
+import { getActiveAlgoOrders } from '../../redux/actions/ao'
 import { apiClientConnected } from '../../redux/selectors/ws'
-import { getActiveAlgoOrders, showActiveOrdersModal } from '../../redux/actions/ao'
 import { getHasActiveAlgoOrders, getShowActiveAlgoModal } from '../../redux/selectors/ao'
 import {
   getLayouts,
@@ -31,7 +31,6 @@ const mapDispatchToProps = dispatch => ({
   createLayout: (id) => dispatch(UIActions.createLayout(id)),
   finishGuide: () => dispatch(UIActions.finishGuide(TRADING_PAGE)),
   saveLayout: (layout, id) => dispatch(UIActions.saveLayout(layout, id)),
-  showActiveAOsModal: (status) => dispatch(showActiveOrdersModal(status)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Trading)

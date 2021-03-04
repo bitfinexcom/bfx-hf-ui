@@ -32,7 +32,6 @@ export default class Trading extends React.PureComponent {
     isRefillBalanceModalVisible: PropTypes.bool.isRequired,
     finishGuide: PropTypes.func.isRequired,
     getActiveAOs: PropTypes.func.isRequired,
-    showActiveAOsModal: PropTypes.func.isRequired,
     changeRefillBalanceModalState: PropTypes.func,
   }
 
@@ -81,11 +80,6 @@ export default class Trading extends React.PureComponent {
   componentDidUpdate() {
     const { getActiveAOs } = this.props
     getActiveAOs()
-  }
-
-  onCloseAlgoModal = () => {
-    const { showActiveAOsModal } = this.props
-    showActiveAOsModal(false)
   }
 
   onGuideFinish = (data) => {
@@ -148,7 +142,7 @@ export default class Trading extends React.PureComponent {
          />
          )}
         {showAlgoModal && hasActiveAlgoOrders && apiClientConnected
-          && <ActiveAlgoOrdersModal onClose={() => this.onCloseAlgoModal()} />}
+          && <ActiveAlgoOrdersModal />}
         <ExchangeInfoBar
           showSave
           showAddComponent
