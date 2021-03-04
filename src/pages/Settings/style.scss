@@ -84,11 +84,12 @@
   border-bottom: 1.5px solid #102331;
   flex-direction: row;
   justify-content: flex-end;
-  gap: 13px;
   padding: 25px;
   align-items: flex-end;
   p {
     font-weight: 300;
     font-size: 13px;
+    padding-right: 13px;
+    padding-bottom: 4px;
   }
 }

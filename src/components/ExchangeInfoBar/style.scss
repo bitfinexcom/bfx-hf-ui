@@ -131,17 +131,17 @@
 
 .hfui-tradingpaper__control {
   display: flex;
-  gap: 13px;
   border-right: 1px solid #102331;
   padding-right: 15px;
   flex-direction: row;
+  justify-content: space-between;
   .hfui-tradingpaper__control-toggle {
     p {
       font-weight: 300;
       font-size: 13px;
+      padding-right: 10px;
     }
     display: flex;
-    gap: 10px;
     justify-content: center;
     align-items: center;
   }

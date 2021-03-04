@@ -11,7 +11,7 @@ import {
   getAPIClientStates, getAuthToken, getAPICredentials,
 } from '../../redux/selectors/ws'
 import {
-  getComponentState, getActiveExchange, getActiveMarket,
+  getComponentState, getActiveExchange, getActiveMarket, getCurrentMode,
 } from '../../redux/selectors/ui'
 
 const debug = Debug('hfui:c:order-form')
@@ -31,6 +31,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     authToken: getAuthToken(state),
     apiCredentials: getAPICredentials(state),
     favoritePairs,
+    mode: getCurrentMode(state),
   }
 }
 
@@ -76,13 +77,14 @@ const mapDispatchToProps = dispatch => ({
 
   submitAPIKeys: ({
     exID, authToken, apiKey, apiSecret,
-  }) => {
+  }, mode) => {
     dispatch(WSActions.send([
       'api_credentials.save',
       authToken,
       exID,
       apiKey,
       apiSecret,
+      mode,
     ]))
   },
 

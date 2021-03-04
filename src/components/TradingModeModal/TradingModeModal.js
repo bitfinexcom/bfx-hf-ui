@@ -20,7 +20,7 @@ export default class SwitchMode extends React.PureComponent {
   onTradingModeModalSubmit() {
     const { changeTradingMode, isPaperTrading } = this.props
     changeTradingMode(!isPaperTrading)
-    window.location.reload()
+    location.replace('/index.html') // eslint-disable-line
   }
 
   render() {

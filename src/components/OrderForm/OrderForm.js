@@ -155,16 +155,15 @@ export default class OrderForm extends React.Component {
   }
 
   onSubmitAPIKeys({ apiKey, apiSecret, password }) {
-    const { submitAPIKeys, authToken } = this.props
+    const { submitAPIKeys, authToken, mode } = this.props
     const { currentExchange } = this.state
-
     submitAPIKeys({
       authToken,
       exID: currentExchange,
       apiKey,
       apiSecret,
       password,
-    })
+    }, mode)
   }
 
   onToggleHelp() {
