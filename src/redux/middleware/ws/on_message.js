@@ -50,6 +50,7 @@ export default (ws, store) => (e = {}) => {
     case 'info.auth_token': {
       const [, token] = payload
       store.dispatch(WSActions.recvAuthToken(token))
+      store.dispatch(AOActions.getActiveAlgoOrders())
       break
     }
 
@@ -262,13 +263,13 @@ export default (ws, store) => (e = {}) => {
     case 'algo.active_orders': {
       const [, activeAlgoOrders] = payload
       store.dispatch(AOActions.setActiveAlgoOrders(activeAlgoOrders))
+      store.dispatch(AOActions.showActiveOrdersModal(true))
       break
     }
 
     case 'algo.cancel_orders': {
       store.dispatch(WSActions.clearAlgoOrders())
       store.dispatch(UIActions.setFilteredValueWithKey('filteredAO', []))
-      store.dispatch(AOActions.showActiveOrdersModal(true))
       break
     }
 

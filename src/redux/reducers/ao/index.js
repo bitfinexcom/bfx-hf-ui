@@ -2,7 +2,7 @@ import types from '../../constants/ao'
 
 function getInitialState() {
   return {
-    showActiveAlgoModal: true,
+    showActiveAlgoModal: false,
   }
 }
 

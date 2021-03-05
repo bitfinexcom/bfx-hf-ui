@@ -76,7 +76,11 @@ export default class Settings extends React.Component {
   }
 
   onSettingsSave(authToken) {
-    const { updateSettings, gaUpdateSettings } = this.props
+    const {
+      getActiveAOs,
+      updateSettings,
+      gaUpdateSettings,
+    } = this.props
     const {
       apiKey, apiSecret, dms, ga,
     } = this.state
@@ -88,6 +92,7 @@ export default class Settings extends React.Component {
     updateSettings({
       dms, authToken, ga,
     })
+    getActiveAOs()
     gaUpdateSettings()
   }
 

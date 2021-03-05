@@ -5,6 +5,7 @@ import { getExchanges, getMarkets } from '../../redux/selectors/meta'
 import UIActions from '../../redux/actions/ui'
 import WSActions from '../../redux/actions/ws'
 import GAActions from '../../redux/actions/google_analytics'
+import { getActiveAlgoOrders } from '../../redux/actions/ao'
 
 import {
   getAPIClientStates, getAuthToken, getAPICredentials,
@@ -74,6 +75,7 @@ const mapDispatchToProps = dispatch => ({
       ga,
     ]))
   },
+  getActiveAOs: () => dispatch(getActiveAlgoOrders()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings)
