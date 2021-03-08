@@ -31,7 +31,6 @@ export default class Trading extends React.PureComponent {
     hasActiveAlgoOrders: PropTypes.bool,
     isRefillBalanceModalVisible: PropTypes.bool.isRequired,
     finishGuide: PropTypes.func.isRequired,
-    getActiveAOs: PropTypes.func.isRequired,
     changeRefillBalanceModalState: PropTypes.func,
   }
 
@@ -70,16 +69,6 @@ export default class Trading extends React.PureComponent {
         content: 'Here you can find the current version of your app. In case there is an update, there will be an update button',
       },
     ],
-  }
-
-  componentDidMount() {
-    const { getActiveAOs } = this.props
-    getActiveAOs()
-  }
-
-  componentDidUpdate() {
-    const { getActiveAOs } = this.props
-    getActiveAOs()
   }
 
   onGuideFinish = (data) => {
