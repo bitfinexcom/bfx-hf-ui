@@ -26,8 +26,6 @@ export default class SwitchMode extends React.PureComponent {
       isPaperTrading,
       changeTradingMode,
     } = this.props
-    console.log(authToken)
-    console.log(currentMode)
     changeTradingMode(!isPaperTrading, authToken, currentMode)
     location.replace('/index.html') // eslint-disable-line
   }
