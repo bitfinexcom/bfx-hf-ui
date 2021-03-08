@@ -57,14 +57,14 @@ const verifyCondition = (condition = {}, value) => {
     return condition.eq === value
   } if (typeof condition.neq !== 'undefined') {
     return condition.neq !== value
-  } if (condition.lt) {
-    return value < condition.lt
-  } if (condition.lte) {
-    return value <= condition.lte
-  } if (condition.gt) {
+  } if (typeof condition.gt !== 'undefined') {
     return value > condition.gt
-  } if (condition.gte) {
+  } if (typeof condition.gte !== 'undefined') {
     return value >= condition.gte
+  } if (typeof condition.lt !== 'undefined') {
+    return value < condition.lt
+  } if (typeof condition.lte !== 'undefined') {
+    return value <= condition.lte
   }
 
   console.error(`unknown condition: ${Object.keys(condition).join(', ')}`)
