@@ -6,6 +6,8 @@ import Button from '../../ui/Button'
 
 export default class SwitchMode extends React.PureComponent {
   static propTypes = {
+    authToken: PropTypes.string.isRequired,
+    currentMode: PropTypes.string.isRequired,
     changeTradingMode: PropTypes.func.isRequired,
     changeTradingModeModalState: PropTypes.func.isRequired,
     isPaperTrading: PropTypes.bool.isRequired,
@@ -18,8 +20,15 @@ export default class SwitchMode extends React.PureComponent {
   }
 
   onTradingModeModalSubmit() {
-    const { changeTradingMode, isPaperTrading } = this.props
-    changeTradingMode(!isPaperTrading)
+    const {
+      authToken,
+      currentMode,
+      isPaperTrading,
+      changeTradingMode,
+    } = this.props
+    console.log(authToken)
+    console.log(currentMode)
+    changeTradingMode(!isPaperTrading, authToken, currentMode)
     location.replace('/index.html') // eslint-disable-line
   }
 
@@ -42,7 +51,7 @@ export default class SwitchMode extends React.PureComponent {
           />
         )}
       >
-        <p>The app will reboot after you press Okay. It&apos;s required for switching trading mode.</p>
+        <p> The app will reboot after you press Okay. It&apos;s required for switching trading mode. Open algo orders are paused.</p>
       </Modal>
     )
   }
