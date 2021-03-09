@@ -39,14 +39,6 @@ const mapDispatchToProps = dispatch => ({
       componentID,
     }))
   },
-
-  savePairs: (pairs, authToken) => {
-    dispatch(WSActions.send([
-      'favourite_trading_pairs.save',
-      authToken,
-      pairs,
-    ]))
-  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChartPanel)
