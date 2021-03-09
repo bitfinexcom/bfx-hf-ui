@@ -9,7 +9,7 @@ import Tooltip from '../../../ui/Tooltip'
 
 import NumberInput from './input.number'
 
-export default class PercentInput extends NumberInput {
+export default class PercentInput extends React.PureComponent {
   static propTypes = {
     def: PropTypes.instanceOf(Object).isRequired,
     renderData: PropTypes.instanceOf(Object).isRequired,
