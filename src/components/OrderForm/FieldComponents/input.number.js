@@ -1,15 +1,26 @@
 import React from 'react'
 import ClassNames from 'classnames'
 import _isFinite from 'lodash/isFinite'
+import PropTypes from 'prop-types'
 
 import Input from '../../../ui/Input'
 import Tooltip from '../../../ui/Tooltip'
-import { propTypes, defaultProps } from './input.number.props'
 import { renderString, CONVERT_LABELS_TO_PLACEHOLDERS } from '../OrderForm.helpers'
 
 export default class NumberInput extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+  static propTypes = {
+    def: PropTypes.instanceOf(Object).isRequired,
+    renderData: PropTypes.instanceOf(Object).isRequired,
+    value: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+    validationError: PropTypes.string,
+    disabled: PropTypes.bool,
+  }
+
+  static defaultProps = {
+    disabled: false,
+    validationError: '',
+  }
   static DEFAULT_VALUE = ''
   static processValue = v => +v
   static validateValue = (v) => {
