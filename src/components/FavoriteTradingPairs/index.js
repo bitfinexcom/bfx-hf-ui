@@ -1,12 +1,27 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import FavoriteIcon from '../../ui/Icons/FavoriteIcon'
 
-import { propTypes, defaultProps } from './FavoriteTradingPairs.props'
 import './style.css'
 
 export default class FavoriteTradingPairs extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+  static propTypes = {
+    onSelect: PropTypes.func.isRequired,
+    savePairs: PropTypes.func.isRequired,
+    authToken: PropTypes.string,
+    exchange: PropTypes.string,
+    currentMarket: PropTypes.instanceOf(Object),
+    allMarkets: PropTypes.instanceOf(Object),
+    favoritePairs: PropTypes.instanceOf(Array),
+  }
+
+  static defaultProps = {
+    exchange: 'bitfinex',
+    authToken: '',
+    currentMarket: {},
+    allMarkets: {},
+    favoritePairs: [],
+  }
 
   onSelect(pair) {
     const {

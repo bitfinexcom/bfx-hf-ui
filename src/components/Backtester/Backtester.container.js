@@ -4,7 +4,6 @@ import WSActions from '../../redux/actions/ws'
 import {
   getBacktestState, getBacktestData, getBacktestResults, getAuthToken,
 } from '../../redux/selectors/ws'
-import { getCurrentMode } from '../../redux/selectors/ui'
 import { getMarkets } from '../../redux/selectors/meta'
 
 import Backtester from './Backtester'
@@ -17,7 +16,6 @@ const mapStateToProps = (state = {}) => ({
   strategyContent: state.ui.content,
   backtestOptions: state.ws.backtest.backtestOptions || {},
   authToken: getAuthToken(state),
-  mode: getCurrentMode(state),
 })
 
 const mapDispatchToProps = dispatch => ({
