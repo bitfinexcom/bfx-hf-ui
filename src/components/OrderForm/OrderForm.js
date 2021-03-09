@@ -403,6 +403,8 @@ export default class OrderForm extends React.Component {
     const renderData = marketToQuoteBase(currentMarket)
     const atomicOrderTypes = []
     const algoOrderTypes = []
+    const { amount, sliceAmount } = fieldData
+    if (+sliceAmount > +amount) validationErrors.sliceAmount = 'Slice amount cannot be greater than amount'
 
     orders[currentExchange].forEach(({ label, id, uiIcon }) => atomicOrderTypes.push({
       id,
