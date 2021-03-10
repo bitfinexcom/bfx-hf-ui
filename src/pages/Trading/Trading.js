@@ -100,7 +100,6 @@ export default class Trading extends React.PureComponent {
       isRefillBalanceModalVisible,
     } = this.props
     const { steps } = this.state
-    console.log(isGuideActive, firstLogin)
     const commonComponentProps = {
       dark: true,
       moveable: true,

@@ -235,7 +235,6 @@ function reducer(state = getInitialState(), action = {}) {
     }
     case types.FINISH_GUIDE: {
       const page = payload
-      console.log({ [`${page}_GUIDE_ACTIVE`]: false })
       return {
         ...state,
         [`${page}_GUIDE_ACTIVE`]: false,
