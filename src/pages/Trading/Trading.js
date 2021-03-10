@@ -37,9 +37,9 @@ export default class Trading extends React.PureComponent {
   static defaultProps ={
     firstLogin: false,
     showAlgoModal: false,
-    isGuideActive: false,
     apiClientConnected: false,
     hasActiveAlgoOrders: false,
+    isGuideActive: true,
     changeRefillBalanceModalState: () => {},
   }
 
@@ -100,6 +100,7 @@ export default class Trading extends React.PureComponent {
       isRefillBalanceModalVisible,
     } = this.props
     const { steps } = this.state
+    console.log(isGuideActive, firstLogin)
     const commonComponentProps = {
       dark: true,
       moveable: true,

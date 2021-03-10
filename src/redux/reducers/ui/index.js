@@ -34,7 +34,7 @@ function getInitialState() {
     previousMarket: null,
     previousExchange: null,
     remoteVersion: null,
-    firstLogin: true,
+    firstLogin: false,
     isPaperTrading: false,
     TRADING_PAGE_IS_GUIDE_ACTIVE: true,
     isTradingModeModalVisible: false,
@@ -235,6 +235,7 @@ function reducer(state = getInitialState(), action = {}) {
     }
     case types.FINISH_GUIDE: {
       const page = payload
+      console.log({ [`${page}_GUIDE_ACTIVE`]: false })
       return {
         ...state,
         [`${page}_GUIDE_ACTIVE`]: false,
