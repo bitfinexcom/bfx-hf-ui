@@ -1,5 +1,6 @@
 import React from 'react'
 import ClassNames from 'classnames'
+import BigN from 'bignumber.js'
 import PropTypes from 'prop-types'
 
 import { renderString, CONVERT_LABELS_TO_PLACEHOLDERS } from '../OrderForm.helpers'
@@ -24,7 +25,7 @@ export default class PercentInput extends React.PureComponent {
     value: '',
   }
   static DEFAULT_VALUE = ''
-  static processValue = v => (v / 100.0)
+  static processValue = v => (new BigN((+v).toFixed(2)).dividedBy(100.0))
   static validateValue = (v) => {
     const value = v.trim()
     const numericError = NumberInput.validateValue(value)
@@ -57,7 +58,8 @@ export default class PercentInput extends React.PureComponent {
     } = this.props
     const { label, customHelp } = def
     const renderedLabel = renderString(label, renderData)
-    const [, decimal] = value.split('.')
+    const digits = value.split('.')
+    const [, decimal] = digits.length === 2 ? digits : []
     if (decimal && decimal.length >= 2) {
       fixedValue = (+value).toFixed(2)
     }
