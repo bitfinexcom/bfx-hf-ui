@@ -25,7 +25,7 @@ export default class PercentInput extends React.PureComponent {
     value: '',
   }
   static DEFAULT_VALUE = ''
-  static processValue = v => (new BigN((+v).toFixed(2)).dividedBy(100.0))
+  static processValue = v => (new BigN((+v)).toFixed(2, 1).dividedBy(100.0))
   static validateValue = (v) => {
     const value = v.trim()
     const numericError = NumberInput.validateValue(value)
@@ -61,7 +61,7 @@ export default class PercentInput extends React.PureComponent {
     const digits = value.split('.')
     const [, decimal] = digits.length === 2 ? digits : []
     if (decimal && decimal.length >= 2) {
-      fixedValue = (+value).toFixed(2)
+      fixedValue = new BigN((+value)).toFixed(2, 1)
     }
     return (
       <div className={ClassNames('hfui-orderform__input', {
