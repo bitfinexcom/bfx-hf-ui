@@ -37,9 +37,9 @@ export default class Trading extends React.PureComponent {
   static defaultProps ={
     firstLogin: false,
     showAlgoModal: false,
-    isGuideActive: false,
     apiClientConnected: false,
     hasActiveAlgoOrders: false,
+    isGuideActive: true,
     changeRefillBalanceModalState: () => {},
   }
 

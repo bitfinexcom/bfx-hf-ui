@@ -9,6 +9,7 @@ import {
   getActiveExchange,
   getIsRefillBalanceModalVisible,
   getFirstLogin,
+  getGuideStatusForPage,
 } from '../../redux/selectors/ui'
 
 import Trading from './Trading'
@@ -21,7 +22,7 @@ const mapStateToProps = (state = {}) => ({
   apiClientConnected: apiClientConnected(state),
   hasActiveAlgoOrders: getHasActiveAlgoOrders(state),
   isRefillBalanceModalVisible: getIsRefillBalanceModalVisible(state),
-  isGuideActive: state.ui[`${TRADING_PAGE}_GUIDE_ACTIVE`],
+  isGuideActive: getGuideStatusForPage(state, TRADING_PAGE),
 })
 
 const mapDispatchToProps = dispatch => ({

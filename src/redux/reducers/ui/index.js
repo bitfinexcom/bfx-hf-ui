@@ -34,7 +34,7 @@ function getInitialState() {
     previousMarket: null,
     previousExchange: null,
     remoteVersion: null,
-    firstLogin: true,
+    firstLogin: false,
     isPaperTrading: false,
     TRADING_PAGE_IS_GUIDE_ACTIVE: true,
     isTradingModeModalVisible: false,

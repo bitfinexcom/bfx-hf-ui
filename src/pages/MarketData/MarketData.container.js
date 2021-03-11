@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import {
   getLayouts, getActiveMarket, getActiveExchange, getFirstLogin,
+  getGuideStatusForPage,
 } from '../../redux/selectors/ui'
 import { MARKET_PAGE } from '../../redux/constants/ui'
 import UIActions from '../../redux/actions/ui'
@@ -12,7 +13,7 @@ const mapStateToProps = (state = {}) => ({
   activeMarket: getActiveMarket(state),
   exID: getActiveExchange(state),
   firstLogin: getFirstLogin(state),
-  isGuideActive: state.ui[`${MARKET_PAGE}_GUIDE_ACTIVE`],
+  isGuideActive: getGuideStatusForPage(state, MARKET_PAGE),
 
 })
 
