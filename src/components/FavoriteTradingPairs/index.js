@@ -1,43 +1,52 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import FavoriteIcon from '../../ui/Icons/FavoriteIcon'
 
-import { propTypes, defaultProps } from './FavoriteTradingPairs.props'
 import './style.css'
 
 export default class FavoriteTradingPairs extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+  static propTypes = {
+    onSelect: PropTypes.func.isRequired,
+    savePairs: PropTypes.func.isRequired,
+    authToken: PropTypes.string,
+    exchange: PropTypes.string,
+    currentMarket: PropTypes.instanceOf(Object),
+    allMarkets: PropTypes.instanceOf(Object),
+    favoritePairs: PropTypes.instanceOf(Array),
+  }
 
-  state = {
-    selectedPair: '',
+  static defaultProps = {
+    exchange: 'bitfinex',
+    authToken: '',
+    currentMarket: {},
+    allMarkets: {},
+    favoritePairs: [],
   }
 
   onSelect(pair) {
     const {
-      onSelect, prevMarket, exchange, allMarkets,
+      onSelect, currentMarket, exchange, allMarkets,
     } = this.props
     const marketsForActiveExchange = allMarkets[exchange]
-    let currMarket
+    let nextMarket
     for (let i = 0; i < marketsForActiveExchange.length; i++) {
       if (marketsForActiveExchange[i].uiID === pair) {
-        currMarket = marketsForActiveExchange[i]
+        nextMarket = marketsForActiveExchange[i]
         break
       }
     }
-    onSelect(exchange, currMarket, prevMarket)
-    this.setState({ selectedPair: pair })
+    onSelect(exchange, nextMarket, currentMarket)
   }
 
   removePair(pair) {
-    const { savePairs, authToken, favoritePairs = [] } = this.props
+    const { savePairs, authToken, favoritePairs } = this.props
     const newFavoritePairs = favoritePairs.filter(p => p !== pair)
-    this.setState({ selectedPair: null })
     savePairs(newFavoritePairs, authToken)
   }
 
   render() {
-    const { selectedPair } = this.state
-    const { favoritePairs = [] } = this.props
+    const { favoritePairs, currentMarket } = this.props
+    const selectedPair = currentMarket.uiID
     const hasFavoritePairs = favoritePairs.length !== 0
     return (
       <div className='hfui-favoritepair__wrapper'>

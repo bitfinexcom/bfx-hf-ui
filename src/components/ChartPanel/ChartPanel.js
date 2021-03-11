@@ -20,8 +20,6 @@ export default class ChartPanel extends React.Component {
       restID: PropTypes.string,
     }),
     saveState: PropTypes.func,
-    savePairs: PropTypes.func,
-    authToken: PropTypes.string,
     canChangeMarket: PropTypes.bool,
     showChartMarket: PropTypes.bool,
     activeExchange: PropTypes.string,
@@ -40,7 +38,6 @@ export default class ChartPanel extends React.Component {
       exchangeDirty: PropTypes.bool,
     }),
     allMarkets: PropTypes.objectOf(PropTypes.array),
-    favoritePairs: PropTypes.arrayOf(PropTypes.string),
   }
 
   static defaultProps = {
@@ -56,9 +53,6 @@ export default class ChartPanel extends React.Component {
       quote: 'USD',
       restID: 'tBTCUSD',
     },
-    authToken: null,
-    favoritePairs: [],
-    savePairs: () => {},
     saveState: () => {},
     showChartMarket: false,
     canChangeMarket: false,
@@ -176,18 +170,8 @@ export default class ChartPanel extends React.Component {
     })
   }
 
-  favoriteSelect(pair, isAddition) {
-    const { savePairs, authToken, favoritePairs } = this.props
-    if (isAddition) {
-      savePairs([...favoritePairs, pair], authToken)
-    } else {
-      const filtredPairs = favoritePairs.filter(p => p !== pair)
-      savePairs(filtredPairs, authToken)
-    }
-  }
-
   renderMarketDropdown() {
-    const { allMarkets, canChangeMarket, favoritePairs } = this.props
+    const { allMarkets, canChangeMarket } = this.props
     const { marketDirty, currentMarket, currentExchange } = this.state
     const markets = allMarkets[currentExchange] || []
 
@@ -198,10 +182,8 @@ export default class ChartPanel extends React.Component {
         key='market-dropdown'
         value={currentMarket}
         disabled={!canChangeMarket}
-        favoritePairs={favoritePairs}
         onChange={this.onChangeMarket}
         className={{ yellow: marketDirty }}
-        onFavoriteSelect={(pair, isFilled) => this.favoriteSelect(pair, isFilled)}
       />
     )
   }

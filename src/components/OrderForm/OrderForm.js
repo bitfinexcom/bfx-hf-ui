@@ -387,7 +387,7 @@ export default class OrderForm extends React.Component {
     const {
       onRemove, orders, apiClientStates, apiCredentials, moveable, removeable,
       showExchange, showMarket, favoritePairs, savePairs, authToken, onChangeMarket, allMarkets,
-      activeExchange, activeMarket,
+      activeExchange, activeMarket, mode,
     } = this.props
 
     const {
@@ -423,10 +423,10 @@ export default class OrderForm extends React.Component {
       <>
         <FavoriteTradingPairs
           allMarkets={allMarkets}
-          prevMarket={activeMarket}
+          currentMarket={activeMarket}
           exchange={activeExchange}
           onSelect={onChangeMarket}
-          savePairs={(props) => savePairs(props, authToken)}
+          savePairs={(props) => savePairs(props, authToken, mode)}
           favoritePairs={favoritePairs}
         />
         <Panel

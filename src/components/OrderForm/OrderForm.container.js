@@ -88,11 +88,12 @@ const mapDispatchToProps = dispatch => ({
     ]))
   },
 
-  savePairs: (pairs, authToken) => {
+  savePairs: (pairs, authToken, mode) => {
     dispatch(WSActions.send([
       'favourite_trading_pairs.save',
       authToken,
       pairs,
+      mode,
     ]))
   },
 

@@ -29,13 +29,6 @@ const mapDispatchToProps = dispatch => ({
   setBacktestOptions: options => {
     dispatch(WSActions.setBacktestOptions(options))
   },
-  savePairs: (pairs, authToken) => {
-    dispatch(WSActions.send([
-      'favourite_trading_pairs.save',
-      authToken,
-      pairs,
-    ]))
-  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Backtester)
