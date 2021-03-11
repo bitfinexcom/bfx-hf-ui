@@ -39,13 +39,13 @@ export default class FavoriteTradingPairs extends React.PureComponent {
   }
 
   removePair(pair) {
-    const { savePairs, authToken, favoritePairs = [] } = this.props
+    const { savePairs, authToken, favoritePairs } = this.props
     const newFavoritePairs = favoritePairs.filter(p => p !== pair)
     savePairs(newFavoritePairs, authToken)
   }
 
   render() {
-    const { favoritePairs = [], currentMarket = {} } = this.props
+    const { favoritePairs, currentMarket } = this.props
     const selectedPair = currentMarket.uiID
     const hasFavoritePairs = favoritePairs.length !== 0
     return (
