@@ -34,8 +34,8 @@ const COMPONENTS_FOR_ID = {
 export const CONVERT_LABELS_TO_PLACEHOLDERS = false
 
 const marketToQuoteBase = market => ({
-  QUOTE: market.q,
-  BASE: market.b,
+  QUOTE: market.quote,
+  BASE: market.base,
 })
 
 const renderString = (str, renderData) => {
