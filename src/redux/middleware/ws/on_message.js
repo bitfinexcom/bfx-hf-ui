@@ -66,14 +66,6 @@ export default (ws, store) => (e = {}) => {
       break
     }
 
-    case 'data.candles': {
-      const [, exID, symbol, tf, start, end, candles] = payload
-      store.dispatch(WSActions.recvDataCandles({
-        exID, symbol, tf, candles, start, end,
-      }))
-      break
-    }
-
     case 'data.sync.start': {
       const [, exID, symbol, tf, start, end] = payload
       store.dispatch(WSActions.recvDataSyncStart({
