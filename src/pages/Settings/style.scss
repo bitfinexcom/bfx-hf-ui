@@ -12,7 +12,10 @@
     height: 100%;
 
     .hfui-settings__option-check {
-      font-size: 0.5em;
+      margin-top: 55px;
+      .hfui-checkbox {
+        font-size: 16px;
+      }
     }
 
     li {
@@ -57,6 +60,7 @@
     .hfui-settings__option-description {
       font-size: 13px;
       max-width: 40%;
+      margin-top: 15px;
 
       > * {
         margin-bottom: 16px;
