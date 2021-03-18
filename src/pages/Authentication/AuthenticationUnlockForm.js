@@ -45,11 +45,11 @@ export default class AuthenticationInit extends React.PureComponent {
     }
   }
 
-  onPasswordChange(password) {
+  onPasswordChange = (password) => {
     this.setState(() => ({ password }))
   }
 
-  onUnlock() {
+  onUnlock = () => {
     const {
       mode,
       password,
@@ -65,25 +65,25 @@ export default class AuthenticationInit extends React.PureComponent {
     onUnlock(password, mode)
   }
 
-  onReset() {
+  onReset = () => {
     const { onReset } = this.props
     onReset()
   }
 
-  onEnterPress(event = {}) {
+  onEnterPress = (event = {}) => {
     const { keyCode } = event
     if (keyCode === ENTER_KEY_CODE) {
       this.onUnlock()
     }
   }
 
-  updateAutoLoginState(state) {
+  updateAutoLoginState = (state) => {
     this.setState(() => ({
       AUTOLOGIN_STATE: state,
     }))
   }
 
-  selectMode(mode) {
+  selectMode = (mode) => {
     this.setState(() => ({ mode }))
   }
 
@@ -98,7 +98,7 @@ export default class AuthenticationInit extends React.PureComponent {
     const options = [{ value: 'main', label: 'Production' }, { value: 'paper', label: 'Paper Trading' }]
 
     return (
-      <div className='hfui-authenticationpage__content' onKeyDown={(e) => this.onEnterPress(e)}>
+      <div className='hfui-authenticationpage__content' onKeyDown={this.onEnterPress}>
         <h2>Honey Framework UI</h2>
         <p>Enter your password to unlock.</p>
 
@@ -115,7 +115,7 @@ export default class AuthenticationInit extends React.PureComponent {
             autocomplete='current-password'
             placeholder='Password'
             value={password}
-            onChange={(changedPass) => this.onPasswordChange(changedPass)}
+            onChange={this.onPasswordChange}
           />
           <div className='hfui-authenticationpage__mode-select'>
             <p>Select trading mode</p>
@@ -133,12 +133,12 @@ export default class AuthenticationInit extends React.PureComponent {
             <Checkbox
               label='Auto-login in development mode'
               value={AUTOLOGIN_STATE}
-              onChange={(state) => this.updateAutoLoginState(state)}
+              onChange={this.updateAutoLoginState}
             />
           </div>
           )}
           <Button
-            onClick={() => this.onUnlock()}
+            onClick={this.onUnlock}
             disabled={!submitReady}
             label='Unlock'
             green
@@ -149,7 +149,7 @@ export default class AuthenticationInit extends React.PureComponent {
           <p>Alternatively, clear your credentials &amp; and stored data to set a new password.</p>
 
           <Button
-            onClick={() => this.onReset()}
+            onClick={this.onReset}
             label='Clear Data &amp; Reset'
             red
           />
