@@ -46,6 +46,10 @@ body button {
   flex-direction: row;
 }
 
+.react-datepicker-popper {
+  z-index: 3;
+}
+
 .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle,
 .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle::before {
   border-top: none;
