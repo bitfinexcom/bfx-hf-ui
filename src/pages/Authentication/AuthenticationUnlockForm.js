@@ -133,7 +133,7 @@ export default class AuthenticationInit extends React.PureComponent {
             <Checkbox
               label='Auto-login in development mode'
               value={AUTOLOGIN_STATE}
-              onChange={(state) => { this.updateAutoLoginState(state) }}
+              onChange={(state) => this.updateAutoLoginState(state)}
             />
           </div>
           )}
