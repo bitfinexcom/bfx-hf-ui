@@ -27,11 +27,6 @@ export default function* (action = {}) {
         break
       }
 
-      case 'candles': {
-        yield put(A.recvDataCandle(exID, channel, data))
-        break
-      }
-
       case 'book': {
         yield put(A.recvDataBook(exID, channel, data))
         break
