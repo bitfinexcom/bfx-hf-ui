@@ -5,7 +5,6 @@ import books from './books'
 import socket from './socket'
 import trades from './trades'
 import tickers from './tickers'
-import candles from './candles'
 import channels from './channels'
 import strategies from './strategies'
 import apiClients from './api_clients'
@@ -27,7 +26,6 @@ export default combineReducers({
   apiClients,
   strategies,
   tickers,
-  candles,
   trades,
   socket,
   books,
