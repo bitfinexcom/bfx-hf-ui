@@ -14,6 +14,7 @@ import {
   updateStoredPassword,
 } from '../../util/autologin'
 
+const isDevEnv = devEnv()
 const ENTER_KEY_CODE = 13
 export default class AuthenticationInit extends React.PureComponent {
   static propTypes = {
@@ -27,14 +28,13 @@ export default class AuthenticationInit extends React.PureComponent {
     const { isPaperTrading } = this.props
     this.state = {
       password: '',
-      isDevEnv: devEnv(),
       AUTOLOGIN_STATE: getAutoLoginState(),
       mode: isPaperTrading ? 'paper' : 'main',
     }
   }
 
   componentDidMount() {
-    const { isDevEnv, AUTOLOGIN_STATE } = this.state
+    const { AUTOLOGIN_STATE } = this.state
     const pass = getStoredPassword()
     if (isDevEnv && pass && AUTOLOGIN_STATE) {
       this.setState(() => ({
@@ -50,12 +50,7 @@ export default class AuthenticationInit extends React.PureComponent {
   }
 
   onUnlock = () => {
-    const {
-      mode,
-      password,
-      isDevEnv,
-      AUTOLOGIN_STATE,
-    } = this.state
+    const { mode, password, AUTOLOGIN_STATE } = this.state
     const { onUnlock } = this.props
     if (isDevEnv && password.length) {
       updateStoredPassword(password)
@@ -88,12 +83,7 @@ export default class AuthenticationInit extends React.PureComponent {
   }
 
   render() {
-    const {
-      mode,
-      isDevEnv,
-      password,
-      AUTOLOGIN_STATE,
-    } = this.state
+    const { mode, password, AUTOLOGIN_STATE } = this.state
     const submitReady = !_isEmpty(password) && !_isEmpty(mode)
     const options = [{ value: 'main', label: 'Production' }, { value: 'paper', label: 'Paper Trading' }]
 

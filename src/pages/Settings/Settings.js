@@ -15,6 +15,7 @@ import {
 
 import './style.css'
 
+const isDevEnv = devEnv()
 export default class Settings extends React.PureComponent {
   static propTypes = {
     ga: PropTypes.bool,
@@ -43,7 +44,6 @@ export default class Settings extends React.PureComponent {
     this.state = {
       apiKey: '',
       apiSecret: '',
-      isDevEnv: devEnv(),
       currentExchange: activeExchange,
       AUTOLOGIN_STATE: getAutoLoginState(),
     }
@@ -109,7 +109,6 @@ export default class Settings extends React.PureComponent {
       dms: propsDMS,
     } = this.props
     const {
-      isDevEnv,
       ga: stateGA,
       dms: stateDMS,
       AUTOLOGIN_STATE,
