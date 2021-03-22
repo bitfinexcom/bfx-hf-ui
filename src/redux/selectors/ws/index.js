@@ -9,7 +9,6 @@ import getOrderBook from './get_order_book'
 import getAllOrderBooks from './get_all_order_books'
 import getSyncRanges from './get_sync_ranges'
 import isSyncingCandles from './is_syncing_candles'
-import getAllCandles from './get_all_candles'
 import getSocket from './get_socket'
 import getTicker from './get_ticker'
 import getTickers from './get_tickers'
@@ -58,7 +57,6 @@ export {
   getAllTrades,
   getOrderBook,
   getAllOrderBooks,
-  getAllCandles,
   getSyncRanges,
   isSyncingCandles,
   getLastCandleUpdate,
