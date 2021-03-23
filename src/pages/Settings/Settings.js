@@ -1,66 +1,58 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
+import Input from '../../ui/Input'
+import Button from '../../ui/Button'
+import Checkbox from '../../ui/Checkbox'
 import StatusBar from '../../components/StatusBar'
 import SwitchMode from '../../components/SwitchMode'
 import TradingModeModal from '../../components/TradingModeModal'
-import Checkbox from '../../ui/Checkbox'
-import Input from '../../ui/Input'
-import Button from '../../ui/Button'
+import {
+  getAutoLoginState,
+  isDevEnv as devEnv,
+  updateAutoLoginState,
+} from '../../util/autologin'
 
-import { propTypes, defaultProps } from './Settings.props'
 import './style.css'
 
-export default class Settings extends React.Component {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+const isDevEnv = devEnv()
+export default class Settings extends React.PureComponent {
+  static propTypes = {
+    ga: PropTypes.bool,
+    dms: PropTypes.bool,
+    activeExchange: PropTypes.string,
+    authToken: PropTypes.string.isRequired,
+    getActiveAOs: PropTypes.func.isRequired,
+    currentMode: PropTypes.string.isRequired,
+    submitAPIKeys: PropTypes.func.isRequired,
+    updateSettings: PropTypes.func.isRequired,
+    gaUpdateSettings: PropTypes.func.isRequired,
+  }
 
-  state = {
-    apiKey: '',
-    apiSecret: '',
+  static defaultProps = {
+    ga: null,
+    dms: null,
+    activeExchange: 'bitfinex',
   }
 
   constructor(props) {
     super(props)
     const {
-      savedState = {}, activeExchange, theme, dms, ga,
+      activeExchange,
     } = props
 
-    const { currentExchange = activeExchange } = savedState
-
     this.state = {
-      ...this.state,
-      currentExchange,
-      theme,
-      dms,
-      ga,
+      apiKey: '',
+      apiSecret: '',
+      currentExchange: activeExchange,
+      AUTOLOGIN_STATE: getAutoLoginState(),
     }
-
-    this.onSubmitAPIKeys = this.onSubmitAPIKeys.bind(this)
-    this.onSettingsSave = this.onSettingsSave.bind(this)
-  }
-  shouldComponentUpdate(nextProps, nextState) {
-    // eslint-disable-next-line
-    if (this.state.dms !== nextState.dms || this.props.dms !== nextProps.dms || this.state.ga !== nextState.ga || this.props.ga !== nextProps.ga) {
-      return true
-    }
-    return false
-  }
-  componentDidUpdate() {}
-  getSnapshotBeforeUpdate() {
-    // eslint-disable-next-line react/destructuring-assignment
-    if (this.state.dms === undefined) {
-      const {
-        dms, ga,
-      } = this.props
-      this.setState(() => ({
-        dms, ga,
-      }))
-    }
-    return null
   }
 
-  onOptionChange(e, option) {
-    this.setState(() => ({ [option]: typeof e === 'object' ? e.value : e }))
+  onOptionChange(value, identifier) {
+    this.setState(() => ({
+      [identifier]: value,
+    }))
   }
 
   onSubmitAPIKeys({ apiKey, apiSecret }) {
@@ -77,15 +69,22 @@ export default class Settings extends React.Component {
 
   onSettingsSave(authToken) {
     const {
+      ga: propsGA,
       getActiveAOs,
+      dms: propsDMS,
       updateSettings,
       gaUpdateSettings,
     } = this.props
     const {
-      apiKey, apiSecret, dms, ga,
+      apiKey,
+      apiSecret,
+      ga: stateGA,
+      dms: stateDMS,
     } = this.state
+    const ga = stateGA ?? propsGA
+    const dms = stateDMS ?? propsDMS
 
-    if (apiKey.trim().length > 0 && apiSecret.trim().length > 0) {
+    if (apiKey.trim().length && apiSecret.trim().length) {
       this.onSubmitAPIKeys(this.state)
     }
 
@@ -96,15 +95,27 @@ export default class Settings extends React.Component {
     gaUpdateSettings()
   }
 
-  getValidBool(value) { //eslint-disable-line
-    return typeof value === 'boolean' ? value : false
+  updateAutoLoginState(state) {
+    this.setState(() => ({
+      AUTOLOGIN_STATE: state,
+    }))
+    updateAutoLoginState(state)
   }
 
   render() {
-    const { authToken } = this.props
     const {
-      dms, ga,
+      authToken,
+      ga: propsGA,
+      dms: propsDMS,
+    } = this.props
+    const {
+      ga: stateGA,
+      dms: stateDMS,
+      AUTOLOGIN_STATE,
     } = this.state
+    const ga = stateGA ?? propsGA
+    const dms = stateDMS ?? propsDMS
+
     return (
       <>
         <div className='hfui-settings__control-toggle'>
@@ -141,9 +152,9 @@ export default class Settings extends React.Component {
                 <div className='hfui-settings__option-check dms'>
                   <Checkbox
                     className='hfui-settings_check'
-                    onChange={e => this.onOptionChange(e, 'dms')}
+                    onChange={newState => this.onOptionChange(newState, 'dms')}
                     label='DMS'
-                    value={this.getValidBool(dms)} // eslint-disable-line
+                    value={!!dms}
                   />
                 </div>
               </li>
@@ -152,12 +163,30 @@ export default class Settings extends React.Component {
                 <div className='hfui-settings__option-check ga'>
                   <Checkbox
                     className='hfui-settings_check'
-                    onChange={e => this.onOptionChange(e, 'ga')}
+                    onChange={newState => this.onOptionChange(newState, 'ga')}
                     label='Usage reporting'
-                    value={this.getValidBool(ga)} // eslint-disable-line
+                    value={!!ga}
                   />
                 </div>
               </li>
+
+              {isDevEnv && (
+                <>
+                  <li className='hfui-settings__option-check'>
+                    <Checkbox
+                      label='Auto-login in development mode'
+                      value={AUTOLOGIN_STATE}
+                      onChange={(state) => { this.updateAutoLoginState(state) }}
+                    />
+                  </li>
+                  <div className='hfui-settings__option-description'>
+                    <p>
+                      It`s not required to press the `Save` button to update the auto-login state.
+                      The state will be updated and saved right after you click on the checkbox.
+                    </p>
+                  </div>
+                </>
+              )}
 
               <li>
                 <p className='hfui-settings__option-label'>API credentials</p>
@@ -168,13 +197,13 @@ export default class Settings extends React.Component {
                   <Input
                     type='text'
                     placeholder='API Key'
-                    onChange={e => this.onOptionChange(e, 'apiKey')}
+                    onChange={value => this.onOptionChange(value, 'apiKey')}
                     className='hfui-settings__item-list api-key'
                   />
                   <Input
                     type='password'
                     placeholder='API Secret'
-                    onChange={e => this.onOptionChange(e, 'apiSecret')}
+                    onChange={value => this.onOptionChange(value, 'apiSecret')}
                     className='hfui-settings__item-list api-secret'
                   />
                 </div>

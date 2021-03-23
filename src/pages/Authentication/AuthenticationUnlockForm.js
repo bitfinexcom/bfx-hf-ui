@@ -1,61 +1,92 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import _isEmpty from 'lodash/isEmpty'
 
-import Button from '../../ui/Button'
 import Input from '../../ui/Input'
+import Button from '../../ui/Button'
 import Select from '../../ui/Select'
+import Checkbox from '../../ui/Checkbox'
+import {
+  getStoredPassword,
+  getAutoLoginState,
+  isDevEnv as devEnv,
+  updateAutoLoginState,
+  updateStoredPassword,
+} from '../../util/autologin'
 
-import { propTypes, defaultProps } from './AuthenticationUnlockForm.props'
-
+const isDevEnv = devEnv()
 const ENTER_KEY_CODE = 13
-
-export default class AuthenticationInit extends React.Component {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+export default class AuthenticationInit extends React.PureComponent {
+  static propTypes = {
+    onUnlock: PropTypes.func.isRequired,
+    onReset: PropTypes.func.isRequired,
+    isPaperTrading: PropTypes.bool.isRequired,
+  }
 
   constructor(props) {
     super(props)
     const { isPaperTrading } = this.props
     this.state = {
       password: '',
+      AUTOLOGIN_STATE: getAutoLoginState(),
       mode: isPaperTrading ? 'paper' : 'main',
     }
-    this.onPasswordChange = this.onPasswordChange.bind(this)
-    this.onUnlock = this.onUnlock.bind(this)
-    this.onReset = this.onReset.bind(this)
-    this.onEnterPress = this.onEnterPress.bind(this)
   }
 
-  onPasswordChange(password) {
+  componentDidMount() {
+    const { AUTOLOGIN_STATE } = this.state
+    const pass = getStoredPassword()
+    if (isDevEnv && pass && AUTOLOGIN_STATE) {
+      this.setState(() => ({
+        password: pass,
+      }), () => {
+        this.onUnlock()
+      })
+    }
+  }
+
+  onPasswordChange = (password) => {
     this.setState(() => ({ password }))
   }
 
-  onUnlock() {
-    const { password, mode } = this.state
+  onUnlock = () => {
+    const { mode, password, AUTOLOGIN_STATE } = this.state
     const { onUnlock } = this.props
+    if (isDevEnv && password.length) {
+      updateStoredPassword(password)
+      updateAutoLoginState(AUTOLOGIN_STATE)
+    }
+
     onUnlock(password, mode)
   }
 
-  onReset() {
+  onReset = () => {
     const { onReset } = this.props
     onReset()
   }
 
-  onEnterPress({ keyCode }) {
+  onEnterPress = (event = {}) => {
+    const { keyCode } = event
     if (keyCode === ENTER_KEY_CODE) {
-      const { password } = this.state
-      this.onUnlock(password)
+      this.onUnlock()
     }
   }
 
-  selectMode(mode) {
+  updateAutoLoginState = (state) => {
+    this.setState(() => ({
+      AUTOLOGIN_STATE: state,
+    }))
+  }
+
+  selectMode = (mode) => {
     this.setState(() => ({ mode }))
   }
 
   render() {
-    const { password, mode } = this.state
+    const { mode, password, AUTOLOGIN_STATE } = this.state
     const submitReady = !_isEmpty(password) && !_isEmpty(mode)
     const options = [{ value: 'main', label: 'Production' }, { value: 'paper', label: 'Paper Trading' }]
+
     return (
       <div className='hfui-authenticationpage__content' onKeyDown={this.onEnterPress}>
         <h2>Honey Framework UI</h2>
@@ -87,7 +118,15 @@ export default class AuthenticationInit extends React.Component {
               onChange={({ value }) => this.selectMode(value)}
             />
           </div>
-
+          {isDevEnv && (
+          <div className='hfui-authenticationpage__dev-mode'>
+            <Checkbox
+              label='Auto-login in development mode'
+              value={AUTOLOGIN_STATE}
+              onChange={this.updateAutoLoginState}
+            />
+          </div>
+          )}
           <Button
             onClick={this.onUnlock}
             disabled={!submitReady}

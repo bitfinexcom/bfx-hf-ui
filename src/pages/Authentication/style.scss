@@ -139,7 +139,6 @@
   line-height: 1.5;
   padding-left: 8px;
 }
-
 .hfui-authenticationpage__mode-select {
   .hfui-select__control,
   .hfui-select__control--is-focused {
@@ -162,4 +161,14 @@
 }
 .hfui-select.hfui-authenticationpage__trading-mode svg {
   margin-right: 20px;
+}
+
+.hfui-authenticationpage__dev-mode {
+  padding: 35px 0px 15px 3px;
+  .hfui-input {
+    margin-top: 0px;
+  }
+  .hfui-checkbox {
+    font-size: 16px;
+  }
 }

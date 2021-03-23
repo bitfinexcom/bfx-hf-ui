@@ -7,7 +7,7 @@ import Panel from '../../ui/Panel'
 import Markdown from '../../ui/Markdown'
 import StatusBar from '../../components/StatusBar'
 import Backtester from '../../components/Backtester'
-import LiveStrategyExecutor from '../../components/LiveStrategyExecutor'
+// import LiveStrategyExecutor from '../../components/LiveStrategyExecutor'
 import ExchangeInfoBar from '../../components/ExchangeInfoBar'
 import TradingModeModal from '../../components/TradingModeModal'
 import { propTypes, defaultProps } from './StrategyEditor.props'
@@ -168,13 +168,14 @@ export default class StrategyEditorPage extends React.Component {
                   indicators={indicators}
                 />
               </div>
-              <div
-                tabtitle='Execute' // lowercase name for div is requiered
-              >
-                <LiveStrategyExecutor
-                  strategyContent={strategyContent}
-                />
-              </div>
+              {/* hidden until this feature will be implemented
+                <div
+                  tabtitle='Execute'
+                >
+                  <LiveStrategyExecutor
+                    strategyContent={strategyContent}
+                  />
+                </div> */}
             </Panel>
           </div>
         </div>

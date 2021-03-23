@@ -97,20 +97,6 @@ export default {
     payload: { updates },
   }),
 
-  recvDataCandle: (exID, channel, candle) => ({
-    type: t.DATA_CANDLE,
-    payload: { exID, channel, candle },
-  }),
-
-  recvDataCandles: ({
-    exID, symbol, tf, candles, start, end,
-  }) => ({
-    type: t.DATA_CANDLES,
-    payload: {
-      exID, symbol, tf, candles, start, end,
-    },
-  }),
-
   recvDataTicker: (exID, channel, ticker) => ({
     type: t.DATA_TICKER,
     payload: { exID, channel, ticker },
@@ -271,11 +257,6 @@ export default {
   recvBacktestExecute: opts => ({
     type: t.BACKTEST_EXECUTE,
     payload: opts,
-  }),
-
-  purgeDataCandles: (exID, channel) => ({
-    type: t.PURGE_DATA_CANDLES,
-    payload: { exID, channel },
   }),
 
   recvUpdatedFavoritePairs: pairs => ({
