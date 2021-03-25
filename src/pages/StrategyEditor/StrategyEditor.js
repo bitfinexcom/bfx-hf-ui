@@ -1,24 +1,35 @@
 import React from 'react'
 import randomColor from 'randomcolor'
 import Joyride, { STATUS } from 'react-joyride'
+import PropTypes from 'prop-types'
 
-import StrategyEditor from '../../components/StrategyEditor'
 import Panel from '../../ui/Panel'
 import Markdown from '../../ui/Markdown'
 import StatusBar from '../../components/StatusBar'
 import Backtester from '../../components/Backtester'
-import LiveStrategyExecutor from '../../components/LiveStrategyExecutor'
+import StrategyEditor from '../../components/StrategyEditor'
 import ExchangeInfoBar from '../../components/ExchangeInfoBar'
 import TradingModeModal from '../../components/TradingModeModal'
-import { propTypes, defaultProps } from './StrategyEditor.props'
+import LiveStrategyExecutor from '../../components/LiveStrategyExecutor'
 
 import './style.css'
 
 const DocsPath = require('bfx-hf-strategy/docs/api.md')
 
 export default class StrategyEditorPage extends React.Component {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+  static propTypes = {
+    dark: PropTypes.bool,
+    firstLogin: PropTypes.bool,
+    isGuideActive: PropTypes.bool,
+    finishGuide: PropTypes.func.isRequired,
+    selectStrategy: PropTypes.func.isRequired,
+    setStrategyContent: PropTypes.func.isRequired,
+  }
+  static defaultProps = {
+    dark: true,
+    firstLogin: false,
+    isGuideActive: true,
+  }
 
   state = {
     indicators: [],
@@ -40,13 +51,6 @@ export default class StrategyEditorPage extends React.Component {
     ],
   }
 
-  constructor(props) {
-    super(props)
-
-    this.onIndicatorsChange = this.onIndicatorsChange.bind(this)
-    this.onGuideFinish = this.onGuideFinish.bind(this)
-  }
-
   componentDidMount() {
     // load readme docs (DocsPath is an object when running in electron window)
     const docsPath = typeof DocsPath === 'object' ? DocsPath.default : DocsPath
@@ -54,10 +58,12 @@ export default class StrategyEditorPage extends React.Component {
       .then(response => response.text())
       .then(t => this.setState(() => ({ docsText: t })))
   }
+
   componentWillUnmount() {
     this.setContent(null)
   }
-  onIndicatorsChange(indicators) {
+
+  onIndicatorsChange = (indicators) => {
     // TODO: Better color generation; to save time we generate enough colors for
     //       all indicators here, but optimally we'd switch on i.constructor.ui
     this.setState(() => ({
@@ -80,7 +86,7 @@ export default class StrategyEditorPage extends React.Component {
     }))
   }
 
-  onGuideFinish(data) {
+  onGuideFinish = (data) => {
     const { finishGuide } = this.props
     const { status } = data
     const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED]
@@ -90,14 +96,14 @@ export default class StrategyEditorPage extends React.Component {
     }
   }
 
-  setContent(content) {
+  setContent = (content) => {
     const { setStrategyContent } = this.props
     this.setState(() => ({ strategyContent: content }))
     this.setState(() => ({ forcedTab: 'Backtest' }))
     setStrategyContent(content)
   }
 
-  selectStrategy(content) {
+  selectStrategy = (content) => {
     const { selectStrategy } = this.props
     selectStrategy()
     this.setContent(content)
@@ -160,11 +166,10 @@ export default class StrategyEditorPage extends React.Component {
               />
               <div
                 tabtitle='Backtest' // lowercase name for div is requiered
-                style={{ height: 1200 }}
+                style={{ height: '100%' }}
               >
                 <Backtester
                   {...this.props}
-                  strategyContent={strategyContent}
                   indicators={indicators}
                 />
               </div>
