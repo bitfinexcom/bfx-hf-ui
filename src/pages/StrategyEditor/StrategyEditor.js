@@ -24,16 +24,17 @@ export default class StrategyEditorPage extends React.Component {
     finishGuide: PropTypes.func.isRequired,
     selectStrategy: PropTypes.func.isRequired,
     setStrategyContent: PropTypes.func.isRequired,
+    // strategyContent: PropTypes.objectOf(Object),
   }
   static defaultProps = {
     dark: true,
     firstLogin: false,
     isGuideActive: true,
+    // strategyContent: {},
   }
 
   state = {
     indicators: [],
-    strategyContent: null,
     steps: [
       {
         target: '.hfui-create-strategy__btn',
@@ -98,7 +99,7 @@ export default class StrategyEditorPage extends React.Component {
 
   setContent = (content) => {
     const { setStrategyContent } = this.props
-    this.setState(() => ({ strategyContent: content }))
+    // this.setState(() => ({ strategyContent: content }))
     this.setState(() => ({ forcedTab: 'Backtest' }))
     setStrategyContent(content)
   }
@@ -112,7 +113,7 @@ export default class StrategyEditorPage extends React.Component {
   render() {
     const {
       indicators,
-      strategyContent,
+      // strategyContent,
       docsText = '',
       steps,
       forcedTab = '',
