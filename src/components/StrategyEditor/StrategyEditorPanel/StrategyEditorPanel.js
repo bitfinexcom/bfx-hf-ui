@@ -24,7 +24,7 @@ export default class StrategyEditorPanel extends React.PureComponent {
     onOpenSelectModal: PropTypes.func.isRequired,
     onOpenCreateModal: PropTypes.func.isRequired,
     onOpenRemoveModal: PropTypes.func.isRequired,
-    children: PropTypes.objectOf(Object).isRequired,
+    children: PropTypes.node.isRequired,
   }
   static defaultProps = {
     dark: true,
