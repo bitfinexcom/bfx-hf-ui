@@ -28,12 +28,20 @@ export default ({ exID, authToken, closePosition }) => [{
   label: 'P/L',
   dataKey: 'pl',
   width: 100,
-  cellRenderer: ({ rowData = {} }) => preparePrice(rowData.pl),
+  cellRenderer: ({ rowData = {} }) => ( // eslint-disable-line
+    <span className={rowData.pl < 0 ? 'hfui-red' : 'hfui-green'}>
+      {preparePrice(rowData.pl)}
+    </span>
+  ),
 }, {
   label: 'P/L %',
   dataKey: 'plPerc',
   width: 100,
-  cellRenderer: ({ rowData = {} }) => (rowData.plPerc || 0).toFixed(4),
+  cellRenderer: ({ rowData = {} }) => ( // eslint-disable-line
+    <span className={rowData.plPerc && rowData.plPerc < 0 ? 'hfui-red' : 'hfui-green'}>
+      {(rowData.plPerc || 0).toFixed(4)}
+    </span>
+  ),
 }, {
   label: 'Funding Cost',
   dataKey: 'marginFunding',
