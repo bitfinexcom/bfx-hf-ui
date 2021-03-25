@@ -74,7 +74,9 @@ function reducer(state = getInitialState(), action = {}) {
         finished: true,
       }
     }
-
+    case types.RESET_DATA_BACKTEST: {
+      return getInitialState()
+    }
     case types.PURGE_DATA_BACKTEST: {
       return {
         candles: [],

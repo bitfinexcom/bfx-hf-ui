@@ -1,24 +1,48 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-import Button from '../../../ui/Button'
 import Panel from '../../../ui/Panel'
 import Modal from '../../../ui/Modal'
 import Input from '../../../ui/Input'
-
-import { propTypes, defaultProps } from './StrategyEditorPanel.props'
+import Button from '../../../ui/Button'
 
 export default class StrategyEditorPanel extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+  static propTypes = {
+    dark: PropTypes.bool,
+    moveable: PropTypes.bool,
+    removeable: PropTypes.bool,
+    execRunning: PropTypes.bool,
+    strategyId: PropTypes.string,
+    strategyDirty: PropTypes.bool,
+    strategyLabel: PropTypes.string,
+    isRemoveModalOpened: PropTypes.bool,
+    onRemove: PropTypes.func.isRequired,
+    strategy: PropTypes.objectOf(Object),
+    onCloseModals: PropTypes.func.isRequired,
+    onSaveStrategy: PropTypes.func.isRequired,
+    onRemoveStrategy: PropTypes.func.isRequired,
+    onOpenSelectModal: PropTypes.func.isRequired,
+    onOpenCreateModal: PropTypes.func.isRequired,
+    onOpenRemoveModal: PropTypes.func.isRequired,
+    children: PropTypes.objectOf(Object).isRequired,
+  }
+  static defaultProps = {
+    dark: true,
+    strategyId: '',
+    strategy: {},
+    moveable: true,
+    removeable: true,
+    strategyLabel: '',
+    execRunning: false,
+    strategyDirty: false,
+    isRemoveModalOpened: false,
+  }
+
   state = {
     canDeleteStrategy: false,
   }
-  constructor(props) {
-    super(props)
-    this.validateInput = this.validateInput.bind(this)
-    this.removeStrategy = this.removeStrategy.bind(this)
-  }
-  validateInput(text) {
+
+  validateInput = (text) => {
     const { strategy, strategyLabel } = this.props
     const { label = strategyLabel } = strategy || {}
     if (text === label) {
@@ -27,21 +51,34 @@ export default class StrategyEditorPanel extends React.PureComponent {
       this.setState(() => ({ canDeleteStrategy: false }))
     }
   }
-  removeStrategy() {
+
+  removeStrategy = () => {
     const { onRemoveStrategy } = this.props
     onRemoveStrategy()
     this.setState(() => ({ canDeleteStrategy: false }))
   }
+
   render() {
     const {
-      onRemove, moveable, removeable, children, execRunning,
-      strategyDirty, strategy = {}, onOpenSelectModal,
-      onOpenCreateModal, onSaveStrategy, dark,
-      strategyId, isRemoveModalOpened, onOpenRemoveModal,
+      dark,
+      strategy,
+      onRemove,
+      moveable,
+      children,
+      strategyId,
+      removeable,
+      execRunning,
+      strategyDirty,
       onCloseModals,
+      onSaveStrategy,
+      onOpenSelectModal,
+      onOpenCreateModal,
+      onOpenRemoveModal,
+      isRemoveModalOpened,
     } = this.props
     const { canDeleteStrategy } = this.state
     const { id = strategyId, label: strategyName } = strategy || {}
+
     return (
       <Panel
         label='STRATEGY EDITOR'

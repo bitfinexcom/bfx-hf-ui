@@ -1,22 +1,18 @@
 import { connect } from 'react-redux'
 import WSActions from '../../redux/actions/ws'
 import GAActions from '../../redux/actions/google_analytics'
-import { getAuthToken } from '../../redux/selectors/ws'
-import { getActiveMarket, getActiveExchange } from '../../redux/selectors/ui'
+import { getAllCandles, getAuthToken } from '../../redux/selectors/ws'
+import { getActiveMarket, getActiveExchange, getStrategyId } from '../../redux/selectors/ui'
 
 import StrategyEditor from './StrategyEditor'
 
-const mapStateToProps = (state = {}) => {
-  const { ui = {} } = state
-  const { content = {} } = ui
-  const { id = '' } = content || {}
-  return {
-    activeExchange: getActiveExchange(state),
-    activeMarket: getActiveMarket(state),
-    authToken: getAuthToken(state),
-    strategyId: id,
-  }
-}
+const mapStateToProps = (state = {}) => ({
+  activeExchange: getActiveExchange(state),
+  activeMarket: getActiveMarket(state),
+  candles: getAllCandles(state),
+  authToken: getAuthToken(state),
+  strategyId: getStrategyId(state),
+})
 
 const mapDispatchToProps = dispatch => ({
   onSave: (authToken, strategy = {}) => {
@@ -27,6 +23,9 @@ const mapDispatchToProps = dispatch => ({
   },
   gaCreateStrategy: () => {
     dispatch(GAActions.createStrategy())
+  },
+  clearBacktestOptions: () => {
+    dispatch(WSActions.resetBacktestData())
   },
 })
 

@@ -1,13 +1,13 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import Button from '../../../ui/Button'
 import Dropdown from '../../../ui/Dropdown'
 import MarketSelect from '../../MarketSelect'
 import TimeFrameDropdown from '../../TimeFrameDropdown'
-import { propTypes, defaultProps } from './forms.props'
 
-import DateInput from '../../OrderForm/FieldComponents/input.date'
 import Checkbox from '../../../ui/Checkbox/Checkbox'
+import DateInput from '../../OrderForm/FieldComponents/input.date'
 
 const ONE_MIN = 1000 * 60
 const ONE_HOUR = ONE_MIN * 60
@@ -15,23 +15,37 @@ const ONE_DAY = ONE_HOUR * 24
 const MAX_DATE = new Date()
 
 export default class HistoricalForm extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+  static propTypes = {
+    exId: PropTypes.string,
+    disabled: PropTypes.bool,
+    formState: PropTypes.objectOf(Object),
+    allMarkets: PropTypes.objectOf(Object),
+    updateError: PropTypes.func.isRequired,
+    setFormState: PropTypes.func.isRequired,
+    backtestStrategy: PropTypes.func.isRequired,
+    updateExecutionType: PropTypes.func.isRequired,
+  }
+  static defaultProps = {
+    formState: {},
+    allMarkets: {},
+    disabled: false,
+    exId: 'bitfinex',
+  }
 
   executeBacktest = () => {
     const {
-      backtestStrategy,
-      updateError,
       exId,
       formState,
+      updateError,
+      backtestStrategy,
     } = this.props
     const {
-      startDate,
+      trades,
       endDate,
+      candles,
+      startDate,
       selectedMarket,
       selectedTimeFrame,
-      candles,
-      trades,
     } = this.defaultFormState(formState)
 
     if (!selectedTimeFrame) {
@@ -53,8 +67,9 @@ export default class HistoricalForm extends React.PureComponent {
     })
   }
 
-  defaultFormState(formState) {
+  defaultFormState = (formState) => {
     const { allMarkets, exId } = this.props
+
     return {
       startDate: new Date() - ONE_DAY,
       endDate: new Date(Date.now() - (ONE_MIN * 15)),
@@ -90,22 +105,23 @@ export default class HistoricalForm extends React.PureComponent {
 
   render() {
     const {
-      updateExecutionType,
-      disabled = false,
-      allMarkets,
       exId,
-      setFormState,
+      disabled,
       formState,
+      allMarkets,
+      setFormState,
+      updateExecutionType,
     } = this.props
     const {
-      startDate,
+      trades,
       endDate,
+      candles,
+      startDate,
+      emptyBtErr,
       selectedMarket,
       selectedTimeFrame,
-      candles,
-      trades,
-      emptyBtErr,
     } = this.defaultFormState(formState)
+
     return (
       <div className='hfui-backtester__executionform'>
         <div className='hfui-backtester_row'>
@@ -120,7 +136,7 @@ export default class HistoricalForm extends React.PureComponent {
               }]}
             />
           </div>
-          <div className='hfui-backtester__flex_start'>
+          <div className='hfui-backtester__flex_start hfui-backtester__market-select'>
             <MarketSelect
               value={selectedMarket}
               onChange={(selection) => {

@@ -10,13 +10,13 @@ import HFS from 'bfx-hf-strategy'
 import HFU from 'bfx-hf-util'
 import _ from 'lodash'
 import * as SRD from '@projectstorm/react-diagrams'
+import PropTypes from 'prop-types'
 
 import Templates from './templates'
-
 import StrategyEditorPanel from './StrategyEditorPanel'
 import CreateNewStrategyModal from '../CreateNewStrategyModal'
 import OpenExistingStrategyModal from '../OpenExistingStrategyModal'
-import { propTypes, defaultProps } from './StrategyEditor.props'
+
 import './style.css'
 
 const debug = Debug('hfui-ui:c:strategy-editor')
@@ -36,39 +36,40 @@ const STRATEGY_SECTIONS = [
 ]
 
 export default class StrategyEditor extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+  static propTypes = {
+    moveable: PropTypes.bool,
+    removeable: PropTypes.bool,
+    strategyId: PropTypes.string,
+    renderResults: PropTypes.bool,
+    onSave: PropTypes.func.isRequired,
+    onRemove: PropTypes.func.isRequired,
+    authToken: PropTypes.string.isRequired,
+    onStrategyChange: PropTypes.func.isRequired,
+    onStrategySelect: PropTypes.func.isRequired,
+    gaCreateStrategy: PropTypes.func.isRequired,
+    onIndicatorsChange: PropTypes.func.isRequired,
+    clearBacktestOptions: PropTypes.func.isRequired,
+  }
+  static defaultProps = {
+    strategyId: '',
+    moveable: false,
+    removeable: false,
+    renderResults: true,
+  }
 
   state = {
-    activeContent: 'defineIndicators',
     strategy: null,
-    strategyDirty: false,
     sectionErrors: {},
-
+    strategyDirty: false,
+    editorMode: 'visual',
     editorMaximised: false,
+    isRemoveModalOpened: false,
+    activeContent: 'defineIndicators',
     createNewStrategyModalOpen: false,
     openExistingStrategyModalOpen: false,
-    editorMode: 'visual',
-    isRemoveModalOpened: false,
   }
 
-  constructor(props) {
-    super(props)
-
-    this.onEditorContentChange = this.onEditorContentChange.bind(this)
-    this.onClearError = this.onClearError.bind(this)
-    this.onOpenSelectModal = this.onOpenSelectModal.bind(this)
-    this.onOpenCreateModal = this.onOpenCreateModal.bind(this)
-    this.onCloseModals = this.onCloseModals.bind(this)
-    this.onCreateNewStrategy = this.onCreateNewStrategy.bind(this)
-    this.onSaveStrategy = this.onSaveStrategy.bind(this)
-    this.onRemoveStrategy = this.onRemoveStrategy.bind(this)
-    this.onLoadStrategy = this.onLoadStrategy.bind(this)
-    this.onToggleMaximiseEditor = this.onToggleMaximiseEditor.bind(this)
-    this.onOpenRemoveModal = this.onOpenRemoveModal.bind(this)
-  }
-
-  onCreateNewStrategy(label, templateLabel) {
+  onCreateNewStrategy = (label, templateLabel) => {
     const strategy = { label }
     const template = Templates.find(t => t.label === templateLabel)
 
@@ -97,7 +98,7 @@ export default class StrategyEditor extends React.PureComponent {
     }
   }
 
-  onLoadStrategy(strategy) {
+  onLoadStrategy = (strategy) => {
     this.setState(() => ({
       sectionErrors: {},
       strategyDirty: false,
@@ -112,7 +113,7 @@ export default class StrategyEditor extends React.PureComponent {
     }
   }
 
-  onOpenCreateModal() {
+  onOpenCreateModal = () => {
     this.setState(() => ({
       createNewStrategyModalOpen: true,
       openExistingStrategyModalOpen: false,
@@ -120,7 +121,7 @@ export default class StrategyEditor extends React.PureComponent {
     }))
   }
 
-  onOpenSelectModal() {
+  onOpenSelectModal = () => {
     this.setState(() => ({
       createNewStrategyModalOpen: false,
       openExistingStrategyModalOpen: true,
@@ -128,7 +129,7 @@ export default class StrategyEditor extends React.PureComponent {
     }))
   }
 
-  onCloseModals() {
+  onCloseModals = () => {
     this.setState(() => ({
       createNewStrategyModalOpen: false,
       openExistingStrategyModalOpen: false,
@@ -136,15 +137,15 @@ export default class StrategyEditor extends React.PureComponent {
     }))
   }
 
-  onClearError() {
+  onClearError = () => {
     this.setState(() => ({
       sectionErrors: {},
       execError: '',
     }))
   }
 
-  onSaveStrategy() {
-    const { authToken, onSave, strategyId = '' } = this.props
+  onSaveStrategy = () => {
+    const { authToken, onSave, strategyId } = this.props
     const { strategy } = this.state
 
     onSave(authToken, { id: strategyId, ...strategy })
@@ -152,14 +153,14 @@ export default class StrategyEditor extends React.PureComponent {
     this.setState(() => ({ strategyDirty: false }))
     this.onCloseModals()
   }
-  onOpenRemoveModal() {
+  onOpenRemoveModal = () => {
     this.setState(() => ({
       createNewStrategyModalOpen: false,
       openExistingStrategyModalOpen: false,
       isRemoveModalOpened: true,
     }))
   }
-  onRemoveStrategy() {
+  onRemoveStrategy = () => {
     const {
       authToken, onRemove, onStrategyChange, strategyId,
     } = this.props
@@ -171,7 +172,7 @@ export default class StrategyEditor extends React.PureComponent {
     this.onCloseModals()
   }
 
-  onEditorContentChange(editor, data, code) {
+  onEditorContentChange = (editor, data, code) => {
     const { activeContent, strategy } = this.state
 
     this.setState(() => ({ strategyDirty: true }))
@@ -189,11 +190,11 @@ export default class StrategyEditor extends React.PureComponent {
     }, 0)
   }
 
-  onActiveContentChange(activeContent) {
+  onActiveContentChange = (activeContent) => {
     this.setState(() => ({ activeContent }))
   }
 
-  onDefineIndicatorsChange() {
+  onDefineIndicatorsChange = () => {
     const { onIndicatorsChange } = this.props
 
     if (!onIndicatorsChange) {
@@ -218,17 +219,17 @@ export default class StrategyEditor extends React.PureComponent {
     onIndicatorsChange(indicators)
   }
 
-  onToggleMaximiseEditor() {
+  onToggleMaximiseEditor = () => {
     this.setState(({ editorMaximised }) => ({
       editorMaximised: !editorMaximised,
     }))
   }
 
-  onSwitchEditorMode(editorMode) {
+  onSwitchEditorMode = (editorMode) => {
     this.setState(() => ({ editorMode }))
   }
 
-  setSectionError(section, msg) {
+  setSectionError = (section, msg) => {
     this.setState(({ sectionErrors }) => ({
       sectionErrors: {
         ...sectionErrors,
@@ -236,8 +237,8 @@ export default class StrategyEditor extends React.PureComponent {
       },
     }))
   }
-  selectStrategy(strategy) {
-    const { onStrategySelect } = this.props
+  selectStrategy = (strategy) => {
+    const { onStrategySelect, clearBacktestOptions } = this.props
     this.setState(() => ({ strategy }))
 
     const strategyContent = {}
@@ -251,8 +252,9 @@ export default class StrategyEditor extends React.PureComponent {
       }
     }
     onStrategySelect(strategyContent)
+    clearBacktestOptions()
   }
-  updateStrategy(strategy) {
+  updateStrategy = (strategy) => {
     const { onStrategyChange } = this.props
     this.setState(() => ({ strategy }))
 
@@ -269,11 +271,11 @@ export default class StrategyEditor extends React.PureComponent {
     onStrategyChange(strategyContent)
   }
 
-  clearSectionError(section) {
+  clearSectionError = (section) => {
     this.setSectionError(section, '')
   }
 
-  evalSectionContent(section, providedContent) {
+  evalSectionContent = (section, providedContent) => {
     const { strategy } = this.state
     const content = providedContent || strategy[section] || ''
 
@@ -301,7 +303,7 @@ export default class StrategyEditor extends React.PureComponent {
       return null
     }
   }
-  renderPanel(content) {
+  renderPanel = (content) => {
     const {
       strategy, execRunning, strategyDirty, editorMaximised,
       editorMode, dark, isRemoveModalOpened,
@@ -338,7 +340,7 @@ export default class StrategyEditor extends React.PureComponent {
     )
   }
 
-  renderEmptyContent() {
+  renderEmptyContent = () => {
     const {
       createNewStrategyModalOpen, openExistingStrategyModalOpen,
     } = this.state
@@ -384,8 +386,13 @@ export default class StrategyEditor extends React.PureComponent {
   render() {
     const { renderResults, gaCreateStrategy } = this.props
     const {
-      activeContent, execError, strategy, createNewStrategyModalOpen,
-      openExistingStrategyModalOpen, sectionErrors, editorMaximised,
+      execError,
+      strategy,
+      activeContent,
+      sectionErrors,
+      editorMaximised,
+      createNewStrategyModalOpen,
+      openExistingStrategyModalOpen,
     } = this.state
 
     if (!strategy) {
