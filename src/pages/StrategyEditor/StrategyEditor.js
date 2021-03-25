@@ -167,7 +167,6 @@ export default class StrategyEditorPage extends React.Component {
               />
               <div
                 tabtitle='Backtest' // lowercase name for div is requiered
-                style={{ height: '100%' }}
               >
                 <Backtester
                   {...this.props}
