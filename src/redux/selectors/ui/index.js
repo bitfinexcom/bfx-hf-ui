@@ -15,6 +15,7 @@ import getIsPaperTrading from './get_is_paper_trading'
 import getFirstLogin from './get_first_login'
 import getCurrentMode from './get_current_mode'
 import getGuideStatusForPage from './get_guide_status_for_page'
+import getFilteredBalances from './get_filtered_balances'
 
 export {
   getRemoteVersion,
@@ -34,4 +35,5 @@ export {
   getFirstLogin,
   getCurrentMode,
   getGuideStatusForPage,
+  getFilteredBalances,
 }
