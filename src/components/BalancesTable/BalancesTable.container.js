@@ -1,10 +1,11 @@
 import { connect } from 'react-redux'
 
+import { getFilteredBalances } from '../../redux/selectors/ui'
+
 import BalancesTable from './BalancesTable'
 
 const mapStateToProps = (state = {}) => ({
-  filteredBalances: state.ui.filteredBalances,
-}) // eslint-disable-line
-const mapDispatchToProps = dispatch => ({}) // eslint-disable-line
+  filteredBalances: getFilteredBalances(state),
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(BalancesTable)
+export default connect(mapStateToProps)(BalancesTable)

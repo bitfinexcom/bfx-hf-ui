@@ -3,7 +3,7 @@ import { Icon } from 'react-fa'
 
 import HFIcon from '../../ui/HFIcon'
 import NavbarButton from '../NavbarButton'
-import { propTypes, defaultProps } from './Navbar.props'
+
 import './style.css'
 
 const items = [
@@ -25,28 +25,22 @@ const items = [
   },
 ]
 
-export default class Navbar extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
-
-  render() {
-    return (
-      <div className='hfui-navbar__wrapper'>
-        <HFIcon />
-
-        <ul className='hfui-navbar__main-links'>
-          {
-            items.map(val => (
-              <li key={val.route}>
-                <NavbarButton
-                  route={val.route}
-                  label={val.label}
-                />
-              </li>
-            ))
+const Navbar = () => (
+  <div className='hfui-navbar__wrapper'>
+    <HFIcon />
+    <ul className='hfui-navbar__main-links'>
+      {
+        items.map(val => (
+          <li key={val.route}>
+            <NavbarButton
+              route={val.route}
+              label={val.label}
+            />
+          </li>
+        ))
           }
-        </ul>
-      </div>
-    )
-  }
-}
+    </ul>
+  </div>
+)
+
+export default Navbar

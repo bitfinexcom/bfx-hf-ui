@@ -8,6 +8,4 @@ const mapStateToProps = (state = {}) => ({
   authToken: getAuthToken(state),
 })
 
-const mapDispatchToProps = dispatch => ({}) // eslint-disable-line
-
-export default connect(mapStateToProps, mapDispatchToProps)(OpenExistingStrategyModal)
+export default connect(mapStateToProps)(OpenExistingStrategyModal)
