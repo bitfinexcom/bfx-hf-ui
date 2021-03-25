@@ -39,6 +39,7 @@ function getInitialState() {
     TRADING_PAGE_IS_GUIDE_ACTIVE: true,
     isTradingModeModalVisible: false,
     isRefillBalanceModalVisible: false,
+    content: {},
   }
 
   if (!localStorage) {
