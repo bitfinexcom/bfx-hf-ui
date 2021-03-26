@@ -6,7 +6,7 @@ import { getSocket, getAuthConfigured } from '../../redux/selectors/ws'
 import Authentication from './Authentication'
 
 const mapStateToProps = (state = {}) => {
-  const socket = getSocket(state)
+  const socket = getSocket()(state)
   const { status: wsStatus } = socket
   const { isPaperTrading } = state.ui
 

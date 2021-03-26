@@ -6,7 +6,7 @@ import { getNumberOfLayouts, getRemoteVersion } from '../../redux/selectors/ui'
 import { getSocket, getAPIClientStates } from '../../redux/selectors/ws'
 
 const mapStateToProps = (state = {}) => {
-  const socket = getSocket(state)
+  const socket = getSocket()(state)
   const { status: wsStatus } = socket
   const { ui } = state
   const exchange = ui.activeExchange
