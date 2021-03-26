@@ -1,5 +1,5 @@
 import WSActions from '../../actions/ws'
 
-export default (ws, store) => () => {
-  store.dispatch(WSActions.connected())
+export default (alias, store) => () => {
+  store.dispatch(WSActions.connected(alias))
 }

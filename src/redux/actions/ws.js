@@ -20,10 +20,10 @@ export default {
     payload: { alias, destination },
   }),
 
-  connected: () => ({ type: t.CONNECTED }),
-  reconnected: () => ({ type: t.RECONNECTED }),
-  disconnected: () => ({ type: t.DISCONNECTED }),
-  disconnect: () => ({ type: t.DISCONNECT }),
+  connected: (alias) => ({ type: t.CONNECTED, payload: { alias } }),
+  reconnected: (alias) => ({ type: t.RECONNECTED, payload: { alias } }),
+  disconnected: (alias) => ({ type: t.DISCONNECTED, payload: { alias } }),
+  disconnect: (alias) => ({ type: t.DISCONNECT, payload: { alias } }),
 
   subscribed: ({ exID, chanID, chanData }) => ({
     type: t.SUBSCRIBED,

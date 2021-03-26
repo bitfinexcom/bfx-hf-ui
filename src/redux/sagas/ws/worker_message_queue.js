@@ -1,6 +1,6 @@
 import { put, select } from 'redux-saga/effects'
 import Debug from 'debug'
-import { getSocket } from '../../selectors/ws'
+import { getSockets } from '../../selectors/ws'
 import WSTypes from '../../constants/ws'
 
 const debug = Debug('hfui:rx:s:ws-hfui:msg-q')
@@ -8,15 +8,14 @@ let queue = []
 
 // Place every outgoing message in a queue if connection is offline
 export default function* (action = {}) {
-  const {
-    status,
-  } = yield select(getSocket)
+  const sockets = yield select(getSockets)
+  const offline = Object.keys(sockets).some(s => sockets[s].status !== 'online')
 
   if (action.type !== WSTypes.FLUSH_QUEUE) {
     queue = [...queue, action]
   }
 
-  if (status !== 'online' || queue.length === 0) {
+  if (offline || queue.length === 0) {
     return
   }
 

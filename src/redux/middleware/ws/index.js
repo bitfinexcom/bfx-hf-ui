@@ -1,4 +1,5 @@
 import _isString from 'lodash/isString'
+import _omit from 'lodash/omit'
 import Debug from 'debug'
 
 import WSTypes from '../../constants/ws'
@@ -25,15 +26,15 @@ export default () => {
         }
 
         let socket = sockets.find(s => s.alias === alias)
-        if (socket !== null && socket.readyState < 2) {
+        if (socket?.readyState < 2) {
           debug('requested connection, but already connected. closing...')
           socket.close()
         }
 
         socket = new window.WebSocket(destination)
-        socket.onmessage = onWSMessage(socket, store)
-        socket.onclose = onWSClose(socket, store)
-        socket.onopen = onWSOpen(socket, store)
+        socket.onmessage = onWSMessage(alias, store)
+        socket.onclose = onWSClose(alias, store)
+        socket.onopen = onWSOpen(alias, store)
 
         sockets.push({ alias, socket })
 
@@ -58,15 +59,17 @@ export default () => {
       }
 
       case WSTypes.SEND: {
-        const { alias = WSTypes.ALIAS_API_SERVER, ...data } = _isString(payload) ? JSON.parse(payload) : payload
+        const data = _isString(payload) ? JSON.parse(payload) : payload
+        const alias = data.alias || WSTypes.ALIAS_API_SERVER
+        const message = data.data || data
         const socket = sockets.find(s => s.alias === alias)
 
-        if (!socket || socket.readyState !== 1) {
+        if (socket?.socket?.readyState !== 1) {
           debug('[socket.send] can\'t send, not online')
           break
         }
 
-        socket.send(JSON.stringify(data))
+        socket.socket.send(JSON.stringify(Array.isArray(message) ? message : _omit(message, ['alias'])))
 
         break
       }

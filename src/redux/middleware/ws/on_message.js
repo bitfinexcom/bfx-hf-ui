@@ -7,7 +7,7 @@ import AOActions from '../../actions/ao'
 
 const debug = Debug('hfui:rx:m:ws-hfui-server:msg')
 
-export default (ws, store) => (e = {}) => {
+export default (alias, store) => (e = {}) => {
   const { data = '' } = e
   let payload
 
