@@ -1,8 +1,8 @@
 import types from '../../constants/ws'
 
 const initialState = () => ({
-  status: 'offline',
-  lastActivity: null,
+  status: {}, // { alias: status, ... }
+  lastActivity: {}, // { alias: lastActivity }
 })
 
 export default function (state = initialState(), action = {}) {

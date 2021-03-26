@@ -18,14 +18,13 @@ export default () => {
     switch (type) {
       case WSTypes.CONNECT: {
         const { destination, alias } = payload
-        let socket = sockets.find(s => s.alias === alias)
-
         if (!destination || !alias) {
           debug(payload)
           debug('requested connection, but no destination/alias provided. exiting...')
           return
         }
 
+        let socket = sockets.find(s => s.alias === alias)
         if (socket !== null && socket.readyState < 2) {
           debug('requested connection, but already connected. closing...')
           socket.close()
