@@ -63,4 +63,7 @@ export default {
   SUBSCRIBED: 'WS_SUBSCRIBED',
   UNSUBSCRIBE: 'WS_UNSUBSCRIBE',
   UNSUBSCRIBED: 'WS_UNSUBSCRIBED',
+
+  ALIAS_API_SERVER: 'bfx-hf-server',
+  ALIAS_DATA_SERVER: 'bfx-hf-data-server',
 }

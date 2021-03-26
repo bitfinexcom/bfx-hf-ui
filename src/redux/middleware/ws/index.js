@@ -10,22 +10,33 @@ import onWSMessage from './on_message'
 const debug = Debug('hfui:rx:m:ws-hfui-server')
 
 export default () => {
-  let socket = null
+  const sockets = [] // [{ alias, socket }, ...]
 
   return store => next => (action = {}) => {
     const { type, payload = {} } = action
 
     switch (type) {
       case WSTypes.CONNECT: {
+        const { destination, alias } = payload
+        let socket = sockets.find(s => s.alias === alias)
+
+        if (!destination || !alias) {
+          debug(payload)
+          debug('requested connection, but no destination/alias provided. exiting...')
+          return
+        }
+
         if (socket !== null && socket.readyState < 2) {
-          debug('requested connect, but already connected. closing...')
+          debug('requested connection, but already connected. closing...')
           socket.close()
         }
 
-        socket = new window.WebSocket(payload.destination)
+        socket = new window.WebSocket(destination)
         socket.onmessage = onWSMessage(socket, store)
         socket.onclose = onWSClose(socket, store)
         socket.onopen = onWSOpen(socket, store)
+
+        sockets.push({ alias, socket })
 
         return
       }
@@ -48,16 +59,15 @@ export default () => {
       }
 
       case WSTypes.SEND: {
+        const { alias = WSTypes.ALIAS_API_SERVER, ...data } = _isString(payload) ? JSON.parse(payload) : payload
+        const socket = sockets.find(s => s.alias === alias)
+
         if (!socket || socket.readyState !== 1) {
           debug('[socket.send] can\'t send, not online')
           break
         }
 
-        socket.send(
-          _isString(payload)
-            ? payload
-            : JSON.stringify(payload),
-        )
+        socket.send(JSON.stringify(data))
 
         break
       }

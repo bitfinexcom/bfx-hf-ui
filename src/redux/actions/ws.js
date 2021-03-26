@@ -15,9 +15,9 @@ export default {
   error: payload => ({ type: t.ERROR, payload }),
   flushQueue: () => ({ type: t.FLUSH_QUEUE }),
 
-  connect: (destination = '') => ({
+  connect: (alias = '', destination = '') => ({
     type: t.CONNECT,
-    payload: { destination },
+    payload: { alias, destination },
   }),
 
   connected: () => ({ type: t.CONNECTED }),
