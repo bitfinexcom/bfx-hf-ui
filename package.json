@@ -240,6 +240,7 @@
     "sanitize-html": "^1.26.0",
     "thread-loader": "^2.1.2",
     "universal-analytics": "^0.4.20",
+    "uuid": "^8.3.2",
     "wine": "^0.9.13",
     "workbox-webpack-plugin": "^5.0.0",
     "worker-loader": "^2.0.0"
