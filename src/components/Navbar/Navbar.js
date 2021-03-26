@@ -25,7 +25,7 @@ const items = [
   },
 ]
 
-const Navbar = () => (
+export default () => (
   <div className='hfui-navbar__wrapper'>
     <HFIcon />
     <ul className='hfui-navbar__main-links'>
@@ -42,5 +42,3 @@ const Navbar = () => (
     </ul>
   </div>
 )
-
-export default Navbar
