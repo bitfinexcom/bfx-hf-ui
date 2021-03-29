@@ -491,6 +491,10 @@
       height: calc(100% - 32px);
     }
 
+    > p {
+      text-align: center;
+    }
+
     > i {
       font-size: 38px;
       height: 38px;

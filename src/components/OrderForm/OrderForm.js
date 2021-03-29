@@ -387,7 +387,7 @@ export default class OrderForm extends React.Component {
     const {
       onRemove, orders, apiClientStates, apiCredentials, moveable, removeable,
       showExchange, showMarket, favoritePairs, savePairs, authToken, onChangeMarket, allMarkets,
-      activeExchange, activeMarket, mode,
+      activeExchange, activeMarket, mode, isPaperTrading,
     } = this.props
 
     const {
@@ -460,6 +460,7 @@ export default class OrderForm extends React.Component {
                   key='unconfigured'
                   exID={currentExchange}
                   onClick={this.onToggleConfigureModal}
+                  isPaperTrading={isPaperTrading}
                 />
               ),
 
@@ -470,6 +471,7 @@ export default class OrderForm extends React.Component {
                   onSubmit={this.onSubmitAPIKeys}
                   exID={currentExchange}
                   apiClientConnecting={apiClientConnecting}
+                  isPaperTrading={isPaperTrading}
                 />
               ),
             ]}
