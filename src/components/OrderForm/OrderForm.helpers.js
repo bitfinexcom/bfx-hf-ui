@@ -216,6 +216,10 @@ const renderLayoutField = ({
     return null
   }
 
+  if (fieldDef.trading && !fieldDef.trading.includes(fieldData._context)) {
+    return null
+  }
+
   return renderLayoutComponent({
     componentDef: fieldDef,
     fieldName: field,
