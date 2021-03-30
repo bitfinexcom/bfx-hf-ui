@@ -178,7 +178,7 @@
     "bfx-hf-indicators": "^2.0.1",
     "bfx-hf-models": "^2.2.0",
     "bfx-hf-models-adapter-lowdb": "^1.0.0",
-    "bfx-hf-server": "^3.3.0",
+    "bfx-hf-server": "^3.4.0",
     "bfx-hf-strategy": "^1.0.1",
     "bfx-hf-ui-config": "^1.0.0",
     "bfx-hf-util": "^1.0.1",
