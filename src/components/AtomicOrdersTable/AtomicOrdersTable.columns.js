@@ -45,4 +45,5 @@ export default (exID, authToken, cancelOrder, gaCancelOrder) => [{
       />
     </div>
   ),
+  disableSort: true,
 }]
