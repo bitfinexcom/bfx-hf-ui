@@ -15,15 +15,15 @@ export default {
   error: payload => ({ type: t.ERROR, payload }),
   flushQueue: () => ({ type: t.FLUSH_QUEUE }),
 
-  connect: (destination = '') => ({
+  connect: (alias = '', destination = '') => ({
     type: t.CONNECT,
-    payload: { destination },
+    payload: { alias, destination },
   }),
 
-  connected: () => ({ type: t.CONNECTED }),
-  reconnected: () => ({ type: t.RECONNECTED }),
-  disconnected: () => ({ type: t.DISCONNECTED }),
-  disconnect: () => ({ type: t.DISCONNECT }),
+  connected: (alias) => ({ type: t.CONNECTED, payload: { alias } }),
+  reconnected: (alias) => ({ type: t.RECONNECTED, payload: { alias } }),
+  disconnected: (alias) => ({ type: t.DISCONNECTED, payload: { alias } }),
+  disconnect: (alias) => ({ type: t.DISCONNECT, payload: { alias } }),
 
   subscribed: ({ exID, chanID, chanData }) => ({
     type: t.SUBSCRIBED,
