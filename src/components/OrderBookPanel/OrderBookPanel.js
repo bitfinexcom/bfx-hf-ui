@@ -201,7 +201,7 @@ OrderBookPanel.defaultProps = {
   canChangeStacked: true,
   moveable: true,
   removeable: true,
-  dark: false,
+  dark: true,
   savedState: {},
 }
 
