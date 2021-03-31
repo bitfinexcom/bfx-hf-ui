@@ -90,17 +90,17 @@ export default {
     payload: settings,
   }),
 
-  bufferDataFromExchange: (exID, chanID, data, rawData = null) => {
-    return {
-      type: t.BUFFER_DATA_FROM_EXCHANGE,
-      payload: {
-        exID,
-        chanID,
-        data,
-        rawData,
-      },
-    }
-  },
+  bufferDataFromExchange: (
+    exID, chanID, data, rawData = null,
+  ) => ({
+    type: t.BUFFER_DATA_FROM_EXCHANGE,
+    payload: {
+      exID,
+      chanID,
+      data,
+      rawData,
+    },
+  }),
 
   flushDataFromExchange: updates => ({
     type: t.FLUSH_DATA_FROM_EXCHANGE,
@@ -112,12 +112,10 @@ export default {
     payload: { exID, channel, ticker },
   }),
 
-  recvDataTrades: (exID, channel, trades) => {
-    return {
-      type: t.DATA_TRADES,
-      payload: { exID, channel, trades },
-    }
-  },
+  recvDataTrades: (exID, channel, trades) => ({
+    type: t.DATA_TRADES,
+    payload: { exID, channel, trades },
+  }),
 
   recvDataBook: (exID, channel, book) => ({
     type: t.DATA_BOOK,
