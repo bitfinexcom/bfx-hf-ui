@@ -39,6 +39,7 @@ function getInitialState() {
     TRADING_PAGE_IS_GUIDE_ACTIVE: true,
     isTradingModeModalVisible: false,
     isRefillBalanceModalVisible: false,
+    content: {},
   }
 
   if (!localStorage) {
@@ -242,11 +243,12 @@ function reducer(state = getInitialState(), action = {}) {
     }
     case types.UPDATE_STRATEGY_CONTENT: {
       const { content = {} } = payload
+
       return {
         ...state,
         content: {
+          id: state.content.id,
           ...content,
-          ...state.content,
         },
       }
     }
