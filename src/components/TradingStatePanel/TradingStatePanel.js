@@ -39,18 +39,20 @@ export default class TradingStatePanel extends React.Component {
     this.onToggleMarketFilter = this.onToggleMarketFilter.bind(this)
     this.onToggleExchangeFilter = this.onToggleExchangeFilter.bind(this)
   }
-  shouldComponentUpdate(nextProps, nextState) {
-    return (JSON.stringify(nextProps) !== JSON.stringify(this.props)
-            || JSON.stringify(nextState) !== JSON.stringify(this.state))
+
+  componentDidMount() {
+    this.loadData()
   }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return (JSON.stringify(nextProps) !== JSON.stringify(this.props) || JSON.stringify(nextState) !== JSON.stringify(this.state))
+  }
+
   componentDidUpdate() {}
   getSnapshotBeforeUpdate() {
-    this.getFilteredAtomicOrders()
-    this.getFilteredAlgoOrders()
-    this.getFilteredPositions()
-    this.getFilteredBalances()
-    return null
+    return this.loadData()
   }
+
   onToggleMarketFilter() {
     this.setState(({ marketFilterActive }) => ({
       marketFilterActive: !marketFilterActive,
@@ -123,6 +125,15 @@ export default class TradingStatePanel extends React.Component {
     filteredBalances = marketFilterActive ? filteredBalances.filter(({ currency }) => currency === base || currency === quote) : filteredBalances
     setFilteredValueWithKey('filteredBalances', filteredBalances)
     return filteredBalances
+  }
+
+  loadData() {
+    this.getFilteredAtomicOrders()
+    this.getFilteredAlgoOrders()
+    this.getFilteredPositions()
+    this.getFilteredBalances()
+
+    return null
   }
 
   deferSaveState() {
