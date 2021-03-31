@@ -42,18 +42,21 @@ export default {
     payload: { exID, channel },
   }),
 
+  pubSubscribed: ({ chanID, chanName }) => ({
+    type: t.PUB_SUBSCRIBED,
+    payload: { chanID, chanName },
+  }),
+
   unsubscribe: (exID, channelDataOrID) => {
     const action = {
       type: t.UNSUBSCRIBE,
       payload: { exID },
     }
-
     if (_isFinite(channelDataOrID)) {
       action.payload.chanId = channelDataOrID
     } else {
       action.payload.chanData = channelDataOrID
     }
-
     return action
   },
 
@@ -87,10 +90,17 @@ export default {
     payload: settings,
   }),
 
-  bufferDataFromExchange: (exID, chanID, data) => ({
-    type: t.BUFFER_DATA_FROM_EXCHANGE,
-    payload: { exID, chanID, data },
-  }),
+  bufferDataFromExchange: (exID, chanID, data, rawData = null) => {
+    return {
+      type: t.BUFFER_DATA_FROM_EXCHANGE,
+      payload: {
+        exID,
+        chanID,
+        data,
+        rawData,
+      },
+    }
+  },
 
   flushDataFromExchange: updates => ({
     type: t.FLUSH_DATA_FROM_EXCHANGE,
@@ -102,10 +112,12 @@ export default {
     payload: { exID, channel, ticker },
   }),
 
-  recvDataTrades: (exID, channel, trades) => ({
-    type: t.DATA_TRADES,
-    payload: { exID, channel, trades },
-  }),
+  recvDataTrades: (exID, channel, trades) => {
+    return {
+      type: t.DATA_TRADES,
+      payload: { exID, channel, trades },
+    }
+  },
 
   recvDataBook: (exID, channel, book) => ({
     type: t.DATA_BOOK,
