@@ -34,7 +34,10 @@ const OrderBookPanel = (props) => {
     allMarkets, canChangeMarket, layoutID, layoutI, updateState,
   } = props
   const {
-    sumAmounts, stackedView, currentExchange = activeExchange, currentMarket = activeMarket,
+    sumAmounts = true,
+    stackedView = true,
+    currentExchange = activeExchange,
+    currentMarket = activeMarket,
   } = savedState
   const { base, quote } = currentMarket
 
