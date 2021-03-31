@@ -51,6 +51,7 @@ export default () => ({
     reduceonly: {
       component: 'input.checkbox',
       label: 'REDUCE-ONLY',
+      trading: ['m'],
       default: false,
     },
 
