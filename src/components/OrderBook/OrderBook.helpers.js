@@ -10,6 +10,9 @@ const ROW_MAPPING = {
   [KEYS.TOTAL]: {
     hidden: true,
   },
+  [KEYS.AMOUNT]: {
+    hidden: true,
+  },
 }
 
 export const getRowMapping = (sumAmounts, stackedView) => {
