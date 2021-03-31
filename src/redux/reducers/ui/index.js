@@ -1,3 +1,5 @@
+import _get from 'lodash/get'
+
 import types from '../../constants/ui'
 import DEFAULT_TRADING_LAYOUT from './default_layout_trading'
 import DEFAULT_MARKET_DATA_LAYOUT from './default_layout_market_data'
@@ -177,6 +179,26 @@ function reducer(state = getInitialState(), action = {}) {
       }
     }
 
+    case types.UPDATE_COMPONENT_STATE: {
+      const {
+        layoutID, componentID, state: componentState = {},
+      } = payload
+
+      return {
+        ...state,
+        layoutComponentState: {
+          ...state.layoutComponentState,
+          [layoutID]: {
+            ...(state.layoutComponentState[layoutID] || {}),
+            [componentID]: {
+              ...(_get(state, ['layoutComponentState', layoutID, componentID], {})),
+              ...componentState,
+            },
+          },
+        },
+      }
+    }
+
     case types.SET_ACTIVE_MARKET: {
       const { market } = payload
 
@@ -304,6 +326,11 @@ function reducerWithStorage(state = getInitialState(), action = {}) {
       }
 
       case types.SAVE_COMPONENT_STATE: {
+        const { layoutComponentState } = newState
+        localStorage.setItem(LAYOUTS_STATE_KEY, JSON.stringify(layoutComponentState))
+        break
+      }
+      case types.UPDATE_COMPONENT_STATE: {
         const { layoutComponentState } = newState
         localStorage.setItem(LAYOUTS_STATE_KEY, JSON.stringify(layoutComponentState))
         break

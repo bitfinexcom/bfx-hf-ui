@@ -7,6 +7,7 @@
 @import 'https://fonts.googleapis.com/css?family=Roboto&display=swap';
 @import '/icon_font/styles.css';
 @import '~react-popper-tooltip/dist/styles';
+@import "./ufx-customise.scss";
 
 
 body button:focus {
@@ -28,7 +29,7 @@ body button {
   background: #102331;
   border: none;
 }
-.react-datepicker__time-container { 
+.react-datepicker__time-container {
   border: none;
 }
 
@@ -54,7 +55,7 @@ body button {
 .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle::before {
   border-top: none;
   border-bottom-color: #000;
-} 
+}
 
 .react-datepicker-time__header {
   color: #ccc;

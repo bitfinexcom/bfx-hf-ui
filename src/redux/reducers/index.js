@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import { connectRouter } from 'connected-react-router'
-import { REDUCER_PATHS } from '../config'
+import { reduxReducers } from 'ufx-ui-core'
+import { REDUCER_PATHS, UFX_REDUCER_PATHS } from '../config'
 
 import ui from './ui'
 import meta from './meta'
@@ -15,6 +16,10 @@ const reducers = history => combineReducers({
   [REDUCER_PATHS.UI]: ui,
   [REDUCER_PATHS.NOTIFICATIONS]: notifications,
   [REDUCER_PATHS.AOS]: algoOrders,
+  [UFX_REDUCER_PATHS.UFX]: combineReducers({
+    [UFX_REDUCER_PATHS.WS]: reduxReducers.ws,
+    [UFX_REDUCER_PATHS.BOOK]: reduxReducers.book,
+  }),
 })
 
 export default reducers

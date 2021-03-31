@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 
 export const propTypes = {
-  ob: PropTypes.array.isRequired,
   sumAmounts: PropTypes.bool,
   stackedView: PropTypes.bool,
 }

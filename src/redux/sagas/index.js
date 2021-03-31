@@ -1,4 +1,6 @@
 import { fork } from 'redux-saga/effects'
+import { reduxSagas } from 'ufx-ui-core'
+
 import WSSaga from './ws'
 import UISaga from './ui'
 import RestSaga from './rest'
@@ -9,4 +11,5 @@ export default function* rootSaga() {
   yield fork(UISaga)
   yield fork(RestSaga)
   yield fork(AOSaga)
+  yield fork(reduxSagas.wsSaga)
 }
