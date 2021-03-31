@@ -56,10 +56,7 @@ const OrderBookPanel = (props) => {
 
   // resubscribe book channel on market change
   useEffect(() => {
-    console.log('isWSConnected: ', isWSConnected)
-    console.log('symbol: ', symbol)
     if (isWSConnected && symbol) {
-      console.log('WSSubscribeChannel: again')
       dispatch(WSSubscribeChannel({
         ...SUBSCRIPTION_CONFIG,
         prec: 'P0',
