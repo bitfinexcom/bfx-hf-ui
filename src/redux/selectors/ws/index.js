@@ -10,6 +10,7 @@ import getAllOrderBooks from './get_all_order_books'
 import getSyncRanges from './get_sync_ranges'
 import isSyncingCandles from './is_syncing_candles'
 import getSocket from './get_socket'
+import getSockets from './get_sockets'
 import getTicker from './get_ticker'
 import getTickers from './get_tickers'
 import getTrades from './get_trades'
@@ -41,6 +42,7 @@ import apiClientDisconnected from './api_client_disconnected'
 
 export {
   getSocket,
+  getSockets,
 
   getAuthToken,
   getAuthConfigured,
