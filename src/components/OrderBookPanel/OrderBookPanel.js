@@ -15,7 +15,7 @@ import PanelSettings from '../../ui/PanelSettings'
 import Checkbox from '../../ui/Checkbox'
 import Panel from '../../ui/Panel'
 
-const { WSSubscribeChannel } = reduxActions
+const { WSSubscribeChannel, WSUnsubscribeChannel } = reduxActions
 const { SUBSCRIPTION_CONFIG } = reduxConstants
 const {
   getBookAsks,
@@ -49,13 +49,13 @@ const OrderBookPanel = (props) => {
     dispatch,
   } = useCommonBfxData(base, quote)
 
-  const asks = useSelector(getBookAsks)
-  const bids = useSelector(getBookBids)
-  const pAsks = useSelector(getBookpAsks)
-  const pBids = useSelector(getBookpBidsDesc)
-  const tAsks = useSelector(getBooktAsks)
-  const tBids = useSelector(getBooktBids)
-  const snapshotReceived = useSelector(getBookSnapshotReceived)
+  const snapshotReceived = useSelector(state => getBookSnapshotReceived(state, symbol))
+  const asks = useSelector(state => getBookAsks(state, symbol))
+  const bids = useSelector(state => getBookBids(state, symbol))
+  const pAsks = useSelector(state => getBookpAsks(state, symbol))
+  const pBids = useSelector(state => getBookpBidsDesc(state, symbol))
+  const tAsks = useSelector(state => getBooktAsks(state, symbol))
+  const tBids = useSelector(state => getBooktBids(state, symbol))
 
   // resubscribe book channel on market change
   useEffect(() => {
@@ -67,6 +67,14 @@ const OrderBookPanel = (props) => {
       }))
     }
   }, [isWSConnected, symbol, dispatch])
+
+  const unSubscribeWSChannel = (s) => {
+    dispatch(WSUnsubscribeChannel({
+      ...SUBSCRIPTION_CONFIG,
+      prec: 'P0',
+      symbol: s,
+    }))
+  }
 
   const onToggleSettings = () => {
     setSettingsOpen(state => !state)
@@ -91,6 +99,9 @@ const OrderBookPanel = (props) => {
       return
     }
 
+    const { wsID } = currentMarket
+    unSubscribeWSChannel(wsID)
+
     saveState('currentMarket', market)
   }
 
@@ -109,12 +120,17 @@ const OrderBookPanel = (props) => {
     )
   }
 
+  const handleOnRemove = (...args) => {
+    unSubscribeWSChannel(symbol)
+    onRemove(...args)
+  }
+
   return (
     <Panel
       label='ORDER BOOK'
       dark={dark}
       darkHeader={dark}
-      onRemove={onRemove}
+      onRemove={handleOnRemove}
       moveable={moveable}
       removeable={removeable}
       secondaryHeaderComponents={[

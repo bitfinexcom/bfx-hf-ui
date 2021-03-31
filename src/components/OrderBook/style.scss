@@ -5,11 +5,18 @@
     font-weight: 600;
   }
 
+  .main:not(.vertical) {
+    .side:nth-child(1) .row > div,
+    .side:nth-child(1) .header > div {
+      width: 50% !important;
+    }
+  }
+
   .side,
   .row {
     font-size: 12px;
     font-weight: normal;
-    min-width: unset;
+    min-width: 120px;
   }
 
   // override book row styles
