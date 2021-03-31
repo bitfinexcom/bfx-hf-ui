@@ -1,5 +1,6 @@
+/* eslint-disable react/forbid-prop-types */
 import React, { memo, useState, useEffect } from 'react'
-
+import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import {
   useCommonBfxData,
@@ -13,7 +14,6 @@ import OrderBook from '../OrderBook'
 import PanelSettings from '../../ui/PanelSettings'
 import Checkbox from '../../ui/Checkbox'
 import Panel from '../../ui/Panel'
-import { propTypes, defaultProps } from './OrderBookPanel.props'
 
 const { WSSubscribeChannel } = reduxActions
 const { SUBSCRIPTION_CONFIG } = reduxConstants
@@ -31,6 +31,7 @@ const OrderBookPanel = (props) => {
   const {
     onRemove, showMarket, canChangeStacked, moveable,
     removeable, dark, savedState, activeExchange, activeMarket,
+    allMarkets, canChangeMarket, layoutID, layoutI, updateState,
   } = props
   const {
     sumAmounts, stackedView, currentExchange = activeExchange, currentMarket = activeMarket,
@@ -72,8 +73,6 @@ const OrderBookPanel = (props) => {
   }
 
   const saveState = (param, value) => {
-    const { layoutID, layoutI, updateState } = props
-
     updateState(layoutID, layoutI, {
       [param]: value,
     })
@@ -96,8 +95,6 @@ const OrderBookPanel = (props) => {
   }
 
   const renderMarketDropdown = () => {
-    const { allMarkets, canChangeMarket } = props
-
     const markets = allMarkets[currentExchange] || []
 
     return (
@@ -166,7 +163,30 @@ const OrderBookPanel = (props) => {
   )
 }
 
-OrderBookPanel.propTypes = propTypes
-OrderBookPanel.defaultProps = defaultProps
+OrderBookPanel.propTypes = {
+  onRemove: PropTypes.func.isRequired,
+  showMarket: PropTypes.bool,
+  canChangeStacked: PropTypes.bool,
+  moveable: PropTypes.bool,
+  removeable: PropTypes.bool,
+  savedState: PropTypes.object,
+  dark: PropTypes.bool,
+  activeExchange: PropTypes.string.isRequired,
+  activeMarket: PropTypes.object.isRequired,
+  allMarkets: PropTypes.object.isRequired,
+  canChangeMarket: PropTypes.bool.isRequired,
+  layoutID: PropTypes.string.isRequired,
+  layoutI: PropTypes.string.isRequired,
+  updateState: PropTypes.func.isRequired,
+}
+
+OrderBookPanel.defaultProps = {
+  showMarket: false,
+  canChangeStacked: true,
+  moveable: true,
+  removeable: true,
+  dark: false,
+  savedState: {},
+}
 
 export default memo(OrderBookPanel)
