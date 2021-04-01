@@ -3,7 +3,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Scrollbars } from 'react-custom-scrollbars'
-import { StoreProvider as UfxStoreProvider, useInjectBfxData } from 'ufx-ui-core'
+import { StoreProvider as UfxStoreProvider, useInjectBfxData } from 'ufx-ui'
 
 import Debug from 'debug'
 import Manifest from '../package.json'

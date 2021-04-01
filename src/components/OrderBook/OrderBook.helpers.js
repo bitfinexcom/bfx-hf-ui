@@ -1,4 +1,4 @@
-import { BOOK_KEYS as KEYS, BOOK_VIZ_TYPES } from 'ufx-ui-core'
+import { BOOK_KEYS as KEYS, BOOK_VIZ_TYPES } from 'ufx-ui'
 
 const ROW_MAPPING = {
   [KEYS.ORDER_COUNT]: {

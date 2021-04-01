@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import { Book } from 'ufx-ui-core'
+import { Book } from 'ufx-ui'
 
 import { propTypes, defaultProps } from './OrderBook.props'
 import { getRowMapping, getBookViz } from './OrderBook.helpers'

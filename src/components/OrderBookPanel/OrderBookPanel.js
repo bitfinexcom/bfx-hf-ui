@@ -7,7 +7,7 @@ import {
   reduxActions,
   reduxConstants,
   reduxSelectors,
-} from 'ufx-ui-core'
+} from 'ufx-ui'
 import MarketSelect from '../MarketSelect'
 
 import OrderBook from '../OrderBook'
@@ -163,7 +163,7 @@ const OrderBookPanel = (props) => {
         <OrderBook
           stackedView={stackedView}
           sumAmounts={sumAmounts}
-          // ufx-ui-core/book props start
+          // ufx-ui/book props start
           online={isWSConnected}
           asks={asks}
           bids={bids}
@@ -172,7 +172,7 @@ const OrderBookPanel = (props) => {
           tAsks={tAsks}
           tBids={tBids}
           loading={!snapshotReceived}
-          // ufx-ui-core/book props end
+          // ufx-ui/book props end
         />
       )}
     </Panel>
