@@ -7,6 +7,4 @@ const mapStateToProps = (state = {}, ownProps = {}) => ({
   ob: getOrderBook(state, ownProps.exchange, ownProps.market),
 })
 
-const mapDispatchToProps = dispatch => ({}) // eslint-disable-line
-
-export default connect(mapStateToProps, mapDispatchToProps)(OrderBook)
+export default connect(mapStateToProps)(OrderBook)
