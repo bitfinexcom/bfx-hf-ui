@@ -15,15 +15,15 @@ export default {
   error: payload => ({ type: t.ERROR, payload }),
   flushQueue: () => ({ type: t.FLUSH_QUEUE }),
 
-  connect: (destination = '') => ({
+  connect: (alias = '', destination = '') => ({
     type: t.CONNECT,
-    payload: { destination },
+    payload: { alias, destination },
   }),
 
-  connected: () => ({ type: t.CONNECTED }),
-  reconnected: () => ({ type: t.RECONNECTED }),
-  disconnected: () => ({ type: t.DISCONNECTED }),
-  disconnect: () => ({ type: t.DISCONNECT }),
+  connected: (alias) => ({ type: t.CONNECTED, payload: { alias } }),
+  reconnected: (alias) => ({ type: t.RECONNECTED, payload: { alias } }),
+  disconnected: (alias) => ({ type: t.DISCONNECTED, payload: { alias } }),
+  disconnect: (alias) => ({ type: t.DISCONNECT, payload: { alias } }),
 
   subscribed: ({ exID, chanID, chanData }) => ({
     type: t.SUBSCRIBED,
@@ -42,18 +42,21 @@ export default {
     payload: { exID, channel },
   }),
 
+  pubSubscribed: ({ chanID, chanName }) => ({
+    type: t.PUB_SUBSCRIBED,
+    payload: { chanID, chanName },
+  }),
+
   unsubscribe: (exID, channelDataOrID) => {
     const action = {
       type: t.UNSUBSCRIBE,
       payload: { exID },
     }
-
     if (_isFinite(channelDataOrID)) {
       action.payload.chanId = channelDataOrID
     } else {
       action.payload.chanData = channelDataOrID
     }
-
     return action
   },
 
@@ -87,9 +90,16 @@ export default {
     payload: settings,
   }),
 
-  bufferDataFromExchange: (exID, chanID, data) => ({
+  bufferDataFromExchange: (
+    exID, chanID, data, rawData = null,
+  ) => ({
     type: t.BUFFER_DATA_FROM_EXCHANGE,
-    payload: { exID, chanID, data },
+    payload: {
+      exID,
+      chanID,
+      data,
+      rawData,
+    },
   }),
 
   flushDataFromExchange: updates => ({
@@ -282,7 +292,9 @@ export default {
   purgeBacktestData: () => ({
     type: t.PURGE_DATA_BACKTEST,
   }),
-
+  resetBacktestData: () => ({
+    type: t.RESET_DATA_BACKTEST,
+  }),
   initAuth: password => send(['auth.init', password, 'main']),
   auth: (password, mode) => send(['auth.submit', password, mode]),
   resetAuth: () => send(['auth.reset']),

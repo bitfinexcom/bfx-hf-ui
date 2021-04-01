@@ -19,3 +19,5 @@ todo
 /logs/*.log
 .undodir
 Session.vim
+
+.vscode

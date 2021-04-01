@@ -16,6 +16,7 @@ import getFirstLogin from './get_first_login'
 import getCurrentMode from './get_current_mode'
 import getGuideStatusForPage from './get_guide_status_for_page'
 import getFilteredBalances from './get_filtered_balances'
+import getStrategyId from './get_strategy_id'
 
 export {
   getRemoteVersion,
@@ -36,4 +37,5 @@ export {
   getCurrentMode,
   getGuideStatusForPage,
   getFilteredBalances,
+  getStrategyId,
 }

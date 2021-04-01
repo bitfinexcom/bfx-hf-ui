@@ -1,8 +1,8 @@
 import { fork, takeEvery } from 'redux-saga/effects'
 import t from '../../constants/ws'
 
-import messageQueueWorker from './worker_message_queue'
 import connectionWorker from './worker_connection'
+import messageQueueWorker from './worker_message_queue'
 import { updateWorker } from './worker_flush_exchange_data'
 
 import onConnected from './on_connected'
@@ -14,6 +14,7 @@ import onAddChannelRequirement from './on_add_channel_req'
 import onRemoveChannelRequirement from './on_rm_channel_req'
 import onFlushDataFromExchange from './on_flush_data_from_exchange'
 import onBufferDataFromExchange from './on_buffer_data_from_exchange'
+import onPubSubscribed from './on_pub_subscribed'
 
 export default function* () {
   yield takeEvery(t.BUFF_SEND, messageQueueWorker)
@@ -27,7 +28,8 @@ export default function* () {
   yield takeEvery(t.SUBSCRIBE, onSubscribe)
   yield takeEvery(t.FLUSH_DATA_FROM_EXCHANGE, onFlushDataFromExchange)
   yield takeEvery(t.BUFFER_DATA_FROM_EXCHANGE, onBufferDataFromExchange)
+  yield takeEvery(t.PUB_SUBSCRIBED, onPubSubscribed)
 
-  yield fork(connectionWorker)
   yield fork(updateWorker)
+  yield fork(connectionWorker)
 }

@@ -1,6 +1,9 @@
 import { put, select } from 'redux-saga/effects'
+import _isNull from 'lodash/isNull'
+
 import A from '../../actions/ws'
 import { getChannelByID } from '../../selectors/ws'
+import { prepareTickerData } from '../../helpers/prepare_pub_sub_data'
 
 export default function* (action = {}) {
   const { payload = {} } = action
@@ -9,13 +12,26 @@ export default function* (action = {}) {
 
   // TODO: Buffer all updates (see trades below)
   for (let i = 0; i < updates.length; i += 1) {
-    const { exID, chanID, data } = updates[i]
+    const {
+      exID,
+      chanID,
+      data,
+      rawData,
+    } = updates[i]
     const channel = yield select(getChannelByID, exID, chanID)
+
     const [type] = channel
+
+    let preparedData
+    if (!_isNull(rawData) && type === 'ticker') {
+      preparedData = prepareTickerData(rawData)
+    } else {
+      preparedData = data
+    }
 
     switch (type) {
       case 'ticker': {
-        yield put(A.recvDataTicker(exID, channel, data))
+        yield put(A.recvDataTicker(exID, channel, preparedData))
         break
       }
 
@@ -23,12 +39,12 @@ export default function* (action = {}) {
         if (!tradeUpdates[exID]) tradeUpdates[exID] = {}
         if (!tradeUpdates[exID][chanID]) tradeUpdates[exID][chanID] = []
 
-        tradeUpdates[exID][chanID].push(data)
+        tradeUpdates[exID][chanID].push(preparedData)
         break
       }
 
       case 'book': {
-        yield put(A.recvDataBook(exID, channel, data))
+        yield put(A.recvDataBook(exID, channel, preparedData))
         break
       }
 
