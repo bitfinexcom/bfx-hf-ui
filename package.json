@@ -169,6 +169,7 @@
     "bfx-hf-server": "^3.5.0",
     "bfx-hf-strategy": "^1.0.1",
     "bfx-hf-util": "^1.0.1",
+    "ufx-ui": "git+https://github.com/bitfinexcom/ufx-ui",
     "bignumber.js": "^9.0.0",
     "bufferutil": "^4.0.3",
     "camelcase": "^5.3.1",
