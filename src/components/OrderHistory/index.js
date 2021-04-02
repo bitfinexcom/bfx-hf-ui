@@ -1,12 +1,14 @@
 import React, { Suspense } from 'react'
 import { OrderHistory } from 'ufx-ui'
+import { useSelector } from 'react-redux'
 
 export default function index() {
+  const orders = useSelector(state => state.ws.orderHistory.orders)
+
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <OrderHistory
-        orders={{}}
-        loading
+        orders={orders}
         rowMapping={{
           selector: 'asd',
           format: (a) => a,
