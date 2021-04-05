@@ -1,39 +1,44 @@
-$background-color: #102331;
+$white-color: #fff;
+$grey-color1: #eee;
+$grey-color2: #ccc;
+$grey-color3: #aaa;
+$grey-color4: #666;
+$black-color: #000;
 
-$text-color-strong: #fff;
+$background-color: #172d3e;
+$desaturated-background-color: #20313e;
+$panel-background-color: #102331;
+
 $text-color: #e2e5e7;
-$text-color2: #aaa;
-$text-color2: #ccc;
-$text-color3: #eee;
-$text-color4: #e1e3e6;
-$text-color4: #f0f1f2;
 
 $yellow-color: #fcd206;
-$yellow-color2: #f0ed53;
 
-$black-color: #000;
-$black-color2: #0d101f;
-$black-color3: #060606;
-
-$grey-color: #ccc;
-$grey-color2: #BFC3C6;
-$grey-color3: #666;
-$grey-color4: #657D8E;
+$strategy-not-active-color: #657D8E;
+$strategy-empty-color: #99B4C8;
 
 $green-color: #54B361;
 $green-color2: #4faa5e;
 $green-color3: #16b157;
 $green-color4: #438f55;
 $green-color5: #50aa5e;
-$green-color6: #16b157;
-$red-color: #F05359;
-$blue-color: #82BAF6;
-$ocean-color: #9effff;
 
-$brown-color: #4e3300;
-$brown-color-dark: #231700;
-$dark-purple-color: #383342;
-$dark-green-color: #204143;
-$dark-green-color: #0c1b26;
-$dark-green-color: #20313e;
-$background-color2: #172d3e;
+$red-color: #F05359;
+
+$tooltip-border-color: darken(#6E8CA8, 4%);
+$tooltip-background-color: darken(#6E8CA8, 20%);
+$tooltip-text-color: #BFC3C6;
+
+$orange-border-color: #4e3300;
+$orange-background-color: #231700;
+
+$orderbook-sell-background-color: #383342;
+$orderbook-buy-background-color: #204143;
+
+$code-background-color: #0c1b26;
+$code-text-color: #9effff;
+
+$notifications-info-color: #82BAF6;
+$notifications-background-color: #0d101f;
+
+$orderform-background-color: #060606;
+$orderform-border-color: #3c3202;
