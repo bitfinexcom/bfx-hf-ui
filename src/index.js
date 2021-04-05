@@ -40,11 +40,7 @@ const HFUIWrapper = () => {
 }
 
 ReactDOM.render((
-  <Scrollbars
-    style={{
-      height: '100%',
-    }}
-  >
+  <Scrollbars>
     <StoreWrapper>
       <UfxStoreProvider>
           <HFUIWrapper />

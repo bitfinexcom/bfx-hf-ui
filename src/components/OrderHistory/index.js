@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react'
 import { OrderHistory } from 'ufx-ui'
 import { useSelector } from 'react-redux'
+import './style.css'
 
 export default function index() {
   const orders = useSelector(state => state.ws.orderHistory.orders)
