@@ -7,7 +7,7 @@ export default () => ({
 
   generateOrder: (data = {}, symbol, context) => {
     const {
-      oco, hidden, postonly, tif, tifDate, ocoStop, price, amount, lev,
+      oco, hidden, postonly, tif, reduceonly, tifDate, ocoStop, price, amount, lev,
     } = data
 
     if (tif && (!_isFinite(tifDate) || tifDate === 0)) {
@@ -22,6 +22,7 @@ export default () => ({
       symbol,
       postonly,
       oco,
+      reduceonly,
     }
 
     if (oco) {
@@ -41,7 +42,7 @@ export default () => ({
 
   header: {
     component: 'ui.checkbox_group',
-    fields: ['oco', 'hidden', 'postonly', 'tif'],
+    fields: ['oco', 'hidden', 'postonly', 'tif', 'reduceonly'],
   },
 
   sections: [{
@@ -85,6 +86,13 @@ export default () => ({
   }],
 
   fields: {
+    reduceonly: {
+      component: 'input.checkbox',
+      label: 'REDUCE-ONLY',
+      trading: ['m'],
+      default: false,
+    },
+
     hidden: {
       component: 'input.checkbox',
       label: 'HIDDEN',
