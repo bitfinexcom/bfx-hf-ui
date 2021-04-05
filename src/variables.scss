@@ -1,3 +1,4 @@
+// Base colors
 $white-color: #fff;
 $grey-color1: #eee;
 $grey-color2: #ccc;
@@ -5,16 +6,13 @@ $grey-color3: #aaa;
 $grey-color4: #666;
 $black-color: #000;
 
+$text-color: #e2e5e7;
+
 $background-color: #172d3e;
 $desaturated-background-color: #20313e;
 $panel-background-color: #102331;
 
-$text-color: #e2e5e7;
-
 $yellow-color: #fcd206;
-
-$strategy-not-active-color: #657D8E;
-$strategy-empty-color: #99B4C8;
 
 $green-color: #54B361;
 $green-color2: #4faa5e;
@@ -23,6 +21,10 @@ $green-color4: #438f55;
 $green-color5: #50aa5e;
 
 $red-color: #F05359;
+
+// Component colors
+$strategy-not-active-color: #657D8E;
+$strategy-empty-color: #99B4C8;
 
 $tooltip-border-color: darken(#6E8CA8, 4%);
 $tooltip-background-color: darken(#6E8CA8, 20%);
@@ -42,3 +44,10 @@ $notifications-background-color: #0d101f;
 
 $orderform-background-color: #060606;
 $orderform-border-color: #3c3202;
+
+// Utils
+$spacing-unit: 16px;
+
+@function spacing($value: 1) {
+  @return $spacing-unit * $value;
+}
