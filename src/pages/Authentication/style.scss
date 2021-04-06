@@ -66,7 +66,7 @@
 
   h2 {
     margin-bottom: 10px;
-    color: #54b361;
+    color: $green-color;
     font-style: normal;
     font-weight: 700;
     font-size: 43px;
@@ -125,7 +125,7 @@
   }
 
   input:focus {
-    border: 1px solid #54b361;
+    border: 1px solid $green-color;
   }
 }
 

@@ -7,8 +7,8 @@
     padding: 1px 6px;
     margin-left: 4px;
     border-radius: 100px;
-    color: #54b361;
-    border: 1px solid #54b361;
+    color: $green-color;
+    border: 1px solid $green-color;
   }
 
   .hfui-panel__header {
@@ -44,10 +44,10 @@
         background: none;
 
         p {
-          color: #54b361;
+          color: $green-color;
         }
 
-        border-bottom: 2px solid #54b361;
+        border-bottom: 2px solid $green-color;
       }
     }
   }

@@ -62,7 +62,7 @@
       cursor: pointer;
 
       i {
-        color: #54b361;
+        color: $green-color;
       }
     }
   }
@@ -79,6 +79,6 @@
   border-radius: 50%;
 
   &.green {
-    background: #54B361;
+    background: $green-color;
   }
 }

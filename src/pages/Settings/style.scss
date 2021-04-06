@@ -1,7 +1,7 @@
 @import '../../variables.scss';
 
 .hfui-settingspage__wrapper {
-  color: white;
+  color: $white-color;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -54,7 +54,7 @@
     .hfui-setting__select {
       min-width: 125px !important;
       background: $panel-background-color;
-      color: white;
+      color: $white-color;
       width: 40%;
       padding: 7px;
     }

@@ -39,11 +39,11 @@
     }
 
     &.buy .hfui-orderstable__amount {
-      color: green;
+      color: $green-color;
     }
 
     &.sell .hfui-orderstable__amount {
-      color: red;
+      color: $red-color;
     }
   }
 }

@@ -63,11 +63,11 @@
   display: inline-block;
 
   &.green {
-    background: #54B361;
+    background: $green-color;
   }
 
   &.red {
-    background: #F05359;
+    background: $red-color;
   }
 
   &.yellow {

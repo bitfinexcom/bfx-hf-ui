@@ -11,13 +11,13 @@
   }
 
   .hfui-dropdown__button, .react-datepicker__input-container input {
-    color: white;
+    color: $white-color;
     margin-right: 5px;
     background-color: rgb(16, 35, 49);
   }
 
   .react-datepicker__input-container input {
-    color: #54B361;
+    color: $green-color;
     width: calc(100% - 23px);
   }
 
@@ -71,7 +71,7 @@
   .hfui-backtester__check-error {
     margin-top: 16px;
     font-size: 12px;
-    color: red;
+    color: $red-color;
   }
   
   input {

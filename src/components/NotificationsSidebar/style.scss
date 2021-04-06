@@ -55,8 +55,8 @@
 
   &:hover {
     cursor: pointer;
-    color: #54b361;
-    border-color: #54b361;
+    color: $green-color;
+    border-color: $green-color;
   }
 }
 .hfui-notification-data {
@@ -79,14 +79,14 @@
   margin-top: 8px;
   width: 100%;
   text-align: cetner;
-  color: white;
+  color: $white-color;
   &:hover {
     cursor: pointer;
   }
 
 }
 .hfui-notification-msg {
-  color:#54B361;
+  color:$green-color;
 }
 .hfui-notification {
   z-index: 9999999;
@@ -106,18 +106,18 @@
     padding-right: 30px ;
   }
   &.success {
-    color: #54B361;
-    border-color: 1px solid #54B361;
+    color: $green-color;
+    border-color: 1px solid $green-color;
   }
 
   &.warning {
-    color: #fcd206;
-    border-color: #fcd206;
+    color: $yellow-color;
+    border-color: $yellow-color;
   }
 
   &.error {
-    color: #F05359;
-    border-color: 1px solid #F05359;
+    color: $red-color;
+    border-color: 1px solid $red-color;
   }
 
   &.info {

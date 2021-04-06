@@ -147,7 +147,7 @@
   }
 
   .hfui-select__value-container .hfui-select__single-value {
-    color: #54b361 !important;
+    color: $green-color !important;
   }
 
   .hfui-dropdown__wrapper {
@@ -203,7 +203,7 @@
 
   .fa-circle-notch {
     animation: hfui-panel-spinner-rotate 1s infinite ease-in-out both;
-    color: #fcd206 !important;
+    color: $yellow-color !important;
   }
 }
 
@@ -213,7 +213,7 @@
   line-height: 45px;
   flex-shrink: 0;
   text-transform: uppercase;
-  color: #54b361;
+  color: $green-color;
 }
 
 .hfui-panel__close { 

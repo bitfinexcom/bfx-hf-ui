@@ -89,7 +89,7 @@ body button {
 
 .react-datepicker__day--keyboard-selected, .react-datepicker__month-text--keyboard-selected,
 .react-datepicker__day--keyboard-selected, .react-datepicker__month-text--keyboard-selected {
-  background: #fcd206;
+  background: $yellow-color;
   color: $black-color;
 }
 
@@ -227,15 +227,15 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 a, a:visited {
-  color: #54B361;
+  color: $green-color;
 }
 
 .hfui-red {
-  color: #F05359;
+  color: $red-color;
 }
 
 .hfui-green {
-  color: #54B361;
+  color: $green-color;
 }
 
 .hfui-uppercase {

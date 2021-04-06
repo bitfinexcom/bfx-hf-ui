@@ -60,7 +60,7 @@
   font-family: monospace;
   padding: 0 16px;
   background: #161a2f;
-  color: red;
+  color: $red-color;
   font-size: 11px;
   position: absolute;
   bottom: 0;
@@ -75,7 +75,7 @@
     right: 8px;
 
     &:hover {
-      color: #fcd206;
+      color: $yellow-color;
       cursor: pointer;
     }
   }
@@ -110,8 +110,8 @@
     }
 
     &.active {
-      color: #54b361 !important;
-      border-bottom: 1px solid #54b361;
+      color: $green-color !important;
+      border-bottom: 1px solid $green-color;
     }
 
     &:not(.active) {
@@ -124,7 +124,7 @@
 
     &:hover {
       cursor: pointer;
-      color: #54b361;
+      color: $green-color;
     }
 
     &.hasError {

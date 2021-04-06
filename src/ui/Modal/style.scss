@@ -27,7 +27,7 @@
   padding: 0 26px 31px 26px;
 
   .error {
-    color: red;
+    color: $red-color;
     font-size: 12px;
   }
 
@@ -73,7 +73,7 @@
 
 .hfui-modal__label {
   text-transform: uppercase;
-  color: #54b361;
+  color: $green-color;
   font-weight: 500;
   font-size: 15px;
 }

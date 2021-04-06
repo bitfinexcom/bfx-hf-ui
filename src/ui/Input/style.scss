@@ -8,7 +8,7 @@
 
   input {
     width: calc(100% - 16px);
-    color: #54b361;
+    color: $green-color;
     background: $panel-background-color;
     border: 0.5px solid $panel-background-color;
     padding: 4px 8px;
@@ -24,7 +24,7 @@
   margin-top: -30px;
   position: relative;
   border: none;
-  color: #54b361;
+  color: $green-color;
   background: none;
   z-index: 2;
   outline: none;

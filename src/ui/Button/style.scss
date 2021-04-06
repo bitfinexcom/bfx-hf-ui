@@ -8,13 +8,13 @@
   font-weight:  300;
   border-radius: 4px;
   &.red {
-    background: #F05359;
-    border-color: #F05359;
+    background: $red-color;
+    border-color: $red-color;
   }
 
   &.green {
-    background: #54B361;
-    border-color: #54B361;
+    background: $green-color;
+    border-color: $green-color;
   }
 
   &:hover:not(.disabled) {
