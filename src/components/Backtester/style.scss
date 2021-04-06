@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .hfui-backtester__executionform {
   display: flex;
   flex: 1;
@@ -29,7 +31,7 @@
   }
 
   .input-label {
-    color: #666;
+    color: $grey-color;
     font-size: 11px;
     line-height: 16px;
     padding-right: 15px;
@@ -47,7 +49,7 @@
     min-height: 100%;
     padding-top:7px;
     padding-bottom: 7px;
-    background-color: #102331;
+    background-color: $panel-background-color;
   }
   .hfui-backtester_row {
     display: flex;
@@ -76,7 +78,7 @@
     max-width: 100%;
     padding: 10px 8px;
     background-color: lightgray;
-    color: #666;
+    color: $grey-color;
   }
 }
 

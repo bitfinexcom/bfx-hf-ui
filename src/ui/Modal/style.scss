@@ -23,7 +23,7 @@
 .hfui-modal__content {
   width: 50%;
   max-width: 447px;
-  background: #172d3e;
+  background: $background-color;
   padding: 0 26px 31px 26px;
 
   .error {
@@ -43,7 +43,7 @@
   }
 
   .hfui-dropdown__button, .hfui-input {
-    background: #102331;
+    background: $panel-background-color;
     max-width: 300px;
   }
 

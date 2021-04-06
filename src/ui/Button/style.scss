@@ -1,7 +1,7 @@
 @import '../../variables.scss';
 
 .hfui-button, button {
-  background: #102331;
+  background: $panel-background-color;
   border: none;
   color: $text-color;
   font-size: 12px;

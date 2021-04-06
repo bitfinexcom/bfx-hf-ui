@@ -1,7 +1,7 @@
 @import '../../variables.scss';
 
 .hfui-orderstable__wrapper {
-  color: #666;
+  color: $grey-color;
   padding: 8px 8px 0 8px;
   overflow: hidden;
 
@@ -11,7 +11,7 @@
   }
 
   .hfui-orderstable__header {
-    border-bottom: 1px solid #666;
+    border-bottom: 1px solid $grey-color;
     padding-bottom: 2px;
     margin-bottom: 2px;
 

@@ -8,7 +8,7 @@
     text-transform: uppercase;
     color: #54b361;
     padding-left: 10px;
-    border-bottom: 1px solid #102331;
+    border-bottom: 1px solid $panel-background-color;
 }
 
 .hfui-favoritepair__content {
@@ -42,7 +42,7 @@
     }
 }
 .hfui-favoritepair__content-item {
-    background-color: #102331;
+    background-color: $panel-background-color;
     display: inline-block;
     text-transform: uppercase;
     padding: 8px;

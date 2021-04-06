@@ -23,7 +23,7 @@
   height: calc(100% - 10px);
   position: relative;
   border-bottom: 1px solid #282e58;
-  background: #000;
+  background: $black-color;
 
   &.noresults {
     height: 100%;
@@ -42,7 +42,7 @@
   }
 
   .cm-s-monokai .CodeMirror-gutters {
-    background-color: #172d3e;
+    background-color: $background-color;
   }
 
   &.maximised {
@@ -89,7 +89,7 @@
   width: 150px;
   min-width: 150px;
   font-size: 12px;
-  background: #172d3e;
+  background: $background-color;
   margin: 12px;
 
   li {
@@ -140,7 +140,7 @@
     padding: 8px 13px;
 
     &:not(.green) {
-      background: #172d3e;
+      background: $background-color;
     }
 
     button {
@@ -175,7 +175,7 @@
 
 .hfui-strategyeditor__panel {
   .hfui-panel__header {
-    border-bottom: 1px solid #20313e;
+    border-bottom: 1px solid $desaturated-background-color;
     
     .hfui-panel__label {
       line-height: 57px;

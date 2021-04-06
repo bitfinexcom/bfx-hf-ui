@@ -1,8 +1,8 @@
 @import '../../variables.scss';
 
 .hfui-exchangeinfobar__wrapper {
-  border-bottom: 1px solid #102331;
-  background: #172d3e;
+  border-bottom: 1px solid $panel-background-color;
+  background: $background-color;
 
   z-index: 100;
   height: 60px;
@@ -99,7 +99,7 @@
 }
 
 .hfui-exchangeinfobar__item-label {
-  color: #e2e5e7;
+  color: $text-color;
   user-select: none;
   margin-right: 6px;
   text-transform: uppercase;
@@ -133,7 +133,7 @@
 
 .hfui-tradingpaper__control {
   display: flex;
-  border-right: 1px solid #102331;
+  border-right: 1px solid $panel-background-color;
   padding-right: 15px;
   flex-direction: row;
   justify-content: space-between;

@@ -7,7 +7,7 @@
 
   .hfui-dropdown__button {
     margin-left: 0;
-    background: #102331;
+    background: $panel-background-color;
     position: relative;
     width: 165;
     padding-left: 8px;
@@ -66,7 +66,7 @@
 .hfui-orderform__panel {
   .hfui-panel__footer {
     width: calc(100% - 16px);
-    background: #102331;
+    background: $panel-background-color;
     line-height: 32px;
     font-size: 13px;
     color: #e1e3e6;
@@ -120,7 +120,7 @@
 .hfui-orderform__label {
   width: 100%;
   display: block;
-  color: #666;
+  color: $grey-color;
   font-size: 12px;
   margin-bottom: 16px;
   text-align: center;
@@ -208,7 +208,7 @@
   font-size: 13px;
   font-weight: 300;
   margin-bottom: 16px;
-  border-top: 1px solid #102331;
+  border-top: 1px solid $panel-background-color;
   text-transform: uppercase;
   padding-top: 14px;
   color: $white-color;
@@ -357,7 +357,7 @@
   left: 0;
   z-index: 10;
   line-height: 1.5;
-  background: #172d3e;
+  background: $background-color;
   height: 100%;
   white-space: pre-line;
   width: 100%;
@@ -389,7 +389,7 @@
     }
 
     .prefix {
-      color: #666;
+      color: $grey-color;
       margin-right: 8px;
     }
   }
@@ -400,7 +400,7 @@
   top: 0;
   left: 0;
   z-index: 10;
-  background: #172d3e;
+  background: $background-color;
   width: calc(100% - 1px);
   height: 100%;
   user-select: none;
@@ -420,7 +420,7 @@
   .notice {
     padding: 0 16px;
     font-size: 11px;
-    color: #666;
+    color: $grey-color;
     line-height: 1.5;
     text-align: center;
   }
@@ -510,7 +510,7 @@
 }
 
 .hfui-orderform__wrapper-nomodal {
-  background: #172d3e;
+  background: $background-color;
   width: calc(100% - 1px);
   height: 500px;
   user-select: none;
@@ -530,7 +530,7 @@
   .notice {
     padding: 0 16px;
     font-size: 11px;
-    color: #666;
+    color: $grey-color;
     line-height: 1.5;
     text-align: center;
   }
@@ -627,7 +627,7 @@
   > i {
     line-height: 39px;
     font-size: 15px;
-    color: #e2e5e7;
+    color: $text-color;
     flex: 1;
 
     &:hover {
@@ -644,7 +644,7 @@
       vertical-align: middle;
       line-height: 39px;
       font-size: 13px;
-      color: #e2e5e7;
+      color: $text-color;
     }
 
     p {

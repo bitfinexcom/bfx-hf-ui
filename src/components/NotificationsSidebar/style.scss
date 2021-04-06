@@ -1,11 +1,13 @@
+@import '../../variables.scss';
+
 .hfui-notificationssidebar__wrapper {
   position: fixed;
   top: 33px;
   right: 0;
   width: 0;
   height: calc(100% - 33px); // take into account statusbar
-  background: #000;
-  border-left: 1px solid #666;
+  background: $black-color;
+  border-left: 1px solid $grey-color;
   z-index: 1000;
   margin-right: -1px;
 
@@ -92,7 +94,7 @@
   border: 1px solid #333;
   padding: 10px;
   font-size: 12px;
-  background: #102331;
+  background: $panel-background-color;
   text-align: center;
   display: flex;
   justify-content: space-evenly;

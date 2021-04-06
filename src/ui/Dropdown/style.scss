@@ -12,7 +12,7 @@
     left: 0;
     border: 1px solid #54b361;
     width: 200px;
-    background: #102331;
+    background: $panel-background-color;
     z-index: 999;
 
     &.with-icon {
@@ -22,7 +22,7 @@
     li {
       line-height: 40px;
       padding: 0 8px;
-      background: #102331;
+      background: $panel-background-color;
 
       &:hover:not(.label) {
         text-decoration: underline;

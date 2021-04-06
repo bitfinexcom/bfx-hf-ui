@@ -12,11 +12,11 @@
   }
 
   &.dark {
-    background: #102331;
+    background: $panel-background-color;
   }
 
   &.dark-header .hfui-panel__header {
-    background: #102331;
+    background: $panel-background-color;
   }
 }
 
@@ -25,7 +25,7 @@
   flex-direction: row;
   margin: 0 0 10px 0;
   padding: 0 20px;
-  border-bottom: 1px solid #172d3e;
+  border-bottom: 1px solid $background-color;
 
   &.reverse {
     flex-direction: row-reverse;
@@ -61,8 +61,8 @@
 .hfui-panel__header {
   display: flex;
   flex-direction: row;
-  border-bottom: 1px solid #102331;
-  background: #172d3e;
+  border-bottom: 1px solid $panel-background-color;
+  background: $background-color;
   padding: 0 10px;
   justify-content: space-between;
 
@@ -189,7 +189,7 @@
     }
 
     &.high-contrast {
-      background: #172d3e;
+      background: $background-color;
     }
 
     &.no-margin {

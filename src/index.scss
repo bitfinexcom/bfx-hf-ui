@@ -19,13 +19,13 @@ body button {
 }
 
 .react-datepicker {
-  background-color: #102331;
+  background-color: $panel-background-color;
   color: $text-color;
   border:none;
 }
 
 .react-datepicker__time-container .react-datepicker__time {
-  background: #102331;
+  background: $panel-background-color;
   border: none;
 }
 .react-datepicker__time-container { 
@@ -37,7 +37,7 @@ body button {
 }
 
 .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item:hover {
-  background-color: #000;
+  background-color: $black-color;
   border:none;
 }
 
@@ -53,7 +53,7 @@ body button {
 .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle,
 .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle::before {
   border-top: none;
-  border-bottom-color: #000;
+  border-bottom-color: $black-color;
 } 
 
 .react-datepicker-time__header {
@@ -69,7 +69,7 @@ body button {
 }
 
 .react-datepicker__header {
-  background-color: #000;
+  background-color: $black-color;
   border:none;
 }
 
@@ -84,13 +84,13 @@ body button {
 }
 
 .react-datepicker__day:hover, .react-datepicker__month-text:hover {
-  background-color: #666;
+  background-color: $grey-color;
 }
 
 .react-datepicker__day--keyboard-selected, .react-datepicker__month-text--keyboard-selected,
 .react-datepicker__day--keyboard-selected, .react-datepicker__month-text--keyboard-selected {
   background: #fcd206;
-  color: #000;
+  color: $black-color;
 }
 
 .react-datepicker-wrapper,
@@ -109,7 +109,7 @@ body button {
 
   select {
     color: $text-color;
-    background-color: #000;
+    background-color: $black-color;
     font-weight: bold;
     font-size: 0.9rem;
     border-radius: 0.3rem;
@@ -205,8 +205,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background: #172d3e;
-  color: #e2e5e7;
+  background: $background-color;
+  color: $text-color;
 
   margin: 0;
   overflow: hidden;

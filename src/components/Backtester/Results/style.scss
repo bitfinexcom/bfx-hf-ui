@@ -1,3 +1,5 @@
+@import '../../../variables.scss';
+
 .hfui-strategyeditor__results-wrapper {
   width: 100%;
   padding: 0 8px;
@@ -64,7 +66,7 @@
   display: block;
 
   p {
-    color: #666;
+    color: $grey-color;
     font-size: 11px;
     line-height: 16px;
   }
