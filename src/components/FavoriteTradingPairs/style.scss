@@ -49,9 +49,9 @@
     margin: 4px;
     font-size: 13px;
     cursor: pointer; 
-    &.active { 
-        border: 1px solid #16B157;
-        color: #16B157;
+    &.active {
+        border: 1px solid $green-color;
+        color: $green-color;
     }
 }
 
