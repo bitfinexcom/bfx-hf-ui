@@ -31,7 +31,7 @@
 
   .notice {
     font-size: 15px;
-    color: #fff;
+    color: $white-color;
     font-weight: 300;
     text-transform: uppercase;
     line-height: 1.5;
@@ -64,7 +64,7 @@
     }
 
     button, i {
-      color: #fff;
+      color: $white-color;
     }
   }
 }

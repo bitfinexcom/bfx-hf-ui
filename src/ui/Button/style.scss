@@ -16,7 +16,7 @@
   }
 
   &:hover:not(.disabled) {
-    color: #fff;
+    color: $white-color;
     cursor: pointer;
     opacity: 0.8;
   }

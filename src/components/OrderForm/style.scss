@@ -209,7 +209,7 @@
   border-top: 1px solid #102331;
   text-transform: uppercase;
   padding-top: 14px;
-  color: #fff;
+  color: $white-color;
 }
 
 .hfui-orderform__layout-header {
@@ -237,7 +237,7 @@
     }
 
     button, i {
-      color: #fff;
+      color: $white-color;
     }
 
     &:first-child:last-child {
@@ -471,7 +471,7 @@
       }
 
       button, i {
-        color: #fff;
+        color: $white-color;
       }
     }
   }
@@ -581,7 +581,7 @@
       }
 
       button, i {
-        color: #fff;
+        color: $white-color;
       }
     }
   }

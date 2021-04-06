@@ -175,7 +175,7 @@
     line-height: 32px;
     margin-right: 13px;
     font-size: 20px;
-    color: #fff;
+    color: $white-color;
 
     &:first-child {
       margin-right: 0;
@@ -220,7 +220,7 @@
   line-height: 45px;
   flex-shrink: 0;
   text-transform: uppercase;
-  color: #fff;
+  color: $white-color;
   float: right;
 }
 
