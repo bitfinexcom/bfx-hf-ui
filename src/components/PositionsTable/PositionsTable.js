@@ -13,15 +13,21 @@ export default class PositionsTable extends React.Component {
   state = {
     filteredPositions: [],
   }
+
+  componentDidMount() {
+    this.getFilteredPositions()
+  }
+
   shouldComponentUpdate(nextProps, nextState) {
     return (!_isEqual(nextProps, this.props) || !_isEqual(nextState, this.state))
   }
+
   componentDidUpdate() {}
   getSnapshotBeforeUpdate() {
-    const filteredPositions = this.getFilteredPositions()
-    this.setState({ filteredPositions })
+    this.getFilteredPositions()
     return null
   }
+
   getFilteredPositions() {
     const {
       activeExchange, activeMarket, positions, setFilteredValueWithKey,
@@ -34,6 +40,8 @@ export default class PositionsTable extends React.Component {
     const filteredPositions = marketFilterActive
       ? filteredByExchange.filter(p => p.symbol === activeMarket.wsID)
       : filteredByExchange
+
+    this.setState({ filteredPositions })
     setFilteredValueWithKey('filteredPositions', filteredPositions)
     return filteredPositions
   }

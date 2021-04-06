@@ -8,11 +8,17 @@ export default class AtomicOrdersTablePanel extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
   state = {
-    atomicOrders: [],
+    filteredAtomicOrders: [],
   }
+
+  componentDidMount() {
+    this.getFilteredAtomicOrders()
+  }
+
   shouldComponentUpdate(nextProps, nextState) {
     return (!_isEqual(nextProps, this.props) || !_isEqual(nextState, this.state))
   }
+
   componentDidUpdate() {}
   getSnapshotBeforeUpdate() {
     const atomicOrders = this.getFilteredAtomicOrders()
@@ -32,13 +38,15 @@ export default class AtomicOrdersTablePanel extends React.Component {
     const filteredAtomicOrders = marketFilterActive
       ? filteredByExchange.filter(o => o.symbol === activeMarket.wsID)
       : filteredByExchange
+
+    this.setState({ filteredAtomicOrders })
     setFilteredValueWithKey('filteredAtomicOrders', filteredAtomicOrders)
     return filteredAtomicOrders
   }
 
   render() {
     const { onRemove, activeExchange } = this.props
-    const { atomicOrders } = this.state
+    const { filteredAtomicOrders } = this.state
     return (
       <Panel
         label='ATOMIC ORDERS'
@@ -46,7 +54,7 @@ export default class AtomicOrdersTablePanel extends React.Component {
       >
         <AtomicOrdersTable
           exID={activeExchange}
-          filteredAtomicOrders={atomicOrders}
+          filteredAtomicOrders={filteredAtomicOrders}
         />
       </Panel>
     )
