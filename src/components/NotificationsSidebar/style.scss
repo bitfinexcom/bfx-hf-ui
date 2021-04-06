@@ -47,8 +47,8 @@
   height: 24px;
   width: 24px;
   line-height: 24px;
-  background: #0d101f;
-  border: 0.5px solid #282e58;
+  background: $notifications-background-color;
+  border: 0.5px solid $misc-border-color;
   border-right: none;
   text-align: center;
   font-size: 12px;
@@ -91,7 +91,7 @@
 .hfui-notification {
   z-index: 9999999;
   margin: 8px;
-  border: 1px solid #333;
+  border: 1px solid $dark-grey-color;
   padding: 10px;
   font-size: 12px;
   background: $panel-background-color;
@@ -121,8 +121,8 @@
   }
 
   &.info {
-    color: #82BAF6;
-    border-color: 1px solid #82BAF6;
+    color: $notifications-info-color;
+    border-color: 1px solid $notifications-info-color;
   }
   &.closed {
     height: 0;

@@ -22,7 +22,7 @@
   flex-direction: column;
   height: calc(100% - 10px);
   position: relative;
-  border-bottom: 1px solid #282e58;
+  border-bottom: 1px solid $misc-border-color;
   background: $black-color;
 
   &.noresults {
@@ -38,7 +38,7 @@
   }
 
   .cm-s-monokai.CodeMirror {
-    background: #0c1b26;
+    background: $code-background-color;
   }
 
   .cm-s-monokai .CodeMirror-gutters {
@@ -52,14 +52,14 @@
     width: calc(100% - 152px);
     z-index: 99;
     height: calc(100% - 134px);
-    border: 1px solid #3c3202;
+    border: 1px solid $orderform-border-color;
   }
 }
 
 .hfui-strategyeditor__editor-error-output {
   font-family: monospace;
   padding: 0 16px;
-  background: #161a2f;
+  background: $panel-background-color;
   color: $red-color;
   font-size: 11px;
   position: absolute;
@@ -67,7 +67,7 @@
   left: 0px;
   width: calc(100% - 32px);
   z-index: 9999;
-  border-top: 1px solid #333;
+  border-top: 1px solid $dark-grey-color;
 
   .fas.fa-times-circle {
     position: absolute;
@@ -94,7 +94,7 @@
 
   li {
     padding: 0 8px;
-    border-bottom: 0.5px solid #282e58;
+    border-bottom: 0.5px solid $misc-border-color;
 
     display: flex;
     flex-direction: row;
@@ -115,11 +115,11 @@
     }
 
     &:not(.active) {
-      color: #657D8E;
+      color: $strategy-not-active-color;
     }
 
     &.empty {
-      color: #99B4C8;
+      color: $strategy-empty-color;
     }
 
     &:hover {
@@ -128,7 +128,7 @@
     }
 
     &.hasError {
-      color: red !important;
+      color: $red-color !important;
     }
   }
 }

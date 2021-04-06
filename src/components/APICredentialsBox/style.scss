@@ -2,7 +2,7 @@
 
 .hfui-apicredentialsbox__wrapper {
   padding: 16px;
-  border: 1px solid #333;
+  border: 1px solid $dark-grey-color;
   margin-bottom: 16px !important;
   width: 100%;
   display: flex;
@@ -14,8 +14,8 @@
   }
 
   &.orange {
-    border-color: #4e3300;
-    background: #231700;
+    border-color: $orange-border-color;
+    background: $orange-background-color;
   }
 
   &:last-child {

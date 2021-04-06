@@ -4,7 +4,7 @@
   padding: 20px;
   padding-left: 40px;
   padding-right: 40px;
-  background: #0c1b26;
+  background: $code-background-color;
   color: $white-color; 
   
   code { 
@@ -14,21 +14,21 @@
 
   p  {
     a {
-      color: #fd971f;
+      color: $code-anchor-color;
       text-decoration: none;
     }
     code { 
-      color: #9effff;
+      color: $code-text-color;
     }
   }
   dl {
     dt {
       a { 
-        color: #fd971f;
+        color: $code-anchor-color;
         text-decoration: none;
       }
       code { 
-        color: #9effff;
+        color: $code-text-color;
       }
     }
     dd {
@@ -46,9 +46,9 @@
     border-bottom: 1px solid gray;
     padding-bottom: 10px;
     margin-top: 20px;
-    color: #fd971f;
+    color: $code-anchor-color;
     code { 
-      color: #9effff;
+      color: $code-text-color;
     }
   }
   h2:first-child { 

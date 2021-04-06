@@ -1,6 +1,7 @@
 // Base colors
 $white-color: #fff;
 $grey-color: #666;
+$dark-grey-color: #333;
 $black-color: #000;
 
 $background-color: #172d3e;
@@ -30,12 +31,16 @@ $orderbook-buy-background-color: #204143;
 
 $code-background-color: #0c1b26;
 $code-text-color: #9effff;
+$code-anchor-color: #fd971f;
 
 $notifications-info-color: #82BAF6;
 $notifications-background-color: #0d101f;
 
+
+// To sort out
 $orderform-background-color: #060606;
 $orderform-border-color: #3c3202;
+$misc-border-color: #282e58;
 
 // Utils
 $spacing-unit: 16px;

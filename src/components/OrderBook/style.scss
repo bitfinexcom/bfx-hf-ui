@@ -108,14 +108,14 @@
   }
 
   &.buy .hfui-orderbook__pl-vol {
-    background: #204143;
+    background: $orderbook-buy-background-color;
     position: absolute;
     top: 0;
     right: 0;
   }
 
   &.sell .hfui-orderbook__pl-vol {
-    background: #383342;
+    background: $orderbook-sell-background-color;
     position: absolute;
     top: 0;
     left: 0;
@@ -146,7 +146,7 @@
 }
 
 .hfui-orderbook__pl-container-stacked .hfui-orderbook__pl-vol {
-  background: #204143;
+  background: $orderbook-buy-background-color;
   position: absolute;
   top: 0;
   left: 0;

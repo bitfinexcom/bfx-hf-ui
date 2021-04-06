@@ -163,17 +163,17 @@ div.__react-tooltip {
 }
 
 .__react_component_tooltip {
-  border: 1px solid darken(#6E8CA8, 4%);
-  background-color: darken(#6E8CA8, 20%);
-  color: #BFC3C6;
+  border: 1px solid $tooltip-border-color;
+  background-color: $tooltip-background-color;
+  color: $tooltip-text-color;
 }
 
 .tooltip-arrow[data-placement*='left']:after {
-  border-left-color: darken(#6E8CA8, 4%) !important;
+  border-left-color: $tooltip-border-color !important;
 }
 
 .tooltip-arrow[data-placement*='top']:after {
-  border-top-color: darken(#6E8CA8, 4%) !important;
+  border-top-color: $tooltip-border-color !important;
 }
 
 .tooltip-arrow[data-placement*='right'] {
@@ -184,7 +184,7 @@ div.__react-tooltip {
   }
 
   &:after {
-    border-right-color: darken(#6E8CA8, 4%) !important;
+    border-right-color: $tooltip-border-color !important;
   }
 }
 
@@ -194,7 +194,7 @@ div.__react-tooltip {
   }
 
   &:after {
-    border-bottom-color: darken(#6E8CA8, 4%) !important;
+    border-bottom-color: $tooltip-border-color !important;
   }
 }
 
