@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .hfui-ao-list__entry {
   display: flex;
   flex-direction: column;
@@ -34,7 +36,7 @@
 }
 
 .hfui-ao-list__entry-row-elm-value {
-  color: #ccc;
+  color: $text-color;
   font-size: 12px;
 }
 

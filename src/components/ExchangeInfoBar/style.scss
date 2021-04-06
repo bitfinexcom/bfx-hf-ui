@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .hfui-exchangeinfobar__wrapper {
   border-bottom: 1px solid #102331;
   background: #172d3e;
@@ -104,7 +106,7 @@
 }
 
 .hfui-exchangeinfobar__item-data {
-  color: #eee;
+  color: $text-color;
 
   &.hover:hover {
     cursor: pointer;

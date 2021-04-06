@@ -1,23 +1,21 @@
 // Base colors
 $white-color: #fff;
-$grey-color1: #eee;
-$grey-color2: #ccc;
-$grey-color3: #aaa;
-$grey-color4: #666;
+$grey-color: #666;
 $black-color: #000;
-
-$text-color: #e2e5e7;
 
 $background-color: #172d3e;
 $desaturated-background-color: #20313e;
 $panel-background-color: #102331;
 
+$text-color: #e2e5e7;
+$text-color2: mix($text-color, $background-color, 80%);
+
 $yellow-color: #fcd206;
 
 $green-color: #54B361;
-$green-color2: #4faa5e;
-$green-color3: #16b157;
-$green-color4: #438f55;
+$green-color2: #16b157;
+$green-color3: #438f55;
+$green-color4: #35704f;
 $green-color5: #50aa5e;
 
 $red-color: #F05359;

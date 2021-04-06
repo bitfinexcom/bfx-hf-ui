@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .hfui-orderform__wrapper {
   min-height: calc(100% - 16px);
   position: relative;
@@ -298,7 +300,7 @@
   }
 
   .hfui-orderform__input-label {
-    color: #666;
+    color: $text-color2;
     font-size: 11px;
     line-height: 16px;
     margin-top: 2px;
@@ -313,7 +315,7 @@
   }
 
   &.text p:first-child {
-    color: #aaa;
+    color: $text-color;
     font-size: 12px;
     line-height: 24px;
     width: 138px;

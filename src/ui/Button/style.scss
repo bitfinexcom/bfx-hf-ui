@@ -1,7 +1,9 @@
+@import '../../variables.scss';
+
 .hfui-button, button {
   background: #102331;
   border: none;
-  color: #eee;
+  color: $text-color;
   font-size: 12px;
   font-weight:  300;
   border-radius: 4px;

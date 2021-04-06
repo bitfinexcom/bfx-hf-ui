@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .hfui-panel {
   width: 100%;
   height: 100%;
@@ -183,7 +185,7 @@
 
     &:hover:not(.disabled) {
       cursor: pointer;
-      color: #eee;
+      color: $text-color;
     }
 
     &.high-contrast {

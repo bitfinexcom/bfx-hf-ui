@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .hfui-orderstable__wrapper {
   color: #666;
   padding: 8px 8px 0 8px;
@@ -26,7 +28,7 @@
       font-size: 12px;
       line-height: 16px;
       width: 100%;
-      color: #eee;
+      color: $text-color;
 
       margin-right: 32px;
 

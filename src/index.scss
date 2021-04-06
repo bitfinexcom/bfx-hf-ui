@@ -7,7 +7,7 @@
 @import 'https://fonts.googleapis.com/css?family=Roboto&display=swap';
 @import '/icon_font/styles.css';
 @import '~react-popper-tooltip/dist/styles';
-
+@import './variables.scss';
 
 body button:focus {
   outline: none;
@@ -20,7 +20,7 @@ body button {
 
 .react-datepicker {
   background-color: #102331;
-  color: #ccc;
+  color: $text-color;
   border:none;
 }
 
@@ -57,7 +57,7 @@ body button {
 } 
 
 .react-datepicker-time__header {
-  color: #ccc;
+  color: $text-color;
   border: none;
 }
 
@@ -80,7 +80,7 @@ body button {
 .react-datepicker__day-name,
 .react-datepicker__day,
 .react-datepicker__time-name {
-  color: #ccc;
+  color: $text-color;
 }
 
 .react-datepicker__day:hover, .react-datepicker__month-text:hover {
@@ -108,7 +108,7 @@ body button {
   margin: 0 5px;
 
   select {
-    color: #ccc;
+    color: $text-color;
     background-color: #000;
     font-weight: bold;
     font-size: 0.9rem;

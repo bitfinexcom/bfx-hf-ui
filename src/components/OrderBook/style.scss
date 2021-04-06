@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .hfui-orderbook__wrapper {
   display: flex;
   flex-direction: column;
@@ -97,7 +99,7 @@
 }
 
 .hfui-orderbook__pl {
-  color: #eee;
+  color: $text-color;
   position: relative;
   margin-bottom: 1px;
 
