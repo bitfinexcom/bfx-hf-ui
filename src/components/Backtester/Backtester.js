@@ -1,16 +1,12 @@
 import React from 'react'
-
-import { propTypes, defaultProps } from './Backtester.props'
+import PropTypes from 'prop-types'
 
 import RenderHistoricalReport from './reports/HistoricalReport'
 import RenderHistoricalForm from './forms/HistoricalForm'
 
 import './style.css'
 
-export default class Backtester extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
-
+class Backtester extends React.PureComponent {
   state = {
     execError: null,
     loadingBacktest: false,
@@ -39,6 +35,7 @@ export default class Backtester extends React.PureComponent {
       // },
     ]
   }
+
   backtestStrategy = (options) => {
     const {
       activeExchange, activeMarket, startDate, endDate, tf, trades, candles,
@@ -137,3 +134,45 @@ export default class Backtester extends React.PureComponent {
     )
   }
 }
+
+Backtester.propTypes = {
+  indicators: PropTypes.arrayOf(PropTypes.object),
+  backtest: PropTypes.shape({
+    loading: PropTypes.bool.isRequired,
+    executing: PropTypes.bool.isRequired,
+  }),
+  backtestData: PropTypes.shape({
+    trades: PropTypes.array.isRequired,
+    candles: PropTypes.array.isRequired,
+  }),
+  strategyContent: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string.isRequired,
+      PropTypes.oneOf([null]).isRequired,
+    ]),
+  ),
+  allMarkets: PropTypes.objectOf(PropTypes.array),
+  backtestResults: PropTypes.objectOf(PropTypes.any),
+  backtestOptions: PropTypes.objectOf(PropTypes.any),
+  authToken: PropTypes.string.isRequired,
+  dsExecuteBacktest: PropTypes.func.isRequired,
+  setBacktestOptions: PropTypes.func.isRequired,
+}
+
+Backtester.defaultProps = {
+  indicators: [],
+  backtest: {
+    loading: true,
+    executing: false,
+  },
+  backtestData: {
+    trades: [],
+    candles: [],
+  },
+  strategyContent: {},
+  allMarkets: {},
+  backtestResults: {},
+  backtestOptions: {},
+}
+
+export default Backtester
