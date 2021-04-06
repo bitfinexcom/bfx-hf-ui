@@ -1,12 +1,11 @@
+/* eslint-disable */ 
 import React from 'react'
+import PropTypes from 'prop-types'
 import { flatten as _flatten, isEqual as _isEqual } from 'lodash'
 import AtomicOrdersTable from '../AtomicOrdersTable'
 import Panel from '../../ui/Panel'
-import { propTypes, defaultProps } from './AtomicOrdersTablePanel.props'
 
-export default class AtomicOrdersTablePanel extends React.Component {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+class AtomicOrdersTablePanel extends React.Component {
   state = {
     filteredAtomicOrders: [],
   }
@@ -28,7 +27,7 @@ export default class AtomicOrdersTablePanel extends React.Component {
 
   getFilteredAtomicOrders() {
     const {
-      activeExchange, activeMarket, setFilteredValueWithKey, atomicOrders = [],
+      activeExchange, activeMarket, setFilteredValueWithKey, atomicOrders,
     } = this.props
     const { exchangeFilterActive, marketFilterActive } = this.state
 
@@ -60,3 +59,24 @@ export default class AtomicOrdersTablePanel extends React.Component {
     )
   }
 }
+
+AtomicOrdersTablePanel.propTypes = {
+  setFilteredValueWithKey: PropTypes.func.isRequired,
+  atomicOrders: PropTypes.objectOf(PropTypes.object),
+  activeExchange: PropTypes.string,
+  activeMarket: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.arrayOf(PropTypes.string),
+    ]),
+  ),
+}
+
+AtomicOrdersTablePanel.defaultProps = {
+  atomicOrders: {},
+  activeExchange: 'bitfinex',
+  activeMarket: {},
+}
+
+export default AtomicOrdersTablePanel
