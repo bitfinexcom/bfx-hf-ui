@@ -10,7 +10,6 @@
   .hfui-settings__content {
     width: 100%;
     height: 100%;
-    padding-bottom: 32px; // hfui-statusbar__wrapper height
 
     .hfui-settings__option-check {
       margin-top: 55px;
@@ -31,8 +30,12 @@
     .hfui-settings__option {
       width: 40%;
 
-      .settings-save * {
-        padding: 10px 30px 10px 30px;
+      .settings-save {
+        margin-bottom: 48px; // compensate for sticky .hfui-statusbar__wrapper
+
+        * {
+          padding: 10px 30px 10px 30px;
+        }
       }
     }
 
