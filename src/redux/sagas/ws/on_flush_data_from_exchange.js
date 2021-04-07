@@ -10,6 +10,7 @@ export default function* (action = {}) {
   const { updates = [] } = payload
   const tradeUpdates = {}
 
+  console.log(updates)
   // TODO: Buffer all updates (see trades below)
   for (let i = 0; i < updates.length; i += 1) {
     const {
@@ -19,6 +20,9 @@ export default function* (action = {}) {
       rawData,
     } = updates[i]
     const channel = yield select(getChannelByID, exID, chanID)
+
+    // eslint-disable-next-line
+    if (!channel) continue
 
     const [type] = channel
 
