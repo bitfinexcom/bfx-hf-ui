@@ -20,6 +20,9 @@ export default function* (action = {}) {
     } = updates[i]
     const channel = yield select(getChannelByID, exID, chanID)
 
+    // eslint-disable-next-line
+    if (!channel) continue
+
     const [type] = channel
 
     let preparedData
