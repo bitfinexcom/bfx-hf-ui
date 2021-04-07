@@ -27,15 +27,15 @@
       }
     }
 
+    .hfui-settings__options li:last-child {
+      padding-bottom: 48px; // compensate for sticky .hfui-statusbar__wrapper
+    }
+
     .hfui-settings__option {
       width: 40%;
 
-      .settings-save {
-        margin-bottom: 48px; // compensate for sticky .hfui-statusbar__wrapper
-
-        * {
-          padding: 10px 30px 10px 30px;
-        }
+      .settings-save * {
+        padding: 10px 30px 10px 30px;
       }
     }
 
