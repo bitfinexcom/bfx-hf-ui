@@ -48,7 +48,7 @@
   width: 24px;
   line-height: 24px;
   background: $notifications-background-color;
-  border: 0.5px solid $misc-border-color;
+  border: 0.5px solid mix($background-color, $white-color, 95%);
   border-right: none;
   text-align: center;
   font-size: 12px;

@@ -22,7 +22,6 @@
   flex-direction: column;
   height: calc(100% - 10px);
   position: relative;
-  border-bottom: 1px solid $misc-border-color;
   background: $black-color;
 
   &.noresults {
@@ -52,7 +51,7 @@
     width: calc(100% - 152px);
     z-index: 99;
     height: calc(100% - 134px);
-    border: 1px solid $orderform-border-color;
+    border: 1px solid $black-color;
   }
 }
 
@@ -94,7 +93,7 @@
 
   li {
     padding: 0 8px;
-    border-bottom: 0.5px solid $misc-border-color;
+    border-bottom: 0.5px solid mix($background-color, $white-color, 95%);
 
     display: flex;
     flex-direction: row;

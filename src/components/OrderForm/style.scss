@@ -44,8 +44,8 @@
 .hfui-orderform__upgrade {
   width: calc(100% + 32px);
   text-align: center;
-  background: $orderform-background-color;
-  border-bottom: 1px solid $orderform-border-color;
+  background: #060606;
+  border-bottom: 1px solid $black-color;
   margin-left: -16px;
 
   .hfui-orderform__upgrade_inner {
