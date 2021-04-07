@@ -33,7 +33,6 @@ export default class NotificationsSidebar extends React.Component {
     }
 
     this.keyCounter = 0
-    this.key = this.getKey.bind(this)
     this.onToggleOpen = this.onToggleOpen.bind(this)
     this.mounted = false
   }
