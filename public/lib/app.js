@@ -70,12 +70,8 @@ module.exports = class HFUIApplication {
   }
 
   onAllWindowsClosed() {
-    if (process.platform !== 'darwin') {
-      this.app.quit()
-    }
+    this.onExitCB()
 
-    if (this.onExitCB) {
-      this.onExitCB()
-    }
+    this.app.quit()
   }
 }
