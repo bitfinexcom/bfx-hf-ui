@@ -10,7 +10,6 @@ export default function* (action = {}) {
   const { updates = [] } = payload
   const tradeUpdates = {}
 
-  console.log(updates)
   // TODO: Buffer all updates (see trades below)
   for (let i = 0; i < updates.length; i += 1) {
     const {
