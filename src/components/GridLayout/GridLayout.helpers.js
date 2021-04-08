@@ -72,10 +72,10 @@ const componentForType = (c) => {
       return AlgoOrdersTablePanel
 
     case COMPONENT_TYPES.ORDER_HISTORY_TABLE:
-      return () => (
+      return (props) => (
         <>
-          <OrderHistoryTable />
-          <OrderHistory />
+          <OrderHistoryTable {...props} />
+          <OrderHistory {...props} />
         </>
       )
 
