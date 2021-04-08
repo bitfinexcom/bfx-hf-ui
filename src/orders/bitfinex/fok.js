@@ -74,5 +74,5 @@ export default () => ({
     },
   },
 
-  actions: ['sell', 'buy'],
+  actions: ['buy', 'sell'],
 })
