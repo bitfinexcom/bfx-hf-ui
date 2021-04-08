@@ -3,7 +3,6 @@ import _isObject from 'lodash/isObject'
 import _isNumber from 'lodash/isNumber'
 import Debug from 'debug'
 
-import UIActions from '../../actions/ui'
 import WSActions from '../../actions/ws'
 import AOActions from '../../actions/ao'
 
@@ -276,9 +275,8 @@ export default (alias, store) => (e = {}) => {
         break
       }
 
-      case 'algo.cancel_orders': {
-        store.dispatch(WSActions.clearAlgoOrders())
-        store.dispatch(UIActions.setFilteredValueWithKey('filteredAO', []))
+      case 'algo.reload': {
+        store.dispatch(AOActions.getActiveAlgoOrders())
         break
       }
 
