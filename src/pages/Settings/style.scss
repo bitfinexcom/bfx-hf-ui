@@ -29,6 +29,10 @@
       }
     }
 
+    .hfui-settings__options li:last-child {
+      padding-bottom: 48px; // compensate for sticky .hfui-statusbar__wrapper
+    }
+
     .hfui-settings__option {
       width: 40%;
 
