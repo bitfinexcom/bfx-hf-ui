@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .hfui-openexistingstrategymodal__wrapper {
   display: flex;
   flex-direction: column;
@@ -5,7 +7,7 @@
   width: 300px;
   padding: 16px;
 
-  border-color: #fcd206;
+  border-color: $yellow-color;
 
   > * {
     margin-bottom: 16px;

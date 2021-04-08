@@ -1,6 +1,8 @@
+@import '../../variables.scss';
+
 .hfui-strategytradestable__wrapper {
   .ReactVirtualized__Table__headerRow {
-    border-bottom: 1px solid #20313e;
+    border-bottom: 1px solid $desaturated-background-color;
 
     .ReactVirtualized__Table__headerColumn:first-of-type, .ReactVirtualized__Table__rowColumn:first-of-type {
       margin-left: 24px;

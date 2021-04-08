@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 // customise ufx-ui book styles
 .hfui-orderbook.ufx-book {
   .header {
@@ -68,13 +70,13 @@
     height: 100%;
   }
   li.spread {
-    background: #102331;
+    background: $panel-background-color;
     display: flex;
     flex-direction: column;
     justify-content: center;
     font-size: 13px;
-    border-top: 1px solid #172d3e;
-    border-bottom: 1px solid #172d3e;
+    border-top: 1px solid $background-color;
+    border-bottom: 1px solid $background-color;
 
     .hfui-orderbook__pl-container {
       height: 41px;
@@ -89,7 +91,7 @@
 .hfui-orderbook__header {
   font-weight: bold;
   font-size: 11px;
-  color: #fff;
+  color: $white-color;
   height: 27px;
   line-height: 27px;
   text-align: center;
@@ -128,7 +130,7 @@
 }
 
 .hfui-orderbook__pl {
-  color: #eee;
+  color: $text-color;
   position: relative;
   margin-bottom: 1px;
 
@@ -137,14 +139,14 @@
   }
 
   &.buy .hfui-orderbook__pl-vol {
-    background: #204143;
+    background: $orderbook-buy-background-color;
     position: absolute;
     top: 0;
     right: 0;
   }
 
   &.sell .hfui-orderbook__pl-vol {
-    background: #383342;
+    background: $orderbook-sell-background-color;
     position: absolute;
     top: 0;
     left: 0;
@@ -175,7 +177,7 @@
 }
 
 .hfui-orderbook__pl-container-stacked .hfui-orderbook__pl-vol {
-  background: #204143;
+  background: $orderbook-buy-background-color;
   position: absolute;
   top: 0;
   left: 0;
@@ -207,7 +209,7 @@
     }
 
     &.sell .hfui-orderbook__pl-vol {
-      border-left: 2px solid #102331;
+      border-left: 2px solid $panel-background-color;
     }
   }
 }

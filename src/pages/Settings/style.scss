@@ -1,5 +1,7 @@
+@import '../../variables.scss';
+
 .hfui-settingspage__wrapper {
-  color: white;
+  color: $white-color;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -27,6 +29,10 @@
       }
     }
 
+    .hfui-settings__options li:last-child {
+      padding-bottom: 48px; // compensate for sticky .hfui-statusbar__wrapper
+    }
+
     .hfui-settings__option {
       width: 40%;
 
@@ -51,8 +57,8 @@
 
     .hfui-setting__select {
       min-width: 125px !important;
-      background: #102331;
-      color: white;
+      background: $panel-background-color;
+      color: $white-color;
       width: 40%;
       padding: 7px;
     }
@@ -85,7 +91,7 @@
 
 .hfui-settings__control-toggle {
   display: flex;
-  border-bottom: 1.5px solid #102331;
+  border-bottom: 1.5px solid $panel-background-color;
   flex-direction: row;
   justify-content: flex-end;
   padding: 25px;

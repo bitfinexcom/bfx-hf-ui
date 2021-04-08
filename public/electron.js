@@ -43,7 +43,7 @@ const childAPIProcess = fork(path.resolve(SCRIPT_PATH_API_SERVER), [], {
 new HFUIApplication({ // eslint-disable-line
   app,
   onExit: () => {
-    childAPIProcess.kill()
-    childDSProcess.kill()
+    childAPIProcess.kill('SIGKILL')
+    childDSProcess.kill('SIGKILL')
   },
 })

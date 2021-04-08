@@ -20,23 +20,23 @@ export default () => {
       case WSTypes.CONNECT: {
         const { destination, alias } = payload
         if (!destination || !alias) {
-          debug(payload)
           debug('requested connection, but no destination/alias provided. exiting...')
           return
         }
 
-        let socket = sockets.find(s => s.alias === alias)
-        if (socket?.readyState < 2) {
+        let id = sockets.findIndex(s => s.alias === alias)
+        if (sockets[id]?.readyState < 2) {
           debug('requested connection, but already connected. closing...')
-          socket.close()
+          sockets[id].close()
         }
 
-        socket = new window.WebSocket(destination)
+        const socket = new window.WebSocket(destination)
         socket.onmessage = onWSMessage(alias, store)
         socket.onclose = onWSClose(alias, store)
         socket.onopen = onWSOpen(alias, store)
 
-        sockets.push({ alias, socket })
+        id = id === -1 ? sockets.length : id
+        sockets[id] = { alias, socket }
 
         return
       }

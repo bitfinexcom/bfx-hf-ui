@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .hfui-tradingpage__wrapper {
   height: 98vh;
 }
@@ -17,7 +19,7 @@
   .hfui-tvchart__wrapper > #__tvchart {
     height: calc(100% - 8px);
     padding: 4px 1px 4px 4px;
-    background: #2f3240;
+    background: $desaturated-background-color;
   }
 
   .hfui-tradingstatepanel__wrapper {

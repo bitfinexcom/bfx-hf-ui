@@ -1,6 +1,6 @@
 {
   "name": "bfx-hf-ui",
-  "version": "3.6.0",
+  "version": "3.7.2",
   "description": "Official bitfinex honey framework UI - for live trading and executing algorithmic orders/strategies",
   "engines": {
     "node": ">=6"
@@ -173,7 +173,7 @@
     "bfx-hf-algo": "^3.1.4",
     "bfx-hf-backtest": "^2.0.0",
     "bfx-hf-chart": "^1.0.0",
-    "bfx-hf-data-server": "^3.0.0",
+    "bfx-hf-data-server": "^3.0.3",
     "bfx-hf-ext-plugin-bitfinex": "^1.0.0",
     "bfx-hf-indicators": "^2.0.1",
     "bfx-hf-models": "^2.2.0",

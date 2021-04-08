@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .hfui-navbar__wrapper {
   z-index: 101;
   position: relative;
@@ -8,7 +10,7 @@
   flex-wrap: wrap;
 
   font-size: 12px;
-  background: #102331;
+  background: $panel-background-color;
   height: 33px;
 
   svg {
@@ -18,7 +20,7 @@
   }
 
   &, button {
-    color: #eee;
+    color: $text-color;
   }
 
   > p {
@@ -39,8 +41,8 @@
     font-size: 13px;
 
     &:hover, &.active {
-      border-bottom: 2px solid #54b361;
-      color: #4faa5e;
+      border-bottom: 2px solid $green-color;
+      color: $green-color;
     }
 
     &.hover {

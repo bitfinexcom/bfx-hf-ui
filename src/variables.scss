@@ -1,0 +1,44 @@
+// Base colors
+$white-color: #fff;
+$grey-color: #666;
+$dark-grey-color: #333;
+$black-color: #000;
+
+$background-color: #172d3e;
+$desaturated-background-color: #20313e;
+$panel-background-color: #102331;
+
+$text-color: #e2e5e7;
+$text-color2: mix($text-color, $background-color, 80%);
+
+$yellow-color: #fcd206;
+$green-color: #54B361;
+$red-color: #F05359;
+
+// Component colors
+$strategy-not-active-color: #657D8E;
+$strategy-empty-color: #99B4C8;
+
+$tooltip-border-color: darken(#6E8CA8, 4%);
+$tooltip-background-color: darken(#6E8CA8, 20%);
+$tooltip-text-color: #BFC3C6;
+
+$orange-border-color: #4e3300;
+$orange-background-color: #231700;
+
+$orderbook-sell-background-color: #383342;
+$orderbook-buy-background-color: #204143;
+
+$code-background-color: #0c1b26;
+$code-text-color: #9effff;
+$code-anchor-color: #fd971f;
+
+$notifications-info-color: #82BAF6;
+$notifications-background-color: #0d101f;
+
+// Utils
+$spacing-unit: 16px;
+
+@function spacing($value: 1) {
+  @return $spacing-unit * $value;
+}

@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .hfui-strategyeditor__wrapper {
   display: flex;
   flex-direction: row;
@@ -20,8 +22,7 @@
   flex-direction: column;
   height: calc(100% - 10px);
   position: relative;
-  border-bottom: 1px solid #282e58;
-  background: #000;
+  background: $black-color;
 
   &.noresults {
     height: 100%;
@@ -36,11 +37,11 @@
   }
 
   .cm-s-monokai.CodeMirror {
-    background: #0c1b26;
+    background: $code-background-color;
   }
 
   .cm-s-monokai .CodeMirror-gutters {
-    background-color: #172d3e;
+    background-color: $background-color;
   }
 
   &.maximised {
@@ -50,22 +51,22 @@
     width: calc(100% - 152px);
     z-index: 99;
     height: calc(100% - 134px);
-    border: 1px solid #3c3202;
+    border: 1px solid $black-color;
   }
 }
 
 .hfui-strategyeditor__editor-error-output {
   font-family: monospace;
   padding: 0 16px;
-  background: #161a2f;
-  color: red;
+  background: $panel-background-color;
+  color: $red-color;
   font-size: 11px;
   position: absolute;
   bottom: 0;
   left: 0px;
   width: calc(100% - 32px);
   z-index: 9999;
-  border-top: 1px solid #333;
+  border-top: 1px solid $dark-grey-color;
 
   .fas.fa-times-circle {
     position: absolute;
@@ -73,7 +74,7 @@
     right: 8px;
 
     &:hover {
-      color: #fcd206;
+      color: $yellow-color;
       cursor: pointer;
     }
   }
@@ -87,12 +88,12 @@
   width: 150px;
   min-width: 150px;
   font-size: 12px;
-  background: #172d3e;
+  background: $background-color;
   margin: 12px;
 
   li {
     padding: 0 8px;
-    border-bottom: 0.5px solid #282e58;
+    border-bottom: 0.5px solid mix($background-color, $white-color, 95%);
 
     display: flex;
     flex-direction: row;
@@ -108,25 +109,25 @@
     }
 
     &.active {
-      color: #54b361 !important;
-      border-bottom: 1px solid #54b361;
+      color: $green-color !important;
+      border-bottom: 1px solid $green-color;
     }
 
     &:not(.active) {
-      color: #657D8E;
+      color: $strategy-not-active-color;
     }
 
     &.empty {
-      color: #99B4C8;
+      color: $strategy-empty-color;
     }
 
     &:hover {
       cursor: pointer;
-      color: #54b361;
+      color: $green-color;
     }
 
     &.hasError {
-      color: red !important;
+      color: $red-color !important;
     }
   }
 }
@@ -138,7 +139,7 @@
     padding: 8px 13px;
 
     &:not(.green) {
-      background: #172d3e;
+      background: $background-color;
     }
 
     button {
@@ -147,7 +148,7 @@
     }
 
     button, i {
-      color: #fff;
+      color: $white-color;
     }
   }
 }
@@ -173,7 +174,7 @@
 
 .hfui-strategyeditor__panel {
   .hfui-panel__header {
-    border-bottom: 1px solid #20313e;
+    border-bottom: 1px solid $desaturated-background-color;
     
     .hfui-panel__label {
       line-height: 57px;

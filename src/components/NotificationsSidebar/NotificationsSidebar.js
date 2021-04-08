@@ -32,6 +32,7 @@ export default class NotificationsSidebar extends React.Component {
       lastNotificationCount: notifications.length,
     }
 
+    this.keyCounter = 0
     this.onToggleOpen = this.onToggleOpen.bind(this)
     this.mounted = false
   }
@@ -86,6 +87,10 @@ export default class NotificationsSidebar extends React.Component {
     this.setState(({ open }) => ({ open: !open }))
   }
 
+  getKey() {
+    return this.keyCounter++
+  }
+
   timeoutLiveNotifications(shownMTS) {
     if (!this.mounted) {
       return
@@ -114,7 +119,7 @@ export default class NotificationsSidebar extends React.Component {
           <ul>
             <Scrollbars height='100%'>
               {notifications.map((n = {}) => (
-                <Notification key={`${n.mts}-${n.text}`} data={n} />
+                <Notification key={this.getKey()} data={n} />
               ))}
             </Scrollbars>
           </ul>

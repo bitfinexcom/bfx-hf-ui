@@ -1,12 +1,14 @@
+@import '../../variables.scss';
+
 .hfui-tradingstatepanel__wrapper {
-  border: 1px solid #102331;
+  border: 1px solid $panel-background-color;
 
   .hfui-tspanel-counter {
     padding: 1px 6px;
     margin-left: 4px;
     border-radius: 100px;
-    color: #54b361;
-    border: 1px solid #54b361;
+    color: $green-color;
+    border: 1px solid $green-color;
   }
 
   .hfui-panel__header {
@@ -42,16 +44,16 @@
         background: none;
 
         p {
-          color: #54b361;
+          color: $green-color;
         }
 
-        border-bottom: 2px solid #54b361;
+        border-bottom: 2px solid $green-color;
       }
     }
   }
 
   .hfui-panel .hfui-panel__label {
-    color: #fff;
+    color: $white-color;
   }
 
   .hfui-panel__header-icons {
@@ -62,8 +64,8 @@
     font-size: 11px;
     line-height: 24px;
     padding: 0 13px;
-    background: #102331;
-    color: #fff;
+    background: $panel-background-color;
+    color: $white-color;
     height: 30px;
     margin: 0 7px;
 
@@ -88,10 +90,10 @@
 
     &:hover, &.active {
       cursor: pointer;
-      box-shadow: inset 0 0 0 2px #35704f;
+      box-shadow: inset 0 0 0 2px mix($green-color, $panel-background-color, 50%);
 
       i, p {
-        color: #50aa5e;
+        color: $green-color;
       }
     }
   }

@@ -1,5 +1,7 @@
 import React from 'react'
 import ClassNames from 'classnames'
+import _includes from 'lodash/includes'
+import _toLower from 'lodash/toLower'
 // import { Icon } from 'react-fa'
 import check from './check.svg'
 import error from './error.svg'
@@ -40,7 +42,7 @@ export default class Notification extends React.PureComponent {
         break
 
       case 'error':
-        if (text.toLowerCase().includes('invalid password')) {
+        if (_includes(_toLower(text), 'invalid password')) {
           icon = <img src={pass} alt='password error' />
         } else {
           icon = <img src={error} alt='error' />
@@ -49,7 +51,7 @@ export default class Notification extends React.PureComponent {
         break
 
       case 'info':
-        if (text.toLowerCase().includes('cleared user credentials & data')) {
+        if (_includes(_toLower(text), 'cleared user credentials & data')) {
           icon = <img src={clear} alt='clear' />
         }
 

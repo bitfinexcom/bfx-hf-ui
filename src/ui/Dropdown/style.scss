@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .hfui-dropdown__wrapper {
   font-size: 13px;
   position: relative;
@@ -8,9 +10,9 @@
     position: absolute;
     top: 34px;
     left: 0;
-    border: 1px solid #54b361;
+    border: 1px solid $green-color;
     width: 200px;
-    background: #102331;
+    background: $panel-background-color;
     z-index: 999;
 
     &.with-icon {
@@ -20,7 +22,7 @@
     li {
       line-height: 40px;
       padding: 0 8px;
-      background: #102331;
+      background: $panel-background-color;
 
       &:hover:not(.label) {
         text-decoration: underline;
@@ -29,7 +31,7 @@
 
       &.label {
         text-align: center;
-        border-bottom: 1px solid #3c3202;
+        border-bottom: 1px solid $black-color;
         border-top: 1px solid #222;
         font-size: 11px;
         line-height: 20px;
@@ -48,10 +50,10 @@
   padding-left: 8px;
 
   &.highlight {
-    box-shadow: inset 0 0 0 2px #35704f;
+    box-shadow: inset 0 0 0 2px mix($green-color, $panel-background-color, 50%);
 
     &, i, p {
-      color: #54B361;
+      color: $green-color;
     }
   }
 
@@ -60,7 +62,7 @@
     left: 15px;
     font-size: 10px;
     margin-top: 12px;
-    color: #f0f1f2;
+    color: $text-color;
   }
 
   p {

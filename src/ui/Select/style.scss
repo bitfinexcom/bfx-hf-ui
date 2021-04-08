@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .hfui-select__outer {
   display: flex;
   flex-direction: row;
@@ -41,7 +43,7 @@
 }
 
 .hfui-select__single-value {
-  color: #eee !important;
+  color: $text-color !important;
 }
 
 .hfui-select__value-container {
@@ -57,9 +59,9 @@
 }
 
 .hfui-select__menu {
-  background: #102331 !important;
+  background: $panel-background-color !important;
   box-shadow: none !important;
-  border: 1px solid #54b361;
+  border: 1px solid $green-color;
   border-radius: 0 !important;
   border-top: none;
   margin-top: 0 !important;
@@ -91,5 +93,5 @@
 }
 
 .hfui-select__input {
-  color: #eee !important;
+  color: $text-color !important;
 }
