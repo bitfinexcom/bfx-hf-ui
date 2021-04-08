@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .hfui-spinner__wrapper {
   width: 100%;
   height: 100%;
@@ -8,7 +10,7 @@
 
   .fa-circle-notch {
     animation: hfui-spinner-rotate 1s infinite ease-in-out both;
-    color: #54b361 !important;
+    color: $green-color !important;
   }
 }
 

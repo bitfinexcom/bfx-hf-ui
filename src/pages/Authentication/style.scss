@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .hfui-authenticationpage__wrapper {
   height: 100%;
 }
@@ -20,7 +22,7 @@
   width: 50%;
 }
 .hfui-authenticationpage__inner-left {
-  background: #172d3e;
+  background: $background-color;
 
   svg {
     margin: 0 auto;
@@ -60,11 +62,11 @@
 
 .hfui-authenticationpage__content {
   padding-left: 5%;
-  background: #20313e;
+  background: $desaturated-background-color;
 
   h2 {
     margin-bottom: 10px;
-    color: #54b361;
+    color: $green-color;
     font-style: normal;
     font-weight: 700;
     font-size: 43px;
@@ -81,7 +83,7 @@
   }
 
   .hfui-input {
-    background-color: #102331;
+    background-color: $panel-background-color;
     border: none;
     width: 400px;
     border-radius: 4px;
@@ -123,7 +125,7 @@
   }
 
   input:focus {
-    border: 1px solid #54b361;
+    border: 1px solid $green-color;
   }
 }
 
@@ -134,7 +136,7 @@
 .hfui-authenticationpage__trading-mode {
   width: 45.3%;
   margin-top: 16px;
-  background-color: #102331;
+  background-color: $panel-background-color;
   border-radius: 4px;
   line-height: 1.5;
   padding-left: 8px;

@@ -7,7 +7,7 @@
 @import 'https://fonts.googleapis.com/css?family=Roboto&display=swap';
 @import '/icon_font/styles.css';
 @import '~react-popper-tooltip/dist/styles';
-
+@import './variables.scss';
 
 body button:focus {
   outline: none;
@@ -19,13 +19,13 @@ body button {
 }
 
 .react-datepicker {
-  background-color: #102331;
-  color: #ccc;
+  background-color: $panel-background-color;
+  color: $text-color;
   border:none;
 }
 
 .react-datepicker__time-container .react-datepicker__time {
-  background: #102331;
+  background: $panel-background-color;
   border: none;
 }
 .react-datepicker__time-container { 
@@ -37,7 +37,7 @@ body button {
 }
 
 .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item:hover {
-  background-color: #000;
+  background-color: $black-color;
   border:none;
 }
 
@@ -53,11 +53,11 @@ body button {
 .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle,
 .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle::before {
   border-top: none;
-  border-bottom-color: #000;
+  border-bottom-color: $black-color;
 } 
 
 .react-datepicker-time__header {
-  color: #ccc;
+  color: $text-color;
   border: none;
 }
 
@@ -69,7 +69,7 @@ body button {
 }
 
 .react-datepicker__header {
-  background-color: #000;
+  background-color: $black-color;
   border:none;
 }
 
@@ -80,17 +80,17 @@ body button {
 .react-datepicker__day-name,
 .react-datepicker__day,
 .react-datepicker__time-name {
-  color: #ccc;
+  color: $text-color;
 }
 
 .react-datepicker__day:hover, .react-datepicker__month-text:hover {
-  background-color: #666;
+  background-color: $grey-color;
 }
 
 .react-datepicker__day--keyboard-selected, .react-datepicker__month-text--keyboard-selected,
 .react-datepicker__day--keyboard-selected, .react-datepicker__month-text--keyboard-selected {
-  background: #fcd206;
-  color: #000;
+  background: $yellow-color;
+  color: $black-color;
 }
 
 .react-datepicker-wrapper,
@@ -108,8 +108,8 @@ body button {
   margin: 0 5px;
 
   select {
-    color: #ccc;
-    background-color: #000;
+    color: $text-color;
+    background-color: $black-color;
     font-weight: bold;
     font-size: 0.9rem;
     border-radius: 0.3rem;
@@ -163,17 +163,17 @@ div.__react-tooltip {
 }
 
 .__react_component_tooltip {
-  border: 1px solid darken(#6E8CA8, 4%);
-  background-color: darken(#6E8CA8, 20%);
-  color: #BFC3C6;
+  border: 1px solid $tooltip-border-color;
+  background-color: $tooltip-background-color;
+  color: $tooltip-text-color;
 }
 
 .tooltip-arrow[data-placement*='left']:after {
-  border-left-color: darken(#6E8CA8, 4%) !important;
+  border-left-color: $tooltip-border-color !important;
 }
 
 .tooltip-arrow[data-placement*='top']:after {
-  border-top-color: darken(#6E8CA8, 4%) !important;
+  border-top-color: $tooltip-border-color !important;
 }
 
 .tooltip-arrow[data-placement*='right'] {
@@ -184,7 +184,7 @@ div.__react-tooltip {
   }
 
   &:after {
-    border-right-color: darken(#6E8CA8, 4%) !important;
+    border-right-color: $tooltip-border-color !important;
   }
 }
 
@@ -194,7 +194,7 @@ div.__react-tooltip {
   }
 
   &:after {
-    border-bottom-color: darken(#6E8CA8, 4%) !important;
+    border-bottom-color: $tooltip-border-color !important;
   }
 }
 
@@ -205,8 +205,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background: #172d3e;
-  color: #e2e5e7;
+  background: $background-color;
+  color: $text-color;
 
   margin: 0;
   overflow: hidden;
@@ -227,15 +227,15 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 a, a:visited {
-  color: #54B361;
+  color: $green-color;
 }
 
 .hfui-red {
-  color: #F05359;
+  color: $red-color;
 }
 
 .hfui-green {
-  color: #54B361;
+  color: $green-color;
 }
 
 .hfui-uppercase {

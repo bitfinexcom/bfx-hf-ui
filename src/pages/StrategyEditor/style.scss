@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .hfui-strategyeditorpage__wrapper {
   display: flex;
   flex-direction: column;
@@ -25,7 +27,7 @@
   .hfui-strategiespage__pannel-wrapper {
     height: 100%;
     width: auto;
-    background: #0c1b26;
+    background: $code-background-color;
   }
 
   .hfui-statusbar__wrapper {

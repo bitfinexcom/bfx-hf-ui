@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .hfui-scrollbars-track-vertical {
   background: transparent;
   height: 100%;
@@ -5,5 +7,5 @@
 }
 
 .hfui-scrollbars-thumb-vertical {
-  background: #ffffff;
+  background: $white-color;
 }

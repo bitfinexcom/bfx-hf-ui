@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .ReactVirtualized__Table__headerRow {
   border-bottom: none;
   padding-right: 0 !important;
@@ -20,7 +22,7 @@
 }
 
 .ReactVirtualized__Table__row {
-  color: #fff;
+  color: $white-color;
 
   > * {
     font-size: 13px;
@@ -44,7 +46,7 @@
 
     &:hover {
       cursor: pointer;
-      color: #fcd206;
+      color: $yellow-color;
     }
   }
 }

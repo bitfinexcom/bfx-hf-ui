@@ -1,11 +1,13 @@
+@import '../../variables.scss';
+
 .hfui-notificationssidebar__wrapper {
   position: fixed;
   top: 33px;
   right: 0;
   width: 0;
   height: calc(100% - 33px); // take into account statusbar
-  background: #000;
-  border-left: 1px solid #666;
+  background: $black-color;
+  border-left: 1px solid $grey-color;
   z-index: 1000;
   margin-right: -1px;
 
@@ -45,16 +47,16 @@
   height: 24px;
   width: 24px;
   line-height: 24px;
-  background: #0d101f;
-  border: 0.5px solid #282e58;
+  background: $notifications-background-color;
+  border: 0.5px solid mix($background-color, $white-color, 95%);
   border-right: none;
   text-align: center;
   font-size: 12px;
 
   &:hover {
     cursor: pointer;
-    color: #54b361;
-    border-color: #54b361;
+    color: $green-color;
+    border-color: $green-color;
   }
 }
 .hfui-notification-data {
@@ -77,22 +79,22 @@
   margin-top: 8px;
   width: 100%;
   text-align: cetner;
-  color: white;
+  color: $white-color;
   &:hover {
     cursor: pointer;
   }
 
 }
 .hfui-notification-msg {
-  color:#54B361;
+  color:$green-color;
 }
 .hfui-notification {
   z-index: 9999999;
   margin: 8px;
-  border: 1px solid #333;
+  border: 1px solid $dark-grey-color;
   padding: 10px;
   font-size: 12px;
-  background: #102331;
+  background: $panel-background-color;
   text-align: center;
   display: flex;
   justify-content: space-evenly;
@@ -104,23 +106,23 @@
     padding-right: 30px ;
   }
   &.success {
-    color: #54B361;
-    border-color: 1px solid #54B361;
+    color: $green-color;
+    border-color: 1px solid $green-color;
   }
 
   &.warning {
-    color: #fcd206;
-    border-color: #fcd206;
+    color: $yellow-color;
+    border-color: $yellow-color;
   }
 
   &.error {
-    color: #F05359;
-    border-color: 1px solid #F05359;
+    color: $red-color;
+    border-color: 1px solid $red-color;
   }
 
   &.info {
-    color: #82BAF6;
-    border-color: 1px solid #82BAF6;
+    color: $notifications-info-color;
+    border-color: 1px solid $notifications-info-color;
   }
   &.closed {
     height: 0;

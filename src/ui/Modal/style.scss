@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .hfui-modal__wrapper {
   background: rgba(0, 0, 0, 0.5);
   width: 100%;
@@ -21,17 +23,17 @@
 .hfui-modal__content {
   width: 50%;
   max-width: 447px;
-  background: #172d3e;
+  background: $background-color;
   padding: 0 26px 31px 26px;
 
   .error {
-    color: red;
+    color: $red-color;
     font-size: 12px;
   }
 
   .notice {
     font-size: 15px;
-    color: #fff;
+    color: $white-color;
     font-weight: 300;
     text-transform: uppercase;
     line-height: 1.5;
@@ -41,7 +43,7 @@
   }
 
   .hfui-dropdown__button, .hfui-input {
-    background: #102331;
+    background: $panel-background-color;
     max-width: 300px;
   }
 
@@ -64,14 +66,14 @@
     }
 
     button, i {
-      color: #fff;
+      color: $white-color;
     }
   }
 }
 
 .hfui-modal__label {
   text-transform: uppercase;
-  color: #54b361;
+  color: $green-color;
   font-weight: 500;
   font-size: 15px;
 }

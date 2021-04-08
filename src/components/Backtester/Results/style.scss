@@ -1,3 +1,5 @@
+@import '../../../variables.scss';
+
 .hfui-strategyeditor__results-wrapper {
   width: 100%;
   padding: 0 8px;
@@ -8,7 +10,7 @@
     font-weight: 500;
     margin: 8px 0;
     width: 100%;
-    color: #54b361;
+    color: $green-color;
     text-align: center;
   }
 
@@ -64,7 +66,7 @@
   display: block;
 
   p {
-    color: #666;
+    color: $grey-color;
     font-size: 11px;
     line-height: 16px;
   }
@@ -100,7 +102,7 @@
 
     &:hover {
       cursor: pointer;
-      color: #fcd206;
+      color: $yellow-color;
     }
   }
 }

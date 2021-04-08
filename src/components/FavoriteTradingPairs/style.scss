@@ -1,12 +1,14 @@
+@import '../../variables.scss';
+
 .hfui-favoritepair__title {
     font-weight: 500;
     font-size: 13px;
     line-height: 45px;
     flex-shrink: 0;
     text-transform: uppercase;
-    color: #54b361;
+    color: $green-color;
     padding-left: 10px;
-    border-bottom: 1px solid #102331;
+    border-bottom: 1px solid $panel-background-color;
 }
 
 .hfui-favoritepair__content {
@@ -27,7 +29,7 @@
 .hfui-favoritepair__content-notice {
     font-weight: 300;
     font-size: .7em;
-    color: #fff;
+    color: $white-color;
     display: flex;
     margin-top: 5px;
     position: sticky;
@@ -40,16 +42,16 @@
     }
 }
 .hfui-favoritepair__content-item {
-    background-color: #102331;
+    background-color: $panel-background-color;
     display: inline-block;
     text-transform: uppercase;
     padding: 8px;
     margin: 4px;
     font-size: 13px;
     cursor: pointer; 
-    &.active { 
-        border: 1px solid #16B157;
-        color: #16B157;
+    &.active {
+        border: 1px solid $green-color;
+        color: $green-color;
     }
 }
 
@@ -59,7 +61,7 @@
     align-items: center;
 }
 .empty { 
-    color:#FFFFFF;
+    color:$white-color;
     font-size: 0.8em;
     font-weight: 300;
     display: flex;
