@@ -1,4 +1,3 @@
-/* eslint-disable */ 
 import React from 'react'
 import PropTypes from 'prop-types'
 import { flatten as _flatten, isEqual as _isEqual } from 'lodash'
@@ -71,12 +70,14 @@ AtomicOrdersTablePanel.propTypes = {
       PropTypes.arrayOf(PropTypes.string),
     ]),
   ),
+  onRemove: PropTypes.func,
 }
 
 AtomicOrdersTablePanel.defaultProps = {
   atomicOrders: {},
   activeExchange: 'bitfinex',
   activeMarket: {},
+  onRemove: () => {},
 }
 
 export default AtomicOrdersTablePanel
