@@ -15,7 +15,7 @@ export const PAPER_MODE = 'paper'
 export const MAIN_MODE = 'main'
 
 const DEFAULT_ROUTE = '/'
-const DEFAULT_EXCHANGE = 'bitfinex'
+export const DEFAULT_EXCHANGE = 'bitfinex'
 const DEFAULT_MARKET = {
   contexts: ['e', 'm'],
   restID: 'tBTCUSD',
