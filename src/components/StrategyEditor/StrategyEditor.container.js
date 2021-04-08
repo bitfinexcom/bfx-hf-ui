@@ -11,6 +11,7 @@ const mapStateToProps = (state = {}) => ({
   activeMarket: getActiveMarket(state),
   authToken: getAuthToken(state),
   strategyId: getStrategyId(state),
+  strategyContent: state.ui.content,
 })
 
 const mapDispatchToProps = dispatch => ({
