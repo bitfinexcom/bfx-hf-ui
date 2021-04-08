@@ -408,6 +408,7 @@ export default class StrategyEditor extends React.PureComponent {
       createNewStrategyModalOpen,
       openExistingStrategyModalOpen,
     } = this.state
+
     if (!strategy || _isEmpty(strategy)) {
       return this.renderPanel(this.renderEmptyContent())
     }
