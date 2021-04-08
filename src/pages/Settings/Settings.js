@@ -1,5 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import _size from 'lodash/size'
+import _trim from 'lodash/trim'
 
 import Input from '../../ui/Input'
 import Button from '../../ui/Button'
@@ -12,7 +14,11 @@ import {
   isDevEnv as devEnv,
   updateAutoLoginState,
 } from '../../util/autologin'
-import { PAPER_MODE, MAIN_MODE } from '../../redux/reducers/ui'
+import {
+  PAPER_MODE,
+  MAIN_MODE,
+  DEFAULT_EXCHANGE,
+} from '../../redux/reducers/ui'
 import NavbarButton from '../../components/NavbarButton'
 
 import './style.css'
@@ -84,11 +90,11 @@ class Settings extends React.PureComponent {
     const ga = stateGA ?? propsGA
     const dms = stateDMS ?? propsDMS
 
-    if (apiKey.trim().length && apiSecret.trim().length) {
+    if (_size(_trim(apiKey)) && _size(_trim(apiSecret))) {
       this.onSubmitAPIKeys(this.state)
     }
 
-    if (paperApiKey.trim().length && paperApiSecret.trim().length) {
+    if (_size(_trim(paperApiKey)) && _size(_trim(paperApiSecret))) {
       this.onSubmitPaperAPIKeys(this.state)
     }
 
@@ -274,7 +280,7 @@ Settings.propTypes = {
 Settings.defaultProps = {
   ga: null,
   dms: null,
-  activeExchange: 'bitfinex',
+  activeExchange: DEFAULT_EXCHANGE,
 }
 
 export default Settings
