@@ -49,12 +49,19 @@ export default class StrategyEditor extends React.PureComponent {
     gaCreateStrategy: PropTypes.func.isRequired,
     onIndicatorsChange: PropTypes.func.isRequired,
     clearBacktestOptions: PropTypes.func.isRequired,
+    strategyContent: PropTypes.objectOf(
+      PropTypes.oneOfType([
+        PropTypes.string.isRequired,
+        PropTypes.oneOf([null]).isRequired,
+      ]),
+    ),
   }
   static defaultProps = {
     strategyId: '',
     moveable: false,
     removeable: false,
     renderResults: true,
+    strategyContent: {},
   }
 
   state = {
@@ -67,6 +74,13 @@ export default class StrategyEditor extends React.PureComponent {
     activeContent: 'defineIndicators',
     createNewStrategyModalOpen: false,
     openExistingStrategyModalOpen: false,
+  }
+
+  componentDidMount() {
+    const { strategyContent } = this.props
+    this.setState(() => ({
+      strategy: strategyContent,
+    }))
   }
 
   onCreateNewStrategy = (label, templateLabel) => {
@@ -394,7 +408,6 @@ export default class StrategyEditor extends React.PureComponent {
       createNewStrategyModalOpen,
       openExistingStrategyModalOpen,
     } = this.state
-
     if (!strategy) {
       return this.renderPanel(this.renderEmptyContent())
     }
