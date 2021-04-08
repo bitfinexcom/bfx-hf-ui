@@ -1,5 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import _size from 'lodash/size'
+import _trim from 'lodash/trim'
 
 import Input from '../../ui/Input'
 import Button from '../../ui/Button'
@@ -12,29 +14,17 @@ import {
   isDevEnv as devEnv,
   updateAutoLoginState,
 } from '../../util/autologin'
+import {
+  PAPER_MODE,
+  MAIN_MODE,
+  DEFAULT_EXCHANGE,
+} from '../../redux/reducers/ui'
+import NavbarButton from '../../components/NavbarButton'
 
 import './style.css'
 
 const isDevEnv = devEnv()
-export default class Settings extends React.PureComponent {
-  static propTypes = {
-    ga: PropTypes.bool,
-    dms: PropTypes.bool,
-    activeExchange: PropTypes.string,
-    authToken: PropTypes.string.isRequired,
-    getActiveAOs: PropTypes.func.isRequired,
-    currentMode: PropTypes.string.isRequired,
-    submitAPIKeys: PropTypes.func.isRequired,
-    updateSettings: PropTypes.func.isRequired,
-    gaUpdateSettings: PropTypes.func.isRequired,
-  }
-
-  static defaultProps = {
-    ga: null,
-    dms: null,
-    activeExchange: 'bitfinex',
-  }
-
+class Settings extends React.PureComponent {
   constructor(props) {
     super(props)
     const {
@@ -44,6 +34,8 @@ export default class Settings extends React.PureComponent {
     this.state = {
       apiKey: '',
       apiSecret: '',
+      paperApiKey: '',
+      paperApiSecret: '',
       currentExchange: activeExchange,
       AUTOLOGIN_STATE: getAutoLoginState(),
     }
@@ -56,7 +48,7 @@ export default class Settings extends React.PureComponent {
   }
 
   onSubmitAPIKeys({ apiKey, apiSecret }) {
-    const { submitAPIKeys, authToken, currentMode } = this.props
+    const { submitAPIKeys, authToken } = this.props
     const { currentExchange } = this.state
 
     submitAPIKeys({
@@ -64,7 +56,19 @@ export default class Settings extends React.PureComponent {
       exID: currentExchange,
       apiKey,
       apiSecret,
-    }, currentMode)
+    }, MAIN_MODE)
+  }
+
+  onSubmitPaperAPIKeys({ paperApiKey: apiKey, paperApiSecret: apiSecret }) {
+    const { submitAPIKeys, authToken } = this.props
+    const { currentExchange } = this.state
+
+    submitAPIKeys({
+      authToken,
+      exID: currentExchange,
+      apiKey,
+      apiSecret,
+    }, PAPER_MODE)
   }
 
   onSettingsSave(authToken) {
@@ -78,14 +82,20 @@ export default class Settings extends React.PureComponent {
     const {
       apiKey,
       apiSecret,
+      paperApiKey,
+      paperApiSecret,
       ga: stateGA,
       dms: stateDMS,
     } = this.state
     const ga = stateGA ?? propsGA
     const dms = stateDMS ?? propsDMS
 
-    if (apiKey.trim().length && apiSecret.trim().length) {
+    if (_size(_trim(apiKey)) && _size(_trim(apiSecret))) {
       this.onSubmitAPIKeys(this.state)
+    }
+
+    if (_size(_trim(paperApiKey)) && _size(_trim(paperApiSecret))) {
+      this.onSubmitPaperAPIKeys(this.state)
     }
 
     updateSettings({
@@ -192,6 +202,7 @@ export default class Settings extends React.PureComponent {
                 <p className='hfui-settings__option-label'>API credentials</p>
                 <div className='hfui-settings__option-description'>
                   <p>Fill in to update stored values</p>
+                  <p>Production API Keys:</p>
                 </div>
                 <div className='hfui-settings__option'>
                   <Input
@@ -204,6 +215,30 @@ export default class Settings extends React.PureComponent {
                     type='password'
                     placeholder='API Secret'
                     onChange={value => this.onOptionChange(value, 'apiSecret')}
+                    className='hfui-settings__item-list api-secret'
+                  />
+                </div>
+                <div className='hfui-settings__option-description'>
+                  <p>
+                    <NavbarButton
+                      label='Paper Trading'
+                      external='https://support.bitfinex.com/hc/en-us/articles/900001525006-Paper-Trading-test-learn-and-simulate-trading-strategies-'
+                      route=''
+                    />
+                    &nbsp;API Keys:
+                  </p>
+                </div>
+                <div className='hfui-settings__option'>
+                  <Input
+                    type='text'
+                    placeholder='Paper Trading API Key'
+                    onChange={value => this.onOptionChange(value, 'paperApiKey')}
+                    className='hfui-settings__item-list api-key'
+                  />
+                  <Input
+                    type='password'
+                    placeholder='Paper Trading API Secret'
+                    onChange={value => this.onOptionChange(value, 'paperApiSecret')}
                     className='hfui-settings__item-list api-secret'
                   />
                 </div>
@@ -230,3 +265,22 @@ export default class Settings extends React.PureComponent {
     )
   }
 }
+
+Settings.propTypes = {
+  ga: PropTypes.bool,
+  dms: PropTypes.bool,
+  activeExchange: PropTypes.string,
+  authToken: PropTypes.string.isRequired,
+  getActiveAOs: PropTypes.func.isRequired,
+  submitAPIKeys: PropTypes.func.isRequired,
+  updateSettings: PropTypes.func.isRequired,
+  gaUpdateSettings: PropTypes.func.isRequired,
+}
+
+Settings.defaultProps = {
+  ga: null,
+  dms: null,
+  activeExchange: DEFAULT_EXCHANGE,
+}
+
+export default Settings

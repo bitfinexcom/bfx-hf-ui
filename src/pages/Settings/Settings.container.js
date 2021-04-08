@@ -12,7 +12,7 @@ import {
 } from '../../redux/selectors/ws'
 
 import {
-  getComponentState, getActiveExchange, getActiveMarket, getCurrentMode,
+  getComponentState, getActiveExchange, getActiveMarket,
 } from '../../redux/selectors/ui'
 
 const mapStateToProps = (state = {}, ownProps = {}) => {
@@ -37,7 +37,6 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     dms,
     ga,
     firstLogin,
-    currentMode: getCurrentMode(state),
   }
 }
 
