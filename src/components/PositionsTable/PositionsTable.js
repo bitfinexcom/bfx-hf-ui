@@ -1,27 +1,30 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { flatten as _flatten, isEqual as _isEqual } from 'lodash'
 import PositionsTableColumns from './PositionsTable.columns'
 
 import Table from '../../ui/Table'
-import { propTypes, defaultProps } from './PositionsTable.props'
 import './style.css'
 
-export default class PositionsTable extends React.Component {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
-
+class PositionsTable extends React.Component {
   state = {
     filteredPositions: [],
   }
+
+  componentDidMount() {
+    this.getFilteredPositions()
+  }
+
   shouldComponentUpdate(nextProps, nextState) {
     return (!_isEqual(nextProps, this.props) || !_isEqual(nextState, this.state))
   }
+
   componentDidUpdate() {}
   getSnapshotBeforeUpdate() {
-    const filteredPositions = this.getFilteredPositions()
-    this.setState({ filteredPositions })
+    this.getFilteredPositions()
     return null
   }
+
   getFilteredPositions() {
     const {
       activeExchange, activeMarket, positions, setFilteredValueWithKey,
@@ -34,6 +37,8 @@ export default class PositionsTable extends React.Component {
     const filteredPositions = marketFilterActive
       ? filteredByExchange.filter(p => p.symbol === activeMarket.wsID)
       : filteredByExchange
+
+    this.setState({ filteredPositions })
     setFilteredValueWithKey('filteredPositions', filteredPositions)
     return filteredPositions
   }
@@ -53,3 +58,27 @@ export default class PositionsTable extends React.Component {
     )
   }
 }
+
+PositionsTable.propTypes = {
+  closePosition: PropTypes.func.isRequired,
+  setFilteredValueWithKey: PropTypes.func.isRequired,
+  authToken: PropTypes.string.isRequired,
+  exID: PropTypes.string.isRequired,
+  activeExchange: PropTypes.string,
+  activeMarket: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.arrayOf(PropTypes.string),
+    ]),
+  ),
+  positions: PropTypes.objectOf(PropTypes.object),
+}
+
+PositionsTable.defaultProps = {
+  activeExchange: 'bitfinex',
+  activeMarket: {},
+  positions: {},
+}
+
+export default PositionsTable

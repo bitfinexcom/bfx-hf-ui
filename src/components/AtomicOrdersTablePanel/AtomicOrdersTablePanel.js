@@ -1,18 +1,22 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { flatten as _flatten, isEqual as _isEqual } from 'lodash'
 import AtomicOrdersTable from '../AtomicOrdersTable'
 import Panel from '../../ui/Panel'
-import { propTypes, defaultProps } from './AtomicOrdersTablePanel.props'
 
-export default class AtomicOrdersTablePanel extends React.Component {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+class AtomicOrdersTablePanel extends React.Component {
   state = {
-    atomicOrders: [],
+    filteredAtomicOrders: [],
   }
+
+  componentDidMount() {
+    this.getFilteredAtomicOrders()
+  }
+
   shouldComponentUpdate(nextProps, nextState) {
     return (!_isEqual(nextProps, this.props) || !_isEqual(nextState, this.state))
   }
+
   componentDidUpdate() {}
   getSnapshotBeforeUpdate() {
     const atomicOrders = this.getFilteredAtomicOrders()
@@ -22,7 +26,7 @@ export default class AtomicOrdersTablePanel extends React.Component {
 
   getFilteredAtomicOrders() {
     const {
-      activeExchange, activeMarket, setFilteredValueWithKey, atomicOrders = [],
+      activeExchange, activeMarket, setFilteredValueWithKey, atomicOrders,
     } = this.props
     const { exchangeFilterActive, marketFilterActive } = this.state
 
@@ -32,13 +36,15 @@ export default class AtomicOrdersTablePanel extends React.Component {
     const filteredAtomicOrders = marketFilterActive
       ? filteredByExchange.filter(o => o.symbol === activeMarket.wsID)
       : filteredByExchange
+
+    this.setState({ filteredAtomicOrders })
     setFilteredValueWithKey('filteredAtomicOrders', filteredAtomicOrders)
     return filteredAtomicOrders
   }
 
   render() {
     const { onRemove, activeExchange } = this.props
-    const { atomicOrders } = this.state
+    const { filteredAtomicOrders } = this.state
     return (
       <Panel
         label='ATOMIC ORDERS'
@@ -46,9 +52,32 @@ export default class AtomicOrdersTablePanel extends React.Component {
       >
         <AtomicOrdersTable
           exID={activeExchange}
-          filteredAtomicOrders={atomicOrders}
+          filteredAtomicOrders={filteredAtomicOrders}
         />
       </Panel>
     )
   }
 }
+
+AtomicOrdersTablePanel.propTypes = {
+  setFilteredValueWithKey: PropTypes.func.isRequired,
+  atomicOrders: PropTypes.objectOf(PropTypes.object),
+  activeExchange: PropTypes.string,
+  activeMarket: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.arrayOf(PropTypes.string),
+    ]),
+  ),
+  onRemove: PropTypes.func,
+}
+
+AtomicOrdersTablePanel.defaultProps = {
+  atomicOrders: {},
+  activeExchange: 'bitfinex',
+  activeMarket: {},
+  onRemove: () => {},
+}
+
+export default AtomicOrdersTablePanel
