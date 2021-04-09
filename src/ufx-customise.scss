@@ -11,3 +11,13 @@ $ufx-table-active-row-background-color: $panel-background-color;
 $ufx-text-color: white;
 
 @import "~ufx-ui/src/ufx-ui.scss";
+@import "~ufx-ui/src/components/ui/Truncate/Truncate.scss";
+
+.ufx-order-history .ufx-table {
+  th {
+    font-size: 11px;
+  }
+  td {
+    font-size: 13px;
+  }
+}

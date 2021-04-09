@@ -1,19 +1,38 @@
 // import React, { Suspense } from 'react'
 import React from 'react'
+import _get from 'lodash/get'
 import { OrderHistory, ORDER_HISTORY_KEYS } from 'ufx-ui'
 import { useSelector } from 'react-redux'
 import Panel from '../../ui/Panel'
+import { symbolToLabel, getPriceFromStatus, getFormatedStatus } from './OrderHistory.helpers'
 import './style.css'
 
 export const ROW_MAPPING = {
-  // [ORDER_HISTORY_KEYS.AMOUNT]: {
-  //   format: (value, _, data) => (
-  //     <OrderAmount amount={value} originalAmount={_get(data, 'originalAmount')} />
-  //   ),
-  // },
-  // [ORDER_HISTORY_KEYS.STATUS]: {
-  //   renderer: ({ value }) => <OrderStatus status={value} />,
-  // },
+  [ORDER_HISTORY_KEYS.AMOUNT]: {
+    format: (value, _, data) => {
+      return _get(data, 'originalAmount')
+    },
+    // eslint-disable-next-line react/prop-types
+    renderer: ({ formattedValue }) => (formattedValue < 0
+      ? <span className='hfui-red'>{formattedValue}</span>
+      : <span className='hfui-green'>{formattedValue}</span>
+    ),
+  },
+  [ORDER_HISTORY_KEYS.PAIR]: {
+    format: (value, _, data) => {
+      return symbolToLabel(_get(data, 'symbol'))
+    },
+  },
+  [ORDER_HISTORY_KEYS.PRICE_AVERAGE]: {
+    format: (value, _, data) => {
+      return getPriceFromStatus(_get(data, 'status'))
+    },
+  },
+  [ORDER_HISTORY_KEYS.STATUS]: {
+    format: (value, _, data) => {
+      return getFormatedStatus(_get(data, 'status'))
+    },
+  },
 }
 
 export default function index(props) {
