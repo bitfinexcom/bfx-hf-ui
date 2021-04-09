@@ -1,4 +1,4 @@
-@import "./variables";
+@import "./variables.scss";
 
 $green1: #54b361;
 $red1: #f05359;
@@ -7,5 +7,7 @@ $ufx-table-even-row-background-color: $panel-background-color;
 $ufx-table-odd-row-background-color: $panel-background-color;
 $ufx-table-hover-row-background-color: $panel-background-color;
 $ufx-table-active-row-background-color: $panel-background-color;
+
+$ufx-text-color: white;
 
 @import "~ufx-ui/src/ufx-ui.scss";
