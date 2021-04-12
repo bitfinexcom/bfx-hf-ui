@@ -220,10 +220,6 @@ export default {
     payload: { exID, aos },
   }),
 
-  clearAlgoOrders: () => ({
-    type: t.CLEAR_ALGO_ORDERS,
-  }),
-
   recvNotification: notification => ({
     type: t.DATA_NOTIFICATION,
     payload: { notification },
