@@ -1,49 +1,29 @@
 @import '../../variables.scss';
 
 .hfui-orderstable__wrapper {
-  color: $grey-color;
-  padding: 8px 8px 0 8px;
-  overflow: hidden;
+  padding-right: 18px;
 
-  > p:first-child {
+  div {
+    overflow-y: visible;
+  }
+
+  th {
     font-size: 12px;
-    margin-bottom: 2px;
+    line-height: 16px;
+    color: $text-color !important;
   }
 
-  .hfui-orderstable__header {
-    border-bottom: 1px solid $grey-color;
-    padding-bottom: 2px;
-    margin-bottom: 2px;
-
-    p {
-      text-transform: uppercase;
-    }
+  .empty {
+    font-size: 20px;
   }
 
-  li {
-    display: flex;
-    flex-direction: row;
+  .row {
+    font-size: 12px;
+    line-height: 16px;
 
-    p {
-      font-size: 12px;
-      line-height: 16px;
-      width: 100%;
-      color: $text-color;
-
-      margin-right: 32px;
-
-      &:last-child {
-        text-align: right;
-        margin-right: 0;
-      }
-    }
-
-    &.buy .hfui-orderstable__amount {
-      color: $green-color;
-    }
-
-    &.sell .hfui-orderstable__amount {
-      color: $red-color;
+    td {
+      color: $text-color !important;
+      background-color: $background-color !important;
     }
   }
 }
