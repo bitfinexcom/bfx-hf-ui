@@ -27,7 +27,7 @@ const AlgoOrdersTable = ({
             <td>{new Date(+ao.gid).toLocaleString()}</td>
             <td>{ao.args.symbol}</td>
             <td>{ao.label}</td>
-            <td>
+            <td className='controls'>
               {apiClientState === 2 ? (
                 <i
                   role='button'

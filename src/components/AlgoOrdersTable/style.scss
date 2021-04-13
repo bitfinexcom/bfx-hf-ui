@@ -19,4 +19,15 @@
     font-size: 16px;
     text-align: center;
   }
+
+  .controls {
+    i {
+      font-size: 18px;
+      
+      &:hover {
+        cursor: pointer;
+        color: $green-color;
+      }
+    }
+  }
 }
