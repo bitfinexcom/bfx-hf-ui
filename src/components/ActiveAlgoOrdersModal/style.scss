@@ -4,7 +4,6 @@
   &.hfui-modal__content {
     width: 75vw;
     max-width: 1156px;
-    max-height: 483px;
     padding: 0 26px 38px 26px;
   }
 
@@ -21,12 +20,12 @@
   }
 
   .hfui-modal__actions {
-    margin-top: 30px;
+    margin-top: 10px;
   }
 
   .hfui-ao-list__wrapper {
-    overflow: scroll;
-    height: 315px;
+    overflow-y: auto;
+    max-height: 315px;
   }
 
   .hfui-ao-list__entry {
@@ -107,6 +106,7 @@
     display: flex;
     flex-direction: row;
     padding: 0px 20px;
+    margin-top: 10px;
 
     .hfui-ao-list__footer-row-elm {
       margin-right: 25px;
