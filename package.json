@@ -222,7 +222,7 @@
     "resolve": "^1.10.0",
     "sanitize-html": "^1.26.0",
     "thread-loader": "^2.1.2",
-    "ufx-ui": "git+https://github.com/bitfinexcom/ufx-ui.git#v0.1.2",
+    "ufx-ui": "git+https://github.com/bitfinexcom/ufx-ui.git#v0.1.0",
     "universal-analytics": "^0.4.20",
     "uuid": "^8.3.2",
     "workbox-webpack-plugin": "^5.0.0",
