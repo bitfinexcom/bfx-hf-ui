@@ -1,71 +1,62 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { Table } from 'ufx-ui'
 
-import { propTypes, defaultProps } from './AlgoOrdersTable.props'
 import './style.css'
 
-export default class AlgoOrdersTable extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
-
-  cancelOrder(ao) {
-    const { cancelOrder, authToken, gaCancelOrder } = this.props
-    cancelOrder(authToken, ao)
-    gaCancelOrder()
-  }
-
-  render() {
-    const {
-      apiClientState, filteredAO: orders,
-    } = this.props
-    return (
-      <ul className='hfui-ao-list__wrapper'>
+const AlgoOrdersTable = ({
+  apiClientState, filteredAO: orders, cancelOrder, authToken,
+}) => (
+  <div className='hfui-aolist__wrapper'>
+    <Table interactive>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Context</th>
+          <th>Created</th>
+          <th>Symbol</th>
+          <th>Label</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
         {orders.map(ao => (
-          <li key={ao.gid} className='hfui-ao-list__entry'>
-            {apiClientState === 2 && (
-              <ul className='hfui-ao-list__entry-controls'>
-                <li>
-                  <i
-                    role='button'
-                    tabIndex={0}
-                    className='icon-cancel'
-                    onClick={() => { this.cancelOrder(ao) }}
-                  />
-                </li>
-              </ul>
-            )}
-
-            <div className='hfui-ao-list__entry-row-status green' />
-
-            <div className='hfui-ao-list__entry-row'>
-              <div className='hfui-ao-list__entry-row-elm'>
-                <p className='hfui-ao-list__entry-row-elm-value'>{ao.name}</p>
-                <p className='hfui-ao-list__entry-row-elm-label'>Name</p>
-              </div>
-
-              <div className='hfui-ao-list__entry-row-elm'>
-                <p className='hfui-ao-list__entry-row-elm-value'>{ao.args._margin ? 'Margin' : 'Exchange'}</p>
-                <p className='hfui-ao-list__entry-row-elm-label'>Context</p>
-              </div>
-
-              <div className='hfui-ao-list__entry-row-elm'>
-                <p className='hfui-ao-list__entry-row-elm-value'>{new Date(+ao.gid).toLocaleString()}</p>
-                <p className='hfui-ao-list__entry-row-elm-label'>Created</p>
-              </div>
-            </div>
-
-            <div className='hfui-ao-list__entry-row'>
-              <div className='hfui-ao-list__entry-row-elm'>
-                <p className='hfui-ao-list__entry-row-elm-value'>{ao.args.symbol}</p>
-                <p className='hfui-ao-list__entry-row-elm-label'>Symbol</p>
-              </div>
-              <div className='hfui-ao-list__entry-row-elm'>
-                <p className='hfui-ao-list__entry-row-elm-value'>{ao.label}</p>
-                <p className='hfui-ao-list__entry-row-elm-label'>Label</p>
-              </div>
-            </div>
-          </li>
+          <tr key={ao.gid}>
+            <td>{ao.name}</td>
+            <td>{ao.args._margin ? 'Margin' : 'Exchange'}</td>
+            <td>{new Date(+ao.gid).toLocaleString()}</td>
+            <td>{ao.args.symbol}</td>
+            <td>{ao.label}</td>
+            <td className='controls'>
+              {apiClientState === 2 ? (
+                <i
+                  role='button'
+                  tabIndex={0}
+                  className='icon-cancel'
+                  onClick={() => cancelOrder(authToken, ao)}
+                />
+              ) : '-'}
+            </td>
+          </tr>
         ))}
-      </ul>
-    )
-  }
+      </tbody>
+    </Table>
+
+    {orders.length === 0 && (
+      <p className='empty'>No active algorithmic orders</p>
+    )}
+  </div>
+)
+
+AlgoOrdersTable.propTypes = {
+  cancelOrder: PropTypes.func.isRequired,
+  filteredAO: PropTypes.arrayOf(PropTypes.object),
+  apiClientState: PropTypes.number.isRequired,
+  authToken: PropTypes.string.isRequired,
 }
+
+AlgoOrdersTable.defaultProps = {
+  filteredAO: [],
+}
+
+export default React.memo(AlgoOrdersTable)
