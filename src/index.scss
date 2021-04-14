@@ -1,13 +1,14 @@
-@import '~normalize.css/normalize';
-@import '~pretty-checkbox/src/pretty-checkbox.scss';
-@import '~react-datepicker/dist/react-datepicker';
-@import '~codemirror/lib/codemirror';
-@import '~codemirror/theme/monokai';
-@import '~@projectstorm/react-diagrams/dist/style.min';
-@import 'https://fonts.googleapis.com/css?family=Roboto&display=swap';
-@import '/icon_font/styles.css';
-@import '~react-popper-tooltip/dist/styles';
-@import './variables.scss';
+@import "~normalize.css/normalize";
+@import "~pretty-checkbox/src/pretty-checkbox.scss";
+@import "~react-datepicker/dist/react-datepicker";
+@import "~codemirror/lib/codemirror";
+@import "~codemirror/theme/monokai";
+@import "~@projectstorm/react-diagrams/dist/style.min";
+@import "https://fonts.googleapis.com/css?family=Roboto&display=swap";
+@import "/icon_font/styles.css";
+@import "~react-popper-tooltip/dist/styles";
+@import "./variables.scss";
+@import "./ufx-customise.scss";
 
 body button:focus {
   outline: none;
@@ -21,24 +22,28 @@ body button {
 .react-datepicker {
   background-color: $panel-background-color;
   color: $text-color;
-  border:none;
+  border: none;
 }
 
 .react-datepicker__time-container .react-datepicker__time {
   background: $panel-background-color;
   border: none;
 }
-.react-datepicker__time-container { 
+.react-datepicker__time-container {
   border: none;
 }
 
 .react-datepicker__time-container .react-datepicker__month-container {
-  border:none;
+  border: none;
 }
 
-.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item:hover {
+.react-datepicker__time-container
+  .react-datepicker__time
+  .react-datepicker__time-box
+  ul.react-datepicker__time-list
+  li.react-datepicker__time-list-item:hover {
   background-color: $black-color;
-  border:none;
+  border: none;
 }
 
 .react-datepicker__time-list-item {
@@ -51,10 +56,11 @@ body button {
 }
 
 .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle,
-.react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle::before {
+.react-datepicker-popper[data-placement^="bottom"]
+  .react-datepicker__triangle::before {
   border-top: none;
   border-bottom-color: $black-color;
-} 
+}
 
 .react-datepicker-time__header {
   color: $text-color;
@@ -65,16 +71,16 @@ body button {
 .react-datepicker__navigation--previous,
 .react-datepicker__navigation--next,
 .react-datepicker-year-header {
-  display: none
+  display: none;
 }
 
 .react-datepicker__header {
   background-color: $black-color;
-  border:none;
+  border: none;
 }
 
 .react-datepicker__month-container {
-  border:none;
+  border: none;
 }
 
 .react-datepicker__day-name,
@@ -83,12 +89,15 @@ body button {
   color: $text-color;
 }
 
-.react-datepicker__day:hover, .react-datepicker__month-text:hover {
+.react-datepicker__day:hover,
+.react-datepicker__month-text:hover {
   background-color: $grey-color;
 }
 
-.react-datepicker__day--keyboard-selected, .react-datepicker__month-text--keyboard-selected,
-.react-datepicker__day--keyboard-selected, .react-datepicker__month-text--keyboard-selected {
+.react-datepicker__day--keyboard-selected,
+.react-datepicker__month-text--keyboard-selected,
+.react-datepicker__day--keyboard-selected,
+.react-datepicker__month-text--keyboard-selected {
   background: $yellow-color;
   color: $black-color;
 }
@@ -96,7 +105,7 @@ body button {
 .react-datepicker-wrapper,
 .react-datepicker__input-container {
   width: 100%;
-  border:none;
+  border: none;
 }
 
 .react-datepicker__year-dropdown-container--select,
@@ -168,15 +177,15 @@ div.__react-tooltip {
   color: $tooltip-text-color;
 }
 
-.tooltip-arrow[data-placement*='left']:after {
+.tooltip-arrow[data-placement*="left"]:after {
   border-left-color: $tooltip-border-color !important;
 }
 
-.tooltip-arrow[data-placement*='top']:after {
+.tooltip-arrow[data-placement*="top"]:after {
   border-top-color: $tooltip-border-color !important;
 }
 
-.tooltip-arrow[data-placement*='right'] {
+.tooltip-arrow[data-placement*="right"] {
   margin-left: -0.75rem;
 
   &:before {
@@ -188,7 +197,7 @@ div.__react-tooltip {
   }
 }
 
-.tooltip-arrow[data-placement*='bottom'] {
+.tooltip-arrow[data-placement*="bottom"] {
   &:before {
     border-color: transparent;
   }
@@ -199,8 +208,8 @@ div.__react-tooltip {
 }
 
 body {
-  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -212,21 +221,31 @@ body {
   overflow: hidden;
 }
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
 }
 
-ul, ol {
+ul,
+ol {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-h1, h2, h3, h4, h5, h6, p {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
   margin: 0;
 }
 
-a, a:visited {
+a,
+a:visited {
   color: $green-color;
 }
 
@@ -242,8 +261,8 @@ a, a:visited {
   text-transform: uppercase;
 }
 
-@import '~react-grid-layout/css/styles';
-@import '~react-resizable/css/styles';
+@import "~react-grid-layout/css/styles";
+@import "~react-resizable/css/styles";
 
 .react-grid-item > .react-resizable-handle {
   z-index: 100;

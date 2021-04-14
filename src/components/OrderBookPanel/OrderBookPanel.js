@@ -1,201 +1,118 @@
-import React from 'react'
-import _capitalize from 'lodash/capitalize'
-
-import OrderBook from '../OrderBook'
+/* eslint-disable react/forbid-prop-types */
+import React, { memo, useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
+import {
+  useCommonBfxData,
+  reduxActions,
+  reduxConstants,
+  reduxSelectors,
+} from 'ufx-ui'
 import MarketSelect from '../MarketSelect'
 
+import OrderBook from '../OrderBook'
 import PanelSettings from '../../ui/PanelSettings'
 import Checkbox from '../../ui/Checkbox'
-import Select from '../../ui/Select'
 import Panel from '../../ui/Panel'
-import nearestMarket from '../../util/nearest_market'
-import { propTypes, defaultProps } from './OrderBookPanel.props'
 
-export default class OrderBookPanel extends React.Component {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+const { WSSubscribeChannel, WSUnsubscribeChannel } = reduxActions
+const { SUBSCRIPTION_CONFIG } = reduxConstants
+const {
+  getBookAsks,
+  getBookBids,
+  getBookpAsks,
+  getBookpBidsDesc,
+  getBooktAsks,
+  getBooktBids,
+  getBookSnapshotReceived,
+} = reduxSelectors
 
-  state = {
-    settingsOpen: false,
-  }
+const OrderBookPanel = (props) => {
+  const {
+    onRemove, showMarket, canChangeStacked, moveable,
+    removeable, dark, savedState, activeExchange, activeMarket,
+    allMarkets, canChangeMarket, layoutID, layoutI, updateState,
+  } = props
+  const {
+    sumAmounts = true,
+    stackedView = true,
+    currentExchange = activeExchange,
+    currentMarket = activeMarket,
+  } = savedState
+  const { base, quote } = currentMarket
 
-  constructor(props) {
-    super(props)
+  const [settingsOpen, setSettingsOpen] = useState(false)
 
-    const { savedState = {} } = props
-    const {
-      currentMarket, currentExchange, marketDirty, exchangeDirty,
-      sumAmounts = true, stackedView = true,
-    } = savedState
+  const {
+    isWSConnected,
+    symbol,
+    dispatch,
+  } = useCommonBfxData(base, quote)
 
-    this.state = {
-      ...this.state,
-      sumAmounts,
-      stackedView,
-      currentMarket,
-      currentExchange,
-      marketDirty,
-      exchangeDirty,
+  const snapshotReceived = useSelector(state => getBookSnapshotReceived(state, symbol))
+  const asks = useSelector(state => getBookAsks(state, symbol))
+  const bids = useSelector(state => getBookBids(state, symbol))
+  const pAsks = useSelector(state => getBookpAsks(state, symbol))
+  const pBids = useSelector(state => getBookpBidsDesc(state, symbol))
+  const tAsks = useSelector(state => getBooktAsks(state, symbol))
+  const tBids = useSelector(state => getBooktBids(state, symbol))
+
+  // resubscribe book channel on market change
+  useEffect(() => {
+    if (isWSConnected && symbol) {
+      dispatch(WSSubscribeChannel({
+        ...SUBSCRIPTION_CONFIG,
+        prec: 'P0',
+        symbol,
+      }))
     }
+  }, [isWSConnected, symbol, dispatch])
 
-    this.onChangeMarket = this.onChangeMarket.bind(this)
-    this.onChangeExchange = this.onChangeExchange.bind(this)
-    this.onToggleSettings = this.onToggleSettings.bind(this)
-    this.onChangeSumAmounts = this.onChangeSumAmounts.bind(this)
-    this.onChangeStackedView = this.onChangeStackedView.bind(this)
-  }
-
-  componentDidMount() {
-    const { currentExchange, currentMarket } = this.state
-    const { addOBRequirement } = this.props
-    addOBRequirement(currentExchange, currentMarket)
-  }
-
-  componentWillUnmount() {
-    const { currentExchange, currentMarket } = this.state
-    const { removeOBRequirement } = this.props
-    removeOBRequirement(currentExchange, currentMarket)
-  }
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const {
-      marketDirty, currentMarket, exchangeDirty, currentExchange,
-    } = prevState
-
-    const {
-      activeExchange, activeMarket, addOBRequirement, removeOBRequirement,
-    } = nextProps
-
-    if ((marketDirty || exchangeDirty) || (
-      activeMarket === currentMarket && activeExchange === currentExchange
-    )) {
-      return {}
-    }
-
-    removeOBRequirement(currentExchange, currentMarket)
-    addOBRequirement(activeExchange, activeMarket)
-
-    return {
-      currentMarket: activeMarket,
-      currentExchange: activeExchange,
-    }
-  }
-
-  onToggleSettings() {
-    this.setState(({ settingsOpen }) => ({
-      settingsOpen: !settingsOpen,
+  const unSubscribeWSChannel = (s) => {
+    dispatch(WSUnsubscribeChannel({
+      ...SUBSCRIPTION_CONFIG,
+      prec: 'P0',
+      symbol: s,
     }))
   }
 
-  onChangeSumAmounts(sumAmounts) {
-    this.setState(() => ({ sumAmounts }))
-    this.deferSaveState()
+  const onToggleSettings = () => {
+    setSettingsOpen(state => !state)
   }
 
-  onChangeStackedView(stackedView) {
-    this.setState(() => ({ stackedView }))
-    this.deferSaveState()
+  const saveState = (param, value) => {
+    updateState(layoutID, layoutI, {
+      [param]: value,
+    })
   }
 
-  onChangeMarket(market) {
-    const { currentExchange, currentMarket } = this.state
-    const { addOBRequirement, removeOBRequirement } = this.props
+  const onChangeSumAmounts = (value) => {
+    saveState('sumAmounts', value)
+  }
 
+  const onChangeStackedView = (value) => {
+    saveState('stackedView', value)
+  }
+
+  const onChangeMarket = (market) => {
     if (market.restID === currentMarket.restID) {
       return
     }
 
-    this.setState(() => ({
-      currentMarket: market,
-      marketDirty: true,
-    }))
+    const { wsID } = currentMarket
+    unSubscribeWSChannel(wsID)
 
-    removeOBRequirement(currentExchange, currentMarket)
-    addOBRequirement(currentExchange, market)
-    this.deferSaveState()
+    saveState('currentMarket', market)
   }
 
-  onChangeExchange(option) {
-    const { value: exchange } = option
-    const { currentExchange, currentMarket } = this.state
-    const { allMarkets, addOBRequirement, removeOBRequirement } = this.props
-
-    if (exchange === currentExchange) {
-      return
-    }
-
-    const markets = allMarkets[exchange] || []
-    const newMarket = nearestMarket(currentMarket, markets)
-
-    this.setState(() => ({
-      currentExchange: exchange,
-      currentMarket: newMarket,
-      exchangeDirty: true,
-      marketDirty: true,
-    }))
-
-    removeOBRequirement(currentExchange, currentMarket)
-    addOBRequirement(exchange, newMarket)
-    this.deferSaveState()
-  }
-
-  deferSaveState() {
-    setTimeout(() => {
-      this.saveState()
-    }, 0)
-  }
-
-  saveState() {
-    const { saveState, layoutID, layoutI } = this.props
-    const {
-      currentExchange, currentMarket, exchangeDirty, marketDirty, sumAmounts,
-      stackedView,
-    } = this.state
-
-    saveState(layoutID, layoutI, {
-      currentMarket,
-      currentExchange,
-      exchangeDirty,
-      marketDirty,
-      sumAmounts,
-      stackedView,
-    })
-  }
-
-  renderExchangeDropdown() {
-    const { exchangeDirty, currentExchange } = this.state
-    const { exchanges, canChangeExchange } = this.props
-
-    return (
-      <Select
-        key='exchange-dropdown'
-        disabled={!canChangeExchange}
-        className={{ yellow: exchangeDirty }}
-        onChange={this.onChangeExchange}
-        value={{
-          label: _capitalize(currentExchange),
-          value: currentExchange,
-        }}
-        options={exchanges.map(ex => ({
-          label: _capitalize(ex),
-          value: ex,
-        }))}
-      />
-    )
-  }
-
-  renderMarketDropdown() {
-    const { currentExchange, marketDirty, currentMarket } = this.state
-    const { allMarkets, canChangeMarket } = this.props
-
+  const renderMarketDropdown = () => {
     const markets = allMarkets[currentExchange] || []
 
     return (
       <MarketSelect
         key='market-dropdown'
         disabled={!canChangeMarket}
-        className={{ yellow: marketDirty }}
-        onChange={this.onChangeMarket}
+        onChange={onChangeMarket}
         value={currentMarket}
         markets={markets}
         renderWithFavorites
@@ -203,59 +120,89 @@ export default class OrderBookPanel extends React.Component {
     )
   }
 
-  render() {
-    const {
-      onRemove, showMarket, canChangeStacked, moveable,
-      removeable, dark,
-    } = this.props
-
-    const {
-      currentExchange, currentMarket, settingsOpen, sumAmounts, stackedView,
-    } = this.state
-
-    return (
-      <Panel
-        label='ORDER BOOK'
-        dark={dark}
-        darkHeader={dark}
-        onRemove={onRemove}
-        moveable={moveable}
-        removeable={removeable}
-        secondaryHeaderComponents={[
-          showMarket && this.renderMarketDropdown(),
-        ]}
-        settingsOpen={settingsOpen}
-        onToggleSettings={this.onToggleSettings}
-      >
-        {settingsOpen ? (
-          <PanelSettings
-            onClose={this.onToggleSettings}
-            content={[
-              <Checkbox
-                key='sum-amounts'
-                label='Sum Amounts'
-                value={sumAmounts}
-                onChange={this.onChangeSumAmounts}
-              />,
-              canChangeStacked && (
-              <Checkbox
-                key='stacked-view'
-                label='Stacked View'
-                value={stackedView}
-                onChange={this.onChangeStackedView}
-              />
-              ),
-            ]}
-          />
-        ) : (
-          <OrderBook
-            stackedView={stackedView}
-            sumAmounts={sumAmounts}
-            exchange={currentExchange}
-            market={currentMarket}
-          />
-        )}
-      </Panel>
-    )
+  const handleOnRemove = (...args) => {
+    unSubscribeWSChannel(symbol)
+    onRemove(...args)
   }
+
+  return (
+    <Panel
+      label='ORDER BOOK'
+      dark={dark}
+      darkHeader={dark}
+      onRemove={handleOnRemove}
+      moveable={moveable}
+      removeable={removeable}
+      secondaryHeaderComponents={[
+        showMarket && renderMarketDropdown(),
+      ]}
+      settingsOpen={settingsOpen}
+      onToggleSettings={onToggleSettings}
+    >
+      {settingsOpen ? (
+        <PanelSettings
+          onClose={onToggleSettings}
+          content={[
+            <Checkbox
+              key='sum-amounts'
+              label='Sum Amounts'
+              value={sumAmounts}
+              onChange={onChangeSumAmounts}
+            />,
+            canChangeStacked && (
+            <Checkbox
+              key='stacked-view'
+              label='Stacked View'
+              value={stackedView}
+              onChange={onChangeStackedView}
+            />
+            ),
+          ]}
+        />
+      ) : (
+        <OrderBook
+          stackedView={stackedView}
+          sumAmounts={sumAmounts}
+          // ufx-ui/book props start
+          online={isWSConnected}
+          asks={asks}
+          bids={bids}
+          pAsks={pAsks}
+          pBids={pBids}
+          tAsks={tAsks}
+          tBids={tBids}
+          loading={!snapshotReceived}
+          // ufx-ui/book props end
+        />
+      )}
+    </Panel>
+  )
 }
+
+OrderBookPanel.propTypes = {
+  onRemove: PropTypes.func.isRequired,
+  showMarket: PropTypes.bool,
+  canChangeStacked: PropTypes.bool,
+  moveable: PropTypes.bool,
+  removeable: PropTypes.bool,
+  savedState: PropTypes.object,
+  dark: PropTypes.bool,
+  activeExchange: PropTypes.string.isRequired,
+  activeMarket: PropTypes.object.isRequired,
+  allMarkets: PropTypes.object.isRequired,
+  canChangeMarket: PropTypes.bool.isRequired,
+  layoutID: PropTypes.string.isRequired,
+  layoutI: PropTypes.string.isRequired,
+  updateState: PropTypes.func.isRequired,
+}
+
+OrderBookPanel.defaultProps = {
+  showMarket: false,
+  canChangeStacked: true,
+  moveable: true,
+  removeable: true,
+  dark: true,
+  savedState: {},
+}
+
+export default memo(OrderBookPanel)

@@ -7,6 +7,12 @@ const REDUCER_PATHS = {
   AOS: 'aos',
 }
 
+const UFX_REDUCER_PATHS = {
+  UFX: 'ufx',
+  WS: 'ws',
+  BOOK: 'book',
+}
+
 const MAX_STORED_TRADES = 25
 
 const PUB_WS_API_URL = process.env.REACT_APP_WS_API_URL || 'wss://api-pub.bitfinex.com/ws/2'
@@ -14,5 +20,6 @@ const PUB_WS_API_URL = process.env.REACT_APP_WS_API_URL || 'wss://api-pub.bitfin
 export {
   REDUCER_PATHS,
   PUB_WS_API_URL,
+  UFX_REDUCER_PATHS,
   MAX_STORED_TRADES,
 }

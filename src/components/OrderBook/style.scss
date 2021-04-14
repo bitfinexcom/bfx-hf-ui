@@ -1,4 +1,35 @@
-@import '../../variables.scss';
+@import "../../variables.scss";
+
+// customise ufx-ui book styles
+.hfui-orderbook.ufx-book {
+  .header {
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .main:not(.vertical) {
+    .side:nth-child(1) .row > div,
+    .side:nth-child(1) .header > div {
+      width: 50% !important;
+    }
+  }
+
+  .side,
+  .row {
+    font-size: 12px;
+    font-weight: normal;
+    min-width: 120px;
+  }
+
+  // override book row styles
+  .row {
+    cursor: initial;
+    &:hover,
+    &:focus {
+      background: inherit;
+    }
+  }
+}
 
 .hfui-orderbook__wrapper {
   display: flex;
@@ -9,7 +40,8 @@
     flex-direction: column;
   }
 
-  &, ul {
+  &,
+  ul {
     height: 100%;
   }
 
@@ -32,7 +64,6 @@
     .hfui-orderbook__header {
       width: 50% !important;
     }
-    
   }
   .hfui-orderbook__side-container {
     display: flex;
@@ -154,13 +185,13 @@
 
 .hfui-orderbook__side .hfui-orderbook__pl {
   &.sell {
-    .hfui-orderbook__pl-container *{
+    .hfui-orderbook__pl-container * {
       padding-left: 10px;
       text-align: left;
     }
   }
   &.buy {
-    .hfui-orderbook__pl-container *{
+    .hfui-orderbook__pl-container * {
       text-align: right;
       padding-right: 8px;
     }

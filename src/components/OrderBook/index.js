@@ -1,3 +1,3 @@
-import OrderBook from './OrderBook.container'
+import OrderBook from './OrderBook'
 
 export default OrderBook

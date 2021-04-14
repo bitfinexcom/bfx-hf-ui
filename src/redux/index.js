@@ -3,6 +3,8 @@ import createSagaMiddleware from 'redux-saga'
 import { createHashHistory } from 'history'
 import { routerMiddleware } from 'connected-react-router'
 import Debug from 'debug'
+import _throttle from 'lodash/throttle'
+import { batchedSubscribe } from 'redux-batched-subscribe'
 
 import createRootReducer from './reducers'
 
@@ -10,6 +12,18 @@ const debug = Debug('hfui:rx')
 const sagaMiddleware = createSagaMiddleware()
 
 export const history = createHashHistory()
+
+const THROTTLE_MILLIS = 350
+const throttleOptions = {
+  leading: false,
+  trailing: true,
+}
+
+const batch = _throttle(
+  (notify) => notify(),
+  THROTTLE_MILLIS,
+  throttleOptions,
+)
 
 export function configureStore(
   options = {},
@@ -36,6 +50,7 @@ export function configureStore(
 
   const enhancers = composeEnhancers(
     applyMiddleware(...middleware),
+    batchedSubscribe(batch),
   )
 
   const store = createStore(

@@ -63,6 +63,19 @@ const saveComponentState = ({
   },
 })
 
+const updateComponentState = ({
+  layoutID,
+  componentID,
+  state,
+}) => ({
+  type: types.UPDATE_COMPONENT_STATE,
+  payload: {
+    layoutID,
+    componentID,
+    state,
+  },
+})
+
 const setRoute = route => ({
   type: types.SET_ROUTE,
   payload: {
@@ -133,6 +146,7 @@ export default {
   deleteLayout,
   setActiveMarket,
   saveComponentState,
+  updateComponentState,
   setActiveExchange,
   saveRemoteVersion,
   closeNotificationPanel,

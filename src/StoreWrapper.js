@@ -1,6 +1,7 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'connected-react-router'
+import { reduxMiddlewares } from 'ufx-ui'
 import { history, configureStore } from './redux'
 
 import sagas from './redux/sagas'
@@ -17,6 +18,7 @@ const optionalMiddleware = [
   wsMiddleware(),
   gaMiddleware(),
   uiMiddleware(),
+  reduxMiddlewares.wsMiddleware(),
 ]
 
 const store = configureStore(
