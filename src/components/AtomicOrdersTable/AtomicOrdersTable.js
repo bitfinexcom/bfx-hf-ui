@@ -1,27 +1,35 @@
 import React from 'react'
-import AtomicOrdersTableColumns from './AtomicOrdersTable.columns'
+import PropTypes from 'prop-types'
+import { Orders } from 'ufx-ui'
 
-import { propTypes, defaultProps } from './AtomicOrdersTable.props'
-import Table from '../../ui/Table'
 import './style.css'
 
-export default class AtomicOrdersTable extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+const convertOrders = (orders) => orders.map(order => ({
+  ...order,
+  pair: order.symbol,
+  placed: order.created,
+  baseCcy: order.symbol.split(':')[0],
+}))
 
-  render() {
-    const {
-      exID, filteredAtomicOrders: orders, cancelOrder, authToken, gaCancelOrder,
-    } = this.props
+const AtomicOrdersTable = ({
+  exID, filteredAtomicOrders: orders, cancelOrder, authToken,
+}) => (
+  <Orders
+    orders={convertOrders(orders)}
+    className='hfui-orderstable__wrapper'
+    cancelOrder={(_, order) => cancelOrder(exID, authToken, order)}
+  />
+)
 
-    return (
-      <Table
-        data={orders}
-        columns={AtomicOrdersTableColumns(exID, authToken, cancelOrder, gaCancelOrder)}
-        onRowClick={this.onRowClick}
-        defaultSortBy='mts'
-        defaultSortDirection='ASC'
-      />
-    )
-  }
+AtomicOrdersTable.propTypes = {
+  exID: PropTypes.string.isRequired,
+  authToken: PropTypes.string.isRequired,
+  filteredAtomicOrders: PropTypes.arrayOf(PropTypes.object),
+  cancelOrder: PropTypes.func.isRequired,
 }
+
+AtomicOrdersTable.defaultProps = {
+  filteredAtomicOrders: [],
+}
+
+export default React.memo(AtomicOrdersTable)
