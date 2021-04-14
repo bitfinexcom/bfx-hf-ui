@@ -1,48 +1,54 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Table } from 'ufx-ui'
+import _isEmpty from 'lodash/isEmpty'
 
+import WSTypes from '../../redux/constants/ws'
 import './style.css'
+import Header from './AlgoOrdersTable.Header'
 
 const AlgoOrdersTable = ({
   apiClientState, filteredAO: orders, cancelOrder, authToken,
 }) => (
   <div className='hfui-aolist__wrapper'>
     <Table interactive>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Context</th>
-          <th>Created</th>
-          <th>Symbol</th>
-          <th>Label</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
+      <Header />
       <tbody>
-        {orders.map(ao => (
-          <tr key={ao.gid}>
-            <td>{ao.name}</td>
-            <td>{ao.args._margin ? 'Margin' : 'Exchange'}</td>
-            <td>{new Date(+ao.gid).toLocaleString()}</td>
-            <td>{ao.args.symbol}</td>
-            <td>{ao.label}</td>
-            <td className='controls'>
-              {apiClientState === 2 ? (
-                <i
-                  role='button'
-                  tabIndex={0}
-                  className='icon-cancel'
-                  onClick={() => cancelOrder(authToken, ao)}
-                />
-              ) : '-'}
-            </td>
-          </tr>
-        ))}
+        {orders.map(ao => {
+          const {
+            gid,
+            name,
+            args: {
+              symbol,
+              _margin,
+            },
+            label,
+          } = ao
+
+          return (
+            <tr key={gid}>
+              <td>{name}</td>
+              <td>{_margin ? 'Margin' : 'Exchange'}</td>
+              <td>{new Date(+gid).toLocaleString()}</td>
+              <td>{symbol}</td>
+              <td>{label}</td>
+              <td className='controls'>
+                {apiClientState === WSTypes.API_CLIENT_CONNECTED && (
+                  <i
+                    role='button'
+                    tabIndex={0}
+                    className='icon-cancel'
+                    onClick={() => cancelOrder(authToken, ao)}
+                  />
+                )}
+              </td>
+            </tr>
+          )
+        })}
       </tbody>
     </Table>
 
-    {orders.length === 0 && (
+    {_isEmpty(orders) && (
       <p className='empty'>No active algorithmic orders</p>
     )}
   </div>

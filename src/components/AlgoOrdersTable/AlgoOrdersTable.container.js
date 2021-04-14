@@ -14,6 +14,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
   const { filteredAO = [] } = state.ui
   const activeExchange = getActiveExchange(state)
   const activeMarket = getActiveMarket(state)
+
   return {
     apiClientState: getAPIClientState(state, exID),
     authToken: getAuthToken(state),
