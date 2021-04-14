@@ -1,14 +1,14 @@
 // import React, { Suspense } from 'react'
 import React from 'react'
 import _get from 'lodash/get'
-import { OrderHistory, ORDER_HISTORY_KEYS } from 'ufx-ui'
+import { OrderHistory, ORDER_HISTORY_COLUMNS } from 'ufx-ui'
 import { useSelector } from 'react-redux'
 import Panel from '../../ui/Panel'
 import { symbolToLabel, getPriceFromStatus, getFormatedStatus } from './OrderHistory.helpers'
 import './style.css'
 
 export const ROW_MAPPING = {
-  [ORDER_HISTORY_KEYS.AMOUNT]: {
+  [ORDER_HISTORY_COLUMNS.AMOUNT]: {
     format: (value, _, data) => {
       return _get(data, 'originalAmount')
     },
@@ -18,17 +18,17 @@ export const ROW_MAPPING = {
       : <span className='hfui-green'>{formattedValue}</span>
     ),
   },
-  [ORDER_HISTORY_KEYS.PAIR]: {
+  [ORDER_HISTORY_COLUMNS.PAIR]: {
     format: (value, _, data) => {
       return symbolToLabel(_get(data, 'symbol'))
     },
   },
-  [ORDER_HISTORY_KEYS.PRICE_AVERAGE]: {
+  [ORDER_HISTORY_COLUMNS.PRICE_AVERAGE]: {
     format: (value, _, data) => {
       return getPriceFromStatus(_get(data, 'status'))
     },
   },
-  [ORDER_HISTORY_KEYS.STATUS]: {
+  [ORDER_HISTORY_COLUMNS.STATUS]: {
     format: (value, _, data) => {
       return getFormatedStatus(_get(data, 'status'))
     },
@@ -56,12 +56,12 @@ export default function index(props) {
       <OrderHistory
         orders={orders}
         columns={[
-          ORDER_HISTORY_KEYS.PRICE,
-          ORDER_HISTORY_KEYS.AMOUNT,
-          ORDER_HISTORY_KEYS.TYPE,
-          ORDER_HISTORY_KEYS.STATUS,
-          ORDER_HISTORY_KEYS.PRICE_AVERAGE,
-          ORDER_HISTORY_KEYS.PAIR,
+          ORDER_HISTORY_COLUMNS.PRICE,
+          ORDER_HISTORY_COLUMNS.AMOUNT,
+          ORDER_HISTORY_COLUMNS.TYPE,
+          ORDER_HISTORY_COLUMNS.STATUS,
+          ORDER_HISTORY_COLUMNS.PRICE_AVERAGE,
+          ORDER_HISTORY_COLUMNS.PAIR,
         ]}
         isMobile={false}
         rowMapping={ROW_MAPPING}
