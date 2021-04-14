@@ -69,4 +69,8 @@ export default {
   ALIAS_API_SERVER: 'bfx-hf-server',
   ALIAS_DATA_SERVER: 'bfx-hf-data-server',
   ALIAS_PUB_WS_API: 'pub-ws-api',
+
+  API_CLIENT_CONNECTED: 2,
+  API_CLIENT_CONNECTING: 1,
+  API_CLIENT_DISCONNECTED: 0,
 }
