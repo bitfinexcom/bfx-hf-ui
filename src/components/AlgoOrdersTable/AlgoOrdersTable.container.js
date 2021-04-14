@@ -12,6 +12,7 @@ const debug = Debug('hfui:c:algo-orders-table')
 const mapStateToProps = (state = {}) => {
   const { filteredAO = [] } = state.ui
   const activeMarket = getActiveMarket(state)
+
   return {
     apiClientState: getAPIClientState(state),
     authToken: getAuthToken(state),
