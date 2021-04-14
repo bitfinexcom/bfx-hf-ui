@@ -1,3 +1,9 @@
-.ufx-table th {
-  color: white !important;
+.ufx-order-history .ufx-table {
+  th {
+    font-size: 11px;
+    color: white !important;
+  }
+  td {
+    font-size: 13px;
+  }
 }

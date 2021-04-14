@@ -3,6 +3,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Scrollbars } from 'react-custom-scrollbars'
+import { StoreProvider, useInjectBfxData } from 'ufx-ui'
 
 import Debug from 'debug'
 import Manifest from '../package.json'
@@ -33,11 +34,10 @@ import StoreWrapper from './StoreWrapper'
 import './passive_listener_fix'
 import './index.css'
 
-// function HFUIWrapper() {
-//   useInjectBfxData()
-
-//   return <HFUI />
-// }
+const HFUIWrapper = () => {
+  useInjectBfxData()
+  return <HFUI />
+}
 
 ReactDOM.render((
   <Scrollbars
@@ -46,7 +46,9 @@ ReactDOM.render((
     }}
   >
     <StoreWrapper>
-      <HFUI />
+      <StoreProvider>
+        <HFUIWrapper />
+      </StoreProvider>
     </StoreWrapper>
   </Scrollbars>
 ), document.getElementById('root'))
