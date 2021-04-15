@@ -276,9 +276,10 @@ export default (alias, store) => (e = {}) => {
         break
       }
 
-      case 'algo.cancel_orders': {
+      case 'algo.reload': {
         store.dispatch(WSActions.clearAlgoOrders())
         store.dispatch(UIActions.setFilteredValueWithKey('filteredAO', []))
+        store.dispatch(AOActions.getActiveAlgoOrders())
         break
       }
 
