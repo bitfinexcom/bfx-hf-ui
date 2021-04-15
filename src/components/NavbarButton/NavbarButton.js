@@ -16,6 +16,8 @@ export default class NavbarButton extends React.PureComponent {
       return (
         <a
           href={`${external}`}
+          target='_blank'
+          rel='noopener noreferrer'
         >
           {label}
         </a>

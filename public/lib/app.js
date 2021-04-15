@@ -1,7 +1,7 @@
 const url = require('url')
 const path = require('path')
 const {
-  BrowserWindow, protocol, Menu,
+  BrowserWindow, protocol, Menu, shell,
 } = require('electron') // eslint-disable-line
 
 const appMenuTemplate = require('./app_menu_template')
@@ -29,7 +29,6 @@ module.exports = class HFUIApplication {
     this.onAllWindowsClosed = this.onAllWindowsClosed.bind(this)
     this.onMainWindowClosed = this.onMainWindowClosed.bind(this)
 
-
     // increase memory size
     app.commandLine.appendSwitch('js-flags', '--max-old-space-size=2048');
     app.on('ready', this.onReady)
@@ -44,6 +43,12 @@ module.exports = class HFUIApplication {
 
     this.mainWindow = HFUIApplication.createWindow()
     this.mainWindow.on('closed', this.onMainWindowClosed)
+    this.mainWindow.webContents.on('new-window', this.handleURLRedirect)
+  }
+
+  handleURLRedirect(event, url) {
+    event.preventDefault()
+    shell.openExternal(url)
   }
 
   onReady() {
@@ -74,4 +79,6 @@ module.exports = class HFUIApplication {
 
     this.app.quit()
   }
+
+  onNewWindow
 }
