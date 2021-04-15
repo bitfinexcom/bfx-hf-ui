@@ -51,6 +51,7 @@ export default (state = getInitialState(), action = {}) => {
       }
     }
 
+    case types.CLEAR_ALGO_ORDERS:
     case types.DEAUTH: {
       return getInitialState()
     }
