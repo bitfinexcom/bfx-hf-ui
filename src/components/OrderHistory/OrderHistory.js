@@ -7,16 +7,47 @@ import { symbolToLabel, getPriceFromStatus, getFormatedStatus } from './OrderHis
 import './style.css'
 
 const {
-  PRICE,
-  AMOUNT,
-  TYPE,
-  STATUS,
-  PRICE_AVERAGE,
+  ICON,
+  ID,
   PAIR,
+  TYPE,
+  BASE_CCY,
+  QUOTE_CCY,
+  AMOUNT,
+  ORIGINAL_AMOUNT,
+  PRICE,
+  PRICE_AVERAGE,
+  PLACED,
+  STATUS,
 } = ORDER_HISTORY_COLUMNS
 
 export const ROW_MAPPING = {
+  [ID]: {
+    hidden: true,
+  },
+  [BASE_CCY]: {
+    hidden: true,
+  },
+  [QUOTE_CCY]: {
+    hidden: true,
+  },
+  [ORIGINAL_AMOUNT]: {
+    hidden: true,
+  },
+  [PLACED]: {
+    hidden: true,
+  },
+  [ICON]: {
+    index: 0,
+    truncate: true,
+  },
+  [PRICE]: {
+    index: 1,
+    truncate: true,
+  },
   [AMOUNT]: {
+    index: 2,
+    truncate: true,
     format: (value, _, data) => {
       return _get(data, 'originalAmount')
     },
@@ -26,21 +57,32 @@ export const ROW_MAPPING = {
       : <span className='hfui-green'>{formattedValue}</span>
     ),
   },
-  [PAIR]: {
-    format: (value, _, data) => {
-      return symbolToLabel(_get(data, 'symbol'))
-    },
-  },
-  [PRICE_AVERAGE]: {
-    format: (value, _, data) => {
-      return getPriceFromStatus(_get(data, 'status'))
-    },
+  [TYPE]: {
+    index: 3,
+    truncate: true,
   },
   [STATUS]: {
+    index: 4,
+    truncate: true,
     format: (value, _, data) => {
       return getFormatedStatus(_get(data, 'status'))
     },
   },
+  [PRICE_AVERAGE]: {
+    index: 5,
+    truncate: true,
+    format: (value, _, data) => {
+      return getPriceFromStatus(_get(data, 'status'))
+    },
+  },
+  [PAIR]: {
+    index: 6,
+    truncate: true,
+    format: (value, _, data) => {
+      return symbolToLabel(_get(data, 'symbol'))
+    },
+  },
+
 }
 
 export default function OrderHistory(props) {
@@ -50,14 +92,6 @@ export default function OrderHistory(props) {
   } = props
 
   const orders = useSelector(state => state.ws.orderHistory.orders)
-  const columns = [
-    PRICE,
-    AMOUNT,
-    TYPE,
-    STATUS,
-    PRICE_AVERAGE,
-    PAIR,
-  ]
 
   return (
     <Panel
@@ -68,9 +102,8 @@ export default function OrderHistory(props) {
     >
       <UfxOrderHistory
         orders={orders}
-        columns={columns}
         rowMapping={ROW_MAPPING}
-        isMobile={false}
+        isMobileLayout={false}
       />
     </Panel>
   )
