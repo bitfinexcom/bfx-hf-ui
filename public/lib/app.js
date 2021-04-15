@@ -79,6 +79,4 @@ module.exports = class HFUIApplication {
 
     this.app.quit()
   }
-
-  onNewWindow
 }
