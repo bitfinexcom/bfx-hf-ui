@@ -17,7 +17,6 @@ import {
 import {
   PAPER_MODE,
   MAIN_MODE,
-  DEFAULT_EXCHANGE,
 } from '../../redux/reducers/ui'
 import NavbarButton from '../../components/NavbarButton'
 
@@ -27,16 +26,12 @@ const isDevEnv = devEnv()
 class Settings extends React.PureComponent {
   constructor(props) {
     super(props)
-    const {
-      activeExchange,
-    } = props
 
     this.state = {
       apiKey: '',
       apiSecret: '',
       paperApiKey: '',
       paperApiSecret: '',
-      currentExchange: activeExchange,
       AUTOLOGIN_STATE: getAutoLoginState(),
     }
   }
@@ -48,27 +43,31 @@ class Settings extends React.PureComponent {
   }
 
   onSubmitAPIKeys({ apiKey, apiSecret }) {
-    const { submitAPIKeys, authToken } = this.props
-    const { currentExchange } = this.state
+    const {
+      submitAPIKeys,
+      authToken,
+      currentMode,
+    } = this.props
 
     submitAPIKeys({
       authToken,
-      exID: currentExchange,
       apiKey,
       apiSecret,
-    }, MAIN_MODE)
+    }, MAIN_MODE, currentMode)
   }
 
   onSubmitPaperAPIKeys({ paperApiKey: apiKey, paperApiSecret: apiSecret }) {
-    const { submitAPIKeys, authToken } = this.props
-    const { currentExchange } = this.state
+    const {
+      submitAPIKeys,
+      authToken,
+      currentMode,
+    } = this.props
 
     submitAPIKeys({
       authToken,
-      exID: currentExchange,
       apiKey,
       apiSecret,
-    }, PAPER_MODE)
+    }, PAPER_MODE, currentMode)
   }
 
   onSettingsSave(authToken) {
@@ -269,18 +268,17 @@ class Settings extends React.PureComponent {
 Settings.propTypes = {
   ga: PropTypes.bool,
   dms: PropTypes.bool,
-  activeExchange: PropTypes.string,
   authToken: PropTypes.string.isRequired,
   getActiveAOs: PropTypes.func.isRequired,
   submitAPIKeys: PropTypes.func.isRequired,
   updateSettings: PropTypes.func.isRequired,
   gaUpdateSettings: PropTypes.func.isRequired,
+  currentMode: PropTypes.string.isRequired,
 }
 
 Settings.defaultProps = {
   ga: null,
   dms: null,
-  activeExchange: DEFAULT_EXCHANGE,
 }
 
 export default Settings
