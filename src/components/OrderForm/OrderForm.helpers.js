@@ -4,6 +4,7 @@ import _isObject from 'lodash/isObject'
 import _isBoolean from 'lodash/isBoolean'
 import _capitalize from 'lodash/capitalize'
 import _flatten from 'lodash/flatten'
+import _forOwn from 'lodash/forOwn'
 
 import NumberInput from './FieldComponents/input.number'
 import PriceInput from './FieldComponents/input.price'
@@ -134,13 +135,13 @@ const fixComponentContext = (orderFields, market) => {
   const fields = { ...orderFields }
   const { BASE, QUOTE } = marketToQuoteBase(market)
 
-  Object.keys(fields).forEach(field => {
-    const { component } = fields[field]
+  _forOwn(fields, (value, key) => {
+    const { component } = value
 
     if (component === 'input.range') {
       if (BASE === 'AMPF0' && QUOTE === 'USTF0') {
-        fields[field].max = 20
-        fields[field].default = 5
+        fields[key].max = 20
+        fields[key].default = 5
       }
     }
   })
