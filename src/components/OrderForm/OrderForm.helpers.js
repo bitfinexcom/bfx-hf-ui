@@ -130,6 +130,24 @@ const processFieldData = ({ action, layout = {}, fieldData = {} }) => {
   return data
 }
 
+const fixComponentContext = (orderFields, market) => {
+  const fields = { ...orderFields }
+  const { BASE, QUOTE } = marketToQuoteBase(market)
+
+  Object.keys(fields).forEach(field => {
+    const { component } = fields[field]
+
+    if (component === 'input.range') {
+      if (BASE === 'AMPF0' && QUOTE === 'USTF0') {
+        fields[field].max = 20
+        fields[field].default = 5
+      }
+    }
+  })
+
+  return fields
+}
+
 // Renders a single layout field component
 const renderLayoutComponent = ({
   componentDef = {}, // eslint-disable-line
@@ -362,5 +380,6 @@ export {
   renderLayoutField,
   marketToQuoteBase,
   defaultDataForLayout,
+  fixComponentContext,
   COMPONENTS_FOR_ID,
 }
