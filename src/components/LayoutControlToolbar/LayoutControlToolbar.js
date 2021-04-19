@@ -1,6 +1,8 @@
 /* eslint-disable */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
+import _keys from 'lodash/keys'
+import _filter from 'lodash/filter'
 
 import Button from '../../ui/Button'
 import Dropdown from '../../ui/Dropdown'
@@ -10,9 +12,8 @@ const LayoutControlToolbar = ({
   layouts, tradingEnabled, onAddLayout, onDeleteLayout, onSaveLayout,
   onAddComponent, activeLayout, layoutDirty, onChangeLayout, activeLayoutID,
 }) => {
-  const layoutNames = Object.keys(layouts).filter(id => (
-    (layouts[id].type === 'trading' && tradingEnabled)
-    || (layouts[id].type === 'data' && !tradingEnabled)
+  const layoutNames = _filter(_keys(layouts), id => (
+    (layouts[id].type === 'trading' && tradingEnabled) || (layouts[id].type === 'data' && !tradingEnabled)
   ))
 
   const { canDelete } = activeLayout || {}
