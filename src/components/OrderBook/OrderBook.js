@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
+import PropTypes from 'prop-types'
 import { Book } from 'ufx-ui'
 
-import { propTypes, defaultProps } from './OrderBook.props'
 import { getRowMapping, getBookViz } from './OrderBook.helpers'
 import './style.css'
 
@@ -28,7 +28,13 @@ const OrderBook = (props) => {
   )
 }
 
-OrderBook.propTypes = propTypes
-OrderBook.defaultProps = defaultProps
+OrderBook.propTypes = {
+  sumAmounts: PropTypes.bool,
+  stackedView: PropTypes.bool,
+}
+OrderBook.defaultProps = {
+  sumAmounts: true,
+  stackedView: true,
+}
 
 export default memo(OrderBook)
