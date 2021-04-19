@@ -10,6 +10,10 @@
 @import "./variables.scss";
 @import "./ufx-customise.scss";
 
+*, ::before, ::after {
+  box-sizing: content-box;
+}
+
 body button:focus {
   outline: none;
   border: none;
