@@ -76,14 +76,14 @@ const mapDispatchToProps = dispatch => ({
   },
 
   submitAPIKeys: ({
-    exID, authToken, apiKey, apiSecret,
+    authToken, apiKey, apiSecret,
   }, mode) => {
     dispatch(WSActions.send([
       'api_credentials.save',
       authToken,
-      exID,
       apiKey,
       apiSecret,
+      mode,
       mode,
     ]))
   },
