@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useState, memo } from 'react'
 import ClassNames from 'classnames'
 import PropTypes from 'prop-types'
 
 import NavbarButton from '../NavbarButton'
+import FeedbackModal from '../FeedbackModal'
 import MANIFEST from '../../../package.json'
 import './style.css'
 
 const StatusBar = ({
-  wsConnected, remoteVersion, apiClientState,
+  wsConnected, remoteVersion, apiClientState, onFeedbackSubmit,
 }) => {
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false)
+
   const apiClientConnected = apiClientState === 2
   const apiClientConnecting = apiClientState === 1
   const apiClientDisconnected = !apiClientState
@@ -33,6 +36,11 @@ const StatusBar = ({
             ? 'UNLOCKED FOR BITFINEX'
             : 'LOCKED'}
         </p>
+
+        <NavbarButton
+          label='Feedback'
+          onClick={() => setShowFeedbackModal(true)}
+        />
       </div>
 
       <div className='hfui-statusbar__right'>
@@ -57,6 +65,13 @@ const StatusBar = ({
         })}
         />
       </div>
+
+      {showFeedbackModal && (
+        <FeedbackModal
+          onSubmit={onFeedbackSubmit}
+          onClose={() => setShowFeedbackModal(false)}
+        />
+      )}
     </div>
   )
 }
@@ -65,10 +80,12 @@ StatusBar.propTypes = {
   wsConnected: PropTypes.bool.isRequired,
   remoteVersion: PropTypes.string,
   apiClientState: PropTypes.number.isRequired,
+  onFeedbackSubmit: PropTypes.func,
 }
 
 StatusBar.defaultProps = {
   remoteVersion: '',
+  onFeedbackSubmit: () => {},
 }
 
-export default React.memo(StatusBar)
+export default memo(StatusBar)
