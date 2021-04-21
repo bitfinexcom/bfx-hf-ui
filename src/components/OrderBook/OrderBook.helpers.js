@@ -15,17 +15,14 @@ const ROW_MAPPING = {
   },
 }
 
-export const getRowMapping = (sumAmounts, stackedView) => {
+export const getRowMapping = (sumAmounts) => {
   const rowMapping = ROW_MAPPING
-  if (!sumAmounts && !stackedView) {
+  if (!sumAmounts) {
     rowMapping.total.hidden = true
     rowMapping.amount.hidden = false
-  } else if (sumAmounts && !stackedView) {
+  } else if (sumAmounts) {
     rowMapping.total.hidden = false
     rowMapping.amount.hidden = true
-  } else if (stackedView) {
-    rowMapping.total.hidden = false
-    rowMapping.amount.hidden = false
   }
 
   return rowMapping

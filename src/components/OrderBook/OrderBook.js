@@ -13,7 +13,7 @@ const TEMP_OB_SIDE_LENGTH_LIMIT = 12
 const OrderBook = (props) => {
   const { sumAmounts, stackedView, ...rest } = props
 
-  const rowMapping = getRowMapping(sumAmounts, stackedView)
+  const rowMapping = getRowMapping(sumAmounts)
   const bookViz = getBookViz(sumAmounts)
 
   return (
