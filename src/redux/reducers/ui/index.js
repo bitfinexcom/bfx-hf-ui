@@ -27,6 +27,9 @@ const DEFAULT_MARKET = {
   uiID: 'BTC/USD',
 }
 
+export const DEFAULT_TRADING_KEY = 'Default Trading'
+export const DEFAULT_MARKET_KEY = 'Default Market Data'
+
 function getInitialState() {
   const defaultState = {
     route: DEFAULT_ROUTE,
@@ -66,15 +69,15 @@ function getInitialState() {
 
   if (!defaultState.layouts) {
     defaultState.layouts = {
-      'Default Trading': DEFAULT_TRADING_LAYOUT,
-      'Default Market Data': DEFAULT_MARKET_DATA_LAYOUT,
+      DEFAULT_TRADING_KEY: DEFAULT_TRADING_LAYOUT,
+      DEFAULT_MARKET_KEY: DEFAULT_MARKET_DATA_LAYOUT,
     }
   }
 
   if (!defaultState.layoutComponentState) {
     defaultState.layoutComponentState = {
-      'Default Trading': DEFAULT_TRADING_COMPONENT_STATE,
-      'Default Market Data': DEFAULT_MARKET_DATA_COMPONENT_STATE,
+      DEFAULT_TRADING_KEY: DEFAULT_TRADING_COMPONENT_STATE,
+      DEFAULT_MARKET_KEY: DEFAULT_MARKET_DATA_COMPONENT_STATE,
     }
   }
 
