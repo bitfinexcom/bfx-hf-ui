@@ -17,6 +17,7 @@ import getCurrentMode from './get_current_mode'
 import getGuideStatusForPage from './get_guide_status_for_page'
 import getFilteredBalances from './get_filtered_balances'
 import getStrategyId from './get_strategy_id'
+import getMarketBooks from './get_market_books'
 
 export {
   getRemoteVersion,
@@ -38,4 +39,5 @@ export {
   getGuideStatusForPage,
   getFilteredBalances,
   getStrategyId,
+  getMarketBooks,
 }

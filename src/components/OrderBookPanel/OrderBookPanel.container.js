@@ -1,8 +1,9 @@
 import { connect } from 'react-redux'
 
 import {
-  getActiveMarket, getComponentState, getActiveExchange,
+  getActiveMarket, getComponentState, getActiveExchange, getMarketBooks,
 } from '../../redux/selectors/ui'
+import { DEFAULT_TRADING_KEY } from '../../redux/reducers/ui'
 import { getMarkets } from '../../redux/selectors/meta'
 import UIActions from '../../redux/actions/ui'
 
@@ -12,11 +13,16 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
   const { layoutID, layoutI: id } = ownProps
   const activeExchange = getActiveExchange(state)
   const activeMarket = getActiveMarket(state)
+  const allMarketBooks = getMarketBooks(state)
+  const isTradingTerminal = layoutID === DEFAULT_TRADING_KEY
+
   return {
     activeExchange,
     activeMarket,
     savedState: getComponentState(state, layoutID, 'book', id),
     allMarkets: getMarkets(state),
+    isTradingTerminal,
+    allMarketBooks,
   }
 }
 

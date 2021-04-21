@@ -2,14 +2,16 @@
 import React, { memo, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
+import _filter from 'lodash/filter'
+import _size from 'lodash/size'
 import {
   useCommonBfxData,
   reduxActions,
   reduxConstants,
   reduxSelectors,
 } from 'ufx-ui'
-import MarketSelect from '../MarketSelect'
 
+import MarketSelect from '../MarketSelect'
 import OrderBook from '../OrderBook'
 import PanelSettings from '../../ui/PanelSettings'
 import Checkbox from '../../ui/Checkbox'
@@ -31,7 +33,7 @@ const OrderBookPanel = (props) => {
   const {
     onRemove, showMarket, canChangeStacked, moveable,
     removeable, dark, savedState, activeExchange, activeMarket,
-    allMarkets, canChangeMarket, layoutID, layoutI, updateState,
+    allMarkets, canChangeMarket, layoutID, layoutI, updateState, isTradingTerminal, allMarketBooks,
   } = props
   const {
     sumAmounts = true,
@@ -39,7 +41,8 @@ const OrderBookPanel = (props) => {
     currentExchange = activeExchange,
     currentMarket = activeMarket,
   } = savedState
-  const { base, quote } = currentMarket
+  const bookMarket = isTradingTerminal ? activeMarket : currentMarket
+  const { base, quote } = bookMarket
 
   const [settingsOpen, setSettingsOpen] = useState(false)
 
@@ -69,6 +72,13 @@ const OrderBookPanel = (props) => {
   }, [isWSConnected, symbol, dispatch])
 
   const unSubscribeWSChannel = (s) => {
+    const booksUsingSymbol = _filter(allMarketBooks, ({ currentMarket: cm }) => cm.wsID === s)
+
+    // do not unsubscribe if more more than one books are subscribed to the symbol
+    if (_size(booksUsingSymbol) > 1) {
+      return
+    }
+
     dispatch(WSUnsubscribeChannel({
       ...SUBSCRIPTION_CONFIG,
       prec: 'P0',
@@ -194,6 +204,8 @@ OrderBookPanel.propTypes = {
   layoutID: PropTypes.string.isRequired,
   layoutI: PropTypes.string.isRequired,
   updateState: PropTypes.func.isRequired,
+  isTradingTerminal: PropTypes.bool,
+  allMarketBooks: PropTypes.array,
 }
 
 OrderBookPanel.defaultProps = {
@@ -203,6 +215,8 @@ OrderBookPanel.defaultProps = {
   removeable: true,
   dark: true,
   savedState: {},
+  isTradingTerminal: true,
+  allMarketBooks: [],
 }
 
 export default memo(OrderBookPanel)
