@@ -1,0 +1,23 @@
+@import '../../variables.scss';
+
+.hfui-textarea {
+  p {
+    margin-bottom: 4px;
+    font-size: 12px;
+  }
+
+  textarea {
+    width: calc(100% - 16px);
+    min-height: 100px;
+    max-height: 250px;
+    color: $green-color;
+    background: $panel-background-color;
+    border: 0.5px solid $panel-background-color;
+    padding: 4px 8px;
+    font-size: 12px;
+    line-height: 12px;
+    outline: none;
+    border-radius: 4px;
+    resize: vertical;
+  }
+}
