@@ -2,8 +2,7 @@ import React, { useState, memo } from 'react'
 import PropTypes from 'prop-types'
 import _isEmpty from 'lodash/isEmpty'
 import _keys from 'lodash/keys'
-import _filter from 'lodash/filter'
-import _head from 'lodash/head'
+import _find from 'lodash/find'
 
 import RenderHistoricalReport from './reports/HistoricalReport'
 import RenderHistoricalForm from './forms/HistoricalForm'
@@ -59,7 +58,7 @@ const Backtester = ({
   }
 
   const updateExecutionType = (value) => {
-    const newType = _head(_filter(backtestMethods, f => f.type === value))
+    const newType = _find(backtestMethods, f => f.type === value)
     setExecutionType(newType)
   }
 
