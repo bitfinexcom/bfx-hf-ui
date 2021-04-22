@@ -1,5 +1,9 @@
 import React, { useState, memo } from 'react'
 import PropTypes from 'prop-types'
+import _isEmpty from 'lodash/isEmpty'
+import _keys from 'lodash/keys'
+import _filter from 'lodash/filter'
+import _head from 'lodash/head'
 
 import RenderHistoricalReport from './reports/HistoricalReport'
 import RenderHistoricalForm from './forms/HistoricalForm'
@@ -55,7 +59,7 @@ const Backtester = ({
   }
 
   const updateExecutionType = (value) => {
-    const newType = backtestMethods.filter(f => f.type === value)[0]
+    const newType = _head(_filter(backtestMethods, f => f.type === value))
     setExecutionType(newType)
   }
 
@@ -73,20 +77,18 @@ const Backtester = ({
     onDeleteIndicator,
     updateError,
     allMarkets,
-    exId: 'bitfinex', // todo: add ability to specify exchange
+    exId: 'bitfinex',
     formState,
     authToken,
-    setFormState: (setStateFunc, callback) => {
-      const form = {
-        ...formState,
+    setFormState: (setStateFunc) => {
+      setFormState(form => ({
+        ...form,
         ...setStateFunc(),
-      }
-      setFormState(form)
-      callback(form)
+      }))
     },
   }
 
-  if (!strategyContent || Object.keys(strategyContent).length === 0) {
+  if (!strategyContent || _isEmpty(_keys(strategyContent))) {
     return (
       <div className='hfui-backtester__wrapper'>
         <p>Create a strategy to begin backtesting.</p>
