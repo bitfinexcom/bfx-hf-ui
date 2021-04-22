@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 import Modal from '../../ui/Modal'
 import Button from '../../ui/Button'
-import Dropdown from '../../ui/Dropdown'
+import Select from '../../ui/Select'
 import Textarea from '../../ui/Textarea'
 
 import { REASON_TYPES, REASON_LABELS } from './FeedbackModal.helpers'
@@ -50,15 +50,20 @@ const FeedbackModal = ({ onSubmit, onClose }) => {
         />
       )}
     >
-      <Dropdown
-        value={reason}
-        label='Feedback reason'
-        onChange={setReason}
-        options={Object.values(REASON_TYPES).map(type => ({
-          label: REASON_LABELS[type],
-          value: type,
-        }))}
-      />
+      <div className='select-container'>
+        <p>Select trading mode</p>
+
+        <Select
+          value={reason}
+          className='select'
+          placeholder='Feedback reason'
+          onChange={setReason}
+          options={Object.values(REASON_TYPES).map(type => ({
+            label: REASON_LABELS[type],
+            value: type,
+          }))}
+        />
+      </div>
 
       <Textarea
         onChange={setMessage}

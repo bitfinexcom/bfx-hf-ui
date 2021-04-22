@@ -1,5 +1,23 @@
+@import '../../variables.scss';
+
 .hfui-feedback_modal {
   .textarea {
     margin-top: 20px;
+  }
+
+  .select-container {
+    .select {
+      width: 100%;
+      margin-top: 16px;
+      background-color: $panel-background-color;
+      border-radius: 4px;
+      line-height: 1.5;
+      padding: 2px 0 2px 8px;
+    }
+
+    p {
+      padding-top: 10px;
+      margin-bottom: -1px;
+    }
   }
 }
