@@ -47,43 +47,51 @@ const AlgoOrdersTable = ({
     </div>
     <div className='hfui-ao-list__wrapper'>
       <ul>
-        {orders.map(ao => (
-          <li key={ao.gid} className='hfui-ao-list__entry'>
-            <div className='hfui-ao-list__entry-row'>
-              <div className='hfui-ao-list__entry-row-elm ao-checkbox'>
-                <Checkbox
-                  value={isOrderSelected(ao.gid)}
-                  onChange={e => onOrderSelect(e, ao.gid, ao.algoID)}
-                />
+        {orders.map(ao => {
+          const selected = isOrderSelected(ao.gid)
+
+          return (
+            <li
+              key={ao.gid}
+              className='hfui-ao-list__entry'
+              onClick={() => onOrderSelect(!selected, ao.gid, ao.algoID)}
+            >
+              <div className='hfui-ao-list__entry-row'>
+                <div className='hfui-ao-list__entry-row-elm ao-checkbox'>
+                  <Checkbox
+                    value={selected}
+                    onChange={e => onOrderSelect(e, ao.gid, ao.algoID)}
+                  />
+                </div>
+                <div className='hfui-ao-list__entry-row-elm'>
+                  <p className='hfui-ao-list__entry-row-elm-value'>
+                    {ao.args.symbol}
+                  </p>
+                </div>
+                <div className='hfui-ao-list__entry-row-elm'>
+                  <p className='hfui-ao-list__entry-row-elm-value ao-name'>
+                    {ao.name}
+                  </p>
+                </div>
+                <div className='hfui-ao-list__entry-row-elm'>
+                  <p className='hfui-ao-list__entry-row-elm-value'>
+                    {ao.args._margin ? 'Margin' : 'Exchange'}
+                  </p>
+                </div>
+                <div className='hfui-ao-list__entry-row-elm'>
+                  <p className='hfui-ao-list__entry-row-elm-value'>
+                    {new Date(+ao.gid).toLocaleString()}
+                  </p>
+                </div>
+                <div className='hfui-ao-list__entry-row-elm'>
+                  <p className='hfui-ao-list__entry-row-elm-value ao-label'>
+                    {ao.label}
+                  </p>
+                </div>
               </div>
-              <div className='hfui-ao-list__entry-row-elm'>
-                <p className='hfui-ao-list__entry-row-elm-value'>
-                  {ao.args.symbol}
-                </p>
-              </div>
-              <div className='hfui-ao-list__entry-row-elm'>
-                <p className='hfui-ao-list__entry-row-elm-value ao-name'>
-                  {ao.name}
-                </p>
-              </div>
-              <div className='hfui-ao-list__entry-row-elm'>
-                <p className='hfui-ao-list__entry-row-elm-value'>
-                  {ao.args._margin ? 'Margin' : 'Exchange'}
-                </p>
-              </div>
-              <div className='hfui-ao-list__entry-row-elm'>
-                <p className='hfui-ao-list__entry-row-elm-value'>
-                  {new Date(+ao.gid).toLocaleString()}
-                </p>
-              </div>
-              <div className='hfui-ao-list__entry-row-elm'>
-                <p className='hfui-ao-list__entry-row-elm-value ao-label'>
-                  {ao.label}
-                </p>
-              </div>
-            </div>
-          </li>
-        ))}
+            </li>
+          )
+        })}
       </ul>
     </div>
     <div className='hfui-ao-list__footer-row'>
