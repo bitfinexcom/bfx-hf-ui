@@ -269,6 +269,11 @@
   vertical-align: middle;
   margin: 0 0 16px 0;
 
+  input[type="range"] {
+    width: 100%;
+    padding: 4px 0px;
+  }
+
   &:not(.inline) {
     width: 100%;
   }
@@ -491,6 +496,10 @@
 
     &.fullheight {
       height: calc(100% - 32px);
+    }
+
+    > p {
+      text-align: center;
     }
 
     > i {

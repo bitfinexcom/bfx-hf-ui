@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import createSagaMiddleware from 'redux-saga'
-import { createHashHistory } from 'history'
+import { createBrowserHistory } from 'history'
 import { routerMiddleware } from 'connected-react-router'
 import Debug from 'debug'
 import _throttle from 'lodash/throttle'
@@ -11,7 +11,7 @@ import createRootReducer from './reducers'
 const debug = Debug('hfui:rx')
 const sagaMiddleware = createSagaMiddleware()
 
-export const history = createHashHistory()
+export const history = createBrowserHistory()
 
 const THROTTLE_MILLIS = 350
 const throttleOptions = {
