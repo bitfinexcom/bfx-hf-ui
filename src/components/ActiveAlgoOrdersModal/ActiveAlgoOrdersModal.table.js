@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import _map from 'lodash/map'
 
 import Checkbox from '../../ui/Checkbox'
 
@@ -47,7 +48,7 @@ const AlgoOrdersTable = ({
     </div>
     <div className='hfui-ao-list__wrapper'>
       <ul>
-        {orders.map(ao => {
+        {_map(orders, ao => {
           const selected = isOrderSelected(ao.gid)
 
           return (
