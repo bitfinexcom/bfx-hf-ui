@@ -2,6 +2,7 @@ import React from 'react'
 import randomColor from 'randomcolor'
 import Joyride, { STATUS } from 'react-joyride'
 import PropTypes from 'prop-types'
+import _remove from 'lodash/remove'
 
 import Panel from '../../ui/Panel'
 import Markdown from '../../ui/Markdown'
@@ -58,6 +59,18 @@ export default class StrategyEditorPage extends React.Component {
     fetch(docsPath)
       .then(response => response.text())
       .then(t => this.setState(() => ({ docsText: t })))
+  }
+
+  onAddIndicator = (indicator) => {
+    this.setState(({ indicators }) => ({
+      indicators: [...indicators, indicator],
+    }))
+  }
+
+  onDeleteIndicator = (index) => {
+    this.setState(({ indicators }) => ({
+      indicators: _remove(indicators, (_, id) => id !== index),
+    }))
   }
 
   onIndicatorsChange = (indicators) => {
@@ -167,6 +180,8 @@ export default class StrategyEditorPage extends React.Component {
                 <Backtester
                   {...this.props}
                   indicators={indicators}
+                  onAddIndicator={this.onAddIndicator}
+                  onDeleteIndicator={this.onDeleteIndicator}
                 />
               </div>
               {/* hidden until this feature will be implemented

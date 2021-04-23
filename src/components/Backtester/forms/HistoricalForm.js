@@ -32,6 +32,15 @@ export default class HistoricalForm extends React.PureComponent {
     exId: 'bitfinex',
   }
 
+  componentDidUpdate(prevProps) {
+    const { formState: { candles: prevCandles, trades: prevTrades } } = prevProps
+    const { formState: { candles, trades } } = this.props
+
+    if (candles !== prevCandles || trades !== prevTrades) {
+      this.validateForm()
+    }
+  }
+
   executeBacktest = () => {
     const {
       exId,
@@ -92,15 +101,11 @@ export default class HistoricalForm extends React.PureComponent {
   }
   toggleCandles(val) {
     const { setFormState } = this.props
-    setFormState(() => ({ candles: val }), () => {
-      this.validateForm()
-    })
+    setFormState(() => ({ candles: val }))
   }
   toggleTrades(val) {
     const { setFormState } = this.props
-    setFormState(() => ({ trades: val }), () => {
-      this.validateForm()
-    })
+    setFormState(() => ({ trades: val }))
   }
 
   render() {
