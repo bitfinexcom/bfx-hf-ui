@@ -1,14 +1,12 @@
 import { connect } from 'react-redux'
 
 import UIActions from '../../redux/actions/ui'
-import {
-  getIsInternetConnectionModalVisible,
-} from '../../redux/selectors/ui'
+import { getIsInternetConnection } from '../../redux/selectors/ui'
 
 import BadConnectionModal from './BadConnectionModal'
 
 const mapStateToProps = (state = {}) => ({
-  visible: getIsInternetConnectionModalVisible(state),
+  visible: getIsInternetConnection(state),
 })
 
 const mapDispatchToProps = dispatch => ({

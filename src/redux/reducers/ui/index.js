@@ -307,7 +307,7 @@ function reducer(state = getInitialState(), action = {}) {
       const { isVisible } = payload
       return {
         ...state,
-        isInternetConnectionModalVisible: isVisible,
+        isBadInternetConnection: isVisible,
       }
     }
     case types.CHANGE_REFILL_BALANCE_MODAL_STATE: {
