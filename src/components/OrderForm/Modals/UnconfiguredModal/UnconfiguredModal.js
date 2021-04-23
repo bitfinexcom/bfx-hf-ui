@@ -9,7 +9,7 @@ export default class UnconfiguredModal extends React.PureComponent {
   static defaultProps = defaultProps
 
   render() {
-    const { onClick, exID } = this.props
+    const { onClick, exID, isPaperTrading } = this.props
 
     return (
       <OrderFormModal
@@ -19,7 +19,9 @@ export default class UnconfiguredModal extends React.PureComponent {
         onClick={onClick}
         content={[
           <p key='a' className='underline'>
-            Submit API keys for
+            Submit
+            {isPaperTrading ? ' Paper Trading ' : ' '}
+            API keys for
             {` ${_capitalize(exID)}`}
           </p>,
         ]}

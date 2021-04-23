@@ -11,7 +11,7 @@ import {
   getAPIClientStates, getAuthToken, getAPICredentials,
 } from '../../redux/selectors/ws'
 import {
-  getComponentState, getActiveExchange, getActiveMarket, getCurrentMode,
+  getComponentState, getActiveExchange, getActiveMarket, getCurrentMode, getIsPaperTrading,
 } from '../../redux/selectors/ui'
 
 const debug = Debug('hfui:c:order-form')
@@ -32,6 +32,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     apiCredentials: getAPICredentials(state),
     favoritePairs,
     mode: getCurrentMode(state),
+    isPaperTrading: getIsPaperTrading(state),
   }
 }
 
