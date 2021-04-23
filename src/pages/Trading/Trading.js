@@ -14,6 +14,7 @@ import BitfinexOrders from '../../orders/bitfinex'
 import GridLayoutPage from '../../components/GridLayoutPage'
 import ActiveAlgoOrdersModal from '../../components/ActiveAlgoOrdersModal'
 import TradingModeModal from '../../components/TradingModeModal'
+import BadConnectionModal from '../../components/BadConnectionModal'
 
 import './style.css'
 
@@ -152,6 +153,7 @@ export default class Trading extends React.PureComponent {
             <div className='hfui-tradingpage__column center'>
               <div className='hfui-marketdatapage__wrapper'>
                 <TradingModeModal />
+                <BadConnectionModal />
                 { isRefillBalanceModalVisible && (
                   <Modal
                     label='REFILLING PAPER BALANCES'
