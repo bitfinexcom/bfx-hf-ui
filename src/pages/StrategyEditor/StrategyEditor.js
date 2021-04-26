@@ -12,6 +12,7 @@ import Backtester from '../../components/Backtester'
 import StrategyEditor from '../../components/StrategyEditor'
 import ExchangeInfoBar from '../../components/ExchangeInfoBar'
 import TradingModeModal from '../../components/TradingModeModal'
+import BadConnectionModal from '../../components/BadConnectionModal'
 
 import './style.css'
 
@@ -131,6 +132,7 @@ export default class StrategyEditorPage extends React.Component {
     return (
       <div className='hfui-strategyeditorpage__wrapper'>
         <TradingModeModal />
+        <BadConnectionModal />
         <ExchangeInfoBar />
         <div className='hfui-strategyeditorpage__content-wrapper'>
           <StrategyEditor

@@ -9,6 +9,7 @@ import Checkbox from '../../ui/Checkbox'
 import StatusBar from '../../components/StatusBar'
 import SwitchMode from '../../components/SwitchMode'
 import TradingModeModal from '../../components/TradingModeModal'
+import BadConnectionModal from '../../components/BadConnectionModal'
 import {
   getAutoLoginState,
   isDevEnv as devEnv,
@@ -132,6 +133,7 @@ class Settings extends React.PureComponent {
             Paper Trading
           </p>
           <TradingModeModal />
+          <BadConnectionModal />
           <SwitchMode />
         </div>
         <div className='hfui-settingspage__wrapper'>

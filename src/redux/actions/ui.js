@@ -134,6 +134,11 @@ const changeTradingModeModalState = (isVisible) => ({
   payload: { isVisible },
 })
 
+const changeBadInternetConnectionState = (isVisible) => ({
+  type: types.CHANGE_BAD_INTERNET_STATE,
+  payload: { isVisible },
+})
+
 const changeReffilBalanceModalState = isVisible => ({
   type: types.CHANGE_REFILL_BALANCE_MODAL_STATE,
   payload: { isVisible },
@@ -162,4 +167,5 @@ export default {
   setMarketFromStore,
   changeTradingModeModalState,
   changeReffilBalanceModalState,
+  changeBadInternetConnectionState,
 }

@@ -10,6 +10,7 @@ import getAlgoOrdersCount from './get_filtered_algo_orders_count'
 import getAtomicOrdersCount from './get_filtered_atomic_orders_count'
 import getPositionsCount from './get_filtered_positions_count'
 import getIsTradingModeModalVisible from './get_is_trading_mode_modal_visible'
+import getIsInternetConnection from './get_is_bad_internet_connection'
 import getIsRefillBalanceModalVisible from './get_is_refill_balance_modal_visible'
 import getIsPaperTrading from './get_is_paper_trading'
 import getFirstLogin from './get_first_login'
@@ -32,6 +33,7 @@ export {
   getAtomicOrdersCount,
   getPositionsCount,
   getIsTradingModeModalVisible,
+  getIsInternetConnection,
   getIsRefillBalanceModalVisible,
   getIsPaperTrading,
   getFirstLogin,
