@@ -1,6 +1,7 @@
 import React from 'react'
 import _capitalize from 'lodash/capitalize'
 import _isEqual from 'lodash/isEqual'
+import _trim from 'lodash/trim'
 import ClassNames from 'classnames'
 import {
   Iceberg, TWAP, AccumulateDistribute, PingPong, MACrossover, OCOCO,
@@ -216,8 +217,9 @@ export default class OrderForm extends React.Component {
       const field = fields[fieldName] || {}
       const { component } = field
       const C = COMPONENTS_FOR_ID[component]
+      const processedValue = _trim(value)
       const validationError = (C && C.validateValue)
-        ? C.validateValue(value)
+        ? C.validateValue(processedValue)
         : null
 
       return {
@@ -225,7 +227,7 @@ export default class OrderForm extends React.Component {
 
         fieldData: {
           ...fieldData,
-          [fieldName]: value,
+          [fieldName]: processedValue,
         },
 
         validationErrors: {

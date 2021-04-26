@@ -1,16 +1,14 @@
 import React from 'react'
 import ClassNames from 'classnames'
 import _isFinite from 'lodash/isFinite'
+import PropTypes from 'prop-types'
 
 import Input from '../../../ui/Input'
-import { propTypes, defaultProps } from './input.number.props'
 import {
   renderString, CONVERT_LABELS_TO_PLACEHOLDERS,
 } from '../OrderForm.helpers'
 
-export default class SliderInput extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+class SliderInput extends React.PureComponent {
   static DEFAULT_VALUE = ''
   static processValue = v => +v
   static validateValue = (v) => {
@@ -21,7 +19,7 @@ export default class SliderInput extends React.PureComponent {
 
   render() {
     const {
-      def = {}, renderData = {}, value, disabled, onChange, validationError,
+      def, renderData, value, disabled, onChange, validationError,
     } = this.props
 
     const { label, min, max } = def
@@ -60,3 +58,27 @@ export default class SliderInput extends React.PureComponent {
     )
   }
 }
+
+SliderInput.propTypes = {
+  def: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+      PropTypes.number,
+    ]),
+  ),
+  renderData: PropTypes.objectOf(PropTypes.string),
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  validationError: PropTypes.string,
+  disabled: PropTypes.bool,
+}
+
+SliderInput.defaultProps = {
+  disabled: false,
+  validationError: '',
+  def: {},
+  renderData: {},
+}
+
+export default SliderInput
