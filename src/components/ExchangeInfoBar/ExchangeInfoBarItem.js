@@ -10,11 +10,11 @@ export default class ExchangeInfoBarItem extends React.PureComponent {
   render() {
     const {
       label, value, valuePrefix, valueSuffix, dataClassName, labelClassName,
-      text, vertical,
+      text, vertical, tag: Tag = 'li',
     } = this.props
 
     return (
-      <li className={ClassNames('hfui-exchangeinfobar__item', { text, vertical })}>
+      <Tag className={ClassNames('hfui-exchangeinfobar__item', { text, vertical })}>
         <p
           className={ClassNames('hfui-exchangeinfobar__item-label', labelClassName)}
         >
@@ -28,7 +28,7 @@ export default class ExchangeInfoBarItem extends React.PureComponent {
           {typeof value === 'number' ? value.toLocaleString('en-US', { maximumFractionDigits: 8 }) : value}
           {valueSuffix}
         </div>
-      </li>
+      </Tag>
     )
   }
 }

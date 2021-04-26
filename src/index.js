@@ -36,7 +36,7 @@ import './index.css'
 
 const HFUIWrapper = () => {
   useInjectBfxData()
-  return  <HFUI />
+  return <HFUI />
 }
 
 ReactDOM.render((
@@ -47,7 +47,7 @@ ReactDOM.render((
   >
     <StoreWrapper>
       <UfxStoreProvider>
-          <HFUIWrapper />
+        <HFUIWrapper />
       </UfxStoreProvider>
     </StoreWrapper>
   </Scrollbars>
