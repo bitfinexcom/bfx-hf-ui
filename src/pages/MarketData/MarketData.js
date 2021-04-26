@@ -3,6 +3,7 @@ import Joyride, { STATUS } from 'react-joyride'
 import GridLayoutPage from '../../components/GridLayoutPage'
 import ExchangeInfoBar from '../../components/ExchangeInfoBar'
 import TradingModeModal from '../../components/TradingModeModal'
+import BadConnectionModal from '../../components/BadConnectionModal'
 import { propTypes } from './MarketData.props'
 import './style.css'
 
@@ -46,6 +47,7 @@ export default class MarketData extends React.PureComponent {
     return (
       <div className='hfui-marketdatapage__wrapper'>
         <TradingModeModal />
+        <BadConnectionModal />
         <ExchangeInfoBar />
         {firstLogin
          && (

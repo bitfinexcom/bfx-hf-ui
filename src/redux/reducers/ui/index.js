@@ -303,6 +303,13 @@ function reducer(state = getInitialState(), action = {}) {
         isTradingModeModalVisible: isVisible,
       }
     }
+    case types.CHANGE_BAD_INTERNET_STATE: {
+      const { isVisible } = payload
+      return {
+        ...state,
+        isBadInternetConnection: isVisible,
+      }
+    }
     case types.CHANGE_REFILL_BALANCE_MODAL_STATE: {
       const { isVisible } = payload
 

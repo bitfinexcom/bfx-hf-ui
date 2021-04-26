@@ -56,14 +56,16 @@
 
 .hfui-strategyeditor__results-header-item {
   flex: 1;
-  align-items: center;
   white-space: nowrap;
+
+  &:last-child > .hfui-strategyeditor__results-header-item_wrapper {
+    margin-right: 0;
+  }
 }
 
 .hfui-strategyeditor__results-header-item_wrapper {
-  width: 40px;
-  margin: auto;
   display: block;
+  margin-right: 10px;
 
   p {
     color: $grey-color;

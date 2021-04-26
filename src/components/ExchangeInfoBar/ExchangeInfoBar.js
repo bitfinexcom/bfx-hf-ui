@@ -51,6 +51,8 @@ export default class ExchangeInfoBar extends React.PureComponent {
         <div className='hfui-exchangeinfobar__left'>
           <ExchangeInfoBarItem
             label='Market'
+            className='hfui-exchangeinfobar__currency-selector'
+            tag='div'
             value={(
               <MarketSelect
                 markets={marketsForActiveExchange}
