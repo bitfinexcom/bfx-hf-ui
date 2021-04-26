@@ -133,16 +133,13 @@ const processFieldData = ({ action, layout = {}, fieldData = {} }) => {
 
 const fixComponentContext = (orderFields, market) => {
   const fields = { ...orderFields }
-  const { BASE, QUOTE } = marketToQuoteBase(market)
+  const { lev } = market
 
   _forOwn(fields, (value, key) => {
     const { component } = value
 
     if (component === 'input.range') {
-      if (BASE === 'AMPF0' && QUOTE === 'USTF0') {
-        fields[key].max = 20
-        fields[key].default = 5
-      }
+      fields[key].max = lev
     }
   })
 
