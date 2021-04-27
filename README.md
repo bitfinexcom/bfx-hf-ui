@@ -55,7 +55,3 @@ Starting the HF UI will spawn all of the Honey Framework services that are neede
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
-
-## Trigger Travis build
-
-Travis automatically builds and deploys this code to the github releases page whenever a commit specifying a new tag ('v3.0.4', 'v5.0.4' etc...) is merged into master.
