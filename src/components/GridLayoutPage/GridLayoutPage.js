@@ -245,7 +245,10 @@ GridLayoutPage.propTypes = {
   tradingEnabled: PropTypes.bool,
   darkPanels: PropTypes.bool,
   showToolbar: PropTypes.bool,
-  sharedProps: PropTypes.objectOf(PropTypes.bool),
+  sharedProps: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.string,
+  ])),
   saveLayout: PropTypes.func.isRequired,
   createLayout: PropTypes.func.isRequired,
   deleteLayout: PropTypes.func.isRequired,

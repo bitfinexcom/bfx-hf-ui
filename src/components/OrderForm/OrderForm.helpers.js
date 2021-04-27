@@ -104,10 +104,15 @@ const defaultDataForLayout = (layout = {}) => {
   return defaultData
 }
 const getValidValue = val => {
-  if (typeof val === 'string' && val.length > 0) return val
+  if (typeof val === 'string' && val.length > 0) {
+    if (val === 'true') return true
+    if (val === 'false') return false
+    return val
+  }
   if (typeof val === 'number') return val.toString()
   if (typeof val === 'string' && val.length === 0) return ' '
-  return val
+
+  return val || ''
 }
 const processFieldData = ({ action, layout = {}, fieldData = {} }) => {
   const { fields = {} } = layout
