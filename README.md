@@ -1,7 +1,7 @@
 # Honey Framework UI
 * Creates HF services as background processes
-* Enables order types (Ping/Pong, Iceberg, TWAP and Accum/Dist)
-* Create customer order types (coming soon)
+* Enables order types (Accum/Dist, MA Crossover, Ping/Pong, Iceberg, TWAP and OCOCO)
+* Define and backtest trading strategies
 
 ## Installation
 
@@ -14,7 +14,6 @@ Create folder to store local db
 ```
 mkdir ~/.honeyframework
 touch ~/.honeyframework/algos.json
-touch ~/.honeyframework/hf-binance.json
 touch ~/.honeyframework/hf-bitfinex.json
 touch ~/.honeyframework/ui.json
 ```
@@ -49,15 +48,9 @@ Starting the HF UI will spawn all of the Honey Framework services that are neede
 
 ![Alt text](res/bfx-hf-ui.png "Title")
 
-## Up and coming features
-
-* Ability to code your own definitions from within the UI
-* Real-time info updates on executing orders
-* Ability to Enable/Disable order definitions
-
 ## Contributing
 
-1. Fork it (https://github.com/bitfinexcom/bitfinex-api-go)
+1. Fork it (https://github.com/bitfinexcom/bfx-hf-ui)
 2. Create your feature branch (`git checkout -b my-new-feature)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
@@ -65,4 +58,4 @@ Starting the HF UI will spawn all of the Honey Framework services that are neede
 
 ## Trigger Travis build
 
-Travis automatically builds and deploys this code to the github releases page whenever a commit specifying a new tag ('v3.0.4', 'v5.0.4' ect...) is merged into master.
+Travis automatically builds and deploys this code to the github releases page whenever a commit specifying a new tag ('v3.0.4', 'v5.0.4' etc...) is merged into master.
