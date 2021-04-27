@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
+import _isFinite from 'lodash/isFinite'
 
 import NumberInput from './input.number'
 
-const PercentInput = ({ layout, ...props }) => {
+const PercentInput = memo(({ layout, ...props }) => {
   const { id } = layout
 
   return (
@@ -14,7 +15,17 @@ const PercentInput = ({ layout, ...props }) => {
       percentage
     />
   )
+})
+
+PercentInput.processValue = v => +v
+
+PercentInput.validateValue = (v) => {
+  return _isFinite(+v)
+    ? null
+    : 'Must be a number'
 }
+
+PercentInput.DEFAULT_VALUE = ''
 
 PercentInput.propTypes = {
   layout: PropTypes.objectOf(PropTypes.oneOfType([
@@ -25,4 +36,4 @@ PercentInput.propTypes = {
   ])).isRequired,
 }
 
-export default React.memo(PercentInput)
+export default PercentInput
