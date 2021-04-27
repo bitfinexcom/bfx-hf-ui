@@ -246,8 +246,8 @@ GridLayoutPage.propTypes = {
   darkPanels: PropTypes.bool,
   showToolbar: PropTypes.bool,
   sharedProps: PropTypes.objectOf(PropTypes.oneOfType([
-    PropTypes.bool,
     PropTypes.string,
+    PropTypes.bool,
   ])),
   saveLayout: PropTypes.func.isRequired,
   createLayout: PropTypes.func.isRequired,
@@ -261,6 +261,7 @@ GridLayoutPage.propTypes = {
     PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.array,
+      PropTypes.number,
     ]),
   ).isRequired,
 }
