@@ -34,7 +34,10 @@ export default class Modal extends React.PureComponent {
     return (
       <div
         className={ClassNames('hfui-modal__wrapper', { fixed })}
-        onClick={onClose}
+        onClick={(e) => {
+          e.stopPropagation()
+          return false
+        }}
       >
         <div
           className={ClassNames('hfui-modal__content', className)}
