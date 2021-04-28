@@ -21,49 +21,51 @@ export default class StatusBar extends React.Component {
 
     return (
       <div className='hfui-statusbar__wrapper'>
-        <div className='hfui-statusbar__left'>
-          <p>
-            {remoteVersion && remoteVersion !== MANIFEST.version ? (
-              <NavbarButton
-                label='Update to latest version'
-                external='https://github.com/bitfinexcom/bfx-hf-ui/releases'
-              />
-            ) : null}
-            &nbsp;
-            v
-            {MANIFEST.version}
-          </p>
+        <div className='hfui-statusbar__inner'>
+          <div className='hfui-statusbar__left'>
+            <p>
+              {remoteVersion && remoteVersion !== MANIFEST.version ? (
+                <NavbarButton
+                  label='Update to latest version'
+                  external='https://github.com/bitfinexcom/bfx-hf-ui/releases'
+                />
+              ) : null}
+              &nbsp;
+              v
+              {MANIFEST.version}
+            </p>
 
-          <p>
-            {apiClientConnected
-              ? `UNLOCKED FOR ${currentExchange.toUpperCase()}`
-              : 'LOCKED'}
-          </p>
-        </div>
+            <p>
+              {apiClientConnected
+                ? `UNLOCKED FOR ${currentExchange.toUpperCase()}`
+                : 'LOCKED'}
+            </p>
+          </div>
 
-        <div className='hfui-statusbar__right'>
-          <p>
-            {apiClientConnected
-              ? 'HF Connected'
-              : apiClientConnecting
-                ? 'HF Connecting'
-                : 'HF Disconnected'}
-          </p>
+          <div className='hfui-statusbar__right'>
+            <p>
+              {apiClientConnected
+                ? 'HF Connected'
+                : apiClientConnecting
+                  ? 'HF Connecting'
+                  : 'HF Disconnected'}
+            </p>
 
-          <span className={ClassNames('hfui-statusbar__statuscircle', {
-            green: apiClientConnected,
-            yellow: apiClientConnecting,
-            red: apiClientDisconnected,
-          })}
-          />
+            <span className={ClassNames('hfui-statusbar__statuscircle', {
+              green: apiClientConnected,
+              yellow: apiClientConnecting,
+              red: apiClientDisconnected,
+            })}
+            />
 
-          <p>{wsConnected ? 'WS Connected' : 'WS Disconnected'}</p>
+            <p>{wsConnected ? 'WS Connected' : 'WS Disconnected'}</p>
 
-          <span className={ClassNames('hfui-statusbar__statuscircle', {
-            green: wsConnected,
-            red: !wsConnected,
-          })}
-          />
+            <span className={ClassNames('hfui-statusbar__statuscircle', {
+              green: wsConnected,
+              red: !wsConnected,
+            })}
+            />
+          </div>
         </div>
       </div>
     )

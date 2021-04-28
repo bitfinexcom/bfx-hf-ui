@@ -4,14 +4,12 @@
   border-bottom: 1px solid $panel-background-color;
   background: $background-color;
 
-  z-index: 100;
   height: 60px;
 
-  position: relative;
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-  padding: 0 1%;
+  padding: 0 spacing();
 
   ul {
     display: flex;

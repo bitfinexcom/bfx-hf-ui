@@ -1,13 +1,8 @@
 @import '../../variables.scss';
 
-.hfui-tradingpage__wrapper {
-  height: 98vh;
-}
-
 .hfui-tradingpage__inner {
   display: flex;
   flex-direction: row;
-  height: 100%;
 }
 
 .hfui-tradingpage__column {

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Joyride, { STATUS } from 'react-joyride'
 
+import Layout from '../../components/Layout'
 import OrderForm from '../../components/OrderForm'
 import StatusBar from '../../components/StatusBar'
 import ExchangeInfoBar from '../../components/ExchangeInfoBar'
@@ -114,7 +115,7 @@ export default class Trading extends React.PureComponent {
     }
 
     return (
-      <div>
+      <>
         {firstLogin
          && (
          <Joyride
@@ -133,63 +134,54 @@ export default class Trading extends React.PureComponent {
          )}
         {showAlgoModal && hasActiveAlgoOrders && apiClientConnected
           && <ActiveAlgoOrdersModal />}
-        <ExchangeInfoBar
-          showSave
-          showAddComponent
-          onSave={() => this.grid.onSaveLayout()}
-          onAddComponent={() => this.grid.onToggleAddComponentModal()}
-        />
-        <div className='hfui-tradingpage__wrapper'>
-          <div className='hfui-tradingpage__inner'>
-            <div className='hfui-tradingpage__column left'>
-              <OrderForm
-                layoutI='orderform'
-                moveable={false}
-                removeable={false}
-                orders={orderDefinitions}
+        <div className='hfui-tradingpage__inner'>
+          <div className='hfui-tradingpage__column left'>
+            <OrderForm
+              layoutI='orderform'
+              moveable={false}
+              removeable={false}
+              orders={orderDefinitions}
+            />
+          </div>
+
+          <div className='hfui-tradingpage__column center'>
+            <div className='hfui-marketdatapage__wrapper'>
+              <TradingModeModal />
+              <BadConnectionModal />
+              { isRefillBalanceModalVisible && (
+              <Modal
+                label='REFILLING PAPER BALANCES'
+                onClose={() => this.onRefillBalanceModalClose()}
+                className='hfui-refillbalance__modal'
+                actions={(
+                  <Button
+                    green
+                    onClick={() => this.onRefillBalanceModalSubmit()}
+                    label={[
+                      <p key='text'>Submit</p>,
+                    ]}
+                  />
+                    )}
+              >
+                <div className='modal-content'>
+                  <Input placeholder='AAA' />
+                  <Input placeholder='BBB' />
+                  <Input placeholder='TESTBTC' />
+                  <Input placeholder='TESTUSDT' />
+                  <Input placeholder='TESTUSD' />
+                </div>
+              </Modal>
+              )}
+              <GridLayoutPage
+                showToolbar={false}
+                ref={ref => { this.grid = ref }}
+                defaultLayoutID='Default Trading'
+                sharedProps={commonComponentProps}
               />
             </div>
-
-            <div className='hfui-tradingpage__column center'>
-              <div className='hfui-marketdatapage__wrapper'>
-                <TradingModeModal />
-                <BadConnectionModal />
-                { isRefillBalanceModalVisible && (
-                  <Modal
-                    label='REFILLING PAPER BALANCES'
-                    onClose={() => this.onRefillBalanceModalClose()}
-                    className='hfui-refillbalance__modal'
-                    actions={(
-                      <Button
-                        green
-                        onClick={() => this.onRefillBalanceModalSubmit()}
-                        label={[
-                          <p key='text'>Submit</p>,
-                        ]}
-                      />
-                    )}
-                  >
-                    <div className='modal-content'>
-                      <Input placeholder='AAA' />
-                      <Input placeholder='BBB' />
-                      <Input placeholder='TESTBTC' />
-                      <Input placeholder='TESTUSDT' />
-                      <Input placeholder='TESTUSD' />
-                    </div>
-                  </Modal>
-                )}
-                <GridLayoutPage
-                  showToolbar={false}
-                  ref={ref => { this.grid = ref }}
-                  defaultLayoutID='Default Trading'
-                  sharedProps={commonComponentProps}
-                />
-              </div>
-            </div>
           </div>
-          <StatusBar />
         </div>
-      </div>
+      </>
     )
   }
 }

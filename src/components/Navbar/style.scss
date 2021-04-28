@@ -1,9 +1,6 @@
 @import '../../variables.scss';
 
 .hfui-navbar__wrapper {
-  z-index: 101;
-  position: relative;
-
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -12,10 +9,10 @@
   font-size: 12px;
   background: $panel-background-color;
   height: 38px;
+  padding: 0 spacing();
 
   svg {
     width: 70px;
-    margin-left: 31px;
     margin-right: 10px
   }
 
