@@ -1,12 +1,11 @@
 import React from 'react'
 import { Icon } from 'react-fa'
+import PropTypes from 'prop-types'
 
-import { propTypes, defaultProps } from './Input.props'
+import { getLengthAfterPoint } from './Input.helpers'
 import './style.css'
 
-export default class Input extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+class Input extends React.PureComponent {
   constructor(props) {
     super(props)
 
@@ -14,11 +13,27 @@ export default class Input extends React.PureComponent {
       hidden: true,
     }
   }
+
   isPlaceholderValid(placeholder) { // eslint-disable-line
     return typeof placeholder !== 'boolean' || typeof placeholder === 'undefined'
   }
+
   toggleShow() {
     this.setState(({ hidden }) => ({ hidden: !hidden }))
+  }
+
+  onChange(value) {
+    const { percentage, onChange, max } = this.props
+
+    if (percentage) {
+      const number = Number(value)
+
+      if (!Number.isNaN(number) && number <= max && number >= 0 && getLengthAfterPoint(value) <= 2) {
+        onChange(value)
+      }
+    } else {
+      onChange(value)
+    }
   }
 
   render() {
@@ -58,7 +73,7 @@ export default class Input extends React.PureComponent {
           type={type}
           autoComplete={autocomplete}
           className={className}
-          onChange={e => onChange(e.target.value)}
+          onChange={e => this.onChange(e.target.value)}
           placeholder={this.isPlaceholderValid(placeholder) ? placeholder : null}
           disabled={disabled}
           style={style}
@@ -70,3 +85,36 @@ export default class Input extends React.PureComponent {
     )
   }
 }
+
+Input.propTypes = {
+  type: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  onChange: PropTypes.func,
+  disabled: PropTypes.bool,
+  autocomplete: PropTypes.string,
+  value: PropTypes.any, // eslint-disable-line
+  placeholder: PropTypes.string,
+  label: PropTypes.string,
+  percentage: PropTypes.bool,
+  style: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.string, PropTypes.number,
+  ])),
+  min: PropTypes.number,
+  max: PropTypes.number,
+}
+
+Input.defaultProps = {
+  onChange: () => {},
+  min: Number.MIN_SAFE_INTEGER,
+  max: Number.MAX_SAFE_INTEGER,
+  style: {},
+  value: '',
+  placeholder: '',
+  label: '',
+  className: '',
+  disabled: false,
+  autocomplete: 'off',
+  percentage: false,
+}
+
+export default Input

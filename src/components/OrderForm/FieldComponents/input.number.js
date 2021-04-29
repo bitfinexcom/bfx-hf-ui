@@ -24,6 +24,8 @@ class NumberInput extends React.PureComponent {
       onChange,
       renderData,
       validationError,
+      percentage,
+      max,
     } = this.props
     const { label, customHelp } = def
     const renderedLabel = renderString(label, renderData)
@@ -40,6 +42,8 @@ class NumberInput extends React.PureComponent {
           disabled={disabled}
           value={value}
           placeholder={CONVERT_LABELS_TO_PLACEHOLDERS ? renderedLabel : undefined}
+          percentage={percentage}
+          max={max}
         />
 
         {!CONVERT_LABELS_TO_PLACEHOLDERS && (
@@ -76,6 +80,8 @@ NumberInput.propTypes = {
   onChange: PropTypes.func.isRequired,
   validationError: PropTypes.string,
   disabled: PropTypes.bool,
+  percentage: PropTypes.bool,
+  max: PropTypes.number,
 }
 
 NumberInput.defaultProps = {
@@ -83,6 +89,8 @@ NumberInput.defaultProps = {
   validationError: '',
   def: {},
   renderData: {},
+  percentage: false,
+  max: Number.MAX_SAFE_INTEGER,
 }
 
 export default NumberInput
