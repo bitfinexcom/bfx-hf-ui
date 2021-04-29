@@ -8,8 +8,6 @@ import MarketDataPage from '../../pages/MarketData'
 import AuthenticationPage from '../../pages/Authentication'
 
 import Layout from '../Layout'
-import Navbar from '../Navbar'
-import NotificationsSidebar from '../NotificationsSidebar'
 
 import './style.css'
 
@@ -20,7 +18,6 @@ export default function HFUI(props) {
     authToken,
     getLastVersion,
     getSettings,
-    notificationsVisible,
     getFavoritePairs,
     currentMode,
     currentPage,
@@ -59,31 +56,3 @@ export default function HFUI(props) {
     </Layout>
   )
 }
-
-// return (
-//   // <div className='hfui-app'>
-//   //   <header>
-//   //     <Navbar />
-//   //     {/* <ExchangeInfoBar
-//   //       showSave
-//   //       showAddComponent
-//   //       onSave={() => this.grid.onSaveLayout()}
-//   //       onAddComponent={() => this.grid.onToggleAddComponentModal()}
-//   //     /> */}
-//   //   </header>
-
-//   //   <main className='hfui-main'>
-
-//   //   </main>
-
-//   //   <footer>
-//   //     {/* <StatusBar /> */}
-//   //   </footer>
-
-//   //   {/* {showAlgoModal && hasActiveAlgoOrders && apiClientConnected
-//   //       && <ActiveAlgoOrdersModal />}
-//   //   <TradingModeModal />
-//   //   <BadConnectionModal /> */}
-//   //   {/* <NotificationsSidebar notificationsVisible={notificationsVisible} /> */}
-//   // </div>
-// )
