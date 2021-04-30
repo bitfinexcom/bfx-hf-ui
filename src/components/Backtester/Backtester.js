@@ -136,7 +136,7 @@ Backtester.propTypes = {
       PropTypes.oneOf([null]).isRequired,
     ]),
   ),
-  markets: PropTypes.array, // eslint-disable-line
+  markets: PropTypes.arrayOf(PropTypes.object),
   backtestResults: PropTypes.objectOf(PropTypes.any),
   backtestOptions: PropTypes.objectOf(PropTypes.any),
   authToken: PropTypes.string.isRequired,

@@ -34,7 +34,7 @@ export default class ChartPanel extends React.Component {
       }),
       marketDirty: PropTypes.bool,
     }),
-    markets: PropTypes.array, // eslint-disable-line
+    markets: PropTypes.arrayOf(PropTypes.object),
   }
 
   static defaultProps = {

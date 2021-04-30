@@ -55,7 +55,7 @@ class AtomicOrdersTablePanel extends React.Component {
 
 AtomicOrdersTablePanel.propTypes = {
   setFilteredValueWithKey: PropTypes.func.isRequired,
-  atomicOrders: PropTypes.array, // eslint-disable-line
+  atomicOrders: PropTypes.arrayOf(PropTypes.object),
   activeMarket: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.string,

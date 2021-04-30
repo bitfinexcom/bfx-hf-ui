@@ -17,7 +17,7 @@ const PositionsTablePanel = ({ onRemove, positions }) => (
 
 PositionsTablePanel.propTypes = {
   onRemove: PropTypes.func.isRequired,
-  positions: PropTypes.array, // eslint-disable-line
+  positions: PropTypes.arrayOf(PropTypes.object),
 }
 
 PositionsTablePanel.defaultProps = {

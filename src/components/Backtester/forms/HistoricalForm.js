@@ -18,7 +18,7 @@ export default class HistoricalForm extends React.PureComponent {
   static propTypes = {
     disabled: PropTypes.bool,
     formState: PropTypes.objectOf(Object),
-    markets: PropTypes.array, // eslint-disable-line
+    markets: PropTypes.arrayOf(PropTypes.object),
     updateError: PropTypes.func.isRequired,
     setFormState: PropTypes.func.isRequired,
     backtestStrategy: PropTypes.func.isRequired,
