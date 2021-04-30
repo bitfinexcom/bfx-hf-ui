@@ -40,6 +40,7 @@ function getInitialState() {
     TRADING_PAGE_IS_GUIDE_ACTIVE: true,
     isTradingModeModalVisible: false,
     isRefillBalanceModalVisible: false,
+    isBadInternetConnection: false,
     content: {},
   }
 
