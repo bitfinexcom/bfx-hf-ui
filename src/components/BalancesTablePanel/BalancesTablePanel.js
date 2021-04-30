@@ -92,7 +92,7 @@ class BalancesTablePanel extends React.Component {
 }
 
 BalancesTablePanel.propTypes = {
-  balances: PropTypes.array, // eslint-disable-line
+  balances: PropTypes.arrayOf(PropTypes.object),
   setFilteredValueWithKey: PropTypes.func.isRequired,
   onRemove: PropTypes.func,
 }

@@ -18,7 +18,7 @@ const AtomicOrdersTable = ({
 
 AtomicOrdersTable.propTypes = {
   authToken: PropTypes.string.isRequired,
-  filteredAtomicOrders: PropTypes.array.isRequired, // eslint-disable-line
+  filteredAtomicOrders: PropTypes.arrayOf(PropTypes.object),
   cancelOrder: PropTypes.func.isRequired,
   gaCancelOrder: PropTypes.func.isRequired,
 }

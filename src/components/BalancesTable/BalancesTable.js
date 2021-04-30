@@ -20,7 +20,7 @@ const BalancesTable = ({ balances, hideZeroBalances }) => {
 }
 
 BalancesTable.propTypes = {
-  balances: PropTypes.array, // eslint-disable-line
+  balances: PropTypes.arrayOf(PropTypes.object),
   hideZeroBalances: PropTypes.bool,
 }
 

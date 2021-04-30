@@ -65,7 +65,7 @@ PositionsTable.propTypes = {
       PropTypes.arrayOf(PropTypes.string),
     ]),
   ),
-  positions: PropTypes.array, // eslint-disable-line
+  positions: PropTypes.arrayOf(PropTypes.object),
 }
 
 PositionsTable.defaultProps = {
