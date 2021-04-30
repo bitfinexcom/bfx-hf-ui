@@ -1,36 +1,27 @@
-import React from 'react'
+import React, { memo } from 'react'
+import PropTypes from 'prop-types'
 
 import PositionsTable from '../PositionsTable'
 import Panel from '../../ui/Panel'
-import { propTypes, defaultProps } from './PositionsTablePanel.props'
 
-export default class PositionsTablePanel extends React.Component {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+const PositionsTablePanel = ({ onRemove, positions }) => (
+  <Panel
+    label='POSITIONS'
+    onRemove={onRemove}
+  >
+    <PositionsTable
+      filteredPositions={positions}
+    />
+  </Panel>
+)
 
-  constructor(props) {
-    super(props)
-
-    const { savedState = {} } = props
-    const { currentExchange } = savedState
-
-    this.state = {
-      currentExchange,
-    }
-  }
-  render() {
-    const { currentExchange = 'bitfinex', positions = [] } = this.state
-    const { onRemove } = this.props
-    return (
-      <Panel
-        label='POSITIONS'
-        onRemove={onRemove}
-      >
-        <PositionsTable
-          exID={currentExchange}
-          filteredPositions={positions}
-        />
-      </Panel>
-    )
-  }
+PositionsTablePanel.propTypes = {
+  onRemove: PropTypes.func.isRequired,
+  positions: PropTypes.array, // eslint-disable-line
 }
+
+PositionsTablePanel.defaultProps = {
+  positions: [],
+}
+
+export default memo(PositionsTablePanel)

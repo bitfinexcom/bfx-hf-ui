@@ -9,33 +9,30 @@ export default class FavoriteTradingPairs extends React.PureComponent {
     onSelect: PropTypes.func.isRequired,
     savePairs: PropTypes.func.isRequired,
     authToken: PropTypes.string,
-    exchange: PropTypes.string,
     currentMarket: PropTypes.instanceOf(Object),
-    allMarkets: PropTypes.instanceOf(Object),
+    markets: PropTypes.instanceOf(Array),
     favoritePairs: PropTypes.instanceOf(Array),
   }
 
   static defaultProps = {
-    exchange: 'bitfinex',
     authToken: '',
     currentMarket: {},
-    allMarkets: {},
+    markets: [],
     favoritePairs: [],
   }
 
   onSelect(pair) {
     const {
-      onSelect, currentMarket, exchange, allMarkets,
+      onSelect, currentMarket, markets,
     } = this.props
-    const marketsForActiveExchange = allMarkets[exchange]
     let nextMarket
-    for (let i = 0; i < marketsForActiveExchange.length; i++) {
-      if (marketsForActiveExchange[i].uiID === pair) {
-        nextMarket = marketsForActiveExchange[i]
+    for (let i = 0; i < markets.length; i++) {
+      if (markets[i].uiID === pair) {
+        nextMarket = markets[i]
         break
       }
     }
-    onSelect(exchange, nextMarket, currentMarket)
+    onSelect(nextMarket, currentMarket)
   }
 
   removePair(pair) {

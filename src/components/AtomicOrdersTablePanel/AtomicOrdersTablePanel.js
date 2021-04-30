@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { flatten as _flatten, isEqual as _isEqual } from 'lodash'
+import _isEqual from 'lodash/isEqual'
 import AtomicOrdersTable from '../AtomicOrdersTable'
 import Panel from '../../ui/Panel'
 
@@ -26,16 +26,12 @@ class AtomicOrdersTablePanel extends React.Component {
 
   getFilteredAtomicOrders() {
     const {
-      activeExchange, activeMarket, setFilteredValueWithKey, atomicOrders,
+      activeMarket, setFilteredValueWithKey, atomicOrders,
     } = this.props
-    const { exchangeFilterActive, marketFilterActive } = this.state
-
-    const filteredByExchange = exchangeFilterActive
-      ? Object.values(atomicOrders[activeExchange] || {})
-      : _flatten(Object.values(atomicOrders).map(Object.values))
+    const { marketFilterActive } = this.state
     const filteredAtomicOrders = marketFilterActive
-      ? filteredByExchange.filter(o => o.symbol === activeMarket.wsID)
-      : filteredByExchange
+      ? atomicOrders.filter(o => o.symbol === activeMarket.wsID)
+      : atomicOrders
 
     this.setState({ filteredAtomicOrders })
     setFilteredValueWithKey('filteredAtomicOrders', filteredAtomicOrders)
@@ -43,17 +39,15 @@ class AtomicOrdersTablePanel extends React.Component {
   }
 
   render() {
-    const { onRemove, activeExchange } = this.props
+    const { onRemove } = this.props
     const { filteredAtomicOrders } = this.state
+    console.log(filteredAtomicOrders)
     return (
       <Panel
         label='ATOMIC ORDERS'
         onRemove={onRemove}
       >
-        <AtomicOrdersTable
-          exID={activeExchange}
-          filteredAtomicOrders={filteredAtomicOrders}
-        />
+        <AtomicOrdersTable filteredAtomicOrders={filteredAtomicOrders} />
       </Panel>
     )
   }
@@ -61,8 +55,7 @@ class AtomicOrdersTablePanel extends React.Component {
 
 AtomicOrdersTablePanel.propTypes = {
   setFilteredValueWithKey: PropTypes.func.isRequired,
-  atomicOrders: PropTypes.objectOf(PropTypes.object),
-  activeExchange: PropTypes.string,
+  atomicOrders: PropTypes.array, // eslint-disable-line
   activeMarket: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.string,
@@ -74,8 +67,7 @@ AtomicOrdersTablePanel.propTypes = {
 }
 
 AtomicOrdersTablePanel.defaultProps = {
-  atomicOrders: {},
-  activeExchange: 'bitfinex',
+  atomicOrders: [],
   activeMarket: {},
   onRemove: () => {},
 }

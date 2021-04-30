@@ -1,10 +1,8 @@
-import _keyBy from 'lodash/keyBy'
-
 import types from '../../constants/ws'
 import { orderAdapter } from '../../adapters/ws'
 
 const getInitialState = () => {
-  return {}
+  return []
 }
 
 export default (state = getInitialState(), action = {}) => {
@@ -12,36 +10,25 @@ export default (state = getInitialState(), action = {}) => {
 
   switch (type) {
     case types.DATA_ORDERS: {
-      const { exID, orders = [] } = payload
+      const { orders = [] } = payload
 
-      return {
-        ...state,
-        [exID]: _keyBy(orders.map(orderAdapter), o => o.id),
-      }
+      return orders.map(orderAdapter)
     }
 
     case types.DATA_ORDER: {
-      const { exID, order = [] } = payload
+      const { order = [] } = payload
 
-      return {
+      return [
         ...state,
-
-        [exID]: {
-          ...(state[exID] || {}),
-          ..._keyBy([orderAdapter(order)], o => o.id),
-        },
-      }
+        orderAdapter(order),
+      ]
     }
 
     case types.DATA_ORDER_CLOSE: {
-      const { exID, order = [] } = payload
+      const { order = [] } = payload
       const o = orderAdapter(order)
-      const { [o.id]: _, ...remainingOrders } = (state[exID] || {})
 
-      return {
-        ...state,
-        [exID]: remainingOrders,
-      }
+      return state.filter(or => o.id !== or.id)
     }
 
     case types.DEAUTH: {

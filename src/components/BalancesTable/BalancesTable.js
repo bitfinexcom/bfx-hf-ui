@@ -1,29 +1,32 @@
-import React from 'react'
-import BalancesTableColumns from './BalancesTable.columns'
+import React, { memo } from 'react'
+import PropTypes from 'prop-types'
 
-import { propTypes, defaultProps } from './BalancesTable.props'
+import BalancesTableColumns from './BalancesTable.columns'
 import Table from '../../ui/Table'
 
-import './style.css'
+const BalancesTable = ({ balances, hideZeroBalances }) => {
+  const filteredBalances = hideZeroBalances
+    ? balances.filter(b => +b.balance > 0)
+    : balances
 
-export default class BalancesTable extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
-
-  render() {
-    const { filteredBalances: balances = [], hideZeroBalances } = this.props
-
-    const filteredBalances = hideZeroBalances
-      ? balances.filter(b => +b.balance > 0)
-      : balances
-
-    return (
-      <Table
-        data={filteredBalances}
-        columns={BalancesTableColumns()}
-        defaultSortBy='mts'
-        defaultSortDirection='ASC'
-      />
-    )
-  }
+  return (
+    <Table
+      data={filteredBalances}
+      columns={BalancesTableColumns()}
+      defaultSortBy='mts'
+      defaultSortDirection='ASC'
+    />
+  )
 }
+
+BalancesTable.propTypes = {
+  balances: PropTypes.array, // eslint-disable-line
+  hideZeroBalances: PropTypes.bool,
+}
+
+BalancesTable.defaultProps = {
+  balances: [],
+  hideZeroBalances: true,
+}
+
+export default memo(BalancesTable)

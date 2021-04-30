@@ -11,7 +11,6 @@ export default {
       quote: 'USD',
       uiID: 'BTC/USD',
     },
-    currentExchange: 'bitfinex',
     sumAmounts: true,
     stackedView: false,
   },

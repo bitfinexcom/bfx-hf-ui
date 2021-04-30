@@ -2,12 +2,11 @@ import { connect } from 'react-redux'
 import WSActions from '../../redux/actions/ws'
 import GAActions from '../../redux/actions/google_analytics'
 import { getAuthToken } from '../../redux/selectors/ws'
-import { getActiveMarket, getActiveExchange, getStrategyId } from '../../redux/selectors/ui'
+import { getActiveMarket, getStrategyId } from '../../redux/selectors/ui'
 
 import StrategyEditor from './StrategyEditor'
 
 const mapStateToProps = (state = {}) => ({
-  activeExchange: getActiveExchange(state),
   activeMarket: getActiveMarket(state),
   authToken: getAuthToken(state),
   strategyId: getStrategyId(state),

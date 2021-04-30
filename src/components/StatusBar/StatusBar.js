@@ -11,10 +11,9 @@ export default class StatusBar extends React.Component {
 
   render() {
     const {
-      wsConnected, remoteVersion, apiClientStates, currentExchange,
+      wsConnected, remoteVersion, apiClientState,
     } = this.props
 
-    const apiClientState = apiClientStates[currentExchange]
     const apiClientConnected = apiClientState === 2
     const apiClientConnecting = apiClientState === 1
     const apiClientDisconnected = !apiClientState
@@ -36,7 +35,7 @@ export default class StatusBar extends React.Component {
 
           <p>
             {apiClientConnected
-              ? `UNLOCKED FOR ${currentExchange.toUpperCase()}`
+              ? 'UNLOCKED FOR BITFINEX'
               : 'LOCKED'}
           </p>
         </div>

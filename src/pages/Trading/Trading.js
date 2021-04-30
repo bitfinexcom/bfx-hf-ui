@@ -10,7 +10,7 @@ import Modal from '../../ui/Modal'
 import Button from '../../ui/Button'
 import Input from '../../ui/Input'
 
-import BitfinexOrders from '../../orders/bitfinex'
+import ordersList from '../../orders'
 import GridLayoutPage from '../../components/GridLayoutPage'
 import ActiveAlgoOrdersModal from '../../components/ActiveAlgoOrdersModal'
 import TradingModeModal from '../../components/TradingModeModal'
@@ -19,9 +19,7 @@ import BadConnectionModal from '../../components/BadConnectionModal'
 import './style.css'
 
 const LAYOUT_ID = '__hfui_trading_page'
-const orderDefinitions = {
-  bitfinex: Object.values(BitfinexOrders).map(uiDef => uiDef()),
-}
+const orders = Object.values(ordersList).map(uiDef => uiDef())
 
 export default class Trading extends React.PureComponent {
   static propTypes = {
@@ -106,11 +104,9 @@ export default class Trading extends React.PureComponent {
       moveable: true,
       removeable: true,
       showMarket: false,
-      showExchange: false,
       layoutID: LAYOUT_ID,
       showChartMarket: false,
       canChangeMarket: false,
-      canChangeExchange: false,
     }
 
     return (
@@ -146,7 +142,7 @@ export default class Trading extends React.PureComponent {
                 layoutI='orderform'
                 moveable={false}
                 removeable={false}
-                orders={orderDefinitions}
+                orders={orders}
               />
             </div>
 

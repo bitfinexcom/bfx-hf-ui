@@ -4,5 +4,5 @@ import { REDUCER_PATHS } from '../../config'
 const path = REDUCER_PATHS.META
 
 export default (state) => {
-  return _get(state, `${path}.markets`, {})
+  return _get(state, `${path}.markets`, [])
 }

@@ -7,9 +7,6 @@ import { propTypes, defaultProps } from './LiveStrategyExecutor.props'
 
 import './style.css'
 
-// TODO: use global exchangeId or allow user to change
-const exId = 'bitfinex'
-
 export default class LiveStrategyExecutor extends React.Component {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -22,13 +19,12 @@ export default class LiveStrategyExecutor extends React.Component {
     const {
       strategyContent,
       dsExecuteLiveStrategy,
-      allMarkets,
+      markets,
     } = this.props
     const {
       selectedTimeFrame,
-      selectedMarket = allMarkets[exId][0],
+      selectedMarket = markets[0],
     } = this.state
-    const markets = allMarkets[exId]
 
     if (!strategyContent) {
       return (
@@ -54,7 +50,6 @@ export default class LiveStrategyExecutor extends React.Component {
           </div>
           <div className='hfui-backtester__flex_start' style={{ marginRight: -15 }}>
             <TimeFrameDropdown
-              exID={exId}
               tf={selectedTimeFrame}
               onChange={tf => this.setState(() => ({ selectedTimeFrame: tf }))}
             />

@@ -5,11 +5,11 @@ import WSActions from '../../actions/ws'
 
 export default function* (action = {}) {
   const { payload = {} } = action
-  const { exID, channel = [] } = payload
-  const req = yield select(getChannelRequirements, exID, channel)
+  const { channel = [] } = payload
+  const req = yield select(getChannelRequirements, channel)
   if (req > 1) {
     return
   }
 
-  yield put(WSActions.subscribe(exID, channel))
+  yield put(WSActions.subscribe(channel))
 }

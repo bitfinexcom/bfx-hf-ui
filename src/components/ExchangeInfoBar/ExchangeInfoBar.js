@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import SwitchMode from '../SwitchMode'
 
@@ -7,16 +8,12 @@ import MarketSelect from '../MarketSelect'
 import ExchangeInfoBarItem from './ExchangeInfoBarItem'
 import quotePrefix from '../../util/quote_prefix'
 
-import { propTypes, defaultProps } from './ExchangeInfoBar.props'
 import './style.css'
 
-export default class ExchangeInfoBar extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
-
+class ExchangeInfoBar extends React.PureComponent {
   componentDidMount() {
-    const { activeExchange, activeMarket, addTickerRequirement } = this.props
-    addTickerRequirement(activeExchange, activeMarket)
+    const { activeMarket, addTickerRequirement } = this.props
+    addTickerRequirement(activeMarket)
   }
 
   toggleTradingMode() {
@@ -29,7 +26,6 @@ export default class ExchangeInfoBar extends React.PureComponent {
       onChangeMarket,
       activeMarket,
       ticker,
-      activeExchange,
       markets,
       openNotifications,
       showTicker,
@@ -44,8 +40,6 @@ export default class ExchangeInfoBar extends React.PureComponent {
       lastPrice, dailyChange, dailyChangePerc, high, low, volume,
     } = ticker
 
-    const marketsForActiveExchange = markets[activeExchange] || []
-
     return (
       <div className='hfui-exchangeinfobar__wrapper'>
         <div className='hfui-exchangeinfobar__left'>
@@ -55,17 +49,18 @@ export default class ExchangeInfoBar extends React.PureComponent {
             tag='div'
             value={(
               <MarketSelect
-                markets={marketsForActiveExchange}
+                markets={markets}
                 value={activeMarket}
                 onChange={(market) => {
-                  onChangeMarket(activeExchange, market, activeMarket)
+                  onChangeMarket(market, activeMarket)
                 }}
                 renderWithFavorites
               />
             )}
           />
         </div>
-        {(showTicker) && (
+
+        {showTicker && (
           <ul>
             <ExchangeInfoBarItem
               text
@@ -138,19 +133,19 @@ export default class ExchangeInfoBar extends React.PureComponent {
           </div>
         </div>
 
-        {(showSave) && (
+        {showSave && (
           <div className='hfui-exchangeinfobar__right' onClick={onSave}>
             <i className='icon-save' />
           </div>
         )}
 
-        {(showAddComponent) && (
+        {showAddComponent && (
           <div className='hfui-exchangeinfobar__right' onClick={onAddComponent}>
             <i className='icon-plus' />
           </div>
         )}
 
-        {(showNotifications) && (
+        {showNotifications && (
           <div className='hfui-exchangeinfobar__right' onClick={openNotifications}>
             <i className='icon-notifications' />
           </div>
@@ -159,3 +154,33 @@ export default class ExchangeInfoBar extends React.PureComponent {
     )
   }
 }
+
+ExchangeInfoBar.propTypes = {
+  activeMarket: PropTypes.object.isRequired, // eslint-disable-line
+  addTickerRequirement: PropTypes.func.isRequired,
+  onChangeMarket: PropTypes.func.isRequired,
+  ticker: PropTypes.object.isRequired, // eslint-disable-line
+  markets: PropTypes.array, // eslint-disable-line
+  showTicker: PropTypes.bool,
+  showNotifications: PropTypes.bool,
+  onAddComponent: PropTypes.func,
+  onSave: PropTypes.func,
+  showAddComponent: PropTypes.bool,
+  showSave: PropTypes.bool,
+  openTradingModeModal: PropTypes.func,
+  openNotifications: PropTypes.func,
+}
+
+ExchangeInfoBar.defaultProps = {
+  markets: [],
+  showTicker: true,
+  showNotifications: true,
+  showAddComponent: false,
+  showSave: false,
+  onAddComponent: () => {},
+  onSave: () => {},
+  openTradingModeModal: () => {},
+  openNotifications: () => {},
+}
+
+export default ExchangeInfoBar
