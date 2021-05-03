@@ -8,6 +8,8 @@ export const propTypes = {
   onRemove: PropTypes.func,
   apiClientStates: PropTypes.object.isRequired,
   apiCredentials: PropTypes.object.isRequired,
+  setIsOrderExecuting: PropTypes.func.isRequired,
+  isOrderExecuting: PropTypes.bool,
   moveable: PropTypes.bool,
   removeable: PropTypes.bool,
   showExchange: PropTypes.bool,
@@ -19,4 +21,5 @@ export const defaultProps = {
   removeable: true,
   showExchange: false,
   showMarket: false,
+  isOrderExecuting: false,
 }
