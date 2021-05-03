@@ -68,8 +68,8 @@ export const ROW_MAPPING = {
     truncate: true,
     // eslint-disable-next-line react/display-name
     format: (_value, _, data) => {
-      const val = getPriceFromStatus(_get(data, 'status'))
-      return <PrettyValue value={val} sigFig={5} fadeTrailingZeros />
+      const value = getPriceFromStatus(_get(data, 'status'))
+      return <PrettyValue value={value} sigFig={5} fadeTrailingZeros />
     },
   },
   [TYPE]: {
@@ -88,7 +88,7 @@ export const ROW_MAPPING = {
     index: 7,
     // eslint-disable-next-line react/display-name
     format: (value, _, data) => {
-      return <FullDate ts={data.created} />
+      return <FullDate ts={_get(data, 'created')} />
     },
   },
 }
