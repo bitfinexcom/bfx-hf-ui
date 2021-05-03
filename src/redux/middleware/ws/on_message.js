@@ -123,6 +123,7 @@ export default (alias, store) => (e = {}) => {
       }
       case 'error': {
         const [, message] = payload
+        store.dispatch(UIActions.setIsOrderExecuting(false))
         store.dispatch(WSActions.recvNotification({
           status: 'error',
           text: message,
@@ -133,6 +134,7 @@ export default (alias, store) => (e = {}) => {
 
       case 'notify': {
         const [, status, message] = payload
+        store.dispatch(UIActions.setIsOrderExecuting(false))
         store.dispatch(WSActions.recvNotification({
           status,
           text: message,
