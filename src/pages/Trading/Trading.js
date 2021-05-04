@@ -5,7 +5,8 @@ import Joyride, { STATUS } from 'react-joyride'
 import Layout from '../../components/Layout'
 import OrderForm from '../../components/OrderForm'
 import StatusBar from '../../components/StatusBar'
-import ExchangeInfoBar from '../../components/ExchangeInfoBar'
+import { EXCHANGE_INFO_BAR_CONTAINER } from '../../components/ExchangeInfoBar'
+// import ExchangeInfoBarButton from '../../components/ExchangeInfoBar/ExchangeInfoBar.Button'
 
 import Modal from '../../ui/Modal'
 import Button from '../../ui/Button'
@@ -115,73 +116,76 @@ export default class Trading extends React.PureComponent {
     }
 
     return (
-      <>
-        {firstLogin
-         && (
-         <Joyride
-           callback={this.onGuideFinish}
-           steps={steps}
-           run={isGuideActive}
-           continuous
-           showProgress
-           showSkipButton
-           styles={{
-             options: {
-               zIndex: 10000,
-             },
-           }}
-         />
-         )}
-        {showAlgoModal && hasActiveAlgoOrders && apiClientConnected
-          && <ActiveAlgoOrdersModal />}
-        <div className='hfui-tradingpage__inner'>
-          <div className='hfui-tradingpage__column left'>
-            <OrderForm
-              layoutI='orderform'
-              moveable={false}
-              removeable={false}
-              orders={orderDefinitions}
+      <Layout>
+        <Layout.Header />
+        <Layout.Main>
+          {firstLogin && (
+            <Joyride
+              callback={this.onGuideFinish}
+              steps={steps}
+              run={isGuideActive}
+              continuous
+              showProgress
+              showSkipButton
+              styles={{
+                options: {
+                  zIndex: 10000,
+                },
+              }}
             />
-          </div>
-
-          <div className='hfui-tradingpage__column center'>
-            <div className='hfui-marketdatapage__wrapper'>
-              <TradingModeModal />
-              <BadConnectionModal />
-              { isRefillBalanceModalVisible && (
-              <Modal
-                label='REFILLING PAPER BALANCES'
-                onClose={() => this.onRefillBalanceModalClose()}
-                className='hfui-refillbalance__modal'
-                actions={(
-                  <Button
-                    green
-                    onClick={() => this.onRefillBalanceModalSubmit()}
-                    label={[
-                      <p key='text'>Submit</p>,
-                    ]}
-                  />
-                    )}
-              >
-                <div className='modal-content'>
-                  <Input placeholder='AAA' />
-                  <Input placeholder='BBB' />
-                  <Input placeholder='TESTBTC' />
-                  <Input placeholder='TESTUSDT' />
-                  <Input placeholder='TESTUSD' />
-                </div>
-              </Modal>
-              )}
-              <GridLayoutPage
-                showToolbar={false}
-                ref={ref => { this.grid = ref }}
-                defaultLayoutID='Default Trading'
-                sharedProps={commonComponentProps}
+          )}
+          {showAlgoModal && hasActiveAlgoOrders && apiClientConnected
+            && <ActiveAlgoOrdersModal />}
+          <div className='hfui-tradingpage__inner'>
+            <div className='hfui-tradingpage__column left'>
+              <OrderForm
+                layoutI='orderform'
+                moveable={false}
+                removeable={false}
+                orders={orderDefinitions}
               />
             </div>
+
+            <div className='hfui-tradingpage__column center'>
+              <div className='hfui-marketdatapage__wrapper'>
+                <TradingModeModal />
+                <BadConnectionModal />
+                {isRefillBalanceModalVisible && (
+                  <Modal
+                    label='REFILLING PAPER BALANCES'
+                    onClose={() => this.onRefillBalanceModalClose()}
+                    className='hfui-refillbalance__modal'
+                    actions={(
+                      <Button
+                        green
+                        onClick={() => this.onRefillBalanceModalSubmit()}
+                        label={[
+                          <p key='text'>Submit</p>,
+                        ]}
+                      />
+                    )}
+                  >
+                    <div className='modal-content'>
+                      <Input placeholder='AAA' />
+                      <Input placeholder='BBB' />
+                      <Input placeholder='TESTBTC' />
+                      <Input placeholder='TESTUSDT' />
+                      <Input placeholder='TESTUSD' />
+                    </div>
+                  </Modal>
+                )}
+                <GridLayoutPage
+                  showToolbar={false}
+                  ref={ref => { this.grid = ref }}
+                  defaultLayoutID='Default Trading'
+                  sharedProps={commonComponentProps}
+                />
+              </div>
+            </div>
           </div>
-        </div>
-      </>
+        </Layout.Main>
+        <Layout.Footer />
+      </Layout>
     )
   }
 }

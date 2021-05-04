@@ -7,8 +7,6 @@ import StrategyEditorPage from '../../pages/StrategyEditor'
 import MarketDataPage from '../../pages/MarketData'
 import AuthenticationPage from '../../pages/Authentication'
 
-import Layout from '../Layout'
-
 import './style.css'
 
 export default function HFUI(props) {
@@ -40,19 +38,15 @@ export default function HFUI(props) {
     }
   }, [authToken])
 
-  return (
-    <Layout authToken={authToken}>
-      {!authToken ? (
-        <AuthenticationPage />
-      ) : (
-        <Switch>
-          <Redirect exact from='/index.html' to='/' />
-          <Route path='/' render={() => <TradingPage />} exact />
-          <Route path='/strategy-editor' render={() => <StrategyEditorPage />} />
-          <Route path='/data' render={() => <MarketDataPage />} />
-          <Route path='/settings' render={() => <SettingsPage />} />
-        </Switch>
-      )}
-    </Layout>
+  return !authToken ? (
+    <AuthenticationPage />
+  ) : (
+    <Switch>
+      <Redirect exact from='/index.html' to='/' />
+      <Route path='/' render={() => <TradingPage />} exact />
+      <Route path='/strategy-editor' render={() => <StrategyEditorPage />} />
+      <Route path='/data' render={() => <MarketDataPage />} />
+      <Route path='/settings' render={() => <SettingsPage />} />
+    </Switch>
   )
 }

@@ -10,6 +10,8 @@ import quotePrefix from '../../util/quote_prefix'
 import { propTypes, defaultProps } from './ExchangeInfoBar.props'
 import './style.css'
 
+import { EXCHANGE_INFO_BAR_CONTAINER } from './ExchangeInfoBar.constants'
+
 export default class ExchangeInfoBar extends React.PureComponent {
   static propTypes = propTypes
   static defaultProps = defaultProps
@@ -127,6 +129,7 @@ export default class ExchangeInfoBar extends React.PureComponent {
         )}
 
         <div className='hfui-exchangeinfobar__right'>
+          <div id={EXCHANGE_INFO_BAR_CONTAINER} />
           <div className='hfui-tradingpaper__control'>
             <div className='hfui-tradingpaper__control-toggle'>
               <p>Paper Trading</p>
@@ -137,24 +140,6 @@ export default class ExchangeInfoBar extends React.PureComponent {
             </div> */}
           </div>
         </div>
-
-        {(showSave) && (
-          <div className='hfui-exchangeinfobar__right' onClick={onSave}>
-            <i className='icon-save' />
-          </div>
-        )}
-
-        {(showAddComponent) && (
-          <div className='hfui-exchangeinfobar__right' onClick={onAddComponent}>
-            <i className='icon-plus' />
-          </div>
-        )}
-
-        {(showNotifications) && (
-          <div className='hfui-exchangeinfobar__right' onClick={openNotifications}>
-            <i className='icon-notifications' />
-          </div>
-        )}
       </div>
     )
   }
