@@ -1,6 +1,8 @@
 import React from 'react'
 import _get from 'lodash/get'
-import { OrderHistory as UfxOrderHistory, ORDER_HISTORY_COLUMNS } from '@ufx-ui/core'
+import {
+  OrderHistory as UfxOrderHistory, ORDER_HISTORY_KEYS, PrettyValue, FullDate,
+} from '@ufx-ui/core'
 import { useSelector } from 'react-redux'
 import Panel from '../../ui/Panel'
 import { symbolToLabel, getPriceFromStatus, getFormatedStatus } from './OrderHistory.helpers'
@@ -19,7 +21,7 @@ const {
   PRICE_AVERAGE,
   PLACED,
   STATUS,
-} = ORDER_HISTORY_COLUMNS
+} = ORDER_HISTORY_KEYS
 
 export const ROW_MAPPING = {
   [ID]: {
@@ -34,16 +36,16 @@ export const ROW_MAPPING = {
   [ORIGINAL_AMOUNT]: {
     hidden: true,
   },
-  [PLACED]: {
-    hidden: true,
-  },
   [ICON]: {
     index: 0,
     truncate: true,
   },
-  [PRICE]: {
+  [PAIR]: {
     index: 1,
     truncate: true,
+    format: (value, _, data) => {
+      return symbolToLabel(_get(data, 'symbol'))
+    },
   },
   [AMOUNT]: {
     index: 2,
@@ -51,38 +53,44 @@ export const ROW_MAPPING = {
     format: (value, _, data) => {
       return _get(data, 'originalAmount')
     },
-    // eslint-disable-next-line react/prop-types
+    // eslint-disable-next-line react/prop-types, react/display-name
     renderer: ({ formattedValue }) => (formattedValue < 0
       ? <span className='hfui-red'>{formattedValue}</span>
       : <span className='hfui-green'>{formattedValue}</span>
     ),
   },
-  [TYPE]: {
+  [PRICE]: {
     index: 3,
     truncate: true,
   },
-  [STATUS]: {
+  [PRICE_AVERAGE]: {
     index: 4,
+    truncate: true,
+    // eslint-disable-next-line react/display-name
+    format: (_value, _, data) => {
+      const value = getPriceFromStatus(_get(data, 'status'))
+      return <PrettyValue value={value} sigFig={5} fadeTrailingZeros />
+    },
+  },
+  [TYPE]: {
+    index: 5,
+    truncate: true,
+    cellStyle: { width: '20%' },
+  },
+  [STATUS]: {
+    index: 6,
     truncate: true,
     format: (value, _, data) => {
       return getFormatedStatus(_get(data, 'status'))
     },
   },
-  [PRICE_AVERAGE]: {
-    index: 5,
-    truncate: true,
+  [PLACED]: {
+    index: 7,
+    // eslint-disable-next-line react/display-name
     format: (value, _, data) => {
-      return getPriceFromStatus(_get(data, 'status'))
+      return <FullDate ts={_get(data, 'created')} />
     },
   },
-  [PAIR]: {
-    index: 6,
-    truncate: true,
-    format: (value, _, data) => {
-      return symbolToLabel(_get(data, 'symbol'))
-    },
-  },
-
 }
 
 export default function OrderHistory(props) {
