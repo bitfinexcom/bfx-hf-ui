@@ -1,6 +1,6 @@
 import React from 'react'
 import _get from 'lodash/get'
-import { OrderHistory as UfxOrderHistory, ORDER_HISTORY_COLUMNS } from 'ufx-ui'
+import { OrderHistory as UfxOrderHistory, ORDER_HISTORY_COLUMNS } from '@ufx-ui/core'
 import { useSelector } from 'react-redux'
 import Panel from '../../ui/Panel'
 import { symbolToLabel, getPriceFromStatus, getFormatedStatus } from './OrderHistory.helpers'

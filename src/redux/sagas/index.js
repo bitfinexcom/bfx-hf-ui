@@ -1,5 +1,5 @@
 import { fork } from 'redux-saga/effects'
-import { reduxSagas } from 'ufx-ui'
+import { reduxSagas } from '@ufx-ui/bfx-containers'
 
 import WSSaga from './ws'
 import UISaga from './ui'
