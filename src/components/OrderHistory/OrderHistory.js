@@ -1,7 +1,7 @@
 import React from 'react'
 import _get from 'lodash/get'
 import {
-  OrderHistory as UfxOrderHistory, ORDER_HISTORY_COLUMNS, PrettyValue, FullDate,
+  OrderHistory as UfxOrderHistory, ORDER_HISTORY_KEYS, PrettyValue, FullDate,
 } from 'ufx-ui'
 import { useSelector } from 'react-redux'
 import Panel from '../../ui/Panel'
@@ -21,7 +21,7 @@ const {
   PRICE_AVERAGE,
   PLACED,
   STATUS,
-} = ORDER_HISTORY_COLUMNS
+} = ORDER_HISTORY_KEYS
 
 export const ROW_MAPPING = {
   [ID]: {
