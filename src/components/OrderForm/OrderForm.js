@@ -12,6 +12,7 @@ import {
   processFieldData,
   marketToQuoteBase,
   defaultDataForLayout,
+  fixComponentContext,
   COMPONENTS_FOR_ID,
 } from './OrderForm.helpers'
 
@@ -192,7 +193,7 @@ export default class OrderForm extends React.Component {
 
   onChangeActiveOrderLayout(orderLabel) {
     const { orders: allOrders } = this.props
-    const { currentExchange, algoOrders } = this.state
+    const { currentExchange, currentMarket, algoOrders } = this.state
     const orders = allOrders[currentExchange]
 
     let uiDef = orders.find(({ label }) => label === orderLabel)
@@ -200,6 +201,8 @@ export default class OrderForm extends React.Component {
     if (!uiDef) {
       uiDef = algoOrders.find(({ label }) => label === orderLabel)
     }
+
+    uiDef.fields = fixComponentContext(uiDef.fields, currentMarket)
 
     this.setState(() => ({
       currentLayout: uiDef,

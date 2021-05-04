@@ -122,6 +122,10 @@ class Settings extends React.PureComponent {
       ga: stateGA,
       dms: stateDMS,
       AUTOLOGIN_STATE,
+      paperApiKey,
+      paperApiSecret,
+      apiKey,
+      apiSecret,
     } = this.state
     const ga = stateGA ?? propsGA
     const dms = stateDMS ?? propsDMS
@@ -211,12 +215,14 @@ class Settings extends React.PureComponent {
                     placeholder='API Key'
                     onChange={value => this.onOptionChange(value, 'apiKey')}
                     className='hfui-settings__item-list api-key'
+                    value={apiKey}
                   />
                   <Input
                     type='password'
                     placeholder='API Secret'
                     onChange={value => this.onOptionChange(value, 'apiSecret')}
                     className='hfui-settings__item-list api-secret'
+                    value={apiSecret}
                   />
                 </div>
                 <div className='hfui-settings__option-description'>
@@ -235,12 +241,14 @@ class Settings extends React.PureComponent {
                     placeholder='Paper Trading API Key'
                     onChange={value => this.onOptionChange(value, 'paperApiKey')}
                     className='hfui-settings__item-list api-key'
+                    value={paperApiKey}
                   />
                   <Input
                     type='password'
                     placeholder='Paper Trading API Secret'
                     onChange={value => this.onOptionChange(value, 'paperApiSecret')}
                     className='hfui-settings__item-list api-secret'
+                    value={paperApiSecret}
                   />
                 </div>
               </li>

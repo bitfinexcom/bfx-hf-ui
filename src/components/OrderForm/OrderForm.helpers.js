@@ -4,6 +4,7 @@ import _isObject from 'lodash/isObject'
 import _isBoolean from 'lodash/isBoolean'
 import _capitalize from 'lodash/capitalize'
 import _flatten from 'lodash/flatten'
+import _forOwn from 'lodash/forOwn'
 
 import NumberInput from './FieldComponents/input.number'
 import PriceInput from './FieldComponents/input.price'
@@ -104,10 +105,15 @@ const defaultDataForLayout = (layout = {}) => {
   return defaultData
 }
 const getValidValue = val => {
-  if (typeof val === 'string' && val.length > 0) return val
+  if (typeof val === 'string' && val.length > 0) {
+    if (val === 'true') return true
+    if (val === 'false') return false
+    return val
+  }
   if (typeof val === 'number') return val.toString()
   if (typeof val === 'string' && val.length === 0) return ' '
-  return val
+
+  return val || ''
 }
 const processFieldData = ({ action, layout = {}, fieldData = {} }) => {
   const { fields = {} } = layout
@@ -128,6 +134,21 @@ const processFieldData = ({ action, layout = {}, fieldData = {} }) => {
   })
 
   return data
+}
+
+const fixComponentContext = (orderFields, market) => {
+  const fields = { ...orderFields }
+  const { lev } = market
+
+  _forOwn(fields, (value, key) => {
+    const { component } = value
+
+    if (component === 'input.range') {
+      fields[key].max = lev
+    }
+  })
+
+  return fields
 }
 
 // Renders a single layout field component
@@ -362,5 +383,6 @@ export {
   renderLayoutField,
   marketToQuoteBase,
   defaultDataForLayout,
+  fixComponentContext,
   COMPONENTS_FOR_ID,
 }

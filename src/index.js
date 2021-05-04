@@ -34,6 +34,11 @@ import StoreWrapper from './StoreWrapper'
 import './passive_listener_fix'
 import './index.css'
 
+const timezoneOffset = -(new Date().getTimezoneOffset())
+const config = {
+  timezoneOffset,
+}
+
 const HFUIWrapper = () => {
   useInjectBfxData()
   return <HFUI />
@@ -42,7 +47,7 @@ const HFUIWrapper = () => {
 ReactDOM.render((
   <Scrollbars hideTracksWhenNotNeeded>
     <StoreWrapper>
-      <UfxStoreProvider>
+      <UfxStoreProvider value={config}>
         <HFUIWrapper />
       </UfxStoreProvider>
     </StoreWrapper>
