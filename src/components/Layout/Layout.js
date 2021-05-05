@@ -1,4 +1,5 @@
 import React from 'react'
+import cx from 'classnames'
 import './style.css'
 
 import Navbar from '../Navbar'
@@ -25,10 +26,17 @@ Layout.Header = function Header({ children, buttons, ...props }) {
   )
 }
 
-// eslint-disable-next-line react/prop-types
-Layout.Main = function Main({ children, ...props }) {
+Layout.Main = function Main({
+  // eslint-disable-next-line react/prop-types
+  children, flex, noSpaceTop, ...props
+}) {
+  const className = cx('main', {
+    'is-flex': flex,
+    'no-space-top': noSpaceTop,
+  })
+
   return (
-    <main className='main' {...props}>
+    <main className={className} {...props}>
       {children}
     </main>
   )
@@ -38,9 +46,7 @@ Layout.Main = function Main({ children, ...props }) {
 Layout.Footer = function Footer({ children }) {
   return (
     <>
-      <StatusBar
-        displayLayoutControls={false}
-      />
+      <StatusBar />
       {children}
     </>
   )

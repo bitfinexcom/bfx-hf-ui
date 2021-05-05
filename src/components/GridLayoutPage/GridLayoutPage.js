@@ -9,7 +9,6 @@ import AddLayoutComponentModal from '../AddLayoutComponentModal'
 import CreateNewLayoutModal from '../CreateNewLayoutModal'
 import LayoutControlToolbar from '../LayoutControlToolbar'
 import GridLayout from '../GridLayout'
-import StatusBar from '../StatusBar'
 
 import {
   layoutDefToGridLayout,

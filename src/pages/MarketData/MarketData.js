@@ -49,31 +49,29 @@ export default class MarketData extends React.PureComponent {
       <Layout>
         <Layout.Header />
         <Layout.Main>
-          <div className='hfui-marketdatapage__wrapper'>
-            <TradingModeModal />
-            <BadConnectionModal />
-            {firstLogin && (
-              <Joyride
-                callback={this.onGuideFinish}
-                steps={steps}
-                run={isGuideActive}
-                continuous
-                showProgress
-                showSkipButton
-                styles={{
-                  options: {
-                    zIndex: 10000,
-                  },
-                }}
-              />
-            )}
-            <GridLayoutPage
-              defaultLayoutID='Default Market Data'
-              tradesProps={commonComponentProps}
-              bookProps={commonComponentProps}
-              chartProps={commonComponentProps}
+          <TradingModeModal />
+          <BadConnectionModal />
+          {firstLogin && (
+            <Joyride
+              callback={this.onGuideFinish}
+              steps={steps}
+              run={isGuideActive}
+              continuous
+              showProgress
+              showSkipButton
+              styles={{
+                options: {
+                  zIndex: 10000,
+                },
+              }}
             />
-          </div>
+          )}
+          <GridLayoutPage
+            defaultLayoutID='Default Market Data'
+            tradesProps={commonComponentProps}
+            bookProps={commonComponentProps}
+            chartProps={commonComponentProps}
+          />
         </Layout.Main>
         <Layout.Footer />
       </Layout>

@@ -63,8 +63,8 @@
   flex-direction: row;
   border-bottom: 1px solid $panel-background-color;
   background: $background-color;
-  padding: 0 10px;
   justify-content: space-between;
+  padding: 0 10px;
 
   &.has-secondary-header {
     border-bottom: none;

@@ -9,6 +9,15 @@
 
 .main {
   flex-grow: 1;
+  padding: spacing(1.25);
+
+  &.no-space-top {
+    padding-top: 0;
+  }
+
+  &.is-flex {
+    display: flex;
+  }
 }
 
 .header,
