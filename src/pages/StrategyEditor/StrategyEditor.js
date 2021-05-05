@@ -134,7 +134,7 @@ export default class StrategyEditorPage extends React.Component {
     return (
       <Layout>
         <Layout.Header />
-        <Layout.Main>
+        <Layout.Main className='hfui-strategyeditorpage__wrapper'>
           <div className='hfui-strategyeditorpage__content-wrapper'>
             <StrategyEditor
               dark

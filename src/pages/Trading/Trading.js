@@ -107,7 +107,7 @@ export default class Trading extends React.PureComponent {
             </>
           )}
         />
-        <Layout.Main flex noSpaceTop>
+        <Layout.Main flex>
           {firstLogin && (
             <Joyride
               callback={this.onGuideFinish}

@@ -10,10 +10,7 @@
 .main {
   flex-grow: 1;
   padding: spacing(1.25);
-
-  &.no-space-top {
-    padding-top: 0;
-  }
+  padding-top: 0;
 
   &.is-flex {
     display: flex;
@@ -24,4 +21,9 @@
 .main,
 .footer {
   display: block;
+}
+
+.header,
+.footer {
+  flex-shrink: 0;
 }

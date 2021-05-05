@@ -28,15 +28,15 @@ Layout.Header = function Header({ children, buttons, ...props }) {
 
 Layout.Main = function Main({
   // eslint-disable-next-line react/prop-types
-  children, flex, noSpaceTop, ...props
+  children, className, flex, noSpaceTop, ...props
 }) {
-  const className = cx('main', {
+  const classes = cx('main', className, {
     'is-flex': flex,
     'no-space-top': noSpaceTop,
   })
 
   return (
-    <main className={className} {...props}>
+    <main className={classes} {...props}>
       {children}
     </main>
   )
@@ -45,10 +45,10 @@ Layout.Main = function Main({
 // eslint-disable-next-line react/prop-types
 Layout.Footer = function Footer({ children }) {
   return (
-    <>
+    <footer className='footer'>
       <StatusBar />
       {children}
-    </>
+    </footer>
   )
 }
 

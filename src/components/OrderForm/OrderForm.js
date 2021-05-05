@@ -436,6 +436,8 @@ export default class OrderForm extends React.Component {
         />
         <Panel
           key='execute-order'
+          darkHeader
+          dark
           label='EXECUTE ORDER'
           className='hfui-orderform__panel'
           moveable={moveable}
@@ -483,35 +485,31 @@ export default class OrderForm extends React.Component {
 
             {helpOpen && currentLayout && currentLayout.customHelp && (
               <div key='overlay-wrapper' className='hfui-orderform__overlay-wrapper'>
-                <Scrollbars>
-                  <div className='hfui-orderform__help-inner'>
-                    <p className='hfui-orderform__help-title'>
-                      <span className='prefix'>HELP:</span>
-                      {currentLayout.label}
-                      <i
-                        role='button'
-                        tabIndex={0}
-                        onClick={this.onToggleHelp}
-                        className='far fa-times-circle'
-                      />
-                    </p>
-                    <p className='hfui-orderform__help-content'>
-                      {currentLayout.customHelp}
-                    </p>
-                  </div>
-                </Scrollbars>
+                <div className='hfui-orderform__help-inner'>
+                  <p className='hfui-orderform__help-title'>
+                    <span className='prefix'>HELP:</span>
+                    {currentLayout.label}
+                    <i
+                      role='button'
+                      tabIndex={0}
+                      onClick={this.onToggleHelp}
+                      className='far fa-times-circle'
+                    />
+                  </p>
+                  <p className='hfui-orderform__help-content'>
+                    {currentLayout.customHelp}
+                  </p>
+                </div>
               </div>
             )}
 
             {!currentLayout && (
               <div key='order-form-menu' className='hfui-orderform__overlay-wrapper'>
-                <Scrollbars>
-                  <OrderFormMenu
-                    atomicOrderTypes={atomicOrderTypes}
-                    algoOrderTypes={algoOrderTypes}
-                    onSelect={({ label }) => this.onChangeActiveOrderLayout(label)}
-                  />
-                </Scrollbars>
+                <OrderFormMenu
+                  atomicOrderTypes={atomicOrderTypes}
+                  algoOrderTypes={algoOrderTypes}
+                  onSelect={({ label }) => this.onChangeActiveOrderLayout(label)}
+                />
               </div>
             )}
 

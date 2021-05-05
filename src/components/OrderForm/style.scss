@@ -1,9 +1,8 @@
 @import '../../variables.scss';
 
 .hfui-orderform__wrapper {
-  min-height: calc(100% - 16px);
-  position: relative;
-  padding: 0 20px;
+  height: 100%;
+  padding: 0 10px;
 
   .hfui-dropdown__button {
     margin-left: 0;
@@ -357,15 +356,9 @@
 }
 
 .hfui-orderform__overlay-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  line-height: 1.5;
-  background: $background-color;
   height: 100%;
+  line-height: 1.5;
   white-space: pre-line;
-  width: 100%;
   user-select: none;
 
   .hfui-orderform__help-inner {
