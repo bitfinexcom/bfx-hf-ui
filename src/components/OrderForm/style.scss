@@ -4,9 +4,13 @@
   height: 100%;
   padding: 0 10px;
 
+  input {
+    background: $background-color;
+  }
+
   .hfui-dropdown__button {
     margin-left: 0;
-    background: $panel-background-color;
+    background: $background-color;
     position: relative;
     width: 165;
     padding-left: 8px;
@@ -65,7 +69,7 @@
 .hfui-orderform__panel {
   .hfui-panel__footer {
     width: calc(100% - 16px);
-    background: $panel-background-color;
+    background: $background-color;
     line-height: 32px;
     font-size: 13px;
     color: $text-color;
