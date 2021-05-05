@@ -1,5 +1,6 @@
 import React from 'react'
 import Joyride, { STATUS } from 'react-joyride'
+import Layout from '../../components/Layout'
 import GridLayoutPage from '../../components/GridLayoutPage'
 import ExchangeInfoBar from '../../components/ExchangeInfoBar'
 import TradingModeModal from '../../components/TradingModeModal'
@@ -45,33 +46,37 @@ export default class MarketData extends React.PureComponent {
     const { steps } = this.state
     const { isGuideActive, firstLogin } = this.props
     return (
-      <div className='hfui-marketdatapage__wrapper'>
-        <TradingModeModal />
-        <BadConnectionModal />
-        <ExchangeInfoBar />
-        {firstLogin
-         && (
-         <Joyride
-           callback={this.onGuideFinish}
-           steps={steps}
-           run={isGuideActive}
-           continuous
-           showProgress
-           showSkipButton
-           styles={{
-             options: {
-               zIndex: 10000,
-             },
-           }}
-         />
-         )}
-        <GridLayoutPage
-          defaultLayoutID='Default Market Data'
-          tradesProps={commonComponentProps}
-          bookProps={commonComponentProps}
-          chartProps={commonComponentProps}
-        />
-      </div>
+      <Layout>
+        <Layout.Header />
+        <Layout.Main>
+          <div className='hfui-marketdatapage__wrapper'>
+            <TradingModeModal />
+            <BadConnectionModal />
+            {firstLogin && (
+              <Joyride
+                callback={this.onGuideFinish}
+                steps={steps}
+                run={isGuideActive}
+                continuous
+                showProgress
+                showSkipButton
+                styles={{
+                  options: {
+                    zIndex: 10000,
+                  },
+                }}
+              />
+            )}
+            <GridLayoutPage
+              defaultLayoutID='Default Market Data'
+              tradesProps={commonComponentProps}
+              bookProps={commonComponentProps}
+              chartProps={commonComponentProps}
+            />
+          </div>
+        </Layout.Main>
+        <Layout.Footer />
+      </Layout>
     )
   }
 }

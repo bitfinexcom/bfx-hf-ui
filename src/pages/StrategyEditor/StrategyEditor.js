@@ -4,6 +4,8 @@ import Joyride, { STATUS } from 'react-joyride'
 import PropTypes from 'prop-types'
 import _remove from 'lodash/remove'
 
+import Layout from '../../components/Layout'
+
 import Panel from '../../ui/Panel'
 import Markdown from '../../ui/Markdown'
 import StatusBar from '../../components/StatusBar'
@@ -130,22 +132,21 @@ export default class StrategyEditorPage extends React.Component {
     } = this.state
     const { firstLogin, isGuideActive } = this.props
     return (
-      <div className='hfui-strategyeditorpage__wrapper'>
-        <TradingModeModal />
-        <BadConnectionModal />
-        <ExchangeInfoBar />
-        <div className='hfui-strategyeditorpage__content-wrapper'>
-          <StrategyEditor
-            dark
-            onStrategySelect={content => this.selectStrategy(content)}
-            onStrategyChange={content => this.setContent(content)}
-            key='editor'
-            onIndicatorsChange={this.onIndicatorsChange}
-            moveable={false}
-            removeable={false}
-            tf='1m'
-          />
-          {firstLogin
+      <Layout>
+        <Layout.Header />
+        <Layout.Main>
+          <div className='hfui-strategyeditorpage__content-wrapper'>
+            <StrategyEditor
+              dark
+              onStrategySelect={content => this.selectStrategy(content)}
+              onStrategyChange={content => this.setContent(content)}
+              key='editor'
+              onIndicatorsChange={this.onIndicatorsChange}
+              moveable={false}
+              removeable={false}
+              tf='1m'
+            />
+            {firstLogin
           && (
           <Joyride
             steps={steps}
@@ -161,32 +162,32 @@ export default class StrategyEditorPage extends React.Component {
             }}
           />
           )}
-          <div
-            key='main'
-            className='hfui-strategiespage__right'
-          >
-            <Panel
-              className='hfui-strategiespage__pannel-wrapper'
-              moveable={false}
-              removeable={false}
-              forcedTab={forcedTab}
-              darkHeader
+            <div
+              key='main'
+              className='hfui-strategiespage__right'
             >
-              <Markdown
-                tabtitle='Docs'
-                text={docsText}
-              />
-              <div
-                tabtitle='Backtest' // lowercase name for div is requiered
+              <Panel
+                className='hfui-strategiespage__pannel-wrapper'
+                moveable={false}
+                removeable={false}
+                forcedTab={forcedTab}
+                darkHeader
               >
-                <Backtester
-                  {...this.props}
-                  indicators={indicators}
-                  onAddIndicator={this.onAddIndicator}
-                  onDeleteIndicator={this.onDeleteIndicator}
+                <Markdown
+                  tabtitle='Docs'
+                  text={docsText}
                 />
-              </div>
-              {/* hidden until this feature will be implemented
+                <div
+                  tabtitle='Backtest'
+                >
+                  <Backtester
+                    {...this.props}
+                    indicators={indicators}
+                    onAddIndicator={this.onAddIndicator}
+                    onDeleteIndicator={this.onDeleteIndicator}
+                  />
+                </div>
+                {/* hidden until this feature will be implemented
                 <div
                   tabtitle='Execute'
                 >
@@ -194,15 +195,12 @@ export default class StrategyEditorPage extends React.Component {
                     strategyContent={strategyContent}
                   />
                 </div> */}
-            </Panel>
+              </Panel>
+            </div>
           </div>
-        </div>
-
-        <StatusBar
-          key='statusbar'
-          displayLayoutControls={false}
-        />
-      </div>
+        </Layout.Main>
+        <Layout.Footer />
+      </Layout>
     )
   }
 }
