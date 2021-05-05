@@ -4,9 +4,7 @@ import Joyride, { STATUS } from 'react-joyride'
 
 import Layout from '../../components/Layout'
 import OrderForm from '../../components/OrderForm'
-import StatusBar from '../../components/StatusBar'
-import { EXCHANGE_INFO_BAR_CONTAINER } from '../../components/ExchangeInfoBar'
-// import ExchangeInfoBarButton from '../../components/ExchangeInfoBar/ExchangeInfoBar.Button'
+import ExchangeInfoBarButton from '../../components/ExchangeInfoBar/ExchangeInfoBar.Button'
 
 import Modal from '../../ui/Modal'
 import Button from '../../ui/Button'
@@ -117,7 +115,14 @@ export default class Trading extends React.PureComponent {
 
     return (
       <Layout>
-        <Layout.Header />
+        <Layout.Header
+          buttons={() => (
+            <>
+              <ExchangeInfoBarButton icon='save' onClick={() => this.grid.onSaveLayout()} />
+              <ExchangeInfoBarButton icon='plus' onClick={() => this.grid.onToggleAddComponentModal()} />
+            </>
+          )}
+        />
         <Layout.Main>
           {firstLogin && (
             <Joyride

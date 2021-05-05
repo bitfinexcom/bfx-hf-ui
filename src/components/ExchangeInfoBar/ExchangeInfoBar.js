@@ -40,6 +40,7 @@ export default class ExchangeInfoBar extends React.PureComponent {
       onAddComponent,
       showSave,
       onSave,
+      buttons: Buttons,
       // onRefillClick,
     } = this.props
     const {
@@ -129,7 +130,11 @@ export default class ExchangeInfoBar extends React.PureComponent {
         )}
 
         <div className='hfui-exchangeinfobar__right'>
-          <div id={EXCHANGE_INFO_BAR_CONTAINER} />
+          {Buttons && (
+            <div className='hfui-exchangeinfobar__buttons'>
+              <Buttons />
+            </div>
+          )}
           <div className='hfui-tradingpaper__control'>
             <div className='hfui-tradingpaper__control-toggle'>
               <p>Paper Trading</p>

@@ -15,14 +15,11 @@ function Layout({ children, ...props }) {
 }
 
 // eslint-disable-next-line react/prop-types
-Layout.Header = function Header({ children, ...props }) {
+Layout.Header = function Header({ children, buttons, ...props }) {
   return (
     <header className='header' {...props}>
       <Navbar />
-      <ExchangeInfoBar
-        showSave
-        showAddComponent
-      />
+      <ExchangeInfoBar buttons={buttons} />
       {children}
     </header>
   )

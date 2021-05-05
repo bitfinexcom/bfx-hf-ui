@@ -2,8 +2,7 @@ import React from 'react'
 
 import PropTypes from 'prop-types'
 
-// const CHART_URL = 'https://bitfinexcom.github.io/bfx-hf-tradingview'
-const CHART_URL = 'http://localhost:3001/bfx-hf-tradingview'
+const CHART_URL = 'https://bitfinexcom.github.io/bfx-hf-tradingview'
 function Chart(props) {
   const { market } = props
   const { wsID, base, quote } = market

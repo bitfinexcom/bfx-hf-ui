@@ -37,19 +37,42 @@
 }
 
 .hfui-exchangeinfobar__right {
-  text-align: right;
-  height: 100%;
-  margin-left: 20px;
-
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  height: 100%;
+  align-items: center;
+}
 
-  i {
+.hfui-exchangeinfobar__buttons {
+  display: flex;
+  margin-right: 16px;
+}
+
+.hfui-exchangeinfobar__button {
+  cursor: pointer;
+  border-radius: 6px;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color .2s;
+  background-color: transparent;
+  opacity: 1 !important;
+
+  i,
+  i:before {
+    display: block;
     font-size: 20px;
   }
-  i:hover {
-    cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background: rgba(255, 255, 255, .1);
+  }
+
+  &:active {
+    background: rgba(0, 0, 0, .2);
   }
 }
 

@@ -18,10 +18,10 @@ import React from 'react'
 //   </div>
 // )}
 
-export default function ExchangeInfoBarButton() {
+export default function ExchangeInfoBarButton({ icon, ...props }) {
   return (
-    <div className='hfui-exchangeinfobar__right' onClick={onSave}>
-      <i className='icon-save' />
-    </div>
+    <button type='button' className='hfui-exchangeinfobar__button' {...props}>
+      <i className={`icon-${icon}`} />
+    </button>
   )
 }
