@@ -8,29 +8,29 @@ const debug = Debug('hfui:rx:s:ws-hfui-server:on-unsub')
 
 export default function* (action = {}) {
   const { payload = {} } = action
-  const { exID, chanData } = payload
+  const { chanData } = payload
   const [type] = chanData
 
   debug(
     'unsubscribing from channel %s %s on %s',
-    chanData[0], _last(chanData).uiID, exID,
+    chanData[0], _last(chanData).uiID,
   )
 
-  yield put(WSActions.send(['unsubscribe', exID, chanData]))
+  yield put(WSActions.send(['unsubscribe', 'bitfinex', chanData]))
 
   switch (type) {
     case 'trades': {
-      yield put(WSActions.purgeDataTrades(exID, chanData))
+      yield put(WSActions.purgeDataTrades(chanData))
       break
     }
 
-    case 'candles': {
-      yield put(WSActions.purgeDataCandles(exID, chanData))
-      break
-    }
+    // case 'candles': {
+    //   yield put(WSActions.purgeDataCandles(chanData))
+    //   break
+    // }
 
     case 'book': {
-      yield put(WSActions.purgeDataBook(exID, chanData))
+      yield put(WSActions.purgeDataBook(chanData))
       break
     }
 

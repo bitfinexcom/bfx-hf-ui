@@ -1,39 +1,38 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import Dropdown from '../../ui/Dropdown'
-import TimeFrames from '../../util/time_frames'
-import { propTypes, defaultProps } from './TimeFrameDropdown.props'
+import timeFrames from '../../util/time_frames'
 
-import './style.css'
+const TimeFrameDropdown = ({ tf, onChange }) => {
+  const options = []
+  const tfLabels = Object.keys(timeFrames)
 
-export default class TimeFrameDropdown extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
-
-  render() {
-    const { exID, tf, onChange } = this.props
-    const options = []
-    const tfLabels = Object.keys(TimeFrames[exID] || {})
-
-    for (let i = 0; i < tfLabels.length; i += 1) {
-      options.push({
-        label: tfLabels[i],
-        value: TimeFrames[exID][tfLabels[i]],
-      })
-    }
-
-    return (
-      <div className='hfui-backtester__executionform'>
-        <div className='hfui-backtester__executiondropdown input-label'>
-          <Dropdown
-            key='tf-dropdown'
-            fallback='Select a time frame'
-            onChange={onChange}
-            value={tf}
-            options={options}
-          />
-        </div>
-      </div>
-    )
+  for (let i = 0; i < tfLabels.length; ++i) {
+    options.push({
+      label: tfLabels[i],
+      value: timeFrames[tfLabels[i]],
+    })
   }
+
+  return (
+    <div className='hfui-backtester__executionform'>
+      <div className='hfui-backtester__executiondropdown input-label'>
+        <Dropdown
+          key='tf-dropdown'
+          fallback='Select a time frame'
+          onChange={onChange}
+          value={tf}
+          options={options}
+        />
+      </div>
+    </div>
+  )
 }
+
+TimeFrameDropdown.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  tf: PropTypes.string.isRequired,
+}
+
+export default TimeFrameDropdown

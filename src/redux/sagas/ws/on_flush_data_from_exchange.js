@@ -13,15 +13,12 @@ export default function* (action = {}) {
   // TODO: Buffer all updates (see trades below)
   for (let i = 0; i < updates.length; i += 1) {
     const {
-      exID,
       chanID,
       data,
       rawData,
     } = updates[i]
-    const channel = yield select(getChannelByID, exID, chanID)
-
-    // eslint-disable-next-line
-    if (!channel) continue
+    const channel = yield select(getChannelByID, chanID)
+    if (!channel) continue // eslint-disable-line
 
     const [type] = channel
 
@@ -34,20 +31,19 @@ export default function* (action = {}) {
 
     switch (type) {
       case 'ticker': {
-        yield put(A.recvDataTicker(exID, channel, preparedData))
+        yield put(A.recvDataTicker(channel, preparedData))
         break
       }
 
       case 'trades': { // buffer trade updates
-        if (!tradeUpdates[exID]) tradeUpdates[exID] = {}
-        if (!tradeUpdates[exID][chanID]) tradeUpdates[exID][chanID] = []
+        if (!tradeUpdates[chanID]) tradeUpdates[chanID] = []
 
-        tradeUpdates[exID][chanID].push(preparedData)
+        tradeUpdates[chanID].push(preparedData)
         break
       }
 
       case 'book': {
-        yield put(A.recvDataBook(exID, channel, preparedData))
+        yield put(A.recvDataBook(channel, preparedData))
         break
       }
 
@@ -58,20 +54,18 @@ export default function* (action = {}) {
   }
 
   const tradeExchanges = Object.keys(tradeUpdates)
-  let exID
   let chanID
 
   for (let i = 0; i < tradeExchanges.length; i += 1) {
-    exID = tradeExchanges[i]
-    const exChannels = Object.keys(tradeUpdates[exID])
+    const exChannels = Object.keys(tradeUpdates)
 
     for (let j = 0; j < exChannels.length; j += 1) {
       chanID = exChannels[j]
-      const channel = yield select(getChannelByID, exID, chanID)
+      const channel = yield select(getChannelByID, chanID)
 
-      tradeUpdates[exID][chanID].sort((a, b) => b.mts - a.mts)
+      tradeUpdates[chanID].sort((a, b) => b.mts - a.mts)
 
-      yield put(A.recvDataTrades(exID, channel, tradeUpdates[exID][chanID]))
+      yield put(A.recvDataTrades(channel, tradeUpdates[chanID]))
     }
   }
 }

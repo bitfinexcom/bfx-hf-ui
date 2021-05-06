@@ -2,40 +2,31 @@ import { connect } from 'react-redux'
 import { prepareAmount } from 'bfx-api-node-util'
 import Debug from 'debug'
 
-import { getAuthToken } from '../../redux/selectors/ws'
-import BFXOrders from '../../orders/bitfinex'
+import { getAuthToken, getAllPositions } from '../../redux/selectors/ws'
+import orders from '../../orders'
 import WSActions from '../../redux/actions/ws'
 import UIActions from '../../redux/actions/ui'
 import PositionsTable from './PositionsTable'
 
 const debug = Debug('hfui:c:positions-table')
 
-const mapStateToProps = (state = {}, ownProps = {}) => ({ // eslint-disable-line
+const mapStateToProps = (state = {}) => ({
   authToken: getAuthToken(state),
-  positions: state.ws.positions,
+  positions: getAllPositions(state),
 })
 
 const mapDispatchToProps = dispatch => ({
-  closePosition: (exID, authToken, position = {}) => {
-    switch (exID) {
-      case 'bitfinex': {
-        const { symbol, amount, basePrice } = position
-        const { generateOrder } = BFXOrders.Market()
+  closePosition: (authToken, position = {}) => {
+    const { symbol, amount, basePrice } = position
+    const { generateOrder } = orders.Market()
 
-        const packet = generateOrder({
-          amount: prepareAmount(-1 * amount),
-          reduceonly: true,
-        }, symbol, 'm')
+    const packet = generateOrder({
+      amount: prepareAmount(-1 * amount),
+      reduceonly: true,
+    }, symbol, 'm')
 
-        debug('closing position on %s %f @ %f', symbol, amount, basePrice)
-        dispatch(WSActions.send(['order.submit', authToken, exID, packet]))
-        break
-      }
-
-      default: {
-        debug('closePosition unimplemented for %s', exID)
-      }
-    }
+    debug('closing position on %s %f @ %f', symbol, amount, basePrice)
+    dispatch(WSActions.send(['order.submit', authToken, 'bitfinex', packet]))
   },
   setFilteredValueWithKey: (key, value) => {
     dispatch(UIActions.setFilteredValueWithKey(key, value))

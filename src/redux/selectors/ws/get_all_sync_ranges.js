@@ -7,7 +7,7 @@ export default (state) => {
   const syncKeys = Object.keys(_get(state, `${path}.candles.syncs`, {}))
 
   return syncKeys.map((key) => {
-    const [exID, symbol, tf] = key.split(':')
-    return { exID, symbol, tf }
+    const [, symbol, tf] = key.split(':')
+    return { symbol, tf }
   })
 }
