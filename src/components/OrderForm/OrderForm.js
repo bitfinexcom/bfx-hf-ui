@@ -317,7 +317,7 @@ export default class OrderForm extends React.Component {
     const {
       onRemove, orders, apiClientState, apiCredentials, moveable, removeable,
       showMarket, favoritePairs, savePairs, authToken, onChangeMarket, markets,
-      activeMarket, mode, isPaperTrading, isOrderExecuting
+      activeMarket, mode, isPaperTrading, isOrderExecuting,
     } = this.props
 
     const {

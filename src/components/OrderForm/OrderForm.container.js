@@ -11,7 +11,7 @@ import {
   getAPIClientState, getAuthToken, getAPICredentials,
 } from '../../redux/selectors/ws'
 import {
-  getComponentState, getActiveMarket, getCurrentMode, getIsPaperTrading, getIsOrderExecuting
+  getComponentState, getActiveMarket, getCurrentMode, getIsPaperTrading, getIsOrderExecuting,
 } from '../../redux/selectors/ui'
 
 const debug = Debug('hfui:c:order-form')
