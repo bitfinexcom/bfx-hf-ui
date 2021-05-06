@@ -1,8 +1,6 @@
 @import '../../variables.scss';
 
 .hfui-tradingstatepanel__wrapper {
-  border: 1px solid $panel-background-color;
-
   .hfui-tspanel-counter {
     padding: 1px 6px;
     margin-left: 4px;
@@ -49,6 +47,10 @@
         border-bottom: 2px solid $green-color;
       }
     }
+  }
+
+  .hfui-panel__content {
+    background: $panel-background-color;
   }
 
   .hfui-panel .hfui-panel__label {

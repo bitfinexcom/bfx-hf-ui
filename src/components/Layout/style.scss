@@ -7,7 +7,7 @@
   flex-direction: column;
 }
 
-.main {
+.layout__main {
   flex-grow: 1;
   padding: spacing(1.25);
   padding-top: 0;
@@ -17,13 +17,13 @@
   }
 }
 
-.header,
-.main,
-.footer {
+.layout__header,
+.layout__main,
+.layout__footer {
   display: block;
 }
 
-.header,
-.footer {
+.layout__header,
+.layout__footer {
   flex-shrink: 0;
 }

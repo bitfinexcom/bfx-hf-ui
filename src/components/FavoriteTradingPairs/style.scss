@@ -12,7 +12,7 @@
     flex-shrink: 0;
     text-transform: uppercase;
     color: $green-color;
-    padding: 0 10px;
+    padding: 0 spacing(1, true);
 }
 
 .hfui-favoritepair__content {
@@ -20,7 +20,7 @@
     flex-wrap: wrap;
     min-height: 82px;
     max-height: 150px;
-    padding: 10px;
+    padding: spacing(1, true);
     padding-bottom: 0;
     overflow-y: auto;
 }
@@ -38,7 +38,7 @@
     font-size: .7em;
     color: $white-color;
     display: flex;
-    padding: 10px;
+    padding: spacing(1, true);
     svg {
         margin-right: 4px;
     }
