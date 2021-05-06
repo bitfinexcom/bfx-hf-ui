@@ -22,15 +22,8 @@ const HFUI = ({
   getFavoritePairs,
   currentMode,
   GAPageview,
-  getLastVersion,
   currentPage,
 }) => {
-  useEffect(() => {
-    const oneHour = 360000
-    getLastVersion()
-    setInterval(getLastVersion(), oneHour)
-  }, [])
-
   useEffect(() => {
     GAPageview(currentPage)
   }, [currentPage])
@@ -71,7 +64,6 @@ HFUI.propTypes = {
   getFavoritePairs: PropTypes.func.isRequired,
   notificationsVisible: PropTypes.bool.isRequired,
   GAPageview: PropTypes.func.isRequired,
-  getLastVersion: PropTypes.func.isRequired,
   currentPage: PropTypes.string.isRequired,
 }
 
