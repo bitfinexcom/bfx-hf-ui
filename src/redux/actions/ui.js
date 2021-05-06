@@ -37,11 +37,6 @@ const setActiveMarket = market => ({
   },
 })
 
-const setActiveExchange = (exchange, market) => ({
-  type: types.SET_ACTIVE_EXCHANGE,
-  payload: { exchange, market },
-})
-
 const setFilteredValueWithKey = (key, value) => ({
   type: types.SET_FILTRED_VALUE,
   payload: {
@@ -157,7 +152,6 @@ export default {
   setActiveMarket,
   saveComponentState,
   updateComponentState,
-  setActiveExchange,
   saveRemoteVersion,
   closeNotificationPanel,
   openNotifcationPanel,

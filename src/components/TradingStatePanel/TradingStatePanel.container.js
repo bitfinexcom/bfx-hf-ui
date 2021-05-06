@@ -10,7 +10,6 @@ import {
 import {
   getActiveMarket,
   getComponentState,
-  getActiveExchange,
   getPositionsCount,
   getAlgoOrdersCount,
   getAtomicOrdersCount,
@@ -22,7 +21,6 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
   const { layoutID, layoutI: id } = ownProps
 
   return {
-    activeExchange: getActiveExchange(state),
     activeMarket: getActiveMarket(state),
     savedState: getComponentState(state, layoutID, 'trading-state', id),
     algoOrders: getAlgoOrders(state),

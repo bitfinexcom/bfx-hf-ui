@@ -1,16 +1,13 @@
 import { connect } from 'react-redux'
 
 import UIActions from '../../redux/actions/ui'
-import {
-  getLayouts, getActiveMarket, getActiveExchange,
-} from '../../redux/selectors/ui'
+import { getLayouts, getActiveMarket } from '../../redux/selectors/ui'
 
 import GridLayoutPage from './GridLayoutPage'
 
 const mapStateToProps = (state = {}) => ({
   layouts: getLayouts(state),
   activeMarket: getActiveMarket(state),
-  exID: getActiveExchange(state),
 })
 
 const mapDispatchToProps = dispatch => ({

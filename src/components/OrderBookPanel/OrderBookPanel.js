@@ -32,13 +32,12 @@ const {
 const OrderBookPanel = (props) => {
   const {
     onRemove, showMarket, canChangeStacked, moveable,
-    removeable, dark, savedState, activeExchange, activeMarket,
-    allMarkets, canChangeMarket, layoutID, layoutI, updateState, isTradingTerminal, allMarketBooks,
+    removeable, dark, savedState, activeMarket,
+    markets, canChangeMarket, layoutID, layoutI, updateState, isTradingTerminal, allMarketBooks,
   } = props
   const {
     sumAmounts = true,
     stackedView = true,
-    currentExchange = activeExchange,
     currentMarket = activeMarket,
   } = savedState
   const bookMarket = isTradingTerminal ? activeMarket : currentMarket
@@ -115,20 +114,16 @@ const OrderBookPanel = (props) => {
     saveState('currentMarket', market)
   }
 
-  const renderMarketDropdown = () => {
-    const markets = allMarkets[currentExchange] || []
-
-    return (
-      <MarketSelect
-        key='market-dropdown'
-        disabled={!canChangeMarket}
-        onChange={onChangeMarket}
-        value={currentMarket}
-        markets={markets}
-        renderWithFavorites
-      />
-    )
-  }
+  const renderMarketDropdown = () => (
+    <MarketSelect
+      key='market-dropdown'
+      disabled={!canChangeMarket}
+      onChange={onChangeMarket}
+      value={currentMarket}
+      markets={markets}
+      renderWithFavorites
+    />
+  )
 
   const handleOnRemove = (...args) => {
     unSubscribeWSChannel(symbol)
@@ -160,12 +155,12 @@ const OrderBookPanel = (props) => {
               onChange={onChangeSumAmounts}
             />,
             canChangeStacked && (
-            <Checkbox
-              key='stacked-view'
-              label='Stacked View'
-              value={stackedView}
-              onChange={onChangeStackedView}
-            />
+              <Checkbox
+                key='stacked-view'
+                label='Stacked View'
+                value={stackedView}
+                onChange={onChangeStackedView}
+              />
             ),
           ]}
         />
@@ -182,7 +177,7 @@ const OrderBookPanel = (props) => {
           tAsks={tAsks}
           tBids={tBids}
           loading={!snapshotReceived}
-          // ufx-ui/book props end
+        // ufx-ui/book props end
         />
       )}
     </Panel>
@@ -197,9 +192,8 @@ OrderBookPanel.propTypes = {
   removeable: PropTypes.bool,
   savedState: PropTypes.object,
   dark: PropTypes.bool,
-  activeExchange: PropTypes.string.isRequired,
   activeMarket: PropTypes.object.isRequired,
-  allMarkets: PropTypes.object.isRequired,
+  markets: PropTypes.array.isRequired,
   canChangeMarket: PropTypes.bool.isRequired,
   layoutID: PropTypes.string.isRequired,
   layoutI: PropTypes.string.isRequired,

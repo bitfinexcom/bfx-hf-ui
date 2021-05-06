@@ -7,7 +7,7 @@ import trades from './trades'
 import tickers from './tickers'
 import channels from './channels'
 import strategies from './strategies'
-import apiClients from './api_clients'
+import apiClient from './api_client'
 import positions from './positions'
 import balances from './balances'
 import orders from './orders'
@@ -23,7 +23,7 @@ export default combineReducers({
   balances,
   orders,
   orderHistory,
-  apiClients,
+  apiClient,
   strategies,
   tickers,
   trades,

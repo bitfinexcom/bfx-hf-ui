@@ -1,5 +1,4 @@
 import React from 'react'
-import _capitalize from 'lodash/capitalize'
 
 import OrderFormModal from '../../OrderFormModal'
 import { propTypes, defaultProps } from './UnconfiguredModal.props'
@@ -9,7 +8,7 @@ export default class UnconfiguredModal extends React.PureComponent {
   static defaultProps = defaultProps
 
   render() {
-    const { onClick, exID, isPaperTrading } = this.props
+    const { onClick, isPaperTrading } = this.props
 
     return (
       <OrderFormModal
@@ -21,8 +20,7 @@ export default class UnconfiguredModal extends React.PureComponent {
           <p key='a' className='underline'>
             Submit
             {isPaperTrading ? ' Paper Trading ' : ' '}
-            API keys for
-            {` ${_capitalize(exID)}`}
+            API keys
           </p>,
         ]}
       />

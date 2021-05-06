@@ -1,27 +1,26 @@
 import React from 'react'
-import AtomicOrdersTableColumns from './AtomicOrdersTable.columns'
+import PropTypes from 'prop-types'
 
-import { propTypes, defaultProps } from './AtomicOrdersTable.props'
+import AtomicOrdersTableColumns from './AtomicOrdersTable.columns'
 import Table from '../../ui/Table'
 import './style.css'
 
-export default class AtomicOrdersTable extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+const AtomicOrdersTable = ({
+  filteredAtomicOrders: orders, cancelOrder, authToken, gaCancelOrder,
+}) => (
+  <Table
+    data={orders}
+    columns={AtomicOrdersTableColumns(authToken, cancelOrder, gaCancelOrder)}
+    defaultSortBy='mts'
+    defaultSortDirection='ASC'
+  />
+)
 
-  render() {
-    const {
-      exID, filteredAtomicOrders: orders, cancelOrder, authToken, gaCancelOrder,
-    } = this.props
-
-    return (
-      <Table
-        data={orders}
-        columns={AtomicOrdersTableColumns(exID, authToken, cancelOrder, gaCancelOrder)}
-        onRowClick={this.onRowClick}
-        defaultSortBy='mts'
-        defaultSortDirection='ASC'
-      />
-    )
-  }
+AtomicOrdersTable.propTypes = {
+  authToken: PropTypes.string.isRequired,
+  filteredAtomicOrders: PropTypes.arrayOf(PropTypes.object).isRequired,
+  cancelOrder: PropTypes.func.isRequired,
+  gaCancelOrder: PropTypes.func.isRequired,
 }
+
+export default AtomicOrdersTable

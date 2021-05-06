@@ -33,10 +33,8 @@ export default (alias, store) => (e = {}) => {
   }
 
   if (hasDataUpdates) {
-    const exID = 'bitfinex'
-    const chanID = payload[0]
-    const exData = payload[1]
-    store.dispatch(WSActions.bufferDataFromExchange(exID, chanID, null, exData))
+    const [chanID, exData] = payload
+    store.dispatch(WSActions.bufferDataFromExchange(chanID, null, exData))
   }
 
   if (_isArray(payload)) {
@@ -47,14 +45,9 @@ export default (alias, store) => (e = {}) => {
         break
       }
 
-      case 'info.exchanges': {
-        store.dispatch(WSActions.recvDataExchanges(payload[1]))
-        break
-      }
-
       case 'info.markets': {
-        const [, ecxhangeID, markets] = payload
-        store.dispatch(WSActions.recvDataMarkets(ecxhangeID, markets))
+        const [,, markets] = payload
+        store.dispatch(WSActions.recvDataMarkets(markets))
         break
       }
 
@@ -72,29 +65,29 @@ export default (alias, store) => (e = {}) => {
       }
 
       case 'subscribed': {
-        const [, exID, chanID, chanData] = payload
-        store.dispatch(WSActions.subscribed({ exID, chanID, chanData }))
+        const [,, chanID, chanData] = payload
+        store.dispatch(WSActions.subscribed({ chanID, chanData }))
         break
       }
 
       case 'data': {
-        const [, exID, chanID, exData] = payload
-        store.dispatch(WSActions.bufferDataFromExchange(exID, chanID, exData))
+        const [,, chanID, exData] = payload
+        store.dispatch(WSActions.bufferDataFromExchange(chanID, exData))
         break
       }
 
       case 'data.sync.start': {
-        const [, exID, symbol, tf, start, end] = payload
+        const [,, symbol, tf, start, end] = payload
         store.dispatch(WSActions.recvDataSyncStart({
-          exID, symbol, tf, start, end,
+          symbol, tf, start, end,
         }))
         break
       }
 
       case 'data.sync.end': {
-        const [, exID, symbol, tf, start, end] = payload
+        const [,, symbol, tf, start, end] = payload
         store.dispatch(WSActions.recvDataSyncEnd({
-          exID, symbol, tf, start, end,
+          symbol, tf, start, end,
         }))
         break
       }
@@ -148,8 +141,7 @@ export default (alias, store) => (e = {}) => {
       }
 
       case 'data.api_credentials.configured': {
-        const [, exID] = payload
-        store.dispatch(WSActions.recvAPICredentialsConfigured({ exID }))
+        store.dispatch(WSActions.recvAPICredentialsConfigured())
         break
       }
 
@@ -160,74 +152,74 @@ export default (alias, store) => (e = {}) => {
       }
 
       case 'data.client': {
-        const [, exID, status] = payload
-        store.dispatch(WSActions.recvClientStatusUpdate({ exID, status }))
+        const [,, status] = payload
+        store.dispatch(WSActions.recvClientStatusUpdate({ status }))
         break
       }
 
       case 'data.positions': {
-        const [, exID, positions] = payload
-        store.dispatch(WSActions.recvPositions({ exID, positions }))
+        const [,, positions] = payload
+        store.dispatch(WSActions.recvPositions({ positions }))
         break
       }
 
       case 'data.position': {
-        const [, exID, position] = payload
-        store.dispatch(WSActions.recvPosition({ exID, position }))
+        const [,, position] = payload
+        store.dispatch(WSActions.recvPosition({ position }))
         break
       }
 
       case 'data.position.close': {
-        const [, exID, position] = payload
-        store.dispatch(WSActions.recvPositionClose({ exID, position }))
+        const [,, position] = payload
+        store.dispatch(WSActions.recvPositionClose({ position }))
         break
       }
 
       case 'data.balances': {
-        const [, exID, balances] = payload
-        store.dispatch(WSActions.recvBalances({ exID, balances }))
+        const [,, balances] = payload
+        store.dispatch(WSActions.recvBalances({ balances }))
         break
       }
 
       case 'data.balance': {
-        const [, exID, balance] = payload
-        store.dispatch(WSActions.recvBalance({ exID, balance }))
+        const [,, balance] = payload
+        store.dispatch(WSActions.recvBalance({ balance }))
         break
       }
 
       case 'data.orders': {
-        const [, exID, orders] = payload
-        store.dispatch(WSActions.recvOrders({ exID, orders }))
+        const [,, orders] = payload
+        store.dispatch(WSActions.recvOrders({ orders }))
         break
       }
 
       case 'data.order': {
-        const [, exID, order] = payload
-        store.dispatch(WSActions.recvOrder({ exID, order }))
+        const [,, order] = payload
+        store.dispatch(WSActions.recvOrder({ order }))
         break
       }
 
       case 'data.order.close': {
-        const [, exID, order] = payload
-        store.dispatch(WSActions.recvOrderClose({ exID, order }))
+        const [,, order] = payload
+        store.dispatch(WSActions.recvOrderClose({ order }))
         break
       }
 
       case 'data.aos': {
-        const [, exID, aos] = payload
-        store.dispatch(WSActions.recvDataAlgoOrders({ exID, aos }))
+        const [,, aos] = payload
+        store.dispatch(WSActions.recvDataAlgoOrders({ aos }))
         break
       }
 
       case 'data.ao': {
-        const [, exID, ao] = payload
-        store.dispatch(WSActions.recvDataAlgoOrder({ exID, ao }))
+        const [,, ao] = payload
+        store.dispatch(WSActions.recvDataAlgoOrder({ ao }))
         break
       }
 
       case 'data.ao.stopped': {
-        const [, exID, gid] = payload
-        store.dispatch(WSActions.recvDataAlgoOrderStopped({ exID, gid }))
+        const [,, gid] = payload
+        store.dispatch(WSActions.recvDataAlgoOrderStopped({ gid }))
         break
       }
 

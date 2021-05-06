@@ -1,10 +1,8 @@
-import _keyBy from 'lodash/keyBy'
-
 import types from '../../constants/ws'
 import { balanceAdapter } from '../../adapters/ws'
 
 function getInitialState() {
-  return {}
+  return []
 }
 
 function reducer(state = getInitialState(), action = {}) {
@@ -12,25 +10,19 @@ function reducer(state = getInitialState(), action = {}) {
 
   switch (type) {
     case types.DATA_BALANCES: {
-      const { exID, balances = [] } = payload
+      const { balances = [] } = payload
 
-      return {
-        ...state,
-        [exID]: _keyBy(balances.map(b => balanceAdapter(b, exID)), p => p.currency),
-      }
+      return balances.map(balanceAdapter)
     }
 
     case types.DATA_BALANCE: {
-      const { exID, balance = [] } = payload
-      const adaptedBalance = balanceAdapter(balance, exID)
+      const { balance = [] } = payload
+      const adaptedBalance = balanceAdapter(balance)
 
-      return {
+      return [
         ...state,
-        [exID]: {
-          ...(state[exID] || {}),
-          [adaptedBalance.currency]: adaptedBalance,
-        },
-      }
+        adaptedBalance,
+      ]
     }
 
     case types.DEAUTH: {

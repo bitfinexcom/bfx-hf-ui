@@ -4,8 +4,7 @@ const positionAdapter = (data = []) => {
   return new Position(data).toJS()
 }
 
-const balanceAdapter = (data = [], exID) => ({
-  exID,
+const balanceAdapter = (data = []) => ({
   currency: data[0],
   context: data[1],
   balance: data[2],

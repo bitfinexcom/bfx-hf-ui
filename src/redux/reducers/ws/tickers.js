@@ -9,17 +9,13 @@ export default function (state = getInitialState(), action = {}) {
 
   switch (type) {
     case t.DATA_TICKER: {
-      const { exID, channel, ticker = {} } = payload
+      const { channel, ticker = {} } = payload
       const [, market] = channel
       const symbol = market.restID
 
       return {
         ...state,
-
-        [exID]: {
-          ...(state[exID] || {}),
-          [symbol]: ticker,
-        },
+        [symbol]: ticker,
       }
     }
 

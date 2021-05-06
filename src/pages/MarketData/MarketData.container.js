@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import {
-  getLayouts, getActiveMarket, getActiveExchange, getFirstLogin,
+  getLayouts, getActiveMarket, getFirstLogin,
   getGuideStatusForPage,
 } from '../../redux/selectors/ui'
 import { MARKET_PAGE } from '../../redux/constants/ui'
@@ -11,10 +11,8 @@ import MarketData from './MarketData'
 const mapStateToProps = (state = {}) => ({
   layouts: getLayouts(state),
   activeMarket: getActiveMarket(state),
-  exID: getActiveExchange(state),
   firstLogin: getFirstLogin(state),
   isGuideActive: getGuideStatusForPage(state, MARKET_PAGE),
-
 })
 
 const mapDispatchToProps = dispatch => ({

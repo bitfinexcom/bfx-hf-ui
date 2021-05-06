@@ -73,6 +73,7 @@ NumberInput.propTypes = {
       PropTypes.string,
       PropTypes.object,
       PropTypes.number,
+      PropTypes.bool,
     ]),
   ),
   renderData: PropTypes.objectOf(PropTypes.string),
