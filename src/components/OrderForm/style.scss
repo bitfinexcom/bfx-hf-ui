@@ -3,6 +3,12 @@
 .hfui-orderform__wrapper {
   height: 100%;
 
+  *,
+  ::before,
+  ::after {
+    box-sizing: content-box;
+  }
+
   input {
     background: $background-color;
   }
