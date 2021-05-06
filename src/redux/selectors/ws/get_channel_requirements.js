@@ -4,7 +4,7 @@ import getChannelRequirementKey from '../../helpers/get_channel_req_key'
 
 const path = REDUCER_PATHS.WS
 
-export default (state, exID, channel = []) => {
+export default (state, channel = []) => {
   const key = getChannelRequirementKey(channel)
-  return _get(state, `${path}.channelData.requirements.${exID}.${key}`, 0)
+  return _get(state, `${path}.channelData.requirements.${key}`, 0)
 }

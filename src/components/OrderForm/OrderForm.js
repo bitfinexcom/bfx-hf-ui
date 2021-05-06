@@ -1,6 +1,6 @@
 import React from 'react'
-import _capitalize from 'lodash/capitalize'
 import _isEqual from 'lodash/isEqual'
+import _isEmpty from 'lodash/isEmpty'
 import _trim from 'lodash/trim'
 import ClassNames from 'classnames'
 import {
@@ -16,11 +16,9 @@ import {
   COMPONENTS_FOR_ID,
 } from './OrderForm.helpers'
 
-import nearestMarket from '../../util/nearest_market'
-import TIME_FRAMES_FOR_EXID from '../../util/time_frames'
+import timeFrames from '../../util/time_frames'
 
 import Panel from '../../ui/Panel'
-import Select from '../../ui/Select'
 import Dropdown from '../../ui/Dropdown'
 import Scrollbars from '../../ui/Scrollbars'
 import FavoriteTradingPairs from '../FavoriteTradingPairs'
@@ -57,30 +55,25 @@ export default class OrderForm extends React.Component {
   constructor(props) {
     super(props)
 
-    const { savedState = {}, activeMarket, activeExchange } = props
+    const { savedState = {}, activeMarket } = props
     const {
-      currentExchange = activeExchange, currentMarket = activeMarket,
-      exchangeDirty, marketDirty,
+      currentMarket = activeMarket,
+      marketDirty,
     } = savedState
 
-    const algoOrders = OrderForm.getAOs(currentExchange)
+    const algoOrders = OrderForm.getAOs()
 
     this.state = {
       ...this.state,
-
       algoOrders,
       currentMarket,
-      currentExchange,
-      exchangeDirty,
       marketDirty,
-
       fieldData: {},
       currentLayout: null,
       context: currentMarket.contexts[0],
     }
 
     this.onChangeActiveOrderLayout = this.onChangeActiveOrderLayout.bind(this)
-    this.onChangeExchange = this.onChangeExchange.bind(this)
     this.onChangeMarket = this.onChangeMarket.bind(this)
     this.onContextChange = this.onContextChange.bind(this)
     this.onFieldChange = this.onFieldChange.bind(this)
@@ -88,7 +81,6 @@ export default class OrderForm extends React.Component {
     this.onToggleHelp = this.onToggleHelp.bind(this)
     this.onToggleConfigureModal = this.onToggleConfigureModal.bind(this)
     this.onSubmitAPIKeys = this.onSubmitAPIKeys.bind(this)
-    this.onUnlock = this.onUnlock.bind(this)
     this.onClearOrderLayout = this.onClearOrderLayout.bind(this)
   }
 
@@ -96,7 +88,7 @@ export default class OrderForm extends React.Component {
     return !(_isEqual(nextProps, this.props)) || !(_isEqual(this.state, nextState))
   }
 
-  static getAOs(exID) {
+  static getAOs() {
     return [
       MACrossover,
       AccumulateDistribute,
@@ -105,27 +97,24 @@ export default class OrderForm extends React.Component {
       TWAP,
       OCOCO,
     ].map(ao => ao.meta.getUIDef({
-      timeframes: Object.values(TIME_FRAMES_FOR_EXID[exID]),
+      timeframes: Object.values(timeFrames),
     }))
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const { activeExchange, activeMarket } = nextProps
+    const { activeMarket } = nextProps
     const {
-      marketDirty, currentMarket, exchangeDirty, currentExchange,
+      marketDirty, currentMarket,
     } = prevState
 
-    if ((marketDirty || exchangeDirty) || (
-      activeMarket === currentMarket && activeExchange === currentExchange
-    )) {
+    if (marketDirty || (activeMarket === currentMarket)) {
       return {}
     }
 
-    const algoOrders = OrderForm.getAOs(activeExchange)
+    const algoOrders = OrderForm.getAOs()
 
     return {
       algoOrders,
-      currentExchange: activeExchange,
       currentMarket: activeMarket,
       context: activeMarket.contexts[0],
       fieldData: {},
@@ -149,22 +138,12 @@ export default class OrderForm extends React.Component {
     this.deferSaveState()
   }
 
-  onUnlock({ password }) {
-    const { unlockAPIKeys } = this.props
-    const { currentExchange } = this.state
-
-    unlockAPIKeys({ password, exID: currentExchange })
-  }
-
-  onSubmitAPIKeys({ apiKey, apiSecret, password }) {
+  onSubmitAPIKeys({ apiKey, apiSecret }) {
     const { submitAPIKeys, authToken, mode } = this.props
-    const { currentExchange } = this.state
     submitAPIKeys({
       authToken,
-      exID: currentExchange,
       apiKey,
       apiSecret,
-      password,
     }, mode)
   }
 
@@ -192,9 +171,8 @@ export default class OrderForm extends React.Component {
   }
 
   onChangeActiveOrderLayout(orderLabel) {
-    const { orders: allOrders } = this.props
-    const { currentExchange, currentMarket, algoOrders } = this.state
-    const orders = allOrders[currentExchange]
+    const { orders } = this.props
+    const { algoOrders, currentMarket } = this.state
 
     let uiDef = orders.find(({ label }) => label === orderLabel)
 
@@ -251,7 +229,7 @@ export default class OrderForm extends React.Component {
     }
 
     const {
-      currentLayout, fieldData, context, currentExchange, currentMarket,
+      currentLayout, fieldData, context, currentMarket,
     } = this.state
 
     const { submitOrder, authToken, gaSubmitOrder } = this.props
@@ -263,9 +241,8 @@ export default class OrderForm extends React.Component {
     })
 
     try {
-      const packet = generateOrder(data, currentMarket[currentExchange === 'bitfinex' ? 'wsID' : 'restID'], context)
+      const packet = generateOrder(data, currentMarket.wsID, context)
       submitOrder({
-        exID: currentExchange,
         authToken,
         packet,
       })
@@ -278,7 +255,7 @@ export default class OrderForm extends React.Component {
   onSubmitAlgoOrder() {
     const { submitAlgoOrder, authToken, gaSubmitAO } = this.props
     const {
-      currentExchange, currentMarket, currentLayout, fieldData, context,
+      currentMarket, currentLayout, fieldData, context,
     } = this.state
 
     const { id } = currentLayout
@@ -294,38 +271,7 @@ export default class OrderForm extends React.Component {
       context,
       authToken,
       market: currentMarket,
-      exID: currentExchange,
     })
-  }
-
-  onChangeExchange(option) {
-    const { value: exchange } = option
-    const { currentExchange, currentMarket } = this.state
-    const { allMarkets } = this.props
-
-    if (exchange === currentExchange) {
-      return
-    }
-
-    const markets = allMarkets[exchange] || []
-    const newMarket = nearestMarket(currentMarket, markets)
-
-    const algoOrders = OrderForm.getAOs(exchange)
-    const { orders } = this.props
-    const currentOrder = orders[exchange][0] || algoOrders[0]
-
-    this.setState(() => ({
-      algoOrders,
-      fieldData: defaultDataForLayout(currentOrder),
-      currentLayout: currentOrder,
-      currentExchange: exchange,
-      currentMarket: newMarket,
-      context: newMarket.c[0],
-      exchangeDirty: true,
-      marketDirty: true,
-    }))
-
-    this.deferSaveState()
   }
 
   deferSaveState() {
@@ -336,45 +282,17 @@ export default class OrderForm extends React.Component {
 
   saveState() {
     const { saveState, layoutID, layoutI } = this.props
-    const {
-      currentExchange, currentMarket, exchangeDirty, marketDirty,
-    } = this.state
+    const { currentMarket, marketDirty } = this.state
 
     saveState(layoutID, layoutI, {
-      currentExchange,
       currentMarket,
-      exchangeDirty,
       marketDirty,
     })
   }
 
-  renderExchangeDropdown() {
-    const { exchangeDirty, currentExchange } = this.state
-    const { exchanges, canChangeExchange } = this.props
-
-    return (
-      <Select
-        key='exchange-dropdown'
-        className={{ yellow: exchangeDirty }}
-        onChange={this.onChangeExchange}
-        disabled={!canChangeExchange}
-        value={{
-          label: _capitalize(currentExchange),
-          value: currentExchange,
-        }}
-        options={exchanges.map(ex => ({
-          label: _capitalize(ex),
-          value: ex,
-        }))}
-      />
-    )
-  }
-
   renderMarketDropdown() {
-    const { currentExchange, marketDirty, currentMarket } = this.state
-    const { allMarkets, canChangeMarket } = this.props
-
-    const markets = allMarkets[currentExchange] || []
+    const { marketDirty, currentMarket } = this.state
+    const { markets, canChangeMarket } = this.props
 
     return (
       <MarketSelect
@@ -390,26 +308,24 @@ export default class OrderForm extends React.Component {
 
   render() {
     const {
-      onRemove, orders, apiClientStates, apiCredentials, moveable, removeable,
-      showExchange, showMarket, favoritePairs, savePairs, authToken, onChangeMarket, allMarkets,
-      activeExchange, activeMarket, mode, isPaperTrading,
+      onRemove, orders, apiClientState, apiCredentials, moveable, removeable,
+      showMarket, favoritePairs, savePairs, authToken, onChangeMarket, markets,
+      activeMarket, mode, isPaperTrading,
     } = this.props
 
     const {
       fieldData, validationErrors, creationError, context, currentLayout,
-      helpOpen, configureModalOpen, currentExchange, currentMarket, algoOrders,
+      helpOpen, configureModalOpen, currentMarket, algoOrders,
     } = this.state
 
-    const apiClientState = apiClientStates[currentExchange]
     const apiClientConnected = apiClientState === 2
     const apiClientConnecting = apiClientState === 1
-    const apiClientDisconnected = !apiClientState
-    const apiClientConfigured = !!(apiCredentials || {})[currentExchange]
+    const apiClientConfigured = !_isEmpty(apiCredentials)
     const renderData = marketToQuoteBase(currentMarket)
     const atomicOrderTypes = []
     const algoOrderTypes = []
 
-    orders[currentExchange].forEach(({ label, id, uiIcon }) => atomicOrderTypes.push({
+    orders.forEach(({ label, id, uiIcon }) => atomicOrderTypes.push({
       id,
       label,
       uiIcon,
@@ -423,13 +339,11 @@ export default class OrderForm extends React.Component {
       })
     })
 
-    // NOTE: Margin trading disabled on Binance
     return (
       <>
         <FavoriteTradingPairs
-          allMarkets={allMarkets}
+          markets={markets}
           currentMarket={activeMarket}
-          exchange={activeExchange}
           onSelect={onChangeMarket}
           savePairs={(props) => savePairs(props, authToken, mode)}
           favoritePairs={favoritePairs}
@@ -444,7 +358,6 @@ export default class OrderForm extends React.Component {
           removeable={removeable}
           onRemove={onRemove}
           headerComponents={[
-            showExchange && this.renderExchangeDropdown(),
             showMarket && this.renderMarketDropdown(),
           ]}
           extraIcons={(
@@ -462,10 +375,9 @@ export default class OrderForm extends React.Component {
         >
           <div key='orderform-wrapper' className='hfui-orderform__wrapper'>
             {[
-              apiClientDisconnected && !apiClientConfigured && !configureModalOpen && (
+              !apiClientConnected && !apiClientConfigured && !configureModalOpen && (
                 <UnconfiguredModal
                   key='unconfigured'
-                  exID={currentExchange}
                   onClick={this.onToggleConfigureModal}
                   isPaperTrading={isPaperTrading}
                 />
@@ -476,7 +388,6 @@ export default class OrderForm extends React.Component {
                   key='submit-api-keys'
                   onClose={this.onToggleConfigureModal}
                   onSubmit={this.onSubmitAPIKeys}
-                  exID={currentExchange}
                   apiClientConnecting={apiClientConnecting}
                   isPaperTrading={isPaperTrading}
                 />
@@ -532,9 +443,7 @@ export default class OrderForm extends React.Component {
                     value={context}
                     key='dropdown-orderform'
                     onChange={this.onContextChange}
-                    options={currentMarket.contexts.filter(ctx => (
-                      currentExchange === 'bitfinex' || ctx !== 'm'
-                    )).map(ctx => ({
+                    options={currentMarket.contexts.map(ctx => ({
                       label: CONTEXT_LABELS[ctx],
                       value: ctx,
                     }))}

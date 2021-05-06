@@ -1,10 +1,8 @@
-import _keyBy from 'lodash/keyBy'
-
 import types from '../../constants/ws'
 import { positionAdapter } from '../../adapters/ws'
 
 function getInitialState() {
-  return {}
+  return []
 }
 
 function reducer(state = getInitialState(), action = {}) {
@@ -12,36 +10,25 @@ function reducer(state = getInitialState(), action = {}) {
 
   switch (type) {
     case types.DATA_POSITIONS: {
-      const { exID, positions = [] } = payload
+      const { positions = [] } = payload
 
-      return {
-        ...state,
-        [exID]: _keyBy(positions.map(positionAdapter), p => p.symbol),
-      }
+      return positions.map(positionAdapter)
     }
 
     case types.DATA_POSITION: {
-      const { exID, position = [] } = payload
+      const { position = [] } = payload
 
-      return {
+      return [
         ...state,
-
-        [exID]: {
-          ...(state[exID] || {}),
-          ..._keyBy([positionAdapter(position)], p => p.symbol),
-        },
-      }
+        positionAdapter(position),
+      ]
     }
 
     case types.DATA_POSITION_CLOSE: {
-      const { exID, position = [] } = payload
+      const { position = [] } = payload
       const p = positionAdapter(position)
-      const { [p.symbol]: _, ...remainingPositions } = (state[exID] || {})
 
-      return {
-        ...state,
-        [exID]: remainingPositions,
-      }
+      return state.filter(pos => pos.symbol !== p.symbol)
     }
 
     case types.DEAUTH: {

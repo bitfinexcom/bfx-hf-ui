@@ -6,7 +6,7 @@ import Layout from '../../components/Layout'
 import OrderForm from '../../components/OrderForm'
 import ExchangeInfoBarButton from '../../components/ExchangeInfoBar/ExchangeInfoBar.Button'
 
-import BitfinexOrders from '../../orders/bitfinex'
+import ordersList from '../../orders'
 import GridLayoutPage from '../../components/GridLayoutPage'
 import ActiveAlgoOrdersModal from '../../components/ActiveAlgoOrdersModal'
 
@@ -15,9 +15,7 @@ import RefillBalanceModal from '../../components/RefillBalanceModal'
 import './style.css'
 
 const LAYOUT_ID = '__hfui_trading_page'
-const orderDefinitions = {
-  bitfinex: Object.values(BitfinexOrders).map(uiDef => uiDef()),
-}
+const orders = Object.values(ordersList).map(uiDef => uiDef())
 
 export default class Trading extends React.PureComponent {
   static propTypes = {
@@ -89,11 +87,9 @@ export default class Trading extends React.PureComponent {
       moveable: true,
       removeable: true,
       showMarket: false,
-      showExchange: false,
       layoutID: LAYOUT_ID,
       showChartMarket: false,
       canChangeMarket: false,
-      canChangeExchange: false,
     }
 
     return (
@@ -128,7 +124,7 @@ export default class Trading extends React.PureComponent {
               layoutI='orderform'
               moveable={false}
               removeable={false}
-              orders={orderDefinitions}
+              orders={orders}
             />
           </div>
           <div className='hfui-tradingpage__column center'>

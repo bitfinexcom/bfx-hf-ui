@@ -22,57 +22,46 @@ export default function (state = getInitialState(), action = {}) {
     }
 
     case types.SUBSCRIBED: {
-      const { exID, chanID, chanData } = payload
+      const { chanID, chanData } = payload
 
       return {
         ...state,
         channels: {
           ...state.channels,
-
-          [exID]: {
-            ...(state.channels[exID] || {}),
-            [`${chanID}`]: chanData,
-          },
+          [chanID]: chanData,
         },
       }
     }
 
     case types.UNSUBSCRIBED: {
-      const { exID, chanId } = payload
-      const channelsForExchange = state.channels[exID] || {}
-      const { [chanId]: _, ...remainingChannels } = channelsForExchange
+      const { chanId } = payload
+      const channelsForExchange = state.channels || {}
+      const { [chanId]: _, ...channels } = channelsForExchange
 
       return {
         ...state,
-        channels: {
-          ...state.channels,
-          [exID]: remainingChannels,
-        },
+        channels,
       }
     }
 
     case types.ADD_CHANNEL_REQUIREMENT: {
-      const { exID, channel } = payload
+      const { channel } = payload
       const key = getChannelRequirementKey(channel)
-      const requirements = (state.requirements[exID] || {})[key] || 0
+      const requirements = (state.requirements || {})[key] || 0
 
       return {
         ...state,
         requirements: {
           ...state.requirements,
-
-          [exID]: {
-            ...(state.requirements[exID] || {}),
-            [key]: requirements + 1,
-          },
+          [key]: requirements + 1,
         },
       }
     }
 
     case types.REMOVE_CHANNEL_REQUIREMENT: {
-      const { exID, channel } = payload
+      const { channel } = payload
       const key = getChannelRequirementKey(channel)
-      const requirements = (state.requirements[exID] || {})[key]
+      const requirements = (state.requirements || {})[key]
 
       if (!_isFinite(requirements)) {
         return state
@@ -82,11 +71,7 @@ export default function (state = getInitialState(), action = {}) {
         ...state,
         requirements: {
           ...state.requirements,
-
-          [exID]: {
-            ...(state.requirements[exID] || {}),
-            [key]: requirements - 1,
-          },
+          [key]: requirements - 1,
         },
       }
     }

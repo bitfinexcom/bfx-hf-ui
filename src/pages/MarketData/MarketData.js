@@ -35,10 +35,8 @@ export default class MarketData extends React.PureComponent {
       dark: true,
       darkHeader: true,
       showMarket: true,
-      showExchange: true,
       canChangeMarket: true,
       showChartMarket: true,
-      canChangeExchange: true,
     }
     const { steps } = this.state
     const { isGuideActive, firstLogin } = this.props

@@ -4,5 +4,5 @@ import { REDUCER_PATHS } from '../../config'
 const path = REDUCER_PATHS.WS
 
 export default (state) => {
-  return _get(state, `${path}.apiClients.bitfinex`, 0) === 2
+  return _get(state, `${path}.apiClient`, 0) === 2
 }

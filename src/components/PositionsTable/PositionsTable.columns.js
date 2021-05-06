@@ -1,7 +1,7 @@
 import React from 'react'
 import { preparePrice, prepareAmount } from 'bfx-api-node-util'
 
-export default ({ exID, authToken, closePosition }) => [{
+export default ({ authToken, closePosition }) => [{
   label: 'Pair',
   dataKey: 'symbol',
   width: 120,
@@ -57,7 +57,7 @@ export default ({ exID, authToken, closePosition }) => [{
         role='button'
         tabIndex={0}
         className='icon-cancel'
-        onClick={() => closePosition(exID, authToken, rowData)}
+        onClick={() => closePosition(authToken, rowData)}
       />
     </div>
   ),

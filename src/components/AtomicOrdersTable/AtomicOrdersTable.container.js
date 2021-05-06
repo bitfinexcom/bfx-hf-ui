@@ -15,11 +15,11 @@ const mapStateToProps = (state = {}) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  cancelOrder: (exID, authToken, order) => {
+  cancelOrder: (authToken, order) => {
     const { id, symbol } = order
 
     debug('cancelling order %d [%s]', id, symbol)
-    dispatch(WSActions.send(['order.cancel', authToken, exID, symbol, id]))
+    dispatch(WSActions.send(['order.cancel', authToken, 'bitfinex', symbol, id]))
   },
   gaCancelOrder: () => {
     dispatch(GAActions.cancelAtomicOrder())

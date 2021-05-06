@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { Route, Switch, Redirect } from 'react-router'
+import PropTypes from 'prop-types'
 
 import SettingsPage from '../../pages/Settings'
 import TradingPage from '../../pages/Trading'
@@ -14,19 +15,16 @@ import NotificationsSidebar from '../NotificationsSidebar'
 
 import './style.css'
 
-export default function HFUI(props) {
-  /* eslint-disable react/prop-types */
-  const {
-    GAPageview,
-    authToken,
-    getLastVersion,
-    getSettings,
-    getFavoritePairs,
-    notificationsVisible,
-    currentMode,
-    currentPage,
-  } = props
-
+const HFUI = ({
+  authToken,
+  getSettings,
+  notificationsVisible,
+  getFavoritePairs,
+  currentMode,
+  GAPageview,
+  getLastVersion,
+  currentPage,
+}) => {
   useEffect(() => {
     const oneHour = 360000
     getLastVersion()
@@ -51,7 +49,7 @@ export default function HFUI(props) {
       ) : (
         <>
           <Switch>
-            <Redirect exact from='/index.html' to='/' />
+            <Redirect from='/index.html' to='/' exact />
             <Route path='/' render={() => <TradingPage />} exact />
             <Route path='/strategy-editor' render={() => <StrategyEditorPage />} />
             <Route path='/data' render={() => <MarketDataPage />} />
@@ -65,3 +63,16 @@ export default function HFUI(props) {
     </>
   )
 }
+
+HFUI.propTypes = {
+  authToken: PropTypes.string.isRequired,
+  currentMode: PropTypes.string.isRequired,
+  getSettings: PropTypes.func.isRequired,
+  getFavoritePairs: PropTypes.func.isRequired,
+  notificationsVisible: PropTypes.bool.isRequired,
+  GAPageview: PropTypes.func.isRequired,
+  getLastVersion: PropTypes.func.isRequired,
+  currentPage: PropTypes.string.isRequired,
+}
+
+export default HFUI

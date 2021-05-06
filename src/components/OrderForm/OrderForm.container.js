@@ -6,12 +6,12 @@ import OrderForm from './OrderForm'
 import UIActions from '../../redux/actions/ui'
 import WSActions from '../../redux/actions/ws'
 import GAActions from '../../redux/actions/google_analytics'
-import { getExchanges, getMarkets } from '../../redux/selectors/meta'
+import { getMarkets } from '../../redux/selectors/meta'
 import {
-  getAPIClientStates, getAuthToken, getAPICredentials,
+  getAPIClientState, getAuthToken, getAPICredentials,
 } from '../../redux/selectors/ws'
 import {
-  getComponentState, getActiveExchange, getActiveMarket, getCurrentMode, getIsPaperTrading,
+  getComponentState, getActiveMarket, getCurrentMode, getIsPaperTrading,
 } from '../../redux/selectors/ui'
 
 const debug = Debug('hfui:c:order-form')
@@ -22,11 +22,9 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
   const { favoriteTradingPairs = {} } = ws
   const { favoritePairs = [] } = favoriteTradingPairs
   return {
-    activeExchange: getActiveExchange(state),
     activeMarket: getActiveMarket(state),
-    exchanges: getExchanges(state),
-    apiClientStates: getAPIClientStates(state),
-    allMarkets: getMarkets(state),
+    apiClientState: getAPIClientState(state),
+    markets: getMarkets(state),
     savedState: getComponentState(state, layoutID, 'orderform', id),
     authToken: getAuthToken(state),
     apiCredentials: getAPICredentials(state),
@@ -49,11 +47,11 @@ const mapDispatchToProps = dispatch => ({
     }))
   },
 
-  submitOrder: ({ authToken, exID, packet }) => {
+  submitOrder: ({ authToken, packet }) => {
     debug('submitting order %j', packet)
 
-    dispatch(WSActions.send(['order.submit', authToken, exID, {
-      symbol: packet.symbol[exID === 'bitfinex' ? 'w' : 'r'],
+    dispatch(WSActions.send(['order.submit', authToken, 'bitfinex', {
+      symbol: packet.symbol.w,
       ...packet,
     }]))
   },
@@ -64,13 +62,13 @@ const mapDispatchToProps = dispatch => ({
     dispatch(GAActions.submitAO())
   },
   submitAlgoOrder: ({
-    authToken, exID, id, market, context, data,
+    authToken, id, market, context, data,
   }) => {
     debug('submitting algo order %s on %s [%s]', id, market.uiID, context)
 
-    dispatch(WSActions.send(['algo_order.submit', authToken, exID, id, {
+    dispatch(WSActions.send(['algo_order.submit', authToken, 'bitfinex', id, {
       ...data,
-      _symbol: exID === 'bitfinex' ? market.wsID : market.restID,
+      _symbol: market.wsID,
       _margin: context === 'm',
       _futures: context === 'f',
     }]))
@@ -98,10 +96,10 @@ const mapDispatchToProps = dispatch => ({
     ]))
   },
 
-  onChangeMarket: (exchange, market, prevMarket) => {
-    dispatch(WSActions.removeChannelRequirement(exchange, ['ticker', prevMarket]))
+  onChangeMarket: (market, prevMarket) => {
+    dispatch(WSActions.removeChannelRequirement(['ticker', prevMarket]))
     dispatch(UIActions.setActiveMarket(market))
-    dispatch(WSActions.addChannelRequirement(exchange, ['ticker', market]))
+    dispatch(WSActions.addChannelRequirement(['ticker', market]))
   },
 })
 

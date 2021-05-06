@@ -23,7 +23,6 @@ import getPositions from './get_positions'
 import getAllPositions from './get_all_positions'
 import getAllBalances from './get_all_balances'
 import getBalances from './get_balances'
-import getOrders from './get_orders'
 import getAllOrders from './get_all_orders'
 import getAlgoOrders from './get_algo_orders'
 import getNotifications from './get_notifications'
@@ -35,7 +34,6 @@ import getBacktestData from './get_backtest_data'
 import getBacktestResults from './get_backtest_results'
 
 import getAPIClientState from './get_api_client_state'
-import getAPIClientStates from './get_api_client_states'
 import apiClientConnected from './api_client_connected'
 import apiClientConnecting from './api_client_connecting'
 import apiClientDisconnected from './api_client_disconnected'
@@ -69,7 +67,6 @@ export {
   getBacktestResults,
 
   getAPIClientState,
-  getAPIClientStates,
   apiClientConnected,
   apiClientConnecting,
   apiClientDisconnected,
@@ -78,7 +75,6 @@ export {
   getPositions,
   getAllBalances,
   getBalances,
-  getOrders,
   getAllOrders,
   getAlgoOrders,
   getFavoritePairs,
