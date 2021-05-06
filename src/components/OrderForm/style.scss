@@ -2,7 +2,6 @@
 
 .hfui-orderform__wrapper {
   height: 100%;
-  padding: 0 10px;
 
   input {
     background: $background-color;
@@ -67,6 +66,10 @@
 }
 
 .hfui-orderform__panel {
+  .hfui-panel__content {
+    padding: 0 spacing(1, true);
+  }
+
   .hfui-panel__footer {
     width: calc(100% - 16px);
     background: $background-color;

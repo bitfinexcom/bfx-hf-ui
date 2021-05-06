@@ -5,6 +5,7 @@ import SwitchMode from '../SwitchMode'
 import MarketSelect from '../MarketSelect'
 // import RefillIcon from '../../ui/Icons/RefillIcon'
 import ExchangeInfoBarItem from './ExchangeInfoBarItem'
+import ExchangeInfoBarButton from './ExchangeInfoBar.Button'
 import quotePrefix from '../../util/quote_prefix'
 
 import { propTypes, defaultProps } from './ExchangeInfoBar.props'
@@ -33,11 +34,6 @@ export default class ExchangeInfoBar extends React.PureComponent {
       markets,
       openNotifications,
       showTicker,
-      showNotifications,
-      showAddComponent,
-      onAddComponent,
-      showSave,
-      onSave,
       buttons: Buttons,
       // onRefillClick,
     } = this.props
@@ -128,11 +124,10 @@ export default class ExchangeInfoBar extends React.PureComponent {
         )}
 
         <div className='hfui-exchangeinfobar__right'>
-          {Buttons && (
-            <div className='hfui-exchangeinfobar__buttons'>
-              <Buttons />
-            </div>
-          )}
+          <div className='hfui-exchangeinfobar__buttons'>
+            {Buttons && <Buttons />}
+            <ExchangeInfoBarButton icon='notifications' onClick={openNotifications} />
+          </div>
           <div className='hfui-tradingpaper__control'>
             <div className='hfui-tradingpaper__control-toggle'>
               <p>Paper Trading</p>
