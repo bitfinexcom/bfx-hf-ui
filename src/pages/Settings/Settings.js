@@ -7,10 +7,6 @@ import Input from '../../ui/Input'
 import Button from '../../ui/Button'
 import Checkbox from '../../ui/Checkbox'
 import Layout from '../../components/Layout'
-import StatusBar from '../../components/StatusBar'
-import SwitchMode from '../../components/SwitchMode'
-import TradingModeModal from '../../components/TradingModeModal'
-import BadConnectionModal from '../../components/BadConnectionModal'
 import {
   getAutoLoginState,
   isDevEnv as devEnv,

@@ -2,9 +2,6 @@ import React from 'react'
 import Joyride, { STATUS } from 'react-joyride'
 import Layout from '../../components/Layout'
 import GridLayoutPage from '../../components/GridLayoutPage'
-import ExchangeInfoBar from '../../components/ExchangeInfoBar'
-import TradingModeModal from '../../components/TradingModeModal'
-import BadConnectionModal from '../../components/BadConnectionModal'
 import { propTypes } from './MarketData.props'
 import './style.css'
 
@@ -49,8 +46,6 @@ export default class MarketData extends React.PureComponent {
       <Layout>
         <Layout.Header />
         <Layout.Main>
-          <TradingModeModal />
-          <BadConnectionModal />
           {firstLogin && (
             <Joyride
               callback={this.onGuideFinish}

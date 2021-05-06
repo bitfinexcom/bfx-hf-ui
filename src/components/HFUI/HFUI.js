@@ -7,6 +7,9 @@ import StrategyEditorPage from '../../pages/StrategyEditor'
 import MarketDataPage from '../../pages/MarketData'
 import AuthenticationPage from '../../pages/Authentication'
 
+import TradingModeModal from '../TradingModeModal'
+import BadConnectionModal from '../BadConnectionModal'
+
 import NotificationsSidebar from '../NotificationsSidebar'
 
 import './style.css'
@@ -46,13 +49,17 @@ export default function HFUI(props) {
       {!authToken ? (
         <AuthenticationPage />
       ) : (
-        <Switch>
-          <Redirect exact from='/index.html' to='/' />
-          <Route path='/' render={() => <TradingPage />} exact />
-          <Route path='/strategy-editor' render={() => <StrategyEditorPage />} />
-          <Route path='/data' render={() => <MarketDataPage />} />
-          <Route path='/settings' render={() => <SettingsPage />} />
-        </Switch>
+        <>
+          <Switch>
+            <Redirect exact from='/index.html' to='/' />
+            <Route path='/' render={() => <TradingPage />} exact />
+            <Route path='/strategy-editor' render={() => <StrategyEditorPage />} />
+            <Route path='/data' render={() => <MarketDataPage />} />
+            <Route path='/settings' render={() => <SettingsPage />} />
+          </Switch>
+          <TradingModeModal />
+          <BadConnectionModal />
+        </>
       )}
       <NotificationsSidebar notificationsVisible={notificationsVisible} />
     </>

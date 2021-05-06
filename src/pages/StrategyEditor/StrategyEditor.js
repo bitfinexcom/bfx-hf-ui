@@ -8,13 +8,9 @@ import Layout from '../../components/Layout'
 
 import Panel from '../../ui/Panel'
 import Markdown from '../../ui/Markdown'
-import StatusBar from '../../components/StatusBar'
 import Backtester from '../../components/Backtester'
 // import LiveStrategyExecutor from '../../components/LiveStrategyExecutor'
 import StrategyEditor from '../../components/StrategyEditor'
-import ExchangeInfoBar from '../../components/ExchangeInfoBar'
-import TradingModeModal from '../../components/TradingModeModal'
-import BadConnectionModal from '../../components/BadConnectionModal'
 
 import './style.css'
 
@@ -146,22 +142,21 @@ export default class StrategyEditorPage extends React.Component {
               removeable={false}
               tf='1m'
             />
-            {firstLogin
-          && (
-          <Joyride
-            steps={steps}
-            callback={this.onGuideFinish}
-            run={isGuideActive}
-            continuous
-            showProgress
-            showSkipButton
-            styles={{
-              options: {
-                zIndex: 10000,
-              },
-            }}
-          />
-          )}
+            {firstLogin && (
+              <Joyride
+                steps={steps}
+                callback={this.onGuideFinish}
+                run={isGuideActive}
+                continuous
+                showProgress
+                showSkipButton
+                styles={{
+                  options: {
+                    zIndex: 10000,
+                  },
+                }}
+              />
+            )}
             <div
               key='main'
               className='hfui-strategiespage__right'

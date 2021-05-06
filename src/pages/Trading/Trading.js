@@ -9,8 +9,7 @@ import ExchangeInfoBarButton from '../../components/ExchangeInfoBar/ExchangeInfo
 import BitfinexOrders from '../../orders/bitfinex'
 import GridLayoutPage from '../../components/GridLayoutPage'
 import ActiveAlgoOrdersModal from '../../components/ActiveAlgoOrdersModal'
-import TradingModeModal from '../../components/TradingModeModal'
-import BadConnectionModal from '../../components/BadConnectionModal'
+
 import RefillBalanceModal from '../../components/RefillBalanceModal'
 
 import './style.css'
@@ -143,10 +142,9 @@ export default class Trading extends React.PureComponent {
             />
           </div>
 
-          {showAlgoModal && hasActiveAlgoOrders && apiClientConnected
-            && <ActiveAlgoOrdersModal />}
-          <TradingModeModal />
-          <BadConnectionModal />
+          {showAlgoModal && hasActiveAlgoOrders && apiClientConnected && (
+            <ActiveAlgoOrdersModal />
+          )}
           <RefillBalanceModal />
         </Layout.Main>
         <Layout.Footer />
