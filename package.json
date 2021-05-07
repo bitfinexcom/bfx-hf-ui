@@ -165,7 +165,7 @@
     "bfx-hf-indicators": "^2.0.6",
     "bfx-hf-models": "^2.2.0",
     "bfx-hf-models-adapter-lowdb": "^1.0.0",
-    "bfx-hf-server": "^3.5.5",
+    "bfx-hf-server": "^3.5.6",
     "bfx-hf-strategy": "^1.0.1",
     "bfx-hf-util": "^1.0.1",
     "bignumber.js": "^9.0.0",
