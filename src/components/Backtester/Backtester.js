@@ -1,142 +1,127 @@
-import React from 'react'
+import React, { useState, memo } from 'react'
 import PropTypes from 'prop-types'
+import _isEmpty from 'lodash/isEmpty'
+import _keys from 'lodash/keys'
+import _find from 'lodash/find'
 
 import RenderHistoricalReport from './reports/HistoricalReport'
 import RenderHistoricalForm from './forms/HistoricalForm'
 
 import './style.css'
 
-class Backtester extends React.PureComponent {
-  state = {
-    execError: null,
-    loadingBacktest: false,
-    execRunning: false,
-    results: null,
-  }
+const backtestMethods = [
+  {
+    type: 'Historical',
+    form: RenderHistoricalForm,
+    renderReport: RenderHistoricalReport,
+  },
+  // {
+  //   type: 'Live',
+  //   form: RenderLiveForm,
+  //   renderReport: RenderLiveReport,
+  // },
+  // {
+  //   type: 'Import',
+  //   form: RenderImportForm,
+  //   renderReport: RenderImportReport,
+  // },
+]
 
-  constructor() {
-    super()
+const Backtester = ({
+  backtestData,
+  strategyContent,
+  markets,
+  backtestResults,
+  backtestOptions,
+  authToken,
+  dsExecuteBacktest,
+  setBacktestOptions,
+  indicators,
+  onAddIndicator,
+  onDeleteIndicator,
+}) => {
+  const [execError, setExecError] = useState(null)
+  const [executionType, setExecutionType] = useState(backtestMethods[0])
+  const [formState, setFormState] = useState({})
 
-    this.backtestMethods = [
-      {
-        type: 'Historical',
-        form: RenderHistoricalForm,
-        renderReport: RenderHistoricalReport,
-      },
-      // {
-      //   type: 'Live',
-      //   form: RenderLiveForm,
-      //   renderReport: RenderLiveReport,
-      // },
-      // {
-      //   type: 'Import',
-      //   form: RenderImportForm,
-      //   renderReport: RenderImportReport,
-      // },
-    ]
-  }
-
-  backtestStrategy = (options) => {
+  const backtestStrategy = (options) => {
     const {
-      activeExchange, activeMarket, startDate, endDate, tf, trades, candles,
+      activeMarket, startDate, endDate, tf, trades, candles,
     } = options
-    const { dsExecuteBacktest, strategyContent, setBacktestOptions } = this.props
+
     setBacktestOptions(options)
     const startNum = new Date(startDate).getTime()
     const endNum = new Date(endDate).getTime()
 
-    this.setState(() => ({
-      execError: undefined,
-    }))
-
-    dsExecuteBacktest(activeExchange, startNum, endNum, activeMarket, tf, candles, trades, strategyContent)
+    setExecError(undefined)
+    dsExecuteBacktest(startNum, endNum, activeMarket, tf, candles, trades, strategyContent)
   }
 
-  updateExecutionType = (value) => {
-    const newType = this.backtestMethods.filter(f => f.type === value)[0]
-    this.setState(() => ({ executionType: newType }))
+  const updateExecutionType = (value) => {
+    const newType = _find(backtestMethods, f => f.type === value)
+    setExecutionType(newType)
   }
 
-  updateError(errMessage) {
-    this.setState(() => ({
-      results: null,
-      execError: errMessage,
-    }))
+  const updateError = (errMessage) => {
+    setExecError(errMessage)
   }
 
-  render() {
-    const {
-      executionType = this.backtestMethods[0],
-    } = this.state
-    const {
-      indicators,
-      backtestData,
-      strategyContent,
-      allMarkets,
-      backtestResults,
-      backtestOptions,
-      authToken,
-    } = this.props
-    const formState = this.state[`${executionType.type}_formState`] || {} // eslint-disable-line
-    const opts = {
-      updateExecutionType: this.updateExecutionType,
-      backtestMethods: this.backtestMethods,
-      backtestStrategy: this.backtestStrategy,
-      executionType: executionType.type,
-      indicators,
-      onFavoriteSelect: this.favoriteSelect,
-      updateError: this.updateError,
-      allMarkets,
-      exId: 'bitfinex', // todo: add ability to specify exchange
-      formState,
-      authToken,
-      setFormState: (setStateFunc, callback) => {
-        this.setState(() => ({
-          [`${executionType.type}_formState`]: {
-            ...formState,
-            ...setStateFunc(),
-          },
-        }), callback)
-      },
-    }
+  const opts = {
+    updateExecutionType,
+    backtestMethods,
+    backtestStrategy,
+    executionType: executionType.type,
+    indicators,
+    onAddIndicator,
+    onDeleteIndicator,
+    updateError,
+    markets,
+    formState,
+    authToken,
+    setFormState: (setStateFunc) => {
+      setFormState(form => ({
+        ...form,
+        ...setStateFunc(),
+      }))
+    },
+  }
 
-    if (!strategyContent || Object.keys(strategyContent).length === 0) {
-      return (
-        <div className='hfui-backtester__wrapper'>
-          <p>Create a strategy to begin backtesting.</p>
-        </div>
-      )
-    }
-
-    if (backtestResults.error) {
-      return (
-        <div className='hfui-backtester__wrapper'>
-          <executionType.form {...opts} />
-          <p style={{ color: 'red' }}>{backtestResults.error}</p>
-        </div>
-      )
-    }
-
-    if (!backtestResults.executing && !backtestResults.loading && backtestResults.finished) {
-      return (
-        <div className='hfui-backtester__wrapper'>
-          <executionType.form {...opts} />
-          {executionType.renderReport({ ...opts }, backtestResults, backtestData, backtestOptions)}
-        </div>
-      )
-    }
-
+  if (!strategyContent || _isEmpty(_keys(strategyContent))) {
     return (
       <div className='hfui-backtester__wrapper'>
-        <executionType.form {...opts} disabled={backtestResults.loading} />
-        <p>{backtestResults.loading ? 'Loading candles and executing strategy...' : 'Press start to begin backtesting.'}</p>
+        <p>Create a strategy to begin backtesting.</p>
       </div>
     )
   }
+
+  if (backtestResults.error || execError) {
+    return (
+      <div className='hfui-backtester__wrapper'>
+        <executionType.form {...opts} />
+        <p style={{ color: 'red' }}>{backtestResults.error || execError}</p>
+      </div>
+    )
+  }
+
+  if (!backtestResults.executing && !backtestResults.loading && backtestResults.finished) {
+    return (
+      <div className='hfui-backtester__wrapper'>
+        <executionType.form {...opts} />
+        {executionType.renderReport({ ...opts }, backtestResults, backtestData, backtestOptions)}
+      </div>
+    )
+  }
+
+  return (
+    <div className='hfui-backtester__wrapper'>
+      <executionType.form {...opts} disabled={backtestResults.loading} />
+      <p>{backtestResults.loading ? 'Loading candles and executing strategy...' : 'Press start to begin backtesting.'}</p>
+    </div>
+  )
 }
 
 Backtester.propTypes = {
-  indicators: PropTypes.arrayOf(PropTypes.object),
+  indicators: PropTypes.arrayOf(PropTypes.array),
   backtest: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     executing: PropTypes.bool.isRequired,
@@ -151,12 +136,14 @@ Backtester.propTypes = {
       PropTypes.oneOf([null]).isRequired,
     ]),
   ),
-  allMarkets: PropTypes.objectOf(PropTypes.array),
+  markets: PropTypes.arrayOf(PropTypes.object),
   backtestResults: PropTypes.objectOf(PropTypes.any),
   backtestOptions: PropTypes.objectOf(PropTypes.any),
   authToken: PropTypes.string.isRequired,
   dsExecuteBacktest: PropTypes.func.isRequired,
   setBacktestOptions: PropTypes.func.isRequired,
+  onAddIndicator: PropTypes.func,
+  onDeleteIndicator: PropTypes.func,
 }
 
 Backtester.defaultProps = {
@@ -170,9 +157,11 @@ Backtester.defaultProps = {
     candles: [],
   },
   strategyContent: {},
-  allMarkets: {},
+  markets: [],
   backtestResults: {},
   backtestOptions: {},
+  onAddIndicator: () => {},
+  onDeleteIndicator: () => {},
 }
 
-export default Backtester
+export default memo(Backtester)

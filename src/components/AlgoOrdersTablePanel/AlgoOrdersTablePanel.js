@@ -1,13 +1,11 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
-import { flatten as _flatten, isEqual as _isEqual } from 'lodash'
+import _isEqual from 'lodash/isEqual'
 
 import AlgoOrdersTable from '../AlgoOrdersTable'
 import Panel from '../../ui/Panel'
-import { propTypes, defaultProps } from './AlgoOrdersTablePanel.props'
 
 export default class AlgoOrdersTablePanel extends React.Component {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
   state = {
     algoOrders: [],
   }
@@ -22,31 +20,22 @@ export default class AlgoOrdersTablePanel extends React.Component {
   }
   getFilteredAlgoOrders() {
     const {
-      activeExchange, activeMarket, algoOrders, setFilteredValueWithKey,
+      activeMarket, algoOrders, setFilteredValueWithKey,
     } = this.props
-    const { exchangeFilterActive, marketFilterActive } = this.state
-
-    const filteredByExchange = exchangeFilterActive
-      ? Object.values(algoOrders[activeExchange] || {})
-      : _flatten(Object.values(algoOrders).map(Object.values))
+    const { marketFilterActive } = this.state
     const filteredAO = marketFilterActive
-      ? filteredByExchange.filter(ao => ao.args.symbol === activeMarket.wsID)
-      : filteredByExchange
+      ? algoOrders.filter(ao => ao.args.symbol === activeMarket.wsID)
+      : algoOrders
+
     setFilteredValueWithKey('filteredAO', filteredAO)
     return filteredAO
   }
   render() {
-    const { onRemove, activeExchange } = this.props
+    const { onRemove } = this.props
     const { algoOrders } = this.state
     return (
-      <Panel
-        label='ALGO ORDERS'
-        onRemove={onRemove}
-      >
-        <AlgoOrdersTable
-          exID={activeExchange}
-          filteredAO={algoOrders}
-        />
+      <Panel label='ALGO ORDERS' onRemove={onRemove}>
+        <AlgoOrdersTable filteredAO={algoOrders} />
       </Panel>
     )
   }

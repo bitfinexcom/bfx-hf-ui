@@ -5,12 +5,12 @@ import { getChannelRequirements } from '../../selectors/ws'
 
 export default function* (action = {}) {
   const { payload = {} } = action
-  const { exID, channel = [] } = payload
-  const req = yield select(getChannelRequirements, exID, channel)
+  const { channel = [] } = payload
+  const req = yield select(getChannelRequirements, channel)
 
   if (req !== 0) { // only unsubscribe when no requirements are left
     return
   }
 
-  yield put(WSActions.unsubscribe(exID, channel))
+  yield put(WSActions.unsubscribe(channel))
 }

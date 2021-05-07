@@ -1,208 +1,150 @@
-import React from 'react'
-import _capitalize from 'lodash/capitalize'
-import _isEqual from 'lodash/isEqual'
+/* eslint-disable react/forbid-prop-types */
+import React, { memo, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
+import _filter from 'lodash/filter'
+import _size from 'lodash/size'
+import {
+  Trades,
+  reduxActions,
+  reduxSelectors,
+  reduxConstants,
+  useCommonBfxData,
+} from 'ufx-ui'
 
-import TradesTable from '../TradesTable'
 import MarketSelect from '../MarketSelect'
-
 import Panel from '../../ui/Panel'
-import Select from '../../ui/Select'
-import nearestMarket from '../../util/nearest_market'
-import { propTypes, defaultProps } from './TradesTablePanel.props'
+import './style.css'
 
-export default class TradesTablePanel extends React.Component {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+const { trades } = reduxConstants
+const { SUBSCRIPTION_CONFIG } = trades
+const { WSSubscribeChannel, WSUnsubscribeChannel } = reduxActions
+const { getRecentTrades, hasFetchedTrades: hasFetchedTradesSelector } = reduxSelectors
 
-  constructor(props) {
-    super(props)
+const TradesTablePanel = (props) => {
+  const {
+    dark,
+    layoutI,
+    onRemove,
+    moveable,
+    layoutID,
+    showMarket,
+    removeable,
+    savedState,
+    markets,
+    updateState,
+    activeMarket,
+    canChangeMarket,
+    allMarketTrades,
+  } = props
+  const { currentMarket = activeMarket } = savedState
+  const { base, quote } = currentMarket
 
-    const { savedState = {}, activeMarket } = props
-    const {
-      currentMarket = activeMarket, currentExchange, marketDirty, exchangeDirty,
-    } = savedState
+  const { symbol, dispatch, isWSConnected } = useCommonBfxData(base, quote)
+  const marketData = useSelector(state => getRecentTrades(state, symbol))
+  const hasFetchedTrades = useSelector(state => hasFetchedTradesSelector(state, symbol))
 
-    this.state = {
-      currentMarket,
-      currentExchange,
-      exchangeDirty,
-      marketDirty,
+  useEffect(() => {
+    if (isWSConnected && symbol) {
+      dispatch(WSSubscribeChannel({
+        ...SUBSCRIPTION_CONFIG,
+        symbol,
+      }))
+    }
+  }, [isWSConnected, symbol, dispatch])
+
+  const unSubscribeWSChannel = (s) => {
+    const tradesUsingSymbol = _filter(allMarketTrades, ({ currentMarket: cm }) => cm.wsID === s)
+
+    if (_size(tradesUsingSymbol) > 1) {
+      return
     }
 
-    this.onChangeMarket = this.onChangeMarket.bind(this)
-    this.onChangeExchange = this.onChangeExchange.bind(this)
+    dispatch(WSUnsubscribeChannel({
+      ...SUBSCRIPTION_CONFIG,
+      symbol: s,
+    }))
   }
 
-  componentDidMount() {
-    const { currentExchange, currentMarket } = this.state
-    const { addTradesRequirement } = this.props
-    addTradesRequirement(currentExchange, currentMarket)
+  const saveState = (param, value) => {
+    updateState(layoutID, layoutI, {
+      [param]: value,
+    })
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return (!_isEqual(nextProps, this.props) || !_isEqual(nextState, this.state))
-  }
-
-  componentWillUnmount() {
-    const { currentExchange, currentMarket } = this.state
-    const { removeTradesRequirement } = this.props
-    removeTradesRequirement(currentExchange, currentMarket)
-  }
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const {
-      currentExchange, currentMarket, exchangeDirty, marketDirty,
-    } = prevState
-
-    const {
-      activeExchange, activeMarket, addTradesRequirement,
-      removeTradesRequirement,
-    } = nextProps
-
-    if ((marketDirty || exchangeDirty) || (
-      activeMarket.restID === currentMarket.restID && activeExchange === currentExchange
-    )) {
-      return {}
-    }
-
-    removeTradesRequirement(currentExchange, currentMarket)
-    addTradesRequirement(activeExchange, activeMarket)
-
-    return {
-      currentMarket: activeMarket,
-      currentExchange: activeExchange,
-    }
-  }
-
-  onChangeMarket(market) {
-    const { currentMarket } = this.state
-    const {
-      activeExchange, addTradesRequirement, removeTradesRequirement,
-    } = this.props
-
+  const onChangeMarket = (market) => {
     if (market.restID === currentMarket.restID) {
       return
     }
 
-    this.setState(() => ({
-      currentMarket: market,
-      marketDirty: true,
-    }))
+    const { wsID } = currentMarket
+    unSubscribeWSChannel(wsID)
 
-    removeTradesRequirement(activeExchange, currentMarket)
-    addTradesRequirement(activeExchange, market)
-    this.deferSaveState()
+    saveState('currentMarket', market)
   }
 
-  onChangeExchange(option) {
-    const { value: exchange } = option
-    const { currentExchange, currentMarket } = this.state
-    const {
-      addTradesRequirement, removeTradesRequirement, allMarkets,
-    } = this.props
+  const renderMarketDropdown = () => (
+    <MarketSelect
+      markets={markets}
+      renderWithFavorites
+      key='market-dropdown'
+      value={currentMarket}
+      onChange={onChangeMarket}
+      disabled={!canChangeMarket}
+    />
+  )
 
-    if (exchange === currentExchange) {
-      return
-    }
-
-    const markets = allMarkets[exchange] || []
-    const newMarket = nearestMarket(currentMarket, markets)
-
-    this.setState(() => ({
-      currentExchange: exchange,
-      currentMarket: newMarket,
-      exchangeDirty: true,
-      marketDirty: true,
-    }))
-
-    removeTradesRequirement(currentExchange, currentMarket)
-    addTradesRequirement(exchange, newMarket)
-    this.deferSaveState()
+  const handleOnRemove = (...args) => {
+    unSubscribeWSChannel(symbol)
+    onRemove(...args)
   }
 
-  deferSaveState() {
-    setTimeout(() => {
-      this.saveState()
-    }, 0)
-  }
-
-  saveState() {
-    const { saveState, layoutID, layoutI } = this.props
-    const {
-      currentMarket, currentExchange, exchangeDirty, marketDirty,
-    } = this.state
-
-    saveState(layoutID, layoutI, {
-      currentMarket,
-      currentExchange,
-      exchangeDirty,
-      marketDirty,
-    })
-  }
-
-  renderExchangeDropdown() {
-    const { exchangeDirty, currentExchange } = this.state
-    const { exchanges, canChangeExchange } = this.props
-
-    return (
-      <Select
-        key='exchange-dropdown'
-        disabled={!canChangeExchange}
-        className={{ yellow: exchangeDirty }}
-        onChange={this.onChangeExchange}
-        value={{
-          label: _capitalize(currentExchange),
-          value: currentExchange,
-        }}
-        options={exchanges.map(ex => ({
-          label: _capitalize(ex),
-          value: ex,
-        }))}
+  return (
+    <Panel
+      dark={dark}
+      label='TRADES'
+      darkHeader={dark}
+      moveable={moveable}
+      onRemove={handleOnRemove}
+      removeable={removeable}
+      className='hfui-tradestable__wrapper'
+      secondaryHeaderComponents={[
+        showMarket && renderMarketDropdown(),
+      ]}
+    >
+      <Trades
+        market={marketData}
+        online={isWSConnected}
+        loading={!hasFetchedTrades}
       />
-    )
-  }
-
-  renderMarketDropdown() {
-    const { marketDirty, currentMarket, currentExchange } = this.state
-    const { allMarkets, canChangeMarket } = this.props
-    const markets = allMarkets[currentExchange] || []
-
-    return (
-      <MarketSelect
-        key='market-dropdown'
-        disabled={!canChangeMarket}
-        className={{ yellow: marketDirty }}
-        onChange={this.onChangeMarket}
-        value={currentMarket}
-        markets={markets}
-        renderWithFavorites
-      />
-    )
-  }
-
-  render() {
-    const {
-      label, onRemove, moveable, removeable, showMarket, dark,
-    } = this.props
-    const { currentExchange, currentMarket } = this.state
-    return (
-      <Panel
-        dark={dark}
-        darkHeader={dark}
-        label={label}
-        onRemove={onRemove}
-        moveable={moveable}
-        removeable={removeable}
-        className='hfui-tradestable__wrapper'
-        secondaryHeaderComponents={[
-          showMarket && this.renderMarketDropdown(),
-        ]}
-      >
-        <TradesTable
-          exchange={currentExchange}
-          market={currentMarket}
-        />
-      </Panel>
-    )
-  }
+    </Panel>
+  )
 }
+
+TradesTablePanel.propTypes = {
+  dark: PropTypes.bool,
+  moveable: PropTypes.bool,
+  removeable: PropTypes.bool,
+  showMarket: PropTypes.bool,
+  savedState: PropTypes.object,
+  canChangeMarket: PropTypes.bool,
+  allMarketTrades: PropTypes.array,
+  onRemove: PropTypes.func.isRequired,
+  layoutI: PropTypes.string.isRequired,
+  layoutID: PropTypes.string.isRequired,
+  updateState: PropTypes.func.isRequired,
+  markets: PropTypes.array.isRequired,
+  activeMarket: PropTypes.object.isRequired,
+}
+
+TradesTablePanel.defaultProps = {
+  dark: false,
+  savedState: {},
+  moveable: true,
+  removeable: true,
+  showMarket: false,
+  allMarketTrades: [],
+  canChangeMarket: true,
+}
+
+export default memo(TradesTablePanel)

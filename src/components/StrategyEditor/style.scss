@@ -22,6 +22,7 @@
   flex-direction: column;
   height: calc(100% - 10px);
   position: relative;
+  z-index: 0;
   background: $black-color;
 
   &.noresults {

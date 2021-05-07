@@ -19,11 +19,10 @@ export default class HistoricalForm extends React.PureComponent {
       executionTypes,
       executionType,
       disabled = false,
-      allMarkets,
-      exId,
+      markets,
     } = this.props
     const {
-      selectedMarket = allMarkets[exId][0],
+      selectedMarket = markets[0],
     } = this.state
 
     return (
@@ -43,10 +42,10 @@ export default class HistoricalForm extends React.PureComponent {
             <Dropdown
               value={selectedMarket.uiID}
               onChange={(selection) => {
-                const sel = allMarkets[exId].find(m => m.uiID === selection)
+                const sel = markets.find(m => m.uiID === selection)
                 this.setState(() => ({ selectedMarket: sel }))
               }}
-              options={allMarkets[exId].map(m => ({
+              options={markets.map(m => ({
                 label: m.uiID,
                 value: m.uiID,
               }))}

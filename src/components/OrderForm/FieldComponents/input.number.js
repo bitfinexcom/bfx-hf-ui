@@ -1,15 +1,13 @@
 import React from 'react'
 import ClassNames from 'classnames'
 import _isFinite from 'lodash/isFinite'
+import PropTypes from 'prop-types'
 
 import Input from '../../../ui/Input'
 import Tooltip from '../../../ui/Tooltip'
-import { propTypes, defaultProps } from './input.number.props'
 import { renderString, CONVERT_LABELS_TO_PLACEHOLDERS } from '../OrderForm.helpers'
 
-export default class NumberInput extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+class NumberInput extends React.PureComponent {
   static DEFAULT_VALUE = ''
   static processValue = v => +v
   static validateValue = (v) => {
@@ -21,11 +19,13 @@ export default class NumberInput extends React.PureComponent {
   render() {
     const {
       value,
-      def = {},
+      def,
       disabled,
       onChange,
-      renderData = {},
+      renderData,
       validationError,
+      percentage,
+      max,
     } = this.props
     const { label, customHelp } = def
     const renderedLabel = renderString(label, renderData)
@@ -42,6 +42,8 @@ export default class NumberInput extends React.PureComponent {
           disabled={disabled}
           value={value}
           placeholder={CONVERT_LABELS_TO_PLACEHOLDERS ? renderedLabel : undefined}
+          percentage={percentage}
+          max={max}
         />
 
         {!CONVERT_LABELS_TO_PLACEHOLDERS && (
@@ -64,3 +66,32 @@ export default class NumberInput extends React.PureComponent {
     )
   }
 }
+
+NumberInput.propTypes = {
+  def: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+      PropTypes.number,
+      PropTypes.bool,
+    ]),
+  ),
+  renderData: PropTypes.objectOf(PropTypes.string),
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  validationError: PropTypes.string,
+  disabled: PropTypes.bool,
+  percentage: PropTypes.bool,
+  max: PropTypes.number,
+}
+
+NumberInput.defaultProps = {
+  disabled: false,
+  validationError: '',
+  def: {},
+  renderData: {},
+  percentage: false,
+  max: Number.MAX_SAFE_INTEGER,
+}
+
+export default NumberInput

@@ -11,6 +11,7 @@ const UFX_REDUCER_PATHS = {
   UFX: 'ufx',
   WS: 'ws',
   BOOK: 'book',
+  TRADES: 'trades',
 }
 
 const MAX_STORED_TRADES = 25

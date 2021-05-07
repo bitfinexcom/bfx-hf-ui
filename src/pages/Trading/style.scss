@@ -1,20 +1,9 @@
 @import '../../variables.scss';
 
-.hfui-tradingpage__wrapper {
-  height: 98vh;
-}
-
-.hfui-tradingpage__inner {
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-}
-
 .hfui-tradingpage__column {
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding-bottom: 30px;
 
   .hfui-tvchart__wrapper > #__tvchart {
     height: calc(100% - 8px);
@@ -23,19 +12,15 @@
   }
 
   .hfui-tradingstatepanel__wrapper {
-    .hfui-table {
-      margin: 0 12px;
+    .ufx-table {
+      margin: 0 spacing(1, true);
     }
-  }
-
-  .hfui-chart__wrapper {
-    width: 100%;
-    height: 100%;
   }
 
   &.left {
     min-width: 351px;
     max-width: 351px;
+    padding-right: spacing(1.25);
   }
 
   &.right {

@@ -18,13 +18,11 @@ export default function (state = getInitialState(), action = {}) {
     }
 
     case t.DATA_API_CREDENTIALS_CONFIGURED: {
-      const { exID } = payload
-
       return {
         ...state,
         apiKeys: {
           ...(state.apiKeys || {}),
-          [exID]: true,
+          configured: true,
         },
       }
     }

@@ -2,15 +2,15 @@ import React from 'react'
 import randomColor from 'randomcolor'
 import Joyride, { STATUS } from 'react-joyride'
 import PropTypes from 'prop-types'
+import _remove from 'lodash/remove'
+
+import Layout from '../../components/Layout'
 
 import Panel from '../../ui/Panel'
 import Markdown from '../../ui/Markdown'
-import StatusBar from '../../components/StatusBar'
 import Backtester from '../../components/Backtester'
 // import LiveStrategyExecutor from '../../components/LiveStrategyExecutor'
 import StrategyEditor from '../../components/StrategyEditor'
-import ExchangeInfoBar from '../../components/ExchangeInfoBar'
-import TradingModeModal from '../../components/TradingModeModal'
 
 import './style.css'
 
@@ -58,6 +58,18 @@ export default class StrategyEditorPage extends React.Component {
     fetch(docsPath)
       .then(response => response.text())
       .then(t => this.setState(() => ({ docsText: t })))
+  }
+
+  onAddIndicator = (indicator) => {
+    this.setState(({ indicators }) => ({
+      indicators: [...indicators, indicator],
+    }))
+  }
+
+  onDeleteIndicator = (index) => {
+    this.setState(({ indicators }) => ({
+      indicators: _remove(indicators, (_, id) => id !== index),
+    }))
   }
 
   onIndicatorsChange = (indicators) => {
@@ -116,60 +128,61 @@ export default class StrategyEditorPage extends React.Component {
     } = this.state
     const { firstLogin, isGuideActive } = this.props
     return (
-      <div className='hfui-strategyeditorpage__wrapper'>
-        <TradingModeModal />
-        <ExchangeInfoBar />
-        <div className='hfui-strategyeditorpage__content-wrapper'>
-          <StrategyEditor
-            dark
-            onStrategySelect={content => this.selectStrategy(content)}
-            onStrategyChange={content => this.setContent(content)}
-            key='editor'
-            onIndicatorsChange={this.onIndicatorsChange}
-            moveable={false}
-            removeable={false}
-            tf='1m'
-          />
-          {firstLogin
-          && (
-          <Joyride
-            steps={steps}
-            callback={this.onGuideFinish}
-            run={isGuideActive}
-            continuous
-            showProgress
-            showSkipButton
-            styles={{
-              options: {
-                zIndex: 10000,
-              },
-            }}
-          />
-          )}
-          <div
-            key='main'
-            className='hfui-strategiespage__right'
-          >
-            <Panel
-              className='hfui-strategiespage__pannel-wrapper'
+      <Layout>
+        <Layout.Header />
+        <Layout.Main className='hfui-strategyeditorpage__wrapper'>
+          <div className='hfui-strategyeditorpage__content-wrapper'>
+            <StrategyEditor
+              dark
+              onStrategySelect={content => this.selectStrategy(content)}
+              onStrategyChange={content => this.setContent(content)}
+              key='editor'
+              onIndicatorsChange={this.onIndicatorsChange}
               moveable={false}
               removeable={false}
-              forcedTab={forcedTab}
-              darkHeader
-            >
-              <Markdown
-                tabtitle='Docs'
-                text={docsText}
+              tf='1m'
+            />
+            {firstLogin && (
+              <Joyride
+                steps={steps}
+                callback={this.onGuideFinish}
+                run={isGuideActive}
+                continuous
+                showProgress
+                showSkipButton
+                styles={{
+                  options: {
+                    zIndex: 10000,
+                  },
+                }}
               />
-              <div
-                tabtitle='Backtest' // lowercase name for div is requiered
+            )}
+            <div
+              key='main'
+              className='hfui-strategiespage__right'
+            >
+              <Panel
+                className='hfui-strategiespage__pannel-wrapper'
+                moveable={false}
+                removeable={false}
+                forcedTab={forcedTab}
+                darkHeader
               >
-                <Backtester
-                  {...this.props}
-                  indicators={indicators}
+                <Markdown
+                  tabtitle='Docs'
+                  text={docsText}
                 />
-              </div>
-              {/* hidden until this feature will be implemented
+                <div
+                  tabtitle='Backtest'
+                >
+                  <Backtester
+                    {...this.props}
+                    indicators={indicators}
+                    onAddIndicator={this.onAddIndicator}
+                    onDeleteIndicator={this.onDeleteIndicator}
+                  />
+                </div>
+                {/* hidden until this feature will be implemented
                 <div
                   tabtitle='Execute'
                 >
@@ -177,15 +190,12 @@ export default class StrategyEditorPage extends React.Component {
                     strategyContent={strategyContent}
                   />
                 </div> */}
-            </Panel>
+              </Panel>
+            </div>
           </div>
-        </div>
-
-        <StatusBar
-          key='statusbar'
-          displayLayoutControls={false}
-        />
-      </div>
+        </Layout.Main>
+        <Layout.Footer />
+      </Layout>
     )
   }
 }

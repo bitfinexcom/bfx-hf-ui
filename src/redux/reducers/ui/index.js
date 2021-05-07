@@ -11,13 +11,11 @@ const LAYOUTS_KEY = 'HF_UI_LAYOUTS'
 const LAYOUTS_STATE_KEY = 'HF_UI_LAYOUTS_STATE'
 const ACTIVE_MARKET_KEY = 'HF_UI_ACTIVE_MARKET'
 const ACTIVE_MARKET_PAPER_KEY = 'HF_UI_PAPER_ACTIVE_MARKET'
-const ACTIVE_EXCHANGE_KEY = 'HF_UI_ACTIVE_EXCHANGE'
 const IS_PAPER_TRADING = 'IS_PAPER_TRADING'
 export const PAPER_MODE = 'paper'
 export const MAIN_MODE = 'main'
 
 const DEFAULT_ROUTE = '/'
-export const DEFAULT_EXCHANGE = 'bitfinex'
 const DEFAULT_MARKET = {
   contexts: ['e', 'm'],
   restID: 'tBTCUSD',
@@ -27,20 +25,23 @@ const DEFAULT_MARKET = {
   uiID: 'BTC/USD',
 }
 
+export const DEFAULT_TRADING_KEY = 'Default Trading'
+export const DEFAULT_MARKET_KEY = 'Default Market Data'
+
 function getInitialState() {
   const defaultState = {
     route: DEFAULT_ROUTE,
     activeMarket: DEFAULT_MARKET,
-    activeExchange: DEFAULT_EXCHANGE,
     notificationsVisible: false,
     previousMarket: null,
-    previousExchange: null,
     remoteVersion: null,
     firstLogin: false,
     isPaperTrading: false,
     TRADING_PAGE_IS_GUIDE_ACTIVE: true,
     isTradingModeModalVisible: false,
     isRefillBalanceModalVisible: false,
+    isBadInternetConnection: false,
+    isOrderExecuting: false,
     content: {},
   }
 
@@ -66,20 +67,16 @@ function getInitialState() {
 
   if (!defaultState.layouts) {
     defaultState.layouts = {
-      'Default Trading': DEFAULT_TRADING_LAYOUT,
-      'Default Market Data': DEFAULT_MARKET_DATA_LAYOUT,
+      [DEFAULT_TRADING_KEY]: DEFAULT_TRADING_LAYOUT,
+      [DEFAULT_MARKET_KEY]: DEFAULT_MARKET_DATA_LAYOUT,
     }
   }
 
   if (!defaultState.layoutComponentState) {
     defaultState.layoutComponentState = {
-      'Default Trading': DEFAULT_TRADING_COMPONENT_STATE,
-      'Default Market Data': DEFAULT_MARKET_DATA_COMPONENT_STATE,
+      [DEFAULT_TRADING_KEY]: DEFAULT_TRADING_COMPONENT_STATE,
+      [DEFAULT_MARKET_KEY]: DEFAULT_MARKET_DATA_COMPONENT_STATE,
     }
-  }
-
-  if (localStorage.getItem(ACTIVE_EXCHANGE_KEY)) {
-    defaultState.activeExchange = localStorage.getItem(ACTIVE_EXCHANGE_KEY)
   }
 
   defaultState.isPaperTrading = isPaperTrading
@@ -222,17 +219,6 @@ function reducer(state = getInitialState(), action = {}) {
         activeMarket,
       }
     }
-    case types.SET_ACTIVE_EXCHANGE: {
-      const { exchange, market } = payload
-
-      return {
-        ...state,
-        previousMarket: state.activeMarket,
-        previousExchange: state.activeExchange,
-        activeExchange: exchange,
-        activeMarket: market,
-      }
-    }
 
     case types.SET_FILTRED_VALUE: {
       const { key, value } = payload
@@ -300,6 +286,20 @@ function reducer(state = getInitialState(), action = {}) {
         isTradingModeModalVisible: isVisible,
       }
     }
+    case types.CHANGE_BAD_INTERNET_STATE: {
+      const { isVisible } = payload
+      return {
+        ...state,
+        isBadInternetConnection: isVisible,
+      }
+    }
+    case types.SET_IS_ORDER_EXECUTING: {
+      const { executing } = payload
+      return {
+        ...state,
+        isOrderExecuting: executing,
+      }
+    }
     case types.CHANGE_REFILL_BALANCE_MODAL_STATE: {
       const { isVisible } = payload
 
@@ -340,12 +340,6 @@ function reducerWithStorage(state = getInitialState(), action = {}) {
       case types.SET_TRADING_MODE: {
         const { isPaperTrading } = newState
         localStorage.setItem(IS_PAPER_TRADING, isPaperTrading)
-        break
-      }
-      case types.SET_ACTIVE_EXCHANGE: {
-        const { activeExchange, activeMarket } = newState
-        localStorage.setItem(ACTIVE_EXCHANGE_KEY, activeExchange)
-        localStorage.setItem(ACTIVE_MARKET_KEY, JSON.stringify(activeMarket))
         break
       }
 

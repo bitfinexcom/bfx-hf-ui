@@ -1,15 +1,14 @@
-/* eslint-disable react/jsx-no-undef */
 import React from 'react'
 import _isEqual from 'lodash/isEqual'
 import _min from 'lodash/min'
 import _max from 'lodash/max'
+import PropTypes from 'prop-types'
 import { nonce } from 'bfx-api-node-util'
 
 import AddLayoutComponentModal from '../AddLayoutComponentModal'
 import CreateNewLayoutModal from '../CreateNewLayoutModal'
 import LayoutControlToolbar from '../LayoutControlToolbar'
 import GridLayout from '../GridLayout'
-import StatusBar from '../StatusBar'
 
 import {
   layoutDefToGridLayout,
@@ -20,17 +19,11 @@ import {
   COMPONENT_DIMENSIONS,
 } from '../GridLayout/GridLayout.helpers'
 
-import BitfinexOrders from '../../orders/bitfinex'
-import { propTypes, defaultProps } from './GridLayoutPage.props'
+import ordersList from '../../orders'
 
-const orderDefinitions = {
-  bitfinex: Object.values(BitfinexOrders).map(uiDef => uiDef()),
-}
+const orders = Object.values(ordersList).map(uiDef => uiDef())
 
-export default class GridLayoutPage extends React.Component {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
-
+class GridLayoutPage extends React.PureComponent {
   state = {
     layoutDirty: false,
     addLayoutModalOpen: false,
@@ -133,7 +126,7 @@ export default class GridLayoutPage extends React.Component {
         layoutID: layoutName,
         layoutDef: layouts[layoutName],
       }))
-    }, 0)
+    }, 500)
   }
 
   onToggleCreateNewLayoutModal() {
@@ -178,24 +171,24 @@ export default class GridLayoutPage extends React.Component {
       activeMarket, layouts, tradingEnabled, chartProps, bookProps, tradesProps,
       ordersProps, orderFormProps, sharedProps, darkPanels, showToolbar,
     } = this.props
+
     return (
       <div className='hfui-gridlayoutpage__wrapper'>
-        {
-          ((showToolbar) && (
-            <LayoutControlToolbar
-              tradingEnabled={tradingEnabled}
-              activeLayout={layoutDef}
-              activeLayoutID={layoutID}
-              layoutDirty={layoutDirty}
-              layouts={layouts}
-              onDeleteLayout={this.onDeleteLayout}
-              onSaveLayout={this.onSaveLayout}
-              onAddLayout={this.onToggleCreateNewLayoutModal}
-              onAddComponent={this.onToggleAddComponentModal}
-              onChangeLayout={this.onChangeLayout}
-            />
-          ))
-        }
+        {showToolbar && (
+          <LayoutControlToolbar
+            tradingEnabled={tradingEnabled}
+            activeLayout={layoutDef}
+            activeLayoutID={layoutID}
+            layoutDirty={layoutDirty}
+            layouts={layouts}
+            onDeleteLayout={this.onDeleteLayout}
+            onSaveLayout={this.onSaveLayout}
+            onAddLayout={this.onToggleCreateNewLayoutModal}
+            onAddComponent={this.onToggleAddComponentModal}
+            onChangeLayout={this.onChangeLayout}
+          />
+        )}
+
         {addLayoutModalOpen && (
           <CreateNewLayoutModal
             onClose={this.onToggleCreateNewLayoutModal}
@@ -227,19 +220,54 @@ export default class GridLayoutPage extends React.Component {
           })}
           sharedProps={{ ...sharedProps }}
           orderFormProps={({
-            orders: orderDefinitions,
+            orders,
             ...orderFormProps,
           })}
           onLayoutChange={this.onLayoutChange}
           onRemoveComponent={this.onRemoveComponentFromLayout}
         />
-
-        <StatusBar
-          key='statusbar'
-          displayLayoutControls={false}
-        />
-
       </div>
     )
   }
 }
+
+GridLayoutPage.propTypes = {
+  defaultLayoutID: PropTypes.string.isRequired,
+  layouts: PropTypes.objectOf(PropTypes.object).isRequired,
+  tradingEnabled: PropTypes.bool,
+  darkPanels: PropTypes.bool,
+  showToolbar: PropTypes.bool,
+  sharedProps: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool,
+  ])),
+  saveLayout: PropTypes.func.isRequired,
+  createLayout: PropTypes.func.isRequired,
+  deleteLayout: PropTypes.func.isRequired,
+  bookProps: PropTypes.objectOf(PropTypes.bool),
+  tradesProps: PropTypes.objectOf(PropTypes.bool),
+  ordersProps: PropTypes.objectOf(PropTypes.bool),
+  orderFormProps: PropTypes.objectOf(PropTypes.bool),
+  chartProps: PropTypes.objectOf(PropTypes.bool),
+  activeMarket: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.array,
+      PropTypes.number,
+    ]),
+  ).isRequired,
+}
+
+GridLayoutPage.defaultProps = {
+  tradingEnabled: false,
+  darkPanels: false,
+  showToolbar: true,
+  sharedProps: {},
+  bookProps: {},
+  ordersProps: {},
+  orderFormProps: {},
+  tradesProps: {},
+  chartProps: {},
+}
+
+export default GridLayoutPage

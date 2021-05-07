@@ -1,40 +1,28 @@
 @import '../../variables.scss';
 
 .hfui-exchangeinfobar__wrapper {
-  border-bottom: 1px solid $panel-background-color;
   background: $background-color;
 
-  z-index: 100;
   height: 60px;
 
-  position: relative;
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-  padding: 0 1%;
+  padding: 0 spacing(1.25);
 
   ul {
     display: flex;
     flex-direction: row;
     flex: 1;
-    margin-left: 1%;
+    height: 100%;
+    align-items: center;
   }
 
   li {
     min-width: fit-content;
-    display: inline-block;
-    vertical-align: middle;
-    padding-bottom: 23px;
 
     &:first-child {
-      margin-right: 16px;
-    }
-
-    &.text {
-      .hfui-exchangeinfobar__item-label,
-      .hfui-exchangeinfobar__item-data {
-        line-height: 32px;
-      }
+      margin-right: spacing();
     }
   }
 }
@@ -42,52 +30,70 @@
 .hfui-exchangeinfobar__left {
   display: flex;
   flex-direction: row;
+  height: 100%;
+  align-items: center;
+  margin-right: spacing(1.5);
 }
 
 .hfui-exchangeinfobar__right {
-  text-align: right;
-  height: 100%;
-  margin-left: 20px;
-
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  height: 100%;
+  align-items: center;
+}
 
-  i {
+.hfui-exchangeinfobar__buttons {
+  display: flex;
+  margin-right: spacing();
+}
+
+.hfui-exchangeinfobar__button {
+  cursor: pointer;
+  border-radius: 6px;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color .2s;
+  background-color: transparent;
+  opacity: 1 !important;
+
+  i,
+  i:before {
+    display: block;
     font-size: 20px;
   }
-  i:hover {
-    cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background: rgba(255, 255, 255, .1);
+  }
+
+  &:active {
+    background: rgba(0, 0, 0, .2);
   }
 }
 
 .hfui-exchangeinfobar__item.vertical {
   display: block;
   padding: 0;
-  margin-right: 3% !important;
+  margin-right: 24px;
 
   &:last-child {
-    margin-right: 0 !important;
+    margin-right: 0;
   }
 
   .hfui-exchangeinfobar__item-label,
   .hfui-exchangeinfobar__item-data {
     display: block;
     width: 100%;
+    line-height: inherit;
   }
 
   .hfui-exchangeinfobar__item-label {
-    text-transform: none;
-    line-height: 11px;
-    height: 11px;
-    margin-bottom: 8px;
-    margin-right: 0;
-  }
-
-  .hfui-exchangeinfobar__item-data {
-    line-height: 15px;
-    height: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 4px;
+    opacity: .8;
   }
 }
 
@@ -107,6 +113,7 @@
 
 .hfui-exchangeinfobar__item-data {
   color: $text-color;
+  font-weight: 600;
 
   &.hover:hover {
     cursor: pointer;
@@ -134,12 +141,10 @@
 .hfui-tradingpaper__control {
   display: flex;
   border-right: 1px solid $panel-background-color;
-  padding-right: 15px;
   flex-direction: row;
-  justify-content: space-between;
+
   .hfui-tradingpaper__control-toggle {
     p {
-      font-weight: 300;
       font-size: 13px;
       padding-right: 10px;
     }

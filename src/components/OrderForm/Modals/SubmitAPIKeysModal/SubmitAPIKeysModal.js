@@ -48,13 +48,13 @@ export default class SubmitAPIKeysModal extends React.Component {
 
   render() {
     const {
-      exID, onClose, apiClientConnecting, isModal = true,
+      onClose, apiClientConnecting, isPaperTrading, isModal = true,
     } = this.props
     const { apiKey, apiSecret, error } = this.state
 
     return (
       <OrderFormModal
-        title={`SUBMIT API KEYS FOR ${exID.toUpperCase()}`}
+        title={`SUBMIT ${isPaperTrading ? 'PAPER TRADING' : ''} API KEYS`}
         icon='icon-api'
         isModal={isModal}
         apiClientConnecting={apiClientConnecting}

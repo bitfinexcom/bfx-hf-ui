@@ -1,21 +1,24 @@
-@import "~normalize.css/normalize";
-@import "~pretty-checkbox/src/pretty-checkbox.scss";
-@import "~react-datepicker/dist/react-datepicker";
-@import "~codemirror/lib/codemirror";
-@import "~codemirror/theme/monokai";
-@import "~@projectstorm/react-diagrams/dist/style.min";
+@import "normalize.css/normalize";
+@import "pretty-checkbox/src/pretty-checkbox.scss";
+@import "react-datepicker/dist/react-datepicker";
+@import "codemirror/lib/codemirror";
+@import "codemirror/theme/monokai";
+@import "@projectstorm/react-diagrams/dist/style.min";
 @import "https://fonts.googleapis.com/css?family=Roboto&display=swap";
 @import "/icon_font/styles.css";
-@import "~react-popper-tooltip/dist/styles";
+@import "react-popper-tooltip/dist/styles";
 @import "./variables.scss";
 @import "./ufx-customise.scss";
 
-body button:focus {
-  outline: none;
-  border: none;
+*,
+::before,
+::after {
+  box-sizing: border-box;
 }
 
-body button {
+body button,
+body button:focus {
+  outline: none;
   outline: none;
 }
 
@@ -261,8 +264,8 @@ a:visited {
   text-transform: uppercase;
 }
 
-@import "~react-grid-layout/css/styles";
-@import "~react-resizable/css/styles";
+@import "react-grid-layout/css/styles";
+@import "react-resizable/css/styles";
 
 .react-grid-item > .react-resizable-handle {
   z-index: 100;

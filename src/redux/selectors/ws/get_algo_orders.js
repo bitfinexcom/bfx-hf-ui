@@ -4,5 +4,5 @@ import { REDUCER_PATHS } from '../../config'
 const path = REDUCER_PATHS.WS
 
 export default (state) => {
-  return _get(state, `${path}.algoOrders`, {})
+  return _get(state, `${path}.algoOrders`, [])
 }

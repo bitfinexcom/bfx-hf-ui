@@ -1,8 +1,6 @@
 export default {
   1563115202169: {
     marketDirty: false,
-    exchangeDirty: false,
-    currentExchange: 'bitfinex',
     currentMarket: {
       contexts: ['e', 'm'],
       restID: 'tBTCUSD',
@@ -19,8 +17,6 @@ export default {
   },
   1565595676626: {
     marketDirty: true,
-    exchangeDirty: false,
-    currentExchange: 'bitfinex',
     currentMarket: {
       contexts: ['e', 'm'],
       uiID: 'ETH/USD',
@@ -44,8 +40,6 @@ export default {
       base: 'LEO',
       quote: 'USD',
     },
-    currentExchange: 'bitfinex',
-    exchangeDirty: false,
     marketDirty: true,
   },
 }

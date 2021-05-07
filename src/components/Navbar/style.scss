@@ -1,9 +1,6 @@
 @import '../../variables.scss';
 
 .hfui-navbar__wrapper {
-  z-index: 101;
-  position: relative;
-
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -11,11 +8,11 @@
 
   font-size: 12px;
   background: $panel-background-color;
-  height: 33px;
+  height: 38px;
+  padding: 0 spacing(1.25);
 
   svg {
     width: 70px;
-    margin-left: 31px;
     margin-right: 10px
   }
 
@@ -28,17 +25,23 @@
     margin-right: 32px;
   }
 
-  p, button {
-    line-height: 32px;
+  p {
+    line-height: 34px;
   }
 
   button {
+    display: flex;
+    align-items: center;
     background: transparent;
-    border: none;
+    border-top: 2px solid transparent;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
     outline: none;
-    line-height: 30px;
+    height: 38px;
     text-transform: uppercase;
     font-size: 13px;
+    font-weight: 400;
+    transition: all .2s;
 
     &:hover, &.active {
       border-bottom: 2px solid $green-color;
@@ -48,11 +51,14 @@
     &.hover {
       cursor: pointer;
     }
+
+    p {
+      line-height: inherit;
+    }
   }
 
-  & > *, li {
-    display: inline-block;
-    vertical-align: middle;
+  & .fa {
+    display: block;
   }
 
   li {

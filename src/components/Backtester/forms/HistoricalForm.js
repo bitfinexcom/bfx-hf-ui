@@ -16,10 +16,9 @@ const MAX_DATE = new Date()
 
 export default class HistoricalForm extends React.PureComponent {
   static propTypes = {
-    exId: PropTypes.string,
     disabled: PropTypes.bool,
     formState: PropTypes.objectOf(Object),
-    allMarkets: PropTypes.objectOf(Object),
+    markets: PropTypes.arrayOf(PropTypes.object),
     updateError: PropTypes.func.isRequired,
     setFormState: PropTypes.func.isRequired,
     backtestStrategy: PropTypes.func.isRequired,
@@ -27,14 +26,21 @@ export default class HistoricalForm extends React.PureComponent {
   }
   static defaultProps = {
     formState: {},
-    allMarkets: {},
+    markets: [],
     disabled: false,
-    exId: 'bitfinex',
+  }
+
+  componentDidUpdate(prevProps) {
+    const { formState: { candles: prevCandles, trades: prevTrades } } = prevProps
+    const { formState: { candles, trades } } = this.props
+
+    if (candles !== prevCandles || trades !== prevTrades) {
+      this.validateForm()
+    }
   }
 
   executeBacktest = () => {
     const {
-      exId,
       formState,
       updateError,
       backtestStrategy,
@@ -57,7 +63,6 @@ export default class HistoricalForm extends React.PureComponent {
     }
 
     return backtestStrategy({
-      activeExchange: exId,
       activeMarket: selectedMarket.wsID,
       tf: selectedTimeFrame,
       startDate,
@@ -68,13 +73,13 @@ export default class HistoricalForm extends React.PureComponent {
   }
 
   defaultFormState = (formState) => {
-    const { allMarkets, exId } = this.props
+    const { markets } = this.props
 
     return {
       startDate: new Date() - ONE_DAY,
       endDate: new Date(Date.now() - (ONE_MIN * 15)),
       selectedTimeFrame: '15m',
-      selectedMarket: allMarkets[exId][0],
+      selectedMarket: markets[0],
       trades: false,
       candles: true,
       checkboxErr: false,
@@ -92,23 +97,18 @@ export default class HistoricalForm extends React.PureComponent {
   }
   toggleCandles(val) {
     const { setFormState } = this.props
-    setFormState(() => ({ candles: val }), () => {
-      this.validateForm()
-    })
+    setFormState(() => ({ candles: val }))
   }
   toggleTrades(val) {
     const { setFormState } = this.props
-    setFormState(() => ({ trades: val }), () => {
-      this.validateForm()
-    })
+    setFormState(() => ({ trades: val }))
   }
 
   render() {
     const {
-      exId,
       disabled,
       formState,
-      allMarkets,
+      markets,
       setFormState,
       updateExecutionType,
     } = this.props
@@ -140,16 +140,15 @@ export default class HistoricalForm extends React.PureComponent {
             <MarketSelect
               value={selectedMarket}
               onChange={(selection) => {
-                const sel = allMarkets[exId].find(m => m.uiID === selection.uiID)
+                const sel = markets.find(m => m.uiID === selection.uiID)
                 setFormState(() => ({ selectedMarket: sel }))
               }}
-              markets={allMarkets[exId]}
+              markets={markets}
               renderWithFavorites
             />
           </div>
           <div className='hfui-backtester__flex_start' style={{ marginRight: -15 }}>
             <TimeFrameDropdown
-              exID={exId}
               tf={selectedTimeFrame}
               onChange={tf => {
                 setFormState(() => ({ selectedTimeFrame: tf }))

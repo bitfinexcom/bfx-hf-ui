@@ -6,9 +6,9 @@ import Results from '../Results'
 
 import StrategyTradesTable from '../../StrategyTradesTable'
 
-export default (opts, results, backtestData, backtestOptions) => {
+const HistoricalReport = (opts, results, backtestData, backtestOptions) => {
   const { trades = [] } = results
-  const { indicators } = opts
+  const { indicators, onAddIndicator, onDeleteIndicator } = opts
   const { candles = [] } = backtestData
   const { tf } = backtestOptions
   const hasCandles = candles.length !== 0
@@ -40,6 +40,8 @@ export default (opts, results, backtestData, backtestOptions) => {
             trades={trades}
             width={width}
             height={height}
+            onAddIndicator={onAddIndicator}
+            onDeleteIndicator={onDeleteIndicator}
             isSyncing={false}
             candleLoadingThreshold={3} // we always get 1 candle when sub'ing
             bgColor='#102331'
@@ -49,7 +51,6 @@ export default (opts, results, backtestData, backtestOptions) => {
             }}
             candleWidth={tf}
             disableToolbar
-            disableIndicatorSettings
             showMarketLabel={false}
           />
         )}
@@ -63,3 +64,5 @@ export default (opts, results, backtestData, backtestOptions) => {
     </div>
   )
 }
+
+export default HistoricalReport

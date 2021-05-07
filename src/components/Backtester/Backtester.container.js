@@ -13,7 +13,7 @@ import Backtester from './Backtester'
 const mapStateToProps = (state = {}) => ({
   backtest: getBacktestState(state),
   backtestData: getBacktestData(state),
-  allMarkets: getMarkets(state),
+  markets: getMarkets(state),
   backtestResults: getBacktestResults(state),
   strategyContent: state.ui.content,
   backtestOptions: state.ws.backtest.backtestOptions || {},
@@ -21,11 +21,11 @@ const mapStateToProps = (state = {}) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  dsExecuteBacktest: (exchange, from, to, symbol, tf, candles, trades, strategy) => {
+  dsExecuteBacktest: (from, to, symbol, tf, candles, trades, strategy) => {
     dispatch(WSActions.purgeBacktestData())
     dispatch(WSActions.send({
       alias: WSTypes.ALIAS_DATA_SERVER,
-      data: ['exec.str', [exchange, from, to, symbol, tf, candles, trades, true, strategy, uuidv4()]],
+      data: ['exec.str', ['bitfinex', from, to, symbol, tf, candles, trades, true, strategy, uuidv4()]],
     }))
     dispatch(WSActions.setBacktestLoading())
   },

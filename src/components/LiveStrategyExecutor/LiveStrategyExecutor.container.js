@@ -5,7 +5,7 @@ import { getMarkets } from '../../redux/selectors/meta'
 import { getAuthToken } from '../../redux/selectors/ws'
 
 const mapStateToProps = (state = {}) => ({
-  allMarkets: getMarkets(state),
+  markets: getMarkets(state),
   strategyContent: state.ui.content,
   authToken: getAuthToken(state),
 })
