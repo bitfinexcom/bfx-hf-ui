@@ -39,6 +39,7 @@ $notifications-background-color: #0d101f;
 // Utils
 $spacing-unit: 16px;
 $spacing-unit-grid: 10px;
+$border-radius: 6px;
 
 @function spacing($value: 1, $grid: false) {
   @if $grid {

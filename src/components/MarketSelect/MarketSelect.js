@@ -49,8 +49,8 @@ export default class MarketSelect extends React.PureComponent {
         label={renderLabel && 'Market'}
         onFavoriteSelect={(pair, isPairSelected) => this.favoriteSelect(pair, isPairSelected)}
         className={ClassNames('hfui-marketselect', className)}
-        onChange={(selection) => {
-          onChange(markets.find(m => m.uiID === selection.value))
+        onChange={(val) => {
+          onChange(markets.find(m => m.uiID === val))
         }}
         value={{
           label: value.uiID || `${value.base}/${value.quote}`,

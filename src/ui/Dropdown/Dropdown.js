@@ -3,8 +3,16 @@ import ClassNames from 'classnames'
 import Scrollbars from 'react-custom-scrollbars'
 import OnClickOutside from 'react-onclickoutside'
 
+import { Dropdown as UfxDropdown } from 'ufx-ui'
 import { propTypes, defaultProps } from './Dropdown.props'
 import './style.css'
+
+function optionsAdaptor(options) {
+  return options.reduce((nextOptions, option) => ({
+    ...nextOptions,
+    [option.value]: option.label,
+  }), {})
+}
 
 class Dropdown extends React.Component {
   static propTypes = propTypes
@@ -40,6 +48,8 @@ class Dropdown extends React.Component {
     const {
       label, value, options, highlight, fallback, disabled, isOpen, icon,
     } = this.props
+    console.log('TCL: Dropdown -> render -> value', value)
+    console.log('TCL: Dropdown -> render -> options', options)
 
     return (
       <div className='hfui-dropdown__wrapper'>
@@ -47,7 +57,13 @@ class Dropdown extends React.Component {
           <p>{label}</p>
         )}
 
-        <div className='hfui-dropdown__button-wrapper'>
+        <UfxDropdown
+          value={value}
+          options={optionsAdaptor(options)}
+          onChange={this.onSelect}
+        />
+
+        {/* <div className='hfui-dropdown__button-wrapper'>
           <div
             onClick={disabled ? () => {} : this.onToggleOpen}
             className={ClassNames('hfui-dropdown__button', {
@@ -95,7 +111,7 @@ class Dropdown extends React.Component {
               </Scrollbars>
             </ul>
           )}
-        </div>
+        </div> */}
       </div>
     )
   }

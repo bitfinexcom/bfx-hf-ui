@@ -26,22 +26,19 @@ function optionsAdaptor(options) {
 function Select(props) {
   const {
     onChange,
-    value,
+    value: selectedOption,
     options,
     className,
     componentProps,
   } = props
 
-  const nextOptions = optionsAdaptor(options)
-
-  console.log('TCL: Select -> nextOptions', nextOptions)
-
   return (
     <UfxDropdown
-      value={value}
-      options={nextOptions}
+      value={selectedOption.value}
+      options={optionsAdaptor(options)}
       className={className}
       onChange={onChange}
+      closeOnMouseLeave={false}
       {...componentProps}
     />
   )

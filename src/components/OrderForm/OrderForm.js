@@ -318,6 +318,8 @@ export default class OrderForm extends React.Component {
       helpOpen, configureModalOpen, currentMarket, algoOrders,
     } = this.state
 
+    console.log('TCL: render -> context', context)
+
     const apiClientConnected = apiClientState === 2
     const apiClientConnecting = apiClientState === 1
     const apiClientConfigured = !_isEmpty(apiCredentials)

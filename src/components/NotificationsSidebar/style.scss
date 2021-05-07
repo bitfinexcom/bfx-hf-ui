@@ -124,6 +124,7 @@
     color: $notifications-info-color;
     border-color: 1px solid $notifications-info-color;
   }
+
   &.closed {
     height: 0;
     visibility: hidden;

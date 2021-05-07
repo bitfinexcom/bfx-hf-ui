@@ -115,7 +115,7 @@ export default class AuthenticationInit extends React.PureComponent {
               placeholder='Select trading mode...'
               value={options.find(o => o.value === mode)}
               options={options}
-              onChange={({ value }) => this.selectMode(value)}
+              onChange={(value) => this.selectMode(value)}
             />
           </div>
           {isDevEnv && (
