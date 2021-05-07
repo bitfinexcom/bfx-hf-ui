@@ -13,15 +13,12 @@
 *,
 ::before,
 ::after {
-  box-sizing: content-box;
+  box-sizing: border-box;
 }
 
+body button,
 body button:focus {
   outline: none;
-  border: none;
-}
-
-body button {
   outline: none;
 }
 

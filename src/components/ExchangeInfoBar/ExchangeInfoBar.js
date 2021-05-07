@@ -6,6 +6,7 @@ import SwitchMode from '../SwitchMode'
 import MarketSelect from '../MarketSelect'
 // import RefillIcon from '../../ui/Icons/RefillIcon'
 import ExchangeInfoBarItem from './ExchangeInfoBarItem'
+import ExchangeInfoBarButton from './ExchangeInfoBar.Button'
 import quotePrefix from '../../util/quote_prefix'
 
 import './style.css'
@@ -29,11 +30,7 @@ class ExchangeInfoBar extends React.PureComponent {
       markets,
       openNotifications,
       showTicker,
-      showNotifications,
-      showAddComponent,
-      onAddComponent,
-      showSave,
-      onSave,
+      buttons: Buttons,
       // onRefillClick,
     } = this.props
     const {
@@ -122,6 +119,10 @@ class ExchangeInfoBar extends React.PureComponent {
         )}
 
         <div className='hfui-exchangeinfobar__right'>
+          <div className='hfui-exchangeinfobar__buttons'>
+            {Buttons && <Buttons />}
+            <ExchangeInfoBarButton icon='notifications' onClick={openNotifications} />
+          </div>
           <div className='hfui-tradingpaper__control'>
             <div className='hfui-tradingpaper__control-toggle'>
               <p>Paper Trading</p>
@@ -132,24 +133,6 @@ class ExchangeInfoBar extends React.PureComponent {
             </div> */}
           </div>
         </div>
-
-        {showSave && (
-          <div className='hfui-exchangeinfobar__right' onClick={onSave}>
-            <i className='icon-save' />
-          </div>
-        )}
-
-        {showAddComponent && (
-          <div className='hfui-exchangeinfobar__right' onClick={onAddComponent}>
-            <i className='icon-plus' />
-          </div>
-        )}
-
-        {showNotifications && (
-          <div className='hfui-exchangeinfobar__right' onClick={openNotifications}>
-            <i className='icon-notifications' />
-          </div>
-        )}
       </div>
     )
   }
@@ -162,11 +145,6 @@ ExchangeInfoBar.propTypes = {
   ticker: PropTypes.object.isRequired, // eslint-disable-line
   markets: PropTypes.array, // eslint-disable-line
   showTicker: PropTypes.bool,
-  showNotifications: PropTypes.bool,
-  onAddComponent: PropTypes.func,
-  onSave: PropTypes.func,
-  showAddComponent: PropTypes.bool,
-  showSave: PropTypes.bool,
   openTradingModeModal: PropTypes.func,
   openNotifications: PropTypes.func,
 }
@@ -174,11 +152,6 @@ ExchangeInfoBar.propTypes = {
 ExchangeInfoBar.defaultProps = {
   markets: [],
   showTicker: true,
-  showNotifications: true,
-  showAddComponent: false,
-  showSave: false,
-  onAddComponent: () => {},
-  onSave: () => {},
   openTradingModeModal: () => {},
   openNotifications: () => {},
 }

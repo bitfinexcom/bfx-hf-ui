@@ -17,6 +17,8 @@ import PanelSettings from '../../ui/PanelSettings'
 import Checkbox from '../../ui/Checkbox'
 import Panel from '../../ui/Panel'
 
+import './style.css'
+
 const { WSSubscribeChannel, WSUnsubscribeChannel } = reduxActions
 const { SUBSCRIPTION_CONFIG } = reduxConstants
 const {
@@ -143,6 +145,7 @@ const OrderBookPanel = (props) => {
       ]}
       settingsOpen={settingsOpen}
       onToggleSettings={onToggleSettings}
+      className='hfui-book__wrapper'
     >
       {settingsOpen ? (
         <PanelSettings

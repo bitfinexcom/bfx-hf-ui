@@ -8,17 +8,25 @@ import StrategyEditorPage from '../../pages/StrategyEditor'
 import MarketDataPage from '../../pages/MarketData'
 import AuthenticationPage from '../../pages/Authentication'
 
-import Navbar from '../Navbar'
+import TradingModeModal from '../TradingModeModal'
+import BadConnectionModal from '../BadConnectionModal'
+
 import NotificationsSidebar from '../NotificationsSidebar'
 
 import './style.css'
 
 const HFUI = ({
-  authToken, getSettings, notificationsVisible, getFavoritePairs, currentMode, GAPageview,
+  authToken,
+  getSettings,
+  notificationsVisible,
+  getFavoritePairs,
+  currentMode,
+  GAPageview,
+  currentPage,
 }) => {
   useEffect(() => {
-    GAPageview(window.location.pathname)
-  })
+    GAPageview(currentPage)
+  }, [currentPage])
 
   useEffect(() => {
     if (authToken) {
@@ -27,64 +35,36 @@ const HFUI = ({
     }
   }, [authToken])
 
-  if (!authToken) {
-    return (
-      <div className='hfui-app'>
-        <AuthenticationPage />
-        <NotificationsSidebar />
-      </div>
-    )
-  }
-
   return (
-    <div className='hfui-app'>
-      <Navbar />
-      <Switch>
-        <Redirect from='/index.html' to='/' exact />
-
-        <Route
-          path='/'
-          component={TradingPage}
-          exact
-        />
-
-        <Route
-          path='/strategy-editor'
-          component={StrategyEditorPage}
-        />
-
-        <Route
-          path='/data'
-          component={MarketDataPage}
-        />
-
-        <Route
-          path='/settings'
-          component={SettingsPage}
-        />
-      </Switch>
-
+    <>
+      {!authToken ? (
+        <AuthenticationPage />
+      ) : (
+        <>
+          <Switch>
+            <Redirect from='/index.html' to='/' exact />
+            <Route path='/' render={() => <TradingPage />} exact />
+            <Route path='/strategy-editor' render={() => <StrategyEditorPage />} />
+            <Route path='/data' render={() => <MarketDataPage />} />
+            <Route path='/settings' render={() => <SettingsPage />} />
+          </Switch>
+          <TradingModeModal />
+          <BadConnectionModal />
+        </>
+      )}
       <NotificationsSidebar notificationsVisible={notificationsVisible} />
-    </div>
+    </>
   )
 }
 
 HFUI.propTypes = {
-  authToken: PropTypes.string,
-  currentMode: PropTypes.string,
-  getSettings: PropTypes.func,
-  getFavoritePairs: PropTypes.func,
-  notificationsVisible: PropTypes.bool,
-  GAPageview: PropTypes.func,
-}
-
-HFUI.defaultProps = {
-  authToken: '',
-  currentMode: '',
-  getSettings: () => {},
-  getFavoritePairs: () => {},
-  notificationsVisible: false,
-  GAPageview: () => {},
+  authToken: PropTypes.string.isRequired,
+  currentMode: PropTypes.string.isRequired,
+  getSettings: PropTypes.func.isRequired,
+  getFavoritePairs: PropTypes.func.isRequired,
+  notificationsVisible: PropTypes.bool.isRequired,
+  GAPageview: PropTypes.func.isRequired,
+  currentPage: PropTypes.string.isRequired,
 }
 
 export default HFUI

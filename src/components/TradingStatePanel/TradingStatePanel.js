@@ -127,6 +127,7 @@ class TradingStatePanel extends React.Component {
 
   render() {
     const {
+      dark,
       onRemove,
       moveable,
       removeable,
@@ -140,6 +141,8 @@ class TradingStatePanel extends React.Component {
     return (
       <Panel
         label='TRADING STAGE'
+        dark={dark}
+        darkHeader={dark}
         className='hfui-tradingstatepanel__wrapper'
         moveable={false}
         removeable={false}

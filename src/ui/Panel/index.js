@@ -133,12 +133,7 @@ export default class Panel extends React.Component {
           </div>
         )}
 
-        <div
-          className='hfui-panel__content'
-          style={{
-            height: `calc(100% - ${heightOffsetPX}px)`,
-          }}
-        >
+        <div className='hfui-panel__content'>
           {modal}
 
           <Scrollbars

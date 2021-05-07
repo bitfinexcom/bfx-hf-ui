@@ -6,6 +6,7 @@ import Chart from '../Chart'
 import MarketSelect from '../MarketSelect'
 
 import Panel from '../../ui/Panel'
+import './style.css'
 
 export default class ChartPanel extends React.Component {
   static propTypes = {
@@ -192,7 +193,7 @@ export default class ChartPanel extends React.Component {
         chartMarketSelect={[
           showChartMarket && this.renderMarketDropdown(),
         ]}
-        className='hfui-tradestable__wrapper'
+        className='hfui-chart__wrapper'
       >
         <Chart market={currentMarket} />
       </Panel>

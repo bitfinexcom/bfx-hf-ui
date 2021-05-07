@@ -29,16 +29,14 @@ const Navbar = () => (
   <div className='hfui-navbar__wrapper'>
     <HFIcon />
     <ul className='hfui-navbar__main-links'>
-      {
-        items.map(val => (
-          <li key={val.route}>
-            <NavbarButton
-              route={val.route}
-              label={val.label}
-            />
-          </li>
-        ))
-          }
+      {items.map(val => (
+        <li key={val.route}>
+          <NavbarButton
+            route={val.route}
+            label={val.label}
+          />
+        </li>
+      ))}
     </ul>
   </div>
 )

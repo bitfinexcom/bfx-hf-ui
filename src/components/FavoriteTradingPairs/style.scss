@@ -1,5 +1,10 @@
 @import '../../variables.scss';
 
+.hfui-favoritepair__wrapper {
+    background: $panel-background-color;
+    margin-bottom: spacing(1.25);
+}
+
 .hfui-favoritepair__title {
     font-weight: 500;
     font-size: 13px;
@@ -7,14 +12,16 @@
     flex-shrink: 0;
     text-transform: uppercase;
     color: $green-color;
-    padding-left: 10px;
-    border-bottom: 1px solid $panel-background-color;
+    padding: 0 spacing(1, true);
 }
 
 .hfui-favoritepair__content {
-    height: 82px;
-    max-width: 100%;
-    padding-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 82px;
+    max-height: 150px;
+    padding: spacing(1, true);
+    padding-bottom: 0;
     overflow-y: auto;
 }
 .hfui-favoritepair__content::-webkit-scrollbar {
@@ -31,26 +38,22 @@
     font-size: .7em;
     color: $white-color;
     display: flex;
-    margin-top: 5px;
-    position: sticky;
-    bottom: 0;
-    left: 0;
-    gap: 3px;
-    margin-left: 5px;
-    p { 
-        margin-top: 2px;
+    padding: spacing(1, true);
+    svg {
+        margin-right: 4px;
     }
 }
 .hfui-favoritepair__content-item {
     background-color: $panel-background-color;
-    display: inline-block;
+    display: block;
+    flex: 1;
     text-transform: uppercase;
-    padding: 8px;
-    margin: 4px;
+    margin-right: spacing(0.25);
+    margin-bottom: spacing(0.75);
     font-size: 13px;
-    cursor: pointer; 
+    cursor: pointer;
+
     &.active {
-        border: 1px solid $green-color;
         color: $green-color;
     }
 }

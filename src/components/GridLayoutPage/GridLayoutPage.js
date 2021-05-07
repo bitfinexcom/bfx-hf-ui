@@ -9,7 +9,6 @@ import AddLayoutComponentModal from '../AddLayoutComponentModal'
 import CreateNewLayoutModal from '../CreateNewLayoutModal'
 import LayoutControlToolbar from '../LayoutControlToolbar'
 import GridLayout from '../GridLayout'
-import StatusBar from '../StatusBar'
 
 import {
   layoutDefToGridLayout,
@@ -226,11 +225,6 @@ class GridLayoutPage extends React.PureComponent {
           })}
           onLayoutChange={this.onLayoutChange}
           onRemoveComponent={this.onRemoveComponentFromLayout}
-        />
-
-        <StatusBar
-          key='statusbar'
-          displayLayoutControls={false}
         />
       </div>
     )

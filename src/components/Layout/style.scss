@@ -1,0 +1,29 @@
+@import '../../variables.scss';
+
+.layout {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+}
+
+.layout__main {
+  flex-grow: 1;
+  padding: spacing(1.25);
+  padding-top: 0;
+
+  &.is-flex {
+    display: flex;
+  }
+}
+
+.layout__header,
+.layout__main,
+.layout__footer {
+  display: block;
+}
+
+.layout__header,
+.layout__footer {
+  flex-shrink: 0;
+}
