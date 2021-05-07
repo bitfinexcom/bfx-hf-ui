@@ -66,8 +66,6 @@ export default class Notification extends React.PureComponent {
         break
     }
 
-    console.log('TCL: Notification -> icon', icon)
-
     return (
       <li className={ClassNames(`hfui-notification ${NOTIFICATION_STATE === 'OPENED' ? '' : 'closed'}`, {
         [status.toLowerCase()]: true,
