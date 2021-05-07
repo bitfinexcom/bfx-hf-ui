@@ -36,7 +36,6 @@ export default class Notification extends React.PureComponent {
     const { NOTIFICATION_STATE } = this.state
 
     let icon
-    console.log('TCL: Notification -> render -> status', status)
 
     switch (status) {
       case 'success':
