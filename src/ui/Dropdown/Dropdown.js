@@ -32,7 +32,7 @@ class Dropdown extends React.Component {
     this.setState(() => ({ open: false }))
   }
 
-  onSelect(value) {
+  onSelect = (value) => {
     const { onChange } = this.props
     onChange(value)
 
@@ -48,8 +48,6 @@ class Dropdown extends React.Component {
     const {
       label, value, options, highlight, fallback, disabled, isOpen, icon,
     } = this.props
-    console.log('TCL: Dropdown -> render -> value', value)
-    console.log('TCL: Dropdown -> render -> options', options)
 
     return (
       <div className='hfui-dropdown__wrapper'>
