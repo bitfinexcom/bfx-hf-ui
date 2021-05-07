@@ -18,9 +18,10 @@ function reducer(state = getInitialState(), action = {}) {
     case types.DATA_BALANCE: {
       const { balance = [] } = payload
       const adaptedBalance = balanceAdapter(balance)
+      const filtered = state.filter(({ currency, context }) => context !== adaptedBalance.context || currency !== adaptedBalance.currency)
 
       return [
-        ...state,
+        ...filtered,
         adaptedBalance,
       ]
     }

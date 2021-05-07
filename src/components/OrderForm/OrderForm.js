@@ -220,6 +220,12 @@ export default class OrderForm extends React.Component {
   }
 
   onSubmit(action) {
+    const { setIsOrderExecuting, isOrderExecuting } = this.props
+    if (isOrderExecuting) {
+      return
+    }
+    setIsOrderExecuting(true)
+
     if (action === 'submit') {
       this.onSubmitAlgoOrder()
       return
@@ -248,6 +254,7 @@ export default class OrderForm extends React.Component {
       })
       gaSubmitOrder()
     } catch (e) {
+      setIsOrderExecuting(false)
       this.setState(() => ({ creationError: e.message }))
     }
   }
@@ -310,7 +317,7 @@ export default class OrderForm extends React.Component {
     const {
       onRemove, orders, apiClientState, apiCredentials, moveable, removeable,
       showMarket, favoritePairs, savePairs, authToken, onChangeMarket, markets,
-      activeMarket, mode, isPaperTrading,
+      activeMarket, mode, isPaperTrading, isOrderExecuting,
     } = this.props
 
     const {
@@ -457,6 +464,7 @@ export default class OrderForm extends React.Component {
                 layout: currentLayout,
                 validationErrors,
                 renderData,
+                isOrderExecuting,
                 fieldData: {
                   ...fieldData,
                   _context: context,

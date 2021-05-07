@@ -1,10 +1,11 @@
+/* eslint-disable prefer-arrow-callback */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import _isFinite from 'lodash/isFinite'
 
 import NumberInput from './input.number'
 
-const PercentInput = memo(({ layout, ...props }) => {
+const PercentInput = memo(function PercentInput({ layout, ...props }) {
   const { id } = layout
 
   return (

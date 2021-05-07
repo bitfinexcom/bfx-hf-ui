@@ -114,6 +114,12 @@ export default (alias, store) => (e = {}) => {
         store.dispatch(WSActions.recvUpdatedFavoritePairs(pairs))
         break
       }
+
+      case 'data.algo_order.submit_status':
+      case 'data.order.submit_status':
+        store.dispatch(UIActions.setIsOrderExecuting(false))
+        break
+
       case 'error': {
         const [, message] = payload
         store.dispatch(WSActions.recvNotification({

@@ -134,6 +134,11 @@ const changeBadInternetConnectionState = (isVisible) => ({
   payload: { isVisible },
 })
 
+const setIsOrderExecuting = (executing) => ({
+  type: types.SET_IS_ORDER_EXECUTING,
+  payload: { executing },
+})
+
 const changeReffilBalanceModalState = isVisible => ({
   type: types.CHANGE_REFILL_BALANCE_MODAL_STATE,
   payload: { isVisible },
@@ -162,4 +167,5 @@ export default {
   changeTradingModeModalState,
   changeReffilBalanceModalState,
   changeBadInternetConnectionState,
+  setIsOrderExecuting,
 }

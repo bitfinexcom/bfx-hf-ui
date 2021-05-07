@@ -11,7 +11,7 @@ import {
   getAPIClientState, getAuthToken, getAPICredentials,
 } from '../../redux/selectors/ws'
 import {
-  getComponentState, getActiveMarket, getCurrentMode, getIsPaperTrading,
+  getComponentState, getActiveMarket, getCurrentMode, getIsPaperTrading, getIsOrderExecuting,
 } from '../../redux/selectors/ui'
 
 const debug = Debug('hfui:c:order-form')
@@ -31,12 +31,17 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     favoritePairs,
     mode: getCurrentMode(state),
     isPaperTrading: getIsPaperTrading(state),
+    isOrderExecuting: getIsOrderExecuting(state),
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   navigate: (route) => {
     dispatch(push(route))
+  },
+
+  setIsOrderExecuting: (executing) => {
+    dispatch(UIActions.setIsOrderExecuting(executing))
   },
 
   saveState: (layoutID, componentID, state) => {

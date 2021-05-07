@@ -195,7 +195,7 @@ const renderLayoutComponent = ({
   )
 }
 
-const renderLayoutActions = ({ layout = {}, onSubmit }) => { // eslint-disable-line
+const renderLayoutActions = ({ layout = {}, onSubmit, isOrderExecuting }) => { // eslint-disable-line
   const { actions = [] } = layout
   const validActions = actions.filter(action => action !== 'preview')
 
@@ -214,6 +214,7 @@ const renderLayoutActions = ({ layout = {}, onSubmit }) => { // eslint-disable-l
           red={action === 'sell'}
           green={action === 'buy'}
           blue={action === 'submit'}
+          disabled={isOrderExecuting}
         />
       ))}
     </div>
@@ -319,6 +320,7 @@ const renderLayout = ({
   layout = {}, // eslint-disable-line
   onSubmit, // eslint-disable-line
   onFieldChange, // eslint-disable-line
+  isOrderExecuting, // eslint-disable-line
 }) => {
   const { label, header, sections = [] } = layout
   const html = []
@@ -367,7 +369,7 @@ const renderLayout = ({
     }))
   })
 
-  html.push(renderLayoutActions({ layout, onSubmit }))
+  html.push(renderLayoutActions({ layout, onSubmit, isOrderExecuting }))
 
   return (
     <div className='hfui-orderform__layout' key='orderform-layout'>
