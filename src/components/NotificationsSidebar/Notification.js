@@ -6,6 +6,7 @@ import _toLower from 'lodash/toLower'
 import check from './check.svg'
 import error from './error.svg'
 import clear from './clear.svg'
+import info from './info.svg'
 import pass from './password.svg'
 
 import { propTypes, defaultProps } from './Notification.props'
@@ -35,6 +36,7 @@ export default class Notification extends React.PureComponent {
     const { NOTIFICATION_STATE } = this.state
 
     let icon
+    console.log('TCL: Notification -> render -> status', status)
 
     switch (status) {
       case 'success':
@@ -53,6 +55,8 @@ export default class Notification extends React.PureComponent {
       case 'info':
         if (_includes(_toLower(text), 'cleared user credentials & data')) {
           icon = <img src={clear} alt='clear' />
+        } else {
+          icon = <img src={info} alt='info' />
         }
 
         break
@@ -61,18 +65,20 @@ export default class Notification extends React.PureComponent {
         icon = <img src={check} alt='check' />
         break
     }
+
+    console.log('TCL: Notification -> icon', icon)
+
     return (
       <li className={ClassNames(`hfui-notification ${NOTIFICATION_STATE === 'OPENED' ? '' : 'closed'}`, {
         [status.toLowerCase()]: true,
       })}
       >
+        <p className='hfui-notification__close' onClick={() => this.closeNotification()}>&#10005;</p>
         <div className='hfui-notification-icon'>
           {icon}
         </div>
-
         <div className='hfui-notification-data'>
-          <p className='hfui-notification__close' onClick={() => this.closeNotification()}>X</p>
-          <p className='nfui-notification-msg'>{text}</p>
+          <p className='hfui-notification-msg'>{text}</p>
           <p className='hfui-notification__ts'>{`${new Date(mts).toLocaleString()}`}</p>
         </div>
       </li>
