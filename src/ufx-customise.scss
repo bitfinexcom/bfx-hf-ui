@@ -11,4 +11,7 @@ $ufx-table-active-row-background-color: $panel-background-color;
 $ufx-text-color: white;
 $ufx-heading-color: white;
 
+$dropdown-background-color: $panel-background-color;
+$dropdown-active-item-background-color: $background-color;
+
 @import "ufx-ui/src/ufx-ui.scss";
