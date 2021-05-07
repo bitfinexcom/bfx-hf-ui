@@ -34,7 +34,6 @@ const mapDispatchToProps = dispatch => ({
     if (_isEqual(market, prevMarket)) {
       return
     }
-    dispatch(WSActions.removeChannelRequirement(['ticker', prevMarket]))
     dispatch(UIActions.setActiveMarket(market))
     dispatch(WSActions.addChannelRequirement(['ticker', market]))
   },
