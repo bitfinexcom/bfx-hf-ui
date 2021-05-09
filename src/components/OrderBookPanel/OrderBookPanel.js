@@ -27,7 +27,6 @@ const {
   getBooktAsks,
   getBooktBids,
   getBookSnapshotReceived,
-  getWSConnected,
 } = reduxSelectors
 
 const OrderBookPanel = (props) => {
@@ -54,7 +53,6 @@ const OrderBookPanel = (props) => {
   } = useCommonBfxData(base, quote)
 
   const snapshotReceived = useSelector(state => getBookSnapshotReceived(state, symbol))
-  const wsConnected = useSelector(getWSConnected)
   const asks = useSelector(state => getBookAsks(state, symbol))
   const bids = useSelector(state => getBookBids(state, symbol))
   const pAsks = useSelector(state => getBookpAsks(state, symbol))
