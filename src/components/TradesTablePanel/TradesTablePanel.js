@@ -31,17 +31,13 @@ const TradesTablePanel = (props) => {
     showMarket,
     removeable,
     savedState,
-    allMarkets,
+    markets,
     updateState,
     activeMarket,
-    activeExchange,
     canChangeMarket,
     allMarketTrades,
   } = props
-  const {
-    currentMarket = activeMarket,
-    currentExchange = activeExchange,
-  } = savedState
+  const { currentMarket = activeMarket } = savedState
   const { base, quote } = currentMarket
 
   const { symbol, dispatch, isWSConnected } = useCommonBfxData(base, quote)
@@ -87,19 +83,16 @@ const TradesTablePanel = (props) => {
     saveState('currentMarket', market)
   }
 
-  const renderMarketDropdown = () => {
-    const markets = allMarkets[currentExchange] || []
-    return (
-      <MarketSelect
-        markets={markets}
-        renderWithFavorites
-        key='market-dropdown'
-        value={currentMarket}
-        onChange={onChangeMarket}
-        disabled={!canChangeMarket}
-      />
-    )
-  }
+  const renderMarketDropdown = () => (
+    <MarketSelect
+      markets={markets}
+      renderWithFavorites
+      key='market-dropdown'
+      value={currentMarket}
+      onChange={onChangeMarket}
+      disabled={!canChangeMarket}
+    />
+  )
 
   const handleOnRemove = (...args) => {
     unSubscribeWSChannel(symbol)
@@ -140,9 +133,8 @@ TradesTablePanel.propTypes = {
   layoutI: PropTypes.string.isRequired,
   layoutID: PropTypes.string.isRequired,
   updateState: PropTypes.func.isRequired,
-  allMarkets: PropTypes.object.isRequired,
+  markets: PropTypes.array.isRequired,
   activeMarket: PropTypes.object.isRequired,
-  activeExchange: PropTypes.string.isRequired,
 }
 
 TradesTablePanel.defaultProps = {

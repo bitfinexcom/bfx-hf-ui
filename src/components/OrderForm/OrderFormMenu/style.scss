@@ -1,8 +1,6 @@
 @import '../../../variables.scss';
 
 .hfui-orderformmenu__wrapper {
-  padding: 0 21px;
-
   h4 {
     text-align: center;
     line-height: 38px;
@@ -15,48 +13,43 @@
     }
   }
 
+  ul {
+    margin-bottom: spacing(0.5);
+  }
+
   li {
     display: flex;
-    flex-direction: row;
-    height: 48px;
-    background: $panel-background-color;
+    background: $background-color;
+    border-radius: 2px;
     margin-bottom: 6px;
     height: 36px;
+    align-items: center;
+    transition: box-shadow .2s;
   
     &:hover {
       cursor: pointer;
     }
 
-    &:last-child {
-      margin-bottom: 11px;
-    }
-
     i {
       width: 40px;
-      line-height: 36px;
       text-align: center;
       font-size: 11px;
+
+      &:before {
+        display: block;
+      }
+    }
+
+    i, div {
+      transition: color .2s;
     }
 
     &:hover {
       box-shadow: inset 0 0 0 2px mix($green-color, $panel-background-color, 50%);
 
-      i, p {
+      i, div {
         color: $green-color;
       }
-    }
-
-    p {
-      &:first-child {
-        font-size: 13px;
-        line-height: 30px;
-        margin-top: 2px
-      }
-    }
-
-    > div {
-      display: flex;
-      flex-direction: column;
     }
   }
 }

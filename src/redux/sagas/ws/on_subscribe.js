@@ -10,13 +10,13 @@ const debug = Debug('hfui:rx:s:ws-hfui-server:on-sub')
 
 export default function* (action = {}) {
   const { payload = {} } = action
-  const { exID, channel = [] } = payload
+  const { channel = [] } = payload
   const { wsID } = channel[1]
   const channelName = channel[0]
   const existingChannel = yield select(getChannel, channel)
 
   if (!existingChannel) {
-    debug('subscribing to %s %s on %s', channel[0], _last(channel).uiID, exID)
+    debug('subscribing to %s %s on %s', channel[0], _last(channel).uiID)
 
     if (channelName === 'ticker') {
       // Temporary, until other channels will be migrated to pub api sub
@@ -29,7 +29,7 @@ export default function* (action = {}) {
         },
       }))
     } else {
-      yield put(WSActions.send(['subscribe', exID, channel]))
+      yield put(WSActions.send(['subscribe', 'bitfinex', channel]))
     }
   }
 }

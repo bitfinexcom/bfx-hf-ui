@@ -1,7 +1,7 @@
 import t from '../../constants/ws'
 
 const getInitialState = () => {
-  return {}
+  return 0
 }
 
 export default function (state = getInitialState(), action = {}) {
@@ -9,12 +9,8 @@ export default function (state = getInitialState(), action = {}) {
 
   switch (type) {
     case t.DATA_CLIENT_STATUS_UPDATE: {
-      const { exID, status } = payload
-
-      return {
-        ...state,
-        [exID]: status,
-      }
+      const { status } = payload
+      return status
     }
 
     case t.DEAUTH: {

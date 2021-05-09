@@ -1,5 +1,5 @@
 import getChannels from './get_channels'
 
-export default (state, exID, chanId) => {
-  return getChannels(state, exID)[chanId]
+export default (state, chanId) => {
+  return getChannels(state)[chanId]
 }

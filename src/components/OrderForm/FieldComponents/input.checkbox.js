@@ -30,7 +30,7 @@ export default class CheckboxInput extends React.PureComponent {
         <Checkbox
           id={id}
           uppercase
-          value={value}
+          value={!!value}
           onChange={onChange}
           disabled={disabled}
           customHelp={customHelp}

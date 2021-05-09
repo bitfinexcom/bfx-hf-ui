@@ -19,9 +19,7 @@ export default class OrderFormMenu extends React.PureComponent {
               onClick={() => onSelect(type)}
             >
               <i className={`icon-${type.uiIcon}`} />
-              <div>
-                <p>{type.label}</p>
-              </div>
+              <div>{type.label}</div>
             </li>
           ))}
         </ul>

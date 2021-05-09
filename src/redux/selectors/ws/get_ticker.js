@@ -3,6 +3,6 @@ import { REDUCER_PATHS } from '../../config'
 
 const path = REDUCER_PATHS.WS
 
-export default (state, exID, market) => {
-  return _get(state, `${path}.tickers.${exID}.${market.restID}`, {})
+export default (state, market) => {
+  return _get(state, `${path}.tickers.${market.restID}`, {})
 }

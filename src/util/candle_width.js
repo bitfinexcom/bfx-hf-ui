@@ -1,13 +1,6 @@
-import _flatten from 'lodash/flatten'
-import _uniq from 'lodash/uniq'
+import timeFrames from './time_frames'
 
-import bitfinexTFs from './time_frames/bitfinex'
-import binanceTFs from './time_frames/binance'
-
-const tfs = _uniq(_flatten([
-  Object.values(bitfinexTFs),
-  Object.values(binanceTFs),
-]))
+const tfs = Object.values(timeFrames)
 
 const SUFFIX_WIDTHS = {
   m: 60 * 1000,

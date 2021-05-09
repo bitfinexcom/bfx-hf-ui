@@ -3,11 +3,11 @@ import { REDUCER_PATHS } from '../../config'
 
 const path = REDUCER_PATHS.WS
 
-export default (state, exID, symbol, tf) => {
+export default (state, symbol, tf) => {
   const syncKeys = Object.keys(_get(state, `${path}.candles.syncs`, {}))
   const syncs = syncKeys.filter((key) => {
-    const [keyExID, keySym, keyTF] = key.split(':')
-    return keyExID === exID && keySym === symbol && keyTF === tf
+    const [, keySym, keyTF] = key.split(':')
+    return keySym === symbol && keyTF === tf
   })
 
   return syncs.map((syncKey) => {

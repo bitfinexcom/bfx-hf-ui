@@ -25,9 +25,9 @@ export default {
   disconnected: (alias) => ({ type: t.DISCONNECTED, payload: { alias } }),
   disconnect: (alias) => ({ type: t.DISCONNECT, payload: { alias } }),
 
-  subscribed: ({ exID, chanID, chanData }) => ({
+  subscribed: ({ chanID, chanData }) => ({
     type: t.SUBSCRIBED,
-    payload: { exID, chanID, chanData },
+    payload: { chanID, chanData },
   }),
 
   clearChannels: () => ({ type: t.CLEAR_CHANNELS }),
@@ -37,9 +37,9 @@ export default {
     payload: { chanId },
   }),
 
-  subscribe: (exID, channel) => ({
+  subscribe: (channel) => ({
     type: t.SUBSCRIBE,
-    payload: { exID, channel },
+    payload: { channel },
   }),
 
   pubSubscribed: ({ chanID, chanName }) => ({
@@ -47,10 +47,10 @@ export default {
     payload: { chanID, chanName },
   }),
 
-  unsubscribe: (exID, channelDataOrID) => {
+  unsubscribe: (channelDataOrID) => {
     const action = {
       type: t.UNSUBSCRIBE,
-      payload: { exID },
+      payload: {},
     }
     if (_isFinite(channelDataOrID)) {
       action.payload.chanId = channelDataOrID
@@ -60,14 +60,14 @@ export default {
     return action
   },
 
-  addChannelRequirement: (exID, channel) => ({
+  addChannelRequirement: (channel) => ({
     type: t.ADD_CHANNEL_REQUIREMENT,
-    payload: { exID, channel },
+    payload: { channel },
   }),
 
-  removeChannelRequirement: (exID, channel) => ({
+  removeChannelRequirement: (channel) => ({
     type: t.REMOVE_CHANNEL_REQUIREMENT,
-    payload: { exID, channel },
+    payload: { channel },
   }),
 
   setBacktestLoading: () => ({
@@ -75,14 +75,9 @@ export default {
     payload: {},
   }),
 
-  recvDataExchanges: exchanges => ({
-    type: t.DATA_EXCHANGES,
-    payload: { exchanges },
-  }),
-
-  recvDataMarkets: (exID, markets) => ({
+  recvDataMarkets: (markets) => ({
     type: t.DATA_MARKETS,
-    payload: { exID, markets },
+    payload: { markets },
   }),
 
   recvUpdatedSettings: settings => ({
@@ -91,11 +86,10 @@ export default {
   }),
 
   bufferDataFromExchange: (
-    exID, chanID, data, rawData = null,
+    chanID, data, rawData = null,
   ) => ({
     type: t.BUFFER_DATA_FROM_EXCHANGE,
     payload: {
-      exID,
       chanID,
       data,
       rawData,
@@ -107,36 +101,36 @@ export default {
     payload: { updates },
   }),
 
-  recvDataTicker: (exID, channel, ticker) => ({
+  recvDataTicker: (channel, ticker) => ({
     type: t.DATA_TICKER,
-    payload: { exID, channel, ticker },
+    payload: { channel, ticker },
   }),
 
-  recvDataTrades: (exID, channel, trades) => ({
+  recvDataTrades: (channel, trades) => ({
     type: t.DATA_TRADES,
-    payload: { exID, channel, trades },
+    payload: { channel, trades },
   }),
 
-  recvDataBook: (exID, channel, book) => ({
+  recvDataBook: (channel, book) => ({
     type: t.DATA_BOOK,
-    payload: { exID, channel, book },
+    payload: { channel, book },
   }),
 
   recvDataSyncStart: ({
-    exID, symbol, tf, start, end,
+    symbol, tf, start, end,
   }) => ({
     type: t.DATA_SYNC_START,
     payload: {
-      exID, symbol, tf, start, end,
+      symbol, tf, start, end,
     },
   }),
 
   recvDataSyncEnd: ({
-    exID, symbol, tf, start, end,
+    symbol, tf, start, end,
   }) => ({
     type: t.DATA_SYNC_END,
     payload: {
-      exID, symbol, tf, start, end,
+      symbol, tf, start, end,
     },
   }),
 
@@ -155,69 +149,69 @@ export default {
     payload: { strategies },
   }),
 
-  recvAPICredentialsConfigured: ({ exID }) => ({
+  recvAPICredentialsConfigured: () => ({
     type: t.DATA_API_CREDENTIALS_CONFIGURED,
-    payload: { exID },
+    payload: {},
   }),
 
-  recvClientStatusUpdate: ({ exID, status }) => ({
+  recvClientStatusUpdate: ({ status }) => ({
     type: t.DATA_CLIENT_STATUS_UPDATE,
-    payload: { exID, status },
+    payload: { status },
   }),
 
-  recvPositions: ({ exID, positions }) => ({
+  recvPositions: ({ positions }) => ({
     type: t.DATA_POSITIONS,
-    payload: { exID, positions },
+    payload: { positions },
   }),
 
-  recvPosition: ({ exID, position }) => ({
+  recvPosition: ({ position }) => ({
     type: t.DATA_POSITION,
-    payload: { exID, position },
+    payload: { position },
   }),
 
-  recvPositionClose: ({ exID, position }) => ({
+  recvPositionClose: ({ position }) => ({
     type: t.DATA_POSITION_CLOSE,
-    payload: { exID, position },
+    payload: { position },
   }),
 
-  recvBalances: ({ exID, balances }) => ({
+  recvBalances: ({ balances }) => ({
     type: t.DATA_BALANCES,
-    payload: { exID, balances },
+    payload: { balances },
   }),
 
-  recvBalance: ({ exID, balance }) => ({
+  recvBalance: ({ balance }) => ({
     type: t.DATA_BALANCE,
-    payload: { exID, balance },
+    payload: { balance },
   }),
 
-  recvOrders: ({ exID, orders }) => ({
+  recvOrders: ({ orders }) => ({
     type: t.DATA_ORDERS,
-    payload: { exID, orders },
+    payload: { orders },
   }),
 
-  recvOrder: ({ exID, order }) => ({
+  recvOrder: ({ order }) => ({
     type: t.DATA_ORDER,
-    payload: { exID, order },
+    payload: { order },
   }),
 
-  recvOrderClose: ({ exID, order }) => ({
+  recvOrderClose: ({ order }) => ({
     type: t.DATA_ORDER_CLOSE,
-    payload: { exID, order },
+    payload: { order },
   }),
 
-  recvDataAlgoOrder: ({ exID, ao }) => ({
+  recvDataAlgoOrder: ({ ao }) => ({
     type: t.DATA_ALGO_ORDER,
-    payload: { exID, ao },
+    payload: { ao },
   }),
 
-  recvDataAlgoOrderStopped: ({ exID, gid }) => ({
+  recvDataAlgoOrderStopped: ({ gid }) => ({
     type: t.DATA_ALGO_ORDER_STOPPED,
-    payload: { exID, gid },
+    payload: { gid },
   }),
 
-  recvDataAlgoOrders: ({ exID, aos }) => ({
+  recvDataAlgoOrders: ({ aos }) => ({
     type: t.DATA_ALGO_ORDERS,
-    payload: { exID, aos },
+    payload: { aos },
   }),
 
   clearAlgoOrders: () => ({
@@ -274,14 +268,14 @@ export default {
     payload: pairs,
   }),
 
-  purgeDataBook: (exID, channel) => ({
+  purgeDataBook: (channel) => ({
     type: t.PURGE_DATA_BOOK,
-    payload: { exID, channel },
+    payload: { channel },
   }),
 
-  purgeDataTrades: (exID, channel) => ({
+  purgeDataTrades: (channel) => ({
     type: t.PURGE_DATA_TRADES,
-    payload: { exID, channel },
+    payload: { channel },
   }),
 
   setBacktestOptions: options => ({

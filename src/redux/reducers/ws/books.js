@@ -11,7 +11,7 @@ export default function (state = getInitialState(), action = {}) {
 
   switch (type) {
     case t.DATA_BOOK: {
-      const { exID, channel, book = {} } = payload
+      const { channel, book = {} } = payload
       const [, market] = channel
       const symbol = market.uiID
       const [bookType, bookData] = book
@@ -23,19 +23,16 @@ export default function (state = getInitialState(), action = {}) {
 
       return {
         ...state,
-        [exID]: {
-          ...(state[exID] || {}),
-          [symbol]: bookData,
-        },
+        [symbol]: bookData,
       }
     }
 
     case t.PURGE_DATA_BOOK: {
-      const { exID, channel } = payload
+      const { channel } = payload
       const [, market] = channel
       const symbol = market.uiID
 
-      delete (state[exID] || {})[symbol] // eslint-disable-line
+      delete (state || {})[symbol] // eslint-disable-line
 
       return state
     }

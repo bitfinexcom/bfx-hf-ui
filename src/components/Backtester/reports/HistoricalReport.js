@@ -6,7 +6,7 @@ import Results from '../Results'
 
 import StrategyTradesTable from '../../StrategyTradesTable'
 
-export default (opts, results, backtestData, backtestOptions) => {
+const HistoricalReport = (opts, results, backtestData, backtestOptions) => {
   const { trades = [] } = results
   const { indicators, onAddIndicator, onDeleteIndicator } = opts
   const { candles = [] } = backtestData
@@ -64,3 +64,5 @@ export default (opts, results, backtestData, backtestOptions) => {
     </div>
   )
 }
+
+export default HistoricalReport

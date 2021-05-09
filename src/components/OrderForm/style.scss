@@ -1,13 +1,21 @@
 @import '../../variables.scss';
 
 .hfui-orderform__wrapper {
-  min-height: calc(100% - 16px);
-  position: relative;
-  padding: 0 20px;
+  height: 100%;
+
+  *,
+  ::before,
+  ::after {
+    box-sizing: content-box;
+  }
+
+  input {
+    background: $background-color;
+  }
 
   .hfui-dropdown__button {
     margin-left: 0;
-    background: $panel-background-color;
+    background: $background-color;
     position: relative;
     width: 165;
     padding-left: 8px;
@@ -64,9 +72,13 @@
 }
 
 .hfui-orderform__panel {
+  .hfui-panel__content {
+    padding: 0 spacing(1, true);
+  }
+
   .hfui-panel__footer {
     width: calc(100% - 16px);
-    background: $panel-background-color;
+    background: $background-color;
     line-height: 32px;
     font-size: 13px;
     color: $text-color;
@@ -357,15 +369,9 @@
 }
 
 .hfui-orderform__overlay-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  line-height: 1.5;
-  background: $background-color;
   height: 100%;
+  line-height: 1.5;
   white-space: pre-line;
-  width: 100%;
   user-select: none;
 
   .hfui-orderform__help-inner {

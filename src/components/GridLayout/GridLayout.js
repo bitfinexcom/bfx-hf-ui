@@ -41,13 +41,12 @@ export default class GridLayout extends React.PureComponent {
     return (
       <GridLayoutP
         autoSize
-        className='layout'
         draggableHandle='.icon-move'
         cols={{
           lg: 100, md: 100, sm: 100, xs: 100, xxs: 100,
         }}
-        rowHeight={25}
-        margin={[16, 16]}
+        rowHeight={32}
+        margin={[20, 20]}
         layouts={{ lg: layoutDef.layout }}
         breakpoints={{
           lg: 1000, md: 996, sm: 768, xs: 480, xxs: 0,

@@ -3,6 +3,4 @@ import { REDUCER_PATHS } from '../../config'
 
 const path = REDUCER_PATHS.UI
 
-export default (state) => {
-  return _get(state, `${path}.activeExchange`, 'bitfinex')
-}
+export default (state) => _get(state, `${path}.isOrderExecuting`)

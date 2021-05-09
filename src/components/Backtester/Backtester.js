@@ -30,7 +30,7 @@ const backtestMethods = [
 const Backtester = ({
   backtestData,
   strategyContent,
-  allMarkets,
+  markets,
   backtestResults,
   backtestOptions,
   authToken,
@@ -46,7 +46,7 @@ const Backtester = ({
 
   const backtestStrategy = (options) => {
     const {
-      activeExchange, activeMarket, startDate, endDate, tf, trades, candles,
+      activeMarket, startDate, endDate, tf, trades, candles,
     } = options
 
     setBacktestOptions(options)
@@ -54,7 +54,7 @@ const Backtester = ({
     const endNum = new Date(endDate).getTime()
 
     setExecError(undefined)
-    dsExecuteBacktest(activeExchange, startNum, endNum, activeMarket, tf, candles, trades, strategyContent)
+    dsExecuteBacktest(startNum, endNum, activeMarket, tf, candles, trades, strategyContent)
   }
 
   const updateExecutionType = (value) => {
@@ -75,8 +75,7 @@ const Backtester = ({
     onAddIndicator,
     onDeleteIndicator,
     updateError,
-    allMarkets,
-    exId: 'bitfinex',
+    markets,
     formState,
     authToken,
     setFormState: (setStateFunc) => {
@@ -137,7 +136,7 @@ Backtester.propTypes = {
       PropTypes.oneOf([null]).isRequired,
     ]),
   ),
-  allMarkets: PropTypes.objectOf(PropTypes.array),
+  markets: PropTypes.arrayOf(PropTypes.object),
   backtestResults: PropTypes.objectOf(PropTypes.any),
   backtestOptions: PropTypes.objectOf(PropTypes.any),
   authToken: PropTypes.string.isRequired,
@@ -158,7 +157,7 @@ Backtester.defaultProps = {
     candles: [],
   },
   strategyContent: {},
-  allMarkets: {},
+  markets: [],
   backtestResults: {},
   backtestOptions: {},
   onAddIndicator: () => {},

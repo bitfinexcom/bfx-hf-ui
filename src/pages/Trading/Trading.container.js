@@ -6,8 +6,6 @@ import { apiClientConnected } from '../../redux/selectors/ws'
 import { getHasActiveAlgoOrders, getShowActiveAlgoModal } from '../../redux/selectors/ao'
 import {
   getLayouts,
-  getActiveExchange,
-  getIsRefillBalanceModalVisible,
   getFirstLogin,
   getGuideStatusForPage,
 } from '../../redux/selectors/ui'
@@ -16,12 +14,10 @@ import Trading from './Trading'
 
 const mapStateToProps = (state = {}) => ({
   layouts: getLayouts(state),
-  exID: getActiveExchange(state),
   firstLogin: getFirstLogin(state),
   showAlgoModal: getShowActiveAlgoModal(state),
   apiClientConnected: apiClientConnected(state),
   hasActiveAlgoOrders: getHasActiveAlgoOrders(state),
-  isRefillBalanceModalVisible: getIsRefillBalanceModalVisible(state),
   isGuideActive: getGuideStatusForPage(state, TRADING_PAGE),
 })
 

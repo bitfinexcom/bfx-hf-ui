@@ -3,6 +3,6 @@ import { REDUCER_PATHS } from '../../config'
 
 const path = REDUCER_PATHS.WS
 
-export default (state, exID) => {
-  return _get(state, `${path}.channelData.channels.${exID}`, {})
+export default (state) => {
+  return _get(state, `${path}.channelData.channels`, {})
 }

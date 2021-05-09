@@ -3,6 +3,7 @@
 .hfui-select__outer {
   display: flex;
   flex-direction: row;
+  box-sizing: content-box;
 
   > p:first-child {
     font-size: 13px;

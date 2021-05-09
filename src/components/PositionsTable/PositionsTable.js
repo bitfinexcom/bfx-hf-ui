@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { flatten as _flatten, isEqual as _isEqual } from 'lodash'
+import _isEqual from 'lodash/isEqual'
 import PositionsTableColumns from './PositionsTable.columns'
 
 import Table from '../../ui/Table'
@@ -27,16 +27,12 @@ class PositionsTable extends React.Component {
 
   getFilteredPositions() {
     const {
-      activeExchange, activeMarket, positions, setFilteredValueWithKey,
+      activeMarket, positions, setFilteredValueWithKey,
     } = this.props
-    const { exchangeFilterActive, marketFilterActive } = this.state
-
-    const filteredByExchange = exchangeFilterActive
-      ? Object.values(positions[activeExchange] || {})
-      : _flatten(Object.values(positions).map(Object.values))
+    const { marketFilterActive } = this.state
     const filteredPositions = marketFilterActive
-      ? filteredByExchange.filter(p => p.symbol === activeMarket.wsID)
-      : filteredByExchange
+      ? positions.filter(p => p.symbol === activeMarket.wsID)
+      : positions
 
     this.setState({ filteredPositions })
     setFilteredValueWithKey('filteredPositions', filteredPositions)
@@ -44,14 +40,13 @@ class PositionsTable extends React.Component {
   }
 
   render() {
-    const {
-      exID, closePosition, authToken,
-    } = this.props
+    const { closePosition, authToken } = this.props
     const { filteredPositions = [] } = this.state
+
     return (
       <Table
         data={filteredPositions}
-        columns={PositionsTableColumns({ exID, authToken, closePosition })}
+        columns={PositionsTableColumns({ authToken, closePosition })}
         defaultSortBy='mts'
         defaultSortDirection='ASC'
       />
@@ -63,8 +58,6 @@ PositionsTable.propTypes = {
   closePosition: PropTypes.func.isRequired,
   setFilteredValueWithKey: PropTypes.func.isRequired,
   authToken: PropTypes.string.isRequired,
-  exID: PropTypes.string.isRequired,
-  activeExchange: PropTypes.string,
   activeMarket: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.string,
@@ -72,13 +65,12 @@ PositionsTable.propTypes = {
       PropTypes.arrayOf(PropTypes.string),
     ]),
   ),
-  positions: PropTypes.objectOf(PropTypes.object),
+  positions: PropTypes.arrayOf(PropTypes.object),
 }
 
 PositionsTable.defaultProps = {
-  activeExchange: 'bitfinex',
   activeMarket: {},
-  positions: {},
+  positions: [],
 }
 
 export default PositionsTable

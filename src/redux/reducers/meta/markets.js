@@ -1,7 +1,7 @@
 import types from '../../constants/ws'
 
 const getInitialState = () => {
-  return {}
+  return []
 }
 
 export default (state = getInitialState(), action = {}) => {
@@ -9,12 +9,9 @@ export default (state = getInitialState(), action = {}) => {
 
   switch (type) {
     case types.DATA_MARKETS: {
-      const { exID, markets = [] } = payload
+      const { markets = [] } = payload
 
-      return {
-        ...state,
-        [exID]: markets,
-      }
+      return markets
     }
 
     default: {

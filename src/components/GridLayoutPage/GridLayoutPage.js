@@ -9,7 +9,6 @@ import AddLayoutComponentModal from '../AddLayoutComponentModal'
 import CreateNewLayoutModal from '../CreateNewLayoutModal'
 import LayoutControlToolbar from '../LayoutControlToolbar'
 import GridLayout from '../GridLayout'
-import StatusBar from '../StatusBar'
 
 import {
   layoutDefToGridLayout,
@@ -20,11 +19,9 @@ import {
   COMPONENT_DIMENSIONS,
 } from '../GridLayout/GridLayout.helpers'
 
-import BitfinexOrders from '../../orders/bitfinex'
+import ordersList from '../../orders'
 
-const orderDefinitions = {
-  bitfinex: Object.values(BitfinexOrders).map(uiDef => uiDef()),
-}
+const orders = Object.values(ordersList).map(uiDef => uiDef())
 
 class GridLayoutPage extends React.PureComponent {
   state = {
@@ -223,16 +220,11 @@ class GridLayoutPage extends React.PureComponent {
           })}
           sharedProps={{ ...sharedProps }}
           orderFormProps={({
-            orders: orderDefinitions,
+            orders,
             ...orderFormProps,
           })}
           onLayoutChange={this.onLayoutChange}
           onRemoveComponent={this.onRemoveComponentFromLayout}
-        />
-
-        <StatusBar
-          key='statusbar'
-          displayLayoutControls={false}
         />
       </div>
     )
