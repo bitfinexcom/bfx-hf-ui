@@ -15,9 +15,10 @@ export default (state = getInitialState(), action = {}) => {
 
     case types.DATA_ALGO_ORDER: {
       const { ao } = payload
+      const filtered = state.filter(({ gid }) => gid !== ao.gid)
 
       return [
-        ...state,
+        ...filtered,
         ao,
       ]
     }

@@ -3,10 +3,7 @@ import Debug from 'debug'
 
 import A from '../../actions/ws'
 import { getAllChannelRequirements } from '../../selectors/ws'
-import {
-  parseTickerKey, parseBookKey, parseTradesKey, parseCandlesKey,
-  parseKeyChannelType,
-} from '../../helpers/parse_channel_req_key'
+import { parseTickerKey, parseKeyChannelType } from '../../helpers/parse_channel_req_key'
 
 const debug = Debug('hfui:rx:s:ws-hfui-server:on-reconnected')
 
@@ -20,18 +17,6 @@ export default function* () {
     switch (type) {
       case 'ticker': {
         return ['ticker', ...parseTickerKey(key)]
-      }
-
-      case 'book': {
-        return ['book', ...parseBookKey(key)]
-      }
-
-      case 'trades': {
-        return ['trades', ...parseTradesKey(key)]
-      }
-
-      case 'candles': {
-        return ['candles', ...parseCandlesKey(key)]
       }
 
       default: {

@@ -64,12 +64,6 @@ export default (alias, store) => (e = {}) => {
         break
       }
 
-      case 'subscribed': {
-        const [,, chanID, chanData] = payload
-        store.dispatch(WSActions.subscribed({ chanID, chanData }))
-        break
-      }
-
       case 'data': {
         const [,, chanID, exData] = payload
         store.dispatch(WSActions.bufferDataFromExchange(chanID, exData))
@@ -114,6 +108,12 @@ export default (alias, store) => (e = {}) => {
         store.dispatch(WSActions.recvUpdatedFavoritePairs(pairs))
         break
       }
+
+      case 'data.algo_order.submit_status':
+      case 'data.order.submit_status':
+        store.dispatch(UIActions.setIsOrderExecuting(false))
+        break
+
       case 'error': {
         const [, message] = payload
         store.dispatch(WSActions.recvNotification({

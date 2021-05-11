@@ -21,4 +21,4 @@ $ufx-dropdown-text-color: $text-color;
 $ufx-dropdown-list-background-color: $background-color;
 $ufx-dropdown-active-item-background-color: lighten($background-color, 5%);
 
-@import "ufx-ui/src/ufx-ui.scss";
+@import "node_modules/@ufx-ui/core/dist/css/ufx-core.bundle.scss";

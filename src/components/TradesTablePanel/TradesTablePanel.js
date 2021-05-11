@@ -4,13 +4,13 @@ import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import _filter from 'lodash/filter'
 import _size from 'lodash/size'
+import { Trades } from '@ufx-ui/core'
 import {
-  Trades,
   reduxActions,
   reduxSelectors,
   reduxConstants,
   useCommonBfxData,
-} from 'ufx-ui'
+} from '@ufx-ui/bfx-containers'
 
 import MarketSelect from '../MarketSelect'
 import Panel from '../../ui/Panel'

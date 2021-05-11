@@ -19,7 +19,6 @@ export default function* (action = {}) {
     debug('subscribing to %s %s on %s', channel[0], _last(channel).uiID)
 
     if (channelName === 'ticker') {
-      // Temporary, until other channels will be migrated to pub api sub
       yield put(WSActions.send({
         alias: WSTypes.ALIAS_PUB_WS_API,
         data: {
@@ -28,8 +27,6 @@ export default function* (action = {}) {
           channel: channelName,
         },
       }))
-    } else {
-      yield put(WSActions.send(['subscribe', 'bitfinex', channel]))
     }
   }
 }

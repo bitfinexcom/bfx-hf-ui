@@ -5,17 +5,12 @@ import getChannel from './get_channel'
 import getChannelID from './get_channel_id'
 import getChannelByID from './get_channel_by_id'
 import getFavoritePairs from './get_favorite_pairs'
-import getOrderBook from './get_order_book'
-import getAllOrderBooks from './get_all_order_books'
 import getSyncRanges from './get_sync_ranges'
 import isSyncingCandles from './is_syncing_candles'
 import getSocket from './get_socket'
 import getSockets from './get_sockets'
 import getTicker from './get_ticker'
 import getTickers from './get_tickers'
-import getTrades from './get_trades'
-import getAllTrades from './get_all_trades'
-import getLastCandleUpdate from './get_last_candle_update'
 import getAuthToken from './get_auth_token'
 import getAuthConfigured from './get_auth_configured'
 import getStrategies from './get_strategies'
@@ -53,13 +48,8 @@ export {
 
   getTicker,
   getTickers,
-  getTrades,
-  getAllTrades,
-  getOrderBook,
-  getAllOrderBooks,
   getSyncRanges,
   isSyncingCandles,
-  getLastCandleUpdate,
   getStrategies,
 
   getBacktestState,

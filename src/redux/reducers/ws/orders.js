@@ -17,10 +17,12 @@ export default (state = getInitialState(), action = {}) => {
 
     case types.DATA_ORDER: {
       const { order = [] } = payload
+      const adapted = orderAdapter(order)
+      const filtered = state.filter(({ id, gid }) => id !== adapted.id || gid !== adapted.gid)
 
       return [
-        ...state,
-        orderAdapter(order),
+        ...filtered,
+        adapted,
       ]
     }
 

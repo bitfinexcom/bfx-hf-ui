@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { Book } from 'ufx-ui'
+import { Book } from '@ufx-ui/core'
 
 import { getRowMapping, getBookViz } from './OrderBook.helpers'
 import './style.css'

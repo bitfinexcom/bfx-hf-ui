@@ -41,6 +41,7 @@ function getInitialState() {
     isTradingModeModalVisible: false,
     isRefillBalanceModalVisible: false,
     isBadInternetConnection: false,
+    isOrderExecuting: false,
     content: {},
   }
 
@@ -290,6 +291,13 @@ function reducer(state = getInitialState(), action = {}) {
       return {
         ...state,
         isBadInternetConnection: isVisible,
+      }
+    }
+    case types.SET_IS_ORDER_EXECUTING: {
+      const { executing } = payload
+      return {
+        ...state,
+        isOrderExecuting: executing,
       }
     }
     case types.CHANGE_REFILL_BALANCE_MODAL_STATE: {
