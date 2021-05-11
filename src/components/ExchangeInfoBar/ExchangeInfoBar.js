@@ -37,6 +37,8 @@ class ExchangeInfoBar extends React.PureComponent {
       lastPrice, dailyChange, dailyChangePerc, high, low, volume,
     } = ticker
 
+    console.log('buttons', typeof Buttons)
+
     return (
       <div className='hfui-exchangeinfobar__wrapper'>
         <div className='hfui-exchangeinfobar__left'>
@@ -147,6 +149,7 @@ ExchangeInfoBar.propTypes = {
   showTicker: PropTypes.bool,
   openTradingModeModal: PropTypes.func,
   openNotifications: PropTypes.func,
+  buttons: PropTypes.func,
 }
 
 ExchangeInfoBar.defaultProps = {
@@ -154,6 +157,7 @@ ExchangeInfoBar.defaultProps = {
   showTicker: true,
   openTradingModeModal: () => {},
   openNotifications: () => {},
+  buttons: () => {},
 }
 
 export default ExchangeInfoBar
