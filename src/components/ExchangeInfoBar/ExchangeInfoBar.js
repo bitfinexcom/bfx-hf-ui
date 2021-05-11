@@ -34,10 +34,13 @@ class ExchangeInfoBar extends React.PureComponent {
       // onRefillClick,
     } = this.props
     const {
-      lastPrice, dailyChange, dailyChangePerc, high, low, volume,
+      low,
+      high,
+      volume,
+      lastPrice,
+      dailyChange,
+      dailyChangePerc,
     } = ticker
-
-    console.log('buttons', typeof Buttons)
 
     return (
       <div className='hfui-exchangeinfobar__wrapper'>
