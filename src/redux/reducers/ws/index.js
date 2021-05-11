@@ -1,9 +1,7 @@
 import { combineReducers } from 'redux'
 
 import auth from './auth'
-import books from './books'
 import socket from './socket'
-import trades from './trades'
 import tickers from './tickers'
 import channels from './channels'
 import strategies from './strategies'
@@ -26,9 +24,7 @@ export default combineReducers({
   apiClient,
   strategies,
   tickers,
-  trades,
   socket,
-  books,
   auth,
   backtest,
   favoriteTradingPairs,

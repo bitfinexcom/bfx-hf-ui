@@ -24,9 +24,7 @@ export default class ChartPanel extends React.Component {
     canChangeMarket: PropTypes.bool,
     showChartMarket: PropTypes.bool,
     layoutI: PropTypes.string.isRequired,
-    addTradesRequirement: PropTypes.func,
     layoutID: PropTypes.string.isRequired,
-    removeTradesRequirement: PropTypes.func,
     savedState: PropTypes.shape({
       currentMarket: PropTypes.shape({
         base: PropTypes.string,
@@ -54,8 +52,6 @@ export default class ChartPanel extends React.Component {
     saveState: () => {},
     showChartMarket: false,
     canChangeMarket: false,
-    addTradesRequirement: () => {},
-    removeTradesRequirement: () => {},
   }
 
   constructor(props) {
@@ -73,20 +69,8 @@ export default class ChartPanel extends React.Component {
     }
   }
 
-  componentDidMount() {
-    const { addTradesRequirement } = this.props
-    const { currentMarket } = this.state
-    addTradesRequirement(currentMarket)
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     return (!_isEqual(nextProps, this.props) || !_isEqual(nextState, this.state))
-  }
-
-  componentWillUnmount() {
-    const { removeTradesRequirement } = this.props
-    const { currentMarket } = this.state
-    removeTradesRequirement(currentMarket)
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -97,16 +81,11 @@ export default class ChartPanel extends React.Component {
 
     const {
       activeMarket,
-      addTradesRequirement,
-      removeTradesRequirement,
     } = nextProps
 
     if (marketDirty || (activeMarket.restID === currentMarket.restID)) {
       return {}
     }
-
-    removeTradesRequirement(currentMarket)
-    addTradesRequirement(activeMarket)
 
     return {
       currentMarket: activeMarket,
@@ -115,10 +94,6 @@ export default class ChartPanel extends React.Component {
 
   onChangeMarket = (market) => {
     const { currentMarket } = this.state
-    const {
-      addTradesRequirement,
-      removeTradesRequirement,
-    } = this.props
 
     if (market.restID === currentMarket.restID) {
       return
@@ -129,8 +104,6 @@ export default class ChartPanel extends React.Component {
       marketDirty: true,
     }))
 
-    removeTradesRequirement(currentMarket)
-    addTradesRequirement(market)
     this.deferSaveState()
   }
 

@@ -2,7 +2,6 @@ import { connect } from 'react-redux'
 
 import ChartPanel from './ChartPanel'
 import UIActions from '../../redux/actions/ui'
-import WSActions from '../../redux/actions/ws'
 import { getAuthToken } from '../../redux/selectors/ws'
 import { getMarkets } from '../../redux/selectors/meta'
 import { getActiveMarket, getComponentState } from '../../redux/selectors/ui'
@@ -21,14 +20,6 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addTradesRequirement: (market) => {
-    dispatch(WSActions.addChannelRequirement(['trades', market]))
-  },
-
-  removeTradesRequirement: (market) => {
-    dispatch(WSActions.removeChannelRequirement(['trades', market]))
-  },
-
   saveState: (layoutID, componentID, state) => {
     dispatch(UIActions.saveComponentState({
       state,

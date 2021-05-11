@@ -64,12 +64,6 @@ export default (alias, store) => (e = {}) => {
         break
       }
 
-      case 'subscribed': {
-        const [,, chanID, chanData] = payload
-        store.dispatch(WSActions.subscribed({ chanID, chanData }))
-        break
-      }
-
       case 'data': {
         const [,, chanID, exData] = payload
         store.dispatch(WSActions.bufferDataFromExchange(chanID, exData))
