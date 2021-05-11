@@ -20,7 +20,6 @@ import timeFrames from '../../util/time_frames'
 
 import Panel from '../../ui/Panel'
 import Dropdown from '../../ui/Dropdown'
-import Scrollbars from '../../ui/Scrollbars'
 import FavoriteTradingPairs from '../FavoriteTradingPairs'
 import MarketSelect from '../MarketSelect'
 
