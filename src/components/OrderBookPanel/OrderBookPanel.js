@@ -9,7 +9,7 @@ import {
   reduxActions,
   reduxConstants,
   reduxSelectors,
-} from 'ufx-ui'
+} from '@ufx-ui/bfx-containers'
 
 import MarketSelect from '../MarketSelect'
 import OrderBook from '../OrderBook'

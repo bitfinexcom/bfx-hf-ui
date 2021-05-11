@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { connectRouter } from 'connected-react-router'
-import { reduxReducers } from 'ufx-ui'
+import { reduxReducers } from '@ufx-ui/bfx-containers'
 import { REDUCER_PATHS, UFX_REDUCER_PATHS } from '../config'
 
 import ui from './ui'
