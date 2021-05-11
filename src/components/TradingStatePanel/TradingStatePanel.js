@@ -208,35 +208,37 @@ class TradingStatePanel extends React.Component {
 }
 
 TradingStatePanel.propTypes = {
+  dark: PropTypes.bool,
+  moveable: PropTypes.bool,
+  onRemove: PropTypes.func,
+  removeable: PropTypes.bool,
+  positionsCount: PropTypes.number,
+  algoOrdersCount: PropTypes.number,
+  atomicOrdersCount: PropTypes.number,
+  saveState: PropTypes.func.isRequired,
   layoutID: PropTypes.string.isRequired,
   layoutI: PropTypes.string.isRequired,
-  savedState: PropTypes.objectOf(PropTypes.bool).isRequired,
-  saveState: PropTypes.func.isRequired,
+  setFilteredValueWithKey: PropTypes.func.isRequired,
   activeMarket: PropTypes.objectOf(PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,
     PropTypes.array,
   ])).isRequired,
-  atomicOrders: PropTypes.arrayOf(PropTypes.object).isRequired,
-  algoOrders: PropTypes.arrayOf(PropTypes.object).isRequired,
-  positions: PropTypes.arrayOf(PropTypes.object).isRequired,
   balances: PropTypes.arrayOf(PropTypes.object).isRequired,
-  setFilteredValueWithKey: PropTypes.func.isRequired,
-  onRemove: PropTypes.func,
-  moveable: PropTypes.bool,
-  removeable: PropTypes.bool,
-  positionsCount: PropTypes.number,
-  algoOrdersCount: PropTypes.number,
-  atomicOrdersCount: PropTypes.number,
+  positions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  savedState: PropTypes.objectOf(PropTypes.bool).isRequired,
+  algoOrders: PropTypes.arrayOf(PropTypes.object).isRequired,
+  atomicOrders: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
 TradingStatePanel.defaultProps = {
-  positionsCount: 0,
-  algoOrdersCount: 0,
-  atomicOrdersCount: 0,
-  onRemove: () => {},
+  dark: true,
   moveable: false,
   removeable: false,
+  positionsCount: 0,
+  onRemove: () => {},
+  algoOrdersCount: 0,
+  atomicOrdersCount: 0,
 }
 
 export default TradingStatePanel
