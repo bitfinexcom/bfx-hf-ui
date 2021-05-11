@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import cx from 'classnames'
 
 import { Dropdown as UfxDropdown } from '@ufx-ui/core'
 // import { propTypes, defaultProps } from './Dropdown.props'
@@ -23,10 +22,8 @@ function Dropdown(props) {
     isOpen,
     icon,
     className,
-    alternateTheme,
     ...rest
   } = props
-  console.log('TCL: Dropdown -> alternateTheme', alternateTheme)
 
   return (
     <div className='hfui-dropdown__wrapper'>
@@ -38,10 +35,7 @@ function Dropdown(props) {
         closeOnMouseLeave={false}
         value={value}
         options={optionsAdaptor(options)}
-        className={cx(className, {
-          'is-highlighted': highlight,
-          'is-alternate-theme': alternateTheme,
-        })}
+        className={className}
         valueRenderer={icon ? (_value, optionLabel) => (
           <div className='selected-text has-icon'>
             {icon && <i className={`icon-${icon}`} />}

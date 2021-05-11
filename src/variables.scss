@@ -7,6 +7,7 @@ $black-color: #000;
 $background-color: #172d3e;
 $desaturated-background-color: #20313e;
 $panel-background-color: #102331;
+$input-background-color: lighten($background-color, 3%);
 
 $text-color: #e2e5e7;
 $text-color2: mix($text-color, $background-color, 80%);

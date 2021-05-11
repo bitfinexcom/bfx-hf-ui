@@ -171,7 +171,9 @@
   padding-top: 5px;
 
   .hfui-panel__chart-market-select {
-    padding-right: 13px;
+    padding-right: spacing(0.75);
+    position: relative;
+    top: -2px;
   }
 
   p {
@@ -182,7 +184,7 @@
 
   i {
     line-height: 32px;
-    margin-right: 13px;
+    margin-right: spacing(0.75);
     font-size: 20px;
     color: $white-color;
 

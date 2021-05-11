@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 const FavoriteIcon = ({
   isSelected, onClick, value, nonFilled, selectedColor, nonSelectedColor,
 }) => (
-  <svg onClick={() => onClick(value, nonFilled)} width='15px' height='15px' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'>
+  <svg onClick={(event) => onClick(value, nonFilled, event)} width='15px' height='15px' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'>
     {nonFilled ? (
       <path d='M4.99998 8.02696L2.11567 9.54342L2.66665 6.33152L0.333313 4.05707L3.55783 3.58881L4.99998 0.666656L6.44213 3.58881L9.66665 4.05707L7.33331 6.33152L7.88428 9.54342L4.99998 8.02696Z' stroke='white' strokeWidth='0.5' strokeLinecap='round' strokeLinejoin='round' />
     ) : (

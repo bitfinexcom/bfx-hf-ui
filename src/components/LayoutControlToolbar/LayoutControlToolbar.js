@@ -22,8 +22,6 @@ const LayoutControlToolbar = ({
   return (
     <div className='hfui-layoutcontroltoolbar__wrapper'>
       <Dropdown
-        alternateTheme
-        highlight
         placeholder={defaultLayoutID}
         value={activeLayoutID}
         onChange={onChangeLayout}

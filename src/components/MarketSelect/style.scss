@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .hfui-marketselect {
   min-width: 185px !important;
 
@@ -7,6 +9,14 @@
 
   .list {
     height: auto;
+  }
+
+  .ufx-dropdown .dropdown-field {
+    transition: all .2s;
+    &:hover,
+    &:focus {
+      background-color: lighten($background-color, 10%);
+    }
   }
 }
 ::-webkit-scrollbar {

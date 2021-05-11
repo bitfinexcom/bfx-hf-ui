@@ -45,8 +45,6 @@ export default class MarketSelect extends React.PureComponent {
       value, onChange, markets, className, renderLabel, favoritePairs, ...otherProps
     } = this.props
 
-    const isSelected = favoritePairs.includes(value.uiID)
-
     const options = markets.map(m => ({
       label: m.uiID || `${m.base}/${m.quote}`,
       value: m.uiID,
@@ -55,7 +53,6 @@ export default class MarketSelect extends React.PureComponent {
 
     return (
       <Dropdown
-        alternateTheme
         label={renderLabel && 'Market'}
         className={ClassNames('hfui-marketselect', className)}
         onChange={(val) => {
@@ -63,20 +60,27 @@ export default class MarketSelect extends React.PureComponent {
         }}
         value={value.uiID}
         options={sortedOptions}
-        optionRenderer={(optionValue, optionLabel) => (
-          <div className='hfui-marketselect__option'>
-            <div>{optionLabel}</div>
-            <div className='hfui-marketselect__icon'>
-              <FavoriteIcon
-                value={optionValue}
-                nonFilled={!isSelected}
-                isSelected={isSelected}
-                selectedColor='#F7F7F9'
-                onClick={(pair, isPairSelected) => this.favoriteSelect(pair, isPairSelected)}
-              />
+        optionRenderer={(optionValue, optionLabel) => {
+          const isSelected = favoritePairs.includes(optionValue)
+          return (
+            <div className='hfui-marketselect__option'>
+              <div>{optionLabel}</div>
+              <div className='hfui-marketselect__icon'>
+                <FavoriteIcon
+                  value={optionValue}
+                  nonFilled={!isSelected}
+                  isSelected={isSelected}
+                  selectedColor='#F7F7F9'
+                  onClick={(pair, isPairSelected, event) => {
+                    event.preventDefault()
+                    event.stopPropagation()
+                    this.favoriteSelect(pair, isPairSelected)
+                  }}
+                />
+              </div>
             </div>
-          </div>
-        )}
+          )
+        }}
         {...otherProps}
       />
     )
