@@ -160,7 +160,7 @@ ExchangeInfoBar.defaultProps = {
   showTicker: true,
   openTradingModeModal: () => {},
   openNotifications: () => {},
-  buttons: () => {},
+  buttons: null,
 }
 
 export default ExchangeInfoBar
