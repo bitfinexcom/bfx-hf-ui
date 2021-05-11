@@ -1,5 +1,27 @@
 @import '../../variables.scss';
 
+.ufx-dropdown {
+  // &.is-alternate-theme {
+  //   .dropdown-field {
+  //     background: $panel-background-color;
+  //   }
+  // }
+
+  .selected-text.has-icon {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  [class*=icon-] {
+    margin-right: spacing(0.5);
+
+    &:before {
+      display: block;
+    }
+  }
+}
+
 // .hfui-dropdown__wrapper {
 //   font-size: 13px;
 //   position: relative;

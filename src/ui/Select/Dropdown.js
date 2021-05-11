@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Dropdown as UfxDropdown } from 'ufx-ui'
+import { Dropdown as UfxDropdown } from '@ufx-ui/core'
 
 const propTypes = {
   onChange: PropTypes.func.isRequired,

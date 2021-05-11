@@ -20,7 +20,7 @@ const TimeFrameDropdown = ({ tf, onChange }) => {
       <div className='hfui-backtester__executiondropdown input-label'>
         <Dropdown
           key='tf-dropdown'
-          fallback='Select a time frame'
+          placeholder='Select a time frame'
           onChange={onChange}
           value={tf}
           options={options}

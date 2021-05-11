@@ -1,7 +1,8 @@
 import React from 'react'
 import ClassNames from 'classnames'
 import PropTypes from 'prop-types'
-import Select from '../../ui/Select'
+import Dropdown from '../../ui/Dropdown'
+import FavoriteIcon from '../../ui/Icons/FavoriteIcon'
 
 import './style.css'
 
@@ -34,32 +35,48 @@ export default class MarketSelect extends React.PureComponent {
     if (isPairSelected) {
       savePairs([...favoritePairs, pair], authToken, currentMode)
     } else {
-      const filtredPairs = favoritePairs.filter(p => p !== pair)
-      savePairs(filtredPairs, authToken, currentMode)
+      const filteredPairs = favoritePairs.filter(p => p !== pair)
+      savePairs(filteredPairs, authToken, currentMode)
     }
   }
 
   render() {
     const {
-      value, onChange, markets, className, renderLabel, ...otherProps
+      value, onChange, markets, className, renderLabel, favoritePairs, ...otherProps
     } = this.props
 
+    const isSelected = favoritePairs.includes(value.uiID)
+
+    const options = markets.map(m => ({
+      label: m.uiID || `${m.base}/${m.quote}`,
+      value: m.uiID,
+    }))
+    const sortedOptions = options.sort((a, b) => favoritePairs.includes(b.value) - favoritePairs.includes(a.value))
+
     return (
-      <Select
+      <Dropdown
+        alternateTheme
         label={renderLabel && 'Market'}
-        onFavoriteSelect={(pair, isPairSelected) => this.favoriteSelect(pair, isPairSelected)}
         className={ClassNames('hfui-marketselect', className)}
         onChange={(val) => {
           onChange(markets.find(m => m.uiID === val))
         }}
-        value={{
-          label: value.uiID || `${value.base}/${value.quote}`,
-          value: value.uiID,
-        }}
-        options={markets.map(m => ({
-          label: m.uiID || `${m.base}/${m.quote}`,
-          value: m.uiID,
-        }))}
+        value={value.uiID}
+        options={sortedOptions}
+        optionRenderer={(optionValue, optionLabel) => (
+          <div className='hfui-marketselect__option'>
+            <div>{optionLabel}</div>
+            <div className='hfui-marketselect__icon'>
+              <FavoriteIcon
+                value={optionValue}
+                nonFilled={!isSelected}
+                isSelected={isSelected}
+                selectedColor='#F7F7F9'
+                onClick={(pair, isPairSelected) => this.favoriteSelect(pair, isPairSelected)}
+              />
+            </div>
+          </div>
+        )}
         {...otherProps}
       />
     )

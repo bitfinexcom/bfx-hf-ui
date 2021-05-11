@@ -15,10 +15,11 @@ $ufx-heading-color: $text-color;
 
 $ufx-dropdown-height: 32px;
 $ufx-dropdown-padding: spacing();
-$ufx-dropdown-background-color: $background-color;
-$ufx-dropdown-border-color: $background-color;
+$ufx-dropdown-background-color: lighten($background-color, 5%);
+$ufx-dropdown-hover-background-color: lighten($background-color, 10%);
+$ufx-dropdown-border-color: lighten($background-color, 5%);
 $ufx-dropdown-text-color: $text-color;
-$ufx-dropdown-list-background-color: $background-color;
-$ufx-dropdown-active-item-background-color: lighten($background-color, 5%);
+$ufx-dropdown-list-background-color: lighten($background-color, 5%);
+$ufx-dropdown-active-item-background-color: mix($green-color, $background-color, 50%);
 
-@import "node_modules/@ufx-ui/core/dist/css/ufx-core.bundle.scss";
+@import "@ufx-ui/core/dist/css/ufx-core.bundle.scss";

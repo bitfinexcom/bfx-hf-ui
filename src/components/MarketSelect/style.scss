@@ -1,7 +1,27 @@
 .hfui-marketselect {
   min-width: 185px !important;
+
+  li {
+    margin: 0 !important;
+  }
+
+  .list {
+    height: auto;
+  }
 }
 ::-webkit-scrollbar {
   width: 0px;
   background: transparent; /* make scrollbar transparent */
+}
+
+.hfui-marketselect__option {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.hfui-marketselect__icon {
+  svg {
+    display: block;
+  }
 }

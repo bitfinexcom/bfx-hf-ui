@@ -1,10 +1,9 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
-import ClassNames from 'classnames'
-import Scrollbars from 'react-custom-scrollbars'
-import OnClickOutside from 'react-onclickoutside'
+import cx from 'classnames'
 
-import { Dropdown as UfxDropdown } from 'ufx-ui'
-import { propTypes, defaultProps } from './Dropdown.props'
+import { Dropdown as UfxDropdown } from '@ufx-ui/core'
+// import { propTypes, defaultProps } from './Dropdown.props'
 import './style.css'
 
 function optionsAdaptor(options) {
@@ -14,105 +13,48 @@ function optionsAdaptor(options) {
   }), {})
 }
 
-class Dropdown extends React.Component {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+function Dropdown(props) {
+  const {
+    label,
+    value,
+    placeholder,
+    options,
+    highlight,
+    isOpen,
+    icon,
+    className,
+    alternateTheme,
+    ...rest
+  } = props
+  console.log('TCL: Dropdown -> alternateTheme', alternateTheme)
 
-  state = {
-    open: false,
-  }
+  return (
+    <div className='hfui-dropdown__wrapper'>
+      {label && (
+        <p>{label}</p>
+      )}
 
-  constructor(props) {
-    super(props)
-
-    this.onToggleOpen = this.onToggleOpen.bind(this)
-  }
-
-  handleClickOutside() {
-    this.setState(() => ({ open: false }))
-  }
-
-  onSelect = (value) => {
-    const { onChange } = this.props
-    onChange(value)
-
-    this.setState(() => ({ open: false }))
-  }
-
-  onToggleOpen() {
-    this.setState(({ open }) => ({ open: !open }))
-  }
-
-  render() {
-    const { open } = this.state
-    const {
-      label, value, options, highlight, fallback, disabled, isOpen, icon,
-    } = this.props
-
-    return (
-      <div className='hfui-dropdown__wrapper'>
-        {label && (
-          <p>{label}</p>
-        )}
-
-        <UfxDropdown
-          value={value}
-          options={optionsAdaptor(options)}
-          onChange={this.onSelect}
-        />
-
-        {/* <div className='hfui-dropdown__button-wrapper'>
-          <div
-            onClick={disabled ? () => {} : this.onToggleOpen}
-            className={ClassNames('hfui-dropdown__button', {
-              highlight: open || highlight,
-              disabled,
-            })}
-          >
-            {icon && (
-              <i className={`icon-${icon}`} />
-            )}
-
-            <p
-              className={ClassNames({
-                'with-icon': icon,
-              })}
-            >
-              {(options.find(o => o.value === value) || {}).label || fallback || 'Select an option'}
-            </p>
-
-            <i className='icon-arrow-down-passive' />
+      <UfxDropdown
+        closeOnMouseLeave={false}
+        value={value}
+        options={optionsAdaptor(options)}
+        className={cx(className, {
+          'is-highlighted': highlight,
+          'is-alternate-theme': alternateTheme,
+        })}
+        valueRenderer={icon ? (_value, optionLabel) => (
+          <div className='selected-text has-icon'>
+            {icon && <i className={`icon-${icon}`} />}
+            <div>
+              {optionLabel || placeholder}
+            </div>
           </div>
-
-          {(open || isOpen) && (
-            <ul
-              className={ClassNames({ 'with-icon': icon })}
-            >
-              <Scrollbars autoHeight style={{ maxHeight: '300px' }}>
-                {options.map(o => (
-                  o.value === '_label' ? (
-                    <li
-                      key={o.label}
-                      className='label'
-                    >
-                      {o.label}
-                    </li>
-                  ) : (
-                    <li
-                      key={o.value}
-                      onClick={this.onSelect.bind(this, o.value)}
-                    >
-                      {o.label}
-                    </li>
-                  )
-                ))}
-              </Scrollbars>
-            </ul>
-          )}
-        </div> */}
-      </div>
-    )
-  }
+        ) : undefined}
+        placeholder={placeholder}
+        {...rest}
+      />
+    </div>
+  )
 }
 
-export default OnClickOutside(Dropdown)
+export default Dropdown

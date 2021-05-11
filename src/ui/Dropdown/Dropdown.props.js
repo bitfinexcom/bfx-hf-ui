@@ -6,11 +6,12 @@ export const propTypes = {
   value: PropTypes.string,
   options: PropTypes.array.isRequired,
   highlight: PropTypes.bool,
-  fallback: PropTypes.string,
+  placeholder: PropTypes.string,
   disabled: PropTypes.bool,
   isOpen: PropTypes.bool,
 }
 
 export const defaultProps = {
   value: '',
+  placeholder: 'Select an option',
 }
