@@ -58,13 +58,18 @@ const HFUI = ({
 }
 
 HFUI.propTypes = {
-  authToken: PropTypes.string.isRequired,
+  authToken: PropTypes.string,
+  currentPage: PropTypes.string,
   currentMode: PropTypes.string.isRequired,
   getSettings: PropTypes.func.isRequired,
   getFavoritePairs: PropTypes.func.isRequired,
   notificationsVisible: PropTypes.bool.isRequired,
   GAPageview: PropTypes.func.isRequired,
-  currentPage: PropTypes.string.isRequired,
+}
+
+HFUI.defaultProps = {
+  authToken: '',
+  currentPage: '',
 }
 
 export default HFUI
