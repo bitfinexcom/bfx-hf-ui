@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 export default function ExchangeInfoBarButton({ icon, ...props }) {
   return (
@@ -6,4 +7,8 @@ export default function ExchangeInfoBarButton({ icon, ...props }) {
       <i className={`icon-${icon}`} />
     </button>
   )
+}
+
+ExchangeInfoBarButton.propTypes = {
+  icon: PropTypes.string.isRequired,
 }
