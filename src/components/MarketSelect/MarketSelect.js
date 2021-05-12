@@ -17,12 +17,14 @@ export default class MarketSelect extends React.PureComponent {
     savePairs: PropTypes.func.isRequired,
     authToken: PropTypes.string.isRequired,
     favoritePairs: PropTypes.instanceOf(Array),
+    renderWithFavorites: PropTypes.bool,
   }
   static defaultProps = {
     className: {},
     favoritePairs: [],
     currentMode: '',
     renderLabel: false,
+    renderWithFavorites: false,
   }
 
   favoriteSelect(pair, isPairSelected) {
@@ -42,7 +44,17 @@ export default class MarketSelect extends React.PureComponent {
 
   render() {
     const {
-      value, onChange, markets, className, renderLabel, favoritePairs, ...otherProps
+      value,
+      onChange,
+      markets,
+      className,
+      renderLabel,
+      favoritePairs,
+      renderWithFavorites,
+      authToken,
+      savePairs,
+      currentMode,
+      ...otherProps
     } = this.props
 
     const options = markets.map(m => ({
@@ -53,14 +65,14 @@ export default class MarketSelect extends React.PureComponent {
 
     return (
       <Dropdown
-        label={renderLabel && 'Market'}
+        label={renderLabel ? 'Market' : undefined}
         className={ClassNames('hfui-marketselect', className)}
         onChange={(val) => {
           onChange(markets.find(m => m.uiID === val))
         }}
         value={value.uiID}
         options={sortedOptions}
-        optionRenderer={(optionValue, optionLabel) => {
+        optionRenderer={renderWithFavorites ? (optionValue, optionLabel) => {
           const isSelected = favoritePairs.includes(optionValue)
           return (
             <div className='hfui-marketselect__option'>
@@ -80,7 +92,7 @@ export default class MarketSelect extends React.PureComponent {
               </div>
             </div>
           )
-        }}
+        } : undefined}
         {...otherProps}
       />
     )

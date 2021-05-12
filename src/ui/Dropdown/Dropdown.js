@@ -2,7 +2,7 @@
 import React from 'react'
 
 import { Dropdown as UfxDropdown } from '@ufx-ui/core'
-// import { propTypes, defaultProps } from './Dropdown.props'
+import { propTypes, defaultProps } from './Dropdown.props'
 import './style.css'
 
 function optionsAdaptor(options) {
@@ -50,5 +50,8 @@ function Dropdown(props) {
     </div>
   )
 }
+
+Dropdown.propTypes = propTypes
+Dropdown.defaultProps = defaultProps
 
 export default Dropdown
