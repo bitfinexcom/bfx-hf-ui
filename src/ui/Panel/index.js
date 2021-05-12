@@ -52,10 +52,6 @@ export default class Panel extends React.Component {
     } = this.props
     const tabs = React.Children.toArray(children).filter(c => c && c.props.tabtitle)
     const { selectedTab = forcedTab.length ? this.getForcedTab(forcedTab, tabs) : tabs[0] } = this.state
-    let heightOffsetPX = 0
-
-    if (label || tabs) heightOffsetPX += 50
-    if (footer) heightOffsetPX += 35
 
     return (
       <div

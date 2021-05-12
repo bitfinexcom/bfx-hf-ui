@@ -34,7 +34,12 @@ class ExchangeInfoBar extends React.PureComponent {
       // onRefillClick,
     } = this.props
     const {
-      lastPrice, dailyChange, dailyChangePerc, high, low, volume,
+      low,
+      high,
+      volume,
+      lastPrice,
+      dailyChange,
+      dailyChangePerc,
     } = ticker
 
     return (
@@ -147,6 +152,7 @@ ExchangeInfoBar.propTypes = {
   showTicker: PropTypes.bool,
   openTradingModeModal: PropTypes.func,
   openNotifications: PropTypes.func,
+  buttons: PropTypes.func,
 }
 
 ExchangeInfoBar.defaultProps = {
@@ -154,6 +160,7 @@ ExchangeInfoBar.defaultProps = {
   showTicker: true,
   openTradingModeModal: () => {},
   openNotifications: () => {},
+  buttons: null,
 }
 
 export default ExchangeInfoBar
