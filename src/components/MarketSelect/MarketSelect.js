@@ -77,17 +77,19 @@ export default class MarketSelect extends React.PureComponent {
           return (
             <div className='hfui-marketselect__option'>
               <div>{optionLabel}</div>
-              <div className='hfui-marketselect__icon'>
+              <div
+                className='hfui-marketselect__icon'
+                onClick={(pair, isPairSelected, event) => {
+                  event.preventDefault()
+                  event.stopPropagation()
+                  this.favoriteSelect(pair, isPairSelected)
+                }}
+              >
                 <FavoriteIcon
                   value={optionValue}
                   nonFilled={!isSelected}
                   isSelected={isSelected}
                   selectedColor='#F7F7F9'
-                  onClick={(pair, isPairSelected, event) => {
-                    event.preventDefault()
-                    event.stopPropagation()
-                    this.favoriteSelect(pair, isPairSelected)
-                  }}
                 />
               </div>
             </div>
