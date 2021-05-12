@@ -164,7 +164,7 @@
     "bfx-hf-chart": "^1.0.0",
     "bfx-hf-data-server": "^3.0.3",
     "bfx-hf-ext-plugin-bitfinex": "^1.0.0",
-    "bfx-hf-indicators": "^2.0.6",
+    "bfx-hf-indicators": "^2.0.7",
     "bfx-hf-models": "^2.2.0",
     "bfx-hf-models-adapter-lowdb": "^1.0.0",
     "bfx-hf-server": "^3.5.6",
