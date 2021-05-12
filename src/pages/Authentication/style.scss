@@ -134,12 +134,12 @@
 }
 
 .hfui-authenticationpage__trading-mode {
-  width: 45.3%;
+  width: 400px;
   margin-top: 16px;
-  background-color: $panel-background-color;
-  border-radius: 4px;
-  line-height: 1.5;
-  padding-left: 8px;
+
+  &.ufx-dropdown .dropdown-field {
+    background-color: $panel-background-color;
+  }
 }
 .hfui-authenticationpage__mode-select {
   .hfui-select__control,

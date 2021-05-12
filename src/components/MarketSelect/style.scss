@@ -6,19 +6,8 @@
   li {
     margin: 0 !important;
   }
-
-  .list {
-    height: auto;
-  }
-
-  .ufx-dropdown .dropdown-field {
-    transition: all .2s;
-    &:hover,
-    &:focus {
-      background-color: lighten($background-color, 10%);
-    }
-  }
 }
+
 ::-webkit-scrollbar {
   width: 0px;
   background: transparent; /* make scrollbar transparent */
@@ -31,6 +20,24 @@
 }
 
 .hfui-marketselect__icon {
+  margin: -2px -6px -2px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  transition: background-color .2s;
+
+  &:hover {
+    background: rgba(255, 255, 255, .2);
+  }
+
+  &:active {
+    background: rgba(0, 0, 0, .2);
+    transition-duration: 0.05s;
+  }
+
   svg {
     display: block;
   }

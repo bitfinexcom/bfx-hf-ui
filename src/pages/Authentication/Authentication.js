@@ -15,7 +15,12 @@ export default class Authentication extends React.PureComponent {
 
   render() {
     const {
-      wsConnected, configured, onUnlock, onInit, onReset, isPaperTrading,
+      wsConnected,
+      configured,
+      onUnlock,
+      onInit,
+      onReset,
+      isPaperTrading,
     } = this.props
 
     return (
