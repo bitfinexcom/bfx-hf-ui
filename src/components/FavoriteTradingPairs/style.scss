@@ -46,8 +46,8 @@
 .hfui-favoritepair__content-item {
     background-color: $panel-background-color;
     display: block;
-    flex: 1;
     text-transform: uppercase;
+    width: calc(33% - 4px);
     margin-right: spacing(0.25);
     margin-bottom: spacing(0.75);
     font-size: 13px;
