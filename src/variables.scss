@@ -17,6 +17,7 @@ $text-color2: mix($text-color, $background-color, 80%);
 
 $yellow-color: #fcd206;
 $green-color: #54B361;
+$green-button-color: darken($green-color, 10%);
 $red-color: #F05359;
 
 // Component colors
@@ -43,7 +44,7 @@ $notifications-background-color: #0d101f;
 // Utils
 $spacing-unit: 16px;
 $spacing-unit-grid: 10px;
-$border-radius: 6px;
+$border-radius: 5px;
 
 @function spacing($value: 1, $grid: false) {
   @if $grid {

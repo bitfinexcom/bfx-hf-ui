@@ -49,9 +49,9 @@ const HFUIWrapper = () => {
 ReactDOM.render((
   <Scrollbars hideTracksWhenNotNeeded>
     <StoreWrapper>
-      <UfxStoreProvider value={config}>
-        <HFUIWrapper />
-      </UfxStoreProvider>
+      {/* <UfxStoreProvider value={config}> */}
+        <HFUI />
+      {/* </UfxStoreProvider> */}
     </StoreWrapper>
   </Scrollbars>
 ), document.getElementById('root'))

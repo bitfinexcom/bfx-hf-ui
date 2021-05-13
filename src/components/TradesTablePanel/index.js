@@ -1,3 +1,7 @@
-import TradesTablePanel from './TradesTablePanel.container'
+// import TradesTablePanel from './TradesTablePanel.container'
 
-export default TradesTablePanel
+// export default TradesTablePanel
+
+import React from 'react'
+
+export default () => <div />

@@ -1,3 +1,7 @@
-import OrderBookPanel from './OrderBookPanel.container'
+// import OrderBookPanel from './OrderBookPanel.container'
 
-export default OrderBookPanel
+// export default OrderBookPanel
+
+import React from 'react'
+
+export default () => <div />

@@ -45,16 +45,26 @@
 }
 .hfui-favoritepair__content-item {
     background-color: $panel-background-color;
+    border-radius: $border-radius;
     display: block;
     text-transform: uppercase;
-    width: calc(33% - 4px);
-    margin-right: spacing(0.25);
-    margin-bottom: spacing(0.75);
+    width: 33%;
+    padding: spacing(0.25) spacing(0.5);
     font-size: 13px;
     cursor: pointer;
+    transition: background-color .2s;
 
     &.active {
         color: $green-color;
+    }
+
+    &:hover,
+    &:focus {
+        background-color: mix($white-color, $panel-background-color, 10%);
+    }
+
+    &:active {
+        background-color: mix($black-color, $panel-background-color, 10%);
     }
 }
 
