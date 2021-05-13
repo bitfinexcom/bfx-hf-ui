@@ -4,7 +4,7 @@ import _isEmpty from 'lodash/isEmpty'
 
 import Input from '../../ui/Input'
 import Button from '../../ui/Button'
-import Select from '../../ui/Select'
+import Dropdown from '../../ui/Dropdown'
 import Checkbox from '../../ui/Checkbox'
 import {
   getStoredPassword,
@@ -110,12 +110,12 @@ export default class AuthenticationInit extends React.PureComponent {
           <div className='hfui-authenticationpage__mode-select'>
             <p>Select trading mode</p>
 
-            <Select
+            <Dropdown
               className='hfui-authenticationpage__trading-mode'
               placeholder='Select trading mode...'
-              value={options.find(o => o.value === mode)}
+              value={options.find(o => o.value === mode).value}
               options={options}
-              onChange={({ value }) => this.selectMode(value)}
+              onChange={(value) => this.selectMode(value)}
             />
           </div>
           {isDevEnv && (

@@ -7,7 +7,7 @@
   margin-bottom: 10px;
 
   .hfui-backtester_row {
-    margin-bottom: 5px !important;
+    margin-bottom: spacing(0.25) !important;
   }
 
   .hfui-dropdown__button, .react-datepicker__input-container input {
@@ -28,13 +28,6 @@
   .hfui-exchangeinfobar__wrapper {
     background: none;
     border: none;
-  }
-
-  .input-label {
-    color: $grey-color;
-    font-size: 11px;
-    line-height: 16px;
-    padding-right: 15px;
   }
 
   .hfui-backtester__flex_start {
@@ -83,5 +76,9 @@
 }
 
 .hfui-backtester__wrapper {
-  padding: 20px 40px 20px 10px;
+  padding: spacing();
+
+  .ufx-dropdown {
+    margin-right: spacing(0.75);
+  }
 }

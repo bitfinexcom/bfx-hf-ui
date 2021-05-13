@@ -3,6 +3,10 @@
 .hfui-layoutcontroltoolbar__wrapper {
   margin-bottom: spacing(1.25);
 
+  .ufx-dropdown {
+    min-width: 180px;
+  }
+
   .hfui-button {
     padding: 8px 13px;
 

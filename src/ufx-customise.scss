@@ -3,12 +3,23 @@
 $green1: #54b361;
 $red1: #f05359;
 
+$ufx-border-radius: $border-radius;
+
 $ufx-table-even-row-background-color: $panel-background-color;
 $ufx-table-odd-row-background-color: $panel-background-color;
 $ufx-table-hover-row-background-color: $panel-background-color;
 $ufx-table-active-row-background-color: $panel-background-color;
 
-$ufx-text-color: white;
-$ufx-heading-color: white;
+$ufx-text-color: $text-color;
+$ufx-heading-color: $text-color;
+
+$ufx-dropdown-height: 32px;
+$ufx-dropdown-padding: spacing();
+$ufx-dropdown-background-color: $input-background-color;
+$ufx-dropdown-border-color: $input-background-color;
+$ufx-dropdown-list-border: none;
+$ufx-dropdown-text-color: $text-color;
+$ufx-dropdown-list-background-color: $input-background-color;
+$ufx-dropdown-active-item-background-color: mix($green-color, $input-background-color, 60%);
 
 @import "node_modules/@ufx-ui/core/dist/css/ufx-core.bundle.scss";

@@ -3,14 +3,8 @@
 .hfui-orderform__wrapper {
   height: 100%;
 
-  *,
-  ::before,
-  ::after {
-    box-sizing: content-box;
-  }
-
   input {
-    background: $background-color;
+    background: $input-background-color;
   }
 
   .hfui-dropdown__button {
@@ -36,7 +30,7 @@
   }
 
   .hfui-dropdown__wrapper {
-    width: calc(100% - 16px);
+    width: 100%;
 
     > p {
       margin-bottom: 8px;
@@ -45,6 +39,18 @@
 
     > ul {
       max-width: 100%;
+    }
+  }
+
+  .ufx-dropdown .list {
+    display: block;
+
+    li {
+      display: block;
+      width: auto;
+      margin: 0;
+      padding-right: 0;
+      padding-left: 0;
     }
   }
 }
@@ -77,7 +83,7 @@
   }
 
   .hfui-panel__footer {
-    width: calc(100% - 16px);
+    width: 100%;
     background: $background-color;
     line-height: 32px;
     font-size: 13px;
@@ -182,15 +188,18 @@
     flex-wrap: wrap;
 
     > li {
-      width: calc(50% - 20px);
+      width: 50%;
       display: flex;
       flex-direction: row;
       flex-shrink: 0;
-      margin-bottom: 20px;
+      margin-bottom: spacing();
 
-      &:nth-child(2n) {
-        flex-direction: row-reverse;
-        margin-left: 20px;
+      &:nth-child(odd) {
+        padding-right: spacing(0.5);
+      }
+
+      &:nth-child(even) {
+        padding-left: spacing(0.5);
       }
     }
 
@@ -198,8 +207,10 @@
       line-height: 32px;
 
       input {
-        height: 24px;
-        font-size: 11px;
+        height: 32px;
+        font-size: 14px;
+        padding: 0 16px;
+        line-height: 32px;
       }
     }
 
@@ -312,7 +323,7 @@
     width: 100%;
 
     input {
-      width: calc(100% - 16px);
+      width: 100%;
     }
   }
 
