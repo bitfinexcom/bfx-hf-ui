@@ -3,31 +3,23 @@
 .hfui-aolist__wrapper {
   padding-bottom: 8px;
 
-  tr, th {
-    font-size: 12px;
-    line-height: 16px;
-    color: $text-color !important;
-  }
-
-  td {
-    color: $text-color !important;
-    background-color: $background-color !important;
-  }
-
   .empty {
     margin-top: 10px;
     font-size: 16px;
     text-align: center;
   }
+}
 
-  .controls {
-    i {
-      font-size: 18px;
-      
-      &:hover {
-        cursor: pointer;
-        color: $green-color;
-      }
-    }
+.icons-cell > * {
+  margin-right: 8px;
+  font-size: 16px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:hover {
+    cursor: pointer;
+    color: $text-color;
   }
 }
