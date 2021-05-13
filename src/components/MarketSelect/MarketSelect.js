@@ -79,10 +79,10 @@ export default class MarketSelect extends React.PureComponent {
               <div>{optionLabel}</div>
               <div
                 className='hfui-marketselect__icon'
-                onClick={(pair, isPairSelected, event) => {
+                onClick={(event) => {
                   event.preventDefault()
                   event.stopPropagation()
-                  this.favoriteSelect(pair, isPairSelected)
+                  this.favoriteSelect(optionValue, !isSelected)
                 }}
               >
                 <FavoriteIcon
