@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ClassNames from 'classnames'
 
+import { Dialog } from '@ufx-ui/core'
+
 import './style.css'
 
 export default class Modal extends React.PureComponent {
@@ -21,6 +23,10 @@ export default class Modal extends React.PureComponent {
     className: '',
   }
 
+  state = {
+    isOpen: true,
+  }
+
   render() {
     const {
       fixed,
@@ -31,41 +37,75 @@ export default class Modal extends React.PureComponent {
       className,
     } = this.props
 
+    const {
+      isOpen,
+    } = this.state
+
     return (
-      <div
-        className={ClassNames('hfui-modal__wrapper', { fixed })}
-        onClick={(e) => {
-          e.stopPropagation()
-          return false
+      <Dialog
+        isOpen={isOpen}
+        title={label}
+        onClose={() => {
+          this.setState({ isOpen: false })
+          onClose()
         }}
+        className={className}
       >
-        <div
-          className={ClassNames('hfui-modal__content', className)}
-          onClick={(e) => {
-            e.stopPropagation()
-            return false
-          }}
-        >
-          <div className='hfui-modal__header'>
-            {label && (
-              <p className='hfui-modal__label'>{label}</p>
-            )}
-
-            <i
-              className='icon-cancel'
-              onClick={onClose}
-            />
-          </div>
-
-          {children}
-
-          {actions && (
-            <div className='hfui-modal__actions'>
-              {actions}
-            </div>
-          )}
-        </div>
-      </div>
+        {children}
+        {actions && (
+          <Dialog.Footer>
+            {actions}
+          </Dialog.Footer>
+        )}
+      </Dialog>
     )
   }
+
+  // render() {
+  //   const {
+  //     fixed,
+  //     label,
+  //     onClose,
+  //     actions,
+  //     children,
+  //     className,
+  //   } = this.props
+
+  //   return (
+  //     <div
+  //       className={ClassNames('hfui-modal__wrapper', { fixed })}
+  //       onClick={(e) => {
+  //         e.stopPropagation()
+  //         return false
+  //       }}
+  //     >
+  //       <div
+  //         className={ClassNames('hfui-modal__content', className)}
+  //         onClick={(e) => {
+  //           e.stopPropagation()
+  //           return false
+  //         }}
+  //       >
+  //         <div className='hfui-modal__header'>
+  //           {label && (
+  //             <p className='hfui-modal__label'>{label}</p>
+  //           )}
+
+  //           <i
+  //             className='icon-cancel'
+  //             onClick={onClose}
+  //           />
+  //         </div>
+
+  //         {children}
+
+  //         {actions && (
+  //           <div className='hfui-modal__actions'>
+  //             {actions}
+  //           </div>
+  //         )}
+  //       </div>
+  //     </div>
+  //   )
+  // }
 }
