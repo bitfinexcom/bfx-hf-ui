@@ -78,7 +78,7 @@ export default class MarketSelect extends React.PureComponent {
           const isSelected = favoritePairs.includes(optionValue)
           return (
             <div className='hfui-marketselect__option'>
-              <div>{optionLabel}</div>
+              <div className='hfui-marketselect__text'>{optionLabel}</div>
               <div
                 className='hfui-marketselect__icon'
                 onClick={(event) => {

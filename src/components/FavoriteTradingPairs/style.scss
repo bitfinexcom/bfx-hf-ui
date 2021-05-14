@@ -71,7 +71,14 @@
 .hfui-favoritepair__item-wrapper { 
     display: flex;
     gap: 5px;
-    align-items: center;
+
+    svg {
+        flex-shrink: 0;
+    }
+
+    p {
+        word-break: break-word;
+    }
 }
 .empty { 
     color:$white-color;
