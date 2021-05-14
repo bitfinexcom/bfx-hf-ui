@@ -82,6 +82,17 @@ const closeNotificationPanel = () => ({
   type: types.CLOSE_NOTIFICATIONS,
 })
 
+const removeNotification = (uid) => ({
+  type: types.REMOVE_NOTIFICATION,
+  payload: {
+    uid,
+  },
+})
+
+const clearNotifications = () => ({
+  type: types.CLEAR_NOTIFICATIONS,
+})
+
 const openNotifcationPanel = () => ({
   type: types.OPEN_NOTIFICATIONS,
 })
@@ -154,6 +165,8 @@ export default {
   updateComponentState,
   saveRemoteVersion,
   closeNotificationPanel,
+  removeNotification,
+  clearNotifications,
   openNotifcationPanel,
   firstLogin,
   finishGuide,

@@ -1,3 +1,5 @@
+import _filter from 'lodash/filter'
+
 import WSTypes from '../../constants/ws'
 import UITypes from '../../constants/ui'
 import { notificationAdapter } from '../../adapters/ws'
@@ -17,6 +19,15 @@ function reducer(state = getInitialState(), action = {}) {
         notificationAdapter(notification),
         ...state,
       ]
+    }
+
+    case UITypes.REMOVE_NOTIFICATION: {
+      const { uid } = payload
+      return _filter(state, n => n.uid !== uid)
+    }
+
+    case UITypes.CLEAR_NOTIFICATIONS: {
+      return []
     }
 
     default: {

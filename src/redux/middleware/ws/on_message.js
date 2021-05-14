@@ -2,6 +2,7 @@ import _isArray from 'lodash/isArray'
 import _isObject from 'lodash/isObject'
 import _isNumber from 'lodash/isNumber'
 import Debug from 'debug'
+import { v4 } from 'uuid'
 
 import UIActions from '../../actions/ui'
 import WSActions from '../../actions/ws'
@@ -120,6 +121,7 @@ export default (alias, store) => (e = {}) => {
           status: 'error',
           text: message,
           mts: Date.now(),
+          uid: v4(),
         }))
         break
       }
@@ -130,6 +132,7 @@ export default (alias, store) => (e = {}) => {
           status,
           text: message,
           mts: Date.now(),
+          uid: v4(),
         }))
         break
       }
