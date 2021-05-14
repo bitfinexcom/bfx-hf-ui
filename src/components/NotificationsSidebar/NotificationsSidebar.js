@@ -1,51 +1,36 @@
 import React from 'react'
 import ClassNames from 'classnames'
+import PropTypes from 'prop-types'
 import Scrollbars from 'react-custom-scrollbars'
+import _isEmpty from 'lodash/isEmpty'
 import { nonce } from 'bfx-api-node-util'
 
 import Notification from './Notification'
 import Panel from '../../ui/Panel'
-import { propTypes, defaultProps } from './NotificationsSidebar.props'
+import Button from '../../ui/Button'
 import './style.css'
 
 const LIVE_NOTIFICATION_LIFETIME_MS = 4000
 
-export default class NotificationsSidebar extends React.Component {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
-
+class NotificationsSidebar extends React.PureComponent {
   state = {
-    open: false,
     lastShownMTS: 0,
-    lastNotificationCount: 0,
     liveNotifications: [],
-    liveNotificationTimeouts: [],
+    shownNotifications: [],
   }
 
   constructor(props) {
     super(props)
 
-    const { notifications = [] } = props
-
-    this.state = {
-      ...this.state,
-      lastNotificationCount: notifications.length,
-    }
-
-    this.keyCounter = 0
-    this.onToggleOpen = this.onToggleOpen.bind(this)
-    this.mounted = false
-  }
-
-  componentDidMount() {
-    this.mounted = true
+    this.onClose = this.onClose.bind(this)
+    this.onClearNotifications = this.onClearNotifications.bind(this)
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { notifications = [] } = nextProps
-    const { lastNotificationCount } = prevState
+    const { shownNotifications } = prevState
 
-    if (notifications.length === lastNotificationCount) {
+    if (notifications.length <= shownNotifications.length) {
       return {}
     }
 
@@ -53,9 +38,8 @@ export default class NotificationsSidebar extends React.Component {
 
     return {
       lastShownMTS: showMTS,
-      lastNotificationCount: notifications.length,
       liveNotifications: [
-        ...notifications.slice(0, notifications.length - lastNotificationCount).map(n => ({
+        ...notifications.filter(({ uid }) => !shownNotifications.includes(uid)).map(n => ({
           n,
           showMTS,
           id: nonce(),
@@ -63,6 +47,7 @@ export default class NotificationsSidebar extends React.Component {
 
         ...prevState.liveNotifications,
       ],
+      shownNotifications: notifications.map(({ uid }) => uid),
     }
   }
 
@@ -79,33 +64,36 @@ export default class NotificationsSidebar extends React.Component {
     )
   }
 
-  componentWillUnmount() {
-    this.mounted = false
+  onClose(uid) {
+    const { removeNotification } = this.props
+    removeNotification(uid)
+
+    this.setState(({ shownNotifications }) => ({
+      shownNotifications: shownNotifications.filter(n => n.uid !== uid),
+    }))
   }
 
-  onToggleOpen() {
-    this.setState(({ open }) => ({ open: !open }))
-  }
+  onClearNotifications() {
+    const { clearNotifications } = this.props
+    clearNotifications()
 
-  getKey() {
-    return this.keyCounter++
+    setTimeout(() => {
+      this.setState({
+        shownNotifications: [],
+      })
+    }, 1000)
   }
 
   timeoutLiveNotifications(shownMTS) {
-    if (!this.mounted) {
-      return
-    }
-
     this.setState(({ liveNotifications }) => ({
-      liveNotifications: liveNotifications.filter(({ showMTS }) => (
-        showMTS !== shownMTS
-      )),
+      liveNotifications: liveNotifications.filter(({ showMTS }) => showMTS !== shownMTS),
     }))
   }
 
   render() {
-    const { open, liveNotifications } = this.state
+    const { liveNotifications } = this.state
     const { notifications, notificationsVisible, closeNotificationPanel } = this.props
+
     return (
       <div className={ClassNames(`hfui-notificationssidebar__wrapper ${notificationsVisible ? 'absoulute' : ''}`, {
         visible: notificationsVisible,
@@ -115,24 +103,48 @@ export default class NotificationsSidebar extends React.Component {
           label='NOTIFICATIONS'
           hideIcons
           closePanel={closeNotificationPanel}
+          preHeaderComponents={[
+            <Button
+              onClick={this.onClearNotifications}
+              key='clear-btn'
+              disabled={_isEmpty(notifications)}
+              className='hfui-notificationssidebar__header-btn'
+              label={[
+                <i key='icon' className='icon-clear' />,
+                <p key='text'>Clear all</p>,
+              ]}
+            />,
+          ]}
         >
           <ul>
             <Scrollbars height='100%'>
               {notifications.map((n = {}) => (
-                <Notification key={this.getKey()} data={n} />
+                <Notification key={n.uid || n.mts} data={n} onClose={this.onClose} />
               ))}
             </Scrollbars>
           </ul>
         </Panel>
 
-        {!open && (
-          <ul className='hfui-notificationssidebar__external'>
-            {liveNotifications.map((item = {}) => (
-              <Notification key={item.id} data={item.n} />
-            ))}
-          </ul>
-        )}
+        <ul className='hfui-notificationssidebar__external'>
+          {liveNotifications.map((item = {}) => (
+            <Notification key={item.id} data={item.n} />
+          ))}
+        </ul>
       </div>
     )
   }
 }
+
+NotificationsSidebar.propTypes = {
+  notifications: PropTypes.arrayOf(PropTypes.object).isRequired,
+  removeNotification: PropTypes.func.isRequired,
+  clearNotifications: PropTypes.func.isRequired,
+  closeNotificationPanel: PropTypes.func.isRequired,
+  notificationsVisible: PropTypes.bool,
+}
+
+NotificationsSidebar.defaultProps = {
+  notificationsVisible: false,
+}
+
+export default NotificationsSidebar
