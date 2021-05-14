@@ -1,6 +1,8 @@
 @import '../../variables.scss';
 
 .hfui-input {
+  display: flex;
+
   p {
     margin-bottom: 8px;
     font-size: 12px;
@@ -20,8 +22,7 @@
 }
 
 .field-icon {
-  float: right;
-  margin-top: -30px;
+  margin-top: -3px;
   position: relative;
   border: none;
   color: $green-color;
