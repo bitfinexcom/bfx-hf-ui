@@ -7,11 +7,8 @@ export default (authToken, cancelOrder, gaCancelOrder) => [{
   cellRenderer: ({ rowData = {} }) => rowData.name,
 }, {
   label: 'Context',
-  dataKey: '_margin',
+  dataKey: 'args._margin',
   width: 65,
-  cellDataGetter: ({ rowData = {} }) => {
-    return rowData.args?._margin ? 'Margin' : 'Exchange'
-  },
   cellRenderer: ({ rowData = {} }) => {
     return rowData.args?._margin ? 'Margin' : 'Exchange'
   },
@@ -22,9 +19,8 @@ export default (authToken, cancelOrder, gaCancelOrder) => [{
   cellRenderer: ({ rowData = {} }) => new Date(+rowData.gid).toLocaleString(),
 }, {
   label: 'Symbol',
-  dataKey: 'symbol',
+  dataKey: 'args.symbol',
   width: 145,
-  cellDataGetter: ({ rowData = {} }) => rowData.args?.symbol,
   cellRenderer: ({ rowData = {} }) => rowData.args?.symbol,
 }, {
   label: 'Label',
