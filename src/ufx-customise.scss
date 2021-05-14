@@ -21,5 +21,7 @@ $ufx-dropdown-list-border: none;
 $ufx-dropdown-text-color: $text-color;
 $ufx-dropdown-list-background-color: $input-background-color;
 $ufx-dropdown-active-item-background-color: mix($white-color, $input-background-color, 10%);
+$ufx-dropdown-input-background-color: $background-color;
+$ufx-dropdown-input-border: 0;
 
-@import "node_modules/@ufx-ui/core/dist/css/ufx-core.bundle.scss";
+@import "../node_modules/@ufx-ui/core/dist/css/ufx-core.bundle.scss";

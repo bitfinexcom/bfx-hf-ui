@@ -1,30 +1,56 @@
 @import '../../variables.scss';
 
 .hfui-button, button {
-  background: $panel-background-color;
+  background: $input-background-color;
   border: none;
   color: $text-color;
   font-size: 12px;
-  font-weight:  300;
-  border-radius: 4px;
+  font-weight: 400;
+  border-radius: $border-radius;
+  transition: background-color .2s;
+  cursor: pointer;
+
+  &:hover:not(.disabled),
+  &:focus:not(.disabled) {
+    background-color: lighten($input-background-color, 6%);
+  }
+
+  &:active:not(.disabled) {
+    transition-duration: .05s;
+    background-color: $input-background-color;
+  }
+
   &.red {
     background: $red-color;
     border-color: $red-color;
+
+    &:hover:not(.disabled),
+    &:focus:not(.disabled) {
+      background-color: lighten($red-color, 6%);
+    }
+
+    &:active:not(.disabled) {
+      background-color: darken($red-color, 6%);
+    }
   }
 
   &.green {
-    background: $green-color;
-    border-color: $green-color;
-  }
+    background: $green-button-color;
+    border-color: $green-button-color;
 
-  &:hover:not(.disabled) {
-    color: $white-color;
-    cursor: pointer;
-    opacity: 0.8;
+    &:hover:not(.disabled),
+    &:focus:not(.disabled) {
+      background-color: lighten($green-button-color, 6%);
+    }
+
+    &:active:not(.disabled) {
+      background-color: darken($green-button-color, 6%);
+    }
   }
 
   &.disabled {
     opacity: 0.5;
+    cursor: not-allowed;
   }
 
   > * {

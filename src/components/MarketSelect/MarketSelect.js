@@ -66,6 +66,8 @@ export default class MarketSelect extends React.PureComponent {
     return (
       <Dropdown
         label={renderLabel ? 'Market' : undefined}
+        searchable
+        searchModifier={(searchValue) => searchValue.replace(/[\s/]/g, '')}
         className={ClassNames('hfui-marketselect', className)}
         onChange={(val) => {
           onChange(markets.find(m => m.uiID === val))
@@ -76,7 +78,7 @@ export default class MarketSelect extends React.PureComponent {
           const isSelected = favoritePairs.includes(optionValue)
           return (
             <div className='hfui-marketselect__option'>
-              <div>{optionLabel}</div>
+              <div className='hfui-marketselect__text'>{optionLabel}</div>
               <div
                 className='hfui-marketselect__icon'
                 onClick={(event) => {
