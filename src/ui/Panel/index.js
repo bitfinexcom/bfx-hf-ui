@@ -7,11 +7,10 @@ import './style.css'
 
 export default class Panel extends React.Component {
   static propTypes = propTypes
-
   static defaultProps = defaultProps
 
   state = {}
-  getTabTitle(tab) { //eslint-disable-line
+  getTabTitle(tab) { // eslint-disable-line
     const { htmlKey, tabtitle } = tab.props
     if (typeof tabtitle === 'string') {
       return tabtitle
@@ -19,7 +18,7 @@ export default class Panel extends React.Component {
     if (!htmlKey) console.trace('htmlKey missing')
     return htmlKey
   }
-  getForcedTab(forcedTab, tabs) { //eslint-disable-line
+  getForcedTab(forcedTab, tabs) { // eslint-disable-line
     for (let i = 0; i < tabs.length; i++) {
       if (tabs[i].props.tabtitle === forcedTab) {
         return tabs[i]
@@ -48,6 +47,7 @@ export default class Panel extends React.Component {
       secondaryHeaderComponents,
       secondaryHeaderReverse,
       closePanel,
+      preHeaderComponents,
       forcedTab = '',
     } = this.props
     const tabs = React.Children.toArray(children).filter(c => c && c.props.tabtitle)
@@ -66,9 +66,16 @@ export default class Panel extends React.Component {
           })}
         >
           {label && <p className='hfui-panel__label'>{label}</p>}
-          { closePanel && (
-            <p className='hfui-panel__close' onClick={closePanel}>&#10005;</p>
-          )}
+          <div className='hfui-panel__buttons-section'>
+            {preHeaderComponents && (
+              <div className='hfui-panel__preheader'>
+                {preHeaderComponents}
+              </div>
+            )}
+            {closePanel && (
+              <p className='hfui-panel__close' onClick={closePanel}>&#10005;</p>
+            )}
+          </div>
           {tabs.length > 0 && (
             <ul className='hfui-panel__header-tabs'>
               {tabs.map(tab => (
@@ -101,7 +108,7 @@ export default class Panel extends React.Component {
 
               {showChartMarket && (
                 <div className='hfui-panel__chart-market-select'>
-                  { chartMarketSelect }
+                  {chartMarketSelect}
                 </div>
               )}
 
