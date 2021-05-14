@@ -116,13 +116,17 @@ class NotificationsSidebar extends React.PureComponent {
             />,
           ]}
         >
-          <ul>
-            <Scrollbars height='100%'>
-              {notifications.map((n = {}) => (
-                <Notification key={n.uid || n.mts} data={n} onClose={this.onClose} />
-              ))}
-            </Scrollbars>
-          </ul>
+          {_isEmpty(notifications) ? (
+            <p className='hfui-notificationssidebar__empty'>There are no new notifications yet!</p>
+          ) : (
+            <ul>
+              <Scrollbars height='100%'>
+                {notifications.map((n = {}) => (
+                  <Notification key={n.uid || n.mts} data={n} onClose={this.onClose} />
+                ))}
+              </Scrollbars>
+            </ul>
+          )}
         </Panel>
 
         <ul className='hfui-notificationssidebar__external'>
