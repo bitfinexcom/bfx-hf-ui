@@ -1,84 +1,27 @@
 @import '../../variables.scss';
 
-.hfui-ao-list__entry {
-  display: flex;
-  flex-direction: column;
-  padding: 12px;
-  position: relative;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+.hfui-aolist__wrapper {
+  padding-bottom: 8px;
+
+  .empty {
+    margin-top: 10px;
+    font-size: 16px;
+    text-align: center;
+  }
+}
+
+.icons-cell > * {
+  margin-right: 8px;
+  font-size: 16px;
+
+  .empty {
+    margin-top: 10px;
+    font-size: 16px;
+    text-align: center;
+  }
 
   &:hover {
-    background: rgba(0, 0, 0, 0.1);
-  }
-}
-
-.hfui-ao-list__entry-row {
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 16px;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-
-.hfui-ao-list__entry-row-elm {
-  margin-right: 16px;
-
-  &:last-child {
-    margin-right: 0;
-  }
-}
-
-.hfui-ao-list__entry-row-elm-label {
-  color: $grey-color;
-  font-size: 12px;
-}
-
-.hfui-ao-list__entry-row-elm-value {
-  color: $text-color;
-  font-size: 12px;
-}
-
-.hfui-ao-list__entry-controls {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-
-  li {
-    display: inline-block;
-    vertical-align: top;
-    margin-right: 8px;
-
-    &:last-child {
-      margin-right: 0;
-    }
-
-    i {
-      font-size: 18px;
-    }
-
-    &:hover {
-      cursor: pointer;
-
-      i {
-        color: $green-color;
-      }
-    }
-  }
-}
-
-.hfui-ao-list__entry-row-status {
-  width: 12px;
-  height: 12px;
-
-  position: absolute;
-  bottom: 12px;
-  right: 12px;
-
-  border-radius: 50%;
-
-  &.green {
-    background: $green-color;
+    cursor: pointer;
+    color: $text-color;
   }
 }
