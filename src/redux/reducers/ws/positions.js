@@ -17,10 +17,12 @@ function reducer(state = getInitialState(), action = {}) {
 
     case types.DATA_POSITION: {
       const { position = [] } = payload
+      const adaptedPosition = positionAdapter(position)
+      const filtered = state.filter(({ meta = {} }) => meta.order_id !== adaptedPosition.meta?.order_id)
 
       return [
-        ...state,
-        positionAdapter(position),
+        ...filtered,
+        adaptedPosition,
       ]
     }
 
