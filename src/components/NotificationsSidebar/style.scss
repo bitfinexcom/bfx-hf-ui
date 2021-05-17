@@ -44,25 +44,7 @@
   margin: 10px;
   margin-top: 12px;
 }
-.hfui-notificationssidebar__notch {
-  position: absolute;
-  bottom: 66px;
-  left: -24px;
-  height: 24px;
-  width: 24px;
-  line-height: 24px;
-  background: $notifications-background-color;
-  border: 0.5px solid mix($background-color, $white-color, 95%);
-  border-right: none;
-  text-align: center;
-  font-size: 12px;
 
-  &:hover {
-    cursor: pointer;
-    color: $green-color;
-    border-color: $green-color;
-  }
-}
 .hfui-notification-data {
   width: 100%;
   display: flex; 
@@ -112,7 +94,7 @@
 .hfui-notification {
   position: relative;
   z-index: 9999999;
-  margin: spacing(.75);
+  margin: 0 spacing(.75) spacing(1) spacing(.75);
   border-radius: $border-radius;
   padding: spacing();
   font-size: 12px;
@@ -164,3 +146,23 @@
   align-items: center;
 }
 
+.hfui-notificationssidebar__header-btn {
+  color: transparentize($white-color, 0.3);
+  background: mix($black-color, $panel-background-color, 10%);
+  transition: all .2s;
+
+  &:hover {
+    background: rgba(255, 255, 255, .1);
+    color: $white-color;
+  }
+
+  &:active {
+    background: rgba(0, 0, 0, .1)
+  }
+}
+
+.hfui-notificationssidebar__empty {
+  color: $text-color;
+  text-align: center;
+  margin-top: 5%;
+}

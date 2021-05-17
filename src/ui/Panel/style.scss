@@ -118,6 +118,24 @@
   }
 }
 
+.hfui-panel__preheader {
+  display: flex;
+  height: 30px;
+  align-self: center;
+}
+
+.hfui-panel__buttons-section {
+  display: flex;
+
+  & > * {
+    margin-right: 10px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
 .hfui-panel__header-components {
   display: flex;
   flex-direction: row;
@@ -225,18 +243,30 @@
   color: $green-color;
 }
 
-.hfui-panel__close { 
+.hfui-panel__close {
+  text-align: center;
   font-weight: 500;
-  font-size: 13px;
-  line-height: 45px;
-  flex-shrink: 0;
-  text-transform: uppercase;
-  color: $white-color;
-  float: right;
-}
-
-.hfui-panel__close:hover { 
+  font-size: 16px;
+  border-radius: $border-radius;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
+  justify-self: center;
+  align-self: center;
+  color: transparentize($white-color, 0.3);
+  transition: all .2s;
+
+  &:hover, &:focus {
+    background: rgba(255, 255, 255, .1);
+    color: $white-color;
+  }
+
+  &:active {
+    background: rgba(0, 0, 0, .1)
+  }
 }
 
 .hfui-panel__content {

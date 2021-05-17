@@ -1,4 +1,5 @@
 import { put } from 'redux-saga/effects'
+import { v4 } from 'uuid'
 import WSActions from '../../actions/ws'
 
 export default function* () {
@@ -7,5 +8,6 @@ export default function* () {
     mts: Date.now(),
     status: 'error',
     text: 'Disconnected from websocket server',
+    uid: v4(),
   }))
 }

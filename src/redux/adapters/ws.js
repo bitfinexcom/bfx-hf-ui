@@ -33,7 +33,10 @@ const notificationAdapter = (data = []) => {
       text: data[4].message,
     }
   }
-  return new Notification(data).toJS()
+  const notification = new Notification(data).toJS()
+  notification.uid = data.uid
+
+  return notification
 }
 
 export {
