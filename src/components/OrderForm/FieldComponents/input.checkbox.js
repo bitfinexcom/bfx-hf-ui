@@ -15,7 +15,7 @@ const CheckboxInput = memo(({
       checked={!!value}
       onChange={onChange}
       disabled={disabled}
-      customHelp={customHelp}
+      customhelp={customHelp}
       label={_toUpper(renderString(label, renderData))}
     />
   </div>
