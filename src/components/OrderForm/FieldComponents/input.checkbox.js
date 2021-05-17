@@ -1,42 +1,49 @@
-import React from 'react'
+import React, { memo } from 'react'
 import ClassNames from 'classnames'
+import PropTypes from 'prop-types'
+import { Checkbox } from '@ufx-ui/core'
+import _toUpper from 'lodash/toUpper'
 
 import { renderString } from '../OrderForm.helpers'
-import Checkbox from '../../../ui/Checkbox/Checkbox'
-import { propTypes, defaultProps } from './input.checkbox.props'
 
-export default class CheckboxInput extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
-  static DEFAULT_VALUE = false
+const CheckboxInput = memo(({
+  id, value, def: { label, customHelp } = {}, onChange, disabled, renderData,
+}) => (
+  <div className={ClassNames('hfui-orderform__input inline', { disabled })}>
+    <Checkbox
+      id={id}
+      checked={!!value}
+      onChange={onChange}
+      disabled={disabled}
+      customHelp={customHelp}
+      label={_toUpper(renderString(label, renderData))}
+    />
+  </div>
+))
 
-  render() {
-    const {
-      id,
-      value,
-      def = {},
-      onChange,
-      disabled,
-      renderData,
-    } = this.props
-    const { label, customHelp } = def
+CheckboxInput.DEFAULT_VALUE = false
 
-    return (
-      <div
-        className={ClassNames('hfui-orderform__input inline', {
-          disabled,
-        })}
-      >
-        <Checkbox
-          id={id}
-          uppercase
-          value={!!value}
-          onChange={onChange}
-          disabled={disabled}
-          customHelp={customHelp}
-          label={renderString(label, renderData)}
-        />
-      </div>
-    )
-  }
+CheckboxInput.displayName = 'CheckboxInput'
+
+CheckboxInput.propTypes = {
+  id: PropTypes.string.isRequired,
+  def: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.string, PropTypes.bool,
+  ])).isRequired,
+  renderData: PropTypes.shape({
+    QUOTE: PropTypes.string.isRequired,
+    BASE: PropTypes.string.isRequired,
+  }).isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool,
+  ]).isRequired,
+  onChange: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
 }
+
+CheckboxInput.defaultProps = {
+  disabled: false,
+}
+
+export default CheckboxInput
