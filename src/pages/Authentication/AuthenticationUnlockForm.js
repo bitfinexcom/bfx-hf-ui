@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Checkbox } from '@ufx-ui/core'
 import _isEmpty from 'lodash/isEmpty'
 
 import Input from '../../ui/Input'
 import Button from '../../ui/Button'
 import Dropdown from '../../ui/Dropdown'
-import Checkbox from '../../ui/Checkbox'
 import {
   getStoredPassword,
   getAutoLoginState,
@@ -122,7 +122,7 @@ export default class AuthenticationInit extends React.PureComponent {
           <div className='hfui-authenticationpage__dev-mode'>
             <Checkbox
               label='Auto-login in development mode'
-              value={AUTOLOGIN_STATE}
+              checked={AUTOLOGIN_STATE}
               onChange={this.updateAutoLoginState}
             />
           </div>

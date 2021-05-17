@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Checkbox } from '@ufx-ui/core'
 import _size from 'lodash/size'
 import _trim from 'lodash/trim'
 
 import Input from '../../ui/Input'
 import Button from '../../ui/Button'
-import Checkbox from '../../ui/Checkbox'
 import Layout from '../../components/Layout'
 import {
   getAutoLoginState,
@@ -160,7 +160,7 @@ class Settings extends React.PureComponent {
                       className='hfui-settings_check'
                       onChange={newState => this.onOptionChange(newState, 'dms')}
                       label='DMS'
-                      value={!!dms}
+                      checked={!!dms}
                     />
                   </div>
                 </li>
@@ -171,7 +171,7 @@ class Settings extends React.PureComponent {
                       className='hfui-settings_check'
                       onChange={newState => this.onOptionChange(newState, 'ga')}
                       label='Usage reporting'
-                      value={!!ga}
+                      checked={!!ga}
                     />
                   </div>
                 </li>
@@ -181,7 +181,7 @@ class Settings extends React.PureComponent {
                   <li className='hfui-settings__option-check'>
                     <Checkbox
                       label='Auto-login in development mode'
-                      value={AUTOLOGIN_STATE}
+                      checked={AUTOLOGIN_STATE}
                       onChange={(state) => { this.updateAutoLoginState(state) }}
                     />
                   </li>

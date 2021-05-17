@@ -1,9 +1,9 @@
 import React from 'react'
 import _isEqual from 'lodash/isEqual'
 import PropTypes from 'prop-types'
+import { Checkbox } from '@ufx-ui/core'
 
 import BalancesTable from '../BalancesTable'
-import Checkbox from '../../ui/Checkbox'
 import Panel from '../../ui/Panel'
 import PanelSettings from '../../ui/PanelSettings'
 
@@ -75,7 +75,7 @@ class BalancesTablePanel extends React.Component {
             content={(
               <Checkbox
                 label='Hide Zero Balances'
-                value={hideZeroBalances}
+                checked={hideZeroBalances}
                 onChange={this.onChangeHideZeroBalances}
               />
             )}

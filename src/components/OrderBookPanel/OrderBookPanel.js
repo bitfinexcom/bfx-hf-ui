@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import _filter from 'lodash/filter'
 import _size from 'lodash/size'
+import { Checkbox } from '@ufx-ui/core'
 import {
   useCommonBfxData,
   reduxActions,
@@ -14,7 +15,6 @@ import {
 import MarketSelect from '../MarketSelect'
 import OrderBook from '../OrderBook'
 import PanelSettings from '../../ui/PanelSettings'
-import Checkbox from '../../ui/Checkbox'
 import Panel from '../../ui/Panel'
 
 import './style.css'
@@ -154,14 +154,14 @@ const OrderBookPanel = (props) => {
             <Checkbox
               key='sum-amounts'
               label='Sum Amounts'
-              value={sumAmounts}
+              checked={sumAmounts}
               onChange={onChangeSumAmounts}
             />,
             canChangeStacked && (
               <Checkbox
                 key='stacked-view'
                 label='Stacked View'
-                value={stackedView}
+                checked={stackedView}
                 onChange={onChangeStackedView}
               />
             ),
