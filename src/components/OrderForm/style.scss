@@ -3,6 +3,11 @@
 .hfui-orderform__wrapper {
   height: 100%;
 
+  .react-datepicker-popper {
+    left: -2px;
+    transform: translate3d(0px, 231px, 0px) !important;
+  }
+
   input {
     background: $input-background-color;
   }
