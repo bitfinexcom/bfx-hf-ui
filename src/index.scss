@@ -55,6 +55,7 @@ body button:focus {
 }
 
 .react-datepicker-popper {
+  width: calc(100% + 15px) !important;
   z-index: 3;
 }
 

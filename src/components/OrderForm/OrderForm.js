@@ -1,7 +1,9 @@
 import React from 'react'
 import _isEqual from 'lodash/isEqual'
 import _isEmpty from 'lodash/isEmpty'
+import _isBoolean from 'lodash/isBoolean'
 import _trim from 'lodash/trim'
+import _isDate from 'lodash/isDate'
 import ClassNames from 'classnames'
 import {
   Iceberg, TWAP, AccumulateDistribute, PingPong, MACrossover, OCOCO,
@@ -197,7 +199,14 @@ export default class OrderForm extends React.Component {
       const field = fields[fieldName] || {}
       const { component } = field
       const C = COMPONENTS_FOR_ID[component]
-      const processedValue = _trim(value)
+      let processedValue
+
+      if (_isBoolean(value) || _isDate(value)) {
+        processedValue = value
+      } else {
+        processedValue = _trim(value)
+      }
+
       const validationError = (C && C.validateValue)
         ? C.validateValue(processedValue)
         : null
