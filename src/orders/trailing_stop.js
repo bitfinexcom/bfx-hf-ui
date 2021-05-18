@@ -95,6 +95,8 @@ export default () => ({
     tifDate: {
       component: 'input.date',
       label: 'TIF Date',
+      default: new Date(Date.now() + 86400000),
+      minDate: new Date(),
     },
 
     lev: {
