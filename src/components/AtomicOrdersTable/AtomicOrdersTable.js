@@ -1,19 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import _isEmpty from 'lodash/isEmpty'
+import { VirtualTable } from '@ufx-ui/core'
 
 import AtomicOrdersTableColumns from './AtomicOrdersTable.columns'
-import Table from '../../ui/Table'
 import './style.css'
 
 const AtomicOrdersTable = ({
   filteredAtomicOrders: orders, cancelOrder, authToken, gaCancelOrder,
 }) => (
-  <Table
-    data={orders}
-    columns={AtomicOrdersTableColumns(authToken, cancelOrder, gaCancelOrder)}
-    defaultSortBy='mts'
-    defaultSortDirection='ASC'
-  />
+  <div className='hfui-orderstable__wrapper'>
+    {_isEmpty(orders) ? (
+      <p className='empty'>No active atomic orders</p>
+    ) : (
+      <VirtualTable
+        data={orders}
+        columns={AtomicOrdersTableColumns(authToken, cancelOrder, gaCancelOrder)}
+        defaultSortBy='mts'
+        defaultSortDirection='ASC'
+      />
+    )}
+  </div>
 )
 
 AtomicOrdersTable.propTypes = {
