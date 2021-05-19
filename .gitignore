@@ -16,7 +16,10 @@ yarn.lock
 
 todo
 /db
-/logs/*.log
+
+!logs/.keep
+logs/*
+
 .undodir
 Session.vim
 

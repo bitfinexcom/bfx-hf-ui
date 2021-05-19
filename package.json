@@ -72,7 +72,7 @@
     "build-css": "cross-env node-sass-chokidar src/ -o src/ --include-path ./node_modules",
     "watch-css": "cross-env npm run build-css && cross-env node-sass-chokidar src/ -o src/ --include-path ./node_modules --watch --recursive",
     "start-server": "cross-env concurrently --kill-others \"npm run start-api-server\"",
-    "start-api-server": "cross-env node scripts/start-api-server.js",
+    "start-api-server": "cross-env ALGO_LOG=true ALGO_LOG_DIR=logs node scripts/start-api-server.js",
     "start-ds-bitfinex": "cross-env node scripts/start-ds-bitfinex.js",
     "start": "cross-env REACT_APP_DEV=1 REACT_APP_TV_URL=http://localhost:9999 REACT_APP_WSS_URL=ws://localhost:45000 REACT_APP_DS_URL=ws://localhost:23521 REACT_APP_WS_API_URL=wss://api-pub.bitfinex.com/ws/2 node scripts/start.js",
     "build": "GENERATE_SOURCEMAP=false cross-env npm run build-css &&  cross-env REACT_APP_TV_URL=http://localhost:9999 REACT_APP_WSS_URL=ws://localhost:45000 REACT_APP_DS_URL=ws://localhost:23521 REACT_APP_WS_API_URL=wss://api-pub.bitfinex.com/ws/2 node scripts/build.js",
