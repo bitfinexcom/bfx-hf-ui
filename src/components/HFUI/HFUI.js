@@ -16,14 +16,22 @@ import NotificationsSidebar from '../NotificationsSidebar'
 import './style.css'
 
 const HFUI = ({
-  authToken,
-  getSettings,
-  notificationsVisible,
-  getFavoritePairs,
-  currentMode,
-  GAPageview,
-  currentPage,
+  authToken, getSettings, notificationsVisible, getFavoritePairs, currentMode, GAPageview, currentPage, onUnload,
 }) => {
+  const unloadHandler = () => {
+    if (authToken !== null) {
+      onUnload(authToken, currentMode)
+    }
+  }
+
+  useEffect(() => {
+    window.removeEventListener('beforeunload', unloadHandler)
+    window.addEventListener('beforeunload', unloadHandler)
+    return () => {
+      window.removeEventListener('beforeunload', unloadHandler)
+    }
+  }, [authToken, currentMode])
+
   useEffect(() => {
     GAPageview(currentPage)
   }, [currentPage])
@@ -63,6 +71,7 @@ HFUI.propTypes = {
   currentMode: PropTypes.string.isRequired,
   getSettings: PropTypes.func.isRequired,
   getFavoritePairs: PropTypes.func.isRequired,
+  onUnload: PropTypes.func.isRequired,
   notificationsVisible: PropTypes.bool.isRequired,
   GAPageview: PropTypes.func.isRequired,
 }
