@@ -276,3 +276,7 @@ a:visited {
   border-right: 2px solid rgba(255, 255, 255, 0.4);
   border-bottom: 2px solid rgba(255, 255, 255, 0.4);
 }
+
+.react-datepicker__time-list {
+  display: block !important;
+}
