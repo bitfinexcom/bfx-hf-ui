@@ -292,4 +292,5 @@ export default {
   initAuth: password => send(['auth.init', password, 'main']),
   auth: (password, mode) => send(['auth.submit', password, mode]),
   resetAuth: () => send(['auth.reset']),
+  onUnload: (authToken, mode) => send(['algo_order.pause', authToken, mode]),
 }
