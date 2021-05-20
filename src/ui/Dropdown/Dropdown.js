@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -55,7 +54,7 @@ Dropdown.propTypes = {
   onChange: PropTypes.func.isRequired,
   label: PropTypes.string,
   value: PropTypes.string,
-  options: PropTypes.array.isRequired,
+  options: PropTypes.instanceOf(Array).isRequired,
   highlight: PropTypes.bool,
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
@@ -63,6 +62,10 @@ Dropdown.propTypes = {
 }
 Dropdown.defaultProps = {
   value: '',
+  label: null,
+  isOpen: false,
+  disabled: false,
+  highlight: false,
   placeholder: 'Select an option',
 }
 
