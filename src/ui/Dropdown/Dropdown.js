@@ -51,19 +51,23 @@ function Dropdown(props) {
 }
 
 Dropdown.propTypes = {
-  onChange: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool,
+  icon: PropTypes.string,
   label: PropTypes.string,
   value: PropTypes.string,
-  options: PropTypes.instanceOf(Array).isRequired,
+  className: PropTypes.string,
+  disabled: PropTypes.bool,
   highlight: PropTypes.bool,
   placeholder: PropTypes.string,
-  disabled: PropTypes.bool,
-  isOpen: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 Dropdown.defaultProps = {
   value: '',
+  icon: null,
   label: null,
   isOpen: false,
+  className: '',
   disabled: false,
   highlight: false,
   placeholder: 'Select an option',
