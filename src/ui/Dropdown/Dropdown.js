@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import { Dropdown as UfxDropdown } from '@ufx-ui/core'
-import { propTypes, defaultProps } from './Dropdown.props'
 import './style.css'
 
 function optionsAdaptor(options) {
@@ -51,7 +51,19 @@ function Dropdown(props) {
   )
 }
 
-Dropdown.propTypes = propTypes
-Dropdown.defaultProps = defaultProps
+Dropdown.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  label: PropTypes.string,
+  value: PropTypes.string,
+  options: PropTypes.array.isRequired,
+  highlight: PropTypes.bool,
+  placeholder: PropTypes.string,
+  disabled: PropTypes.bool,
+  isOpen: PropTypes.bool,
+}
+Dropdown.defaultProps = {
+  value: '',
+  placeholder: 'Select an option',
+}
 
 export default Dropdown
