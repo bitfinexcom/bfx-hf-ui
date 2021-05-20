@@ -31,6 +31,9 @@ const mapDispatchToProps = dispatch => ({
       mode,
     ]))
   },
+  onUnload: (authToken, mode) => {
+    dispatch(WSActions.onUnload(authToken, mode))
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HFUI)
