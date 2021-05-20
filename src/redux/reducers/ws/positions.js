@@ -1,3 +1,5 @@
+import _filter from 'lodash/filter'
+import _map from 'lodash/map'
 import types from '../../constants/ws'
 import { positionAdapter } from '../../adapters/ws'
 
@@ -12,13 +14,13 @@ function reducer(state = getInitialState(), action = {}) {
     case types.DATA_POSITIONS: {
       const { positions = [] } = payload
 
-      return positions.map(positionAdapter)
+      return _map(positions, positionAdapter)
     }
 
     case types.DATA_POSITION: {
       const { position = [] } = payload
       const adaptedPosition = positionAdapter(position)
-      const filtered = state.filter(({ meta = {} }) => meta.order_id !== adaptedPosition.meta?.order_id)
+      const filtered = _filter(state, ({ id }) => id !== adaptedPosition.id)
 
       return [
         ...filtered,
@@ -30,7 +32,7 @@ function reducer(state = getInitialState(), action = {}) {
       const { position = [] } = payload
       const p = positionAdapter(position)
 
-      return state.filter(pos => pos.symbol !== p.symbol)
+      return _filter(state, ({ id }) => id !== p.id)
     }
 
     case types.DEAUTH: {
