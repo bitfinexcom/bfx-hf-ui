@@ -1,11 +1,10 @@
-/* eslint-disable prefer-arrow-callback */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import _isFinite from 'lodash/isFinite'
 
 import NumberInput from './input.number'
 
-const PercentInput = memo(function PercentInput({ layout, ...props }) {
+const PercentInput = memo(({ layout, ...props }) => {
   const { id } = layout
 
   return (
@@ -18,12 +17,12 @@ const PercentInput = memo(function PercentInput({ layout, ...props }) {
   )
 })
 
+PercentInput.displayName = 'PercentInput'
+
 PercentInput.processValue = v => +v
 
 PercentInput.validateValue = (v) => {
-  return _isFinite(+v)
-    ? null
-    : 'Must be a number'
+  return _isFinite(+v) ? null : 'Must be a number'
 }
 
 PercentInput.DEFAULT_VALUE = ''

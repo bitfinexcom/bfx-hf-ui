@@ -1,19 +1,25 @@
+import React from 'react'
 import { prepareAmount } from 'bfx-api-node-util'
 import NumberInput from './input.number'
 
-export default class AmountInput extends NumberInput {
-  static processValue = v => +prepareAmount(+v)
-  static validateValue = (v) => {
-    const numericError = NumberInput.validateValue(v)
+const AmountInput = ({ ...props }) => (
+  <NumberInput {...props} />
+)
 
-    if (numericError) {
-      return numericError
-    }
+AmountInput.processValue = v => +prepareAmount(+v)
 
-    if (+v < 0) {
-      return 'Must be greater than 0'
-    }
+AmountInput.validateValue = v => {
+  const numericError = NumberInput.validateValue(v)
 
-    return null
+  if (numericError) {
+    return numericError
   }
+
+  if (+v < 0) {
+    return 'Must be greater than 0'
+  }
+
+  return null
 }
+
+export default AmountInput
