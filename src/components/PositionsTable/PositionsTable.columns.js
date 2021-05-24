@@ -49,7 +49,7 @@ export default ({ authToken, closePosition }) => [{
   cellRenderer: ({ rowData = {} }) => preparePrice(rowData.marginFunding),
 }, {
   label: 'Actions',
-  dataKey: 'cid',
+  dataKey: 'id',
   width: 100,
   cellRenderer: ({ rowData = {} }) => ( // eslint-disable-line
     <div className='icons-cell'>
