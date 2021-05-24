@@ -1,8 +1,7 @@
-/* eslint-disable react/prop-types */
-import React from 'react'
+import React, { memo } from 'react'
+import PropTypes from 'prop-types'
 
 import { Dropdown as UfxDropdown } from '@ufx-ui/core'
-import { propTypes, defaultProps } from './Dropdown.props'
 import './style.css'
 
 function optionsAdaptor(options) {
@@ -14,14 +13,14 @@ function optionsAdaptor(options) {
 
 function Dropdown(props) {
   const {
+    icon,
     label,
     value,
-    placeholder,
+    isOpen,
     options,
     highlight,
-    isOpen,
-    icon,
     className,
+    placeholder,
     ...rest
   } = props
 
@@ -32,10 +31,10 @@ function Dropdown(props) {
       )}
 
       <UfxDropdown
-        closeOnMouseLeave={false}
         value={value}
-        options={optionsAdaptor(options)}
         className={className}
+        closeOnMouseLeave={false}
+        options={optionsAdaptor(options)}
         valueRenderer={icon ? (_value, optionLabel) => (
           <div className='selected-text has-icon'>
             {icon && <i className={`icon-${icon}`} />}
@@ -51,7 +50,27 @@ function Dropdown(props) {
   )
 }
 
-Dropdown.propTypes = propTypes
-Dropdown.defaultProps = defaultProps
+Dropdown.propTypes = {
+  isOpen: PropTypes.bool,
+  icon: PropTypes.string,
+  label: PropTypes.string,
+  value: PropTypes.string,
+  disabled: PropTypes.bool,
+  highlight: PropTypes.bool,
+  className: PropTypes.string,
+  placeholder: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(PropTypes.object).isRequired,
+}
+Dropdown.defaultProps = {
+  value: '',
+  icon: null,
+  label: null,
+  isOpen: false,
+  className: '',
+  disabled: false,
+  highlight: false,
+  placeholder: 'Select an option',
+}
 
-export default Dropdown
+export default memo(Dropdown)
