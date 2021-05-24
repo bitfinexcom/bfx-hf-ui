@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { VirtualTable } from '@ufx-ui/core'
 import _isEmpty from 'lodash/isEmpty'
 import PositionsTableColumns from './PositionsTable.columns'
-import './style.css'
 
 const PositionsTable = (props) => {
   const { closePosition, authToken, positions } = props
