@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import PropTypes from 'prop'
+import PropTypes from 'prop-types'
 
 const ResultHeader = ({ label, value }) => {
   return (
