@@ -41,7 +41,6 @@ class AtomicOrdersTablePanel extends React.Component {
   render() {
     const { onRemove } = this.props
     const { filteredAtomicOrders } = this.state
-    console.log(filteredAtomicOrders)
     return (
       <Panel
         label='ATOMIC ORDERS'
