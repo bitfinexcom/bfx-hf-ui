@@ -1,14 +1,22 @@
 @import '../../variables.scss';
 
+@media only screen and (min-width: 1170px) {
+  .hfui-exchangeinfobar__right {
+    margin-left: auto;
+  }
+
+  .hfui-exchangeinfobar__wrapper {
+    justify-content: space-between;
+  }
+}
+
 .hfui-exchangeinfobar__wrapper {
-  background: $background-color;
-
-  height: 60px;
-
   display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  padding: 0 spacing(1.25);
+  background: $background-color;
+  min-height: 40px;
+  align-items: center;
+  padding: 10px spacing(1.25);
+  flex-wrap: wrap;
 
   ul {
     display: flex;
