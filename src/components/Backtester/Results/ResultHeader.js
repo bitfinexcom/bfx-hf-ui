@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import { propTypes, defaultProps } from './ResultRow.props'
+import PropTypes from 'prop'
 
 const ResultHeader = ({ label, value }) => {
   return (
@@ -11,4 +11,14 @@ const ResultHeader = ({ label, value }) => {
     </div>
   )
 }
+
+ResultHeader.propTypes = {
+  label: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+}
+
+ResultHeader.defaultProps = {
+  value: '',
+}
+
 export default memo(ResultHeader)
