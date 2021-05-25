@@ -1,7 +1,11 @@
 @import "./variables.scss";
 
-$green1: #54b361;
-$red1: #f05359;
+$intent-primary: $green-color;
+$intent-secondary: $input-background-color;
+$intent-success: $green-color;
+$intent-info: $notifications-info-color;
+$intent-warning: $yellow-color;
+$intent-error: $red-color;
 
 $ufx-border-radius: $border-radius;
 
@@ -10,6 +14,10 @@ $ufx-table-odd-row-background-color: $panel-background-color;
 $ufx-table-hover-row-background-color: $panel-background-color;
 $ufx-table-active-row-background-color: $panel-background-color;
 
+$ufx-font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen",
+  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  sans-serif;
+$ufx-font-size: 13px;
 $ufx-text-color: $text-color;
 $ufx-heading-color: $text-color;
 $ufx-background-color: $background-color;
