@@ -1,9 +1,9 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import { preparePrice } from 'bfx-api-node-util'
 import ResultRow from './ResultRow'
 import ResultHeader from './ResultHeader'
-import { propTypes, defaultProps } from './Results.props'
 
 import './style.css'
 
@@ -20,15 +20,13 @@ const resultNumber = (value, prefix = '', maxDecimals = 2, color = true) => {
 }
 
 export default class Results extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
-
   render() {
     const { results } = this.props
+    console.log(results)
     const {
       nCandles, nTrades, nGains, nLosses, nStrategyTrades, nOpens, pl, pf,
       maxPL, minPL, fees, vol, stdDeviation, avgPL,
-    } = results || {}
+    } = results
     const hasTrades = !!vol
 
     return (
@@ -73,4 +71,42 @@ export default class Results extends React.PureComponent {
       </div>
     )
   }
+}
+
+Results.propTypes = {
+  results: PropTypes.shape({
+    nCandles: PropTypes.number,
+    nTrades: PropTypes.number,
+    nGains: PropTypes.number,
+    nLosses: PropTypes.number,
+    nStrategyTrades: PropTypes.number,
+    nOpens: PropTypes.number,
+    pl: PropTypes.number,
+    pf: PropTypes.number,
+    maxPL: PropTypes.number,
+    minPL: PropTypes.number,
+    fees: PropTypes.number,
+    vol: PropTypes.number,
+    stdDeviation: PropTypes.number,
+    avgPL: PropTypes.number,
+  }),
+}
+
+Results.defaultProps = {
+  results: {
+    nCandles: 0,
+    nTrades: 0,
+    nGains: 0,
+    nLosses: 0,
+    nStrategyTrades: 0,
+    nOpens: 0,
+    pl: 0,
+    pf: 0,
+    maxPL: 0,
+    minPL: 0,
+    fees: 0,
+    vol: 0,
+    stdDeviation: 0,
+    avgPL: 0,
+  },
 }
