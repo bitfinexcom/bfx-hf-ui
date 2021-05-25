@@ -121,7 +121,7 @@ export default class HistoricalForm extends React.PureComponent {
       selectedMarket,
       selectedTimeFrame,
     } = this.defaultFormState(formState)
-    console.log('startDate', startDate, 'endDate', endDate)
+
     return (
       <div className='hfui-backtester__executionform'>
         <div className='hfui-backtester_row'>
