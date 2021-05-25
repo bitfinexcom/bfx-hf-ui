@@ -4,7 +4,7 @@ import { preparePrice, prepareAmount } from 'bfx-api-node-util'
 export default ({ authToken, closePosition }) => [{
   label: 'Pair',
   dataKey: 'symbol',
-  width: 120,
+  width: 145,
   cellRenderer: ({ rowData = {} }) => rowData.symbol,
 }, {
   label: 'Amount',
