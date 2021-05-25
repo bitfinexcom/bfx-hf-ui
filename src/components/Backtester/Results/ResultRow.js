@@ -1,4 +1,5 @@
 import React, { memo } from 'react'
+import PropTypes from 'prop-types'
 
 const ResultRow = ({ label, value }) => {
   return (
@@ -7,6 +8,11 @@ const ResultRow = ({ label, value }) => {
       <p className='hfui-strategyeditor__results-value'>{value}</p>
     </li>
   )
+}
+
+ResultRow.propTypes = {
+  label: PropTypes.string.isRequired,
+  value: PropTypes.node.isRequired,
 }
 
 export default memo(ResultRow)

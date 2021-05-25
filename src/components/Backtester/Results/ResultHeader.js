@@ -14,11 +14,7 @@ const ResultHeader = ({ label, value }) => {
 
 ResultHeader.propTypes = {
   label: PropTypes.string.isRequired,
-  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-}
-
-ResultHeader.defaultProps = {
-  value: '',
+  value: PropTypes.node.isRequired,
 }
 
 export default memo(ResultHeader)
