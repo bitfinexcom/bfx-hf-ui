@@ -6,7 +6,6 @@ import {
 } from '../../redux/selectors/ui'
 
 import Modal from '../../ui/Modal'
-import Button from '../../ui/Button'
 import Input from '../../ui/Input'
 
 export default function RefillBalanceModal() {

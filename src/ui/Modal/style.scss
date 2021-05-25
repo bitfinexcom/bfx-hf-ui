@@ -1,20 +1,16 @@
 @import '../../variables.scss';
 
-.ufx-dialog {
+.ufx-dialog.ufx-dialog {
   .modal {
-    overflow: visible !important;
+    overflow: visible;
   }
 
   .modal__title {
-    padding-bottom: spacing(0.5) !important;
+    padding-bottom: spacing(0.5);
   }
 
   .modal__footer {
-    margin-top: spacing(2.5) !important;
-  }
-
-  .modal__close-button {
-    font-family: monospace;
+    margin-top: spacing(2.5);
   }
 
   .ufx-button {

@@ -5,7 +5,6 @@ import Templates from '../StrategyEditor/templates'
 
 import Input from '../../ui/Input'
 import Modal from '../../ui/Modal'
-import Button from '../../ui/Button'
 import Dropdown from '../../ui/Dropdown'
 
 import { propTypes, defaultProps } from './CreateNewStrategyModal.props'

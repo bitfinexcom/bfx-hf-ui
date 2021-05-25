@@ -3,7 +3,6 @@ import Debug from 'debug'
 import _isEmpty from 'lodash/isEmpty'
 
 import Modal from '../../ui/Modal'
-import Button from '../../ui/Button'
 import Dropdown from '../../ui/Dropdown'
 
 import { propTypes, defaultProps } from './OpenExistingStrategyModal.props'

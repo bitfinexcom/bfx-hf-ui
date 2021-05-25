@@ -3,7 +3,6 @@ import _isEmpty from 'lodash/isEmpty'
 
 import Input from '../../ui/Input'
 import Modal from '../../ui/Modal'
-import Button from '../../ui/Button'
 
 import { propTypes, defaultProps } from './CreateNewLayoutModal.props'
 import './style.css'

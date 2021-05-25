@@ -2,7 +2,6 @@ import React from 'react'
 import _isEmpty from 'lodash/isEmpty'
 
 import Modal from '../../ui/Modal'
-import Button from '../../ui/Button'
 import Dropdown from '../../ui/Dropdown'
 import {
   COMPONENT_TYPES, COMPONENT_LABELS,

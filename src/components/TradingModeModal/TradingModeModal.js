@@ -2,7 +2,6 @@ import React from 'react'
 
 import PropTypes from 'prop-types'
 import Modal from '../../ui/Modal'
-import Button from '../../ui/Button'
 
 export default class SwitchMode extends React.PureComponent {
   static propTypes = {
