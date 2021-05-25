@@ -142,25 +142,6 @@ export default class StrategyEditorPanel extends React.PureComponent {
           onClose={onCloseModals}
           className='hfui-removestrategymodal__wrapper'
           label='Remove Strategy'
-          actions={([
-            <Button
-              key='cancel'
-              dark
-              onClick={onCloseModals}
-              label={[
-                <p key='text'>Cancel</p>,
-              ]}
-            />,
-            <Button
-              key='delete'
-              green
-              disabled={!canDeleteStrategy}
-              onClick={this.removeStrategy}
-              label={[
-                <p key='text'>Delete</p>,
-              ]}
-            />,
-          ])}
         >
           <div className='hfui-removestrategymodal__content'>
             <p>
@@ -174,6 +155,21 @@ export default class StrategyEditorPanel extends React.PureComponent {
             </p>
             <Input type='text' onChange={this.validateInput} placeholder={`Type "${strategyName}" to delete`} />
           </div>
+          <Modal.Footer>
+            <Modal.Button
+              secondary
+              onClick={onCloseModals}
+            >
+              Cancel
+            </Modal.Button>
+            <Modal.Button
+              primary
+              disabled={!canDeleteStrategy}
+              onClick={this.removeStrategy}
+            >
+              Delete
+            </Modal.Button>
+          </Modal.Footer>
         </Modal>
         {children}
       </Panel>

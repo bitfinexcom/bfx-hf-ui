@@ -51,16 +51,6 @@ export default class CreateNewLayoutModal extends React.Component {
         onClose={onClose}
         className='hfui-createnewlayoutmodal__wrapper'
         label='Add Layout'
-        actions={(
-          <Button
-            green
-            onClick={this.onSubmit}
-            label={[
-              <i key='icon' className='icon-plus' />,
-              <p key='text'>Add Layout</p>,
-            ]}
-          />
-        )}
       >
         <Input
           type='text'
@@ -72,6 +62,15 @@ export default class CreateNewLayoutModal extends React.Component {
         {!_isEmpty(error) && (
           <p className='error'>{error}</p>
         )}
+
+        <Modal.Footer>
+          <Modal.Button
+            primary
+            onClick={this.onSubmit}
+          >
+            Add Layout
+          </Modal.Button>
+        </Modal.Footer>
       </Modal>
     )
   }

@@ -54,16 +54,6 @@ export default class AddLayoutComponentModal extends React.Component {
         onClose={onClose}
         className='hfui-addlayoutcomponentmodal__wrapper'
         label='Add Component'
-        actions={(
-          <Button
-            green
-            onClick={this.onSubmit}
-            label={[
-              <i key='icon' className='icon-plus' />,
-              <p key='text'>Add Component</p>,
-            ]}
-          />
-        )}
       >
         <Dropdown
           value={componentType}
@@ -77,6 +67,15 @@ export default class AddLayoutComponentModal extends React.Component {
         {!_isEmpty(error) && (
           <p className='error'>{error}</p>
         )}
+
+        <Modal.Footer>
+          <Modal.Button
+            primary
+            onClick={this.onSubmit}
+          >
+            Add Component
+          </Modal.Button>
+        </Modal.Footer>
       </Modal>
     )
   }

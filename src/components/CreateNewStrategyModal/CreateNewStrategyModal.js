@@ -61,13 +61,6 @@ export default class CreateNewStrategyModal extends React.Component {
         onClose={onClose}
         className='hfui-createnewstrategymodal__wrapper'
         label='Create a New Strategy'
-        actions={(
-          <Button
-            green
-            label='Create'
-            onClick={this.onSubmit}
-          />
-        )}
       >
 
         <Input
@@ -89,6 +82,12 @@ export default class CreateNewStrategyModal extends React.Component {
         {!_isEmpty(error) && (
           <p className='error'>{error}</p>
         )}
+
+        <Modal.Footer>
+          <Modal.Button primary onClick={this.onSubmit}>
+            Create
+          </Modal.Button>
+        </Modal.Footer>
       </Modal>
     )
   }

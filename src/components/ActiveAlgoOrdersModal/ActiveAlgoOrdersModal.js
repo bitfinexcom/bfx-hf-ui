@@ -86,28 +86,6 @@ const ActiveAlgoOrdersModal = ({
       onClose={() => onSubmit('cancel_all')}
       label='Active Orders'
       className='hfui-active-ao-modal__wrapper'
-      actions={[(
-        <Button
-          green
-          key='orders_cancel'
-          onClick={() => onSubmit('cancel_all')}
-          className='hfui-active-ao-modal-btn mr-10'
-          label={[
-            <p key='text'>Cancel All</p>,
-          ]}
-        />
-      ), (
-        <Button
-          green
-          key='orders_resume'
-          onClick={() => onSubmit('resume')}
-          disabled={_isEmpty(selectedOrders)}
-          className='hfui-active-ao-modal-btn'
-          label={[
-            <p key='text'>Resume</p>,
-          ]}
-        />
-      )]}
     >
       <AlgoOrdersTable
         orders={ordersList}
@@ -116,6 +94,23 @@ const ActiveAlgoOrdersModal = ({
         isOrderSelected={isOrderSelected}
         isAllOrdersSelected={isAllOrdersSelected}
       />
+      <Modal.Footer>
+        <Modal.Button
+          primary
+          onClick={() => onSubmit('cancel_all')}
+          className='hfui-active-ao-modal-btn mr-10'
+        >
+          Cancel All
+        </Modal.Button>
+        <Modal.Button
+          primary
+          onClick={() => onSubmit('resume')}
+          disabled={_isEmpty(selectedOrders)}
+          className='hfui-active-ao-modal-btn'
+        >
+          Resume
+        </Modal.Button>
+      </Modal.Footer>
     </Modal>
   )
 }
