@@ -11,8 +11,7 @@ import {
 
 import './style.css'
 
-function AddLayoutComponentModal(props) {
-  const { onSubmit, onClose } = props
+const AddLayoutComponentModal = ({ onSubmit, onClose }) => {
   const [error, setError] = useState('')
   const [componentType, setComponentType] = useState(COMPONENT_LABELS.CHART)
 
