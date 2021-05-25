@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Checkbox } from '@ufx-ui/core'
 import _map from 'lodash/map'
-
-import Checkbox from '../../ui/Checkbox'
 
 import './style.css'
 
@@ -60,7 +59,7 @@ const AlgoOrdersTable = ({
               <div className='hfui-ao-list__entry-row'>
                 <div className='hfui-ao-list__entry-row-elm ao-checkbox'>
                   <Checkbox
-                    value={selected}
+                    checked={selected}
                     onChange={e => onOrderSelect(e, ao.gid, ao.algoID)}
                   />
                 </div>
@@ -99,7 +98,7 @@ const AlgoOrdersTable = ({
       <div className='hfui-ao-list__footer-row-elm ao-checkbox'>
         <Checkbox
           label='Select All'
-          value={isAllOrdersSelected()}
+          checked={isAllOrdersSelected()}
           onChange={e => onAllOrdersSelect(e)}
         />
       </div>

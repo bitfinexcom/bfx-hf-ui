@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Checkbox } from '@ufx-ui/core'
 
 import Button from '../../../ui/Button'
 import Dropdown from '../../../ui/Dropdown'
 import MarketSelect from '../../MarketSelect'
 import TimeFrameDropdown from '../../TimeFrameDropdown'
 
-import Checkbox from '../../../ui/Checkbox/Checkbox'
 import DateInput from '../../OrderForm/FieldComponents/input.date'
 
 const ONE_MIN = 1000 * 60
@@ -188,14 +188,14 @@ export default class HistoricalForm extends React.PureComponent {
           <div className='hfui-backtester_dateInput hfui-backtester__flex_start'>
             <Checkbox
               label='Use candles'
-              value={candles}
+              checked={candles}
               onChange={val => this.toggleCandles(val)}
             />
           </div>
           <div className='hfui-backtester_dateInput hfui-backtester__flex_start'>
             <Checkbox
               label='Use trades'
-              value={trades}
+              checked={trades}
               onChange={val => this.toggleTrades(val)}
             />
           </div>
