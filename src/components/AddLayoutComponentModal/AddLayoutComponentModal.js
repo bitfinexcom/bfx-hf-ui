@@ -16,11 +16,11 @@ function AddLayoutComponentModal(props) {
   const [error, setError] = useState('')
   const [componentType, setComponentType] = useState(COMPONENT_LABELS.CHART)
 
-  const onComponentTypeChange = (_componentType) => setComponentType({ componentType: _componentType })
+  const onComponentTypeChange = (_componentType) => setComponentType(_componentType)
 
   const onSubmitHandler = () => {
     if (_isEmpty(componentType) || !COMPONENT_LABELS[componentType]) {
-      setError({ error: 'Invalid Component' })
+      setError('Invalid Component')
       return
     }
 
@@ -64,3 +64,5 @@ AddLayoutComponentModal.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
 }
+
+export default AddLayoutComponentModal
