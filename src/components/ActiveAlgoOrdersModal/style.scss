@@ -1,28 +1,6 @@
 @import '../../variables.scss';
 
 .hfui-active-ao-modal__wrapper {
-  &.hfui-modal__content {
-    width: 75vw;
-    max-width: 1156px;
-    padding: 0 26px 38px 26px;
-  }
-
-  .hfui-modal__header {
-    padding-bottom: 15px;
-  }
-
-  .hfui-active-ao-modal-btn {
-    border-radius: 0;
-
-    &.mr-10 {
-      margin-right: 10px;
-    }
-  }
-
-  .hfui-modal__actions {
-    margin-top: 10px;
-  }
-
   .hfui-ao-list__wrapper {
     overflow-y: auto;
     max-height: 315px;

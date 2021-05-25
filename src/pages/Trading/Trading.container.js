@@ -15,7 +15,8 @@ import Trading from './Trading'
 const mapStateToProps = (state = {}) => ({
   layouts: getLayouts(state),
   firstLogin: getFirstLogin(state),
-  showAlgoModal: getShowActiveAlgoModal(state),
+  // showAlgoModal: getShowActiveAlgoModal(state),
+  showAlgoModal: true,
   apiClientConnected: apiClientConnected(state),
   hasActiveAlgoOrders: getHasActiveAlgoOrders(state),
   isGuideActive: getGuideStatusForPage(state, TRADING_PAGE),

@@ -15,6 +15,7 @@ const BadConnection = ({ changeBadInternetConnectionState, visible }) => {
 
   return (
     <Modal
+      label='Connection issue'
       isOpen={visible}
       onClose={onClose}
     >

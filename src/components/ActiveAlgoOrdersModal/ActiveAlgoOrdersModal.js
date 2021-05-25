@@ -86,6 +86,7 @@ const ActiveAlgoOrdersModal = ({
       onClose={() => onSubmit('cancel_all')}
       label='Active Orders'
       className='hfui-active-ao-modal__wrapper'
+      width={700}
     >
       <AlgoOrdersTable
         orders={ordersList}

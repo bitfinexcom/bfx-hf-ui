@@ -12,6 +12,7 @@ function Modal(props) {
     onClose,
     children,
     className,
+    ...rest
   } = props
 
   useEffect(() => {
@@ -31,6 +32,7 @@ function Modal(props) {
       onClose={onClose}
       className={className}
       textAlign='left'
+      {...rest}
     >
       {children}
     </Dialog>
