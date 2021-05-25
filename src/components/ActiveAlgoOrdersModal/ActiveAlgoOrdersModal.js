@@ -5,7 +5,6 @@ import _isEmpty from 'lodash/isEmpty'
 import _differenceBy from 'lodash/differenceBy'
 
 import Modal from '../../ui/Modal'
-import Button from '../../ui/Button'
 
 import AlgoOrdersTable from './ActiveAlgoOrdersModal.table'
 
@@ -15,6 +14,7 @@ const ActiveAlgoOrdersModal = ({
   isOpen,
   activeAlgoOrders,
   handleActiveOrders,
+  showActiveOrdersModal,
 }) => {
   const [ordersList, setOrdersList] = useState([])
   const [selectedOrders, setSelectedOrders] = useState([])
@@ -83,10 +83,13 @@ const ActiveAlgoOrdersModal = ({
   return (
     <Modal
       isOpen={isOpen}
-      onClose={() => onSubmit('cancel_all')}
+      onClose={() => {
+        showActiveOrdersModal(false)
+        onSubmit('cancel_all')
+      }}
       label='Active Orders'
       className='hfui-active-ao-modal__wrapper'
-      width={700}
+      width={800}
     >
       <AlgoOrdersTable
         orders={ordersList}
@@ -119,6 +122,8 @@ const ActiveAlgoOrdersModal = ({
 ActiveAlgoOrdersModal.propTypes = {
   handleActiveOrders: PropTypes.func.isRequired,
   activeAlgoOrders: PropTypes.arrayOf(PropTypes.object),
+  showActiveOrdersModal: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
 }
 
 ActiveAlgoOrdersModal.defaultProps = {

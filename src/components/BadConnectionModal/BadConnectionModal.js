@@ -2,7 +2,6 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 
 import Modal from '../../ui/Modal'
-import Button from '../../ui/Button'
 
 const BadConnection = ({ changeBadInternetConnectionState, visible }) => {
   const onClose = () => {
