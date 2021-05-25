@@ -1,13 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import _map from 'lodash/map'
+import _split from 'lodash/split'
 import FavoriteIcon from '../../ui/Icons/FavoriteIcon'
 
 import './style.css'
 
 const Pair = ({ pair }) => {
-  const [ccy, quote] = pair.split('/')
+  const [ccy, quote] = _split(pair, '/')
 
-  return [ccy, '/', quote].map(part => (
+  return _map([ccy, '/', quote], part => (
     <span
       key={part}
       className='hfui-favoritepair__part'
