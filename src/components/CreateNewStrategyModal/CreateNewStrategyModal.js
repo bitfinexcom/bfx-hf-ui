@@ -52,11 +52,12 @@ export default class CreateNewStrategyModal extends React.Component {
   }
 
   render() {
-    const { onClose } = this.props
+    const { onClose, isOpen } = this.props
     const { label, error, template } = this.state
 
     return (
       <Modal
+        isOpen={isOpen}
         onClose={onClose}
         className='hfui-createnewstrategymodal__wrapper'
         label='Create a New Strategy'

@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import ClassNames from 'classnames'
 
 import { Dialog } from '@ufx-ui/core'
 
@@ -8,7 +7,7 @@ import './style.css'
 
 export default class Modal extends React.PureComponent {
   static propTypes = {
-    fixed: PropTypes.bool,
+    isOpen: PropTypes.bool.isRequired,
     label: PropTypes.string,
     className: PropTypes.string,
     onClose: PropTypes.func.isRequired,
@@ -18,37 +17,25 @@ export default class Modal extends React.PureComponent {
 
   static defaultProps = {
     label: '',
-    fixed: true,
     actions: [],
     className: '',
   }
 
-  state = {
-    isOpen: true,
-  }
-
   render() {
     const {
-      fixed,
       label,
+      isOpen,
       onClose,
       actions,
       children,
       className,
     } = this.props
 
-    const {
-      isOpen,
-    } = this.state
-
     return (
       <Dialog
         isOpen={isOpen}
         title={label}
-        onClose={() => {
-          this.setState({ isOpen: false })
-          onClose()
-        }}
+        onClose={onClose}
         className={className}
       >
         {children}

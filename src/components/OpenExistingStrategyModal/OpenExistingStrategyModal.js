@@ -52,11 +52,12 @@ export default class OpenExistingStrategyModal extends React.Component {
   }
 
   render() {
-    const { onClose, strategies } = this.props
+    const { onClose, strategies, isOpen } = this.props
     const { strategyID, error } = this.state
 
     return (
       <Modal
+        isOpen={isOpen}
         onClose={onClose}
         className='hfui-openexistingstrategymodal__wrapper'
         label='Open Strategy'

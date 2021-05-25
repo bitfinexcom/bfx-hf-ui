@@ -21,12 +21,9 @@ export default function RefillBalanceModal() {
     // todo
   }
 
-  if (!isRefillBalanceModalVisible) {
-    return null
-  }
-
   return (
     <Modal
+      isOpen={isRefillBalanceModalVisible}
       label='REFILLING PAPER BALANCES'
       onClose={() => onRefillBalanceModalClose()}
       className='hfui-refillbalance__modal'

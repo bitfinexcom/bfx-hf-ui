@@ -32,12 +32,10 @@ export default class SwitchMode extends React.PureComponent {
 
   render() {
     const { isTradingModeModalVisible } = this.props
-    if (!isTradingModeModalVisible) {
-      return null
-    }
 
     return (
       <Modal
+        isOpen={isTradingModeModalVisible}
         onClose={() => this.onTradingModeModalClose()}
         actions={(
           <Button

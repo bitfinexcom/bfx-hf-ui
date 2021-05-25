@@ -12,6 +12,7 @@ import AlgoOrdersTable from './ActiveAlgoOrdersModal.table'
 import './style.css'
 
 const ActiveAlgoOrdersModal = ({
+  isOpen,
   activeAlgoOrders,
   handleActiveOrders,
 }) => {
@@ -81,6 +82,7 @@ const ActiveAlgoOrdersModal = ({
 
   return (
     <Modal
+      isOpen={isOpen}
       onClose={() => onSubmit('cancel_all')}
       label='Active Orders'
       className='hfui-active-ao-modal__wrapper'

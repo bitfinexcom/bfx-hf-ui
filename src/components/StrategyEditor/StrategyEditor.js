@@ -379,20 +379,18 @@ export default class StrategyEditor extends React.PureComponent {
           <p>an existing one.</p>
         </div>
 
-        {createNewStrategyModalOpen && (
-          <CreateNewStrategyModal
-            gaCreateStrategy={gaCreateStrategy}
-            onClose={this.onCloseModals}
-            onSubmit={this.onCreateNewStrategy}
-          />
-        )}
+        <CreateNewStrategyModal
+          isOpen={createNewStrategyModalOpen}
+          gaCreateStrategy={gaCreateStrategy}
+          onClose={this.onCloseModals}
+          onSubmit={this.onCreateNewStrategy}
+        />
 
-        {openExistingStrategyModalOpen && (
-          <OpenExistingStrategyModal
-            onClose={this.onCloseModals}
-            onOpen={this.onLoadStrategy}
-          />
-        )}
+        <OpenExistingStrategyModal
+          isOpen={openExistingStrategyModalOpen}
+          onClose={this.onCloseModals}
+          onOpen={this.onLoadStrategy}
+        />
       </div>
     )
   }
@@ -450,12 +448,11 @@ export default class StrategyEditor extends React.PureComponent {
           />
         )}
 
-        {openExistingStrategyModalOpen && (
-          <OpenExistingStrategyModal
-            onClose={this.onCloseModals}
-            onOpen={this.onLoadStrategy}
-          />
-        )}
+        <OpenExistingStrategyModal
+          isOpen={openExistingStrategyModalOpen}
+          onClose={this.onCloseModals}
+          onOpen={this.onLoadStrategy}
+        />
 
         <ul className='hfui-strategyeditor__func-select'>
           {STRATEGY_SECTIONS.map(section => (

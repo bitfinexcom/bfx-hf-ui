@@ -42,11 +42,12 @@ export default class CreateNewLayoutModal extends React.Component {
   }
 
   render() {
-    const { onClose } = this.props
+    const { onClose, isOpen } = this.props
     const { label, error } = this.state
 
     return (
       <Modal
+        isOpen={isOpen}
         onClose={onClose}
         className='hfui-createnewlayoutmodal__wrapper'
         label='Add Layout'

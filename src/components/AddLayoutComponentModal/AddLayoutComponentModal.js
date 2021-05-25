@@ -45,11 +45,12 @@ export default class AddLayoutComponentModal extends React.Component {
   }
 
   render() {
-    const { onClose } = this.props
+    const { onClose, isOpen } = this.props
     const { componentType, error } = this.state
 
     return (
       <Modal
+        isOpen={isOpen}
         onClose={onClose}
         className='hfui-addlayoutcomponentmodal__wrapper'
         label='Add Component'

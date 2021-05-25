@@ -8,15 +8,15 @@
   }
 
   .modal {
-    overflow: visible;
+    overflow: visible !important;
   }
 
   .modal__title {
-    padding-bottom: spacing(1);
+    padding-bottom: spacing(1) !important;
   }
 
   .modal__footer {
-    margin-top: spacing(2);
+    margin-top: spacing(2) !important;
   }
 }
 

@@ -13,12 +13,9 @@ const BadConnection = ({ changeBadInternetConnectionState, visible }) => {
     location.replace('/index.html') // eslint-disable-line
   }
 
-  if (!visible) {
-    return null
-  }
-
   return (
     <Modal
+      isOpen={visible}
       onClose={onClose}
       actions={(
         <Button

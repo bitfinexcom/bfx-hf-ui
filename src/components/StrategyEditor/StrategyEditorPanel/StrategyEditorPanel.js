@@ -137,45 +137,44 @@ export default class StrategyEditorPanel extends React.PureComponent {
           </div>
         )}
       >
-        { isRemoveModalOpened && (
-          <Modal
-            onClose={onCloseModals}
-            className='hfui-removestrategymodal__wrapper'
-            label='Remove Strategy'
-            actions={([
-              <Button
-                key='cancel'
-                dark
-                onClick={onCloseModals}
-                label={[
-                  <p key='text'>Cancel</p>,
-                ]}
-              />,
-              <Button
-                key='delete'
-                green
-                disabled={!canDeleteStrategy}
-                onClick={this.removeStrategy}
-                label={[
-                  <p key='text'>Delete</p>,
-                ]}
-              />,
-            ])}
-          >
-            <div className='hfui-removestrategymodal__content'>
-              <p>
-                Are you sure you want to delete &nbsp;
-                <b>{ strategyName }</b>
+        <Modal
+          isOpen={isRemoveModalOpened}
+          onClose={onCloseModals}
+          className='hfui-removestrategymodal__wrapper'
+          label='Remove Strategy'
+          actions={([
+            <Button
+              key='cancel'
+              dark
+              onClick={onCloseModals}
+              label={[
+                <p key='text'>Cancel</p>,
+              ]}
+            />,
+            <Button
+              key='delete'
+              green
+              disabled={!canDeleteStrategy}
+              onClick={this.removeStrategy}
+              label={[
+                <p key='text'>Delete</p>,
+              ]}
+            />,
+          ])}
+        >
+          <div className='hfui-removestrategymodal__content'>
+            <p>
+              Are you sure you want to delete &nbsp;
+              <b>{ strategyName }</b>
                 &nbsp; strategy?
-              </p>
-              <p>
-                <b>WARNING: </b>
-                <i> This action can not be undone.</i>
-              </p>
-              <Input type='text' onChange={this.validateInput} placeholder={`Type "${strategyName}" to delete`} />
-            </div>
-          </Modal>
-        )}
+            </p>
+            <p>
+              <b>WARNING: </b>
+              <i> This action can not be undone.</i>
+            </p>
+            <Input type='text' onChange={this.validateInput} placeholder={`Type "${strategyName}" to delete`} />
+          </div>
+        </Modal>
         {children}
       </Panel>
     )
