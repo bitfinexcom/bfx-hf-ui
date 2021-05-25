@@ -7,12 +7,10 @@ import './style.css'
 
 const GridLayoutP = WidthProvider(RGL)
 
-function GridLayout(props) {
-  const {
-    layoutDef, chartProps, bookProps, tradesProps, orderFormProps, ordersProps,
-    onRemoveComponent, layoutID, darkPanels, sharedProps, onLayoutChange,
-  } = props
-
+const GridLayout = ({
+  layoutDef, chartProps, bookProps, tradesProps, orderFormProps, ordersProps,
+  onRemoveComponent, layoutID, darkPanels, sharedProps, onLayoutChange,
+}) => {
   const componentProps = {
     orderForm: orderFormProps,
     trades: tradesProps,
