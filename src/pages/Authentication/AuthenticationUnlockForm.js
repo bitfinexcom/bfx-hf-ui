@@ -21,10 +21,11 @@ const MAIN_MODE = { value: 'main', label: 'Production' }
 const PAPER_MODE = { value: 'paper', label: 'Paper Trading' }
 
 const OPTIONS = [MAIN_MODE, PAPER_MODE]
+const initialAutoLoginSave = getAutoLoginState()
 
 const AuthenticationUnlockForm = ({ isPaperTrading, onUnlock: _onUnlock, onReset }) => {
   const [password, setPassword] = useState('')
-  const [autoLoginState, setAutoLoginState] = useState(getAutoLoginState())
+  const [autoLoginState, setAutoLoginState] = useState(initialAutoLoginSave)
   const [mode, setMode] = useState(isPaperTrading ? PAPER_MODE.value : MAIN_MODE.value)
 
   const onUnlock = () => {
