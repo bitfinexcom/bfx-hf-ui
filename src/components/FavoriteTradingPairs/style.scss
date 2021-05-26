@@ -48,7 +48,7 @@
     border-radius: $border-radius;
     display: block;
     text-transform: uppercase;
-    width: 33%;
+    width: 50%;
     padding: spacing(0.25) spacing(0.5);
     font-size: 13px;
     cursor: pointer;
@@ -77,11 +77,12 @@
         position: relative;
         top: 2px;
     }
-
-    p {
-        word-break: break-word;
-    }
 }
+
+.hfui-favoritepair__part {
+    display: inline-block;
+}
+
 .empty { 
     color:$white-color;
     font-size: 0.8em;

@@ -221,7 +221,6 @@ class Settings extends React.PureComponent {
                       <NavbarButton
                         label='Paper Trading'
                         external='https://support.bitfinex.com/hc/en-us/articles/900001525006-Paper-Trading-test-learn-and-simulate-trading-strategies-'
-                        route=''
                       />
                     &nbsp;API Keys:
                     </p>

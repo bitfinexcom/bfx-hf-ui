@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Checkbox } from '@ufx-ui/core'
+import { Table, Checkbox } from '@ufx-ui/core'
 import _map from 'lodash/map'
 
 import './style.css'
@@ -12,98 +12,71 @@ const AlgoOrdersTable = ({
   onAllOrdersSelect,
   isAllOrdersSelected,
 }) => (
-  <>
-    <div className='hfui-ao-list__header-row'>
-      <div className='hfui-ao-list__header-row-elm'>
-        <p className='hfui-ao-list__header-row-elm-label order-symbol'>
-          Action
-        </p>
-      </div>
-      <div className='hfui-ao-list__header-row-elm'>
-        <p className='hfui-ao-list__header-row-elm-label order-symbol'>
-          Symbol
-        </p>
-      </div>
-      <div className='hfui-ao-list__header-row-elm'>
-        <p className='hfui-ao-list__header-row-elm-label order-name'>
-          Name
-        </p>
-      </div>
-      <div className='hfui-ao-list__header-row-elm'>
-        <p className='hfui-ao-list__header-row-elm-label order-context'>
-          Context
-        </p>
-      </div>
-      <div className='hfui-ao-list__header-row-elm'>
-        <p className='hfui-ao-list__header-row-elm-label order-created'>
-          Created
-        </p>
-      </div>
-      <div className='hfui-ao-list__header-row-elm'>
-        <p className='hfui-ao-list__header-row-elm-label order-label'>
-          Label
-        </p>
-      </div>
-    </div>
-    <div className='hfui-ao-list__wrapper'>
-      <ul>
-        {_map(orders, ao => {
-          const selected = isOrderSelected(ao.gid)
+  <Table className='hfui-active-ao-modal__table'>
+    <thead>
+      <tr>
+        <th>Action</th>
+        <th>Symbol</th>
+        <th>Name</th>
+        <th>Context</th>
+        <th>Created</th>
+        <th>Label</th>
+      </tr>
+    </thead>
+    <tbody>
+      {_map(orders, ao => {
+        const selected = isOrderSelected(ao.gid)
 
-          return (
-            <li
-              key={ao.gid}
-              className='hfui-ao-list__entry'
-              onClick={() => onOrderSelect(!selected, ao.gid, ao.algoID)}
-            >
-              <div className='hfui-ao-list__entry-row'>
-                <div className='hfui-ao-list__entry-row-elm ao-checkbox'>
-                  <Checkbox
-                    checked={selected}
-                    onChange={e => onOrderSelect(e, ao.gid, ao.algoID)}
-                  />
-                </div>
-                <div className='hfui-ao-list__entry-row-elm'>
-                  <p className='hfui-ao-list__entry-row-elm-value'>
-                    {ao.args.symbol}
-                  </p>
-                </div>
-                <div className='hfui-ao-list__entry-row-elm'>
-                  <p className='hfui-ao-list__entry-row-elm-value ao-name'>
-                    {ao.name}
-                  </p>
-                </div>
-                <div className='hfui-ao-list__entry-row-elm'>
-                  <p className='hfui-ao-list__entry-row-elm-value'>
-                    {ao.args._margin ? 'Margin' : 'Exchange'}
-                  </p>
-                </div>
-                <div className='hfui-ao-list__entry-row-elm'>
-                  <p className='hfui-ao-list__entry-row-elm-value'>
-                    {new Date(+ao.gid).toLocaleString()}
-                  </p>
-                </div>
-                <div className='hfui-ao-list__entry-row-elm'>
-                  <p className='hfui-ao-list__entry-row-elm-value ao-label'>
-                    {ao.label}
-                  </p>
-                </div>
-              </div>
-            </li>
-          )
-        })}
-      </ul>
-    </div>
-    <div className='hfui-ao-list__footer-row'>
-      <div className='hfui-ao-list__footer-row-elm ao-checkbox'>
-        <Checkbox
-          label='Select All'
-          checked={isAllOrdersSelected()}
-          onChange={e => onAllOrdersSelect(e)}
-        />
-      </div>
-    </div>
-  </>
+        return (
+          <tr
+            key={ao.gid}
+            onClick={() => onOrderSelect(!selected, ao.gid, ao.algoID)}
+          >
+            <td>
+              <Checkbox
+                checked={selected}
+                onChange={e => onOrderSelect(e, ao.gid, ao.algoID)}
+              />
+            </td>
+            <td>
+              <p>
+                {ao.args.symbol}
+              </p>
+            </td>
+            <td>
+              <p>
+                {ao.name}
+              </p>
+            </td>
+            <td>
+              <p>
+                {ao.args._margin ? 'Margin' : 'Exchange'}
+              </p>
+            </td>
+            <td>
+              <p>
+                {new Date(+ao.gid).toLocaleString()}
+              </p>
+            </td>
+            <td>
+              <p>
+                {ao.label}
+              </p>
+            </td>
+          </tr>
+        )
+      })}
+      <tr>
+        <td colSpan='6'>
+          <Checkbox
+            label='Select All'
+            checked={isAllOrdersSelected()}
+            onChange={e => onAllOrdersSelect(e)}
+          />
+        </td>
+      </tr>
+    </tbody>
+  </Table>
 )
 
 AlgoOrdersTable.propTypes = {

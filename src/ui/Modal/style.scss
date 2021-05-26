@@ -1,94 +1,19 @@
 @import '../../variables.scss';
 
-.hfui-modal__wrapper {
-  background: rgba(0, 0, 0, 0.5);
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  z-index: 100000;
-
-  &.fixed {
-    position: fixed;
-  }
-}
-
-.hfui-modal__content {
-  width: 50%;
-  max-width: 447px;
-  background: $background-color;
-  padding: 0 26px 31px 26px;
-
-  .error {
-    color: $red-color;
-    font-size: 12px;
+.ufx-dialog.ufx-dialog {
+  .modal {
+    overflow: visible;
   }
 
-  .notice {
-    font-size: 15px;
-    color: $white-color;
-    font-weight: 300;
-    text-transform: uppercase;
-    line-height: 1.5;
-    margin-top: -30px;
-    padding-right: 32px;
-    padding-bottom: 20px;
+  .modal__title {
+    padding-bottom: spacing(0.5);
   }
 
-  .hfui-dropdown__button, .hfui-input {
-    background: $panel-background-color;
-    max-width: 300px;
+  .modal__footer {
+    margin-top: spacing(2.5);
   }
 
-  .hfui-input > * {
-    line-height: 36px;
-    padding: 0 8px;
-  }
-}
-
-.hfui-modal__actions {
-  text-align: right;
-  margin-top: 80px;
-
-  .hfui-button {
-    padding: 8px 13px;
-
-    button {
-      font-size: 13px;
-      font-weight: 300;
-    }
-
-    button, i {
-      color: $white-color;
-    }
-  }
-}
-
-.hfui-modal__label {
-  text-transform: uppercase;
-  color: $green-color;
-  font-weight: 500;
-  font-size: 15px;
-}
-
-.hfui-modal__header {
-  padding: 23px 0;
-  display: flex;
-  flex-direction: row;
-
-  p {
-    flex-shrink: 0;
-  }
-
-  i {
-    width: 100%;
-    text-align: right;
+  .ufx-button {
+    font-size: 13px;
   }
 }

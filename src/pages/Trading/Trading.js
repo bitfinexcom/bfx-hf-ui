@@ -138,9 +138,7 @@ export default class Trading extends React.PureComponent {
             />
           </div>
 
-          {showAlgoModal && hasActiveAlgoOrders && apiClientConnected && (
-            <ActiveAlgoOrdersModal />
-          )}
+          <ActiveAlgoOrdersModal isOpen={showAlgoModal && hasActiveAlgoOrders && apiClientConnected} />
           <RefillBalanceModal />
         </Layout.Main>
         <Layout.Footer />

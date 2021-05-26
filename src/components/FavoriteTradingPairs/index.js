@@ -1,8 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import _map from 'lodash/map'
+import _split from 'lodash/split'
 import FavoriteIcon from '../../ui/Icons/FavoriteIcon'
 
 import './style.css'
+
+const Pair = ({ pair }) => {
+  const [ccy, quote] = _split(pair, '/')
+
+  return _map([ccy, '/', quote], part => (
+    <span
+      key={part}
+      className='hfui-favoritepair__part'
+    >
+      {part}
+    </span>
+  ))
+}
 
 export default class FavoriteTradingPairs extends React.PureComponent {
   static propTypes = {
@@ -45,6 +60,7 @@ export default class FavoriteTradingPairs extends React.PureComponent {
     const { favoritePairs, currentMarket } = this.props
     const selectedPair = currentMarket.uiID
     const hasFavoritePairs = favoritePairs.length !== 0
+
     return (
       <div className='hfui-favoritepair__wrapper'>
         <div className='hfui-favoritepair__title'>FAVORITE TRADING PAIRS</div>
@@ -59,7 +75,9 @@ export default class FavoriteTradingPairs extends React.PureComponent {
                   <div key={`${pair}-favorite`} className={`hfui-favoritepair__content-item ${pair === selectedPair ? 'active' : ''}`}>
                     <div className='hfui-favoritepair__item-wrapper'>
                       <FavoriteIcon isSelected={pair === selectedPair} onClick={() => this.removePair(pair)} key={pair} />
-                      <p onClick={() => this.onSelect(pair)}>{pair}</p>
+                      <p onClick={() => this.onSelect(pair)}>
+                        <Pair pair={pair} />
+                      </p>
                     </div>
                   </div>
                 ))

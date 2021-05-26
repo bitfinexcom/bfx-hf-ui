@@ -1,23 +1,5 @@
 @import '../../variables.scss';
 
-.hfui-openexistingstrategymodal__wrapper {
-  display: flex;
-  flex-direction: column;
-
-  width: 300px;
-  padding: 16px;
-
-  border-color: $yellow-color;
-
-  > * {
-    margin-bottom: 16px;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-}
-
 .hfui-openexistingstrategymodal__wrapper li, .hfui-openexistingstrategymodal__wrapper  p{
   white-space: nowrap;                      
   overflow: hidden;              /* "overflow" value must be different from "visible" */    

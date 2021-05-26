@@ -5,7 +5,6 @@ import Templates from '../StrategyEditor/templates'
 
 import Input from '../../ui/Input'
 import Modal from '../../ui/Modal'
-import Button from '../../ui/Button'
 import Dropdown from '../../ui/Dropdown'
 
 import { propTypes, defaultProps } from './CreateNewStrategyModal.props'
@@ -52,21 +51,15 @@ export default class CreateNewStrategyModal extends React.Component {
   }
 
   render() {
-    const { onClose } = this.props
+    const { onClose, isOpen } = this.props
     const { label, error, template } = this.state
 
     return (
       <Modal
+        isOpen={isOpen}
         onClose={onClose}
         className='hfui-createnewstrategymodal__wrapper'
         label='Create a New Strategy'
-        actions={(
-          <Button
-            green
-            label='Create'
-            onClick={this.onSubmit}
-          />
-        )}
       >
 
         <Input
@@ -88,6 +81,12 @@ export default class CreateNewStrategyModal extends React.Component {
         {!_isEmpty(error) && (
           <p className='error'>{error}</p>
         )}
+
+        <Modal.Footer>
+          <Modal.Button primary onClick={this.onSubmit}>
+            Create
+          </Modal.Button>
+        </Modal.Footer>
       </Modal>
     )
   }

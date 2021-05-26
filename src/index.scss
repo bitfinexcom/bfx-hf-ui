@@ -1,11 +1,11 @@
 @import "normalize.css/normalize";
+@import "pretty-checkbox/src/pretty-checkbox.scss";
 @import "react-datepicker/dist/react-datepicker";
 @import "codemirror/lib/codemirror";
 @import "codemirror/theme/monokai";
 @import "@projectstorm/react-diagrams/dist/style.min";
 @import "https://fonts.googleapis.com/css?family=Roboto&display=swap";
 @import "/icon_font/styles.css";
-@import "react-popper-tooltip/dist/styles";
 @import "./variables.scss";
 @import "./ufx-customise.scss";
 
@@ -132,52 +132,21 @@ body button:focus {
   }
 }
 
-.ui-tooltip__wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 99999;
-  pointer-events: none;
-
-  .__react-tooltip {
-    z-index: 99999;
-    line-height: initial;
-    position: relative;
-    pointer-events: auto;
-  }
-}
-
-.tooltip-container {
-  z-index: 1001;
-}
-
-.ui-tooltip {
-  display: inline-block;
-
-  .token {
-    margin: 0 4px;
-
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-}
-
-div.__react-tooltip {
+.__react-tooltip {
   max-width: 250px;
   font-size: 12px;
   padding: 4px 12px;
   text-align: center;
 }
 
-.tooltip-arrow {
-  pointer-events: none;
-}
-
 .__react_component_tooltip {
   border: 1px solid $tooltip-border-color;
   background-color: $tooltip-background-color;
   color: $tooltip-text-color;
+}
+
+.tooltip-arrow {
+  pointer-events: none;
 }
 
 .tooltip-arrow[data-placement*="left"]:after {
@@ -211,9 +180,7 @@ div.__react-tooltip {
 }
 
 body {
-  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: $font-family;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
