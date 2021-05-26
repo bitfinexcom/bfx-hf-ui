@@ -62,14 +62,9 @@ const MarketData = ({ isGuideActive, isFirstLogin, finishGuide }) => {
 }
 
 MarketData.propTypes = {
-  finishGuide: PropTypes.func,
-  isGuideActive: PropTypes.bool,
+  finishGuide: PropTypes.func.isRequired,
+  isGuideActive: PropTypes.bool.isRequired,
   isFirstLogin: PropTypes.bool.isRequired,
-}
-
-MarketData.defaultProps = {
-  finishGuide: () => {},
-  isGuideActive: false,
 }
 
 export default memo(MarketData)
