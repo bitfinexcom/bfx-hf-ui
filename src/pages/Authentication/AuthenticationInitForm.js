@@ -8,14 +8,8 @@ import Input from '../../ui/Input'
 const AuthenticationInitForm = ({ onInit }) => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [error, setError] = useState('')
 
   const onSubmit = () => {
-    if (password !== confirmPassword) {
-      setError('Passwords do not match')
-      return
-    }
-    setError('')
     onInit(password)
   }
   const submitReady = (
@@ -60,11 +54,6 @@ const AuthenticationInitForm = ({ onInit }) => {
           green
         />
 
-        {error && (
-        <p className='hfui-authenticationpage__inner-error'>
-          {error}
-        </p>
-        )}
       </form>
     </div>
   )
