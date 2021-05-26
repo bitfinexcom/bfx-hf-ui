@@ -17,10 +17,15 @@ import {
 const isDevEnv = devEnv()
 const ENTER_KEY_CODE = 13
 
+const MAIN_MODE = { value: 'main', label: 'Production' }
+const PAPER_MODE = { value: 'paper', label: 'Paper Trading' }
+
+const OPTIONS = [MAIN_MODE, PAPER_MODE]
+
 const AuthenticationUnlockForm = ({ isPaperTrading, onUnlock: _onUnlock, onReset }) => {
   const [password, setPassword] = useState('')
   const [autoLoginState, setAutoLoginState] = useState(getAutoLoginState())
-  const [mode, setMode] = useState(isPaperTrading ? 'paper' : 'main')
+  const [mode, setMode] = useState(isPaperTrading ? PAPER_MODE.value : MAIN_MODE.value)
 
   const onUnlock = () => {
     if (isDevEnv && password.length) {
@@ -38,10 +43,6 @@ const AuthenticationUnlockForm = ({ isPaperTrading, onUnlock: _onUnlock, onReset
     }
   }
   const submitReady = !_isEmpty(password) && !_isEmpty(mode)
-  const options = useRef([
-    { value: 'main', label: 'Production' },
-    { value: 'paper', label: 'Paper Trading' },
-  ])
 
   useEffect(() => {
     const pass = getStoredPassword()
@@ -76,8 +77,8 @@ const AuthenticationUnlockForm = ({ isPaperTrading, onUnlock: _onUnlock, onReset
           <Dropdown
             className='hfui-authenticationpage__trading-mode'
             placeholder='Select trading mode...'
-            value={options.current.find(o => o.value === mode).value}
-            options={options.current}
+            value={OPTIONS.find(o => o.value === mode).value}
+            options={OPTIONS}
             onChange={(value) => setMode(value)}
           />
         </div>
