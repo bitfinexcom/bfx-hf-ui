@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Checkbox } from '@ufx-ui/core'
 import _isEmpty from 'lodash/isEmpty'
@@ -17,131 +17,98 @@ import {
 const isDevEnv = devEnv()
 const ENTER_KEY_CODE = 13
 
-export default class AuthenticationUnlockForm extends React.PureComponent {
-  constructor(props) {
-    super(props)
-    const { isPaperTrading } = this.props
-    this.state = {
-      password: '',
-      AUTOLOGIN_STATE: getAutoLoginState(),
-      mode: isPaperTrading ? 'paper' : 'main',
-    }
-  }
+const AuthenticationUnlockForm = ({ isPaperTrading, onUnlock: _onUnlock, onReset }) => {
+  const [password, setPassword] = useState('')
+  const [autoLoginState, setAutoLoginState] = useState(getAutoLoginState())
+  const [mode, setMode] = useState(isPaperTrading ? 'paper' : 'main')
 
-  componentDidMount() {
-    const { AUTOLOGIN_STATE } = this.state
-    const pass = getStoredPassword()
-    if (isDevEnv && pass && AUTOLOGIN_STATE) {
-      this.setState(() => ({
-        password: pass,
-      }), () => {
-        this.onUnlock()
-      })
-    }
-  }
-
-  onPasswordChange = (password) => {
-    this.setState(() => ({ password }))
-  }
-
-  onUnlock = () => {
-    const { mode, password, AUTOLOGIN_STATE } = this.state
-    const { onUnlock } = this.props
+  const onUnlock = () => {
     if (isDevEnv && password.length) {
       updateStoredPassword(password)
-      updateAutoLoginState(AUTOLOGIN_STATE)
+      updateAutoLoginState(autoLoginState)
     }
 
-    onUnlock(password, mode)
+    _onUnlock(password, mode)
   }
 
-  onReset = () => {
-    const { onReset } = this.props
-    onReset()
-  }
-
-  onEnterPress = (event = {}) => {
+  const onEnterPress = (event = {}) => {
     const { keyCode } = event
     if (keyCode === ENTER_KEY_CODE) {
-      this.onUnlock()
+      onUnlock()
     }
   }
+  const submitReady = !_isEmpty(password) && !_isEmpty(mode)
+  const options = useRef([
+    { value: 'main', label: 'Production' },
+    { value: 'paper', label: 'Paper Trading' },
+  ])
 
-  updateAutoLoginState = (state) => {
-    this.setState(() => ({
-      AUTOLOGIN_STATE: state,
-    }))
-  }
+  useEffect(() => {
+    const pass = getStoredPassword()
+    if (isDevEnv && pass && autoLoginState) {
+      setPassword(pass)
+    }
+  }, [])
 
-  selectMode = (mode) => {
-    this.setState(() => ({ mode }))
-  }
+  return (
+    <div className='hfui-authenticationpage__content' onKeyDown={onEnterPress}>
+      <h2>Honey Framework UI</h2>
+      <p>Enter your password to unlock.</p>
 
-  render() {
-    const { mode, password, AUTOLOGIN_STATE } = this.state
-    const submitReady = !_isEmpty(password) && !_isEmpty(mode)
-    const options = [{ value: 'main', label: 'Production' }, { value: 'paper', label: 'Paper Trading' }]
+      <form className='hfui-authenticationpage__inner-form'>
+        <Input
+          type='text'
+          name='username'
+          autocomplete='username'
+          style={{ display: 'none' }}
+        />
 
-    return (
-      <div className='hfui-authenticationpage__content' onKeyDown={this.onEnterPress}>
-        <h2>Honey Framework UI</h2>
-        <p>Enter your password to unlock.</p>
+        <Input
+          type='password'
+          autocomplete='current-password'
+          placeholder='Password'
+          value={password}
+          onChange={setPassword}
+        />
+        <div className='hfui-authenticationpage__mode-select'>
+          <p>Select trading mode</p>
 
-        <form className='hfui-authenticationpage__inner-form'>
-          <Input
-            type='text'
-            name='username'
-            autocomplete='username'
-            style={{ display: 'none' }}
+          <Dropdown
+            className='hfui-authenticationpage__trading-mode'
+            placeholder='Select trading mode...'
+            value={options.current.find(o => o.value === mode).value}
+            options={options.current}
+            onChange={(value) => setMode(value)}
           />
-
-          <Input
-            type='password'
-            autocomplete='current-password'
-            placeholder='Password'
-            value={password}
-            onChange={this.onPasswordChange}
-          />
-          <div className='hfui-authenticationpage__mode-select'>
-            <p>Select trading mode</p>
-
-            <Dropdown
-              className='hfui-authenticationpage__trading-mode'
-              placeholder='Select trading mode...'
-              value={options.find(o => o.value === mode).value}
-              options={options}
-              onChange={(value) => this.selectMode(value)}
-            />
-          </div>
-          {isDevEnv && (
+        </div>
+        {isDevEnv && (
           <div className='hfui-authenticationpage__dev-mode'>
             <Checkbox
               label='Auto-login in development mode'
-              checked={AUTOLOGIN_STATE}
-              onChange={this.updateAutoLoginState}
+              checked={autoLoginState}
+              onChange={setAutoLoginState}
             />
           </div>
-          )}
-          <Button
-            onClick={this.onUnlock}
-            disabled={!submitReady}
-            label='Unlock'
-            green
-          />
-        </form>
+        )}
+        <Button
+          onClick={onUnlock}
+          disabled={!submitReady}
+          label='Unlock'
+          green
+        />
+      </form>
 
-        <div className='hfui-authenticationpage__clear'>
-          <p>Alternatively, clear your credentials &amp; and stored data to set a new password.</p>
+      <div className='hfui-authenticationpage__clear'>
+        <p>Alternatively, clear your credentials &amp; and stored data to set a new password.</p>
 
-          <Button
-            onClick={this.onReset}
-            label='Clear Data &amp; Reset'
-            red
-          />
-        </div>
+        <Button
+          onClick={onReset}
+          label='Clear Data &amp; Reset'
+          red
+        />
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 AuthenticationUnlockForm.propTypes = {
@@ -149,3 +116,5 @@ AuthenticationUnlockForm.propTypes = {
   onReset: PropTypes.func.isRequired,
   isPaperTrading: PropTypes.bool.isRequired,
 }
+
+export default AuthenticationUnlockForm
