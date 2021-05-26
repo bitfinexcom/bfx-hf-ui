@@ -34,9 +34,6 @@
     -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.5); 
 }
 .hfui-favoritepair__content-notice {
-    font-weight: 300;
-    font-size: .7em;
-    color: $white-color;
     display: flex;
     padding: spacing(1, true);
     svg {
@@ -84,9 +81,6 @@
 }
 
 .empty { 
-    color:$white-color;
-    font-size: 0.8em;
-    font-weight: 300;
     display: flex;
     justify-content: center;
     align-items: center;
