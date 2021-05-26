@@ -36,16 +36,18 @@
     border-top: 2px solid transparent;
     border-bottom: 2px solid transparent;
     border-radius: 0;
+    padding: 0;
+    margin: 0 spacing(.5);
     outline: none;
     height: 38px;
-    text-transform: uppercase;
     font-size: 13px;
-    font-weight: 400;
+    font-weight: 600;
     transition: all .2s;
+    color: $light-color-600;
 
     &:hover, &.active {
-      border-bottom: 2px solid $green-color;
-      color: $green-color;
+      border-bottom: 2px solid $primary-color-900;
+      color: $light-color-900;
     }
 
     &.hover {
