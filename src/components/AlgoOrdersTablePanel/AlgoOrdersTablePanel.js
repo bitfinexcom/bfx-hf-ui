@@ -34,7 +34,7 @@ export default class AlgoOrdersTablePanel extends React.Component {
     const { onRemove } = this.props
     const { algoOrders } = this.state
     return (
-      <Panel label='ALGO ORDERS' onRemove={onRemove}>
+      <Panel label='Algo. Orders' onRemove={onRemove}>
         <AlgoOrdersTable filteredAO={algoOrders} />
       </Panel>
     )

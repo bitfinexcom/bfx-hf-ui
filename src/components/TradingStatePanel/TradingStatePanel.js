@@ -140,7 +140,7 @@ class TradingStatePanel extends React.Component {
 
     return (
       <Panel
-        label='TRADING STAGE'
+        label='Trading Stage'
         dark={dark}
         darkHeader={dark}
         className='hfui-tradingstatepanel__wrapper'

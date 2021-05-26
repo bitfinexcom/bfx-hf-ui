@@ -103,7 +103,7 @@ export default function OrderHistory(props) {
 
   return (
     <Panel
-      label='ORDER HISTORY'
+      label='Order History'
       onRemove={onRemove}
       dark={dark}
       darkHeader={dark}

@@ -364,7 +364,7 @@ export default class OrderForm extends React.Component {
           key='execute-order'
           darkHeader
           dark
-          label='EXECUTE ORDER'
+          label='Execute Order'
           className='hfui-orderform__panel'
           moveable={moveable}
           removeable={removeable}

@@ -6,12 +6,11 @@
 }
 
 .hfui-favoritepair__title {
-    font-weight: 500;
-    font-size: 13px;
+    font-weight: 600;
+    font-size: 14px;
     line-height: 45px;
     flex-shrink: 0;
-    text-transform: uppercase;
-    color: $green-color;
+    color: $light-color-900;
     padding: 0 spacing(1, true);
 }
 

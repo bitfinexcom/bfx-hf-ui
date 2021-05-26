@@ -23,7 +23,7 @@ export default function RefillBalanceModal() {
   return (
     <Modal
       isOpen={isRefillBalanceModalVisible}
-      label='REFILLING PAPER BALANCES'
+      label='Refilling Paper Balances'
       onClose={() => onRefillBalanceModalClose()}
       className='hfui-refillbalance__modal'
     >

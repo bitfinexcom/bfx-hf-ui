@@ -64,7 +64,7 @@ class BalancesTablePanel extends React.Component {
     // TODO: Extract settings panel/wrapper into own component
     return (
       <Panel
-        label='BALANCES'
+        label='Balances'
         onRemove={onRemove}
         settingsOpen={settingsOpen}
         onToggleSettings={this.onToggleSettings}

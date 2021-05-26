@@ -63,7 +63,7 @@ export default class FavoriteTradingPairs extends React.PureComponent {
 
     return (
       <div className='hfui-favoritepair__wrapper'>
-        <div className='hfui-favoritepair__title'>FAVORITE TRADING PAIRS</div>
+        <div className='hfui-favoritepair__title'>Favorites</div>
         { !hasFavoritePairs && (
           <div className='hfui-favoritepair__content empty'>No Favorites starred yet...</div>
         )}

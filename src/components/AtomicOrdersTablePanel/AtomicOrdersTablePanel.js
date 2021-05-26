@@ -43,7 +43,7 @@ class AtomicOrdersTablePanel extends React.Component {
     const { filteredAtomicOrders } = this.state
     return (
       <Panel
-        label='ATOMIC ORDERS'
+        label='Atomic Orders'
         onRemove={onRemove}
       >
         <AtomicOrdersTable filteredAtomicOrders={filteredAtomicOrders} />

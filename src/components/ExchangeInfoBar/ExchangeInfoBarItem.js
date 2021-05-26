@@ -8,7 +8,6 @@ const ExchangeInfoBarItem = ({
   <Tag className={ClassNames('hfui-exchangeinfobar__item', { text, vertical })}>
     <p className={ClassNames('hfui-exchangeinfobar__item-label', labelClassName)}>
       {label}
-      :
     </p>
     <div className={ClassNames('hfui-exchangeinfobar__item-data', dataClassName)}>
       {valuePrefix}

@@ -106,14 +106,10 @@
     display: inline-block;
     vertical-align: middle;
     padding: 0 12px;
+    cursor: pointer;
 
     &.active {
       background-color: rgba(0, 0, 0, 0.3);
-    }
-
-    &:hover {
-      cursor: pointer;
-      text-decoration: underline;
     }
   }
 }
@@ -235,12 +231,11 @@
 }
 
 .hfui-panel__label {
-  font-weight: 500;
-  font-size: 13px;
+  font-weight: 600;
+  font-size: 14px;
   line-height: 45px;
   flex-shrink: 0;
-  text-transform: uppercase;
-  color: $green-color;
+  color: $light-color-900;
 }
 
 .hfui-panel__close {

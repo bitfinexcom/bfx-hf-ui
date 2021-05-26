@@ -81,7 +81,7 @@ export default class StrategyEditorPanel extends React.PureComponent {
 
     return (
       <Panel
-        label='STRATEGY EDITOR'
+        label='Strategy Editor'
         className='hfui-strategyeditor__panel'
         dark={dark}
         darkHeader={dark}

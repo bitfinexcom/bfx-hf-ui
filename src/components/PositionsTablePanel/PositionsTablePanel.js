@@ -6,7 +6,7 @@ import Panel from '../../ui/Panel'
 
 const PositionsTablePanel = ({ onRemove, positions }) => (
   <Panel
-    label='POSITIONS'
+    label='Positions'
     onRemove={onRemove}
   >
     <PositionsTable
