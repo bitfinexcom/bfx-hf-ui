@@ -1,4 +1,5 @@
 import React, { memo } from 'react'
+import PropTypes from 'prop-types'
 
 import HFIcon from '../../ui/HFIcon'
 import AuthenticationInitForm from './AuthenticationInitForm'
@@ -47,5 +48,20 @@ const Authentication = ({
     </div>
   </div>
 )
+
+Authentication.propTypes = {
+  wsConnected: PropTypes.bool.isRequired,
+  configured: PropTypes.bool.isRequired,
+  isPaperTrading: PropTypes.bool.isRequired,
+  onUnlock: PropTypes.func,
+  onInit: PropTypes.func,
+  onReset: PropTypes.func,
+}
+
+Authentication.defaultProps = {
+  onUnlock: () => {},
+  onInit: () => {},
+  onReset: () => {},
+}
 
 export default memo(Authentication)
