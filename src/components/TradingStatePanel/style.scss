@@ -9,52 +9,13 @@
     border: 1px solid $green-color;
   }
 
-  .hfui-panel__header {
-    margin: 0;
-
-    .hfui-panel__label {
-      text-transform: none;
-      line-height: 45px;
-    }
-
-    > .hfui-panel__label {
-      line-height: 48px;
-    }
-
-    .hfui-panel__header-tabs {
-      margin-left: 0;
-
-      li {
-        padding: 0;
-        margin: 0 20px;
-
-        &:first-child {
-          margin-left: 0;
-        }
-
-        &:last-child {
-          margin-right: 0;
-        }
-      }
-
-      .active {
-        background: none;
-
-        p {
-          color: $green-color;
-        }
-
-        border-bottom: 2px solid $green-color;
-      }
-    }
-  }
-
   .hfui-panel__content {
     background: $panel-background-color;
+    margin: 0 (0 - spacing());
   }
 
   .hfui-panel .hfui-panel__label {
-    color: $white-color;
+    font-weight: 500;
   }
 
   .hfui-panel__header-icons {
