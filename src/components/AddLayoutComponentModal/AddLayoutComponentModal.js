@@ -2,7 +2,6 @@ import React from 'react'
 import _isEmpty from 'lodash/isEmpty'
 
 import Modal from '../../ui/Modal'
-import Button from '../../ui/Button'
 import Dropdown from '../../ui/Dropdown'
 import {
   COMPONENT_TYPES, COMPONENT_LABELS,
@@ -45,24 +44,15 @@ export default class AddLayoutComponentModal extends React.Component {
   }
 
   render() {
-    const { onClose } = this.props
+    const { onClose, isOpen } = this.props
     const { componentType, error } = this.state
 
     return (
       <Modal
+        isOpen={isOpen}
         onClose={onClose}
         className='hfui-addlayoutcomponentmodal__wrapper'
         label='Add Component'
-        actions={(
-          <Button
-            green
-            onClick={this.onSubmit}
-            label={[
-              <i key='icon' className='icon-plus' />,
-              <p key='text'>Add Component</p>,
-            ]}
-          />
-        )}
       >
         <Dropdown
           value={componentType}
@@ -76,6 +66,15 @@ export default class AddLayoutComponentModal extends React.Component {
         {!_isEmpty(error) && (
           <p className='error'>{error}</p>
         )}
+
+        <Modal.Footer>
+          <Modal.Button
+            primary
+            onClick={this.onSubmit}
+          >
+            Add Component
+          </Modal.Button>
+        </Modal.Footer>
       </Modal>
     )
   }
