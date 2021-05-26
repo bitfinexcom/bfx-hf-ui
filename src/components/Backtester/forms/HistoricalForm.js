@@ -76,7 +76,7 @@ export default class HistoricalForm extends React.PureComponent {
     const { markets } = this.props
 
     return {
-      startDate: new Date() - ONE_DAY,
+      startDate: new Date(Date.now() - ONE_DAY),
       endDate: new Date(Date.now() - (ONE_MIN * 15)),
       selectedTimeFrame: '15m',
       selectedMarket: markets[0],

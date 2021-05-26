@@ -3,6 +3,7 @@ import t from '../../constants/ws'
 
 import connectionWorker from './worker_connection'
 import messageQueueWorker from './worker_message_queue'
+import pingWorker from './worker_ping_connection'
 import { updateWorker } from './worker_flush_exchange_data'
 
 import onConnected from './on_connected'
@@ -32,4 +33,5 @@ export default function* () {
 
   yield fork(updateWorker)
   yield fork(connectionWorker)
+  yield fork(pingWorker)
 }

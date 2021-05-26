@@ -189,19 +189,17 @@ class GridLayoutPage extends React.PureComponent {
           />
         )}
 
-        {addLayoutModalOpen && (
-          <CreateNewLayoutModal
-            onClose={this.onToggleCreateNewLayoutModal}
-            onSubmit={this.onCreateNewLayout}
-          />
-        )}
+        <CreateNewLayoutModal
+          isOpen={addLayoutModalOpen}
+          onClose={this.onToggleCreateNewLayoutModal}
+          onSubmit={this.onCreateNewLayout}
+        />
 
-        {addComponentModalOpen && (
-          <AddLayoutComponentModal
-            onClose={this.onToggleAddComponentModal}
-            onSubmit={this.onAddComponentToLayout}
-          />
-        )}
+        <AddLayoutComponentModal
+          isOpen={addComponentModalOpen}
+          onClose={this.onToggleAddComponentModal}
+          onSubmit={this.onAddComponentToLayout}
+        />
 
         <GridLayout
           darkPanels={darkPanels}

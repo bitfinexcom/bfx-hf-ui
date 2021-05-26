@@ -5,15 +5,16 @@ import _isEmpty from 'lodash/isEmpty'
 import _differenceBy from 'lodash/differenceBy'
 
 import Modal from '../../ui/Modal'
-import Button from '../../ui/Button'
 
 import AlgoOrdersTable from './ActiveAlgoOrdersModal.table'
 
 import './style.css'
 
 const ActiveAlgoOrdersModal = ({
+  isOpen,
   activeAlgoOrders,
   handleActiveOrders,
+  showActiveOrdersModal,
 }) => {
   const [ordersList, setOrdersList] = useState([])
   const [selectedOrders, setSelectedOrders] = useState([])
@@ -81,31 +82,14 @@ const ActiveAlgoOrdersModal = ({
 
   return (
     <Modal
-      onClose={() => onSubmit('cancel_all')}
+      isOpen={isOpen}
+      onClose={() => {
+        showActiveOrdersModal(false)
+        onSubmit('cancel_all')
+      }}
       label='Active Orders'
       className='hfui-active-ao-modal__wrapper'
-      actions={[(
-        <Button
-          green
-          key='orders_cancel'
-          onClick={() => onSubmit('cancel_all')}
-          className='hfui-active-ao-modal-btn mr-10'
-          label={[
-            <p key='text'>Cancel All</p>,
-          ]}
-        />
-      ), (
-        <Button
-          green
-          key='orders_resume'
-          onClick={() => onSubmit('resume')}
-          disabled={_isEmpty(selectedOrders)}
-          className='hfui-active-ao-modal-btn'
-          label={[
-            <p key='text'>Resume</p>,
-          ]}
-        />
-      )]}
+      width={800}
     >
       <AlgoOrdersTable
         orders={ordersList}
@@ -114,6 +98,23 @@ const ActiveAlgoOrdersModal = ({
         isOrderSelected={isOrderSelected}
         isAllOrdersSelected={isAllOrdersSelected}
       />
+      <Modal.Footer>
+        <Modal.Button
+          primary
+          onClick={() => onSubmit('cancel_all')}
+          className='hfui-active-ao-modal-btn mr-10'
+        >
+          Cancel All
+        </Modal.Button>
+        <Modal.Button
+          primary
+          onClick={() => onSubmit('resume')}
+          disabled={_isEmpty(selectedOrders)}
+          className='hfui-active-ao-modal-btn'
+        >
+          Resume
+        </Modal.Button>
+      </Modal.Footer>
     </Modal>
   )
 }
@@ -121,6 +122,8 @@ const ActiveAlgoOrdersModal = ({
 ActiveAlgoOrdersModal.propTypes = {
   handleActiveOrders: PropTypes.func.isRequired,
   activeAlgoOrders: PropTypes.arrayOf(PropTypes.object),
+  showActiveOrdersModal: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
 }
 
 ActiveAlgoOrdersModal.defaultProps = {

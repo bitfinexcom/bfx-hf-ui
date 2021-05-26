@@ -1,7 +1,11 @@
 @import "./variables.scss";
 
-$green1: #54b361;
-$red1: #f05359;
+$intent-primary: $green-color;
+$intent-secondary: $input-background-color;
+$intent-success: $green-color;
+$intent-info: $notifications-info-color;
+$intent-warning: $yellow-color;
+$intent-error: $red-color;
 
 $ufx-border-radius: $border-radius;
 
@@ -10,8 +14,11 @@ $ufx-table-odd-row-background-color: $panel-background-color;
 $ufx-table-hover-row-background-color: $panel-background-color;
 $ufx-table-active-row-background-color: $panel-background-color;
 
+$ufx-font-family: $font-family;
+$ufx-font-size: 13px;
 $ufx-text-color: $text-color;
 $ufx-heading-color: $text-color;
+$ufx-background-color: $background-color;
 
 $ufx-dropdown-height: 32px;
 $ufx-dropdown-padding: spacing();
@@ -23,5 +30,9 @@ $ufx-dropdown-list-background-color: $input-background-color;
 $ufx-dropdown-active-item-background-color: mix($white-color, $input-background-color, 10%);
 $ufx-dropdown-input-background-color: $background-color;
 $ufx-dropdown-input-border: 0;
+
+$ufx-dialog-padding-desktop: spacing(1.5);
+$ufx-dialog-padding-mobile: spacing(1.5);
+$ufx-dialog-title: 15px;
 
 @import "../node_modules/@ufx-ui/core/dist/css/ufx-core.bundle.scss";

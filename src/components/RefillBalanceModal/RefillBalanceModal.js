@@ -6,7 +6,6 @@ import {
 } from '../../redux/selectors/ui'
 
 import Modal from '../../ui/Modal'
-import Button from '../../ui/Button'
 import Input from '../../ui/Input'
 
 export default function RefillBalanceModal() {
@@ -21,24 +20,12 @@ export default function RefillBalanceModal() {
     // todo
   }
 
-  if (!isRefillBalanceModalVisible) {
-    return null
-  }
-
   return (
     <Modal
+      isOpen={isRefillBalanceModalVisible}
       label='REFILLING PAPER BALANCES'
       onClose={() => onRefillBalanceModalClose()}
       className='hfui-refillbalance__modal'
-      actions={(
-        <Button
-          green
-          onClick={() => onRefillBalanceModalSubmit()}
-          label={[
-            <p key='text'>Submit</p>,
-          ]}
-        />
-      )}
     >
       <div className='modal-content'>
         <Input placeholder='AAA' />
@@ -47,6 +34,11 @@ export default function RefillBalanceModal() {
         <Input placeholder='TESTUSDT' />
         <Input placeholder='TESTUSD' />
       </div>
+      <Modal.Footer>
+        <Modal.Button primary onClick={onRefillBalanceModalSubmit}>
+          Submit
+        </Modal.Button>
+      </Modal.Footer>
     </Modal>
   )
 }
