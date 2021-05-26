@@ -57,12 +57,12 @@ const AuthenticationUnlockForm = ({ isPaperTrading, onUnlock: _onUnlock, onReset
       <p>Enter your password to unlock.</p>
 
       <form className='hfui-authenticationpage__inner-form'>
-        <Input
+        {/* <Input
           type='text'
           name='username'
           autocomplete='username'
           style={{ display: 'none' }}
-        />
+        /> */}
 
         <Input
           type='password'
