@@ -11,7 +11,7 @@ import MarketData from './MarketData'
 const mapStateToProps = (state = {}) => ({
   layouts: getLayouts(state),
   activeMarket: getActiveMarket(state),
-  firstLogin: getFirstLogin(state),
+  isFirstLogin: getFirstLogin(state),
   isGuideActive: getGuideStatusForPage(state, MARKET_PAGE),
 })
 
