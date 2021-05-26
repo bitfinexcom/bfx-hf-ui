@@ -28,11 +28,12 @@ $ufx-dropdown-list-border: none;
 $ufx-dropdown-text-color: $text-color;
 $ufx-dropdown-list-background-color: $input-background-color;
 $ufx-dropdown-active-item-background-color: mix($white-color, $input-background-color, 10%);
+$ufx-dropdown-active-item-background-color: $blue-color;
 $ufx-dropdown-input-background-color: $background-color;
 $ufx-dropdown-input-border: 0;
 
 $ufx-dialog-padding-desktop: spacing(1.5);
 $ufx-dialog-padding-mobile: spacing(1.5);
-$ufx-dialog-title: 15px;
+$ufx-dialog-title: 14px;
 
 @import "../node_modules/@ufx-ui/core/dist/css/ufx-core.bundle.scss";

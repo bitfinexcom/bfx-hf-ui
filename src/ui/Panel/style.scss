@@ -8,6 +8,7 @@
 
   overflow: hidden;
   background: hsl(206, 46%, 17%);
+  border-radius: $border-radius;
 
   &.monokai {
     background: rgb(39, 40, 34)
@@ -18,7 +19,7 @@
 
     .hfui-select {
       background: $background-color;
-      padding: 0 spacing(1, true);
+      padding: 0 spacing(1);
     }
   }
 
@@ -30,8 +31,8 @@
 .hfui-panel__secondaryheader__wrapper {
   display: flex;
   flex-direction: row;
-  margin: 0 0 10px 0;
-  padding: 0 spacing(1, true);
+  margin: 0 0 spacing(.75) 0;
+  padding: 0 spacing(1);
   border-bottom: 1px solid $background-color;
 
   &.reverse {
@@ -71,7 +72,7 @@
   flex-direction: row;
   background: $background-color;
   justify-content: space-between;
-  padding: 0 spacing(1, true);
+  padding: spacing(.5) spacing(1);
 
   &.has-secondary-header {
     border-bottom: none;
@@ -100,16 +101,25 @@
 
 .hfui-panel__header-tabs {
   flex-shrink: 0;
-  margin-left: 16px;
+  flex-grow: 1;
 
   li {
     display: inline-block;
     vertical-align: middle;
     padding: 0 12px;
     cursor: pointer;
+    border-radius: $border-radius;
+
+    .hfui-panel__label {
+      color: $light-color-600;
+    }
 
     &.active {
-      background-color: rgba(0, 0, 0, 0.3);
+      background: $light-color-50;
+      
+      .hfui-panel__label {
+        color: $light-color-900;
+      }
     }
   }
 }
@@ -136,9 +146,10 @@
   display: flex;
   flex-direction: row;
   flex-shrink: 0;
-  margin-left: 60px;
+  flex-grow: 1;
   justify-content: center;
   flex-direction: column;
+  align-items: flex-end;
 
   & > * {
     margin-right: 8px;
@@ -177,17 +188,12 @@
 }
 
 .hfui-panel__header-icons {
-  width: 100%;
-  text-align: right;
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
-  padding-top: 5px;
 
   .hfui-panel__chart-market-select {
     padding-right: spacing(0.75);
-    position: relative;
-    top: -2px;
   }
 
   p {
@@ -197,18 +203,25 @@
   }
 
   i {
-    line-height: 32px;
-    margin-right: spacing(0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
     font-size: 20px;
-    color: $white-color;
+    color: $light-color-500;
+    transition: all .2s;
+    cursor: pointer;
+    border-radius: $border-radius;
 
-    &:first-child {
-      margin-right: 0;
+    &.disabled {
+      cursor: not-allowed;
+      color: $light-color-300;
     }
-
+    
     &:hover:not(.disabled) {
-      cursor: pointer;
-      color: $text-color;
+      color: $light-color-900;
+      background: $light-color-50;
     }
 
     &.high-contrast {
@@ -233,7 +246,7 @@
 .hfui-panel__label {
   font-weight: 600;
   font-size: 14px;
-  line-height: 45px;
+  line-height: 32px;
   flex-shrink: 0;
   color: $light-color-900;
 }
@@ -267,6 +280,7 @@
 .hfui-panel__content {
   position: relative;
   flex-grow: 1;
+  padding: 0 spacing();
 }
 
 @keyframes hfui-panel-spinner-rotate {

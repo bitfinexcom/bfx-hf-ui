@@ -157,7 +157,7 @@ export default class ChartPanel extends React.Component {
     return (
       <Panel
         dark={dark}
-        label={label}
+        label={label || 'Chart'}
         darkHeader={dark}
         onRemove={onRemove}
         moveable={moveable}

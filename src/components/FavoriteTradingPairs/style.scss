@@ -11,7 +11,7 @@
     line-height: 45px;
     flex-shrink: 0;
     color: $light-color-900;
-    padding: 0 spacing(1, true);
+    padding: 0 spacing(1);
 }
 
 .hfui-favoritepair__content {
@@ -19,7 +19,7 @@
     flex-wrap: wrap;
     min-height: 82px;
     max-height: 150px;
-    padding: spacing(1, true);
+    padding: spacing(1);
     padding-bottom: 0;
     overflow-y: auto;
 }
@@ -47,6 +47,7 @@
     width: 50%;
     padding: spacing(0.25) spacing(0.5);
     font-size: 13px;
+    font-weight: 500;
     cursor: pointer;
     transition: background-color .2s;
 
@@ -56,7 +57,7 @@
 
     &:hover,
     &:focus {
-        background-color: mix($white-color, $panel-background-color, 10%);
+        background-color: $blue-color;
     }
 
     &:active {

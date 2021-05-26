@@ -78,10 +78,6 @@
 }
 
 .hfui-orderform__panel {
-  .hfui-panel__content {
-    padding: 0 spacing(1, true);
-  }
-
   .hfui-panel__footer {
     width: 100%;
     background: $background-color;
@@ -327,8 +323,9 @@
   }
 
   .hfui-orderform__input-label {
-    color: $text-color2;
-    font-size: 13px;
+    color: $light-color-400;
+    font-size: 12px;
+    font-weight: 600;
     line-height: 16px;
     margin-top: 2px;
     display: flex;
