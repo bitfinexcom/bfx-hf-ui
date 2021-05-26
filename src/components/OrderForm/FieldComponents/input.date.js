@@ -4,12 +4,11 @@ import PropTypes from 'prop-types'
 
 import { renderString, CONVERT_LABELS_TO_PLACEHOLDERS } from '../OrderForm.helpers'
 
-const DateInput = memo(({
+const DateInput = ({
   value, minDate, maxDate, onChange, def, renderData, validationError,
 }) => {
   const { label, minDate: MIN_DATE } = def
   const renderedLabel = renderString(label, renderData)
-
   return (
     <div className='hfui-orderform__input fullWidth hfui-input'>
       <DatePicker
@@ -43,7 +42,7 @@ const DateInput = memo(({
       )}
     </div>
   )
-})
+}
 
 DateInput.processValue = v => +v
 
@@ -56,8 +55,6 @@ DateInput.validateValue = v => {
 
   return false
 }
-
-DateInput.displayName = 'DateInput'
 
 DateInput.propTypes = {
   def: PropTypes.objectOf(PropTypes.oneOfType([
@@ -84,4 +81,4 @@ DateInput.defaultProps = {
   def: {},
 }
 
-export default DateInput
+export default memo(DateInput)
