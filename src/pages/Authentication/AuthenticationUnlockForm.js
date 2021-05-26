@@ -16,13 +16,8 @@ import {
 
 const isDevEnv = devEnv()
 const ENTER_KEY_CODE = 13
-export default class AuthenticationInit extends React.PureComponent {
-  static propTypes = {
-    onUnlock: PropTypes.func.isRequired,
-    onReset: PropTypes.func.isRequired,
-    isPaperTrading: PropTypes.bool.isRequired,
-  }
 
+export default class AuthenticationUnlockForm extends React.PureComponent {
   constructor(props) {
     super(props)
     const { isPaperTrading } = this.props
@@ -147,4 +142,10 @@ export default class AuthenticationInit extends React.PureComponent {
       </div>
     )
   }
+}
+
+AuthenticationUnlockForm.propTypes = {
+  onUnlock: PropTypes.func.isRequired,
+  onReset: PropTypes.func.isRequired,
+  isPaperTrading: PropTypes.bool.isRequired,
 }
