@@ -115,8 +115,7 @@
 .hfui-exchangeinfobar__item-label {
   color: $text-color;
   user-select: none;
-  margin-right: 6px;
-  text-transform: uppercase;
+  margin-right: spacing(.5);
 }
 
 .hfui-exchangeinfobar__item-data {
