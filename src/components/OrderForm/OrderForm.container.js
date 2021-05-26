@@ -44,10 +44,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(UIActions.setIsOrderExecuting(executing))
   },
 
-  saveState: (layoutID, componentID, state) => {
+  saveState: (componentID, state) => {
     dispatch(UIActions.saveComponentState({
       state,
-      layoutID,
       componentID,
     }))
   },

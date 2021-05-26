@@ -1,9 +1,10 @@
 import React from 'react'
+import { Icon } from 'react-fa'
 import _isEqual from 'lodash/isEqual'
 import _isEmpty from 'lodash/isEmpty'
 import _isString from 'lodash/isString'
 import _trim from 'lodash/trim'
-import ClassNames from 'classnames'
+import PropTypes from 'prop-types'
 import {
   Iceberg, TWAP, AccumulateDistribute, PingPong, MACrossover, OCOCO,
 } from 'bfx-hf-algo'
@@ -22,27 +23,20 @@ import timeFrames from '../../util/time_frames'
 import Panel from '../../ui/Panel'
 import Dropdown from '../../ui/Dropdown'
 import FavoriteTradingPairs from '../FavoriteTradingPairs'
-import MarketSelect from '../MarketSelect'
 
-// import ConnectingModal from './Modals/ConnectingModal'
 import UnconfiguredModal from './Modals/UnconfiguredModal'
 import SubmitAPIKeysModal from './Modals/SubmitAPIKeysModal'
 import OrderFormMenu from './OrderFormMenu'
 
-import { propTypes, defaultProps } from './OrderForm.props'
 import './style.css'
 
-const HELP_ICON_DISABLED = true // not in design
 const CONTEXT_LABELS = {
   e: 'Exchange',
   m: 'Margin',
   f: 'Futures',
 }
 
-export default class OrderForm extends React.Component {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
-
+class OrderForm extends React.Component {
   state = {
     fieldData: {},
     validationErrors: {},
@@ -55,7 +49,7 @@ export default class OrderForm extends React.Component {
   constructor(props) {
     super(props)
 
-    const { savedState = {}, activeMarket } = props
+    const { savedState, activeMarket } = props
     const {
       currentMarket = activeMarket,
       marketDirty,
@@ -73,8 +67,6 @@ export default class OrderForm extends React.Component {
       context: currentMarket.contexts[0],
     }
 
-    this.onChangeActiveOrderLayout = this.onChangeActiveOrderLayout.bind(this)
-    this.onChangeMarket = this.onChangeMarket.bind(this)
     this.onContextChange = this.onContextChange.bind(this)
     this.onFieldChange = this.onFieldChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
@@ -120,22 +112,6 @@ export default class OrderForm extends React.Component {
       fieldData: {},
       currentLayout: null,
     }
-  }
-
-  onChangeMarket(market) {
-    const { currentMarket } = this.state
-
-    if (market.restID === currentMarket.restID) {
-      return
-    }
-
-    this.setState(() => ({
-      currentMarket: market,
-      context: market.c[0],
-      marketDirty: true,
-    }))
-
-    this.deferSaveState()
   }
 
   onSubmitAPIKeys({ apiKey, apiSecret }) {
@@ -293,35 +269,19 @@ export default class OrderForm extends React.Component {
   }
 
   saveState() {
-    const { saveState, layoutID, layoutI } = this.props
+    const { saveState, layoutI } = this.props
     const { currentMarket, marketDirty } = this.state
 
-    saveState(layoutID, layoutI, {
+    saveState(layoutI, {
       currentMarket,
       marketDirty,
     })
   }
 
-  renderMarketDropdown() {
-    const { marketDirty, currentMarket } = this.state
-    const { markets, canChangeMarket } = this.props
-
-    return (
-      <MarketSelect
-        key='market-dropdown'
-        disabled={!canChangeMarket}
-        className={{ yellow: marketDirty }}
-        onChange={this.onChangeMarket}
-        value={currentMarket}
-        markets={markets}
-      />
-    )
-  }
-
   render() {
     const {
       onRemove, orders, apiClientState, apiCredentials, moveable, removeable,
-      showMarket, favoritePairs, savePairs, authToken, onChangeMarket, markets,
+      favoritePairs, savePairs, authToken, onChangeMarket, markets,
       activeMarket, mode, isPaperTrading, isOrderExecuting,
     } = this.props
 
@@ -357,7 +317,7 @@ export default class OrderForm extends React.Component {
           markets={markets}
           currentMarket={activeMarket}
           onSelect={onChangeMarket}
-          savePairs={(props) => savePairs(props, authToken, mode)}
+          savePairs={props => savePairs(props, authToken, mode)}
           favoritePairs={favoritePairs}
         />
         <Panel
@@ -369,18 +329,12 @@ export default class OrderForm extends React.Component {
           moveable={moveable}
           removeable={removeable}
           onRemove={onRemove}
-          headerComponents={[
-            showMarket && this.renderMarketDropdown(),
-          ]}
           extraIcons={(
-            !HELP_ICON_DISABLED && apiClientConnected && currentLayout && currentLayout.customHelp && (
-              <i
-                role='button'
-                tabIndex={0}
+            !helpOpen && apiClientConnected && currentLayout && currentLayout.customHelp && (
+              <Icon
+                name='question'
+                className='hfui-orderform__question-btn'
                 onClick={this.onToggleHelp}
-                className={ClassNames('fas fa-question', {
-                  yellow: helpOpen,
-                })}
               />
             )
           )}
@@ -416,7 +370,7 @@ export default class OrderForm extends React.Component {
                       role='button'
                       tabIndex={0}
                       onClick={this.onToggleHelp}
-                      className='far fa-times-circle'
+                      className='hfui-orderform__question-btn icon-cancel'
                     />
                   </p>
                   <p className='hfui-orderform__help-content'>
@@ -436,7 +390,7 @@ export default class OrderForm extends React.Component {
               </div>
             )}
 
-            {currentLayout && [
+            {!helpOpen && currentLayout && [
               <div className='hfui-orderform__layout-label' key='layout-label'>
                 <i
                   className='icon-back-arrow'
@@ -451,7 +405,6 @@ export default class OrderForm extends React.Component {
               <ul className='hfui-orderform__header' key='of-header'>
                 <li key='item'>
                   <Dropdown
-                    icon='exchange-passive'
                     value={context}
                     key='dropdown-orderform'
                     onChange={this.onContextChange}
@@ -488,3 +441,45 @@ export default class OrderForm extends React.Component {
     )
   }
 }
+
+OrderForm.propTypes = {
+  orders: PropTypes.arrayOf(PropTypes.object).isRequired,
+  savedState: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.string, PropTypes.bool, PropTypes.object,
+  ])).isRequired,
+  activeMarket: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.array, PropTypes.string, PropTypes.number,
+  ])).isRequired,
+  apiClientState: PropTypes.number.isRequired,
+  apiCredentials: PropTypes.objectOf(PropTypes.bool).isRequired,
+  setIsOrderExecuting: PropTypes.func.isRequired,
+  mode: PropTypes.string.isRequired,
+  submitAPIKeys: PropTypes.func.isRequired,
+  submitOrder: PropTypes.func.isRequired,
+  gaSubmitOrder: PropTypes.func.isRequired,
+  submitAlgoOrder: PropTypes.func.isRequired,
+  gaSubmitAO: PropTypes.func.isRequired,
+  saveState: PropTypes.func.isRequired,
+  markets: PropTypes.arrayOf(PropTypes.object).isRequired,
+  favoritePairs: PropTypes.arrayOf(PropTypes.string).isRequired,
+  savePairs: PropTypes.func.isRequired,
+  onChangeMarket: PropTypes.func.isRequired,
+  isPaperTrading: PropTypes.bool.isRequired,
+  layoutI: PropTypes.string,
+  authToken: PropTypes.string,
+  onRemove: PropTypes.func,
+  isOrderExecuting: PropTypes.bool,
+  moveable: PropTypes.bool,
+  removeable: PropTypes.bool,
+}
+
+OrderForm.defaultProps = {
+  moveable: true,
+  removeable: true,
+  isOrderExecuting: false,
+  onRemove: () => {},
+  authToken: null,
+  layoutI: 'orderform',
+}
+
+export default OrderForm

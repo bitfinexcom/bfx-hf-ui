@@ -407,13 +407,8 @@
     line-height: 30px;
 
     i {
-      line-height: 30px;
       float: right;
-
-      &:hover {
-        color: $yellow-color;
-        cursor: pointer;
-      }
+      font-size: 20px;
     }
 
     .prefix {
@@ -478,6 +473,10 @@
 
     > *:last-child {
       margin-right: 20px;
+    }
+
+    > .hfui-input:first-child {
+      width: 62%;
     }
 
     .hfui-input {
@@ -683,5 +682,16 @@
       font-weight: 300;
       margin-left: 6px;
     }
+  }
+}
+
+.hfui-orderform__question-btn {
+  font-size: 18px;
+  color: $text-color;
+  padding: 3px 7px;
+
+  &:hover {
+    color: $text-color2;
+    cursor: pointer;
   }
 }
