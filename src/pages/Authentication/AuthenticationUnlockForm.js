@@ -53,7 +53,7 @@ const AuthenticationUnlockForm = ({ isPaperTrading, onUnlock: _onUnlock, onReset
   }, [])
 
   useEffect(() => {
-    if (password && isDevEnv && autoLoginState) {
+    if (password && isDevEnv && initialAutoLoginSave) {
       onUnlock()
     }
   }, [password])
