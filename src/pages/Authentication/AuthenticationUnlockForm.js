@@ -51,6 +51,12 @@ const AuthenticationUnlockForm = ({ isPaperTrading, onUnlock: _onUnlock, onReset
     }
   }, [])
 
+  useEffect(() => {
+    if (password && isDevEnv && autoLoginState) {
+      onUnlock()
+    }
+  }, [password])
+
   return (
     <div className='hfui-authenticationpage__content' onKeyDown={onEnterPress}>
       <h2>Honey Framework UI</h2>
