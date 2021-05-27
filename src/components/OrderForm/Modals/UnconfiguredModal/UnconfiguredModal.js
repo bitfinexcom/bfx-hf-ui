@@ -1,29 +1,27 @@
-import React from 'react'
+import React, { memo } from 'react'
+import PropTypes from 'prop-types'
 
 import OrderFormModal from '../../OrderFormModal'
-import { propTypes, defaultProps } from './UnconfiguredModal.props'
 
-export default class UnconfiguredModal extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+const UnconfiguredModal = ({ onClick, isPaperTrading }) => (
+  <OrderFormModal
+    title='NOT CONFIGURED'
+    titleColor='#f05359'
+    icon='icon-api'
+    onClick={onClick}
+    content={[
+      <p key='a' className='underline'>
+        Submit
+        {isPaperTrading ? ' Paper Trading ' : ' '}
+        API keys
+      </p>,
+    ]}
+  />
+)
 
-  render() {
-    const { onClick, isPaperTrading } = this.props
-
-    return (
-      <OrderFormModal
-        title='NOT CONFIGURED'
-        titleColor='#f05359'
-        icon='icon-api'
-        onClick={onClick}
-        content={[
-          <p key='a' className='underline'>
-            Submit
-            {isPaperTrading ? ' Paper Trading ' : ' '}
-            API keys
-          </p>,
-        ]}
-      />
-    )
-  }
+UnconfiguredModal.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  isPaperTrading: PropTypes.bool.isRequired,
 }
+
+export default memo(UnconfiguredModal)
