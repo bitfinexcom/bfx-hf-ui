@@ -2,7 +2,6 @@ const { app } = require('electron') // eslint-disable-line
 const fs = require('fs')
 const path = require('path')
 const { fork } = require('child_process')
-const Store = require('electron-store')
 const HFUIApplication = require('./lib/app')
 const {
   LOG_PATH,
@@ -20,8 +19,6 @@ REQUIRED_PATHS.forEach((dir) => {
     fs.mkdirSync(dir)
   }
 })
-
-const ui = new Store({ cwd: LOCAL_STORE_CWD })
 
 const SCRIPT_SPAWN_OPTS = {
   env: { ELECTRON_RUN_AS_NODE: '1' },
