@@ -462,7 +462,6 @@ export default class StrategyEditor extends React.PureComponent {
               className={ClassNames({
                 active: activeContent === section,
                 hasError: !!sectionErrors[section],
-                empty: _isEmpty(strategy[section]),
               })}
             >
               <p>{section}</p>
