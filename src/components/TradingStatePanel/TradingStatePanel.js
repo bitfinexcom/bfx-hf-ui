@@ -170,7 +170,7 @@ class TradingStatePanel extends React.Component {
           darkHeader
         >
           <PositionsTable
-            renderedInTradingState={false}
+            renderedInTradingState
             htmlKey='Positions'
             tabtitle={(
               <span>

@@ -9,7 +9,7 @@ const PositionsTable = (props) => {
     closePosition, authToken, filteredPositions, positions, renderedInTradingState,
   } = props
 
-  const data = renderedInTradingState ? positions : filteredPositions
+  const data = renderedInTradingState ? filteredPositions : positions
 
   if (_isEmpty(data)) {
     return <p className='empty'>No active positions found</p>
@@ -36,7 +36,7 @@ PositionsTable.propTypes = {
 PositionsTable.defaultProps = {
   filteredPositions: [],
   positions: [],
-  renderedInTradingState: true,
+  renderedInTradingState: false,
 }
 
 export default memo(PositionsTable)
