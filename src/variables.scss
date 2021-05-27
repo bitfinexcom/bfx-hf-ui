@@ -5,9 +5,11 @@ $dark-grey-color: #333;
 $black-color: #000;
 
 $background-color: #172d3e;
-$desaturated-background-color: #20313e;
 $darker-background-color: #102331;
+$lighter-background-color: mix($white-color, lighten($background-color, 3%), 4%);
 
+$panel-background-color: $darker-background-color;
+$input-background-color: $lighter-background-color;
 
 $primary-color-900: #00E0AD;
 $primary-color-800: mix(#00E0AD, $background-color, 90%);
@@ -41,12 +43,6 @@ $light-color-300: mix($secondary-color-900, mix(white, $background-color, 40%), 
 $light-color-200: mix($secondary-color-900, mix(white, $background-color, 30%), 10%);
 $light-color-100: mix($secondary-color-900, mix(white, $background-color, 20%), 10%);
 $light-color-50: mix($secondary-color-900, mix(white, $background-color, 10%), 5%);
-
-$lighter-background-color: mix($white-color, lighten($background-color, 3%), 4%);
-// $lighter-background-color: $light-color-50;
-
-$panel-background-color: $darker-background-color;
-$input-background-color: $lighter-background-color;
 
 $green-color: $primary-color-700;
 $green-button-color: $primary-color-600;

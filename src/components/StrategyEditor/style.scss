@@ -113,11 +113,6 @@
       margin-right: spacing();
     }
 
-    &.active {
-      font-weight: 600;
-      color: $light-color-900;
-    }
-
     &:not(.active) {
       color: $light-color-500;
     }
@@ -129,10 +124,17 @@
     &:hover {
       cursor: pointer;
       color: $light-color-900;
+      background-color: $light-color-50;
     }
 
     &.hasError {
       color: $red-color !important;
+    }
+
+    &.active {
+      font-weight: 600;
+      color: $primary-color-900;
+      background: $primary-color-50;
     }
   }
 }

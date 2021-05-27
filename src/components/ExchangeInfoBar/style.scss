@@ -58,8 +58,8 @@
 .hfui-exchangeinfobar__button {
   cursor: pointer;
   border-radius: 6px;
-  width: 42px;
-  height: 42px;
+  width: 34px;
+  height: 34px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -70,12 +70,13 @@
   i,
   i:before {
     display: block;
-    font-size: 20px;
+    font-size: 16px;
   }
 
   &:hover,
   &:focus {
-    background: rgba(255, 255, 255, .1) !important;
+    background: $light-color-50 !important;
+    color: $light-color-900;
   }
 
   &:active {

@@ -18,8 +18,7 @@
     display: flex;
     flex-wrap: wrap;
     max-height: 150px;
-    padding: spacing(1);
-    padding-bottom: 0;
+    padding: 0 spacing(0.5);
     overflow-y: auto;
 }
 .hfui-favoritepair__content::-webkit-scrollbar {
@@ -33,9 +32,13 @@
 }
 .hfui-favoritepair__content-notice {
     display: flex;
-    padding: spacing(1, true);
+    padding: spacing(.5) spacing(1) spacing(1);
+    color: $light-color-300;
+
     svg {
-        margin-right: 4px;
+        position: relative;
+        top: 1px;
+        left: -4px;
     }
 }
 .hfui-favoritepair__content-item {
@@ -44,23 +47,25 @@
     display: block;
     text-transform: uppercase;
     width: 50%;
-    padding: spacing(0.25) spacing(0.5);
+    padding: spacing(0.375) spacing(0.5);
     font-size: 13px;
     font-weight: 500;
+    color: $light-color-600;
     cursor: pointer;
-    transition: background-color .2s;
-
-    &.active {
-        color: $green-color;
-    }
+    transition: all .2s;
 
     &:hover,
     &:focus {
-        background-color: $blue-color;
+        color: $light-color-900;
+        background-color: $light-color-50;
     }
 
     &:active {
         background-color: mix($black-color, $panel-background-color, 10%);
+    }
+
+    &.active {
+        color: $primary-color-800;
     }
 }
 
@@ -72,6 +77,10 @@
         flex-shrink: 0;
         position: relative;
         top: 2px;
+
+        &:hover {
+            color: $light-color-500;
+        }
     }
 }
 

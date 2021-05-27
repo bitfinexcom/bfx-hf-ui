@@ -243,6 +243,10 @@
     animation: hfui-panel-spinner-rotate 1s infinite ease-in-out both;
     color: $yellow-color !important;
   }
+
+  .icon-move {
+    cursor: move;
+  }
 }
 
 .hfui-panel__label {

@@ -27,8 +27,8 @@ FavoriteIcon.defaultProps = {
   onClick: () => {},
   nonFilled: false,
   value: '',
-  selectedColor: '#05bc97',
-  nonSelectedColor: '#F7F7F9',
+  selectedColor: 'currentColor',
+  nonSelectedColor: 'currentColor',
 }
 
 export default FavoriteIcon

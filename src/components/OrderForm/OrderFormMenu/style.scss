@@ -27,7 +27,7 @@
     cursor: pointer;
     transition: all .2s;
     border-bottom: 1px solid $light-color-50;
-    color: $light-color-500;
+    color: $light-color-600;
 
     &:last-child {
       border-bottom: 0;
@@ -54,6 +54,7 @@
 
     &:hover {
       color: $light-color-900;
+      background-color: $light-color-50;
 
       i {
         border-color: $light-color-500;
