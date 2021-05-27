@@ -134,7 +134,19 @@
 }
 
 .hfui-strategyeditor__header {
-  text-align: right;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .header__buttons-container{
+    > * {
+      margin-right: 14px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
 
   .hfui-button {
     padding: 8px 13px;
@@ -188,14 +200,6 @@
     .hfui-strategyeditor__header {
       width: calc(100% - 16px);
       padding: 14px 16px 14px 0;
-
-      > * {
-        margin-right: 14px;
-
-        &:last-child {
-          margin-right: 0;
-        }
-      }
     }
   }
 }

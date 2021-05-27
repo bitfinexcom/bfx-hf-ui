@@ -78,7 +78,7 @@ export default class StrategyEditorPanel extends React.PureComponent {
     } = this.props
     const { canDeleteStrategy } = this.state
     const { id = strategyId, label: strategyName } = strategy || {}
-
+    console.log(strategyName, strategyDirty, 'strategyName')
     return (
       <Panel
         label='STRATEGY EDITOR'
@@ -93,26 +93,28 @@ export default class StrategyEditorPanel extends React.PureComponent {
         ]}
         headerComponents={(
           <div className='hfui-strategyeditor__header'>
-            <Button
-              className='hfui-open-strategy__btn'
-              onClick={onOpenSelectModal}
-              label={[
-                <i key='icon' className='icon-open' />,
-                <p key='text'>Open</p>,
-              ]}
-            />
+            <div>{strategyName && <p>{strategyDirty ? 'Unsaved strategy' : strategyName}</p>}</div>
+            <div className='header__buttons-container'>
+              <Button
+                className='hfui-open-strategy__btn'
+                onClick={onOpenSelectModal}
+                label={[
+                  <i key='icon' className='icon-open' />,
+                  <p key='text'>Open</p>,
+                ]}
+              />
 
-            <Button
-              green
-              className='hfui-create-strategy__btn'
-              onClick={onOpenCreateModal}
-              label={[
-                <i key='icon' className='icon-strategy-editor-passive' />,
-                <p key='text'>New Strategy</p>,
-              ]}
-            />
+              <Button
+                green
+                className='hfui-create-strategy__btn'
+                onClick={onOpenCreateModal}
+                label={[
+                  <i key='icon' className='icon-strategy-editor-passive' />,
+                  <p key='text'>New Strategy</p>,
+                ]}
+              />
 
-            {strategy && (
+              {strategy && (
               <Button
                 onClick={onSaveStrategy}
                 disabled={!strategyDirty}
@@ -121,9 +123,9 @@ export default class StrategyEditorPanel extends React.PureComponent {
                   <p key='text'>Save</p>,
                 ]}
               />
-            )}
+              )}
 
-            {strategy && (
+              {strategy && (
               <Button
                 className='hfui-remove-strategy__btn'
                 onClick={onOpenRemoveModal}
@@ -133,7 +135,8 @@ export default class StrategyEditorPanel extends React.PureComponent {
                   <p key='text'>Remove</p>,
                 ]}
               />
-            )}
+              )}
+            </div>
           </div>
         )}
       >
