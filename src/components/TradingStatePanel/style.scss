@@ -18,44 +18,34 @@
     font-weight: 500;
   }
 
-  .hfui-panel__header-icons {
-    margin: 8px 0;
-  }
-
   .hfui-tspanel-header-button {
+    display: flex;
     font-size: 13px;
-    line-height: 24px;
-    padding: 0 13px;
+    font-weight: 600;
+    line-height: 32px;
+    padding: 0 spacing(0.5);
     background: $panel-background-color;
-    color: $white-color;
-    height: 30px;
-    margin: 0 7px;
-
-    i, p {
-      line-height: 30px;
-    }
-
-    p {
-      text-transform: uppercase;
-    }
+    border-radius: $border-radius;
+    color: $text-color;
+    height: 32px;
+    cursor: pointer;
+    transition: all .2s;
 
     i {
-      margin-right: 8px;
       font-size: 13px;
-    }
 
-    > * {
-      display: inline-block;
-      vertical-align: middle;
-    }
-
-    &:hover, &.active {
-      cursor: pointer;
-      box-shadow: inset 0 0 0 2px mix($green-color, $panel-background-color, 50%);
-
-      i, p {
-        color: $green-color;
+      &:before {
+        font-weight: 600 !important;
       }
+    }
+
+    &:hover,
+    &.active {
+      background: $light-color-50;
+    }
+
+    &.active {
+      color: $primary-color-900;
     }
   }
 }

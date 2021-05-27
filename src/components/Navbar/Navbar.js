@@ -38,18 +38,6 @@ const Navbar = () => (
         </li>
       ))}
     </ul>
-    <div className='test-flex'>
-      <div className='text-900' />
-      <div className='text-800' />
-      <div className='text-700' />
-      <div className='text-600' />
-      <div className='text-500' />
-      <div className='text-400' />
-      <div className='text-300' />
-      <div className='text-200' />
-      <div className='text-100' />
-      <div className='text-50' />
-    </div>
   </div>
 )
 

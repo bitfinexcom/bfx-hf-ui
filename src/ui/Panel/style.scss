@@ -109,16 +109,22 @@
     padding: 0 12px;
     cursor: pointer;
     border-radius: $border-radius;
+    transition: all .2s;
 
     .hfui-panel__label {
-      color: $light-color-600;
+      transition: all .2s;
+      color: $light-color-500;
+
+      &:hover {
+        color: $light-color-800;
+      }
     }
 
     &.active {
       background: $light-color-50;
       
       .hfui-panel__label {
-        color: $light-color-900;
+        color: $light-color-800;
       }
     }
   }

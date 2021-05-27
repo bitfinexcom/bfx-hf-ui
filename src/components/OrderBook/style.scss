@@ -24,6 +24,8 @@
   // override book row styles
   .row {
     cursor: initial;
+    font-weight: 500;
+
     &:hover,
     &:focus {
       background: inherit;
