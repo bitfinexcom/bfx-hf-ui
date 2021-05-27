@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import {
-  getLayouts, getActiveMarket, getFirstLogin,
+  getFirstLogin,
   getGuideStatusForPage,
 } from '../../redux/selectors/ui'
 import { MARKET_PAGE } from '../../redux/constants/ui'
