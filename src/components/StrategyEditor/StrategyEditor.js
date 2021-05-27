@@ -439,21 +439,17 @@ export default class StrategyEditor extends React.PureComponent {
 
     return this.renderPanel(
       <div className='hfui-strategyeditor__wrapper'>
-
-        {createNewStrategyModalOpen && (
-          <CreateNewStrategyModal
-            gaCreateStrategy={gaCreateStrategy}
-            onClose={this.onCloseModals}
-            onSubmit={this.onCreateNewStrategy}
-          />
-        )}
-
+        <CreateNewStrategyModal
+          isOpen={createNewStrategyModalOpen}
+          gaCreateStrategy={gaCreateStrategy}
+          onClose={this.onCloseModals}
+          onSubmit={this.onCreateNewStrategy}
+        />
         <OpenExistingStrategyModal
           isOpen={openExistingStrategyModalOpen}
           onClose={this.onCloseModals}
           onOpen={this.onLoadStrategy}
         />
-
         <ul className='hfui-strategyeditor__func-select'>
           {STRATEGY_SECTIONS.map(section => (
             <li
