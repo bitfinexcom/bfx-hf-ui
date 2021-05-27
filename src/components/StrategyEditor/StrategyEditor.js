@@ -442,6 +442,7 @@ export default class StrategyEditor extends React.PureComponent {
 
         {createNewStrategyModalOpen && (
           <CreateNewStrategyModal
+            isOpen
             gaCreateStrategy={gaCreateStrategy}
             onClose={this.onCloseModals}
             onSubmit={this.onCreateNewStrategy}
