@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { prepareAmount } from 'bfx-api-node-util'
 import Debug from 'debug'
 
-import { getAuthToken } from '../../redux/selectors/ws'
+import { getAuthToken, getAllPositions } from '../../redux/selectors/ws'
 import orders from '../../orders'
 import WSActions from '../../redux/actions/ws'
 import PositionsTable from './PositionsTable'
@@ -11,7 +11,8 @@ const debug = Debug('hfui:c:positions-table')
 
 const mapStateToProps = (state = {}) => ({
   authToken: getAuthToken(state),
-  positions: state.ui.filteredPositions,
+  filteredPositions: state.ui.filteredPositions,
+  positions: getAllPositions(state),
 })
 
 const mapDispatchToProps = dispatch => ({

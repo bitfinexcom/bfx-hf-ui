@@ -5,15 +5,19 @@ import _isEmpty from 'lodash/isEmpty'
 import PositionsTableColumns from './PositionsTable.columns'
 
 const PositionsTable = (props) => {
-  const { closePosition, authToken, positions } = props
+  const {
+    closePosition, authToken, filteredPositions, positions, renderedInTradingState,
+  } = props
 
-  if (_isEmpty(positions)) {
+  const data = renderedInTradingState ? filteredPositions : positions
+
+  if (_isEmpty(data)) {
     return <p className='empty'>No active positions found</p>
   }
 
   return (
     <VirtualTable
-      data={positions}
+      data={data}
       columns={PositionsTableColumns({ authToken, closePosition })}
       defaultSortBy='id'
       defaultSortDirection='ASC'
@@ -24,11 +28,15 @@ const PositionsTable = (props) => {
 PositionsTable.propTypes = {
   closePosition: PropTypes.func.isRequired,
   authToken: PropTypes.string.isRequired,
+  filteredPositions: PropTypes.arrayOf(PropTypes.object),
   positions: PropTypes.arrayOf(PropTypes.object),
+  renderedInTradingState: PropTypes.bool,
 }
 
 PositionsTable.defaultProps = {
+  filteredPositions: [],
   positions: [],
+  renderedInTradingState: false,
 }
 
 export default memo(PositionsTable)
