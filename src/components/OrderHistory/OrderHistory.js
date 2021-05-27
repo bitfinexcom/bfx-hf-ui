@@ -1,9 +1,10 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import _get from 'lodash/get'
+import _isEmpty from 'lodash/isEmpty'
 import {
   OrderHistory as UfxOrderHistory, ORDER_HISTORY_KEYS, PrettyValue, FullDate,
 } from '@ufx-ui/core'
-import { useSelector } from 'react-redux'
 import Panel from '../../ui/Panel'
 import { symbolToLabel, getPriceFromStatus, getFormatedStatus } from './OrderHistory.helpers'
 import './style.css'
@@ -93,26 +94,37 @@ export const ROW_MAPPING = {
   },
 }
 
-export default function OrderHistory(props) {
-  const {
-    // eslint-disable-next-line react/prop-types
-    onRemove, dark,
-  } = props
-
-  const orders = useSelector(state => state.ws.orderHistory.orders)
-
-  return (
-    <Panel
-      label='ORDER HISTORY'
-      onRemove={onRemove}
-      dark={dark}
-      darkHeader={dark}
-    >
+const OrderHistory = ({
+  onRemove, dark, orders,
+}) => (
+  <Panel
+    label='ORDER HISTORY'
+    onRemove={onRemove}
+    dark={dark}
+    darkHeader={dark}
+  >
+    {_isEmpty(orders) ? (
+      <p className='empty'>Order history is empty</p>
+    ) : (
       <UfxOrderHistory
         orders={orders}
         rowMapping={ROW_MAPPING}
         isMobileLayout={false}
       />
-    </Panel>
-  )
+    )}
+  </Panel>
+)
+
+OrderHistory.propTypes = {
+  orders: PropTypes.arrayOf(PropTypes.object),
+  dark: PropTypes.bool,
+  onRemove: PropTypes.func,
 }
+
+OrderHistory.defaultProps = {
+  onRemove: () => {},
+  dark: true,
+  orders: [],
+}
+
+export default OrderHistory
