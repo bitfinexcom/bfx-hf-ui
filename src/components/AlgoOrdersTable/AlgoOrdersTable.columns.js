@@ -15,17 +15,17 @@ export default (authToken, cancelOrder, gaCancelOrder) => [{
 }, {
   label: 'Created',
   dataKey: 'gid',
-  width: 140,
+  width: 155,
   cellRenderer: ({ rowData = {} }) => new Date(+rowData.gid).toLocaleString(),
 }, {
   label: 'Symbol',
   dataKey: 'args.symbol',
-  width: 145,
+  width: 140,
   cellRenderer: ({ rowData = {} }) => rowData.args?.symbol,
 }, {
   label: 'Label',
   dataKey: 'label',
-  width: 550,
+  width: 545,
   cellRenderer: ({ rowData = {} }) => rowData.label,
 }, {
   label: 'Actions',
