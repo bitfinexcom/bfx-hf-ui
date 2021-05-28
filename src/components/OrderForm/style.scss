@@ -383,10 +383,6 @@
   white-space: pre-line;
   user-select: none;
 
-  .hfui-orderform__help-inner {
-    padding: 0 16px;
-  }
-
   .hfui-orderform__help-content {
     font-size: 13px;
   }
@@ -395,7 +391,6 @@
     margin-bottom: 8px;
     padding-bottom: 4px;
     font-size: 14px;
-    border-bottom: 1px solid $dark-grey-color;
     line-height: 30px;
 
     i {
@@ -404,7 +399,7 @@
     }
 
     .prefix {
-      color: $grey-color;
+      color: $light-color-400;
       margin-right: 8px;
     }
   }
@@ -697,7 +692,6 @@
   padding: 3px 7px;
 
   &:hover {
-    color: $text-color2;
     cursor: pointer;
   }
 }
