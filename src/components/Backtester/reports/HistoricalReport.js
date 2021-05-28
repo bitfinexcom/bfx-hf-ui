@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { AutoSizer } from 'react-virtualized'
+// eslint-disable-next-line import/no-extraneous-dependencies
 import BFXChart from 'bfx-hf-chart'
 import Results from '../Results'
 

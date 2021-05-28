@@ -1,15 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import _isEmpty from 'lodash/isEmpty'
 
 import Input from '../../../../ui/Input'
 import Button from '../../../../ui/Button'
 import OrderFormModal from '../../OrderFormModal'
-import { propTypes, defaultProps } from './SubmitAPIKeysModal.props'
 
-export default class SubmitAPIKeysModal extends React.Component {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
-
+class SubmitAPIKeysModal extends React.Component {
   state = {
     apiKey: '',
     apiSecret: '',
@@ -48,7 +45,7 @@ export default class SubmitAPIKeysModal extends React.Component {
 
   render() {
     const {
-      onClose, apiClientConnecting, isPaperTrading, isModal = true,
+      onClose, apiClientConnecting, isPaperTrading, isModal,
     } = this.props
     const { apiKey, apiSecret, error } = this.state
 
@@ -104,3 +101,18 @@ export default class SubmitAPIKeysModal extends React.Component {
     )
   }
 }
+
+SubmitAPIKeysModal.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  isPaperTrading: PropTypes.bool.isRequired,
+  apiClientConnecting: PropTypes.bool,
+  isModal: PropTypes.bool,
+}
+
+SubmitAPIKeysModal.defaultProps = {
+  isModal: true,
+  apiClientConnecting: false,
+}
+
+export default SubmitAPIKeysModal

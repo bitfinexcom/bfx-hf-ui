@@ -127,8 +127,8 @@ Backtester.propTypes = {
     executing: PropTypes.bool.isRequired,
   }),
   backtestData: PropTypes.shape({
-    trades: PropTypes.array.isRequired,
-    candles: PropTypes.array.isRequired,
+    trades: PropTypes.array.isRequired, // eslint-disable-line
+    candles: PropTypes.array.isRequired, // eslint-disable-line
   }),
   strategyContent: PropTypes.objectOf(
     PropTypes.oneOfType([

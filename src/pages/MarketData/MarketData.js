@@ -1,28 +1,27 @@
-import React from 'react'
+import React, { memo } from 'react'
+import PropTypes from 'prop-types'
 import Joyride, { STATUS } from 'react-joyride'
 import Layout from '../../components/Layout'
 import GridLayoutPage from '../../components/GridLayoutPage'
-import { propTypes } from './MarketData.props'
 import './style.css'
 
-export default class MarketData extends React.PureComponent {
-  static propTypes = propTypes
+const STEPS = [
+  {
+    locale: { last: 'Finish' },
+    target: '.hfui-button.green',
+    content: 'To customize your layout, you can add components to it',
+  },
+]
+const commonComponentProps = {
+  dark: true,
+  darkHeader: true,
+  showMarket: true,
+  canChangeMarket: true,
+  showChartMarket: true,
+}
 
-  state = {
-    steps: [
-      {
-        locale: { last: 'Finish' },
-        target: '.hfui-button.green',
-        content: 'To customize your layout, you can add components to it',
-      },
-    ],
-  }
-  constructor(props) {
-    super(props)
-    this.onGuideFinish = this.onGuideFinish.bind(this)
-  }
-  onGuideFinish(data) {
-    const { finishGuide } = this.props
+const MarketData = ({ isGuideActive, isFirstLogin, finishGuide }) => {
+  const onGuideFinish = (data) => {
     const { status } = data
     const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED]
     const CLOSE = 'close'
@@ -30,44 +29,42 @@ export default class MarketData extends React.PureComponent {
       finishGuide()
     }
   }
-  render() {
-    const commonComponentProps = {
-      dark: true,
-      darkHeader: true,
-      showMarket: true,
-      canChangeMarket: true,
-      showChartMarket: true,
-    }
-    const { steps } = this.state
-    const { isGuideActive, firstLogin } = this.props
-    return (
-      <Layout>
-        <Layout.Header />
-        <Layout.Main>
-          {firstLogin && (
-            <Joyride
-              callback={this.onGuideFinish}
-              steps={steps}
-              run={isGuideActive}
-              continuous
-              showProgress
-              showSkipButton
-              styles={{
-                options: {
-                  zIndex: 10000,
-                },
-              }}
-            />
-          )}
-          <GridLayoutPage
-            defaultLayoutID='Default Market Data'
-            tradesProps={commonComponentProps}
-            bookProps={commonComponentProps}
-            chartProps={commonComponentProps}
-          />
-        </Layout.Main>
-        <Layout.Footer />
-      </Layout>
-    )
-  }
+
+  return (
+    <Layout>
+      <Layout.Header />
+      <Layout.Main>
+        {isFirstLogin && (
+        <Joyride
+          callback={onGuideFinish}
+          steps={STEPS}
+          run={isGuideActive}
+          continuous
+          showProgress
+          showSkipButton
+          styles={{
+            options: {
+              zIndex: 10000,
+            },
+          }}
+        />
+        )}
+        <GridLayoutPage
+          defaultLayoutID='Default Market Data'
+          tradesProps={commonComponentProps}
+          bookProps={commonComponentProps}
+          chartProps={commonComponentProps}
+        />
+      </Layout.Main>
+      <Layout.Footer />
+    </Layout>
+  )
 }
+
+MarketData.propTypes = {
+  finishGuide: PropTypes.func.isRequired,
+  isGuideActive: PropTypes.bool.isRequired,
+  isFirstLogin: PropTypes.bool.isRequired,
+}
+
+export default memo(MarketData)
