@@ -25,9 +25,13 @@ const AtomicOrdersTable = ({
 
 AtomicOrdersTable.propTypes = {
   authToken: PropTypes.string.isRequired,
-  filteredAtomicOrders: PropTypes.arrayOf(PropTypes.object).isRequired,
+  filteredAtomicOrders: PropTypes.arrayOf(PropTypes.object),
   cancelOrder: PropTypes.func.isRequired,
   gaCancelOrder: PropTypes.func.isRequired,
+}
+
+AtomicOrdersTable.defaultProps = {
+  filteredAtomicOrders: [],
 }
 
 export default AtomicOrdersTable

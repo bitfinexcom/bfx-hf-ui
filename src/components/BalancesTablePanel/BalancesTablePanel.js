@@ -59,7 +59,7 @@ class BalancesTablePanel extends React.Component {
     const {
       settingsOpen, hideZeroBalances, balances = [],
     } = this.state
-    const { onRemove } = this.props
+    const { onRemove, dark } = this.props
 
     // TODO: Extract settings panel/wrapper into own component
     return (
@@ -68,6 +68,8 @@ class BalancesTablePanel extends React.Component {
         onRemove={onRemove}
         settingsOpen={settingsOpen}
         onToggleSettings={this.onToggleSettings}
+        dark={dark}
+        darkHeader={dark}
       >
         {settingsOpen ? (
           <PanelSettings
@@ -95,11 +97,13 @@ BalancesTablePanel.propTypes = {
   balances: PropTypes.arrayOf(PropTypes.object),
   setFilteredValueWithKey: PropTypes.func.isRequired,
   onRemove: PropTypes.func,
+  dark: PropTypes.bool,
 }
 
 BalancesTablePanel.defaultProps = {
   onRemove: () => {},
   balances: [],
+  dark: true,
 }
 
 export default BalancesTablePanel

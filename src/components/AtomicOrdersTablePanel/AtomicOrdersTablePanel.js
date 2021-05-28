@@ -39,12 +39,14 @@ class AtomicOrdersTablePanel extends React.Component {
   }
 
   render() {
-    const { onRemove } = this.props
+    const { onRemove, dark } = this.props
     const { filteredAtomicOrders } = this.state
     return (
       <Panel
         label='Atomic Orders'
         onRemove={onRemove}
+        dark={dark}
+        darkHeader={dark}
       >
         <AtomicOrdersTable filteredAtomicOrders={filteredAtomicOrders} />
       </Panel>
@@ -55,20 +57,20 @@ class AtomicOrdersTablePanel extends React.Component {
 AtomicOrdersTablePanel.propTypes = {
   setFilteredValueWithKey: PropTypes.func.isRequired,
   atomicOrders: PropTypes.arrayOf(PropTypes.object),
-  activeMarket: PropTypes.objectOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.arrayOf(PropTypes.string),
-    ]),
-  ),
+  activeMarket: PropTypes.shape({
+    wsID: PropTypes.string,
+  }),
   onRemove: PropTypes.func,
+  dark: PropTypes.bool,
 }
 
 AtomicOrdersTablePanel.defaultProps = {
   atomicOrders: [],
-  activeMarket: {},
+  activeMarket: {
+    wsID: '',
+  },
   onRemove: () => {},
+  dark: true,
 }
 
 export default AtomicOrdersTablePanel

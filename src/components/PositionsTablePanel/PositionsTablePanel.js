@@ -4,10 +4,12 @@ import PropTypes from 'prop-types'
 import PositionsTable from '../PositionsTable'
 import Panel from '../../ui/Panel'
 
-const PositionsTablePanel = ({ onRemove, positions }) => (
+const PositionsTablePanel = ({ onRemove, positions, dark }) => (
   <Panel
     label='Positions'
     onRemove={onRemove}
+    dark={dark}
+    darkHeader={dark}
   >
     <PositionsTable
       filteredPositions={positions}
@@ -18,10 +20,12 @@ const PositionsTablePanel = ({ onRemove, positions }) => (
 PositionsTablePanel.propTypes = {
   onRemove: PropTypes.func.isRequired,
   positions: PropTypes.arrayOf(PropTypes.object),
+  dark: PropTypes.bool,
 }
 
 PositionsTablePanel.defaultProps = {
   positions: [],
+  dark: true,
 }
 
 export default memo(PositionsTablePanel)
