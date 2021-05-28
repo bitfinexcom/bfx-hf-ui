@@ -33,6 +33,7 @@
 
     i {
       font-size: 13px;
+      color: inherit;
 
       &:before {
         font-weight: 600 !important;
@@ -45,7 +46,8 @@
     }
 
     &.active {
-      color: $primary-color-900;
+      background: $primary-color-50;
+      color: $primary-color-800;
     }
   }
 }
