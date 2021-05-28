@@ -9,9 +9,12 @@
     border: 1px solid $green-color;
   }
 
+  > .hfui-panel__content {
+    margin: 0 (0 - spacing());
+  }
+
   .hfui-panel__content {
     background: $panel-background-color;
-    margin: 0 (0 - spacing());
   }
 
   .hfui-panel .hfui-panel__label {
