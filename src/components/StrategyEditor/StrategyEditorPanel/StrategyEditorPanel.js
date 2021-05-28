@@ -38,9 +38,11 @@ const StrategyEditorPanel = ({
   }
 
   const { id = strategyId, label: strategyName } = strategy || {}
+  const strategyDisplayName = strategyDirty ? 'Unsaved strategy' : strategyName
+  const strategyDisplayLabel = strategyDisplayName ? `- ${strategyDisplayName}` : ''
   return (
     <Panel
-      label='Strategy Editor'
+      label={`Strategy Editor ${strategyDisplayLabel}`}
       className='hfui-strategyeditor__panel'
       dark={dark}
       darkHeader={dark}
@@ -52,7 +54,6 @@ const StrategyEditorPanel = ({
       ]}
       headerComponents={(
         <div className='hfui-strategyeditor__header'>
-          <div>{strategyName && <p>{strategyDirty ? 'Unsaved strategy' : strategyName}</p>}</div>
           <div className='header__buttons-container'>
             <Button
               className='hfui-open-strategy__btn'

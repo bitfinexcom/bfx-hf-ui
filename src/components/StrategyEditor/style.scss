@@ -149,23 +149,7 @@
 }
 
 .hfui-strategyeditor__header {
-<<<<<<< HEAD
   margin: 0 spacing(0.25);
-=======
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  .header__buttons-container{
-    > * {
-      margin-right: 14px;
-
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-  }
->>>>>>> master
 
   .hfui-button {
     height: 32px;
