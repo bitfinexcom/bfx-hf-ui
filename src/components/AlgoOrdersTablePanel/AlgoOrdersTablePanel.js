@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react'
 import _isEqual from 'lodash/isEqual'
 import PropTypes from 'prop-types'
