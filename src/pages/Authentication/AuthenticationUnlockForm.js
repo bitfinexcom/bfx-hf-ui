@@ -15,7 +15,6 @@ import {
 } from '../../util/autologin'
 
 const isDevEnv = devEnv()
-const ENTER_KEY_CODE = 13
 
 const MAIN_MODE = { value: 'main', label: 'Production' }
 const PAPER_MODE = { value: 'paper', label: 'Paper Trading' }
@@ -27,8 +26,11 @@ const AuthenticationUnlockForm = ({ isPaperTrading, onUnlock: _onUnlock, onReset
   const [password, setPassword] = useState('')
   const [autoLoginState, setAutoLoginState] = useState(initialAutoLoginSave)
   const [mode, setMode] = useState(isPaperTrading ? PAPER_MODE.value : MAIN_MODE.value)
+  const submitReady = !_isEmpty(password) && !_isEmpty(mode)
 
   const onUnlock = () => {
+    if (!submitReady) return
+
     if (isDevEnv && password.length) {
       updateStoredPassword(password)
       updateAutoLoginState(autoLoginState)
@@ -37,13 +39,10 @@ const AuthenticationUnlockForm = ({ isPaperTrading, onUnlock: _onUnlock, onReset
     _onUnlock(password, mode)
   }
 
-  const onEnterPress = (event = {}) => {
-    const { keyCode } = event
-    if (keyCode === ENTER_KEY_CODE) {
-      onUnlock()
-    }
+  const onFormSubmit = (event) => {
+    event.preventDefault()
+    onUnlock()
   }
-  const submitReady = !_isEmpty(password) && !_isEmpty(mode)
 
   useEffect(() => {
     const pass = getStoredPassword()
@@ -59,18 +58,11 @@ const AuthenticationUnlockForm = ({ isPaperTrading, onUnlock: _onUnlock, onReset
   }, [password])
 
   return (
-    <div className='hfui-authenticationpage__content' onKeyDown={onEnterPress}>
+    <div className='hfui-authenticationpage__content'>
       <h2>Honey Framework UI</h2>
       <p>Enter your password to unlock.</p>
 
-      <form className='hfui-authenticationpage__inner-form'>
-        {/* <Input
-          type='text'
-          name='username'
-          autocomplete='username'
-          style={{ display: 'none' }}
-        /> */}
-
+      <form className='hfui-authenticationpage__inner-form' onSubmit={onFormSubmit}>
         <Input
           type='password'
           autocomplete='current-password'
