@@ -48,6 +48,8 @@
 
   .ufx-dropdown .list {
     display: block;
+    left: 0 - spacing();
+    right: 0 - spacing();
 
     li {
       display: block;
@@ -641,34 +643,51 @@
 .hfui-orderform__layout-label {
   display: flex;
   flex-direction: row;
-  height: 39px;
+  margin-bottom: spacing();
+  background: $primary-color-50;
+  border-radius: $border-radius;
+  padding: spacing(0.5);
 
   > i {
-    line-height: 39px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: $border-radius;
     font-size: 15px;
-    color: $text-color;
-    flex: 1;
+    color: $primary-color-500;
+    cursor: pointer;
+    margin-right: 8px;
 
-    &:hover {
-      cursor: pointer;
+    &:hover,
+    &:focus {
+      background: $primary-color-100;
+    }
+
+    &:active {
+      background: rgba(0, 0, 0, .1);
     }
   }
 
   .hfui-orderform__layout-label-inner {
-    width: 100%;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    color: $primary-color-900;
 
-    > * {
-      display: inline-block;
-      vertical-align: middle;
-      line-height: 39px;
-      font-size: 13px;
-      color: $text-color;
+    i, p {
+      display: block;
+    }
+
+    i {
+      position: relative;
+      top: 2px;
+      margin-right: spacing(.5);
     }
 
     p {
-      text-transform: uppercase;
-      margin-left: 6px;
+      font-size: 14px;
+      font-weight: 600;
     }
   }
 }
