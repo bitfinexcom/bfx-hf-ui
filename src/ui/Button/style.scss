@@ -37,6 +37,7 @@
   &.green {
     background: $green-button-color;
     border-color: $green-button-color;
+    color: mix(white, $green-button-color, 90%);
 
     &:hover:not(.disabled),
     &:focus:not(.disabled) {
