@@ -87,10 +87,8 @@
 .hfui-strategyeditor__func-select {
   flex-shrink: 0;
   font-size: 13px;
-  margin-right: spacing();
-  width: 172px;
-  border-radius: $border-radius;
-  overflow: hidden;
+  margin-right: spacing(.75);
+  width: 170px;
 
   li {
     display: flex;
@@ -104,8 +102,15 @@
     border-bottom: 1px solid $light-color-50;
     background: $background-color;
 
+    &:first-child {
+      border-top-left-radius: $border-radius;
+      border-top-right-radius: $border-radius;
+    }
+
     &:last-child {
       border-bottom: 0;
+      border-bottom-left-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
     }
 
     &:active {
@@ -154,7 +159,7 @@
 }
 
 .hfui-strategyeditor__content-wrapper {
-  width: calc(100% - 188px); // width of hfui-strategyeditor__func-select + margin-right
+  width: calc(100% - 182px); // width of hfui-strategyeditor__func-select + margin-right
 }
 
 .hfui-strategyeditor__results-outer {

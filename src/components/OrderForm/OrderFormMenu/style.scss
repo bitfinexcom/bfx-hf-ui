@@ -23,7 +23,7 @@
     height: 40px;
     align-items: center;
     font-weight: 500;
-    padding: 0 spacing();
+    padding: 0 spacing(.75);
     cursor: pointer;
     transition: all .2s;
     border-bottom: 1px solid $light-color-50;
@@ -42,7 +42,7 @@
       border-radius: $border-radius;
       border: 1px solid $light-color-200;
       font-size: 12px;
-      margin-right: spacing(0.5);
+      margin-right: spacing(0.75);
       transition: border-color .2s;
 
       &:before {

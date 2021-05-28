@@ -100,11 +100,13 @@
   }
 
   .button {
-    text-decoration: underline;
+    color: $primary-color-800;
+    font-weight: 700;
 
     &:hover {
       cursor: pointer;
-      color: $yellow-color;
+      color: $primary-color-900;
+      text-decoration: underline;
     }
   }
 }
