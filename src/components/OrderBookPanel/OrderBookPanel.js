@@ -150,22 +150,24 @@ const OrderBookPanel = (props) => {
       {settingsOpen ? (
         <PanelSettings
           onClose={onToggleSettings}
-          content={[
-            <Checkbox
-              key='sum-amounts'
-              label='Sum Amounts'
-              checked={sumAmounts}
-              onChange={onChangeSumAmounts}
-            />,
-            canChangeStacked && (
+          content={(
+            <>
+              <Checkbox
+                key='sum-amounts'
+                label='Sum Amounts'
+                checked={sumAmounts}
+                onChange={onChangeSumAmounts}
+              />
+              {canChangeStacked && (
               <Checkbox
                 key='stacked-view'
                 label='Stacked View'
                 checked={stackedView}
                 onChange={onChangeStackedView}
               />
-            ),
-          ]}
+              )}
+            </>
+          )}
         />
       ) : (
         <OrderBook
