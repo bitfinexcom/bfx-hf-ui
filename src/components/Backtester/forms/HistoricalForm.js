@@ -15,21 +15,6 @@ const ONE_DAY = ONE_HOUR * 24
 const MAX_DATE = new Date()
 
 export default class HistoricalForm extends React.PureComponent {
-  static propTypes = {
-    disabled: PropTypes.bool,
-    formState: PropTypes.objectOf(Object),
-    markets: PropTypes.arrayOf(PropTypes.object),
-    updateError: PropTypes.func.isRequired,
-    setFormState: PropTypes.func.isRequired,
-    backtestStrategy: PropTypes.func.isRequired,
-    updateExecutionType: PropTypes.func.isRequired,
-  }
-  static defaultProps = {
-    formState: {},
-    markets: [],
-    disabled: false,
-  }
-
   componentDidUpdate(prevProps) {
     const { formState: { candles: prevCandles, trades: prevTrades } } = prevProps
     const { formState: { candles, trades } } = this.props
@@ -121,7 +106,7 @@ export default class HistoricalForm extends React.PureComponent {
       selectedMarket,
       selectedTimeFrame,
     } = this.defaultFormState(formState)
-
+    console.log(formState)
     return (
       <div className='hfui-backtester__executionform'>
         <div className='hfui-backtester_row'>
@@ -212,4 +197,26 @@ export default class HistoricalForm extends React.PureComponent {
       </div>
     )
   }
+}
+
+HistoricalForm.propTypes = {
+  disabled: PropTypes.bool,
+  formState: PropTypes.shape({
+    trades: PropTypes.bool,
+    candles: PropTypes.bool,
+  }),
+  markets: PropTypes.arrayOf(PropTypes.object),
+  updateError: PropTypes.func.isRequired,
+  setFormState: PropTypes.func.isRequired,
+  backtestStrategy: PropTypes.func.isRequired,
+  updateExecutionType: PropTypes.func.isRequired,
+}
+
+HistoricalForm.defaultProps = {
+  formState: {
+    trades: false,
+    candles: false,
+  },
+  markets: [],
+  disabled: false,
 }
