@@ -1,7 +1,15 @@
 import React from 'react'
 
 export default (authToken, cancelOrder, gaCancelOrder) => [{
-  label: 'Symbol',
+  label: '',
+  dataKey: '',
+  width: 15,
+  cellRenderer: ({ rowData = {} }) => ( // eslint-disable-line
+    <div className={`row-marker ${rowData.amount < 0 ? 'red' : 'green'}`} />
+  ),
+  disableSort: true,
+}, {
+  label: 'Pair',
   dataKey: 'symbol',
   width: 145,
   cellRenderer: ({ rowData = {} }) => rowData.symbol,
@@ -10,6 +18,11 @@ export default (authToken, cancelOrder, gaCancelOrder) => [{
   dataKey: 'type',
   width: 120,
   cellRenderer: ({ rowData = {} }) => rowData.type,
+}, {
+  label: 'Created',
+  dataKey: 'created',
+  width: 155,
+  cellRenderer: ({ rowData = {} }) => new Date(+rowData.created).toLocaleString(),
 }, {
   label: 'Amount',
   dataKey: 'amount',
@@ -28,9 +41,9 @@ export default (authToken, cancelOrder, gaCancelOrder) => [{
   width: 100,
   cellRenderer: ({ rowData = {} }) => rowData.status,
 }, {
-  label: 'Actions',
-  dataKey: 'id',
-  width: 100,
+  label: '',
+  dataKey: 'cid',
+  width: 40,
   cellRenderer: ({ rowData = {} }) => ( // eslint-disable-line
     <div className='icons-cell'>
       <i
