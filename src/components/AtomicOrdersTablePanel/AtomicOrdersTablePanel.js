@@ -16,7 +16,6 @@ const AtomicOrdersTablePanel = ({
       onRemove={onRemove}
       dark={dark}
       darkHeader={dark}
-      ddf={3}
     >
       <AtomicOrdersTable filteredAtomicOrders={atomicOrders} />
     </Panel>
