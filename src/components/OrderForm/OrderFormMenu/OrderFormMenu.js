@@ -1,44 +1,39 @@
-import React from 'react'
-import { propTypes, defaultProps } from './OrderFormMenu.props'
+import React, { memo } from 'react'
+import _map from 'lodash/map'
+import PropTypes from 'prop-types'
+
 import './style.css'
 
-export default class OrderFormMenu extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+const OrderFormMenu = ({ atomicOrderTypes, algoOrderTypes, onSelect }) => (
+  <div className='hfui-orderformmenu__wrapper'>
+    <h4>Atomic Orders</h4>
+    <ul>
+      {_map(atomicOrderTypes, type => (
+        <li key={type.label} onClick={() => onSelect(type)}>
+          <i className={`icon-${type.uiIcon}`} />
+          <div>{type.label}</div>
+        </li>
+      ))}
+    </ul>
 
-  render() {
-    const { atomicOrderTypes, algoOrderTypes, onSelect } = this.props
+    <h4>Algorithmic Orders</h4>
+    <ul>
+      {_map(algoOrderTypes, type => (
+        <li key={type.label} onClick={() => onSelect(type)}>
+          <i className={`icon-${type.uiIcon}`} />
+          <div>
+            <p>{type.label}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+)
 
-    return (
-      <div className='hfui-orderformmenu__wrapper'>
-        <h4>Atomic Orders</h4>
-        <ul>
-          {atomicOrderTypes.map(type => (
-            <li
-              key={type.label}
-              onClick={() => onSelect(type)}
-            >
-              <i className={`icon-${type.uiIcon}`} />
-              <div>{type.label}</div>
-            </li>
-          ))}
-        </ul>
-
-        <h4>Algorithmic Orders</h4>
-        <ul>
-          {algoOrderTypes.map(type => (
-            <li
-              key={type.label}
-              onClick={() => onSelect(type)}
-            >
-              <i className={`icon-${type.uiIcon}`} />
-              <div>
-                <p>{type.label}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-    )
-  }
+OrderFormMenu.propTypes = {
+  atomicOrderTypes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  algoOrderTypes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onSelect: PropTypes.func.isRequired,
 }
+
+export default memo(OrderFormMenu)
