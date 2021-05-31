@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import _isEmpty from 'lodash/isEmpty'
+import PropTypes from 'prop-types'
 
 import Templates from '../StrategyEditor/templates'
 
@@ -7,41 +8,18 @@ import Input from '../../ui/Input'
 import Modal from '../../ui/Modal'
 import Dropdown from '../../ui/Dropdown'
 
-import { propTypes, defaultProps } from './CreateNewStrategyModal.props'
 import './style.css'
 
-export default class CreateNewStrategyModal extends React.Component {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+const CreateNewStrategyModal = ({
+  onSubmit, onClose, gaCreateStrategy, isOpen,
+}) => {
+  const [label, setLabel] = useState('')
+  const [error, setError] = useState('')
+  const [template, setTemplate] = useState('Blank')
 
-  state = {
-    label: '',
-    error: '',
-    template: 'Blank',
-  }
-
-  constructor(props) {
-    super(props)
-
-    this.onLabelChange = this.onLabelChange.bind(this)
-    this.onTemplateChange = this.onTemplateChange.bind(this)
-    this.onSubmit = this.onSubmit.bind(this)
-  }
-
-  onLabelChange(label) {
-    this.setState(() => ({ label }))
-  }
-
-  onTemplateChange(template) {
-    this.setState(() => ({ template }))
-  }
-
-  onSubmit() {
-    const { label, template } = this.state
-    const { onSubmit, onClose, gaCreateStrategy } = this.props
-
+  const onSubmitHandler = () => {
     if (_isEmpty(label)) {
-      this.setState(() => ({ error: 'Label empty' }))
+      setError('Label empty')
       return
     }
     gaCreateStrategy()
@@ -50,44 +28,53 @@ export default class CreateNewStrategyModal extends React.Component {
     onClose()
   }
 
-  render() {
-    const { onClose, isOpen } = this.props
-    const { label, error, template } = this.state
+  return (
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      className='hfui-createnewstrategymodal__wrapper'
+      label='Create a New Strategy'
+    >
 
-    return (
-      <Modal
-        isOpen={isOpen}
-        onClose={onClose}
-        className='hfui-createnewstrategymodal__wrapper'
-        label='Create a New Strategy'
-      >
+      <Input
+        type='text'
+        placeholder='Label'
+        value={label}
+        onChange={setLabel}
+      />
 
-        <Input
-          type='text'
-          placeholder='Label'
-          value={label}
-          onChange={this.onLabelChange}
-        />
+      <Dropdown
+        value={template}
+        onChange={setTemplate}
+        options={Templates.map(t => ({
+          label: t.label,
+          value: t.label,
+        }))}
+      />
 
-        <Dropdown
-          value={template}
-          onChange={this.onTemplateChange}
-          options={Templates.map(t => ({
-            label: t.label,
-            value: t.label,
-          }))}
-        />
+      {!_isEmpty(error) && (
+      <p className='error'>{error}</p>
+      )}
 
-        {!_isEmpty(error) && (
-          <p className='error'>{error}</p>
-        )}
-
-        <Modal.Footer>
-          <Modal.Button primary onClick={this.onSubmit}>
-            Create
-          </Modal.Button>
-        </Modal.Footer>
-      </Modal>
-    )
-  }
+      <Modal.Footer>
+        <Modal.Button primary onClick={onSubmitHandler}>
+          Create
+        </Modal.Button>
+      </Modal.Footer>
+    </Modal>
+  )
 }
+
+CreateNewStrategyModal.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  gaCreateStrategy: PropTypes.func,
+  isOpen: PropTypes.bool,
+}
+
+CreateNewStrategyModal.defaultProps = {
+  gaCreateStrategy: () => {},
+  isOpen: true,
+}
+
+export default CreateNewStrategyModal
