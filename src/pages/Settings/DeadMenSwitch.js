@@ -24,7 +24,7 @@ const DeadMenSwitch = ({ checked, onOptionChange }) => {
       <div className='hfui-settings__option-check dms'>
         <Checkbox
           className='hfui-settings_check'
-          onChange={newState => onOptionChange(newState, 'dms')}
+          onChange={onOptionChange}
           label='DMS'
           checked={checked}
         />

@@ -4,7 +4,14 @@ import NavbarButton from '../../components/NavbarButton/NavbarButton'
 import Input from '../../ui/Input'
 
 const APIKeysSection = ({
-  onOptionChange, apiKey, apiSecret, paperApiKey, paperApiSecret,
+  setApiKey,
+  setApiSecret,
+  setPaperApiKey,
+  setPaperApiSecret,
+  apiKey,
+  apiSecret,
+  paperApiKey,
+  paperApiSecret,
 }) => {
   return (
     <section>
@@ -17,16 +24,18 @@ const APIKeysSection = ({
         <Input
           type='text'
           placeholder='API Key'
-          onChange={value => onOptionChange(value, 'apiKey')}
+          onChange={setApiKey}
           className='hfui-settings__item-list api-key'
           value={apiKey}
+          autocomplete='off'
         />
         <Input
           type='password'
           placeholder='API Secret'
-          onChange={value => onOptionChange(value, 'apiSecret')}
+          onChange={setApiSecret}
           className='hfui-settings__item-list api-secret'
           value={apiSecret}
+          autocomplete='off'
         />
       </div>
       <div className='hfui-settings__option-description'>
@@ -42,16 +51,18 @@ const APIKeysSection = ({
         <Input
           type='text'
           placeholder='Paper Trading API Key'
-          onChange={value => onOptionChange(value, 'paperApiKey')}
+          onChange={setPaperApiKey}
           className='hfui-settings__item-list api-key'
           value={paperApiKey}
+          autocomplete='off'
         />
         <Input
           type='password'
           placeholder='Paper Trading API Secret'
-          onChange={value => onOptionChange(value, 'paperApiSecret')}
+          onChange={setPaperApiSecret}
           className='hfui-settings__item-list api-secret'
           value={paperApiSecret}
+          autocomplete='off'
         />
       </div>
     </section>
@@ -59,7 +70,10 @@ const APIKeysSection = ({
 }
 
 APIKeysSection.propTypes = {
-  onOptionChange: PropTypes.func.isRequired,
+  setApiKey: PropTypes.func.isRequired,
+  setApiSecret: PropTypes.func.isRequired,
+  setPaperApiKey: PropTypes.func.isRequired,
+  setPaperApiSecret: PropTypes.func.isRequired,
   apiKey: PropTypes.string.isRequired,
   apiSecret: PropTypes.string.isRequired,
   paperApiKey: PropTypes.string.isRequired,

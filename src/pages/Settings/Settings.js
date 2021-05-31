@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Checkbox } from '@ufx-ui/core'
 import _size from 'lodash/size'
 import _trim from 'lodash/trim'
 
@@ -15,38 +14,29 @@ import {
   PAPER_MODE,
   MAIN_MODE,
 } from '../../redux/reducers/ui'
-import NavbarButton from '../../components/NavbarButton'
 
 import './style.css'
 import CheckboxesSections from './CheckboxesSections'
 import APIKeysSection from './APIKeysSection'
 
-class Settings extends React.PureComponent {
-  constructor(props) {
-    super(props)
+const INITIAL_AUTO_LOGIN = getAutoLoginState()
 
-    this.state = {
-      apiKey: '',
-      apiSecret: '',
-      paperApiKey: '',
-      paperApiSecret: '',
-      AUTOLOGIN_STATE: getAutoLoginState(),
-    }
-  }
+const Settings = ({
+  authToken,
+  ga: propsGA,
+  dms: propsDMS,
+  updateSettings,
+  gaUpdateSettings, getActiveAOs, submitAPIKeys, currentMode,
+}) => {
+  const [apiKey, setApiKey] = useState('')
+  const [apiSecret, setApiSecret] = useState('')
+  const [paperApiKey, setPaperApiKey] = useState('')
+  const [paperApiSecret, setPaperApiSecret] = useState('')
+  const [autologin, setAutologin] = useState(INITIAL_AUTO_LOGIN)
+  const [stateDMS, setStateDMS] = useState(null)
+  const [stateGA, setStateGA] = useState(null)
 
-  onOptionChange(value, identifier) {
-    this.setState(() => ({
-      [identifier]: value,
-    }))
-  }
-
-  onSubmitAPIKeys({ apiKey, apiSecret }) {
-    const {
-      submitAPIKeys,
-      authToken,
-      currentMode,
-    } = this.props
-
+  const onSubmitAPIKeys = () => {
     submitAPIKeys({
       authToken,
       apiKey,
@@ -54,13 +44,7 @@ class Settings extends React.PureComponent {
     }, MAIN_MODE, currentMode)
   }
 
-  onSubmitPaperAPIKeys({ paperApiKey: apiKey, paperApiSecret: apiSecret }) {
-    const {
-      submitAPIKeys,
-      authToken,
-      currentMode,
-    } = this.props
-
+  const onSubmitPaperAPIKeys = () => {
     submitAPIKeys({
       authToken,
       apiKey,
@@ -68,32 +52,9 @@ class Settings extends React.PureComponent {
     }, PAPER_MODE, currentMode)
   }
 
-  onSettingsSave(authToken) {
-    const {
-      ga: propsGA,
-      getActiveAOs,
-      dms: propsDMS,
-      updateSettings,
-      gaUpdateSettings,
-    } = this.props
-    const {
-      // apiKey,
-      // apiSecret,
-      // paperApiKey,
-      // paperApiSecret,
-      ga: stateGA,
-      dms: stateDMS,
-    } = this.state
+  const onSettingsSave = () => {
     const ga = stateGA ?? propsGA
     const dms = stateDMS ?? propsDMS
-
-    // if (_size(_trim(apiKey)) && _size(_trim(apiSecret))) {
-    //   this.onSubmitAPIKeys(this.state)
-    // }
-
-    // if (_size(_trim(paperApiKey)) && _size(_trim(paperApiSecret))) {
-    //   this.onSubmitPaperAPIKeys(this.state)
-    // }
 
     updateSettings({
       dms, authToken, ga,
@@ -102,83 +63,78 @@ class Settings extends React.PureComponent {
     gaUpdateSettings()
   }
 
-  updateAutoLoginState(state) {
-    this.setState(() => ({
-      AUTOLOGIN_STATE: state,
-    }))
+  const onAPIKeysSave = () => {
+    if (_size(_trim(apiKey)) && _size(_trim(apiSecret))) {
+      onSubmitAPIKeys()
+    }
+
+    if (_size(_trim(paperApiKey)) && _size(_trim(paperApiSecret))) {
+      onSubmitPaperAPIKeys()
+    }
+  }
+
+  const _updateAutoLoginState = (state) => {
+    setAutologin(state)
     updateAutoLoginState(state)
   }
 
-  render() {
-    const {
-      authToken,
-      ga: propsGA,
-      dms: propsDMS,
-    } = this.props
-    const {
-      ga: stateGA,
-      dms: stateDMS,
-      AUTOLOGIN_STATE,
-      paperApiKey,
-      paperApiSecret,
-      apiKey,
-      apiSecret,
-    } = this.state
-    const ga = stateGA ?? propsGA
-    const dms = stateDMS ?? propsDMS
+  return (
+    <Layout>
+      <Layout.Header />
+      <Layout.Main>
+        <div className='hfui-settingspage__wrapper'>
+          <h2 className='hfui-settings__title'>
+            Settings
+          </h2>
+          <div className='hfui-settings__content'>
+            <div className='hfui-settings__options'>
+              <DeadMenSwitch
+                onOptionChange={setStateDMS}
+                checked={Boolean(stateDMS ?? propsDMS)}
+              />
 
-    return (
-      <Layout>
-        <Layout.Header />
-        <Layout.Main>
-          <div className='hfui-settingspage__wrapper'>
-            <h2 className='hfui-settings__title'>
-              Settings
-            </h2>
-            <div className='hfui-settings__content'>
-              <div className='hfui-settings__options'>
-                <DeadMenSwitch onOptionChange={this.onOptionChange} checked={!!dms} />
+              <CheckboxesSections
+                onOptionChange={setStateGA}
+                gaChecked={Boolean(stateGA ?? propsGA)}
+                autologinChecked={autologin}
+                updateAutoLoginState={_updateAutoLoginState}
+              />
 
-                <CheckboxesSections
-                  onOptionChange={this.onOptionChange}
-                  gaChecked={!!ga}
-                  autologinChecked={AUTOLOGIN_STATE}
-                  updateAutoLoginState={this.updateAutoLoginState}
+              <div className='hfui-settings__option'>
+                <Button
+                  onClick={onSettingsSave}
+                  label='Save'
+                  className='settings-save'
+                  green
                 />
+              </div>
 
-                <div className='hfui-settings__option'>
-                  <Button
-                    onClick={() => this.onSettingsSave(authToken)}
-                    label='Save'
-                    className='settings-save'
-                    green
-                  />
-                </div>
+              <APIKeysSection
+                setApiKey={setApiKey}
+                apiKey={apiKey}
+                setApiSecret={setApiSecret}
+                apiSecret={apiSecret}
+                setPaperApiKey={setPaperApiKey}
+                paperApiKey={paperApiKey}
+                setPaperApiSecret={setPaperApiSecret}
+                paperApiSecret={paperApiSecret}
+              />
 
-                <APIKeysSection
-                  onOptionChange={this.onOptionChange}
-                  apiKey={apiKey}
-                  apiSecret={apiSecret}
-                  paperApiKey={paperApiKey}
-                  paperApiSecret={paperApiSecret}
+              <div className='hfui-settings__option'>
+                <Button
+                  onClick={onAPIKeysSave}
+                  label='Update Keys'
+                  className='settings-save'
+                  green
                 />
-
-                <div className='hfui-settings__option'>
-                  <Button
-                    onClick={() => this.onSettingsSave(authToken)}
-                    label='Update Keys'
-                    className='settings-save'
-                    green
-                  />
-                </div>
               </div>
             </div>
           </div>
-        </Layout.Main>
-        <Layout.Footer />
-      </Layout>
-    )
-  }
+        </div>
+      </Layout.Main>
+      <Layout.Footer />
+    </Layout>
+  )
 }
 
 Settings.propTypes = {

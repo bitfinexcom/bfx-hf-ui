@@ -13,7 +13,7 @@ const CheckboxesSection = ({
       <div className='hfui-settings__option-check ga'>
         <Checkbox
           className='hfui-settings_check'
-          onChange={newState => onOptionChange(newState, 'ga')}
+          onChange={onOptionChange}
           label='Usage reporting'
           checked={gaChecked}
         />
