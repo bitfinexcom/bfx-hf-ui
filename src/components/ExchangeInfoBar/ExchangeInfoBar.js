@@ -13,10 +13,7 @@ import './style.css'
 
 class ExchangeInfoBar extends React.PureComponent {
   componentDidMount() {
-    const {
-      activeMarket, addTickerRequirement, subscribeAllMarkets, markets,
-    } = this.props
-    addTickerRequirement(activeMarket)
+    const { subscribeAllMarkets, markets } = this.props
     subscribeAllMarkets(markets)
   }
 
@@ -172,7 +169,6 @@ class ExchangeInfoBar extends React.PureComponent {
 
 ExchangeInfoBar.propTypes = {
   activeMarket: PropTypes.object.isRequired, // eslint-disable-line
-  addTickerRequirement: PropTypes.func.isRequired,
   onChangeMarket: PropTypes.func.isRequired,
   ticker: PropTypes.object.isRequired, // eslint-disable-line
   markets: PropTypes.array, // eslint-disable-line

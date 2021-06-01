@@ -26,10 +26,6 @@ const mapStateToProps = (state = {}) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addTickerRequirement: (market) => {
-    dispatch(WSActions.addChannelRequirement(['ticker', market]))
-  },
-
   onChangeMarket: (market, prevMarket) => {
     if (_isEqual(market, prevMarket)) {
       return
