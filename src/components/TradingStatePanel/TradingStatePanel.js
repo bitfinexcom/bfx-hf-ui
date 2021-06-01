@@ -198,6 +198,7 @@ class TradingStatePanel extends React.Component {
             )}
           />
           <BalancesTable
+            renderedInTradingState
             htmlKey='Balances'
             tabtitle='Balances'
             hideZeroBalances
