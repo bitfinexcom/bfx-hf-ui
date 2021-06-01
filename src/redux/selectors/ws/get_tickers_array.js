@@ -7,9 +7,11 @@ const marketsPath = REDUCER_PATHS.META
 export default (state) => {
   const markets = _get(state, `${marketsPath}.markets`, [])
   const fullTickersData = markets.reduce((acc, market) => {
-    const { wsID, base, quote } = market
+    const {
+      wsID, base, quote, uiID,
+    } = market
     const newTickerObject = {
-      id: wsID,
+      id: uiID,
       baseCcy: base,
       quoteCcy: quote,
       changePerc: _get(state, `${tickersPath}.tickers.${wsID}.dailyChangePerc`, 0),

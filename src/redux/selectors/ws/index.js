@@ -5,6 +5,7 @@ import getChannel from './get_channel'
 import getChannelID from './get_channel_id'
 import getChannelByID from './get_channel_by_id'
 import getFavoritePairs from './get_favorite_pairs'
+import getFavoritePairsObject from './get_favorite_pairs_object'
 import getSyncRanges from './get_sync_ranges'
 import isSyncingCandles from './is_syncing_candles'
 import getSocket from './get_socket'
@@ -70,6 +71,7 @@ export {
   getAllOrders,
   getAlgoOrders,
   getFavoritePairs,
+  getFavoritePairsObject,
 
   getNotifications,
   getAPICredentials,
