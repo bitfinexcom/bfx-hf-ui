@@ -42,9 +42,9 @@ export default {
     payload: { channel },
   }),
 
-  pubSubscribed: ({ chanID, chanName }) => ({
+  pubSubscribed: ({ chanID, chanName, symbol }) => ({
     type: t.PUB_SUBSCRIBED,
-    payload: { chanID, chanName },
+    payload: { chanID, chanName, symbol },
   }),
 
   unsubscribe: (channelDataOrID) => {
