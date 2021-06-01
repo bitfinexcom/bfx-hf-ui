@@ -35,8 +35,11 @@ const mapDispatchToProps = dispatch => ({
       return
     }
     dispatch(UIActions.setActiveMarket(market))
-    dispatch(WSActions.addChannelRequirement(['ticker', market]))
   },
+
+  subscribeAllMarkets: (markets) => markets.forEach((market) => {
+    dispatch(WSActions.addChannelRequirement(['ticker', market]))
+  }),
 
   openNotifications: () => {
     dispatch(UIActions.openNotifcationPanel())

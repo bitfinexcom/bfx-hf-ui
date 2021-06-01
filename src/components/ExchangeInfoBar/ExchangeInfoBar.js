@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Ticker, TickerList } from '@ufx-ui/core'
 
 import SwitchMode from '../SwitchMode'
 
@@ -7,14 +8,16 @@ import MarketSelect from '../MarketSelect'
 // import RefillIcon from '../../ui/Icons/RefillIcon'
 import ExchangeInfoBarItem from './ExchangeInfoBarItem'
 import ExchangeInfoBarButton from './ExchangeInfoBar.Button'
-import quotePrefix from '../../util/quote_prefix'
 
 import './style.css'
 
 class ExchangeInfoBar extends React.PureComponent {
   componentDidMount() {
-    const { activeMarket, addTickerRequirement } = this.props
+    const {
+      activeMarket, addTickerRequirement, subscribeAllMarkets, markets,
+    } = this.props
     addTickerRequirement(activeMarket)
+    subscribeAllMarkets(markets)
   }
 
   toggleTradingMode() {
@@ -41,30 +44,68 @@ class ExchangeInfoBar extends React.PureComponent {
       dailyChange,
       dailyChangePerc,
     } = ticker
+    const { base, quote } = activeMarket
 
     return (
-      <div className='hfui-exchangeinfobar__wrapper'>
-        <div className='hfui-exchangeinfobar__left'>
-          <ExchangeInfoBarItem
-            label='Market'
-            className='hfui-exchangeinfobar__currency-selector'
-            tag='div'
-            value={(
-              <MarketSelect
-                markets={markets}
-                value={activeMarket}
-                onChange={(market) => {
-                  onChangeMarket(market, activeMarket)
-                }}
-                renderWithFavorites
-              />
+      <>
+        <div className='hfui-exchangeinfobar__wrapper'>
+          <div className='hfui-exchangeinfobar__left'>
+            <ExchangeInfoBarItem
+              label='Market'
+              className='hfui-exchangeinfobar__currency-selector'
+              tag='div'
+              value={(
+                <MarketSelect
+                  markets={markets}
+                  value={activeMarket}
+                  onChange={(market) => {
+                    onChangeMarket(market, activeMarket)
+                  }}
+                  renderWithFavorites
+                />
             )}
-          />
+            />
+          </div>
+
+          <div className='hfui-exchangeinfobar__right'>
+            <div className='hfui-exchangeinfobar__buttons'>
+              {Buttons && <Buttons />}
+              <ExchangeInfoBarButton icon='notifications' onClick={openNotifications} />
+            </div>
+            <div className='hfui-tradingpaper__control'>
+              <div className='hfui-tradingpaper__control-toggle'>
+                <p>Paper Trading</p>
+                <SwitchMode />
+              </div>
+              {/* <div className='hfui-tradingpaper__control-refill'>
+              <RefillIcon onClick={onRefillClick} />
+            </div> */}
+            </div>
+          </div>
         </div>
 
         {showTicker && (
-          <div>
-            <ul>
+          <div className='hfui-exchangeinfobar__wrapper'>
+            <Ticker
+              data={{
+                baseCcy: base,
+                quoteCcy: quote,
+                lastPrice: lastPrice || '-',
+                change: dailyChange || '-',
+                changePerc: dailyChangePerc || '-',
+                volume: volume || '-',
+                low: low || '-',
+                high: high || '-',
+              }}
+            />
+            <TickerList
+              data={markets}
+              favs={{}}
+              saveFavs={() => {}}
+              showOnlyFavs={false}
+              setShowOnlyFavs={() => {}}
+            />
+            {/* <ul>
               <ExchangeInfoBarItem
                 text
                 vertical
@@ -121,26 +162,10 @@ class ExchangeInfoBar extends React.PureComponent {
                 label='24h Volume'
                 value={volume || '-'}
               />
-            </ul>
+            </ul> */}
           </div>
         )}
-
-        <div className='hfui-exchangeinfobar__right'>
-          <div className='hfui-exchangeinfobar__buttons'>
-            {Buttons && <Buttons />}
-            <ExchangeInfoBarButton icon='notifications' onClick={openNotifications} />
-          </div>
-          <div className='hfui-tradingpaper__control'>
-            <div className='hfui-tradingpaper__control-toggle'>
-              <p>Paper Trading</p>
-              <SwitchMode />
-            </div>
-            {/* <div className='hfui-tradingpaper__control-refill'>
-              <RefillIcon onClick={onRefillClick} />
-            </div> */}
-          </div>
-        </div>
-      </div>
+      </>
     )
   }
 }
@@ -155,6 +180,7 @@ ExchangeInfoBar.propTypes = {
   openTradingModeModal: PropTypes.func,
   openNotifications: PropTypes.func,
   buttons: PropTypes.func,
+  subscribeAllMarkets: PropTypes.func.isRequired,
 }
 
 ExchangeInfoBar.defaultProps = {
