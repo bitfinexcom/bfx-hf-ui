@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Ticker, TickerList } from '@ufx-ui/core'
 
@@ -11,103 +11,98 @@ import ExchangeInfoBarButton from './ExchangeInfoBar.Button'
 
 import './style.css'
 
-class ExchangeInfoBar extends React.PureComponent {
-  componentDidMount() {
-    const { subscribeAllMarkets, markets } = this.props
+const ExchangeInfoBar = ({
+  onChangeMarket,
+  activeMarket,
+  activeMarketTicker,
+  markets,
+  openNotifications,
+  showTicker,
+  allTickersArray,
+  favoritePairs,
+  subscribeAllMarkets,
+  buttons: Buttons,
+  // onRefillClick,
+}) => {
+  const [showFavorites, setShowingFavorites] = useState(false)
+
+  useEffect(() => {
     subscribeAllMarkets(markets)
-  }
+  }, [])
 
-  toggleTradingMode() {
-    const { openTradingModeModal } = this.props
-    openTradingModeModal()
-  }
+  const {
+    low,
+    high,
+    volume,
+    lastPrice,
+    dailyChange,
+    dailyChangePerc,
+  } = activeMarketTicker
+  const { base, quote } = activeMarket
 
-  render() {
-    const {
-      onChangeMarket,
-      activeMarket,
-      activeMarketTicker,
-      markets,
-      openNotifications,
-      showTicker,
-      allTickersArray,
-      buttons: Buttons,
-      // onRefillClick,
-    } = this.props
-    const {
-      low,
-      high,
-      volume,
-      lastPrice,
-      dailyChange,
-      dailyChangePerc,
-    } = activeMarketTicker
-    const { base, quote } = activeMarket
-
-    return (
-      <>
-        <div className='hfui-exchangeinfobar__wrapper'>
-          <div className='hfui-exchangeinfobar__left'>
-            <ExchangeInfoBarItem
-              label='Market'
-              className='hfui-exchangeinfobar__currency-selector'
-              tag='div'
-              value={(
-                <MarketSelect
-                  markets={markets}
-                  value={activeMarket}
-                  onChange={(market) => {
-                    onChangeMarket(market, activeMarket)
-                  }}
-                  renderWithFavorites
-                />
+  return (
+    <>
+      <div className='hfui-exchangeinfobar__wrapper'>
+        <div className='hfui-exchangeinfobar__left'>
+          <ExchangeInfoBarItem
+            label='Market'
+            className='hfui-exchangeinfobar__currency-selector'
+            tag='div'
+            value={(
+              <MarketSelect
+                markets={markets}
+                value={activeMarket}
+                onChange={(market) => {
+                  onChangeMarket(market, activeMarket)
+                }}
+                renderWithFavorites
+              />
             )}
-            />
-          </div>
-
-          <div className='hfui-exchangeinfobar__right'>
-            <div className='hfui-exchangeinfobar__buttons'>
-              {Buttons && <Buttons />}
-              <ExchangeInfoBarButton icon='notifications' onClick={openNotifications} />
-            </div>
-            <div className='hfui-tradingpaper__control'>
-              <div className='hfui-tradingpaper__control-toggle'>
-                <p>Paper Trading</p>
-                <SwitchMode />
-              </div>
-              {/* <div className='hfui-tradingpaper__control-refill'>
-              <RefillIcon onClick={onRefillClick} />
-            </div> */}
-            </div>
-          </div>
+          />
         </div>
 
-        {showTicker && (
-          <div className='hfui-exchangeinfobar__wrapper'>
-            <Ticker
-              data={{
-                baseCcy: base,
-                quoteCcy: quote,
-                lastPrice: lastPrice || '-',
-                change: dailyChange || '-',
-                changePerc: dailyChangePerc || '-',
-                volume: volume || '-',
-                low: low || '-',
-                high: high || '-',
-              }}
-            />
-            <TickerList
-              data={allTickersArray}
-              favs={{}}
-              saveFavs={() => {}}
-              showOnlyFavs={false}
-              setShowOnlyFavs={() => {}}
-            />
+        <div className='hfui-exchangeinfobar__right'>
+          <div className='hfui-exchangeinfobar__buttons'>
+            {Buttons && <Buttons />}
+            <ExchangeInfoBarButton icon='notifications' onClick={openNotifications} />
           </div>
-        )}
-      </>
-    )
-  }
+          <div className='hfui-tradingpaper__control'>
+            <div className='hfui-tradingpaper__control-toggle'>
+              <p>Paper Trading</p>
+              <SwitchMode />
+            </div>
+            {/* <div className='hfui-tradingpaper__control-refill'>
+              <RefillIcon onClick={onRefillClick} />
+            </div> */}
+          </div>
+        </div>
+      </div>
+
+      {showTicker && (
+      <div className='hfui-exchangeinfobar__wrapper'>
+        <Ticker
+          data={{
+            baseCcy: base,
+            quoteCcy: quote,
+            lastPrice: lastPrice || '-',
+            change: dailyChange || '-',
+            changePerc: dailyChangePerc || '-',
+            volume: volume || '-',
+            low: low || '-',
+            high: high || '-',
+          }}
+        />
+        <TickerList
+          data={allTickersArray}
+          favs={favoritePairs}
+          saveFavs={() => {}}
+          showOnlyFavs={showFavorites}
+          setShowOnlyFavs={setShowingFavorites}
+        />
+      </div>
+      )}
+    </>
+  )
 }
 
 ExchangeInfoBar.propTypes = {
@@ -116,17 +111,16 @@ ExchangeInfoBar.propTypes = {
   activeMarketTicker: PropTypes.object.isRequired, // eslint-disable-line
   markets: PropTypes.array, // eslint-disable-line
   showTicker: PropTypes.bool,
-  openTradingModeModal: PropTypes.func,
   openNotifications: PropTypes.func,
   buttons: PropTypes.func,
   subscribeAllMarkets: PropTypes.func.isRequired,
   allTickersArray: PropTypes.arrayOf(PropTypes.object).isRequired,
+  favoritePairs: PropTypes.objectOf(PropTypes.bool).isRequired,
 }
 
 ExchangeInfoBar.defaultProps = {
   markets: [],
   showTicker: true,
-  openTradingModeModal: () => { },
   openNotifications: () => { },
   buttons: null,
 }
