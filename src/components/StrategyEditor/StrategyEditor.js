@@ -15,6 +15,7 @@ import PropTypes from 'prop-types'
 import Templates from './templates'
 import StrategyEditorPanel from './StrategyEditorPanel'
 import CreateNewStrategyModal from '../CreateNewStrategyModal'
+import RemoveExistingStrategyModal from '../RemoveExistingStrategyModal'
 import OpenExistingStrategyModal from '../OpenExistingStrategyModal'
 
 import './style.css'
@@ -320,7 +321,7 @@ export default class StrategyEditor extends React.PureComponent {
   renderPanel = (content) => {
     const {
       strategy, execRunning, strategyDirty, editorMaximised,
-      editorMode, dark, isRemoveModalOpened,
+      editorMode, dark,
     } = this.state
 
     const {
@@ -342,12 +343,10 @@ export default class StrategyEditor extends React.PureComponent {
         onOpenSelectModal={this.onOpenSelectModal}
         onOpenCreateModal={this.onOpenCreateModal}
         onOpenRemoveModal={this.onOpenRemoveModal}
-        onCloseModals={this.onCloseModals}
         onSaveStrategy={this.onSaveStrategy}
         onRemoveStrategy={this.onRemoveStrategy}
         onSwitchEditorMode={this.onSwitchEditorMode}
         onToggleMaximiseEditor={this.onToggleMaximiseEditor}
-        isRemoveModalOpened={isRemoveModalOpened}
       >
         {content}
       </StrategyEditorPanel>
@@ -391,6 +390,7 @@ export default class StrategyEditor extends React.PureComponent {
           onClose={this.onCloseModals}
           onOpen={this.onLoadStrategy}
         />
+
       </div>
     )
   }
@@ -405,6 +405,7 @@ export default class StrategyEditor extends React.PureComponent {
       editorMaximised,
       createNewStrategyModalOpen,
       openExistingStrategyModalOpen,
+      isRemoveModalOpened,
     } = this.state
 
     if (!strategy || _isEmpty(strategy)) {
@@ -449,6 +450,12 @@ export default class StrategyEditor extends React.PureComponent {
           isOpen={openExistingStrategyModalOpen}
           onClose={this.onCloseModals}
           onOpen={this.onLoadStrategy}
+        />
+        <RemoveExistingStrategyModal
+          isOpen={isRemoveModalOpened}
+          onClose={this.onCloseModals}
+          onRemoveStrategy={this.onRemoveStrategy}
+          strategy={strategy}
         />
         <ul className='hfui-strategyeditor__func-select'>
           {STRATEGY_SECTIONS.map(section => (

@@ -1,8 +1,13 @@
-@import '../../variables.scss';
+@import "../../variables.scss";
 
 .ufx-dialog.ufx-dialog {
   .modal {
     overflow: visible;
+
+    .error {
+      font-size: 12px;
+      color: $red-color;
+    }
   }
 
   .modal__title {
