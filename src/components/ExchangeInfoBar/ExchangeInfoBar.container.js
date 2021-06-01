@@ -3,7 +3,7 @@ import _isEqual from 'lodash/isEqual'
 
 import WSActions from '../../redux/actions/ws'
 import UIActions from '../../redux/actions/ui'
-import { getActiveMarket } from '../../redux/selectors/ui'
+import { getActiveMarket, getCurrentMode } from '../../redux/selectors/ui'
 import {
   getTicker, getAuthToken, getTickersArray, getFavoritePairsObject,
 } from '../../redux/selectors/ws'
@@ -26,10 +26,11 @@ const mapStateToProps = (state = {}) => {
     markets: getMarkets(state),
     isNotificationsOpened,
     authToken: getAuthToken(state),
+    currentMode: getCurrentMode(state),
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   onChangeMarket: (market, prevMarket) => {
     if (_isEqual(market, prevMarket)) {
       return
@@ -46,6 +47,14 @@ const mapDispatchToProps = dispatch => ({
   },
   onRefillClick: () => {
     dispatch(UIActions.changeReffilBalanceModalState(true))
+  },
+  updateFavorites: (authToken, newArray, currentMode) => {
+    dispatch(WSActions.send([
+      'favourite_trading_pairs.save',
+      authToken,
+      newArray,
+      currentMode,
+    ]))
   },
 })
 

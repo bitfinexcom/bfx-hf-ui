@@ -21,6 +21,9 @@ const ExchangeInfoBar = ({
   allTickersArray,
   favoritePairs,
   subscribeAllMarkets,
+  updateFavorites,
+  authToken,
+  currentMode,
   buttons: Buttons,
   // onRefillClick,
 }) => {
@@ -29,6 +32,12 @@ const ExchangeInfoBar = ({
   useEffect(() => {
     subscribeAllMarkets(markets)
   }, [])
+
+  const _updateFavorites = (object) => {
+    const arrayWithPairs = Object.keys(object)
+    const arrayWithFavorites = arrayWithPairs.filter(pair => object[pair])
+    updateFavorites(authToken, arrayWithFavorites, currentMode)
+  }
 
   const {
     low,
@@ -95,7 +104,7 @@ const ExchangeInfoBar = ({
         <TickerList
           data={allTickersArray}
           favs={favoritePairs}
-          saveFavs={() => {}}
+          saveFavs={_updateFavorites}
           showOnlyFavs={showFavorites}
           setShowOnlyFavs={setShowingFavorites}
         />
@@ -116,6 +125,9 @@ ExchangeInfoBar.propTypes = {
   subscribeAllMarkets: PropTypes.func.isRequired,
   allTickersArray: PropTypes.arrayOf(PropTypes.object).isRequired,
   favoritePairs: PropTypes.objectOf(PropTypes.bool).isRequired,
+  updateFavorites: PropTypes.func.isRequired,
+  authToken: PropTypes.string.isRequired,
+  currentMode: PropTypes.string.isRequired,
 }
 
 ExchangeInfoBar.defaultProps = {
