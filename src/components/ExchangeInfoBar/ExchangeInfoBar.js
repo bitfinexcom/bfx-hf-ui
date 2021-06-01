@@ -56,24 +56,32 @@ const ExchangeInfoBar = ({
   return (
     <>
       <div className='hfui-exchangeinfobar__wrapper'>
+        {showTicker && (
         <div className='hfui-exchangeinfobar__left'>
-          <ExchangeInfoBarItem
-            label='Market'
-            className='hfui-exchangeinfobar__currency-selector'
-            tag='div'
-            value={(
-              <MarketSelect
-                markets={markets}
-                value={activeMarket}
-                onChange={(market) => {
-                  console.log(market, 'on ch')
-                  onChangeMarket(market, activeMarket)
-                }}
-                renderWithFavorites
-              />
-            )}
+          <Ticker
+            data={{
+              baseCcy: base,
+              quoteCcy: quote,
+              lastPrice,
+              change: dailyChange,
+              changePerc: dailyChangePerc,
+              volume,
+              low,
+              high,
+            }}
+            className='hfui-exchangeinfobar__ticker'
+          />
+          <TickerList
+            data={allTickersArray}
+            favs={favoritePairs}
+            saveFavs={_updateFavorites}
+            showOnlyFavs={showFavorites}
+            setShowOnlyFavs={setShowingFavorites}
+            onRowClick={onChangeMarketHandler}
+            className='hfui-exchangeinfobar__tickerlist'
           />
         </div>
+        )}
 
         <div className='hfui-exchangeinfobar__right'>
           <div className='hfui-exchangeinfobar__buttons'>
@@ -92,30 +100,6 @@ const ExchangeInfoBar = ({
         </div>
       </div>
 
-      {showTicker && (
-      <div className='hfui-exchangeinfobar__wrapper'>
-        <Ticker
-          data={{
-            baseCcy: base,
-            quoteCcy: quote,
-            lastPrice: lastPrice || '-',
-            change: dailyChange || '-',
-            changePerc: dailyChangePerc || '-',
-            volume: volume || '-',
-            low: low || '-',
-            high: high || '-',
-          }}
-        />
-        <TickerList
-          data={allTickersArray}
-          favs={favoritePairs}
-          saveFavs={_updateFavorites}
-          showOnlyFavs={showFavorites}
-          setShowOnlyFavs={setShowingFavorites}
-          onRowClick={onChangeMarketHandler}
-        />
-      </div>
-      )}
     </>
   )
 }
