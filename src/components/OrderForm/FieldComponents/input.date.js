@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import { renderString, CONVERT_LABELS_TO_PLACEHOLDERS } from '../OrderForm.helpers'
 
-const DateInput = ({
+const DateInput = memo(({
   value, minDate, maxDate, onChange, def, renderData, validationError,
 }) => {
   const { label, minDate: MIN_DATE } = def
@@ -42,7 +42,7 @@ const DateInput = ({
       )}
     </div>
   )
-}
+})
 
 DateInput.processValue = v => +v
 
@@ -81,4 +81,4 @@ DateInput.defaultProps = {
   def: {},
 }
 
-export default memo(DateInput)
+export default DateInput
