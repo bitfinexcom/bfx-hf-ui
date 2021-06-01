@@ -38,6 +38,10 @@ const ExchangeInfoBar = ({
     const arrayWithFavorites = arrayWithPairs.filter(pair => object[pair])
     updateFavorites(authToken, arrayWithFavorites, currentMode)
   }
+  const onChangeMarketHandler = (uiID) => {
+    const newMarket = markets.find(market => market.uiID === uiID)
+    onChangeMarket(newMarket, activeMarket)
+  }
 
   const {
     low,
@@ -62,6 +66,7 @@ const ExchangeInfoBar = ({
                 markets={markets}
                 value={activeMarket}
                 onChange={(market) => {
+                  console.log(market, 'on ch')
                   onChangeMarket(market, activeMarket)
                 }}
                 renderWithFavorites
@@ -107,6 +112,7 @@ const ExchangeInfoBar = ({
           saveFavs={_updateFavorites}
           showOnlyFavs={showFavorites}
           setShowOnlyFavs={setShowingFavorites}
+          onRowClick={onChangeMarketHandler}
         />
       </div>
       )}
