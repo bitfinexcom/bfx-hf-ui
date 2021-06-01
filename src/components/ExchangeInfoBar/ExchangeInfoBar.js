@@ -26,10 +26,11 @@ class ExchangeInfoBar extends React.PureComponent {
     const {
       onChangeMarket,
       activeMarket,
-      ticker,
+      activeMarketTicker,
       markets,
       openNotifications,
       showTicker,
+      allTickersArray,
       buttons: Buttons,
       // onRefillClick,
     } = this.props
@@ -40,7 +41,7 @@ class ExchangeInfoBar extends React.PureComponent {
       lastPrice,
       dailyChange,
       dailyChangePerc,
-    } = ticker
+    } = activeMarketTicker
     const { base, quote } = activeMarket
 
     return (
@@ -96,70 +97,12 @@ class ExchangeInfoBar extends React.PureComponent {
               }}
             />
             <TickerList
-              data={markets}
+              data={allTickersArray}
               favs={{}}
               saveFavs={() => {}}
               showOnlyFavs={false}
               setShowOnlyFavs={() => {}}
             />
-            {/* <ul>
-              <ExchangeInfoBarItem
-                text
-                vertical
-                label='Last Price'
-                value={lastPrice || '-'}
-                valuePrefix={quotePrefix(activeMarket.quote)}
-              />
-
-              <ExchangeInfoBarItem
-                text
-                vertical
-                label='24h Change'
-                value={dailyChange || '-'}
-                valuePrefix={quotePrefix(activeMarket.quote)}
-                dataClassName={
-                  dailyChange
-                    ? dailyChange < 0 ? 'hfui-red' : 'hfui-green'
-                    : ''
-                }
-              />
-
-              <ExchangeInfoBarItem
-                text
-                vertical
-                label='24h Change %'
-                valueSuffix='%'
-                value={dailyChangePerc ? dailyChangePerc * 100 : '-'}
-                dataClassName={
-                  dailyChangePerc
-                    ? dailyChangePerc < 0 ? 'hfui-red' : 'hfui-green'
-                    : ''
-                }
-              />
-
-              <ExchangeInfoBarItem
-                text
-                vertical
-                label='24h High'
-                valuePrefix={quotePrefix(activeMarket.quote)}
-                value={high || '-'}
-              />
-
-              <ExchangeInfoBarItem
-                text
-                vertical
-                label='24h Low'
-                valuePrefix={quotePrefix(activeMarket.quote)}
-                value={low || '-'}
-              />
-
-              <ExchangeInfoBarItem
-                text
-                vertical
-                label='24h Volume'
-                value={volume || '-'}
-              />
-            </ul> */}
           </div>
         )}
       </>
@@ -170,13 +113,14 @@ class ExchangeInfoBar extends React.PureComponent {
 ExchangeInfoBar.propTypes = {
   activeMarket: PropTypes.object.isRequired, // eslint-disable-line
   onChangeMarket: PropTypes.func.isRequired,
-  ticker: PropTypes.object.isRequired, // eslint-disable-line
+  activeMarketTicker: PropTypes.object.isRequired, // eslint-disable-line
   markets: PropTypes.array, // eslint-disable-line
   showTicker: PropTypes.bool,
   openTradingModeModal: PropTypes.func,
   openNotifications: PropTypes.func,
   buttons: PropTypes.func,
   subscribeAllMarkets: PropTypes.func.isRequired,
+  allTickersArray: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
 ExchangeInfoBar.defaultProps = {
