@@ -9,7 +9,6 @@ const ExchangeInfoBar = ({
   activeMarket,
   activeMarketTicker,
   markets,
-  showTicker,
   allTickersArray,
   favoritePairs,
   subscribeAllMarkets,
@@ -45,32 +44,30 @@ const ExchangeInfoBar = ({
 
   return (
     <div className='hfui-exchangeinfobar__wrapper'>
-      {showTicker && (
-        <div className='hfui-exchangeinfobar__left'>
-          <Ticker
-            data={{
-              baseCcy: base,
-              quoteCcy: quote,
-              lastPrice,
-              change: dailyChange,
-              changePerc: dailyChangePerc,
-              volume,
-              low,
-              high,
-            }}
-            className='hfui-exchangeinfobar__ticker'
-          />
-          <TickerList
-            data={allTickersArray}
-            favs={favoritePairs}
-            saveFavs={_updateFavorites}
-            showOnlyFavs={showFavorites}
-            setShowOnlyFavs={setShowingFavorites}
-            onRowClick={onChangeMarketHandler}
-            className='hfui-exchangeinfobar__tickerlist'
-          />
-        </div>
-      )}
+      <div className='hfui-exchangeinfobar__left'>
+        <Ticker
+          data={{
+            baseCcy: base,
+            quoteCcy: quote,
+            lastPrice,
+            change: dailyChange,
+            changePerc: dailyChangePerc,
+            volume,
+            low,
+            high,
+          }}
+          className='hfui-exchangeinfobar__ticker'
+        />
+        <TickerList
+          data={allTickersArray}
+          favs={favoritePairs}
+          saveFavs={_updateFavorites}
+          showOnlyFavs={showFavorites}
+          setShowOnlyFavs={setShowingFavorites}
+          onRowClick={onChangeMarketHandler}
+          className='hfui-exchangeinfobar__tickerlist'
+        />
+      </div>
     </div>
   )
 }
@@ -80,7 +77,6 @@ ExchangeInfoBar.propTypes = {
   onChangeMarket: PropTypes.func.isRequired,
   activeMarketTicker: PropTypes.object.isRequired, // eslint-disable-line
   markets: PropTypes.array, // eslint-disable-line
-  showTicker: PropTypes.bool,
   subscribeAllMarkets: PropTypes.func.isRequired,
   allTickersArray: PropTypes.arrayOf(PropTypes.object).isRequired,
   favoritePairs: PropTypes.objectOf(PropTypes.bool).isRequired,
@@ -91,7 +87,6 @@ ExchangeInfoBar.propTypes = {
 
 ExchangeInfoBar.defaultProps = {
   markets: [],
-  showTicker: true,
 }
 
 export default ExchangeInfoBar
