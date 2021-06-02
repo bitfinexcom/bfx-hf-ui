@@ -1,6 +1,6 @@
-import React from 'react'
-import _isEqual from 'lodash/isEqual'
+import React, { useEffect, useState, memo } from 'react'
 import PropTypes from 'prop-types'
+import _isEqual from 'lodash/isEqual'
 import { Checkbox } from '@ufx-ui/core'
 
 import BalancesTable from '../BalancesTable'
@@ -9,88 +9,47 @@ import PanelSettings from '../../ui/PanelSettings'
 
 import './style.css'
 
-class BalancesTablePanel extends React.Component {
-  state = {
-    settingsOpen: false,
-    hideZeroBalances: true,
-  }
+const BalancesTablePanel = ({
+  balances, setFilteredValueWithKey, onRemove, dark,
+}) => {
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false)
+  const [hideZeroBalances, setHideZeroBalances] = useState(true)
 
-  constructor(props) {
-    super(props)
-
-    this.onToggleSettings = this.onToggleSettings.bind(this)
-    this.onChangeHideZeroBalances = this.onChangeHideZeroBalances.bind(this)
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return (!_isEqual(nextProps, this.props) || !_isEqual(nextState, this.state))
-  }
-  componentDidUpdate() {}
-  getSnapshotBeforeUpdate() {
-    const balances = this.getFilteredBalances()
-    this.setState({ balances })
-    return null
-  }
-
-  onToggleSettings() {
-    this.setState(({ settingsOpen }) => ({
-      settingsOpen: !settingsOpen,
-    }))
-  }
-
-  onChangeHideZeroBalances(hideZeroBalances) {
-    this.setState(() => ({ hideZeroBalances }))
-  }
-
-  getFilteredBalances() {
-    const { balances, setFilteredValueWithKey } = this.props
-
+  useEffect(() => {
     setFilteredValueWithKey('filteredBalances', balances)
-    return balances
-  }
+  }, [balances])
 
-  deferSaveState() {
-    setTimeout(() => {
-      this.saveState()
-    }, 0)
-  }
+  const onToggleShowingSettings = () => setIsSettingsOpen(prevState => !prevState)
 
-  render() {
-    const {
-      settingsOpen, hideZeroBalances, balances = [],
-    } = this.state
-    const { onRemove, dark } = this.props
-
-    // TODO: Extract settings panel/wrapper into own component
-    return (
-      <Panel
-        label='BALANCES'
-        onRemove={onRemove}
-        settingsOpen={settingsOpen}
-        onToggleSettings={this.onToggleSettings}
-        dark={dark}
-        darkHeader={dark}
-      >
-        {settingsOpen ? (
-          <PanelSettings
-            onClose={this.onToggleSettings}
-            content={(
-              <Checkbox
-                label='Hide Zero Balances'
-                checked={hideZeroBalances}
-                onChange={this.onChangeHideZeroBalances}
-              />
+  // TODO: Extract settings panel/wrapper into own component
+  return (
+    <Panel
+      label='BALANCES'
+      onRemove={onRemove}
+      settingsOpen={isSettingsOpen}
+      onToggleSettings={onToggleShowingSettings}
+      dark={dark}
+      darkHeader={dark}
+    >
+      {isSettingsOpen ? (
+        <PanelSettings
+          onClose={onToggleShowingSettings}
+          content={(
+            <Checkbox
+              label='Hide Zero Balances'
+              checked={hideZeroBalances}
+              onChange={setHideZeroBalances}
+            />
             )}
-          />
-        ) : (
-          <BalancesTable
-            filteredBalances={balances}
-            hideZeroBalances={hideZeroBalances}
-          />
-        )}
-      </Panel>
-    )
-  }
+        />
+      ) : (
+        <BalancesTable
+          filteredBalances={balances}
+          hideZeroBalances={hideZeroBalances}
+        />
+      )}
+    </Panel>
+  )
 }
 
 BalancesTablePanel.propTypes = {
@@ -106,4 +65,4 @@ BalancesTablePanel.defaultProps = {
   dark: true,
 }
 
-export default BalancesTablePanel
+export default memo(BalancesTablePanel, (prevProps, nextProps) => !_isEqual(prevProps, nextProps))

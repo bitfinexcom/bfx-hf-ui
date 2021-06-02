@@ -150,22 +150,24 @@ const OrderBookPanel = (props) => {
       {settingsOpen ? (
         <PanelSettings
           onClose={onToggleSettings}
-          content={[
-            <Checkbox
-              key='sum-amounts'
-              label='Sum Amounts'
-              checked={sumAmounts}
-              onChange={onChangeSumAmounts}
-            />,
-            canChangeStacked && (
+          content={(
+            <>
+              <Checkbox
+                key='sum-amounts'
+                label='Sum Amounts'
+                checked={sumAmounts}
+                onChange={onChangeSumAmounts}
+              />
+              {canChangeStacked && (
               <Checkbox
                 key='stacked-view'
                 label='Stacked View'
                 checked={stackedView}
                 onChange={onChangeStackedView}
               />
-            ),
-          ]}
+              )}
+            </>
+          )}
         />
       ) : (
         <OrderBook
@@ -195,17 +197,24 @@ OrderBookPanel.propTypes = {
   removeable: PropTypes.bool,
   savedState: PropTypes.object,
   dark: PropTypes.bool,
-  activeMarket: PropTypes.object.isRequired,
+  activeMarket: PropTypes.shape({
+    base: PropTypes.string,
+    quote: PropTypes.string,
+  }),
   markets: PropTypes.array.isRequired,
   canChangeMarket: PropTypes.bool.isRequired,
   layoutID: PropTypes.string.isRequired,
   layoutI: PropTypes.string.isRequired,
   updateState: PropTypes.func.isRequired,
   isTradingTerminal: PropTypes.bool,
-  allMarketBooks: PropTypes.array,
+  allMarketBooks: PropTypes.arrayOf(PropTypes.object),
 }
 
 OrderBookPanel.defaultProps = {
+  activeMarket: {
+    base: '',
+    quote: '',
+  },
   showMarket: false,
   canChangeStacked: true,
   moveable: true,
