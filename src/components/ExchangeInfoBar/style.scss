@@ -9,11 +9,10 @@
 .hfui-exchangeinfobar__wrapper {
   display: flex;
   background: $background-color;
-  min-height: 40px;
   align-items: center;
-  padding: 10px spacing(1.25);
   flex-wrap: wrap;
   flex-direction: column;
+  margin-bottom: 20px;
 
   ul {
     display: flex;
