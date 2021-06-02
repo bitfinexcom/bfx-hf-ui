@@ -21,6 +21,10 @@ body button:focus {
   outline: none;
 }
 
+.trailing-zeros {
+  opacity: .4;
+}
+
 .react-datepicker {
   background-color: $panel-background-color;
   color: $text-color;
