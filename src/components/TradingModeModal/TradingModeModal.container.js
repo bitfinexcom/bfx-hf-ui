@@ -7,7 +7,6 @@ import {
   getCurrentMode,
   getIsPaperTrading,
   getIsTradingModeModalVisible,
-  getIsRefillBalanceModalVisible,
 } from '../../redux/selectors/ui'
 
 import TradingModeModal from './TradingModeModal'
@@ -17,7 +16,6 @@ const mapStateToProps = (state = {}) => ({
   currentMode: getCurrentMode(state),
   isPaperTrading: getIsPaperTrading(state),
   isTradingModeModalVisible: getIsTradingModeModalVisible(state),
-  isRefillBalanceModalVisible: getIsRefillBalanceModalVisible(state),
 })
 
 const mapDispatchToProps = dispatch => ({

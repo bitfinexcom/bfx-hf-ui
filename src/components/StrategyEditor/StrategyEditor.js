@@ -37,34 +37,6 @@ const STRATEGY_SECTIONS = [
 ]
 
 export default class StrategyEditor extends React.PureComponent {
-  static propTypes = {
-    moveable: PropTypes.bool,
-    removeable: PropTypes.bool,
-    strategyId: PropTypes.string,
-    renderResults: PropTypes.bool,
-    onSave: PropTypes.func.isRequired,
-    onRemove: PropTypes.func.isRequired,
-    authToken: PropTypes.string.isRequired,
-    onStrategyChange: PropTypes.func.isRequired,
-    onStrategySelect: PropTypes.func.isRequired,
-    gaCreateStrategy: PropTypes.func.isRequired,
-    onIndicatorsChange: PropTypes.func.isRequired,
-    clearBacktestOptions: PropTypes.func.isRequired,
-    strategyContent: PropTypes.objectOf(
-      PropTypes.oneOfType([
-        PropTypes.string.isRequired,
-        PropTypes.oneOf([null]).isRequired,
-      ]),
-    ),
-  }
-  static defaultProps = {
-    strategyId: '',
-    moveable: false,
-    removeable: false,
-    renderResults: true,
-    strategyContent: {},
-  }
-
   state = {
     strategy: null,
     sectionErrors: {},
@@ -517,4 +489,33 @@ export default class StrategyEditor extends React.PureComponent {
       </div>,
     )
   }
+}
+
+StrategyEditor.propTypes = {
+  moveable: PropTypes.bool,
+  removeable: PropTypes.bool,
+  strategyId: PropTypes.string,
+  renderResults: PropTypes.bool,
+  onSave: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
+  authToken: PropTypes.string.isRequired,
+  onStrategyChange: PropTypes.func.isRequired,
+  onStrategySelect: PropTypes.func.isRequired,
+  gaCreateStrategy: PropTypes.func.isRequired,
+  onIndicatorsChange: PropTypes.func.isRequired,
+  clearBacktestOptions: PropTypes.func.isRequired,
+  strategyContent: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string.isRequired,
+      PropTypes.oneOf([null]).isRequired,
+    ]),
+  ),
+}
+
+StrategyEditor.defaultProps = {
+  strategyId: '',
+  moveable: false,
+  removeable: false,
+  renderResults: true,
+  strategyContent: {},
 }
