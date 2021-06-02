@@ -1,10 +1,6 @@
 @import "../../variables.scss";
 
 @media only screen and (min-width: 1170px) {
-  .hfui-exchangeinfobar__right {
-    margin-left: auto;
-  }
-
   .hfui-exchangeinfobar__wrapper {
     justify-content: space-between;
   }
@@ -17,6 +13,7 @@
   align-items: center;
   padding: 10px spacing(1.25);
   flex-wrap: wrap;
+  flex-direction: column;
 
   ul {
     display: flex;
@@ -51,15 +48,6 @@
 .hfui-exchangeinfobar__left {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  align-items: center;
-  margin-right: spacing(1.5);
-  width: 350px;
-}
-
-.hfui-exchangeinfobar__right {
-  display: flex;
-  flex-direction: row;
   height: 100%;
   align-items: center;
 }

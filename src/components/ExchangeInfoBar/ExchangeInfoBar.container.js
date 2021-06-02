@@ -41,13 +41,6 @@ const mapDispatchToProps = (dispatch) => ({
   subscribeAllMarkets: (markets) => markets.forEach((market) => {
     dispatch(WSActions.addChannelRequirement(['ticker', market]))
   }),
-
-  openNotifications: () => {
-    dispatch(UIActions.openNotifcationPanel())
-  },
-  onRefillClick: () => {
-    dispatch(UIActions.changeReffilBalanceModalState(true))
-  },
   updateFavorites: (authToken, newArray, currentMode) => {
     dispatch(WSActions.send([
       'favourite_trading_pairs.save',

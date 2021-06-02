@@ -2,13 +2,6 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Ticker, TickerList } from '@ufx-ui/core'
 
-import SwitchMode from '../SwitchMode'
-
-import MarketSelect from '../MarketSelect'
-// import RefillIcon from '../../ui/Icons/RefillIcon'
-import ExchangeInfoBarItem from './ExchangeInfoBarItem'
-import ExchangeInfoBarButton from './ExchangeInfoBar.Button'
-
 import './style.css'
 
 const ExchangeInfoBar = ({
@@ -16,7 +9,6 @@ const ExchangeInfoBar = ({
   activeMarket,
   activeMarketTicker,
   markets,
-  openNotifications,
   showTicker,
   allTickersArray,
   favoritePairs,
@@ -24,8 +16,6 @@ const ExchangeInfoBar = ({
   updateFavorites,
   authToken,
   currentMode,
-  buttons: Buttons,
-  // onRefillClick,
 }) => {
   const [showFavorites, setShowingFavorites] = useState(false)
 
@@ -54,9 +44,8 @@ const ExchangeInfoBar = ({
   const { base, quote } = activeMarket
 
   return (
-    <>
-      <div className='hfui-exchangeinfobar__wrapper'>
-        {showTicker && (
+    <div className='hfui-exchangeinfobar__wrapper'>
+      {showTicker && (
         <div className='hfui-exchangeinfobar__left'>
           <Ticker
             data={{
@@ -81,26 +70,8 @@ const ExchangeInfoBar = ({
             className='hfui-exchangeinfobar__tickerlist'
           />
         </div>
-        )}
-
-        <div className='hfui-exchangeinfobar__right'>
-          <div className='hfui-exchangeinfobar__buttons'>
-            {Buttons && <Buttons />}
-            <ExchangeInfoBarButton icon='notifications' onClick={openNotifications} />
-          </div>
-          <div className='hfui-tradingpaper__control'>
-            <div className='hfui-tradingpaper__control-toggle'>
-              <p>Paper Trading</p>
-              <SwitchMode />
-            </div>
-            {/* <div className='hfui-tradingpaper__control-refill'>
-              <RefillIcon onClick={onRefillClick} />
-            </div> */}
-          </div>
-        </div>
-      </div>
-
-    </>
+      )}
+    </div>
   )
 }
 
@@ -110,8 +81,6 @@ ExchangeInfoBar.propTypes = {
   activeMarketTicker: PropTypes.object.isRequired, // eslint-disable-line
   markets: PropTypes.array, // eslint-disable-line
   showTicker: PropTypes.bool,
-  openNotifications: PropTypes.func,
-  buttons: PropTypes.func,
   subscribeAllMarkets: PropTypes.func.isRequired,
   allTickersArray: PropTypes.arrayOf(PropTypes.object).isRequired,
   favoritePairs: PropTypes.objectOf(PropTypes.bool).isRequired,
@@ -123,8 +92,6 @@ ExchangeInfoBar.propTypes = {
 ExchangeInfoBar.defaultProps = {
   markets: [],
   showTicker: true,
-  openNotifications: () => { },
-  buttons: null,
 }
 
 export default ExchangeInfoBar
