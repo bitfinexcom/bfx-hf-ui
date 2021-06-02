@@ -16,40 +16,25 @@ import './style.css'
 
 const DocsPath = require('bfx-hf-strategy/docs/api.md')
 
-export default class StrategyEditorPage extends React.Component {
-  static propTypes = {
-    dark: PropTypes.bool,
-    firstLogin: PropTypes.bool,
-    isGuideActive: PropTypes.bool,
-    finishGuide: PropTypes.func.isRequired,
-    selectStrategy: PropTypes.func.isRequired,
-    setStrategyContent: PropTypes.func.isRequired,
-    // strategyContent: PropTypes.objectOf(Object),
-  }
-  static defaultProps = {
-    dark: true,
-    firstLogin: false,
-    isGuideActive: true,
-    // strategyContent: {},
-  }
+const STEPS = [
+  {
+    target: '.hfui-create-strategy__btn',
+    content: 'Create your own strategies',
+  },
+  {
+    target: '.hfui-open-strategy__btn',
+    content: 'Or open an existing one',
+  },
+  {
+    locale: { last: 'Finish' },
+    target: '.hfui-markdown__wrapper',
+    content: 'In this section you find the available function declarations to code your own strategies',
+  },
+]
 
+export default class StrategyEditorPage extends React.Component {
   state = {
     indicators: [],
-    steps: [
-      {
-        target: '.hfui-create-strategy__btn',
-        content: 'Create your own strategies',
-      },
-      {
-        target: '.hfui-open-strategy__btn',
-        content: 'Or open an existing one',
-      },
-      {
-        locale: { last: 'Finish' },
-        target: '.hfui-markdown__wrapper',
-        content: 'In this section you find the available function declarations to code your own strategies',
-      },
-    ],
   }
 
   componentDidMount() {
@@ -123,7 +108,6 @@ export default class StrategyEditorPage extends React.Component {
       indicators,
       // strategyContent,
       docsText = '',
-      steps,
       forcedTab = '',
     } = this.state
     const { firstLogin, isGuideActive } = this.props
@@ -144,7 +128,7 @@ export default class StrategyEditorPage extends React.Component {
             />
             {firstLogin && (
               <Joyride
-                steps={steps}
+                steps={STEPS}
                 callback={this.onGuideFinish}
                 run={isGuideActive}
                 continuous
@@ -198,4 +182,21 @@ export default class StrategyEditorPage extends React.Component {
       </Layout>
     )
   }
+}
+
+StrategyEditorPage.propTypes = {
+  dark: PropTypes.bool,
+  firstLogin: PropTypes.bool,
+  isGuideActive: PropTypes.bool,
+  finishGuide: PropTypes.func.isRequired,
+  selectStrategy: PropTypes.func.isRequired,
+  setStrategyContent: PropTypes.func.isRequired,
+  // strategyContent: PropTypes.objectOf(Object),
+}
+
+StrategyEditorPage.defaultProps = {
+  dark: true,
+  firstLogin: false,
+  isGuideActive: true,
+  // strategyContent: {},
 }
