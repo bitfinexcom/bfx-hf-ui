@@ -73,10 +73,20 @@ const ExchangeInfoBar = ({
 }
 
 ExchangeInfoBar.propTypes = {
-  activeMarket: PropTypes.object.isRequired, // eslint-disable-line
+  activeMarket: PropTypes.shape({
+    base: PropTypes.string,
+    quote: PropTypes.string,
+  }).isRequired,
   onChangeMarket: PropTypes.func.isRequired,
-  activeMarketTicker: PropTypes.object.isRequired, // eslint-disable-line
-  markets: PropTypes.arrayOf(PropTypes.object), // eslint-disable-line
+  activeMarketTicker: PropTypes.shape({
+    low: PropTypes.number,
+    high: PropTypes.number,
+    volume: PropTypes.number,
+    lastPrice: PropTypes.number,
+    dailyChange: PropTypes.number,
+    dailyChangePerc: PropTypes.number,
+  }).isRequired,
+  markets: PropTypes.arrayOf(PropTypes.object),
   subscribeAllMarkets: PropTypes.func.isRequired,
   allTickersArray: PropTypes.arrayOf(PropTypes.object).isRequired,
   favoritePairs: PropTypes.objectOf(PropTypes.bool).isRequired,
