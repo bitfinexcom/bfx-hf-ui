@@ -19,7 +19,7 @@
       }
     }
 
-    li {
+    > div {
       margin-top: 3%;
       width: 100%;
       .hfui-settings__option-label {
@@ -30,6 +30,7 @@
 
     .hfui-settings__option {
       width: 40%;
+      margin-bottom: 30px;
 
       .settings-save * {
         padding: 10px 30px 10px 30px;
