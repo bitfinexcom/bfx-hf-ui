@@ -19,6 +19,9 @@ const RemoveExistingStrategyModal = ({
 
   useEffect(() => {
     if (inputValue !== label) {
+      if (canDeleteStrategy) {
+        setCanDeleteStrategy(false)
+      }
       return
     }
     setCanDeleteStrategy(true)
