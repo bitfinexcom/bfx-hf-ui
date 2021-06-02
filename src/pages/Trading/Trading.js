@@ -71,6 +71,7 @@ const Trading = ({
       finishGuide()
     }
   }, [])
+  console.log(grid)
 
   return (
     <Layout>
@@ -95,8 +96,8 @@ const Trading = ({
         <div className='hfui-tradingpage__column left'>
           <div className='hfui-tradingpage__menu'>
             <div className='hfui-exchangeinfobar__buttons'>
-              <ExchangeInfoBarButton icon='save' onClick={grid.onSaveLayout} />
-              <ExchangeInfoBarButton icon='plus' onClick={grid.onToggleAddComponentModal} />
+              <ExchangeInfoBarButton icon='save' onClick={() => grid.current.onSaveLayout()} />
+              <ExchangeInfoBarButton icon='plus' onClick={() => grid.current.onToggleAddComponentModal()} />
               <ExchangeInfoBarButton icon='notifications' onClick={openNotifications} />
             </div>
             <div className='hfui-tradingpaper__control'>
