@@ -1,38 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import _isEmpty from 'lodash/isEmpty'
+import PropTypes from 'prop-types'
 
 import Input from '../../ui/Input'
 import Modal from '../../ui/Modal'
 
-import { propTypes, defaultProps } from './CreateNewLayoutModal.props'
 import './style.css'
 
-export default class CreateNewLayoutModal extends React.Component {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+const CreateNewLayoutModal = ({ onSubmit, onClose, isOpen }) => {
+  const [label, setLabel] = useState('')
+  const [error, setError] = useState('')
 
-  state = {
-    label: '',
-    error: '',
-  }
-
-  constructor(props) {
-    super(props)
-
-    this.onLabelChange = this.onLabelChange.bind(this)
-    this.onSubmit = this.onSubmit.bind(this)
-  }
-
-  onLabelChange(label) {
-    this.setState(() => ({ label }))
-  }
-
-  onSubmit() {
-    const { label } = this.state
-    const { onSubmit, onClose } = this.props
-
+  const onSubmitHandler = () => {
     if (_isEmpty(label)) {
-      this.setState(() => ({ error: 'Label empty' }))
+      setError('Label empty')
       return
     }
 
@@ -40,37 +21,40 @@ export default class CreateNewLayoutModal extends React.Component {
     onClose()
   }
 
-  render() {
-    const { onClose, isOpen } = this.props
-    const { label, error } = this.state
+  return (
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      className='hfui-createnewlayoutmodal__wrapper'
+      label='Add Layout'
+    >
+      <Input
+        type='text'
+        placeholder='Layout Name'
+        value={label}
+        onChange={setLabel}
+      />
 
-    return (
-      <Modal
-        isOpen={isOpen}
-        onClose={onClose}
-        className='hfui-createnewlayoutmodal__wrapper'
-        label='Add Layout'
-      >
-        <Input
-          type='text'
-          placeholder='Layout Name'
-          value={label}
-          onChange={this.onLabelChange}
-        />
+      {!_isEmpty(error) && (
+      <p className='error'>{error}</p>
+      )}
 
-        {!_isEmpty(error) && (
-          <p className='error'>{error}</p>
-        )}
-
-        <Modal.Footer>
-          <Modal.Button
-            primary
-            onClick={this.onSubmit}
-          >
-            Add Layout
-          </Modal.Button>
-        </Modal.Footer>
-      </Modal>
-    )
-  }
+      <Modal.Footer>
+        <Modal.Button
+          primary
+          onClick={onSubmitHandler}
+        >
+          Add Layout
+        </Modal.Button>
+      </Modal.Footer>
+    </Modal>
+  )
 }
+
+CreateNewLayoutModal.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+}
+
+export default CreateNewLayoutModal
