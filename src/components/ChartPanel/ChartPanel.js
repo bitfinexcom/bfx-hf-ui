@@ -1,175 +1,106 @@
-import React from 'react'
+import React, { useState, useEffect, memo } from 'react'
 import PropTypes from 'prop-types'
-import _isEqual from 'lodash/isEqual'
-
-import Chart from '../Chart'
-import MarketSelect from '../MarketSelect'
+import _isEmpty from 'lodash/isEmpty'
 
 import Panel from '../../ui/Panel'
+import Chart from '../Chart'
+import MarketSelect from '../MarketSelect'
 import './style.css'
 
-export default class ChartPanel extends React.Component {
-  static propTypes = {
-    dark: PropTypes.bool,
-    label: PropTypes.string,
-    onRemove: PropTypes.func,
-    moveable: PropTypes.bool,
-    removeable: PropTypes.bool,
-    activeMarket: PropTypes.shape({
-      base: PropTypes.string,
-      quote: PropTypes.string,
-      restID: PropTypes.string,
-    }),
-    saveState: PropTypes.func,
-    canChangeMarket: PropTypes.bool,
-    showChartMarket: PropTypes.bool,
-    layoutI: PropTypes.string.isRequired,
-    layoutID: PropTypes.string.isRequired,
-    savedState: PropTypes.shape({
-      currentMarket: PropTypes.shape({
-        base: PropTypes.string,
-        quote: PropTypes.string,
-        restID: PropTypes.string,
-      }),
-      marketDirty: PropTypes.bool,
-    }),
-    markets: PropTypes.arrayOf(PropTypes.object),
-  }
+const ChartPanel = ({
+  dark, label, onRemove, moveable, removeable, showChartMarket, markets, canChangeMarket,
+  activeMarket, savedState: { currentMarket: _currentMarket }, saveState, layoutID, layoutI,
+}) => {
+  const [currentMarket, setCurrentMarket] = useState(_currentMarket || activeMarket)
 
-  static defaultProps = {
-    dark: true,
-    label: null,
-    markets: [],
-    savedState: {},
-    moveable: true,
-    removeable: true,
-    onRemove: () => {},
-    activeMarket: {
-      base: 'BTC',
-      quote: 'USD',
-      restID: 'tBTCUSD',
-    },
-    saveState: () => {},
-    showChartMarket: false,
-    canChangeMarket: false,
-  }
-
-  constructor(props) {
-    super(props)
-
-    const { savedState, activeMarket } = props
-    const {
-      marketDirty,
-      currentMarket = activeMarket,
-    } = savedState
-
-    this.state = {
-      marketDirty,
-      currentMarket,
+  useEffect(() => {
+    if (_isEmpty(_currentMarket) && activeMarket.restID !== currentMarket.restID) {
+      setCurrentMarket(activeMarket)
     }
-  }
+  }, [activeMarket])
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return (!_isEqual(nextProps, this.props) || !_isEqual(nextState, this.state))
-  }
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const {
-      marketDirty,
-      currentMarket,
-    } = prevState
-
-    const {
-      activeMarket,
-    } = nextProps
-
-    if (marketDirty || (activeMarket.restID === currentMarket.restID)) {
-      return {}
-    }
-
-    return {
-      currentMarket: activeMarket,
-    }
-  }
-
-  onChangeMarket = (market) => {
-    const { currentMarket } = this.state
-
+  const onChangeMarket = (market) => {
     if (market.restID === currentMarket.restID) {
       return
     }
 
-    this.setState(() => ({
-      currentMarket: market,
-      marketDirty: true,
-    }))
-
-    this.deferSaveState()
-  }
-
-  deferSaveState() {
-    setTimeout(() => {
-      this.saveState()
-    }, 0)
-  }
-
-  saveState() {
-    const { saveState, layoutID, layoutI } = this.props
-    const {
-      marketDirty,
-      currentMarket,
-    } = this.state
-
+    setCurrentMarket(market)
     saveState(layoutID, layoutI, {
-      currentMarket,
-      marketDirty,
+      currentMarket: market,
     })
   }
 
-  renderMarketDropdown() {
-    const { markets, canChangeMarket } = this.props
-    const { marketDirty, currentMarket } = this.state
-
+  const renderMarketDropdown = () => {
     return (
       <MarketSelect
         markets={markets}
-        renderWithFavorites
-        key='market-dropdown'
         value={currentMarket}
         disabled={!canChangeMarket}
-        onChange={this.onChangeMarket}
-        className={{ yellow: marketDirty }}
+        onChange={onChangeMarket}
+        renderWithFavorites
       />
     )
   }
 
-  render() {
-    const {
-      dark,
-      label,
-      onRemove,
-      moveable,
-      removeable,
-      showChartMarket,
-    } = this.props
-    const { currentMarket } = this.state
-
-    return (
-      <Panel
-        dark={dark}
-        label={label}
-        darkHeader={dark}
-        onRemove={onRemove}
-        moveable={moveable}
-        removeable={removeable}
-        showChartMarket={showChartMarket}
-        chartMarketSelect={[
-          showChartMarket && this.renderMarketDropdown(),
-        ]}
-        className='hfui-chart__wrapper'
-      >
-        <Chart market={currentMarket} />
-      </Panel>
-    )
-  }
+  return (
+    <Panel
+      dark={dark}
+      label={label}
+      darkHeader={dark}
+      onRemove={onRemove}
+      moveable={moveable}
+      removeable={removeable}
+      showChartMarket={showChartMarket}
+      chartMarketSelect={showChartMarket && renderMarketDropdown()}
+      className='hfui-chart__wrapper'
+    >
+      <Chart market={currentMarket} />
+    </Panel>
+  )
 }
+
+ChartPanel.propTypes = {
+  dark: PropTypes.bool,
+  label: PropTypes.string,
+  onRemove: PropTypes.func,
+  moveable: PropTypes.bool,
+  removeable: PropTypes.bool,
+  activeMarket: PropTypes.shape({
+    base: PropTypes.string,
+    quote: PropTypes.string,
+    restID: PropTypes.string,
+  }),
+  saveState: PropTypes.func,
+  canChangeMarket: PropTypes.bool,
+  showChartMarket: PropTypes.bool,
+  layoutI: PropTypes.string.isRequired,
+  layoutID: PropTypes.string.isRequired,
+  savedState: PropTypes.shape({
+    currentMarket: PropTypes.shape({
+      base: PropTypes.string,
+      quote: PropTypes.string,
+      restID: PropTypes.string,
+    }),
+  }),
+  markets: PropTypes.arrayOf(PropTypes.object),
+}
+
+ChartPanel.defaultProps = {
+  dark: true,
+  label: null,
+  markets: [],
+  savedState: {},
+  moveable: true,
+  removeable: true,
+  onRemove: () => { },
+  activeMarket: {
+    base: 'BTC',
+    quote: 'USD',
+    restID: 'tBTCUSD',
+  },
+  saveState: () => { },
+  showChartMarket: false,
+  canChangeMarket: false,
+}
+
+export default memo(ChartPanel)
