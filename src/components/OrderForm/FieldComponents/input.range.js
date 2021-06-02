@@ -1,63 +1,58 @@
-import React from 'react'
+import React, { memo } from 'react'
 import ClassNames from 'classnames'
 import _isFinite from 'lodash/isFinite'
 import PropTypes from 'prop-types'
 
 import Input from '../../../ui/Input'
-import {
-  renderString, CONVERT_LABELS_TO_PLACEHOLDERS,
-} from '../OrderForm.helpers'
+import { renderString, CONVERT_LABELS_TO_PLACEHOLDERS } from '../OrderForm.helpers'
 
-class SliderInput extends React.PureComponent {
-  static DEFAULT_VALUE = ''
-  static processValue = v => +v
-  static validateValue = (v) => {
-    return _isFinite(+v)
-      ? null
-      : 'Must be a number'
-  }
+const SliderInput = memo(({
+  def: { label, min, max }, renderData, value, disabled, onChange, validationError,
+}) => {
+  const renderedLabel = renderString(`${label} $_VALUE`, {
+    ...renderData,
+    _VALUE: `(${value})`,
+  })
 
-  render() {
-    const {
-      def, renderData, value, disabled, onChange, validationError,
-    } = this.props
+  return (
+    <div className={ClassNames('hfui-orderform__input', {
+      disabled,
+      invalid: !!validationError,
+    })}
+    >
+      <Input
+        type='range'
+        onChange={onChange}
+        disabled={disabled}
+        value={value}
+        min={min}
+        max={max}
+      />
 
-    const { label, min, max } = def
-    const renderedLabel = renderString(`${label} $_VALUE`, {
-      ...renderData,
-      _VALUE: `(${value})`,
-    })
+      {!CONVERT_LABELS_TO_PLACEHOLDERS && (
+        <p className='hfui-orderform__input-label'>
+          {renderedLabel}
+        </p>
+      )}
 
-    return (
-      <div className={ClassNames('hfui-orderform__input', {
-        disabled,
-        invalid: !!validationError,
-      })}
-      >
-        <Input
-          type='range'
-          onChange={onChange}
-          disabled={disabled}
-          value={value}
-          min={min}
-          max={max}
-        />
+      {validationError && (
+        <p className='hfui-orderform__input-error-label'>
+          {validationError}
+        </p>
+      )}
+    </div>
+  )
+})
 
-        {!CONVERT_LABELS_TO_PLACEHOLDERS && (
-          <p className='hfui-orderform__input-label'>
-            {renderedLabel}
-          </p>
-        )}
+SliderInput.DEFAULT_VALUE = ''
 
-        {validationError && (
-          <p className='hfui-orderform__input-error-label'>
-            {validationError}
-          </p>
-        )}
-      </div>
-    )
-  }
+SliderInput.processValue = v => +v
+
+SliderInput.validateValue = (v) => {
+  return _isFinite(+v) ? null : 'Must be a number'
 }
+
+SliderInput.displayName = 'SliderInput'
 
 SliderInput.propTypes = {
   def: PropTypes.objectOf(
