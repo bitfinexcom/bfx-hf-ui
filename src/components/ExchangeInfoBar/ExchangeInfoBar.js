@@ -76,7 +76,7 @@ ExchangeInfoBar.propTypes = {
   activeMarket: PropTypes.object.isRequired, // eslint-disable-line
   onChangeMarket: PropTypes.func.isRequired,
   activeMarketTicker: PropTypes.object.isRequired, // eslint-disable-line
-  markets: PropTypes.array, // eslint-disable-line
+  markets: PropTypes.arrayOf(PropTypes.object), // eslint-disable-line
   subscribeAllMarkets: PropTypes.func.isRequired,
   allTickersArray: PropTypes.arrayOf(PropTypes.object).isRequired,
   favoritePairs: PropTypes.objectOf(PropTypes.bool).isRequired,
