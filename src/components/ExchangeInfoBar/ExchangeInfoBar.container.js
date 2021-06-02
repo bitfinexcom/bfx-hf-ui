@@ -13,10 +13,6 @@ import ExchangeInfoBar from './ExchangeInfoBar'
 
 const mapStateToProps = (state = {}) => {
   const activeMarket = getActiveMarket(state)
-  const { ui = {} } = state
-  const {
-    isNotificationsOpened,
-  } = ui
 
   return {
     activeMarket,
@@ -24,7 +20,6 @@ const mapStateToProps = (state = {}) => {
     allTickersArray: getTickersArray(state),
     favoritePairs: getFavoritePairsObject(state),
     markets: getMarkets(state),
-    isNotificationsOpened,
     authToken: getAuthToken(state),
     currentMode: getCurrentMode(state),
   }
