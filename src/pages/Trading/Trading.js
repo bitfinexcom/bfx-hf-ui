@@ -71,7 +71,6 @@ const Trading = ({
       finishGuide()
     }
   }, [])
-  console.log(grid)
 
   return (
     <Layout>
