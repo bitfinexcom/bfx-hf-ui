@@ -3,7 +3,6 @@ import cx from 'classnames'
 import './style.css'
 
 import Navbar from '../Navbar'
-import ExchangeInfoBar from '../ExchangeInfoBar'
 import StatusBar from '../StatusBar'
 
 // eslint-disable-next-line react/prop-types
@@ -20,7 +19,6 @@ Layout.Header = function Header({ children, buttons, ...props }) {
   return (
     <header className='layout__header' {...props}>
       <Navbar />
-      <ExchangeInfoBar buttons={buttons} />
       {children}
     </header>
   )
