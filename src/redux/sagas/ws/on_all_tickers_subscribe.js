@@ -10,16 +10,12 @@ const URL = 'http://localhost:45001/v2/tickers?symbols=ALL'
 
 export default function* () {
   while (true) {
-    let tickersData
-
     try {
-      const response = yield axios.get(URL)
-      tickersData = response.data
+      const { data } = yield axios.get(URL)
+      yield put(WSActions.setTickersData(data))
     } catch (err) {
       debug('failed to fetch tickers rates: %s', err.message)
-      return
     }
-    yield put(WSActions.setTickersData(tickersData))
     yield delay(UPDATE_RATES_INTERVAL_MS)
   }
 }
