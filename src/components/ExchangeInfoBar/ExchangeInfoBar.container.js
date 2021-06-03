@@ -10,7 +10,6 @@ import {
 import { getMarkets } from '../../redux/selectors/meta'
 
 import ExchangeInfoBar from './ExchangeInfoBar'
-import { MAIN_MODE } from '../../redux/reducers/ui'
 
 const mapStateToProps = (state = {}) => {
   const activeMarket = getActiveMarket(state)
