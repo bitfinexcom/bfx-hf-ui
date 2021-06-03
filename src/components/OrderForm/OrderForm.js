@@ -372,7 +372,7 @@ class OrderForm extends React.Component {
               </div>
             )}
 
-            {!currentLayout && (
+            {!currentLayout && apiClientConfigured && (
               <div key='order-form-menu' className='hfui-orderform__overlay-wrapper'>
                 <OrderFormMenu
                   atomicOrderTypes={atomicOrderTypes}
