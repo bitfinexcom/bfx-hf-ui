@@ -1,10 +1,6 @@
-@import '../../variables.scss';
+@import "../../variables.scss";
 
 @media only screen and (min-width: 1170px) {
-  .hfui-exchangeinfobar__right {
-    margin-left: auto;
-  }
-
   .hfui-exchangeinfobar__wrapper {
     justify-content: space-between;
   }
@@ -13,10 +9,10 @@
 .hfui-exchangeinfobar__wrapper {
   display: flex;
   background: $background-color;
-  min-height: 40px;
   align-items: center;
-  padding: 10px spacing(1.25);
   flex-wrap: wrap;
+  flex-direction: column;
+  margin-bottom: 20px;
 
   ul {
     display: flex;
@@ -35,19 +31,25 @@
   }
 }
 
-.hfui-exchangeinfobar__left {
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-  align-items: center;
-  margin-right: spacing(1.5);
+.hfui-exchangeinfobar__ticker {
+  margin-bottom: 5px;
+  width: 100%;
+  background-color: $darker-background-color;
+  padding: 10px;
 }
 
-.hfui-exchangeinfobar__right {
+.hfui-exchangeinfobar__tickerlist {
+  width: 100%;
+  background-color: $darker-background-color;
+  padding: 10px;
+}
+
+.hfui-exchangeinfobar__left {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   height: 100%;
   align-items: center;
+  width: 100%;
 }
 
 .hfui-exchangeinfobar__buttons {
@@ -63,7 +65,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: background-color .2s;
+  transition: background-color 0.2s;
   background-color: transparent;
   opacity: 1 !important;
 
@@ -75,11 +77,11 @@
 
   &:hover,
   &:focus {
-    background: rgba(255, 255, 255, .1) !important;
+    background: rgba(255, 255, 255, 0.1) !important;
   }
 
   &:active {
-    background: rgba(0, 0, 0, .2) !important;
+    background: rgba(0, 0, 0, 0.2) !important;
   }
 }
 
@@ -101,7 +103,7 @@
 
   .hfui-exchangeinfobar__item-label {
     margin-bottom: 4px;
-    opacity: .8;
+    opacity: 0.8;
   }
 }
 

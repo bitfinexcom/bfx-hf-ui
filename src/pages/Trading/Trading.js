@@ -9,6 +9,7 @@ import ExchangeInfoBarButton from '../../components/ExchangeInfoBar/ExchangeInfo
 import ordersList from '../../orders'
 import GridLayoutPage from '../../components/GridLayoutPage'
 import ActiveAlgoOrdersModal from '../../components/ActiveAlgoOrdersModal'
+import SwitchMode from '../../components/SwitchMode'
 
 import RefillBalanceModal from '../../components/RefillBalanceModal'
 
@@ -58,6 +59,7 @@ const Trading = ({
   apiClientConnected,
   hasActiveAlgoOrders,
   finishGuide,
+  openNotifications,
 }) => {
   const grid = useRef()
 
@@ -72,14 +74,7 @@ const Trading = ({
 
   return (
     <Layout>
-      <Layout.Header
-        buttons={() => (
-          <>
-            <ExchangeInfoBarButton icon='save' onClick={() => grid.current.onSaveLayout()} />
-            <ExchangeInfoBarButton icon='plus' onClick={() => grid.current.onToggleAddComponentModal()} />
-          </>
-        )}
-      />
+      <Layout.Header />
       <Layout.Main flex>
         {firstLogin && (
         <Joyride
@@ -98,6 +93,22 @@ const Trading = ({
         )}
 
         <div className='hfui-tradingpage__column left'>
+          <div className='hfui-tradingpage__menu'>
+            <div className='hfui-exchangeinfobar__buttons'>
+              <ExchangeInfoBarButton icon='save' onClick={() => grid.current.onSaveLayout()} />
+              <ExchangeInfoBarButton icon='plus' onClick={() => grid.current.onToggleAddComponentModal()} />
+              <ExchangeInfoBarButton icon='notifications' onClick={openNotifications} />
+            </div>
+            <div className='hfui-tradingpaper__control'>
+              <div className='hfui-tradingpaper__control-toggle'>
+                <p>Paper Trading</p>
+                <SwitchMode />
+              </div>
+              {/* <div className='hfui-tradingpaper__control-refill'>
+              <RefillIcon onClick={onRefillClick} />
+            </div> */}
+            </div>
+          </div>
           <OrderForm
             layoutI='orderform'
             moveable={false}
@@ -129,6 +140,7 @@ Trading.propTypes = {
   apiClientConnected: PropTypes.bool,
   hasActiveAlgoOrders: PropTypes.bool,
   finishGuide: PropTypes.func.isRequired,
+  openNotifications: PropTypes.func.isRequired,
 }
 
 Trading.defaultProps = {

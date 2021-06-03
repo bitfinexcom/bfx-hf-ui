@@ -1,168 +1,102 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-
-import SwitchMode from '../SwitchMode'
-
-import MarketSelect from '../MarketSelect'
-// import RefillIcon from '../../ui/Icons/RefillIcon'
-import ExchangeInfoBarItem from './ExchangeInfoBarItem'
-import ExchangeInfoBarButton from './ExchangeInfoBar.Button'
-import quotePrefix from '../../util/quote_prefix'
+import { Ticker, TickerList } from '@ufx-ui/core'
 
 import './style.css'
 
-class ExchangeInfoBar extends React.PureComponent {
-  componentDidMount() {
-    const { activeMarket, addTickerRequirement } = this.props
-    addTickerRequirement(activeMarket)
+const ExchangeInfoBar = ({
+  onChangeMarket,
+  activeMarket,
+  activeMarketTicker,
+  markets,
+  allTickersArray,
+  favoritePairs,
+  subscribeAllMarkets,
+  updateFavorites,
+  authToken,
+  currentMode,
+}) => {
+  const [showFavorites, setShowingFavorites] = useState(false)
+
+  useEffect(() => {
+    subscribeAllMarkets(markets)
+  }, [])
+
+  const _updateFavorites = (object) => {
+    const arrayWithPairs = Object.keys(object)
+    const arrayWithFavorites = arrayWithPairs.filter(pair => object[pair])
+    updateFavorites(authToken, arrayWithFavorites, currentMode)
+  }
+  const onChangeMarketHandler = (uiID) => {
+    const newMarket = markets.find(market => market.uiID === uiID)
+    onChangeMarket(newMarket, activeMarket)
   }
 
-  toggleTradingMode() {
-    const { openTradingModeModal } = this.props
-    openTradingModeModal()
-  }
+  const {
+    low,
+    high,
+    volume,
+    lastPrice,
+    dailyChange,
+    dailyChangePerc,
+  } = activeMarketTicker
+  const { base, quote } = activeMarket
 
-  render() {
-    const {
-      onChangeMarket,
-      activeMarket,
-      ticker,
-      markets,
-      openNotifications,
-      showTicker,
-      buttons: Buttons,
-      // onRefillClick,
-    } = this.props
-    const {
-      low,
-      high,
-      volume,
-      lastPrice,
-      dailyChange,
-      dailyChangePerc,
-    } = ticker
-
-    return (
-      <div className='hfui-exchangeinfobar__wrapper'>
-        <div className='hfui-exchangeinfobar__left'>
-          <ExchangeInfoBarItem
-            label='Market'
-            className='hfui-exchangeinfobar__currency-selector'
-            tag='div'
-            value={(
-              <MarketSelect
-                markets={markets}
-                value={activeMarket}
-                onChange={(market) => {
-                  onChangeMarket(market, activeMarket)
-                }}
-                renderWithFavorites
-              />
-            )}
-          />
-        </div>
-
-        {showTicker && (
-          <div>
-            <ul>
-              <ExchangeInfoBarItem
-                text
-                vertical
-                label='Last Price'
-                value={lastPrice || '-'}
-                valuePrefix={quotePrefix(activeMarket.quote)}
-              />
-
-              <ExchangeInfoBarItem
-                text
-                vertical
-                label='24h Change'
-                value={dailyChange || '-'}
-                valuePrefix={quotePrefix(activeMarket.quote)}
-                dataClassName={
-                  dailyChange
-                    ? dailyChange < 0 ? 'hfui-red' : 'hfui-green'
-                    : ''
-                }
-              />
-
-              <ExchangeInfoBarItem
-                text
-                vertical
-                label='24h Change %'
-                valueSuffix='%'
-                value={dailyChangePerc ? dailyChangePerc * 100 : '-'}
-                dataClassName={
-                  dailyChangePerc
-                    ? dailyChangePerc < 0 ? 'hfui-red' : 'hfui-green'
-                    : ''
-                }
-              />
-
-              <ExchangeInfoBarItem
-                text
-                vertical
-                label='24h High'
-                valuePrefix={quotePrefix(activeMarket.quote)}
-                value={high || '-'}
-              />
-
-              <ExchangeInfoBarItem
-                text
-                vertical
-                label='24h Low'
-                valuePrefix={quotePrefix(activeMarket.quote)}
-                value={low || '-'}
-              />
-
-              <ExchangeInfoBarItem
-                text
-                vertical
-                label='24h Volume'
-                value={volume || '-'}
-              />
-            </ul>
-          </div>
-        )}
-
-        <div className='hfui-exchangeinfobar__right'>
-          <div className='hfui-exchangeinfobar__buttons'>
-            {Buttons && <Buttons />}
-            <ExchangeInfoBarButton icon='notifications' onClick={openNotifications} />
-          </div>
-          <div className='hfui-tradingpaper__control'>
-            <div className='hfui-tradingpaper__control-toggle'>
-              <p>Paper Trading</p>
-              <SwitchMode />
-            </div>
-            {/* <div className='hfui-tradingpaper__control-refill'>
-              <RefillIcon onClick={onRefillClick} />
-            </div> */}
-          </div>
-        </div>
+  return (
+    <div className='hfui-exchangeinfobar__wrapper'>
+      <div className='hfui-exchangeinfobar__left'>
+        <Ticker
+          data={{
+            baseCcy: base,
+            quoteCcy: quote,
+            lastPrice,
+            change: dailyChange,
+            changePerc: dailyChangePerc,
+            volume,
+            low,
+            high,
+          }}
+          className='hfui-exchangeinfobar__ticker'
+        />
+        <TickerList
+          data={allTickersArray}
+          favs={favoritePairs}
+          saveFavs={_updateFavorites}
+          showOnlyFavs={showFavorites}
+          setShowOnlyFavs={setShowingFavorites}
+          onRowClick={onChangeMarketHandler}
+          className='hfui-exchangeinfobar__tickerlist'
+        />
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 ExchangeInfoBar.propTypes = {
-  activeMarket: PropTypes.object.isRequired, // eslint-disable-line
-  addTickerRequirement: PropTypes.func.isRequired,
+  activeMarket: PropTypes.shape({
+    base: PropTypes.string,
+    quote: PropTypes.string,
+  }).isRequired,
   onChangeMarket: PropTypes.func.isRequired,
-  ticker: PropTypes.object.isRequired, // eslint-disable-line
-  markets: PropTypes.array, // eslint-disable-line
-  showTicker: PropTypes.bool,
-  openTradingModeModal: PropTypes.func,
-  openNotifications: PropTypes.func,
-  buttons: PropTypes.func,
+  activeMarketTicker: PropTypes.shape({
+    low: PropTypes.number,
+    high: PropTypes.number,
+    volume: PropTypes.number,
+    lastPrice: PropTypes.number,
+    dailyChange: PropTypes.number,
+    dailyChangePerc: PropTypes.number,
+  }).isRequired,
+  markets: PropTypes.arrayOf(PropTypes.object),
+  subscribeAllMarkets: PropTypes.func.isRequired,
+  allTickersArray: PropTypes.arrayOf(PropTypes.object).isRequired,
+  favoritePairs: PropTypes.objectOf(PropTypes.bool).isRequired,
+  updateFavorites: PropTypes.func.isRequired,
+  authToken: PropTypes.string.isRequired,
+  currentMode: PropTypes.string.isRequired,
 }
 
 ExchangeInfoBar.defaultProps = {
   markets: [],
-  showTicker: true,
-  openTradingModeModal: () => { },
-  openNotifications: () => { },
-  buttons: null,
 }
 
 export default ExchangeInfoBar

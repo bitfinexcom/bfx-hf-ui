@@ -29,8 +29,8 @@ export default (alias, store) => (e = {}) => {
   const hasDataUpdates = _isNumber(payload[0]) && _isArray(payload[1])
 
   if (event === 'subscribed') {
-    const { chanId: chanID, channel: chanName } = payload
-    store.dispatch(WSActions.pubSubscribed({ chanID, chanName }))
+    const { chanId: chanID, channel: chanName, symbol } = payload
+    store.dispatch(WSActions.pubSubscribed({ chanID, chanName, symbol }))
   }
 
   if (hasDataUpdates) {
