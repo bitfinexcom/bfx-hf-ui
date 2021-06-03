@@ -270,6 +270,12 @@ function reducer(state = getInitialState(), action = {}) {
         },
       }
     }
+    case types.CLEAR_STRATEGIES: {
+      return {
+        ...state,
+        content: {},
+      }
+    }
     case types.SET_TRADING_MODE: {
       const { isPaperTrading } = payload
       const mode = isPaperTrading ? PAPER_MODE : MAIN_MODE
