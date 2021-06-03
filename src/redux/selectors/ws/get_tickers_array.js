@@ -9,7 +9,7 @@ export default (state) => {
   const markets = _get(state, `${marketsPath}.markets`, [])
   const fullTickersData = _reduce(markets, (acc, market) => {
     const {
-      wsID, base, quote, uiID,
+      wsID, base, quote, uiID, labels,
     } = market
     const newTickerObject = {
       id: uiID,
@@ -18,6 +18,7 @@ export default (state) => {
       changePerc: _get(state, `${tickersPath}.tickers.${wsID}.dailyChangePerc`, 0),
       lastPrice: _get(state, `${tickersPath}.tickers.${wsID}.lastPrice`, 0),
       volume: _get(state, `${tickersPath}.tickers.${wsID}.volume`, 0),
+      labels,
     }
     acc.push(newTickerObject)
     return acc
