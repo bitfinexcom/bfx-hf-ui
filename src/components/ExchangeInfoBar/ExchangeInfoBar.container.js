@@ -10,7 +10,7 @@ import {
 import { getMarkets } from '../../redux/selectors/meta'
 
 import ExchangeInfoBar from './ExchangeInfoBar'
-import { MAIN_MODE, PAPER_MODE } from '../../redux/reducers/ui'
+import { MAIN_MODE } from '../../redux/reducers/ui'
 
 const mapStateToProps = (state = {}) => {
   const activeMarket = getActiveMarket(state)
@@ -34,15 +34,6 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(UIActions.setActiveMarket(market))
   },
 
-  subscribeAllMarkets: (markets, currentMode) => {
-    if (currentMode === MAIN_MODE) {
-      dispatch(WSActions.subscribeToAllTickers())
-      return
-    }
-    markets.forEach((market) => {
-      dispatch(WSActions.addChannelRequirement(['ticker', market]))
-    })
-  },
   updateFavorites: (authToken, newArray, currentMode) => {
     dispatch(WSActions.send([
       'favourite_trading_pairs.save',

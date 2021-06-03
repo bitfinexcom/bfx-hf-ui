@@ -16,7 +16,16 @@ import NotificationsSidebar from '../NotificationsSidebar'
 import './style.css'
 
 const HFUI = ({
-  authToken, getSettings, notificationsVisible, getFavoritePairs, currentMode, GAPageview, currentPage, onUnload,
+  authToken,
+  getSettings,
+  notificationsVisible,
+  getFavoritePairs,
+  currentMode,
+  GAPageview,
+  currentPage,
+  onUnload,
+  subscribeAllTickers,
+  markets,
 }) => {
   const unloadHandler = () => {
     if (authToken !== null) {
@@ -40,6 +49,7 @@ const HFUI = ({
     if (authToken) {
       getSettings(authToken)
       getFavoritePairs(authToken, currentMode)
+      subscribeAllTickers(markets, currentMode)
     }
   }, [authToken])
 
@@ -74,11 +84,14 @@ HFUI.propTypes = {
   onUnload: PropTypes.func.isRequired,
   notificationsVisible: PropTypes.bool.isRequired,
   GAPageview: PropTypes.func.isRequired,
+  subscribeAllTickers: PropTypes.func.isRequired,
+  markets: PropTypes.arrayOf(PropTypes.object),
 }
 
 HFUI.defaultProps = {
   authToken: '',
   currentPage: '',
+  markets: [],
 }
 
 export default HFUI

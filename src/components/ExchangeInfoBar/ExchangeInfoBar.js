@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Ticker, TickerList } from '@ufx-ui/core'
 import Panel from '../../ui/Panel'
@@ -12,17 +12,12 @@ const ExchangeInfoBar = ({
   markets,
   allTickersArray,
   favoritePairs,
-  subscribeAllMarkets,
   updateFavorites,
   authToken,
   currentMode,
   onRemove,
 }) => {
   const [showFavorites, setShowingFavorites] = useState(false)
-
-  useEffect(() => {
-    subscribeAllMarkets(markets, currentMode)
-  }, [])
 
   const _updateFavorites = (object) => {
     const arrayWithPairs = Object.keys(object)
@@ -99,7 +94,6 @@ ExchangeInfoBar.propTypes = {
     dailyChangePerc: PropTypes.number,
   }).isRequired,
   markets: PropTypes.arrayOf(PropTypes.object),
-  subscribeAllMarkets: PropTypes.func.isRequired,
   allTickersArray: PropTypes.arrayOf(PropTypes.object).isRequired,
   favoritePairs: PropTypes.objectOf(PropTypes.bool).isRequired,
   updateFavorites: PropTypes.func.isRequired,
