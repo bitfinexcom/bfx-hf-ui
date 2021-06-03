@@ -16,6 +16,7 @@ import onRemoveChannelRequirement from './on_rm_channel_req'
 import onFlushDataFromExchange from './on_flush_data_from_exchange'
 import onBufferDataFromExchange from './on_buffer_data_from_exchange'
 import onPubSubscribed from './on_pub_subscribed'
+import onAllTickersSubscribe from './on_all_tickers_subscribe'
 
 export default function* () {
   yield takeEvery(t.BUFF_SEND, messageQueueWorker)
@@ -30,6 +31,7 @@ export default function* () {
   yield takeEvery(t.FLUSH_DATA_FROM_EXCHANGE, onFlushDataFromExchange)
   yield takeEvery(t.BUFFER_DATA_FROM_EXCHANGE, onBufferDataFromExchange)
   yield takeEvery(t.PUB_SUBSCRIBED, onPubSubscribed)
+  yield takeEvery(t.SUBSCRIBE_TO_ALL_TICKERS, onAllTickersSubscribe)
 
   yield fork(updateWorker)
   yield fork(connectionWorker)

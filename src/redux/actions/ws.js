@@ -289,6 +289,13 @@ export default {
   resetBacktestData: () => ({
     type: t.RESET_DATA_BACKTEST,
   }),
+  subscribeToAllTickers: () => ({
+    type: t.SUBSCRIBE_TO_ALL_TICKERS,
+  }),
+  setTickersData: (tickers) => ({
+    type: t.SET_TICKERS_DATA,
+    payload: tickers,
+  }),
   initAuth: password => send(['auth.init', password, 'main']),
   auth: (password, mode) => send(['auth.submit', password, mode]),
   resetAuth: () => send(['auth.reset']),
