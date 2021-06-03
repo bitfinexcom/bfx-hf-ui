@@ -153,6 +153,7 @@ TradingStatePanel.propTypes = {
   positions: PropTypes.arrayOf(PropTypes.object).isRequired,
   algoOrders: PropTypes.arrayOf(PropTypes.object).isRequired,
   atomicOrders: PropTypes.arrayOf(PropTypes.object).isRequired,
+  markets: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
 TradingStatePanel.defaultProps = {
