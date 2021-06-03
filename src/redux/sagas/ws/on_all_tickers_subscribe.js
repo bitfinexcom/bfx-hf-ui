@@ -6,7 +6,7 @@ import WSActions from '../../actions/ws'
 const debug = Debug('hfui:rx:s:ws-hfui:on-all-tickers-subscribe')
 
 const UPDATE_RATES_INTERVAL_MS = 10 * 1000 // 10s
-const URL = 'https://api-pub.bitfinex.com/v2/tickers?symbols=ALL'
+const URL = 'http://localhost:45001/v2/tickers?symbols=ALL'
 
 export default function* () {
   while (true) {
