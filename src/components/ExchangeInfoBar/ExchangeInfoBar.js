@@ -21,7 +21,7 @@ const ExchangeInfoBar = ({
   const [showFavorites, setShowingFavorites] = useState(false)
 
   useEffect(() => {
-    subscribeAllMarkets(markets)
+    subscribeAllMarkets(markets, currentMode)
   }, [])
 
   const _updateFavorites = (object) => {
