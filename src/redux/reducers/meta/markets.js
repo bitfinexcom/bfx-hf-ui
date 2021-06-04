@@ -40,8 +40,12 @@ export default (state = getInitialState(), action = {}) => {
           labels = [...firstPair, ...secondPair]
         }
         // eslint-disable-next-line no-param-reassign
-        market.labels = labels
-        return market
+        const newMarketObject = {
+          ...market,
+          ccyLabels: labels,
+        }
+
+        return newMarketObject
       })
       return newState
     }
