@@ -22,7 +22,6 @@ import timeFrames from '../../util/time_frames'
 
 import Panel from '../../ui/Panel'
 import Dropdown from '../../ui/Dropdown'
-import ExchangeInfoBar from '../ExchangeInfoBar'
 
 import UnconfiguredModal from './Modals/UnconfiguredModal'
 import SubmitAPIKeysModal from './Modals/SubmitAPIKeysModal'
@@ -311,7 +310,6 @@ class OrderForm extends React.Component {
 
     return (
       <>
-        <ExchangeInfoBar />
         <Panel
           key='execute-order'
           darkHeader

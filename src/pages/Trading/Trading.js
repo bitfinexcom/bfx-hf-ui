@@ -77,22 +77,22 @@ const Trading = ({
       <Layout.Header />
       <Layout.Main flex>
         {firstLogin && (
-        <Joyride
-          callback={onGuideFinish}
-          steps={STEPS}
-          run={isGuideActive}
-          continuous
-          showProgress
-          showSkipButton
-          styles={{
-            options: {
-              zIndex: 10000,
-            },
-          }}
-        />
+          <Joyride
+            callback={onGuideFinish}
+            steps={STEPS}
+            run={isGuideActive}
+            continuous
+            showProgress
+            showSkipButton
+            styles={{
+              options: {
+                zIndex: 10000,
+              },
+            }}
+          />
         )}
 
-        <div className='hfui-tradingpage__column left'>
+        <div className='hfui-tradingpage__column center'>
           <div className='hfui-tradingpage__menu'>
             <div className='hfui-exchangeinfobar__buttons'>
               <ExchangeInfoBarButton icon='save' onClick={() => grid.current.onSaveLayout()} />
@@ -104,19 +104,8 @@ const Trading = ({
                 <p>Paper Trading</p>
                 <SwitchMode />
               </div>
-              {/* <div className='hfui-tradingpaper__control-refill'>
-              <RefillIcon onClick={onRefillClick} />
-            </div> */}
             </div>
           </div>
-          <OrderForm
-            layoutI='orderform'
-            moveable={false}
-            removeable={false}
-            orders={orders}
-          />
-        </div>
-        <div className='hfui-tradingpage__column center'>
           <GridLayoutPage
             showToolbar={false}
             ref={grid}
