@@ -1,8 +1,9 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
+import _isEmpty from 'lodash/isEmpty'
+import { VirtualTable } from '@ufx-ui/core'
 
 import BalancesTableColumns from './BalancesTable.columns'
-import Table from '../../ui/Table'
 
 const BalancesTable = ({
   renderedInTradingState, filteredBalances, balances, hideZeroBalances,
@@ -12,11 +13,17 @@ const BalancesTable = ({
     ? data.filter(b => +b.balance > 0)
     : data
 
+  if (_isEmpty(filtered)) {
+    return (
+      <p className='empty'>No balances available</p>
+    )
+  }
+
   return (
-    <Table
+    <VirtualTable
       data={filtered}
       columns={BalancesTableColumns()}
-      defaultSortBy='mts'
+      defaultSortBy='context'
       defaultSortDirection='ASC'
     />
   )
