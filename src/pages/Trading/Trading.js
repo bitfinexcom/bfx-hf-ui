@@ -3,20 +3,15 @@ import PropTypes from 'prop-types'
 import Joyride, { STATUS } from 'react-joyride'
 
 import Layout from '../../components/Layout'
-import OrderForm from '../../components/OrderForm'
 import ExchangeInfoBarButton from '../../components/ExchangeInfoBar/ExchangeInfoBar.Button'
-
-import ordersList from '../../orders'
 import GridLayoutPage from '../../components/GridLayoutPage'
 import ActiveAlgoOrdersModal from '../../components/ActiveAlgoOrdersModal'
 import SwitchMode from '../../components/SwitchMode'
-
 import RefillBalanceModal from '../../components/RefillBalanceModal'
 
 import './style.css'
 
 const LAYOUT_ID = '__hfui_trading_page'
-const orders = Object.values(ordersList).map(uiDef => uiDef())
 
 const STEPS = [
   {
