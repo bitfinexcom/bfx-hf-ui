@@ -27,7 +27,7 @@ const STEPS = [
     content: 'You can find your notifications here',
   },
   {
-    target: '.hfui-orderformmenu__wrapper',
+    target: '.hfui-orderform__panel',
     content: 'If you want to create an order, this menu contains all orders available',
   },
   {
