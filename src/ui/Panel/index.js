@@ -66,7 +66,14 @@ export default class Panel extends React.Component {
             'has-secondary-header': !!secondaryHeaderComponents,
           })}
         >
-          {label && <p className='hfui-panel__label'>{label}</p>}
+          <div className='hfui-panel__left-container'>
+            {label && <p className='hfui-panel__label'>{label}</p>}
+            {headerComponents && (
+            <div className='hfui-panel__header-components'>
+              {headerComponents}
+            </div>
+            )}
+          </div>
           <div className='hfui-panel__buttons-section'>
             {preHeaderComponents && (
               <div className='hfui-panel__preheader'>
@@ -91,12 +98,6 @@ export default class Panel extends React.Component {
                 </li>
               ))}
             </ul>
-          )}
-
-          {headerComponents && (
-            <div className='hfui-panel__header-components'>
-              {headerComponents}
-            </div>
           )}
 
           {!hideIcons && (
