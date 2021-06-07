@@ -5,7 +5,6 @@ import { TRADING_PAGE } from '../../redux/constants/ui'
 import { apiClientConnected } from '../../redux/selectors/ws'
 import { getHasActiveAlgoOrders, getShowActiveAlgoModal } from '../../redux/selectors/ao'
 import {
-  getLayouts,
   getFirstLogin,
   getGuideStatusForPage,
 } from '../../redux/selectors/ui'
@@ -13,7 +12,6 @@ import {
 import Trading from './Trading'
 
 const mapStateToProps = (state = {}) => ({
-  layouts: getLayouts(state),
   firstLogin: getFirstLogin(state),
   showAlgoModal: getShowActiveAlgoModal(state),
   apiClientConnected: apiClientConnected(state),
@@ -22,10 +20,10 @@ const mapStateToProps = (state = {}) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  deleteLayout: (id) => dispatch(UIActions.deleteLayout(id)),
-  createLayout: (id) => dispatch(UIActions.createLayout(id)),
   finishGuide: () => dispatch(UIActions.finishGuide(TRADING_PAGE)),
-  saveLayout: (layout, id) => dispatch(UIActions.saveLayout(layout, id)),
+  openNotifications: () => {
+    dispatch(UIActions.openNotifcationPanel())
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Trading)

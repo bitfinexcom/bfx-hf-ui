@@ -1,4 +1,4 @@
-import _isFinite from 'lodash/isFinite'
+import { isValidDate } from '../util/date'
 
 export default () => ({
   label: 'Stop Limit',
@@ -10,7 +10,7 @@ export default () => ({
       hidden, reduceonly, price, limitPrice, amount, tif, tifDate, lev,
     } = data
 
-    if (tif && (!_isFinite(tifDate) || tifDate === 0)) {
+    if (tif && (!isValidDate(tifDate) || tifDate === 0)) {
       throw new Error('TIF date required')
     }
 

@@ -1,4 +1,4 @@
-@import '../../variables.scss';
+@import "../../variables.scss";
 
 .hfui-tradingpage__column {
   height: 100%;
@@ -48,4 +48,11 @@
       border-radius: 8px;
     }
   }
+}
+
+.hfui-tradingpage__menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }

@@ -4,14 +4,17 @@ import PropTypes from 'prop-types'
 import BalancesTableColumns from './BalancesTable.columns'
 import Table from '../../ui/Table'
 
-const BalancesTable = ({ balances, hideZeroBalances }) => {
-  const filteredBalances = hideZeroBalances
-    ? balances.filter(b => +b.balance > 0)
-    : balances
+const BalancesTable = ({
+  renderedInTradingState, filteredBalances, balances, hideZeroBalances,
+}) => {
+  const data = renderedInTradingState ? filteredBalances : balances
+  const filtered = hideZeroBalances
+    ? data.filter(b => +b.balance > 0)
+    : data
 
   return (
     <Table
-      data={filteredBalances}
+      data={filtered}
       columns={BalancesTableColumns()}
       defaultSortBy='mts'
       defaultSortDirection='ASC'
@@ -21,11 +24,15 @@ const BalancesTable = ({ balances, hideZeroBalances }) => {
 
 BalancesTable.propTypes = {
   balances: PropTypes.arrayOf(PropTypes.object),
+  filteredBalances: PropTypes.arrayOf(PropTypes.object),
+  renderedInTradingState: PropTypes.bool,
   hideZeroBalances: PropTypes.bool,
 }
 
 BalancesTable.defaultProps = {
   balances: [],
+  filteredBalances: [],
+  renderedInTradingState: false,
   hideZeroBalances: true,
 }
 

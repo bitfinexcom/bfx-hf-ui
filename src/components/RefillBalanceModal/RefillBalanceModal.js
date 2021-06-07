@@ -28,11 +28,11 @@ export default function RefillBalanceModal() {
       className='hfui-refillbalance__modal'
     >
       <div className='modal-content'>
-        <Input placeholder='AAA' />
-        <Input placeholder='BBB' />
-        <Input placeholder='TESTBTC' />
-        <Input placeholder='TESTUSDT' />
-        <Input placeholder='TESTUSD' />
+        <Input placeholder='AAA' type='text' />
+        <Input placeholder='BBB' type='text' />
+        <Input placeholder='TESTBTC' type='text' />
+        <Input placeholder='TESTUSDT' type='text' />
+        <Input placeholder='TESTUSD' type='text' />
       </div>
       <Modal.Footer>
         <Modal.Button primary onClick={onRefillBalanceModalSubmit}>

@@ -1,12 +1,11 @@
 import { put, select } from 'redux-saga/effects'
 
 import WSActions from '../../actions/ws'
-import { getActiveMarket } from '../../selectors/ui'
+import { getMarketBySymbol } from '../../selectors/meta'
 
 export default function* ({ payload }) {
-  const { chanID, chanName } = payload
-  const marketData = yield select(getActiveMarket)
+  const { chanID, chanName, symbol } = payload
+  const marketData = yield select(getMarketBySymbol, symbol)
   const chanData = [chanName, marketData]
-
   yield put(WSActions.subscribed({ chanID, chanData }))
 }
