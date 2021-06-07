@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { Ticker, TickerList } from '@ufx-ui/core'
+import Panel from '../../ui/Panel'
 
 import './style.css'
 
@@ -15,6 +16,7 @@ const ExchangeInfoBar = ({
   updateFavorites,
   authToken,
   currentMode,
+  onRemove,
 }) => {
   const [showFavorites, setShowingFavorites] = useState(false)
 
@@ -43,32 +45,42 @@ const ExchangeInfoBar = ({
   const { base, quote } = activeMarket
 
   return (
-    <div className='hfui-exchangeinfobar__wrapper'>
-      <div className='hfui-exchangeinfobar__left'>
-        <Ticker
-          data={{
-            baseCcy: base,
-            quoteCcy: quote,
-            lastPrice,
-            change: dailyChange,
-            changePerc: dailyChangePerc,
-            volume,
-            low,
-            high,
-          }}
-          className='hfui-exchangeinfobar__ticker'
-        />
-        <TickerList
-          data={allTickersArray}
-          favs={favoritePairs}
-          saveFavs={_updateFavorites}
-          showOnlyFavs={showFavorites}
-          setShowOnlyFavs={setShowingFavorites}
-          onRowClick={onChangeMarketHandler}
-          className='hfui-exchangeinfobar__tickerlist'
-        />
+    <Panel
+      key='ticker-symbols'
+      label='Ticker symbols'
+      onRemove={onRemove}
+      darkHeader
+      dark
+      moveable
+      removeable
+    >
+      <div className='hfui-exchangeinfobar__wrapper'>
+        <div className='hfui-exchangeinfobar__left'>
+          <Ticker
+            data={{
+              baseCcy: base,
+              quoteCcy: quote,
+              lastPrice,
+              change: dailyChange,
+              changePerc: dailyChangePerc,
+              volume,
+              low,
+              high,
+            }}
+            className='hfui-exchangeinfobar__ticker'
+          />
+          <TickerList
+            data={allTickersArray}
+            favs={favoritePairs}
+            saveFavs={_updateFavorites}
+            showOnlyFavs={showFavorites}
+            setShowOnlyFavs={setShowingFavorites}
+            onRowClick={onChangeMarketHandler}
+            className='hfui-exchangeinfobar__tickerlist'
+          />
+        </div>
       </div>
-    </div>
+    </Panel>
   )
 }
 
@@ -93,10 +105,12 @@ ExchangeInfoBar.propTypes = {
   updateFavorites: PropTypes.func.isRequired,
   authToken: PropTypes.string.isRequired,
   currentMode: PropTypes.string.isRequired,
+  onRemove: PropTypes.func,
 }
 
 ExchangeInfoBar.defaultProps = {
   markets: [],
+  onRemove: () => {},
 }
 
 export default ExchangeInfoBar

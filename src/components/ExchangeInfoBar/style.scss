@@ -32,7 +32,6 @@
 }
 
 .hfui-exchangeinfobar__ticker {
-  margin-bottom: 5px;
   width: 100%;
   background-color: $darker-background-color;
   padding: 10px;
@@ -42,6 +41,15 @@
   width: 100%;
   background-color: $darker-background-color;
   padding: 10px;
+
+  .input-field-container {
+    border: 1px solid #243d50 !important;
+
+    input::placeholder {
+      color: #e2e5e7 !important;
+      opacity: .6 !important;
+    }
+  }
 }
 
 .hfui-exchangeinfobar__left {
