@@ -124,7 +124,6 @@ export default class ChartPanel extends React.Component {
         chartMarketSelect={
           showChartMarket && canChangeMarket && this.renderMarketDropdown()
         }
-        headerComponents={showMarket && !canChangeMarket && <p>{activeMarket.uiID}</p>}
         className='hfui-chart__wrapper'
       >
         <Chart market={currentMarket} />
