@@ -25,7 +25,6 @@ const HFUI = ({
   currentPage,
   onUnload,
   subscribeAllTickers,
-  markets,
 }) => {
   const unloadHandler = () => {
     if (authToken !== null) {
@@ -49,7 +48,7 @@ const HFUI = ({
     if (authToken) {
       getSettings(authToken)
       getFavoritePairs(authToken, currentMode)
-      subscribeAllTickers(markets, currentMode)
+      subscribeAllTickers()
     }
   }, [authToken])
 
@@ -85,13 +84,11 @@ HFUI.propTypes = {
   notificationsVisible: PropTypes.bool.isRequired,
   GAPageview: PropTypes.func.isRequired,
   subscribeAllTickers: PropTypes.func.isRequired,
-  markets: PropTypes.arrayOf(PropTypes.object),
 }
 
 HFUI.defaultProps = {
   authToken: '',
   currentPage: '',
-  markets: [],
 }
 
 export default HFUI

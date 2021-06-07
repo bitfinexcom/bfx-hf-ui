@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
+import { reduxActions } from '@ufx-ui/bfx-containers'
 
 import WSActions from '../../redux/actions/ws'
 import GAActions from '../../redux/actions/google_analytics'
 import { getCurrentMode } from '../../redux/selectors/ui'
 import { getAuthToken } from '../../redux/selectors/ws'
 import HFUI from './HFUI'
-import { MAIN_MODE } from '../../redux/reducers/ui'
 import { getMarkets } from '../../redux/selectors/meta'
 
 const mapStateToProps = (state = {}) => {
@@ -16,7 +16,6 @@ const mapStateToProps = (state = {}) => {
     authToken: getAuthToken(state),
     notificationsVisible,
     currentMode: getCurrentMode(state),
-    markets: getMarkets(state),
   }
 }
 
@@ -37,14 +36,8 @@ const mapDispatchToProps = dispatch => ({
   onUnload: (authToken, mode) => {
     dispatch(WSActions.onUnload(authToken, mode))
   },
-  subscribeAllTickers: (markets, currentMode) => {
-    if (currentMode === MAIN_MODE) {
-      dispatch(WSActions.subscribeToAllTickers())
-      return
-    }
-    markets.forEach((market) => {
-      dispatch(WSActions.addChannelRequirement(['ticker', market]))
-    })
+  subscribeAllTickers: () => {
+    dispatch(reduxActions.fetchAllTickersPeriodically())
   },
 })
 

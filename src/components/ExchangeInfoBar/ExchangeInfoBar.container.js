@@ -5,9 +5,9 @@ import WSActions from '../../redux/actions/ws'
 import UIActions from '../../redux/actions/ui'
 import { getActiveMarket, getCurrentMode } from '../../redux/selectors/ui'
 import {
-  getTicker, getAuthToken, getTickersArray, getFavoritePairsObject,
+  getAuthToken, getFavoritePairsObject,
 } from '../../redux/selectors/ws'
-import { getMarkets } from '../../redux/selectors/meta'
+import { getTicker, getTickersArray, getMarkets } from '../../redux/selectors/meta'
 
 import ExchangeInfoBar from './ExchangeInfoBar'
 

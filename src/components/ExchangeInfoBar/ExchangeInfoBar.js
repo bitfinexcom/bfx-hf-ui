@@ -34,8 +34,8 @@ const ExchangeInfoBar = ({
     high,
     volume,
     lastPrice,
-    dailyChange,
-    dailyChangePerc,
+    change,
+    changePerc,
   } = activeMarketTicker
   const { base, quote } = activeMarket
 
@@ -56,8 +56,8 @@ const ExchangeInfoBar = ({
               baseCcy: base,
               quoteCcy: quote,
               lastPrice,
-              change: dailyChange,
-              changePerc: dailyChangePerc,
+              change,
+              changePerc,
               volume,
               low,
               high,
@@ -90,8 +90,8 @@ ExchangeInfoBar.propTypes = {
     high: PropTypes.number,
     volume: PropTypes.number,
     lastPrice: PropTypes.number,
-    dailyChange: PropTypes.number,
-    dailyChangePerc: PropTypes.number,
+    change: PropTypes.number,
+    changePerc: PropTypes.number,
   }).isRequired,
   markets: PropTypes.arrayOf(PropTypes.object),
   allTickersArray: PropTypes.arrayOf(PropTypes.object).isRequired,
