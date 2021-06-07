@@ -155,7 +155,7 @@
   },
   "dependencies": {
     "@projectstorm/react-diagrams": "^5.3.2",
-    "@ufx-ui/bfx-containers": "^0.5.2",
+    "@ufx-ui/bfx-containers": "^0.5.5",
     "@ufx-ui/core": "^0.5.2",
     "axios": "^0.21.1",
     "bfx-api-node-models": "^1.2.4",
