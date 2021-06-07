@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import './style.css'
 
-const NavbarButton = memo(({
+const NavbarButton = ({
   currentRoute, route, navigate, label, external,
 }) => {
   if (external) {
@@ -24,14 +24,12 @@ const NavbarButton = memo(({
       {label}
     </button>
   )
-})
-
-NavbarButton.displayName = 'NavbarButton'
+}
 
 NavbarButton.propTypes = {
-  currentRoute: PropTypes.string.isRequired,
+  currentRoute: PropTypes.string,
   route: PropTypes.string,
-  navigate: PropTypes.func.isRequired,
+  navigate: PropTypes.func,
   label: PropTypes.oneOfType([
     PropTypes.string, PropTypes.array, PropTypes.element,
   ]).isRequired,
@@ -41,6 +39,8 @@ NavbarButton.propTypes = {
 NavbarButton.defaultProps = {
   external: '',
   route: '',
+  currentRoute: '',
+  navigate: () => {},
 }
 
-export default NavbarButton
+export default memo(NavbarButton)

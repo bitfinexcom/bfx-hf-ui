@@ -6,7 +6,7 @@ import Panel from '../../ui/Panel'
 
 const PositionsTablePanel = ({ onRemove, positions, dark }) => (
   <Panel
-    label='POSITIONS'
+    label='Positions'
     onRemove={onRemove}
     dark={dark}
     darkHeader={dark}

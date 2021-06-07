@@ -1,4 +1,3 @@
-/* eslint-disable prefer-arrow-callback */
 import React, { useState, memo } from 'react'
 import ClassNames from 'classnames'
 import PropTypes from 'prop-types'
@@ -33,7 +32,7 @@ const getIcon = (status, text) => {
   }
 }
 
-const Notification = memo(function Notification({ data, onClose }) {
+const Notification = memo(({ data, onClose }) => {
   const [state, setState] = useState('OPENED')
 
   const close = () => {
@@ -49,8 +48,9 @@ const Notification = memo(function Notification({ data, onClose }) {
   const icon = getIcon(status, text)
 
   return (
-    <li className={ClassNames(`hfui-notification ${state === 'OPENED' ? '' : 'closed'}`, {
+    <li className={ClassNames('hfui-notification', {
       [_toLower(status)]: true,
+      closed: state === 'CLOSED',
     })}
     >
       <p className='hfui-notification__close' onClick={close}>&#10005;</p>
@@ -69,6 +69,8 @@ Notification.INTENT_SUCCESS = 'success'
 Notification.INTENT_WARNING = 'warning'
 Notification.INTENT_ERROR = 'error'
 Notification.INTENT_INFO = 'info'
+
+Notification.displayName = 'Notification'
 
 Notification.propTypes = {
   data: PropTypes.objectOf(PropTypes.oneOfType([

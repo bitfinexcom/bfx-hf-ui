@@ -47,8 +47,8 @@ const Settings = ({
   const onSubmitPaperAPIKeys = () => {
     submitAPIKeys({
       authToken,
-      apiKey,
-      apiSecret,
+      apiKey: paperApiKey,
+      apiSecret: paperApiSecret,
     }, PAPER_MODE, currentMode)
   }
 

@@ -95,46 +95,48 @@ class NotificationsSidebar extends React.PureComponent {
     const { notifications, notificationsVisible, closeNotificationPanel } = this.props
 
     return (
-      <div className={ClassNames(`hfui-notificationssidebar__wrapper ${notificationsVisible ? 'absoulute' : ''}`, {
-        visible: notificationsVisible,
-      })}
-      >
-        <Panel
-          label='NOTIFICATIONS'
-          hideIcons
-          closePanel={closeNotificationPanel}
-          preHeaderComponents={[
-            <Button
-              onClick={this.onClearNotifications}
-              key='clear-btn'
-              disabled={_isEmpty(notifications)}
-              className='hfui-notificationssidebar__header-btn'
-              label={[
-                <i key='icon' className='icon-clear' />,
-                <p key='text'>Clear all</p>,
-              ]}
-            />,
-          ]}
+      <>
+        <div className={ClassNames('hfui-notificationssidebar__wrapper', {
+          visible: notificationsVisible,
+          hidden: !notificationsVisible,
+        })}
         >
-          {_isEmpty(notifications) ? (
-            <p className='hfui-notificationssidebar__empty'>There are no new notifications yet!</p>
-          ) : (
-            <ul>
-              <Scrollbars height='100%'>
-                {notifications.map((n = {}) => (
-                  <Notification key={n.uid || n.mts} data={n} onClose={this.onClose} />
-                ))}
-              </Scrollbars>
-            </ul>
-          )}
-        </Panel>
-
+          <Panel
+            label='Notifications'
+            hideIcons
+            closePanel={closeNotificationPanel}
+            preHeaderComponents={[
+              <Button
+                onClick={this.onClearNotifications}
+                key='clear-btn'
+                disabled={_isEmpty(notifications)}
+                className='hfui-notificationssidebar__header-btn'
+                label={[
+                  <i key='icon' className='icon-clear' />,
+                  <p key='text'>Clear all</p>,
+                ]}
+              />,
+            ]}
+          >
+            {_isEmpty(notifications) ? (
+              <p className='hfui-notificationssidebar__empty'>There are no new notifications yet!</p>
+            ) : (
+              <ul>
+                <Scrollbars height='100%'>
+                  {notifications.map((n = {}) => (
+                    <Notification key={n.uid} data={n} onClose={this.onClose} />
+                  ))}
+                </Scrollbars>
+              </ul>
+            )}
+          </Panel>
+        </div>
         <ul className='hfui-notificationssidebar__external'>
           {liveNotifications.map((item = {}) => (
             <Notification key={item.id} data={item.n} />
           ))}
         </ul>
-      </div>
+      </>
     )
   }
 }

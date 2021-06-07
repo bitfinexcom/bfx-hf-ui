@@ -22,7 +22,7 @@ const mapStateToProps = (state = {}) => ({
 const mapDispatchToProps = dispatch => ({
   finishGuide: () => dispatch(UIActions.finishGuide(TRADING_PAGE)),
   openNotifications: () => {
-    dispatch(UIActions.openNotifcationPanel())
+    dispatch(UIActions.switchNotifcationPanel())
   },
 })
 
