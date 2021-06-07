@@ -4,25 +4,26 @@
   position: fixed;
   top: 0;
   right: 0;
-  width: 0;
   bottom: 0;
   z-index: 1000;
+  width: 30%;
+  margin-right: 0;
 
   &.visible {
-    width: 30%;
-    margin-right: 0;
+    transform: translateX(0%);
+    transition: transform 700ms cubic-bezier(.29,.58,.05,1);
+  }
+
+  &.hidden {
+    transform: translateX(100%);
+    transition: transform 700ms cubic-bezier(.77,0,.175,1);
   }
 
   ul {
     height: 100%;
   }
 
-  &.absoulute {
-    z-index: 9999999999;
-  }
-
-  .hfui-panel,
-  .hfui-panel__header {
+  .hfui-panel, .hfui-panel__header {
     background-color: mix($black-color, $panel-background-color, 10%);
   }
 }
@@ -128,14 +129,7 @@
   }
 
   &.closed {
-    height: 0;
-    visibility: hidden;
-    overflow: hidden;
-    min-height: 0;
-    margin: 0;
-    padding: 0;
-    border: none;
-    width: 0;
+    display: none;
   }
 }
 
