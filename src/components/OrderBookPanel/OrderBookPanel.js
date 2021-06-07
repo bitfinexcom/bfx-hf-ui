@@ -29,6 +29,7 @@ const {
   getBooktAsks,
   getBooktBids,
   getBookSnapshotReceived,
+  isSubscribedToBook,
 } = reduxSelectors
 
 const OrderBookPanel = (props) => {
@@ -60,17 +61,18 @@ const OrderBookPanel = (props) => {
   const pBids = useSelector(state => getBookpBidsDesc(state, symbol))
   const tAsks = useSelector(state => getBooktAsks(state, symbol))
   const tBids = useSelector(state => getBooktBids(state, symbol))
+  const isSubscribedToSymbol = useSelector(state => isSubscribedToBook(state, symbol))
 
   // resubscribe book channel on market change
   useEffect(() => {
-    if (isWSConnected && symbol) {
+    if (isWSConnected && symbol && !isSubscribedToSymbol) {
       dispatch(WSSubscribeChannel({
         ...SUBSCRIPTION_CONFIG,
         prec: 'P0',
         symbol,
       }))
     }
-  }, [isWSConnected, symbol, dispatch])
+  }, [isWSConnected, symbol, isSubscribedToSymbol, dispatch])
 
   const unSubscribeWSChannel = (s) => {
     const booksUsingSymbol = _filter(allMarketBooks, ({ currentMarket: cm }) => cm.wsID === s)
@@ -182,7 +184,7 @@ const OrderBookPanel = (props) => {
           tAsks={tAsks}
           tBids={tBids}
           loading={!snapshotReceived}
-        // ufx-ui/book props end
+          // ufx-ui/book props end
         />
       )}
     </Panel>
