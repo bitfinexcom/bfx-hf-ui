@@ -129,6 +129,10 @@ const updateStrategyId = id => ({
   payload: { id },
 })
 
+const clearStrategies = () => ({
+  type: types.CLEAR_STRATEGIES,
+})
+
 const setTradingMode = (isPaperTrading) => ({
   type: types.SET_TRADING_MODE,
   payload: { isPaperTrading },
@@ -185,5 +189,6 @@ export default {
   changeReffilBalanceModalState,
   changeBadInternetConnectionState,
   setIsOrderExecuting,
+  clearStrategies,
   switchNotifcationPanel,
 }

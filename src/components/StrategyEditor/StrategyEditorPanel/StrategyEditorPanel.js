@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
+import _isEmpty from 'lodash/isEmpty'
 
 import Panel from '../../../ui/Panel'
 import Button from '../../../ui/Button'
@@ -18,6 +19,7 @@ const StrategyEditorPanel = ({
   onOpenSelectModal,
   onOpenCreateModal,
   onOpenRemoveModal,
+  strategies,
 }) => {
   const { id = strategyId, label: strategyName } = strategy || {}
   const strategyDisplayName = strategyDirty ? 'Unsaved strategy' : strategyName
@@ -40,6 +42,7 @@ const StrategyEditorPanel = ({
             <Button
               className='hfui-open-strategy__btn'
               onClick={onOpenSelectModal}
+              disabled={strategyDirty || _isEmpty(strategies)}
               label={[
                 <i key='icon' className='icon-open' />,
                 <p key='text'>Open</p>,
@@ -56,7 +59,7 @@ const StrategyEditorPanel = ({
               ]}
             />
 
-            {strategy && (
+            {!_isEmpty(strategy) && (
               <Button
                 onClick={onSaveStrategy}
                 disabled={!strategyDirty}
@@ -67,7 +70,7 @@ const StrategyEditorPanel = ({
               />
             )}
 
-            {strategy && (
+            {!_isEmpty(strategy) && (
               <Button
                 className='hfui-remove-strategy__btn'
                 onClick={onOpenRemoveModal}
@@ -104,6 +107,7 @@ StrategyEditorPanel.propTypes = {
   onOpenCreateModal: PropTypes.func.isRequired,
   onOpenRemoveModal: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
+  strategies: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
 StrategyEditorPanel.defaultProps = {
@@ -119,4 +123,4 @@ StrategyEditorPanel.defaultProps = {
   strategyDirty: false,
 }
 
-export default StrategyEditorPanel
+export default memo(StrategyEditorPanel)
