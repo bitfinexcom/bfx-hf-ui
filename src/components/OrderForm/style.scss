@@ -30,7 +30,6 @@
       position: absolute;
       right: 10px;
       color: $text-color;
-      font-size: 10px;
     }
   }
 
@@ -49,6 +48,8 @@
 
   .ufx-dropdown .list {
     display: block;
+    left: 0 - spacing();
+    right: 0 - spacing();
 
     li {
       display: block;
@@ -70,23 +71,15 @@
   .hfui-orderform__upgrade_inner {
     display: inline-block;
     margin: 0 auto;
-    font-size: 12px;
+    font-size: 13px;
     padding: 0 16px;
     line-height: 30px;
     height: 33px;
-    text-decoration: underline;
-
-    &:hover {
-      cursor: pointer;
-    }
+    cursor: pointer;
   }
 }
 
 .hfui-orderform__panel {
-  .hfui-panel__content {
-    padding: 0 spacing(1, true);
-  }
-
   .hfui-panel__footer {
     width: 100%;
     background: $background-color;
@@ -144,7 +137,7 @@
   width: 100%;
   display: block;
   color: $grey-color;
-  font-size: 12px;
+  font-size: 13px;
   margin-bottom: 16px;
   text-align: center;
 }
@@ -173,7 +166,7 @@
 
 .hfui-orderform__creation-error {
   margin-top: 16px;
-  font-size: 12px;
+  font-size: 13px;
   color: $red-color;
 }
 
@@ -235,7 +228,6 @@
 .hfui-orderform__layout-section-title {
   text-align: center;
   font-size: 13px;
-  font-weight: 300;
   margin-bottom: 16px;
   border-top: 1px solid $panel-background-color;
   text-transform: uppercase;
@@ -264,7 +256,6 @@
 
     button {
       font-size: 13px;
-      font-weight: 300;
     }
 
     button, i {
@@ -286,7 +277,7 @@
 }
 
 .hfui-orderform__checkbox-group {
-  font-size: 11px;
+  font-size: 13px;
 
   .hfui-orderform__input {
     margin-bottom: 0;
@@ -334,8 +325,9 @@
   }
 
   .hfui-orderform__input-label {
-    color: $text-color2;
-    font-size: 11px;
+    color: $light-color-400;
+    font-size: 12px;
+    font-weight: 600;
     line-height: 16px;
     margin-top: 2px;
     display: flex;
@@ -344,19 +336,19 @@
   }
 
   .hfui-orderform__input-error-label {
-    font-size: 11px;
+    font-size: 13px;
     margin-bottom: 8px;
   }
 
   &.text p:first-child {
     color: $text-color;
-    font-size: 12px;
+    font-size: 13px;
     line-height: 24px;
     width: 138px;
   }
 
   &.checkboxes {
-    font-size: 12px;
+    font-size: 13px;
     max-width: 166px;
 
     .pretty .state {
@@ -391,19 +383,14 @@
   white-space: pre-line;
   user-select: none;
 
-  .hfui-orderform__help-inner {
-    padding: 0 16px;
-  }
-
   .hfui-orderform__help-content {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .hfui-orderform__help-title {
     margin-bottom: 8px;
     padding-bottom: 4px;
     font-size: 14px;
-    border-bottom: 1px solid $dark-grey-color;
     line-height: 30px;
 
     i {
@@ -412,7 +399,7 @@
     }
 
     .prefix {
-      color: $grey-color;
+      color: $light-color-400;
       margin-right: 8px;
     }
   }
@@ -441,7 +428,7 @@
 
   .notice {
     padding: 0 16px;
-    font-size: 11px;
+    font-size: 13px;
     color: $grey-color;
     line-height: 1.5;
     text-align: center;
@@ -455,7 +442,7 @@
     margin: 16px 0 !important;
 
     .error {
-      font-size: 12px;
+      font-size: 13px;
       color: $red-color;
       text-align: center;
     }
@@ -484,7 +471,7 @@
 
       input {
         height: 24px;
-        font-size: 11px;
+        font-size: 13px;
       }
     }
 
@@ -495,7 +482,6 @@
 
       button {
         font-size: 13px;
-        font-weight: 300;
       }
 
       button, i {
@@ -559,7 +545,7 @@
 
   .notice {
     padding: 0 16px;
-    font-size: 11px;
+    font-size: 13px;
     color: $grey-color;
     line-height: 1.5;
     text-align: center;
@@ -573,7 +559,7 @@
     margin: 16px 0 !important;
 
     .error {
-      font-size: 12px;
+      font-size: 13px;
       color: $red-color;
       text-align: center;
     }
@@ -598,7 +584,7 @@
 
       input {
         height: 24px;
-        font-size: 11px;
+        font-size: 13px;
       }
     }
 
@@ -609,7 +595,6 @@
 
       button {
         font-size: 13px;
-        font-weight: 300;
       }
 
       button, i {
@@ -652,35 +637,51 @@
 .hfui-orderform__layout-label {
   display: flex;
   flex-direction: row;
-  height: 39px;
+  margin-bottom: spacing();
+  background: $primary-color-50;
+  border-radius: $border-radius;
+  padding: spacing(0.5);
 
   > i {
-    line-height: 39px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: $border-radius;
     font-size: 15px;
-    color: $text-color;
-    flex: 1;
+    color: $primary-color-500;
+    cursor: pointer;
+    margin-right: 8px;
 
-    &:hover {
-      cursor: pointer;
+    &:hover,
+    &:focus {
+      background: $primary-color-100;
+    }
+
+    &:active {
+      background: rgba(0, 0, 0, .1);
     }
   }
 
   .hfui-orderform__layout-label-inner {
-    width: 100%;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    color: $primary-color-900;
 
-    > * {
-      display: inline-block;
-      vertical-align: middle;
-      line-height: 39px;
-      font-size: 13px;
-      color: $text-color;
+    i, p {
+      display: block;
+    }
+
+    i {
+      position: relative;
+      top: 2px;
+      margin-right: spacing(.5);
     }
 
     p {
-      text-transform: uppercase;
-      font-weight: 300;
-      margin-left: 6px;
+      font-size: 14px;
+      font-weight: 600;
     }
   }
 }
@@ -691,7 +692,6 @@
   padding: 3px 7px;
 
   &:hover {
-    color: $text-color2;
     cursor: pointer;
   }
 }

@@ -49,6 +49,7 @@ export default class Panel extends React.Component {
       closePanel,
       preHeaderComponents,
       forcedTab = '',
+      dropdown,
     } = this.props
     const tabs = React.Children.toArray(children).filter(c => c && c.props.tabtitle)
     const { selectedTab = forcedTab.length ? this.getForcedTab(forcedTab, tabs) : tabs[0] } = this.state
@@ -122,6 +123,8 @@ export default class Panel extends React.Component {
               )}
 
               {extraIcons}
+
+              {dropdown}
             </div>
           )}
         </div>

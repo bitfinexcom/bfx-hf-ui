@@ -12,7 +12,7 @@ const AtomicOrdersTablePanel = ({
 
   return (
     <Panel
-      label='ATOMIC ORDERS'
+      label='Atomic Orders'
       onRemove={onRemove}
       dark={dark}
       darkHeader={dark}

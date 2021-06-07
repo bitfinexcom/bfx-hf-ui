@@ -67,7 +67,7 @@ const TradingStatePanel = ({
 
   return (
     <Panel
-      label='TRADING STAGE'
+      label='Trading Stage'
       dark={dark}
       darkHeader={dark}
       className='hfui-tradingstatepanel__wrapper'

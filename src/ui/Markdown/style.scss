@@ -1,11 +1,7 @@
 @import '../../variables.scss';
 
 .hfui-markdown__wrapper {
-  padding: 20px;
-  padding-left: 40px;
-  padding-right: 40px;
   background: $code-background-color;
-  color: $white-color; 
   
   code { 
     background-color: rgba(0, 0, 0, 0.3);
@@ -52,7 +48,8 @@
     }
   }
   h2:first-child { 
-    color: $white-color;
+    color: $light-color-800;
+    font-size: 14px;
   }
   table * {
     padding: 5px;

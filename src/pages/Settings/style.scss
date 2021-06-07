@@ -1,7 +1,6 @@
 @import '../../variables.scss';
 
 .hfui-settingspage__wrapper {
-  color: $white-color;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -11,20 +10,25 @@
   .hfui-settings__content {
     width: 100%;
     height: 100%;
+    color: $light-color-600;
 
     .hfui-settings__option-check {
-      margin-top: 55px;
+      margin-bottom: spacing(1);
+
       .hfui-checkbox {
         font-size: 16px;
       }
     }
 
     > div {
-      margin-top: 3%;
+      margin-bottom: spacing(2);
       width: 100%;
+
       .hfui-settings__option-label {
-        margin-bottom: 0.5%;
-        font-size: 1.2em;
+        color: $light-color-800;
+        font-weight: 600;
+        margin-bottom: spacing(.5);
+        font-size: 14px;
       }
     }
 
@@ -32,7 +36,7 @@
       width: 40%;
       margin-bottom: 30px;
 
-      .settings-save * {
+      .settings-save {
         padding: 10px 30px 10px 30px;
       }
     }
@@ -62,11 +66,9 @@
     .hfui-settings__option-description {
       font-size: 13px;
       max-width: 40%;
-      margin-top: 15px;
 
       > * {
         margin-bottom: 16px;
-        opacity: 0.65;
         line-height: 1.5;
       }
 
@@ -75,13 +77,21 @@
         background: rgba(0, 0, 0, 0.2);
         padding: 8px;
         text-align: center;
+
+        em {
+          font-weight: 600;
+          color: $light-color-900;
+          font-style: normal;
+        }
       }
     }
   }
 
   .hfui-settings__title {
     font-size: 1.5em;
-    font-weight: 400;
+    font-weight: 600;
+    color: $light-color-900;
+    margin-bottom: spacing();
   }
 }
 
@@ -93,7 +103,6 @@
   padding: 25px;
   align-items: flex-end;
   p {
-    font-weight: 300;
     font-size: 13px;
     padding-right: 13px;
     padding-bottom: 4px;
