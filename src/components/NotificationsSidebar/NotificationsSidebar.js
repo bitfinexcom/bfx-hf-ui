@@ -102,7 +102,7 @@ class NotificationsSidebar extends React.PureComponent {
         })}
         >
           <Panel
-            label='NOTIFICATIONS'
+            label='Notifications'
             hideIcons
             closePanel={closeNotificationPanel}
             preHeaderComponents={[

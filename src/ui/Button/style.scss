@@ -3,9 +3,9 @@
 .hfui-button, button {
   background: $input-background-color;
   border: none;
-  color: $text-color;
-  font-size: 12px;
-  font-weight: 400;
+  color: $light-color-800;
+  font-size: 13px;
+  font-weight: 600;
   border-radius: $border-radius;
   transition: background-color .2s;
   cursor: pointer;
@@ -37,6 +37,7 @@
   &.green {
     background: $green-button-color;
     border-color: $green-button-color;
+    color: mix(white, $green-button-color, 90%);
 
     &:hover:not(.disabled),
     &:focus:not(.disabled) {

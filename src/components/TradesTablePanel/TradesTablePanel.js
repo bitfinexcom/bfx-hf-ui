@@ -102,7 +102,7 @@ const TradesTablePanel = (props) => {
   return (
     <Panel
       dark={dark}
-      label='TRADES'
+      label='Trades'
       darkHeader={dark}
       moveable={moveable}
       onRemove={handleOnRemove}

@@ -24,7 +24,7 @@ const BalancesTablePanel = ({
   // TODO: Extract settings panel/wrapper into own component
   return (
     <Panel
-      label='BALANCES'
+      label='Balances'
       onRemove={onRemove}
       settingsOpen={isSettingsOpen}
       onToggleSettings={onToggleShowingSettings}

@@ -1,6 +1,9 @@
 @import '../../variables.scss';
 
 .ufx-dropdown {
+  font-weight: 500;
+  color: $light-color-800;
+
   &.is-highlighted {
     .dropdown-field {
       border: 1px solid mix($white-color, $input-background-color, 15%);

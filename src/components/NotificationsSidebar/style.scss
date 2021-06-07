@@ -23,8 +23,13 @@
     height: 100%;
   }
 
-  .hfui-panel, .hfui-panel__header {
-    background-color: mix($black-color, $panel-background-color, 10%);
+  .hfui-panel,
+  .hfui-panel__header {
+    background-color: $background-color;
+  }
+
+  .hfui-panel__content {
+    padding: 0 spacing(0.25);
   }
 }
 
@@ -82,7 +87,7 @@
 }
 
 .hfui-notification__ts {
-  font-size: 12px;
+  font-size: 13px;
   color: $text-color;
 }
 
@@ -98,8 +103,8 @@
   margin: 0 spacing(.75) spacing(1) spacing(.75);
   border-radius: $border-radius;
   padding: spacing();
-  font-size: 12px;
-  background: $background-color;
+  font-size: 13px;
+  background: $lighter-background-color;
   text-align: left;
   display: flex;
   pointer-events: all !important;
@@ -142,7 +147,7 @@
 
 .hfui-notificationssidebar__header-btn {
   color: transparentize($white-color, 0.3);
-  background: mix($black-color, $panel-background-color, 10%);
+  background: $background-color;
   transition: all .2s;
 
   &:hover {
