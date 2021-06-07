@@ -97,6 +97,10 @@ const openNotifcationPanel = () => ({
   type: types.OPEN_NOTIFICATIONS,
 })
 
+const switchNotifcationPanel = () => ({
+  type: types.SWITCH_NOTIFICATIONS,
+})
+
 const firstLogin = () => ({
   type: types.FIRST_LOGIN,
 })
@@ -181,4 +185,5 @@ export default {
   changeReffilBalanceModalState,
   changeBadInternetConnectionState,
   setIsOrderExecuting,
+  switchNotifcationPanel,
 }

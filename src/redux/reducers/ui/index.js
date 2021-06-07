@@ -131,6 +131,13 @@ function reducer(state = getInitialState(), action = {}) {
       }
     }
 
+    case types.SWITCH_NOTIFICATIONS: {
+      return {
+        ...state,
+        notificationsVisible: !state.notificationsVisible,
+      }
+    }
+
     case types.CREATE_LAYOUT: {
       const { id, tradingEnabled } = payload
 
