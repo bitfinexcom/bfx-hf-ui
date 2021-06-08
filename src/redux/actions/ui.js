@@ -15,6 +15,13 @@ const saveLayout = (layout, id) => ({
   },
 })
 
+const storeUnsavedLayout = (layout) => ({
+  type: types.STORE_UNSAVED_LAYOUT,
+  payload: {
+    layout,
+  },
+})
+
 const createLayout = (id, tradingEnabled) => ({
   type: types.CREATE_LAYOUT,
   payload: {
@@ -166,6 +173,7 @@ const changeReffilBalanceModalState = isVisible => ({
 export default {
   setRoute,
   saveLayout,
+  storeUnsavedLayout,
   createLayout,
   deleteLayout,
   setActiveMarket,

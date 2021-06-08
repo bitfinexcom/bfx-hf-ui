@@ -43,6 +43,7 @@ function getInitialState() {
     isBadInternetConnection: false,
     isOrderExecuting: false,
     content: {},
+    unsavedLayout: {},
   }
 
   if (!localStorage) {
@@ -107,6 +108,15 @@ function reducer(state = getInitialState(), action = {}) {
           ...state.layouts,
           [id]: layout,
         },
+      }
+    }
+
+    case types.STORE_UNSAVED_LAYOUT: {
+      const { layout } = payload
+
+      return {
+        ...state,
+        unsavedLayout: layout,
       }
     }
 

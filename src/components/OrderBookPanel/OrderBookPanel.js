@@ -29,6 +29,7 @@ const {
   getBooktAsks,
   getBooktBids,
   getBookSnapshotReceived,
+  isSubscribedToBook,
 } = reduxSelectors
 
 const OrderBookPanel = (props) => {
@@ -60,17 +61,18 @@ const OrderBookPanel = (props) => {
   const pBids = useSelector(state => getBookpBidsDesc(state, symbol))
   const tAsks = useSelector(state => getBooktAsks(state, symbol))
   const tBids = useSelector(state => getBooktBids(state, symbol))
+  const isSubscribedToSymbol = useSelector(state => isSubscribedToBook(state, symbol))
 
   // resubscribe book channel on market change
   useEffect(() => {
-    if (isWSConnected && symbol) {
+    if (isWSConnected && symbol && !isSubscribedToSymbol) {
       dispatch(WSSubscribeChannel({
         ...SUBSCRIPTION_CONFIG,
         prec: 'P0',
         symbol,
       }))
     }
-  }, [isWSConnected, symbol, dispatch])
+  }, [isWSConnected, symbol, isSubscribedToSymbol, dispatch])
 
   const unSubscribeWSChannel = (s) => {
     const booksUsingSymbol = _filter(allMarketBooks, ({ currentMarket: cm }) => cm.wsID === s)
@@ -140,9 +142,10 @@ const OrderBookPanel = (props) => {
       onRemove={handleOnRemove}
       moveable={moveable}
       removeable={removeable}
-      secondaryHeaderComponents={[
-        showMarket && renderMarketDropdown(),
-      ]}
+      secondaryHeaderComponents={
+        showMarket && canChangeMarket && renderMarketDropdown()
+      }
+      headerComponents={showMarket && !canChangeMarket && <p>{activeMarket.uiID}</p>}
       settingsOpen={settingsOpen}
       onToggleSettings={onToggleSettings}
       className='hfui-book__wrapper'
@@ -182,7 +185,7 @@ const OrderBookPanel = (props) => {
           tAsks={tAsks}
           tBids={tBids}
           loading={!snapshotReceived}
-        // ufx-ui/book props end
+          // ufx-ui/book props end
         />
       )}
     </Panel>
@@ -200,6 +203,7 @@ OrderBookPanel.propTypes = {
   activeMarket: PropTypes.shape({
     base: PropTypes.string,
     quote: PropTypes.string,
+    uiID: PropTypes.string,
   }),
   markets: PropTypes.array.isRequired,
   canChangeMarket: PropTypes.bool.isRequired,
@@ -214,6 +218,7 @@ OrderBookPanel.defaultProps = {
   activeMarket: {
     base: '',
     quote: '',
+    uiID: '',
   },
   showMarket: false,
   canChangeStacked: true,

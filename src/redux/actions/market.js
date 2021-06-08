@@ -7,4 +7,13 @@ const changeSubscriptions = market => ({
   },
 })
 
-export default { changeSubscriptions }
+const getCCYFullNames = () => ({
+  type: types.GET_CCY_FULL_NAMES,
+})
+
+const setCCYFullNames = names => ({
+  type: types.SET_CCY_FULL_NAMES,
+  payload: { names },
+})
+
+export default { changeSubscriptions, setCCYFullNames, getCCYFullNames }

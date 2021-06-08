@@ -9,7 +9,7 @@ import './style.css'
 
 const ChartPanel = ({
   dark, label, onRemove, moveable, removeable, showChartMarket, markets, canChangeMarket,
-  activeMarket, savedState: { currentMarket: _currentMarket }, saveState, layoutID, layoutI,
+  activeMarket, savedState: { currentMarket: _currentMarket }, saveState, layoutID, layoutI, showMarket,
 }) => {
   const [currentMarket, setCurrentMarket] = useState(_currentMarket || activeMarket)
 
@@ -51,7 +51,8 @@ const ChartPanel = ({
       moveable={moveable}
       removeable={removeable}
       showChartMarket={showChartMarket}
-      chartMarketSelect={showChartMarket && renderMarketDropdown()}
+      chartMarketSelect={showChartMarket && canChangeMarket && renderMarketDropdown()}
+      headerComponents={showMarket && !canChangeMarket && <p>{currentMarket.uiID}</p>}
       className='hfui-chart__wrapper'
     >
       <Chart market={currentMarket} />
