@@ -1,14 +1,11 @@
 import React from 'react'
 import Scrollbars from 'react-custom-scrollbars'
 import ClassNames from 'classnames'
+import PropTypes from 'prop-types'
 
-import { propTypes, defaultProps } from './Panel.props'
 import './style.css'
 
 export default class Panel extends React.Component {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
-
   state = {}
   getTabTitle(tab) { // eslint-disable-line
     const { htmlKey, tabtitle } = tab.props
@@ -31,7 +28,7 @@ export default class Panel extends React.Component {
       className,
       onRemove,
       hideIcons,
-      children = [],
+      children,
       headerComponents,
       extraIcons,
       moveable,
@@ -45,11 +42,10 @@ export default class Panel extends React.Component {
       showChartMarket,
       chartMarketSelect,
       secondaryHeaderComponents,
-      secondaryHeaderReverse,
       closePanel,
       preHeaderComponents,
-      forcedTab = '',
       dropdown,
+      forcedTab,
     } = this.props
     const tabs = React.Children.toArray(children).filter(c => c && c.props.tabtitle)
     const { selectedTab = forcedTab.length ? this.getForcedTab(forcedTab, tabs) : tabs[0] } = this.state
@@ -66,7 +62,14 @@ export default class Panel extends React.Component {
             'has-secondary-header': !!secondaryHeaderComponents,
           })}
         >
-          {label && <p className='hfui-panel__label'>{label}</p>}
+          <div className='hfui-panel__left-container'>
+            {label && <p className='hfui-panel__label'>{label}</p>}
+            {headerComponents && (
+            <div className='hfui-panel__header-components'>
+              {headerComponents}
+            </div>
+            )}
+          </div>
           <div className='hfui-panel__buttons-section'>
             {preHeaderComponents && (
               <div className='hfui-panel__preheader'>
@@ -91,12 +94,6 @@ export default class Panel extends React.Component {
                 </li>
               ))}
             </ul>
-          )}
-
-          {headerComponents && (
-            <div className='hfui-panel__header-components'>
-              {headerComponents}
-            </div>
           )}
 
           {!hideIcons && (
@@ -131,9 +128,7 @@ export default class Panel extends React.Component {
 
         {secondaryHeaderComponents && (
           <div
-            className={ClassNames('hfui-panel__secondaryheader__wrapper', {
-              reverse: secondaryHeaderReverse,
-            })}
+            className='hfui-panel__secondaryheader__wrapper'
           >
             {secondaryHeaderComponents}
           </div>
@@ -169,4 +164,56 @@ export default class Panel extends React.Component {
       </div>
     )
   }
+}
+
+Panel.propTypes = {
+  className: PropTypes.string,
+  label: PropTypes.string,
+  onRemove: PropTypes.func,
+  headerComponents: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  secondaryHeaderComponents: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  hideIcons: PropTypes.bool,
+  extraIcons: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  moveable: PropTypes.bool,
+  removeable: PropTypes.bool,
+  modal: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  darkHeader: PropTypes.bool,
+  dark: PropTypes.bool,
+  htmlKey: PropTypes.string,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  footer: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  settingsOpen: PropTypes.bool,
+  onToggleSettings: PropTypes.func,
+  showChartMarket: PropTypes.bool,
+  chartMarketSelect: PropTypes.node,
+  closePanel: PropTypes.func,
+  preHeaderComponents: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  forcedTab: PropTypes.string,
+  dropdown: PropTypes.node,
+}
+
+Panel.defaultProps = {
+  moveable: true,
+  removeable: true,
+  darkHeader: false,
+  dark: false,
+  className: '',
+  label: '',
+  onRemove: () => {},
+  headerComponents: null,
+  secondaryHeaderComponents: null,
+  hideIcons: false,
+  extraIcons: null,
+  children: [],
+  modal: null,
+  footer: null,
+  htmlKey: '',
+  settingsOpen: false,
+  onToggleSettings: null,
+  showChartMarket: false,
+  chartMarketSelect: null,
+  closePanel: null,
+  preHeaderComponents: null,
+  forcedTab: '',
+  dropdown: null,
 }

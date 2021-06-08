@@ -41,7 +41,7 @@ const commonComponentProps = {
   dark: true,
   moveable: true,
   removeable: true,
-  showMarket: false,
+  showMarket: true,
   layoutID: LAYOUT_ID,
   showChartMarket: false,
   canChangeMarket: false,
