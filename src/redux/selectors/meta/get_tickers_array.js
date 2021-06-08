@@ -1,11 +1,14 @@
 import _get from 'lodash/get'
 import _reduce from 'lodash/reduce'
+import { createSelector } from 'reselect'
+import { reduxSelectors } from '@ufx-ui/bfx-containers'
 import { REDUCER_PATHS } from '../../config'
 
-const tickersPath = REDUCER_PATHS.WS
 const marketsPath = REDUCER_PATHS.META
 
-export default (state) => {
+const tickersSelector = state => reduxSelectors.getTickers(state)
+
+const getTickersArray = createSelector([tickersSelector, state => state], (tickers, state) => {
   const markets = _get(state, `${marketsPath}.markets`, [])
   const fullTickersData = _reduce(markets, (acc, market) => {
     const {
@@ -15,9 +18,9 @@ export default (state) => {
       id: uiID,
       baseCcy: base,
       quoteCcy: quote,
-      changePerc: _get(state, `${tickersPath}.tickers.${wsID}.dailyChangePerc`, 0),
-      lastPrice: _get(state, `${tickersPath}.tickers.${wsID}.lastPrice`, 0),
-      volume: _get(state, `${tickersPath}.tickers.${wsID}.volume`, 0),
+      changePerc: _get(tickers, `${wsID}.changePerc`, 0),
+      lastPrice: _get(tickers, `${wsID}.lastPrice`, 0),
+      volume: _get(tickers, `${wsID}.volume`, 0),
       ccyLabels,
     }
     acc.push(newTickerObject)
@@ -25,4 +28,5 @@ export default (state) => {
   }, [])
 
   return fullTickersData
-}
+})
+export default getTickersArray
