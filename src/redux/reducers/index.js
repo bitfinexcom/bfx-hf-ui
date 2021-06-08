@@ -20,7 +20,6 @@ const reducers = history => combineReducers({
     [UFX_REDUCER_PATHS.WS]: reduxReducers.ws,
     [UFX_REDUCER_PATHS.BOOK]: reduxReducers.book,
     [UFX_REDUCER_PATHS.TRADES]: reduxReducers.trades,
-    [UFX_REDUCER_PATHS.TICKER]: reduxReducers.ticker,
   }),
 })
 

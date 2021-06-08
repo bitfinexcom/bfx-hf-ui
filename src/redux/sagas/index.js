@@ -14,5 +14,4 @@ export default function* rootSaga() {
   yield fork(AOSaga)
   yield fork(metaSaga)
   yield fork(reduxSagas.wsSaga)
-  yield fork(reduxSagas.tickersSaga)
 }

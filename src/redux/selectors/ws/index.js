@@ -10,6 +10,9 @@ import getSyncRanges from './get_sync_ranges'
 import isSyncingCandles from './is_syncing_candles'
 import getSocket from './get_socket'
 import getSockets from './get_sockets'
+import getTicker from './get_ticker'
+import getTickers from './get_tickers'
+import getTickersArray from './get_tickers_array'
 import getAuthToken from './get_auth_token'
 import getAuthConfigured from './get_auth_configured'
 import getStrategies from './get_strategies'
@@ -45,6 +48,9 @@ export {
   getChannelRequirements,
   getAllChannelRequirements,
 
+  getTicker,
+  getTickers,
+  getTickersArray,
   getSyncRanges,
   isSyncingCandles,
   getStrategies,

@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 
 import auth from './auth'
 import socket from './socket'
+import tickers from './tickers'
 import channels from './channels'
 import strategies from './strategies'
 import apiClient from './api_client'
@@ -22,6 +23,7 @@ export default combineReducers({
   orderHistory,
   apiClient,
   strategies,
+  tickers,
   socket,
   auth,
   backtest,
