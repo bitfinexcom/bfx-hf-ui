@@ -224,31 +224,34 @@ export default class StrategyEditor extends React.PureComponent {
       },
     }))
   }
+
   selectStrategy = (strategy) => {
+    const { id, label } = strategy
+    const strategyContent = { id, label }
     const { onStrategySelect, clearBacktestOptions } = this.props
     this.setState(() => ({ strategy }))
 
-    const strategyContent = {}
-    let section
-    for (let i = 0; i < STRATEGY_SECTIONS.length; i += 1) {
-      section = STRATEGY_SECTIONS[i]
+    for (let i = 0; i < STRATEGY_SECTIONS.length; ++i) {
+      const section = STRATEGY_SECTIONS[i]
       const content = strategy[section]
 
       if (!_isEmpty(content)) {
         strategyContent[section] = content
       }
     }
+
     onStrategySelect(strategyContent)
     clearBacktestOptions()
   }
+
   updateStrategy = (strategy) => {
+    const { id, label } = strategy
+    const strategyContent = { id, label }
     const { onStrategyChange } = this.props
     this.setState(() => ({ strategy }))
 
-    const strategyContent = {}
-    let section
-    for (let i = 0; i < STRATEGY_SECTIONS.length; i += 1) {
-      section = STRATEGY_SECTIONS[i]
+    for (let i = 0; i < STRATEGY_SECTIONS.length; ++i) {
+      const section = STRATEGY_SECTIONS[i]
       const content = strategy[section]
 
       if (!_isEmpty(content)) {
@@ -286,7 +289,7 @@ export default class StrategyEditor extends React.PureComponent {
         return null
       }
     } else {
-      console.error(`unrecognised setion handler prefix: ${section}`)
+      debug('unrecognised section handler prefix: %s', section)
       return null
     }
   }
@@ -297,7 +300,7 @@ export default class StrategyEditor extends React.PureComponent {
     } = this.state
 
     const {
-      moveable, removeable, strategyId, onRemove,
+      moveable, removeable, strategyId, onRemove, strategies,
     } = this.props
 
     return (
@@ -309,6 +312,7 @@ export default class StrategyEditor extends React.PureComponent {
         execRunning={execRunning}
         strategyDirty={strategyDirty}
         strategy={strategy}
+        strategies={strategies}
         strategyId={strategyId}
         editorMode={editorMode}
         editorMaximised={editorMaximised}
@@ -329,25 +333,26 @@ export default class StrategyEditor extends React.PureComponent {
     const {
       createNewStrategyModalOpen, openExistingStrategyModalOpen,
     } = this.state
-    const { gaCreateStrategy } = this.props
+    const { gaCreateStrategy, strategies } = this.props
 
     return (
       <div className='hfui-strategyeditor__empty-content'>
         <div>
-          <p
-            className='button'
-            onClick={this.onOpenCreateModal}
-          >
+          <p className='button' onClick={this.onOpenCreateModal}>
             Create
           </p>
-          <p>a new strategy or</p>
-          <p
-            className='button'
-            onClick={this.onOpenSelectModal}
-          >
-            open
-          </p>
-          <p>an existing one.</p>
+          <p>a new strategy</p>
+          {!_isEmpty(strategies) ? (
+            <>
+              <p>or</p>
+              <p className='button' onClick={this.onOpenSelectModal}>
+                open
+              </p>
+              <p>an existing one.</p>
+            </>
+          ) : (
+            <p>to begin backtesting.</p>
+          )}
         </div>
 
         <CreateNewStrategyModal
@@ -441,9 +446,9 @@ export default class StrategyEditor extends React.PureComponent {
             >
               <p>{section}</p>
 
-              {_isEmpty(strategy[activeContent])
+              {_isEmpty(strategy[section])
                 ? null
-                : _isEmpty(sectionErrors[activeContent])
+                : _isEmpty(sectionErrors[section])
                   ? <p>~</p>
                   : <p>*</p>}
             </li>
@@ -477,7 +482,7 @@ export default class StrategyEditor extends React.PureComponent {
             {execError || sectionErrors[activeContent] ? (
               <div className='hfui-strategyeditor__editor-error-output'>
                 <i
-                  className='fas fa-times-circle'
+                  className='fas icon-cancel'
                   onClick={this.onClearError}
                 />
 
@@ -510,6 +515,7 @@ StrategyEditor.propTypes = {
       PropTypes.oneOf([null]).isRequired,
     ]),
   ),
+  strategies: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
 StrategyEditor.defaultProps = {

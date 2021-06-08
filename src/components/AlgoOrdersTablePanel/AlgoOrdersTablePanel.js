@@ -13,7 +13,7 @@ const AlgoOrdersTablePanel = ({
 
   return (
     <Panel
-      label='ALGO ORDERS'
+      label='Algo. Orders'
       onRemove={onRemove}
       dark={dark}
       darkHeader={dark}

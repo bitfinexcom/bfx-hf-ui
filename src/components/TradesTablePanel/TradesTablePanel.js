@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
 import React, { memo, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
@@ -37,6 +36,7 @@ const TradesTablePanel = (props) => {
     canChangeMarket,
     allMarketTrades,
   } = props
+
   const { currentMarket = activeMarket } = savedState
   const { base, quote } = currentMarket
 
@@ -104,15 +104,16 @@ const TradesTablePanel = (props) => {
   return (
     <Panel
       dark={dark}
-      label='TRADES'
+      label='Trades'
       darkHeader={dark}
       moveable={moveable}
       onRemove={handleOnRemove}
       removeable={removeable}
       className='hfui-tradestable__wrapper'
-      secondaryHeaderComponents={[
-        showMarket && renderMarketDropdown(),
-      ]}
+      secondaryHeaderComponents={
+        showMarket && canChangeMarket && renderMarketDropdown()
+      }
+      headerComponents={showMarket && !canChangeMarket && <p>{activeMarket.uiID}</p>}
     >
       <Trades
         market={marketData}
@@ -128,15 +129,22 @@ TradesTablePanel.propTypes = {
   moveable: PropTypes.bool,
   removeable: PropTypes.bool,
   showMarket: PropTypes.bool,
-  savedState: PropTypes.object,
+  savedState: PropTypes.shape({
+    currentMarket: PropTypes.shape({
+      base: PropTypes.string,
+      quote: PropTypes.string,
+    }),
+  }),
   canChangeMarket: PropTypes.bool,
-  allMarketTrades: PropTypes.array,
+  allMarketTrades: PropTypes.arrayOf(PropTypes.object),
   onRemove: PropTypes.func.isRequired,
   layoutI: PropTypes.string.isRequired,
   layoutID: PropTypes.string.isRequired,
   updateState: PropTypes.func.isRequired,
-  markets: PropTypes.array.isRequired,
-  activeMarket: PropTypes.object.isRequired,
+  markets: PropTypes.arrayOf(PropTypes.object).isRequired,
+  activeMarket: PropTypes.shape({
+    uiID: PropTypes.string,
+  }).isRequired,
 }
 
 TradesTablePanel.defaultProps = {

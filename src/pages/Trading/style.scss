@@ -8,12 +8,11 @@
   .hfui-tvchart__wrapper > #__tvchart {
     height: calc(100% - 8px);
     padding: 4px 1px 4px 4px;
-    background: $desaturated-background-color;
   }
 
   .hfui-tradingstatepanel__wrapper {
     .ufx-table {
-      margin: 0 spacing(1, true);
+      margin: 0 spacing(1);
     }
   }
 
@@ -54,6 +53,7 @@
 .hfui-tradingpage__menu {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
+  margin: -15px 0 5px 0;
 }

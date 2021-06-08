@@ -6,7 +6,7 @@
   margin: 40px 0;
 
   > p:first-child {
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 500;
     margin: 8px 0;
     width: 100%;
@@ -15,7 +15,7 @@
   }
 
   ul {
-    font-size: 12px;
+    font-size: 13px;
 
     li {
       margin-bottom: 4px;
@@ -69,7 +69,7 @@
 
   p {
     color: $grey-color;
-    font-size: 11px;
+    font-size: 13px;
     line-height: 16px;
   }
 
@@ -100,11 +100,13 @@
   }
 
   .button {
-    text-decoration: underline;
+    color: $primary-color-800;
+    font-weight: 700;
 
     &:hover {
       cursor: pointer;
-      color: $yellow-color;
+      color: $primary-color-900;
+      text-decoration: underline;
     }
   }
 }

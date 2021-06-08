@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, memo } from 'react'
 import PropTypes from 'prop-types'
 import Input from '../../ui/Input'
 import Modal from '../../ui/Modal'
@@ -7,7 +7,7 @@ const RemoveExistingStrategyModal = ({
   isOpen,
   onRemoveStrategy,
   onClose,
-  strategy: { label = null },
+  strategy: { label },
 }) => {
   const [canDeleteStrategy, setCanDeleteStrategy] = useState(false)
   const [inputValue, setInputValue] = useState('')
@@ -86,4 +86,4 @@ RemoveExistingStrategyModal.defaultProps = {
   },
 }
 
-export default RemoveExistingStrategyModal
+export default memo(RemoveExistingStrategyModal)

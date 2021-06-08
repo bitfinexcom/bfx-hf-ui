@@ -141,6 +141,13 @@ function reducer(state = getInitialState(), action = {}) {
       }
     }
 
+    case types.SWITCH_NOTIFICATIONS: {
+      return {
+        ...state,
+        notificationsVisible: !state.notificationsVisible,
+      }
+    }
+
     case types.CREATE_LAYOUT: {
       const { id, tradingEnabled } = payload
 
@@ -278,6 +285,12 @@ function reducer(state = getInitialState(), action = {}) {
           ...state.content,
           id,
         },
+      }
+    }
+    case types.CLEAR_STRATEGIES: {
+      return {
+        ...state,
+        content: {},
       }
     }
     case types.SET_TRADING_MODE: {

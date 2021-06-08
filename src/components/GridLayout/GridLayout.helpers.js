@@ -10,6 +10,7 @@ import TradesTablePanel from '../TradesTablePanel'
 import PositionsTablePanel from '../PositionsTablePanel'
 import BalancesTablePanel from '../BalancesTablePanel'
 import TradingStatePanel from '../TradingStatePanel'
+import ExchangeInfoBar from '../ExchangeInfoBar'
 
 const COMPONENT_TYPES = {
   CHART: 'CHART',
@@ -22,6 +23,7 @@ const COMPONENT_TYPES = {
   ATOMIC_ORDERS_TABLE: 'ATOMIC_ORDERS_TABLE',
   ORDER_HISTORY_TABLE: 'ORDER_HISTORY_TABLE',
   TRADING_STATE_PANEL: 'TRADING_STATE_PANEL',
+  EXCHANGE_INFO_BAR: 'EXCHANGE_INFO_BAR',
 }
 
 const COMPONENT_LABELS = {
@@ -35,12 +37,13 @@ const COMPONENT_LABELS = {
   [COMPONENT_TYPES.ATOMIC_ORDERS_TABLE]: 'Atomic Orders Table',
   [COMPONENT_TYPES.ORDER_HISTORY_TABLE]: 'Order History Table',
   [COMPONENT_TYPES.TRADING_STATE_PANEL]: 'Trading State Panel',
+  [COMPONENT_TYPES.EXCHANGE_INFO_BAR]: 'Exchange Info Bar',
 }
 
 const COMPONENT_DIMENSIONS = {
   [COMPONENT_TYPES.CHART]: { w: 33, h: 10 },
   [COMPONENT_TYPES.ORDER_BOOK]: { w: 24, h: 20 },
-  [COMPONENT_TYPES.ORDER_FORM]: { w: 24, h: 10 },
+  [COMPONENT_TYPES.ORDER_FORM]: { w: 20, h: 10 },
   [COMPONENT_TYPES.TRADES_TABLE]: { w: 24, h: 10 },
   [COMPONENT_TYPES.BALANCES_TABLE]: { w: 20, h: 6 },
   [COMPONENT_TYPES.POSITIONS_TABLE]: { w: 40, h: 6 },
@@ -48,6 +51,7 @@ const COMPONENT_DIMENSIONS = {
   [COMPONENT_TYPES.ATOMIC_ORDERS_TABLE]: { w: 40, h: 6 },
   [COMPONENT_TYPES.ORDER_HISTORY_TABLE]: { w: 40, h: 6 },
   [COMPONENT_TYPES.TRADING_STATE_PANEL]: { w: 40, h: 6 },
+  [COMPONENT_TYPES.EXCHANGE_INFO_BAR]: { w: 20, h: 8 },
 }
 
 const componentForType = (c) => {
@@ -81,6 +85,9 @@ const componentForType = (c) => {
 
     case COMPONENT_TYPES.TRADING_STATE_PANEL:
       return TradingStatePanel
+
+    case COMPONENT_TYPES.EXCHANGE_INFO_BAR:
+      return ExchangeInfoBar
 
     default:
       return null

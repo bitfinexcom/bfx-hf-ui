@@ -22,7 +22,6 @@ import timeFrames from '../../util/time_frames'
 
 import Panel from '../../ui/Panel'
 import Dropdown from '../../ui/Dropdown'
-import ExchangeInfoBar from '../ExchangeInfoBar'
 
 import UnconfiguredModal from './Modals/UnconfiguredModal'
 import SubmitAPIKeysModal from './Modals/SubmitAPIKeysModal'
@@ -311,12 +310,11 @@ class OrderForm extends React.Component {
 
     return (
       <>
-        <ExchangeInfoBar />
         <Panel
           key='execute-order'
           darkHeader
           dark
-          label='EXECUTE ORDER'
+          label='Execute Order'
           className='hfui-orderform__panel'
           moveable={moveable}
           removeable={removeable}
@@ -372,7 +370,7 @@ class OrderForm extends React.Component {
               </div>
             )}
 
-            {!currentLayout && (
+            {!currentLayout && apiClientConfigured && (
               <div key='order-form-menu' className='hfui-orderform__overlay-wrapper'>
                 <OrderFormMenu
                   atomicOrderTypes={atomicOrderTypes}

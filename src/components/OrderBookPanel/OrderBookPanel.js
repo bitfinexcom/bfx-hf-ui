@@ -136,15 +136,16 @@ const OrderBookPanel = (props) => {
 
   return (
     <Panel
-      label='ORDER BOOK'
+      label='Order Book'
       dark={dark}
       darkHeader={dark}
       onRemove={handleOnRemove}
       moveable={moveable}
       removeable={removeable}
-      secondaryHeaderComponents={[
-        showMarket && renderMarketDropdown(),
-      ]}
+      secondaryHeaderComponents={
+        showMarket && canChangeMarket && renderMarketDropdown()
+      }
+      headerComponents={showMarket && !canChangeMarket && <p>{activeMarket.uiID}</p>}
       settingsOpen={settingsOpen}
       onToggleSettings={onToggleSettings}
       className='hfui-book__wrapper'
@@ -202,6 +203,7 @@ OrderBookPanel.propTypes = {
   activeMarket: PropTypes.shape({
     base: PropTypes.string,
     quote: PropTypes.string,
+    uiID: PropTypes.string,
   }),
   markets: PropTypes.array.isRequired,
   canChangeMarket: PropTypes.bool.isRequired,
@@ -216,6 +218,7 @@ OrderBookPanel.defaultProps = {
   activeMarket: {
     base: '',
     quote: '',
+    uiID: '',
   },
   showMarket: false,
   canChangeStacked: true,

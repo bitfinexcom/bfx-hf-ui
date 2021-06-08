@@ -1,8 +1,9 @@
 import React, { useState, memo } from 'react'
 import PropTypes from 'prop-types'
 import _isEmpty from 'lodash/isEmpty'
-import _keys from 'lodash/keys'
 import _find from 'lodash/find'
+import _omitBy from 'lodash/omitBy'
+import _isNil from 'lodash/isNil'
 
 import RenderHistoricalReport from './reports/HistoricalReport'
 import RenderHistoricalForm from './forms/HistoricalForm'
@@ -86,7 +87,7 @@ const Backtester = ({
     },
   }
 
-  if (!strategyContent || _isEmpty(_keys(strategyContent))) {
+  if (!strategyContent || _isEmpty(_omitBy(strategyContent, _isNil))) {
     return (
       <div className='hfui-backtester__wrapper'>
         <p>Create a strategy to begin backtesting.</p>
