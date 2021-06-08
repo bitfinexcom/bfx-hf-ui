@@ -18,7 +18,7 @@ import './style.css'
 const { trades } = reduxConstants
 const { SUBSCRIPTION_CONFIG } = trades
 const { WSSubscribeChannel, WSUnsubscribeChannel } = reduxActions
-const { getRecentTrades, hasFetchedTrades: hasFetchedTradesSelector } = reduxSelectors
+const { getRecentTrades, hasFetchedTrades: hasFetchedTradesSelector, isSubscribedToTrades } = reduxSelectors
 
 const TradesTablePanel = (props) => {
   const {
@@ -43,9 +43,10 @@ const TradesTablePanel = (props) => {
   const { symbol, dispatch, isWSConnected } = useCommonBfxData(base, quote)
   const marketData = useSelector(state => getRecentTrades(state, symbol))
   const hasFetchedTrades = useSelector(state => hasFetchedTradesSelector(state, symbol))
+  const isSubscribedToSymbol = useSelector(state => isSubscribedToTrades(state, symbol))
 
   useEffect(() => {
-    if (isWSConnected && symbol) {
+    if (isWSConnected && symbol && !isSubscribedToSymbol) {
       dispatch(WSSubscribeChannel({
         ...SUBSCRIPTION_CONFIG,
         symbol,
@@ -56,6 +57,7 @@ const TradesTablePanel = (props) => {
   const unSubscribeWSChannel = (s) => {
     const tradesUsingSymbol = _filter(allMarketTrades, ({ currentMarket: cm }) => cm.wsID === s)
 
+    // do not unsubscribe if more than one trades comp are subscribed to the symbol
     if (_size(tradesUsingSymbol) > 1) {
       return
     }
