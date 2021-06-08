@@ -5,12 +5,14 @@ import getChannel from './get_channel'
 import getChannelID from './get_channel_id'
 import getChannelByID from './get_channel_by_id'
 import getFavoritePairs from './get_favorite_pairs'
+import getFavoritePairsObject from './get_favorite_pairs_object'
 import getSyncRanges from './get_sync_ranges'
 import isSyncingCandles from './is_syncing_candles'
 import getSocket from './get_socket'
 import getSockets from './get_sockets'
 import getTicker from './get_ticker'
 import getTickers from './get_tickers'
+import getTickersArray from './get_tickers_array'
 import getAuthToken from './get_auth_token'
 import getAuthConfigured from './get_auth_configured'
 import getStrategies from './get_strategies'
@@ -48,6 +50,7 @@ export {
 
   getTicker,
   getTickers,
+  getTickersArray,
   getSyncRanges,
   isSyncingCandles,
   getStrategies,
@@ -68,6 +71,7 @@ export {
   getAllOrders,
   getAlgoOrders,
   getFavoritePairs,
+  getFavoritePairsObject,
 
   getNotifications,
   getAPICredentials,

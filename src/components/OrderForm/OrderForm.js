@@ -22,7 +22,6 @@ import timeFrames from '../../util/time_frames'
 
 import Panel from '../../ui/Panel'
 import Dropdown from '../../ui/Dropdown'
-import FavoriteTradingPairs from '../FavoriteTradingPairs'
 
 import UnconfiguredModal from './Modals/UnconfiguredModal'
 import SubmitAPIKeysModal from './Modals/SubmitAPIKeysModal'
@@ -280,9 +279,7 @@ class OrderForm extends React.Component {
 
   render() {
     const {
-      onRemove, orders, apiClientState, apiCredentials, moveable, removeable,
-      favoritePairs, savePairs, authToken, onChangeMarket, markets,
-      activeMarket, mode, isPaperTrading, isOrderExecuting,
+      onRemove, orders, apiClientState, apiCredentials, moveable, removeable, isPaperTrading, isOrderExecuting,
     } = this.props
 
     const {
@@ -313,18 +310,11 @@ class OrderForm extends React.Component {
 
     return (
       <>
-        <FavoriteTradingPairs
-          markets={markets}
-          currentMarket={activeMarket}
-          onSelect={onChangeMarket}
-          savePairs={props => savePairs(props, authToken, mode)}
-          favoritePairs={favoritePairs}
-        />
         <Panel
           key='execute-order'
           darkHeader
           dark
-          label='EXECUTE ORDER'
+          label='Execute Order'
           className='hfui-orderform__panel'
           moveable={moveable}
           removeable={removeable}
@@ -380,7 +370,7 @@ class OrderForm extends React.Component {
               </div>
             )}
 
-            {!currentLayout && (
+            {!currentLayout && apiClientConfigured && (
               <div key='order-form-menu' className='hfui-orderform__overlay-wrapper'>
                 <OrderFormMenu
                   atomicOrderTypes={atomicOrderTypes}
@@ -460,10 +450,6 @@ OrderForm.propTypes = {
   submitAlgoOrder: PropTypes.func.isRequired,
   gaSubmitAO: PropTypes.func.isRequired,
   saveState: PropTypes.func.isRequired,
-  markets: PropTypes.arrayOf(PropTypes.object).isRequired,
-  favoritePairs: PropTypes.arrayOf(PropTypes.string).isRequired,
-  savePairs: PropTypes.func.isRequired,
-  onChangeMarket: PropTypes.func.isRequired,
   isPaperTrading: PropTypes.bool.isRequired,
   layoutI: PropTypes.string,
   authToken: PropTypes.string,

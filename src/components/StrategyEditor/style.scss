@@ -22,7 +22,6 @@
   height: calc(100% - 10px);
   position: relative;
   z-index: 0;
-  background: $black-color;
 
   &.noresults {
     height: 100%;
@@ -37,7 +36,8 @@
   }
 
   .cm-s-monokai.CodeMirror {
-    background: $code-background-color;
+    border-radius: $border-radius;
+    background: $background-color;
   }
 
   .cm-s-monokai .CodeMirror-gutters {
@@ -60,7 +60,7 @@
   padding: 0 16px;
   background: $panel-background-color;
   color: $red-color;
-  font-size: 11px;
+  font-size: 13px;
   position: absolute;
   bottom: 0;
   left: 0px;
@@ -85,37 +85,45 @@
 }
 
 .hfui-strategyeditor__func-select {
-  width: 150px;
-  min-width: 150px;
-  font-size: 12px;
-  background: $background-color;
-  margin: 12px;
+  flex-shrink: 0;
+  font-size: 13px;
+  margin-right: spacing(.75);
+  width: 170px;
 
   li {
-    padding: 0 8px;
-    border-bottom: 0.5px solid mix($background-color, $white-color, 95%);
-
     display: flex;
-    flex-direction: row;
+    justify-content: space-between;
+    height: 40px;
+    align-items: center;
+    font-weight: 500;
+    padding: 0 spacing();
+    cursor: pointer;
+    transition: all .2s;
+    border-bottom: 1px solid $light-color-50;
+    background: $background-color;
 
-    p {
-      height: 25px;
-      line-height: 25px;
-      text-transform: uppercase;
-      font-size: 10px
+    &:first-child {
+      border-top-left-radius: $border-radius;
+      border-top-right-radius: $border-radius;
+    }
+
+    &:last-child {
+      border-bottom: 0;
+      border-bottom-left-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
+    }
+
+    &:active {
+      transition-duration: 0.05s;
+      background: rgba(0, 0, 0, .1);
     }
 
     p:first-child {
-      width: 100%;
-    }
-
-    &.active {
-      color: $green-color !important;
-      border-bottom: 1px solid $green-color;
+      margin-right: spacing();
     }
 
     &:not(.active) {
-      color: $strategy-not-active-color;
+      color: $light-color-500;
     }
 
     &.empty {
@@ -124,52 +132,34 @@
 
     &:hover {
       cursor: pointer;
-      color: $green-color;
+      color: $light-color-900;
+      background-color: $light-color-50;
     }
 
     &.hasError {
       color: $red-color !important;
     }
+
+    &.active {
+      font-weight: 600;
+      color: $primary-color-900;
+      background: $primary-color-50;
+    }
   }
 }
 
 .hfui-strategyeditor__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  .header__buttons-container{
-    > * {
-      margin-right: 14px;
-
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-  }
+  margin: 0 spacing(0.25);
 
   .hfui-button {
-    padding: 8px 13px;
-
-    &:not(.green) {
-      background: $background-color;
-    }
-
-    button {
-      font-size: 13px;
-      font-weight: 300;
-    }
-
-    button, i {
-      color: $white-color;
-    }
+    height: 32px;
+    padding: 0 spacing(0.75);
+    margin: 0 spacing(0.25);
   }
 }
 
 .hfui-strategyeditor__content-wrapper {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
+  width: calc(100% - 182px); // width of hfui-strategyeditor__func-select + margin-right
 }
 
 .hfui-strategyeditor__results-outer {
@@ -183,23 +173,4 @@
   margin: 0;
   padding: 0;
   text-align: center;
-}
-
-.hfui-strategyeditor__panel {
-  .hfui-panel__header {
-    border-bottom: 1px solid $desaturated-background-color;
-    
-    .hfui-panel__label {
-      line-height: 57px;
-    }
-  }
-
-  .hfui-panel__header-components {
-    width: calc(100% - 155px);
-
-    .hfui-strategyeditor__header {
-      width: calc(100% - 16px);
-      padding: 14px 16px 14px 0;
-    }
-  }
 }

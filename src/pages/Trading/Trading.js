@@ -3,19 +3,15 @@ import PropTypes from 'prop-types'
 import Joyride, { STATUS } from 'react-joyride'
 
 import Layout from '../../components/Layout'
-import OrderForm from '../../components/OrderForm'
 import ExchangeInfoBarButton from '../../components/ExchangeInfoBar/ExchangeInfoBar.Button'
-
-import ordersList from '../../orders'
 import GridLayoutPage from '../../components/GridLayoutPage'
 import ActiveAlgoOrdersModal from '../../components/ActiveAlgoOrdersModal'
-
+import SwitchMode from '../../components/SwitchMode'
 import RefillBalanceModal from '../../components/RefillBalanceModal'
 
 import './style.css'
 
 const LAYOUT_ID = '__hfui_trading_page'
-const orders = Object.values(ordersList).map(uiDef => uiDef())
 
 const STEPS = [
   {
@@ -31,7 +27,7 @@ const STEPS = [
     content: 'You can find your notifications here',
   },
   {
-    target: '.hfui-orderformmenu__wrapper',
+    target: '.hfui-orderform__panel',
     content: 'If you want to create an order, this menu contains all orders available',
   },
   {
@@ -58,6 +54,7 @@ const Trading = ({
   apiClientConnected,
   hasActiveAlgoOrders,
   finishGuide,
+  openNotifications,
 }) => {
   const grid = useRef()
 
@@ -72,40 +69,38 @@ const Trading = ({
 
   return (
     <Layout>
-      <Layout.Header
-        buttons={() => (
-          <>
-            <ExchangeInfoBarButton icon='save' onClick={() => grid.current.onSaveLayout()} />
-            <ExchangeInfoBarButton icon='plus' onClick={() => grid.current.onToggleAddComponentModal()} />
-          </>
-        )}
-      />
+      <Layout.Header />
       <Layout.Main flex>
         {firstLogin && (
-        <Joyride
-          callback={onGuideFinish}
-          steps={STEPS}
-          run={isGuideActive}
-          continuous
-          showProgress
-          showSkipButton
-          styles={{
-            options: {
-              zIndex: 10000,
-            },
-          }}
-        />
+          <Joyride
+            callback={onGuideFinish}
+            steps={STEPS}
+            run={isGuideActive}
+            continuous
+            showProgress
+            showSkipButton
+            styles={{
+              options: {
+                zIndex: 10000,
+              },
+            }}
+          />
         )}
 
-        <div className='hfui-tradingpage__column left'>
-          <OrderForm
-            layoutI='orderform'
-            moveable={false}
-            removeable={false}
-            orders={orders}
-          />
-        </div>
         <div className='hfui-tradingpage__column center'>
+          <div className='hfui-tradingpage__menu'>
+            <div className='hfui-exchangeinfobar__buttons'>
+              <ExchangeInfoBarButton icon='save' onClick={() => grid.current.onSaveLayout()} />
+              <ExchangeInfoBarButton icon='plus' onClick={() => grid.current.onToggleAddComponentModal()} />
+              <ExchangeInfoBarButton icon='notifications' onClick={openNotifications} />
+            </div>
+            <div className='hfui-tradingpaper__control'>
+              <div className='hfui-tradingpaper__control-toggle'>
+                <p>Paper Trading</p>
+                <SwitchMode />
+              </div>
+            </div>
+          </div>
           <GridLayoutPage
             showToolbar={false}
             ref={grid}
@@ -129,6 +124,7 @@ Trading.propTypes = {
   apiClientConnected: PropTypes.bool,
   hasActiveAlgoOrders: PropTypes.bool,
   finishGuide: PropTypes.func.isRequired,
+  openNotifications: PropTypes.func.isRequired,
 }
 
 Trading.defaultProps = {

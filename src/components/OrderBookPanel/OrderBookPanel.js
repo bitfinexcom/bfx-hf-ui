@@ -134,7 +134,7 @@ const OrderBookPanel = (props) => {
 
   return (
     <Panel
-      label='ORDER BOOK'
+      label='Order Book'
       dark={dark}
       darkHeader={dark}
       onRemove={handleOnRemove}

@@ -4,26 +4,32 @@
   position: fixed;
   top: 0;
   right: 0;
-  width: 0;
   bottom: 0;
   z-index: 1000;
+  width: 30%;
+  margin-right: 0;
 
   &.visible {
-    width: 30%;
-    margin-right: 0;
+    transform: translateX(0%);
+    transition: transform 700ms cubic-bezier(.29,.58,.05,1);
+  }
+
+  &.hidden {
+    transform: translateX(100%);
+    transition: transform 700ms cubic-bezier(.77,0,.175,1);
   }
 
   ul {
     height: 100%;
   }
 
-  &.absoulute {
-    z-index: 9999999999;
-  }
-
   .hfui-panel,
   .hfui-panel__header {
-    background-color: mix($black-color, $panel-background-color, 10%);
+    background-color: $background-color;
+  }
+
+  .hfui-panel__content {
+    padding: 0 spacing(0.25);
   }
 }
 
@@ -81,7 +87,7 @@
 }
 
 .hfui-notification__ts {
-  font-size: 12px;
+  font-size: 13px;
   color: $text-color;
 }
 
@@ -97,8 +103,8 @@
   margin: 0 spacing(.75) spacing(1) spacing(.75);
   border-radius: $border-radius;
   padding: spacing();
-  font-size: 12px;
-  background: $background-color;
+  font-size: 13px;
+  background: $lighter-background-color;
   text-align: left;
   display: flex;
   pointer-events: all !important;
@@ -128,14 +134,7 @@
   }
 
   &.closed {
-    height: 0;
-    visibility: hidden;
-    overflow: hidden;
-    min-height: 0;
-    margin: 0;
-    padding: 0;
-    border: none;
-    width: 0;
+    display: none;
   }
 }
 
@@ -148,7 +147,7 @@
 
 .hfui-notificationssidebar__header-btn {
   color: transparentize($white-color, 0.3);
-  background: mix($black-color, $panel-background-color, 10%);
+  background: $background-color;
   transition: all .2s;
 
   &:hover {

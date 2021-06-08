@@ -3,46 +3,46 @@ import _isEqual from 'lodash/isEqual'
 
 import WSActions from '../../redux/actions/ws'
 import UIActions from '../../redux/actions/ui'
-import { getActiveMarket } from '../../redux/selectors/ui'
-import { getTicker, getAuthToken } from '../../redux/selectors/ws'
+import { getActiveMarket, getCurrentMode } from '../../redux/selectors/ui'
+import {
+  getTicker, getAuthToken, getTickersArray, getFavoritePairsObject,
+} from '../../redux/selectors/ws'
 import { getMarkets } from '../../redux/selectors/meta'
 
 import ExchangeInfoBar from './ExchangeInfoBar'
 
 const mapStateToProps = (state = {}) => {
   const activeMarket = getActiveMarket(state)
-  const { ui = {} } = state
-  const {
-    isNotificationsOpened,
-  } = ui
 
   return {
     activeMarket,
-    ticker: getTicker(state, activeMarket),
+    activeMarketTicker: getTicker(state, activeMarket),
+    allTickersArray: getTickersArray(state),
+    favoritePairs: getFavoritePairsObject(state),
     markets: getMarkets(state),
-    isNotificationsOpened,
     authToken: getAuthToken(state),
+    currentMode: getCurrentMode(state),
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  addTickerRequirement: (market) => {
-    dispatch(WSActions.addChannelRequirement(['ticker', market]))
-  },
-
+const mapDispatchToProps = (dispatch) => ({
   onChangeMarket: (market, prevMarket) => {
     if (_isEqual(market, prevMarket)) {
       return
     }
     dispatch(UIActions.setActiveMarket(market))
-    dispatch(WSActions.addChannelRequirement(['ticker', market]))
   },
 
-  openNotifications: () => {
-    dispatch(UIActions.openNotifcationPanel())
-  },
-  onRefillClick: () => {
-    dispatch(UIActions.changeReffilBalanceModalState(true))
+  subscribeAllMarkets: (markets) => markets.forEach((market) => {
+    dispatch(WSActions.addChannelRequirement(['ticker', market]))
+  }),
+  updateFavorites: (authToken, newArray, currentMode) => {
+    dispatch(WSActions.send([
+      'favourite_trading_pairs.save',
+      authToken,
+      newArray,
+      currentMode,
+    ]))
   },
 })
 

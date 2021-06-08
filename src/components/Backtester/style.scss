@@ -63,7 +63,7 @@
 
   .hfui-backtester__check-error {
     margin-top: 16px;
-    font-size: 12px;
+    font-size: 13px;
     color: $red-color;
   }
   
@@ -76,8 +76,6 @@
 }
 
 .hfui-backtester__wrapper {
-  padding: spacing();
-
   .ufx-dropdown {
     margin-right: spacing(0.75);
   }

@@ -97,6 +97,10 @@ const openNotifcationPanel = () => ({
   type: types.OPEN_NOTIFICATIONS,
 })
 
+const switchNotifcationPanel = () => ({
+  type: types.SWITCH_NOTIFICATIONS,
+})
+
 const firstLogin = () => ({
   type: types.FIRST_LOGIN,
 })
@@ -123,6 +127,10 @@ const updateStrategyContent = content => ({
 const updateStrategyId = id => ({
   type: types.UPDATE_STRATEGY_ID,
   payload: { id },
+})
+
+const clearStrategies = () => ({
+  type: types.CLEAR_STRATEGIES,
 })
 
 const setTradingMode = (isPaperTrading) => ({
@@ -181,4 +189,6 @@ export default {
   changeReffilBalanceModalState,
   changeBadInternetConnectionState,
   setIsOrderExecuting,
+  clearStrategies,
+  switchNotifcationPanel,
 }

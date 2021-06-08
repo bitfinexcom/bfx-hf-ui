@@ -4,7 +4,6 @@
 @import "codemirror/lib/codemirror";
 @import "codemirror/theme/monokai";
 @import "@projectstorm/react-diagrams/dist/style.min";
-@import "https://fonts.googleapis.com/css?family=Roboto&display=swap";
 @import "/icon_font/styles.css";
 @import "./variables.scss";
 @import "./ufx-customise.scss";
@@ -138,7 +137,7 @@ body button:focus {
 
 .__react-tooltip {
   max-width: 250px;
-  font-size: 12px;
+  font-size: 13px;
   padding: 4px 12px;
   text-align: center;
 }
@@ -187,6 +186,7 @@ body {
   font-family: $font-family;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-weight: 500;
 
   background: $background-color;
   color: $text-color;
@@ -253,6 +253,33 @@ a:visited {
 
 .empty {
   margin-top: 10px;
-  font-size: 16px;
   text-align: center;
+}
+
+[class*="icon-"]:before {
+  font-weight: 600 !important;
+}
+
+::-webkit-input-placeholder {
+  color: $light-color-300;
+  -webkit-font-smoothing: antialiased;
+}
+
+:-moz-placeholder {
+  color: $light-color-300;
+  opacity: 1;
+  -moz-osx-font-smoothing: grayscale;
+  font-smoothing: antialiased;
+}
+
+::-moz-placeholder {
+  color: $light-color-300;
+  opacity: 1;
+  -moz-osx-font-smoothing: grayscale;
+  font-smoothing: antialiased;
+}
+
+:-ms-input-placeholder {
+  color: $light-color-300;
+  -webkit-font-smoothing: antialiased;
 }

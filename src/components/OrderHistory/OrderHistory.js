@@ -98,7 +98,7 @@ const OrderHistory = ({
   onRemove, dark, orders,
 }) => (
   <Panel
-    label='ORDER HISTORY'
+    label='Order History'
     onRemove={onRemove}
     dark={dark}
     darkHeader={dark}

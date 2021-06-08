@@ -9,44 +9,8 @@
     border: 1px solid $green-color;
   }
 
-  .hfui-panel__header {
-    margin: 0;
-
-    .hfui-panel__label {
-      text-transform: none;
-      line-height: 45px;
-    }
-
-    > .hfui-panel__label {
-      line-height: 48px;
-    }
-
-    .hfui-panel__header-tabs {
-      margin-left: 0;
-
-      li {
-        padding: 0;
-        margin: 0 20px;
-
-        &:first-child {
-          margin-left: 0;
-        }
-
-        &:last-child {
-          margin-right: 0;
-        }
-      }
-
-      .active {
-        background: none;
-
-        p {
-          color: $green-color;
-        }
-
-        border-bottom: 2px solid $green-color;
-      }
-    }
+  > .hfui-panel__content {
+    margin: 0 (0 - spacing());
   }
 
   .hfui-panel__content {
@@ -54,48 +18,39 @@
   }
 
   .hfui-panel .hfui-panel__label {
-    color: $white-color;
-  }
-
-  .hfui-panel__header-icons {
-    margin: 8px 0;
+    font-weight: 500;
   }
 
   .hfui-tspanel-header-button {
-    font-size: 11px;
-    line-height: 24px;
-    padding: 0 13px;
+    display: flex;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 32px;
+    padding: 0 spacing(0.5);
     background: $panel-background-color;
-    color: $white-color;
-    height: 30px;
-    margin: 0 7px;
-
-    i, p {
-      line-height: 30px;
-    }
-
-    p {
-      text-transform: uppercase;
-      font-weight: 300;
-    }
+    border-radius: $border-radius;
+    color: $text-color;
+    height: 32px;
+    cursor: pointer;
+    transition: all .2s;
 
     i {
-      margin-right: 8px;
-      font-size: 11px;
-    }
+      font-size: 13px;
+      color: inherit;
 
-    > * {
-      display: inline-block;
-      vertical-align: middle;
-    }
-
-    &:hover, &.active {
-      cursor: pointer;
-      box-shadow: inset 0 0 0 2px mix($green-color, $panel-background-color, 50%);
-
-      i, p {
-        color: $green-color;
+      &:before {
+        font-weight: 600 !important;
       }
+    }
+
+    &:hover,
+    &.active {
+      background: $light-color-50;
+    }
+
+    &.active {
+      background: $primary-color-50;
+      color: $primary-color-800;
     }
   }
 }

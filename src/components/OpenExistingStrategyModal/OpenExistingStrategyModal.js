@@ -1,47 +1,30 @@
-import React from 'react'
+import React, { useState, memo } from 'react'
+import PropTypes from 'prop-types'
 import Debug from 'debug'
 import _isEmpty from 'lodash/isEmpty'
+import _find from 'lodash/find'
 
 import Modal from '../../ui/Modal'
 import Dropdown from '../../ui/Dropdown'
 
-import { propTypes, defaultProps } from './OpenExistingStrategyModal.props'
 import './style.css'
 
 const debug = Debug('hfui:c:open-existing-strategy-modal')
 
-export default class OpenExistingStrategyModal extends React.Component {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+const OpenExistingStrategyModal = ({
+  onClose, strategies, isOpen, onOpen,
+}) => {
+  const [strategyID, setStrategyID] = useState(null)
+  const [error, setError] = useState('')
 
-  state = {
-    strategyID: null,
-    error: '',
-  }
-
-  constructor(props) {
-    super(props)
-
-    this.onStrategyChange = this.onStrategyChange.bind(this)
-    this.onSubmit = this.onSubmit.bind(this)
-  }
-
-  onStrategyChange(strategyID) {
-    this.setState(() => ({ strategyID }))
-  }
-
-  onSubmit() {
-    const { strategyID } = this.state
-
+  const onSubmit = () => {
     if (!strategyID) {
-      this.setState(() => ({ error: 'No strategy selected' }))
+      setError('No strategy selected')
       return
     }
+    const strategy = _find(strategies, ({ id }) => id === strategyID)
 
-    const { onClose, onOpen, strategies } = this.props
-    const strategy = strategies.find(s => s.id === strategyID)
-
-    if (!strategy) {
+    if (_isEmpty(strategy)) {
       debug('strategy not found: %s', strategyID)
       return
     }
@@ -50,36 +33,43 @@ export default class OpenExistingStrategyModal extends React.Component {
     onClose()
   }
 
-  render() {
-    const { onClose, strategies, isOpen } = this.props
-    const { strategyID, error } = this.state
+  return (
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      className='hfui-openexistingstrategymodal__wrapper'
+      label='Open Strategy'
+    >
+      <Dropdown
+        value={strategyID}
+        onChange={setStrategyID}
+        options={strategies.map(({ label, id }) => ({
+          label, value: id,
+        }))}
+      />
 
-    return (
-      <Modal
-        isOpen={isOpen}
-        onClose={onClose}
-        className='hfui-openexistingstrategymodal__wrapper'
-        label='Open Strategy'
-      >
-        <Dropdown
-          value={strategyID}
-          onChange={this.onStrategyChange}
-          options={strategies.map(s => ({
-            label: s.label,
-            value: s.id,
-          }))}
-        />
+      {!_isEmpty(error) && (
+        <p className='error'>{error}</p>
+      )}
 
-        {!_isEmpty(error) && (
-          <p className='error'>{error}</p>
-        )}
-
-        <Modal.Footer>
-          <Modal.Button primary onClick={this.onSubmit}>
-            Open
-          </Modal.Button>
-        </Modal.Footer>
-      </Modal>
-    )
-  }
+      <Modal.Footer>
+        <Modal.Button onClick={onSubmit} primary>
+          Open
+        </Modal.Button>
+      </Modal.Footer>
+    </Modal>
+  )
 }
+
+OpenExistingStrategyModal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  onOpen: PropTypes.func.isRequired,
+  strategies: PropTypes.arrayOf(PropTypes.object).isRequired,
+  isOpen: PropTypes.bool,
+}
+
+OpenExistingStrategyModal.defaultProps = {
+  isOpen: false,
+}
+
+export default memo(OpenExistingStrategyModal)
