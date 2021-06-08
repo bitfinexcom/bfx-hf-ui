@@ -54,7 +54,13 @@ GridLayout.propTypes = {
   }).isRequired,
   chartProps: PropTypes.shape({
     disableToolbar: PropTypes.bool,
-    activeMarket: PropTypes.object,
+    activeMarket: PropTypes.objectOf(
+      PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.array,
+        PropTypes.number,
+      ]),
+    ),
   }),
   bookProps: PropTypes.shape({
     canChangeStacked: PropTypes.bool,
@@ -64,7 +70,13 @@ GridLayout.propTypes = {
     orders: PropTypes.arrayOf(PropTypes.object),
   }),
   ordersProps: PropTypes.shape({
-    market: PropTypes.object,
+    market: PropTypes.objectOf(
+      PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.array,
+        PropTypes.number,
+      ]),
+    ),
   }),
   onRemoveComponent: PropTypes.func.isRequired,
   layoutID: PropTypes.string.isRequired,
