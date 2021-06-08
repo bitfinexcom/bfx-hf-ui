@@ -5,9 +5,9 @@ import WSActions from '../../redux/actions/ws'
 import UIActions from '../../redux/actions/ui'
 import { getActiveMarket, getCurrentMode } from '../../redux/selectors/ui'
 import {
-  getAuthToken, getFavoritePairsObject,
+  getTicker, getAuthToken, getTickersArray, getFavoritePairsObject,
 } from '../../redux/selectors/ws'
-import { getTicker, getTickersArray, getMarkets } from '../../redux/selectors/meta'
+import { getMarkets } from '../../redux/selectors/meta'
 
 import ExchangeInfoBar from './ExchangeInfoBar'
 
@@ -33,6 +33,9 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(UIActions.setActiveMarket(market))
   },
 
+  subscribeAllMarkets: (markets) => markets.forEach((market) => {
+    dispatch(WSActions.addChannelRequirement(['ticker', market]))
+  }),
   updateFavorites: (authToken, newArray, currentMode) => {
     dispatch(WSActions.send([
       'favourite_trading_pairs.save',

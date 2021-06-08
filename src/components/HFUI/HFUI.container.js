@@ -1,12 +1,10 @@
 import { connect } from 'react-redux'
-import { reduxActions } from '@ufx-ui/bfx-containers'
 
 import WSActions from '../../redux/actions/ws'
 import GAActions from '../../redux/actions/google_analytics'
 import { getCurrentMode } from '../../redux/selectors/ui'
 import { getAuthToken } from '../../redux/selectors/ws'
 import HFUI from './HFUI'
-import { getMarkets } from '../../redux/selectors/meta'
 
 const mapStateToProps = (state = {}) => {
   const { ui } = state
@@ -35,9 +33,6 @@ const mapDispatchToProps = dispatch => ({
   },
   onUnload: (authToken, mode) => {
     dispatch(WSActions.onUnload(authToken, mode))
-  },
-  subscribeAllTickers: () => {
-    dispatch(reduxActions.fetchAllTickersPeriodically())
   },
 })
 
