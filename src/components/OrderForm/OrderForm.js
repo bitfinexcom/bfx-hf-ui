@@ -3,6 +3,7 @@ import { Icon } from 'react-fa'
 import _isEqual from 'lodash/isEqual'
 import _isEmpty from 'lodash/isEmpty'
 import _isString from 'lodash/isString'
+import _map from 'lodash/map'
 import _trim from 'lodash/trim'
 import PropTypes from 'prop-types'
 import {
@@ -394,15 +395,11 @@ class OrderForm extends React.Component {
 
               <ul className='hfui-orderform__header' key='of-header'>
                 <li key='item'>
-                  <Dropdown
-                    value={context}
-                    key='dropdown-orderform'
-                    onChange={this.onContextChange}
-                    options={currentMarket.contexts.map(ctx => ({
-                      label: CONTEXT_LABELS[ctx],
-                      value: ctx,
-                    }))}
-                  />
+                  {_map(currentMarket.contexts, value => (
+                    <div key={value} onClick={() => this.onContextChange(value)} className={`hfui__orderform-button ${value === context ? 'active' : ''}`}>
+                      <p>{CONTEXT_LABELS[value]}</p>
+                    </div>
+                  ))}
                 </li>
               </ul>,
 

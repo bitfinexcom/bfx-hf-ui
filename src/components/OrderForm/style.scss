@@ -134,6 +134,34 @@
   }
 }
 
+.hfui__orderform-button {
+  display: flex;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 32px;
+  padding: 0 spacing(0.5);
+  background: $panel-background-color;
+  border-radius: $border-radius;
+  color: $text-color;
+  height: 32px;
+  cursor: pointer;
+  transition: all .2s;
+  margin-right: 10px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:hover {
+    background: $light-color-50;
+  }
+
+  &.active {
+    background: $primary-color-50;
+    color: $primary-color-800;
+  }
+}
+
 .hfui-orderform__label {
   width: 100%;
   display: block;
