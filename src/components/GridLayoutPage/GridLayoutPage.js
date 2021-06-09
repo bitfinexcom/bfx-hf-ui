@@ -47,13 +47,16 @@ class GridLayoutPage extends React.PureComponent {
       ...this.state,
 
       layoutID: props.defaultLayoutID,
-      layoutDef: props.layouts[props.defaultLayoutID],
     }
   }
 
+  componentDidMount() {
+    const { layouts, defaultLayoutID, saveLayoutDef } = this.props
+    saveLayoutDef(layouts[defaultLayoutID])
+  }
+
   onLayoutChange(incomingLayout) {
-    const { tradingEnabled } = this.props
-    const { layoutDef } = this.state
+    const { tradingEnabled, layoutDef, saveLayoutDef } = this.props
 
     const currentLayout = layoutDefToGridLayout(layoutDef)
     const newLayout = layoutDefToGridLayout({ layout: incomingLayout })
@@ -62,18 +65,16 @@ class GridLayoutPage extends React.PureComponent {
       this.setState(() => ({ layoutDirty: true }))
     }
 
-    this.setState(() => ({
-      layoutDef: gridLayoutToLayoutDef({
-        canDelete: layoutDef.canDelete,
-        type: tradingEnabled ? 'trading' : 'data',
-        layout: incomingLayout,
-      }, layoutDef),
-    }))
+    saveLayoutDef(gridLayoutToLayoutDef({
+      canDelete: layoutDef.canDelete,
+      type: tradingEnabled ? 'trading' : 'data',
+      layout: incomingLayout,
+    }, layoutDef))
   }
 
   onSaveLayout() {
-    const { saveLayout } = this.props
-    const { layoutDef, layoutID } = this.state
+    const { saveLayout, layoutDef } = this.props
+    const { layoutID } = this.state
 
     saveLayout(layoutDef, layoutID)
 
@@ -81,36 +82,35 @@ class GridLayoutPage extends React.PureComponent {
   }
 
   onAddComponentToLayout(component) {
-    this.setState(({ layoutDef }) => ({
-      layoutDef: {
-        ...layoutDef,
+    const { layoutDef, saveLayoutDef } = this.props
+    const newLayout = {
+      ...layoutDef,
 
-        layout: [
-          ...layoutDef.layout,
+      layout: [
+        ...layoutDef.layout,
 
-          {
-            i: `${nonce()}`,
-            c: component,
-            x: _min(layoutDef.layout.map(l => l.x)) || 0,
-            y: _max(layoutDef.layout.map(l => l.y)) || 0,
-            ...COMPONENT_DIMENSIONS[component],
-          },
-        ],
-      },
-    }))
+        {
+          i: `${nonce()}`,
+          c: component,
+          x: _min(layoutDef.layout.map(l => l.x)) || 0,
+          y: _max(layoutDef.layout.map(l => l.y)) || 0,
+          ...COMPONENT_DIMENSIONS[component],
+        },
+      ],
+    }
+    saveLayoutDef(newLayout)
   }
 
   onRemoveComponentFromLayout(i) {
-    this.setState(({ layoutDef }) => {
-      const index = layoutDef.layout.findIndex(l => l.i === i)
-      const newLayoutDef = { ...layoutDef }
+    const { layoutDef, saveLayoutDef } = this.props
+    const index = layoutDef.layout.findIndex(l => l.i === i)
+    const newLayoutDef = { ...layoutDef }
 
-      if (index >= 0) {
-        newLayoutDef.layout.splice(index, 1)
-      }
+    if (index >= 0) {
+      newLayoutDef.layout.splice(index, 1)
+    }
 
-      return { layoutDef: newLayoutDef }
-    })
+    saveLayoutDef(newLayoutDef)
   }
 
   onCreateNewLayout(layoutName) {
@@ -119,13 +119,14 @@ class GridLayoutPage extends React.PureComponent {
     createLayout(layoutName, tradingEnabled)
 
     setTimeout(() => {
-      const { layouts } = this.props
+      const { layouts, saveLayoutDef } = this.props
 
       this.setState(() => ({
         addLayoutModalOpen: false,
         layoutID: layoutName,
-        layoutDef: layouts[layoutName],
       }))
+
+      saveLayoutDef(layouts[layoutName])
     }, 500)
   }
 
@@ -142,34 +143,35 @@ class GridLayoutPage extends React.PureComponent {
   }
 
   onChangeLayout(id) {
-    const { layouts } = this.props
+    const { layouts, saveLayoutDef } = this.props
 
     this.setState(() => ({
       layoutID: id,
-      layoutDef: layouts[id],
     }))
+    saveLayoutDef(layouts[id])
   }
 
   onDeleteLayout() {
     const { layoutID } = this.state
-    const { deleteLayout, layouts, defaultLayoutID } = this.props
+    const {
+      deleteLayout, layouts, defaultLayoutID, saveLayoutDef,
+    } = this.props
     deleteLayout(layoutID)
 
     this.setState(() => ({
       layoutID: defaultLayoutID,
-      layoutDef: layouts[defaultLayoutID],
     }))
+    saveLayoutDef(layouts[defaultLayoutID])
   }
 
   render() {
     const {
-      layoutDef, layoutID, layoutDirty, addLayoutModalOpen,
+      layoutID, layoutDirty, addLayoutModalOpen,
       addComponentModalOpen,
     } = this.state
 
     const {
-      activeMarket, layouts, tradingEnabled, chartProps, bookProps, tradesProps,
-      ordersProps, orderFormProps, sharedProps, darkPanels, showToolbar,
+      layoutDef, activeMarket, layouts, tradingEnabled, chartProps, bookProps, tradesProps, ordersProps, orderFormProps, sharedProps, darkPanels, showToolbar,
     } = this.props
 
     return (
@@ -242,6 +244,7 @@ GridLayoutPage.propTypes = {
   saveLayout: PropTypes.func.isRequired,
   createLayout: PropTypes.func.isRequired,
   deleteLayout: PropTypes.func.isRequired,
+  saveLayoutDef: PropTypes.func.isRequired,
   bookProps: PropTypes.objectOf(PropTypes.bool),
   tradesProps: PropTypes.objectOf(PropTypes.bool),
   ordersProps: PropTypes.objectOf(PropTypes.bool),
@@ -254,6 +257,8 @@ GridLayoutPage.propTypes = {
       PropTypes.number,
     ]),
   ).isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  layoutDef: PropTypes.object,
 }
 
 GridLayoutPage.defaultProps = {
@@ -266,6 +271,7 @@ GridLayoutPage.defaultProps = {
   orderFormProps: {},
   tradesProps: {},
   chartProps: {},
+  layoutDef: {},
 }
 
 export default GridLayoutPage
