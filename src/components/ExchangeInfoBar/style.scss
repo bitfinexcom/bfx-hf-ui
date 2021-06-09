@@ -1,63 +1,65 @@
 @import "../../variables.scss";
 
-@media only screen and (min-width: 1170px) {
-  .hfui-exchangeinfobar__wrapper {
-    justify-content: space-between;
-  }
-}
-
 .hfui-exchangeinfobar__wrapper {
-  display: flex;
-  background: $background-color;
-  align-items: center;
-  flex-wrap: wrap;
-  flex-direction: column;
-  margin-bottom: 20px;
+  .hfui-exchangeinfobar__ticker {
+    width: 100%;
+    margin-bottom: spacing();
 
-  ul {
-    display: flex;
-    flex-direction: row;
-    flex: 1;
-    height: 100%;
-    align-items: center;
-  }
+    .highlight {
+      font-size: 14px;
+      line-height: 18px;
+      font-weight: 700;
+      color: $light-color-800;
+    }
 
-  li {
-    min-width: fit-content;
+    .info {
+      .quote-ccy {
+        font-size: 13px;
+        line-height: 18px;
+        margin-left: 4px;
+        color: $light-color-400;
+      }
+    }
 
-    &:first-child {
-      margin-right: spacing();
+    .price-change.ufx-green-text {
+      color: $primary-color-900;
+    }
+
+    .label {
+      font-size: 12px;
+    }
+
+    .value {
+      color: $light-color-700;
     }
   }
-}
+  
+  .hfui-exchangeinfobar__tickerlist {
+    width: 100%;
 
-.hfui-exchangeinfobar__ticker {
-  width: 100%;
-  background-color: $darker-background-color;
-  padding: 10px;
-}
+    .fav-col .ufx-button {
+      padding: spacing(.25);
+      min-width: auto;
+      min-height: auto;
 
-.hfui-exchangeinfobar__tickerlist {
-  width: 100%;
-  background-color: $darker-background-color;
-  padding: 10px;
+      svg {
+        width: 12px;
+        height: 12px;
+      }
+    }
 
-  .input-field-container {
-    border: 1px solid #243d50 !important;
+    .input-field-container {
+      border: $light-color-400 !important;
 
-    input::placeholder {
-      color: #e2e5e7 !important;
-      opacity: .6 !important;
+      input {
+        font-weight: 500;
+      }
+  
+      input::placeholder {
+        color: $light-color-400;
+      }
     }
   }
-}
-
-.hfui-exchangeinfobar__left {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  align-items: center;
-  width: 100%;
 }
 
 .hfui-exchangeinfobar__buttons {

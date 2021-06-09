@@ -50,30 +50,28 @@ const ExchangeInfoBar = ({
       removeable
     >
       <div className='hfui-exchangeinfobar__wrapper'>
-        <div className='hfui-exchangeinfobar__left'>
-          <Ticker
-            data={{
-              baseCcy: base,
-              quoteCcy: quote,
-              lastPrice,
-              change,
-              changePerc,
-              volume,
-              low,
-              high,
-            }}
-            className='hfui-exchangeinfobar__ticker'
-          />
-          <TickerList
-            data={allTickersArray}
-            favs={favoritePairs}
-            saveFavs={_updateFavorites}
-            showOnlyFavs={showFavorites}
-            setShowOnlyFavs={setShowingFavorites}
-            onRowClick={onChangeMarketHandler}
-            className='hfui-exchangeinfobar__tickerlist'
-          />
-        </div>
+        <Ticker
+          data={{
+            baseCcy: base,
+            quoteCcy: quote,
+            lastPrice,
+            change,
+            changePerc,
+            volume,
+            low,
+            high,
+          }}
+          className='hfui-exchangeinfobar__ticker'
+        />
+        <TickerList
+          data={allTickersArray}
+          favs={favoritePairs}
+          saveFavs={_updateFavorites}
+          showOnlyFavs={showFavorites}
+          setShowOnlyFavs={setShowingFavorites}
+          onRowClick={onChangeMarketHandler}
+          className='hfui-exchangeinfobar__tickerlist'
+        />
       </div>
     </Panel>
   )
