@@ -1,20 +1,31 @@
 @import "../../variables.scss";
 
 .hfui-exchangeinfobar__wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+
+  .hfui-exchangeinfobar__ticker-wrapper {
+    
+  }
+
   .hfui-exchangeinfobar__ticker {
     width: 100%;
-    margin-bottom: spacing();
+    padding-bottom: spacing();
 
     .highlight {
-      font-size: 14px;
+      font-size: 18px;
       line-height: 18px;
       font-weight: 700;
-      color: $light-color-800;
+      color: $light-color-900;
     }
 
     .info {
       .quote-ccy {
         font-size: 13px;
+        font-weight: 600;
         line-height: 18px;
         margin-left: 4px;
         color: $light-color-400;
@@ -27,15 +38,31 @@
 
     .label {
       font-size: 12px;
+      font-weight: 500;
+      color: $light-color-400;
     }
 
     .value {
-      color: $light-color-700;
+      color: $light-color-800;
     }
   }
   
+  .hfui-exchangeinfobar__tickerlist-wrapper {
+    position: relative;
+  }
+
   .hfui-exchangeinfobar__tickerlist {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    th {
+      font-weight: 600;
+    }
 
     .fav-col .ufx-button {
       padding: spacing(.25);
@@ -58,6 +85,12 @@
       input::placeholder {
         color: $light-color-400;
       }
+    }
+
+    .ufx-table-wrapper {
+      height: auto;
+      max-height: none;
+      flex-grow: 1;
     }
   }
 }
