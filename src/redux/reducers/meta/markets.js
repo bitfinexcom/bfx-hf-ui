@@ -59,11 +59,11 @@ export default (state = getInitialState(), action = {}) => {
           return combinedPair === wsID
         }, null)
         if (!perpPair) {
-          return market
+          return { ...market, isPerp: false }
         }
         const [, perpID] = perpPair
 
-        return { ...market, uiID: perpID }
+        return { ...market, uiID: perpID, isPerp: true }
       }, state)
       return newState
     }

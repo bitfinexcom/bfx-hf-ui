@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Ticker, TickerList } from '@ufx-ui/core'
+import { TickerList, Ticker } from '@ufx-ui/core'
 import Panel from '../../ui/Panel'
 import useSize from '../../hooks/useSize'
 
@@ -48,7 +48,9 @@ const ExchangeInfoBar = ({
     changePerc,
     volumeConverted,
   } = activeMarketTicker
-  const { base, quote } = activeMarket
+  const {
+    base, quote, uiID, isPerp,
+  } = activeMarket
 
   return (
     <Panel
@@ -72,6 +74,8 @@ const ExchangeInfoBar = ({
               volume: volumeConverted || volume,
               low,
               high,
+              isPerp,
+              perpUI: isPerp ? uiID : null,
             }}
             className='hfui-exchangeinfobar__ticker'
             volumeUnit={volumeConverted ? 'USD' : base}
@@ -104,6 +108,8 @@ ExchangeInfoBar.propTypes = {
   activeMarket: PropTypes.shape({
     base: PropTypes.string,
     quote: PropTypes.string,
+    uiID: PropTypes.string,
+    isPerp: PropTypes.bool,
   }).isRequired,
   onChangeMarket: PropTypes.func.isRequired,
   activeMarketTicker: PropTypes.shape({
