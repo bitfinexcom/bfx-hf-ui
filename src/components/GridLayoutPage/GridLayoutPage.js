@@ -255,6 +255,7 @@ GridLayoutPage.propTypes = {
       PropTypes.string,
       PropTypes.array,
       PropTypes.number,
+      PropTypes.bool,
     ]),
   ).isRequired,
   // eslint-disable-next-line react/forbid-prop-types
