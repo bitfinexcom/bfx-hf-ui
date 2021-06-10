@@ -1,5 +1,6 @@
 import _map from 'lodash/map'
 import _filter from 'lodash/filter'
+import _find from 'lodash/find'
 import types from '../../constants/ws'
 import marketTypes from '../../constants/market'
 
@@ -47,6 +48,23 @@ export default (state = getInitialState(), action = {}) => {
 
         return newMarketObject
       })
+      return newState
+    }
+    case marketTypes.SET_PERPS_NAMES: {
+      const { names: [namesArr] } = payload
+      const newState = _map(state, (market) => {
+        const perpPair = _find(namesArr, (pair) => {
+          const [wsID] = pair
+          const combinedPair = `${market.base}:${market.quote}`
+          return combinedPair === wsID
+        }, null)
+        if (!perpPair) {
+          return market
+        }
+        const [, perpID] = perpPair
+
+        return { ...market, uiID: perpID }
+      }, state)
       return newState
     }
 
