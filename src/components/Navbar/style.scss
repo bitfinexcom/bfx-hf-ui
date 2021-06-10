@@ -8,7 +8,7 @@
 
   font-size: 13px;
   background: $panel-background-color;
-  height: 38px;
+  height: 52px;
   padding: 0 spacing(1.25);
   margin-bottom: 20px;
 
@@ -30,7 +30,7 @@
     line-height: 34px;
   }
 
-  button {
+  .hfui-navbar__main-links button {
     display: flex;
     align-items: center;
     background: transparent;
@@ -40,7 +40,7 @@
     padding: 0;
     margin: 0 spacing(.5);
     outline: none;
-    height: 38px;
+    height: 52px;
     font-size: 13px;
     font-weight: 600;
     transition: all .2s;
@@ -84,4 +84,12 @@
   flex-direction: row;
   flex-wrap: wrap;
   flex: 1;
+}
+
+.hfui-tradingpage__menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
 }

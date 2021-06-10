@@ -56,8 +56,6 @@ const Trading = ({
   finishGuide,
   openNotifications,
 }) => {
-  const grid = useRef()
-
   const onGuideFinish = useCallback((data) => {
     const { status } = data
     const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED]
@@ -88,7 +86,7 @@ const Trading = ({
         )}
 
         <div className='hfui-tradingpage__column center'>
-          <div className='hfui-tradingpage__menu'>
+          {/* <div className='hfui-tradingpage__menu'>
             <div className='hfui-exchangeinfobar__buttons'>
               <ExchangeInfoBarButton icon='save' onClick={() => grid.current.onSaveLayout()} />
               <ExchangeInfoBarButton icon='plus' onClick={() => grid.current.onToggleAddComponentModal()} />
@@ -100,10 +98,12 @@ const Trading = ({
                 <SwitchMode />
               </div>
             </div>
-          </div>
+          </div> */}
           <GridLayoutPage
             showToolbar={false}
-            ref={grid}
+            ref={(grid) => {
+              window.grid = grid
+            }}
             defaultLayoutID='Default Trading'
             sharedProps={commonComponentProps}
           />
