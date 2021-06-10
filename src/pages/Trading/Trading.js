@@ -54,7 +54,6 @@ const Trading = ({
   apiClientConnected,
   hasActiveAlgoOrders,
   finishGuide,
-  openNotifications,
 }) => {
   const onGuideFinish = useCallback((data) => {
     const { status } = data
@@ -86,22 +85,11 @@ const Trading = ({
         )}
 
         <div className='hfui-tradingpage__column center'>
-          {/* <div className='hfui-tradingpage__menu'>
-            <div className='hfui-exchangeinfobar__buttons'>
-              <ExchangeInfoBarButton icon='save' onClick={() => grid.current.onSaveLayout()} />
-              <ExchangeInfoBarButton icon='plus' onClick={() => grid.current.onToggleAddComponentModal()} />
-              <ExchangeInfoBarButton icon='notifications' onClick={openNotifications} />
-            </div>
-            <div className='hfui-tradingpaper__control'>
-              <div className='hfui-tradingpaper__control-toggle'>
-                <p>Paper Trading</p>
-                <SwitchMode />
-              </div>
-            </div>
-          </div> */}
           <GridLayoutPage
             showToolbar={false}
             ref={(grid) => {
+              // temporary assignment to window
+              // to be replaced into a redux slice
               window.grid = grid
             }}
             defaultLayoutID='Default Trading'
@@ -124,7 +112,6 @@ Trading.propTypes = {
   apiClientConnected: PropTypes.bool,
   hasActiveAlgoOrders: PropTypes.bool,
   finishGuide: PropTypes.func.isRequired,
-  openNotifications: PropTypes.func.isRequired,
 }
 
 Trading.defaultProps = {

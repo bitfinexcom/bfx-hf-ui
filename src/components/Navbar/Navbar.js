@@ -1,6 +1,7 @@
 import React from 'react'
 import { Icon } from 'react-fa'
 import { useDispatch } from 'react-redux'
+import { useLocation } from 'react-router'
 
 import HFIcon from '../../ui/HFIcon'
 import UIActions from '../../redux/actions/ui'
@@ -31,6 +32,8 @@ const items = [
 
 const Navbar = () => {
   const dispatch = useDispatch()
+  const location = useLocation()
+  const isTradingPage = location.pathname === '/'
 
   return (
     <div className='hfui-navbar__wrapper'>
@@ -47,14 +50,18 @@ const Navbar = () => {
       </ul>
       <div className='hfui-tradingpage__menu'>
         <div className='hfui-exchangeinfobar__buttons'>
-          <ExchangeInfoBarButton
-            icon='save'
-            onClick={() => window.grid.onSaveLayout()}
-          />
-          <ExchangeInfoBarButton
-            icon='plus'
-            onClick={() => window.grid.onToggleAddComponentModal()}
-          />
+          {isTradingPage && (
+            <>
+              <ExchangeInfoBarButton
+                icon='save'
+                onClick={() => window.grid.onSaveLayout()}
+              />
+              <ExchangeInfoBarButton
+                icon='plus'
+                onClick={() => window.grid.onToggleAddComponentModal()}
+              />
+            </>
+          )}
           <ExchangeInfoBarButton
             icon='notifications'
             onClick={() => dispatch(UIActions.switchNotifcationPanel())}
