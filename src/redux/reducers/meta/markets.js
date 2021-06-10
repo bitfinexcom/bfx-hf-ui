@@ -21,14 +21,16 @@ export default (state = getInitialState(), action = {}) => {
     case marketTypes.SET_CCY_FULL_NAMES: {
       const { names: [namesArr] } = payload
       const newState = _map(state, (market) => {
-        const { quote, base } = market
-        const defaultArray = [quote, base]
+        const {
+          quote, base, uiID,
+        } = market
+        const defaultArray = [quote, base, uiID]
         const fullNamesArray = _filter(namesArr, (pair) => {
           const [shortName] = pair
           return shortName === quote || shortName === base
         }, defaultArray)
 
-        let labels
+        let labels = []
         if (fullNamesArray.length === 0) {
           labels = [...defaultArray]
         }
@@ -40,6 +42,7 @@ export default (state = getInitialState(), action = {}) => {
           const [firstPair, secondPair] = fullNamesArray
           labels = [...firstPair, ...secondPair]
         }
+
         // eslint-disable-next-line no-param-reassign
         const newMarketObject = {
           ...market,
