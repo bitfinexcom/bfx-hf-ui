@@ -181,6 +181,9 @@ export default function LayoutSettings() {
                 })}
               >
                 {layoutName}
+                <div className='hfui-navbar__layout-settings__delete'>
+                  <i className='icon-clear' onClick={() => {}} />
+                </div>
               </div>
             ))}
           </div>

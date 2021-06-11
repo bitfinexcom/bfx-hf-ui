@@ -139,20 +139,46 @@
   }
 
   &.is-layout {
+    position: relative;
     padding-left: spacing(2.75);
+
+    .hfui-navbar__layout-settings__delete {
+      position: absolute;
+      top: 4px;
+      right: spacing(0.75);
+      display: flex;
+      width: 24px;
+      height: 24px;
+      border-radius: $border-radius;
+      justify-content: center;
+      align-items: center;
+      transition: all .2s;
+      opacity: 0;
+
+      .icon-clear:before {
+        font-weight: 500 !important;
+        font-size: 12px;
+      }
+    }
+
+    &:hover {
+      .hfui-navbar__layout-settings__delete {
+        opacity: 1;
+
+        &:hover {
+          background: $light-color-300;
+        }
+      }
+    }
   }
 
-  &.is-selected {
-    position: relative;
-
-    &:before {
-      display: block;
-      position: absolute;
-      top: spacing(0.5) + 1;
-      left: spacing(1);
-      font-family: "untitled-font-4";
-      content: 'S'; // check
-    }
+  &.is-selected:before {
+    display: block;
+    position: absolute;
+    top: spacing(0.5) + 1;
+    left: spacing(1);
+    font-family: "untitled-font-4";
+    content: 'S'; // check
   }
 }
 
