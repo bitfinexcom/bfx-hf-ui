@@ -130,13 +130,29 @@
   font-size: 14px;
   font-weight: 500;
   padding: spacing(0.5) spacing(1);
-  border-radius: $border-radius;
   cursor: pointer;
   transition: all .2s;
 
   &:hover {
     background: $light-color-100;
     color: $light-color-900;
+  }
+
+  &.is-layout {
+    padding-left: spacing(2.75);
+  }
+
+  &.is-selected {
+    position: relative;
+
+    &:before {
+      display: block;
+      position: absolute;
+      top: spacing(0.5) + 1;
+      left: spacing(1);
+      font-family: "untitled-font-4";
+      content: 'S'; // check
+    }
   }
 }
 

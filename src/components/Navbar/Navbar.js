@@ -52,19 +52,7 @@ const Navbar = () => {
       </ul>
       <div className='hfui-tradingpage__menu'>
         <div className='hfui-exchangeinfobar__buttons'>
-          {isTradingPage && (
-            <>
-              <NavbarButton
-                icon='save'
-                onClick={() => window.grid.onSaveLayout()}
-              />
-              <NavbarButton
-                icon='plus'
-                onClick={() => window.grid.onToggleAddComponentModal()}
-              />
-              <LayoutSettings />
-            </>
-          )}
+          <LayoutSettings />
           <NavbarButton
             icon='notifications'
             onClick={() => dispatch(UIActions.switchNotifcationPanel())}
