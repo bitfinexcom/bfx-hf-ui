@@ -1,12 +1,10 @@
-import React, { memo, useCallback, useRef } from 'react'
+import React, { memo, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import Joyride, { STATUS } from 'react-joyride'
 
 import Layout from '../../components/Layout'
-import ExchangeInfoBarButton from '../../components/ExchangeInfoBar/ExchangeInfoBar.Button'
 import GridLayoutPage from '../../components/GridLayoutPage'
 import ActiveAlgoOrdersModal from '../../components/ActiveAlgoOrdersModal'
-import SwitchMode from '../../components/SwitchMode'
 import RefillBalanceModal from '../../components/RefillBalanceModal'
 
 import './style.css'

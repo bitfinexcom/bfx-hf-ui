@@ -206,6 +206,7 @@
     "react-fa": "^5.0.0",
     "react-grid-layout": "^0.18.2",
     "react-joyride": "^2.2.1",
+    "react-outside-click-handler": "^1.3.0",
     "react-redux": "^7.1.0",
     "react-router": "^5.0.1",
     "react-switch": "^6.0.0",

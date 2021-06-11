@@ -60,40 +60,6 @@
   width: 100%;
 }
 
-.hfui-exchangeinfobar__buttons {
-  display: flex;
-  margin-right: spacing();
-}
-
-.hfui-exchangeinfobar__button {
-  cursor: pointer;
-  border-radius: 6px;
-  width: 34px;
-  height: 34px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: background-color 0.2s;
-  background-color: transparent;
-  opacity: 1 !important;
-
-  i,
-  i:before {
-    display: block;
-    font-size: 16px;
-  }
-
-  &:hover,
-  &:focus {
-    background: $light-color-50 !important;
-    color: $light-color-900;
-  }
-
-  &:active {
-    background: rgba(0, 0, 0, 0.2) !important;
-  }
-}
-
 .hfui-exchangeinfobar__item.vertical {
   display: block;
   padding: 0;

@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Icon } from 'react-fa'
 import { useDispatch } from 'react-redux'
 import { useLocation } from 'react-router'
 
 import HFIcon from '../../ui/HFIcon'
 import UIActions from '../../redux/actions/ui'
-import NavbarButton from '../NavbarButton'
-import ExchangeInfoBarButton from '../ExchangeInfoBar/ExchangeInfoBar.Button'
+import NavbarLink from '../NavbarButton'
+import NavbarButton from './Navbar.Button'
 import SwitchMode from '../SwitchMode'
+
+import LayoutSettings from './Navbar.LayoutSettings'
 
 import './style.css'
 
@@ -37,11 +39,11 @@ const Navbar = () => {
 
   return (
     <div className='hfui-navbar__wrapper'>
-      <HFIcon />
+      <HFIcon className='hfui-navbar__logo' />
       <ul className='hfui-navbar__main-links'>
         {items.map(val => (
           <li key={val.route}>
-            <NavbarButton
+            <NavbarLink
               route={val.route}
               label={val.label}
             />
@@ -52,17 +54,18 @@ const Navbar = () => {
         <div className='hfui-exchangeinfobar__buttons'>
           {isTradingPage && (
             <>
-              <ExchangeInfoBarButton
+              <NavbarButton
                 icon='save'
                 onClick={() => window.grid.onSaveLayout()}
               />
-              <ExchangeInfoBarButton
+              <NavbarButton
                 icon='plus'
                 onClick={() => window.grid.onToggleAddComponentModal()}
               />
+              <LayoutSettings />
             </>
           )}
-          <ExchangeInfoBarButton
+          <NavbarButton
             icon='notifications'
             onClick={() => dispatch(UIActions.switchNotifcationPanel())}
           />
