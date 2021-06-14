@@ -206,6 +206,7 @@ class GridLayoutPage extends React.PureComponent {
             onAddLayout={this.onToggleCreateNewLayoutModal}
             onAddComponent={this.onToggleAddComponentModal}
             onChangeLayout={this.onChangeLayout}
+            onToggleResetLayoutModal={this.onToggleResetLayoutModal}
           />
         )}
 

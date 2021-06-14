@@ -9,8 +9,17 @@ import Dropdown from '../../ui/Dropdown'
 import './style.css'
 
 const LayoutControlToolbar = ({
-  layouts, tradingEnabled, onAddLayout, onDeleteLayout, onSaveLayout,
-  onAddComponent, activeLayout, layoutDirty, onChangeLayout, activeLayoutID,
+  layouts, 
+  tradingEnabled, 
+  onAddLayout, 
+  onDeleteLayout, 
+  onSaveLayout,
+  onAddComponent, 
+  activeLayout, 
+  layoutDirty, 
+  onChangeLayout, 
+  activeLayoutID,
+  onToggleResetLayoutModal
 }) => {
   const layoutNames = _filter(_keys(layouts), id => (
     (layouts[id].type === 'trading' && tradingEnabled) || (layouts[id].type === 'data' && !tradingEnabled)
@@ -59,7 +68,7 @@ const LayoutControlToolbar = ({
         ]}
       />
 
-      <Button
+      {canDelete ? <Button
         onClick={onDeleteLayout}
         disabled={!canDelete}
         className='hfui-remove-layout__btn'
@@ -67,7 +76,15 @@ const LayoutControlToolbar = ({
           <i key='icon' className='icon-clear' />,
           <p key='text'>Delete</p>,
         ]}
-      />
+      /> : <Button
+      onClick={onToggleResetLayoutModal}
+      disabled={canDelete}
+      className='hfui-remove-layout__btn'
+      label={[
+         <i key='icon' className='icon-clear' />,
+         <p key='text'>Reset</p>,
+    ]}
+      />}
     </div>
   )
 }
