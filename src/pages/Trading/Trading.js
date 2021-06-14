@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Joyride, { STATUS } from 'react-joyride'
 
 import Layout from '../../components/Layout'
-import GridLayoutPage from '../../components/GridLayoutPage'
+import GridLayoutPage, { LayoutIDs } from '../../components/GridLayoutPage'
 import ActiveAlgoOrdersModal from '../../components/ActiveAlgoOrdersModal'
 import RefillBalanceModal from '../../components/RefillBalanceModal'
 
@@ -84,13 +84,12 @@ const Trading = ({
 
         <div className='hfui-tradingpage__column center'>
           <GridLayoutPage
-            showToolbar={false}
+            defaultLayoutID={LayoutIDs.defaultTrading}
             ref={(grid) => {
               // temporary assignment to window
               // to be replaced into a redux slice
               window.grid = grid
             }}
-            defaultLayoutID='Default Trading'
             sharedProps={commonComponentProps}
           />
         </div>

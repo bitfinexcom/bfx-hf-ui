@@ -7,7 +7,6 @@ import { nonce } from 'bfx-api-node-util'
 
 import AddLayoutComponentModal from '../AddLayoutComponentModal'
 import CreateNewLayoutModal from '../CreateNewLayoutModal'
-import LayoutControlToolbar from '../LayoutControlToolbar'
 import GridLayout from '../GridLayout'
 
 import {
@@ -28,26 +27,8 @@ class GridLayoutPage extends React.PureComponent {
     layoutDirty: false,
     addLayoutModalOpen: false,
     addComponentModalOpen: false,
-  }
-
-  constructor(props) {
-    super(props)
-
-    this.onSaveLayout = this.onSaveLayout.bind(this)
-    this.onLayoutChange = this.onLayoutChange.bind(this)
-    this.onAddComponentToLayout = this.onAddComponentToLayout.bind(this)
-    this.onRemoveComponentFromLayout = this.onRemoveComponentFromLayout.bind(this)
-    this.onCreateNewLayout = this.onCreateNewLayout.bind(this)
-    this.onChangeLayout = this.onChangeLayout.bind(this)
-    this.onDeleteLayout = this.onDeleteLayout.bind(this)
-    this.onToggleCreateNewLayoutModal = this.onToggleCreateNewLayoutModal.bind(this)
-    this.onToggleAddComponentModal = this.onToggleAddComponentModal.bind(this)
-
-    this.state = {
-      ...this.state,
-
-      layoutID: props.defaultLayoutID,
-    }
+    // eslint-disable-next-line react/destructuring-assignment
+    layoutID: this.props.defaultLayoutID,
   }
 
   componentDidMount() {
@@ -55,7 +36,7 @@ class GridLayoutPage extends React.PureComponent {
     saveLayoutDef(layouts[defaultLayoutID])
   }
 
-  onLayoutChange(incomingLayout) {
+  onLayoutChange = (incomingLayout) => {
     const { tradingEnabled, layoutDef, saveLayoutDef } = this.props
 
     const currentLayout = layoutDefToGridLayout(layoutDef)
@@ -72,7 +53,7 @@ class GridLayoutPage extends React.PureComponent {
     }, layoutDef))
   }
 
-  onSaveLayout() {
+  onSaveLayout = () => {
     const { saveLayout, layoutDef } = this.props
     const { layoutID } = this.state
 
@@ -81,14 +62,12 @@ class GridLayoutPage extends React.PureComponent {
     this.setState(() => ({ layoutDirty: false }))
   }
 
-  onAddComponentToLayout(component) {
+  onAddComponentToLayout = (component) => {
     const { layoutDef, saveLayoutDef } = this.props
-    const newLayout = {
+    saveLayoutDef({
       ...layoutDef,
-
       layout: [
         ...layoutDef.layout,
-
         {
           i: `${nonce()}`,
           c: component,
@@ -97,11 +76,10 @@ class GridLayoutPage extends React.PureComponent {
           ...COMPONENT_DIMENSIONS[component],
         },
       ],
-    }
-    saveLayoutDef(newLayout)
+    })
   }
 
-  onRemoveComponentFromLayout(i) {
+  onRemoveComponentFromLayout = (i) => {
     const { layoutDef, saveLayoutDef } = this.props
     const index = layoutDef.layout.findIndex(l => l.i === i)
     const newLayoutDef = { ...layoutDef }
@@ -113,7 +91,7 @@ class GridLayoutPage extends React.PureComponent {
     saveLayoutDef(newLayoutDef)
   }
 
-  onCreateNewLayout(layoutName) {
+  onCreateNewLayout = (layoutName) => {
     const { createLayout, tradingEnabled } = this.props
 
     createLayout(layoutName, tradingEnabled)
@@ -130,19 +108,19 @@ class GridLayoutPage extends React.PureComponent {
     }, 500)
   }
 
-  onToggleCreateNewLayoutModal() {
+  onToggleCreateNewLayoutModal = () => {
     this.setState(({ addLayoutModalOpen }) => ({
       addLayoutModalOpen: !addLayoutModalOpen,
     }))
   }
 
-  onToggleAddComponentModal() {
+  onToggleAddComponentModal = () => {
     this.setState(({ addComponentModalOpen }) => ({
       addComponentModalOpen: !addComponentModalOpen,
     }))
   }
 
-  onChangeLayout(id) {
+  onChangeLayout = (id) => {
     const { layouts, saveLayoutDef } = this.props
 
     this.setState(() => ({
@@ -151,7 +129,7 @@ class GridLayoutPage extends React.PureComponent {
     saveLayoutDef(layouts[id])
   }
 
-  onDeleteLayout() {
+  onDeleteLayout = () => {
     const { layoutID } = this.state
     const {
       deleteLayout, layouts, defaultLayoutID, saveLayoutDef,
@@ -171,7 +149,7 @@ class GridLayoutPage extends React.PureComponent {
     } = this.state
 
     const {
-      layoutDef, activeMarket, layouts, tradingEnabled, chartProps, bookProps, tradesProps, ordersProps, orderFormProps, sharedProps, darkPanels, showToolbar,
+      layoutDef, activeMarket, layouts, tradingEnabled, chartProps, bookProps, tradesProps, ordersProps, orderFormProps, sharedProps, darkPanels,
     } = this.props
 
     return (
@@ -221,7 +199,6 @@ GridLayoutPage.propTypes = {
   layouts: PropTypes.objectOf(PropTypes.object).isRequired,
   tradingEnabled: PropTypes.bool,
   darkPanels: PropTypes.bool,
-  showToolbar: PropTypes.bool,
   sharedProps: PropTypes.objectOf(PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.bool,
@@ -249,7 +226,6 @@ GridLayoutPage.propTypes = {
 GridLayoutPage.defaultProps = {
   tradingEnabled: false,
   darkPanels: false,
-  showToolbar: true,
   sharedProps: {},
   bookProps: {},
   ordersProps: {},

@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import Joyride, { STATUS } from 'react-joyride'
 import Layout from '../../components/Layout'
-import GridLayoutPage from '../../components/GridLayoutPage'
+import GridLayoutPage, { LayoutIDs } from '../../components/GridLayoutPage'
 import './style.css'
 
 const STEPS = [
@@ -12,6 +12,7 @@ const STEPS = [
     content: 'To customize your layout, you can add components to it',
   },
 ]
+
 const commonComponentProps = {
   dark: true,
   darkHeader: true,
@@ -35,22 +36,22 @@ const MarketData = ({ isGuideActive, isFirstLogin, finishGuide }) => {
       <Layout.Header />
       <Layout.Main>
         {isFirstLogin && (
-        <Joyride
-          callback={onGuideFinish}
-          steps={STEPS}
-          run={isGuideActive}
-          continuous
-          showProgress
-          showSkipButton
-          styles={{
-            options: {
-              zIndex: 10000,
-            },
-          }}
-        />
+          <Joyride
+            callback={onGuideFinish}
+            steps={STEPS}
+            run={isGuideActive}
+            continuous
+            showProgress
+            showSkipButton
+            styles={{
+              options: {
+                zIndex: 10000,
+              },
+            }}
+          />
         )}
         <GridLayoutPage
-          defaultLayoutID='Default Market Data'
+          defaultLayoutID={LayoutIDs.defaultMarketData}
           tradesProps={commonComponentProps}
           bookProps={commonComponentProps}
           chartProps={commonComponentProps}
