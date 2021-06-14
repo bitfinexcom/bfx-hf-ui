@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useLocation } from 'react-router'
 import cx from 'classnames'
 import _filter from 'lodash/filter'
 import _keys from 'lodash/keys'
+import _map from 'lodash/map'
 
 import OutsideClickHandler from 'react-outside-click-handler'
 import UIActions from '../../redux/actions/ui'
@@ -10,15 +12,38 @@ import { getLayouts, getActiveMarket, getCurrentUnsavedLayout } from '../../redu
 
 import { ReactComponent as LayoutIcon } from './layout-icon.svg'
 import NavbarButton from './Navbar.Button'
+import { Routes } from './Navbar.constants'
+
+function Item({
+  children, isLayout, isSelected, ...props
+}) {
+  return (
+    <div
+      className={cx('hfui-navbar__layout-settings__item', {
+        'is-layout': isLayout,
+        'is-selected': isSelected,
+      })}
+      {...props}
+    >
+      {children}
+    </div>
+  )
+}
 
 export default function LayoutSettings() {
   const [isOpen, setIsOpen] = useState(false)
   const layouts = useSelector(getLayouts)
-  // activeMarket: getActiveMarket(state),
+  const location = useLocation()
   const currentLayout = useSelector(getCurrentUnsavedLayout)
-  console.log('TCL: LayoutSettings -> currentLayout', currentLayout)
 
   const layoutId = 'Default Market Data'
+
+  if (![
+    Routes.tradingTerminal.pathname,
+    Routes.marketData.pathname,
+  ].includes(location.pathname)) {
+    return null
+  }
 
   // tradingEnabled={tradingEnabled}
   // activeLayout={layoutDef}
@@ -140,15 +165,11 @@ export default function LayoutSettings() {
   //   saveLayoutDef(layouts[defaultLayoutID])
   // }
 
-  console.log('TCL: LayoutSettings -> layouts', layouts)
-
   const tradingEnabled = false
 
   const layoutNames = _filter(_keys(layouts), id => (
     (layouts[id].type === 'trading' && tradingEnabled) || (layouts[id].type === 'data' && !tradingEnabled)
   ))
-
-  console.log('TCL: LayoutSettings -> layoutNames', layoutNames)
 
   return (
     <div className='hfui-navbar__layout-settings'>
@@ -163,29 +184,40 @@ export default function LayoutSettings() {
             <div className='hfui-navbar__layout-settings__title'>
               Layout settings
             </div>
-            <div className='hfui-navbar__layout-settings__item' onClick={() => window.grid.onToggleAddComponentModal()}>
-              Add Component
+            <div className='hfui-navbar__layout-settings__menu-buttons' onClick={() => setIsOpen(false)}>
+              {location.pathname === Routes.tradingTerminal.pathname && (
+                <>
+                  <Item onClick={() => window.grid.onToggleAddComponentModal()}>
+                    Add Component
+                  </Item>
+                  <Item onClick={() => window.grid.onSaveLayout()}>
+                    Save
+                  </Item>
+                </>
+              )}
+              {location.pathname === Routes.marketData.pathname && (
+                <>
+                  <Item onClick={() => window.grid.onToggleAddComponentModal()}>
+                    Add Component
+                  </Item>
+                  <Item onClick={() => window.grid.onSaveLayout()}>
+                    Save
+                  </Item>
+                  <Item>
+                    Create New Layout
+                  </Item>
+                  <div className='hfui-navbar__layout-settings__separator' />
+                  {_map(layoutNames, layoutName => (
+                    <Item isLayout isSelected={layoutName === layoutId}>
+                      {layoutName}
+                      <div className='hfui-navbar__layout-settings__delete'>
+                        <i className='icon-clear' onClick={() => {}} />
+                      </div>
+                    </Item>
+                  ))}
+                </>
+              )}
             </div>
-            <div className='hfui-navbar__layout-settings__item' onClick={() => window.grid.onSaveLayout()}>
-              Save
-            </div>
-            <div className='hfui-navbar__layout-settings__item'>
-              Create New Layout
-            </div>
-            <div className='hfui-navbar__layout-settings__separator' />
-            {layoutNames.map(layoutName => (
-              <div
-                key={layoutName}
-                className={cx('hfui-navbar__layout-settings__item', 'is-layout', {
-                  'is-selected': layoutName === layoutId,
-                })}
-              >
-                {layoutName}
-                <div className='hfui-navbar__layout-settings__delete'>
-                  <i className='icon-clear' onClick={() => {}} />
-                </div>
-              </div>
-            ))}
           </div>
         </OutsideClickHandler>
       )}
