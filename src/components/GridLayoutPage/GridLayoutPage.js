@@ -176,21 +176,6 @@ class GridLayoutPage extends React.PureComponent {
 
     return (
       <div className='hfui-gridlayoutpage__wrapper'>
-        {showToolbar && (
-          <LayoutControlToolbar
-            tradingEnabled={tradingEnabled}
-            activeLayout={layoutDef}
-            activeLayoutID={layoutID}
-            layoutDirty={layoutDirty}
-            layouts={layouts}
-            onDeleteLayout={this.onDeleteLayout}
-            onSaveLayout={this.onSaveLayout}
-            onAddLayout={this.onToggleCreateNewLayoutModal}
-            onAddComponent={this.onToggleAddComponentModal}
-            onChangeLayout={this.onChangeLayout}
-          />
-        )}
-
         <CreateNewLayoutModal
           isOpen={addLayoutModalOpen}
           onClose={this.onToggleCreateNewLayoutModal}
