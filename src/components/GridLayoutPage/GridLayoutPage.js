@@ -20,6 +20,7 @@ import {
 } from '../GridLayout/GridLayout.helpers'
 
 import ordersList from '../../orders'
+import ResetDefaultLayoutModal from '../ResetDefaultLayoutModal'
 
 const orders = Object.values(ordersList).map(uiDef => uiDef())
 
@@ -28,6 +29,7 @@ class GridLayoutPage extends React.PureComponent {
     layoutDirty: false,
     addLayoutModalOpen: false,
     addComponentModalOpen: false,
+    resetLayoutModalOpen: false,
   }
 
   constructor(props) {
@@ -42,6 +44,8 @@ class GridLayoutPage extends React.PureComponent {
     this.onDeleteLayout = this.onDeleteLayout.bind(this)
     this.onToggleCreateNewLayoutModal = this.onToggleCreateNewLayoutModal.bind(this)
     this.onToggleAddComponentModal = this.onToggleAddComponentModal.bind(this)
+    this.onToggleResetLayoutModal = this.onToggleResetLayoutModal.bind(this)
+    this.onResetDefaultLayout = this.onResetDefaultLayout.bind(this)
 
     this.state = {
       ...this.state,
@@ -142,6 +146,12 @@ class GridLayoutPage extends React.PureComponent {
     }))
   }
 
+  onToggleResetLayoutModal() {
+    this.setState(({ resetLayoutModalOpen }) => ({
+      resetLayoutModalOpen: !resetLayoutModalOpen,
+    }))
+  }
+
   onChangeLayout(id) {
     const { layouts, saveLayoutDef } = this.props
 
@@ -164,10 +174,18 @@ class GridLayoutPage extends React.PureComponent {
     saveLayoutDef(layouts[defaultLayoutID])
   }
 
+  onResetDefaultLayout(id) {
+    const { resetDefaultLayout } = this.props
+    resetDefaultLayout(id)
+  }
+
   render() {
     const {
-      layoutID, layoutDirty, addLayoutModalOpen,
+      layoutID,
+      layoutDirty,
+      addLayoutModalOpen,
       addComponentModalOpen,
+      resetLayoutModalOpen,
     } = this.state
 
     const {
@@ -201,6 +219,13 @@ class GridLayoutPage extends React.PureComponent {
           isOpen={addComponentModalOpen}
           onClose={this.onToggleAddComponentModal}
           onSubmit={this.onAddComponentToLayout}
+        />
+
+        <ResetDefaultLayoutModal
+          isOpen={resetLayoutModalOpen}
+          onClose={this.onToggleResetLayoutModal}
+          onSubmit={this.onResetDefaultLayout}
+          layout={layoutID}
         />
 
         <GridLayout
@@ -259,6 +284,7 @@ GridLayoutPage.propTypes = {
   ).isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   layoutDef: PropTypes.object,
+  resetDefaultLayout: PropTypes.func.isRequired,
 }
 
 GridLayoutPage.defaultProps = {

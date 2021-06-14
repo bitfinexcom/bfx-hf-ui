@@ -27,6 +27,10 @@ const mapDispatchToProps = dispatch => ({
   deleteLayout: (id) => {
     dispatch(UIActions.deleteLayout(id))
   },
+
+  resetDefaultLayout: (id) => {
+    dispatch(UIActions.resetDefaultLayout(id))
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps, null, { forwardRef: true })(GridLayoutPage)

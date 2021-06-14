@@ -120,6 +120,35 @@ function reducer(state = getInitialState(), action = {}) {
       }
     }
 
+    case types.RESET_DEFAULT_LAYOUT: {
+      const { layout } = payload
+
+      let updatedLayout
+
+      if (layout === DEFAULT_TRADING_KEY) {
+        updatedLayout = {
+          [DEFAULT_TRADING_KEY]: DEFAULT_TRADING_LAYOUT,
+        }
+      }
+      if (layout === DEFAULT_MARKET_KEY) {
+        updatedLayout = {
+          [DEFAULT_MARKET_KEY]: DEFAULT_MARKET_DATA_LAYOUT,
+        }
+      }
+
+      if (!updatedLayout) {
+        return state
+      }
+
+      return {
+        ...state,
+        layouts: {
+          ...state.layouts,
+          ...updatedLayout,
+        },
+      }
+    }
+
     case types.UPDATE_SETTINGS: {
       return {
         ...state,
@@ -344,7 +373,8 @@ function reducerWithStorage(state = getInitialState(), action = {}) {
     switch (action.type) {
       case types.SAVE_LAYOUT:
       case types.CREATE_LAYOUT:
-      case types.DELETE_LAYOUT: {
+      case types.DELETE_LAYOUT:
+      case types.RESET_DEFAULT_LAYOUT: {
         const { layouts } = newState
         localStorage.setItem(LAYOUTS_KEY, JSON.stringify(layouts))
         break

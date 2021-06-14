@@ -37,6 +37,11 @@ const deleteLayout = id => ({
   },
 })
 
+const resetDefaultLayout = (id) => ({
+  type: types.RESET_DEFAULT_LAYOUT,
+  payload: { layout: id },
+})
+
 const setActiveMarket = market => ({
   type: types.SET_ACTIVE_MARKET,
   payload: {
@@ -199,4 +204,5 @@ export default {
   setIsOrderExecuting,
   clearStrategies,
   switchNotifcationPanel,
+  resetDefaultLayout,
 }

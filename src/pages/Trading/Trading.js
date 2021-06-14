@@ -23,6 +23,10 @@ const STEPS = [
     content: 'Customized layouts can be saved here',
   },
   {
+    target: '.icon-delete1',
+    content: 'You can reset to default layout',
+  },
+  {
     target: '.icon-notifications',
     content: 'You can find your notifications here',
   },
@@ -90,6 +94,7 @@ const Trading = ({
         <div className='hfui-tradingpage__column center'>
           <div className='hfui-tradingpage__menu'>
             <div className='hfui-exchangeinfobar__buttons'>
+              <ExchangeInfoBarButton icon='delete1' onClick={() => grid.current.onToggleResetLayoutModal()} />
               <ExchangeInfoBarButton icon='save' onClick={() => grid.current.onSaveLayout()} />
               <ExchangeInfoBarButton icon='plus' onClick={() => grid.current.onToggleAddComponentModal()} />
               <ExchangeInfoBarButton icon='notifications' onClick={openNotifications} />
