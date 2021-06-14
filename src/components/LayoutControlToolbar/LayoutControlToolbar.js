@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import _keys from 'lodash/keys'
@@ -6,27 +5,28 @@ import _filter from 'lodash/filter'
 
 import Button from '../../ui/Button'
 import Dropdown from '../../ui/Dropdown'
+import { DEFAULT_MARKET_KEY } from '../../redux/reducers/ui'
 import './style.css'
 
 const LayoutControlToolbar = ({
-  layouts, 
-  tradingEnabled, 
-  onAddLayout, 
-  onDeleteLayout, 
+  layouts,
+  tradingEnabled,
+  onAddLayout,
+  onDeleteLayout,
   onSaveLayout,
-  onAddComponent, 
-  activeLayout, 
-  layoutDirty, 
-  onChangeLayout, 
+  onAddComponent,
+  activeLayout,
+  layoutDirty,
+  onChangeLayout,
   activeLayoutID,
-  onToggleResetLayoutModal
+  onToggleResetLayoutModal,
 }) => {
   const layoutNames = _filter(_keys(layouts), id => (
     (layouts[id].type === 'trading' && tradingEnabled) || (layouts[id].type === 'data' && !tradingEnabled)
   ))
 
   const { canDelete } = activeLayout || {}
-  const defaultLayoutID = 'Default Market Data'
+  const defaultLayoutID = DEFAULT_MARKET_KEY
 
   return (
     <div className='hfui-layoutcontroltoolbar__wrapper'>
@@ -68,37 +68,47 @@ const LayoutControlToolbar = ({
         ]}
       />
 
-      {canDelete ? <Button
-        onClick={onDeleteLayout}
-        disabled={!canDelete}
-        className='hfui-remove-layout__btn'
-        label={[
-          <i key='icon' className='icon-clear' />,
-          <p key='text'>Delete</p>,
-        ]}
-      /> : <Button
-      onClick={onToggleResetLayoutModal}
-      disabled={canDelete}
-      className='hfui-remove-layout__btn'
-      label={[
-         <i key='icon' className='icon-clear' />,
-         <p key='text'>Reset</p>,
-    ]}
-      />}
+      {canDelete
+        ? (
+          <Button
+            onClick={onDeleteLayout}
+            disabled={!canDelete}
+            className='hfui-remove-layout__btn'
+            label={[
+              <i key='icon' className='icon-clear' />,
+              <p key='text'>Delete</p>,
+            ]}
+          />
+        )
+        : (
+          <Button
+            onClick={onToggleResetLayoutModal}
+            disabled={canDelete}
+            className='hfui-remove-layout__btn'
+            label={[
+              <i key='icon' className='icon-clear' />,
+              <p key='text'>Reset</p>,
+            ]}
+          />
+        )}
     </div>
   )
 }
 
 LayoutControlToolbar.propTypes = {
-  layouts: PropTypes.object,
+  layouts: PropTypes.objectOf(PropTypes.object),
   tradingEnabled: PropTypes.bool,
   layoutDirty: PropTypes.bool,
-  activeLayout: PropTypes.object.isRequired,
+  activeLayout: PropTypes.shape({
+    canDelete: PropTypes.bool,
+  }).isRequired,
   onAddLayout: PropTypes.func.isRequired,
   onDeleteLayout: PropTypes.func.isRequired,
   onSaveLayout: PropTypes.func.isRequired,
   onAddComponent: PropTypes.func.isRequired,
   onChangeLayout: PropTypes.func.isRequired,
+  activeLayoutID: PropTypes.string.isRequired,
+  onToggleResetLayoutModal: PropTypes.func.isRequired,
 }
 
 LayoutControlToolbar.defaultProps = {
