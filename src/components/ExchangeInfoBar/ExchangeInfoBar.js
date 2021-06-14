@@ -19,7 +19,6 @@ const ExchangeInfoBar = ({
   onRemove,
 }) => {
   const [showFavorites, setShowingFavorites] = useState(false)
-  const isMainMode = currentMode === MAIN_MODE
 
   const _updateFavorites = (object) => {
     const arrayWithPairs = Object.keys(object)
@@ -80,7 +79,8 @@ const ExchangeInfoBar = ({
             volumeUnitList={{
               USD: 'USD',
             }}
-            showVolumeUnit={isMainMode}
+            // showing volume in USD only in main mode
+            showVolumeUnit={currentMode === MAIN_MODE}
           />
         </div>
       </div>
