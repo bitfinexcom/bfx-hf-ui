@@ -85,11 +85,6 @@ const Trading = ({
         <div className='hfui-tradingpage__column center'>
           <GridLayoutPage
             defaultLayoutID={LayoutIDs.defaultTrading}
-            ref={(grid) => {
-              // temporary assignment to window
-              // to be replaced into a redux slice
-              window.grid = grid
-            }}
             sharedProps={commonComponentProps}
           />
         </div>

@@ -1,13 +1,13 @@
 import types from '../constants/ui'
 
-const saveRemoteVersion = version => ({
+export const saveRemoteVersion = version => ({
   type: types.SAVE_REMOTE_VERSION,
   payload: {
     version,
   },
 })
 
-const saveLayout = (layout, id) => ({
+export const saveLayout = (layout, id) => ({
   type: types.SAVE_LAYOUT,
   payload: {
     layout,
@@ -15,14 +15,14 @@ const saveLayout = (layout, id) => ({
   },
 })
 
-const storeUnsavedLayout = (layout) => ({
+export const storeUnsavedLayout = (layout) => ({
   type: types.STORE_UNSAVED_LAYOUT,
   payload: {
     layout,
   },
 })
 
-const createLayout = (id, tradingEnabled) => ({
+export const createLayout = (id, tradingEnabled) => ({
   type: types.CREATE_LAYOUT,
   payload: {
     id,
@@ -30,21 +30,21 @@ const createLayout = (id, tradingEnabled) => ({
   },
 })
 
-const deleteLayout = id => ({
+export const deleteLayout = id => ({
   type: types.DELETE_LAYOUT,
   payload: {
     id,
   },
 })
 
-const setActiveMarket = market => ({
+export const setActiveMarket = market => ({
   type: types.SET_ACTIVE_MARKET,
   payload: {
     market,
   },
 })
 
-const setFilteredValueWithKey = (key, value) => ({
+export const setFilteredValueWithKey = (key, value) => ({
   type: types.SET_FILTRED_VALUE,
   payload: {
     key,
@@ -52,7 +52,7 @@ const setFilteredValueWithKey = (key, value) => ({
   },
 })
 
-const saveComponentState = ({
+export const saveComponentState = ({
   layoutID,
   componentID,
   state,
@@ -65,7 +65,7 @@ const saveComponentState = ({
   },
 })
 
-const updateComponentState = ({
+export const updateComponentState = ({
   layoutID,
   componentID,
   state,
@@ -78,103 +78,108 @@ const updateComponentState = ({
   },
 })
 
-const setRoute = route => ({
+export const setRoute = route => ({
   type: types.SET_ROUTE,
   payload: {
     route,
   },
 })
 
-const closeNotificationPanel = () => ({
+export const closeNotificationPanel = () => ({
   type: types.CLOSE_NOTIFICATIONS,
 })
 
-const removeNotification = (uid) => ({
+export const removeNotification = (uid) => ({
   type: types.REMOVE_NOTIFICATION,
   payload: {
     uid,
   },
 })
 
-const removeNotifications = (uids) => ({
+export const removeNotifications = (uids) => ({
   type: types.REMOVE_NOTIFICATIONS,
   payload: {
     uids,
   },
 })
 
-const clearNotifications = () => ({
+export const clearNotifications = () => ({
   type: types.CLEAR_NOTIFICATIONS,
 })
 
-const openNotifcationPanel = () => ({
+export const openNotifcationPanel = () => ({
   type: types.OPEN_NOTIFICATIONS,
 })
 
-const switchNotifcationPanel = () => ({
+export const switchNotifcationPanel = () => ({
   type: types.SWITCH_NOTIFICATIONS,
 })
 
-const firstLogin = () => ({
+export const firstLogin = () => ({
   type: types.FIRST_LOGIN,
 })
 
-const finishGuide = (page) => ({
+export const finishGuide = (page) => ({
   type: types.FINISH_GUIDE,
   payload: page,
 })
 
-const recvNotification = notification => ({
+export const recvNotification = notification => ({
   type: types.DATA_NOTIFICATION,
   payload: { notification },
 })
 
-const strategySelect = () => ({
+export const strategySelect = () => ({
   type: types.STRATEGY_SELECT,
 })
 
-const updateStrategyContent = content => ({
+export const updateStrategyContent = content => ({
   type: types.UPDATE_STRATEGY_CONTENT,
   payload: { content },
 })
 
-const updateStrategyId = id => ({
+export const updateStrategyId = id => ({
   type: types.UPDATE_STRATEGY_ID,
   payload: { id },
 })
 
-const clearStrategies = () => ({
+export const clearStrategies = () => ({
   type: types.CLEAR_STRATEGIES,
 })
 
-const setTradingMode = (isPaperTrading) => ({
+export const setTradingMode = (isPaperTrading) => ({
   type: types.SET_TRADING_MODE,
   payload: { isPaperTrading },
 })
 
-const setMarketFromStore = (isPaperTrading) => ({
+export const setMarketFromStore = (isPaperTrading) => ({
   type: types.SET_MARKET_FROM_STORE,
   payload: { isPaperTrading },
 })
 
-const changeTradingModeModalState = (isVisible) => ({
+export const changeTradingModeModalState = (isVisible) => ({
   type: types.CHANGE_TRADING_MODAL_STATE,
   payload: { isVisible },
 })
 
-const changeBadInternetConnectionState = (isVisible) => ({
+export const changeBadInternetConnectionState = (isVisible) => ({
   type: types.CHANGE_BAD_INTERNET_STATE,
   payload: { isVisible },
 })
 
-const setIsOrderExecuting = (executing) => ({
+export const setIsOrderExecuting = (executing) => ({
   type: types.SET_IS_ORDER_EXECUTING,
   payload: { executing },
 })
 
-const changeReffilBalanceModalState = isVisible => ({
+export const changeReffilBalanceModalState = isVisible => ({
   type: types.CHANGE_REFILL_BALANCE_MODAL_STATE,
   payload: { isVisible },
+})
+
+export const setLayoutID = layoutID => ({
+  type: types.SET_LAYOUT_ID,
+  payload: { layoutID },
 })
 
 export default {
@@ -207,4 +212,5 @@ export default {
   setIsOrderExecuting,
   clearStrategies,
   switchNotifcationPanel,
+  setLayoutID,
 }

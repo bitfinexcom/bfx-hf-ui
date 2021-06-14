@@ -10,8 +10,16 @@ import './style.css'
 const GridLayoutP = WidthProvider(RGL)
 
 const GridLayout = ({
-  layoutDef, chartProps, bookProps, tradesProps, orderFormProps, ordersProps,
-  onRemoveComponent, layoutID, darkPanels, sharedProps, onLayoutChange,
+  layoutDef,
+  chartProps,
+  bookProps,
+  tradesProps,
+  orderFormProps,
+  ordersProps,
+  onRemoveComponent,
+  layoutID,
+  sharedProps,
+  onLayoutChange,
 }) => {
   const componentProps = {
     orderForm: orderFormProps,
@@ -19,7 +27,7 @@ const GridLayout = ({
     chart: chartProps,
     orders: ordersProps,
     book: bookProps,
-    dark: darkPanels,
+    dark: true,
     sharedProps,
   }
   const layouts = _get(layoutDef, 'layout', [])
@@ -83,7 +91,6 @@ GridLayout.propTypes = {
   }),
   onRemoveComponent: PropTypes.func.isRequired,
   layoutID: PropTypes.string.isRequired,
-  darkPanels: PropTypes.bool,
   sharedProps: PropTypes.objectOf(PropTypes.oneOfType(
     [PropTypes.bool, PropTypes.string],
   )),
@@ -99,7 +106,6 @@ GridLayout.defaultProps = {
     market: {},
   },
   orderFormProps: { orders: [] },
-  darkPanels: false,
   sharedProps: {},
 }
 

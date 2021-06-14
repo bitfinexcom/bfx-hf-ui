@@ -11,22 +11,12 @@ const mapStateToProps = (state = {}) => ({
   layoutDef: getCurrentUnsavedLayout(state),
 })
 
-const mapDispatchToProps = dispatch => ({
-  saveLayout: (layout, id) => {
-    dispatch(UIActions.saveLayout(layout, id))
-  },
-
-  saveLayoutDef: (layout) => {
-    dispatch(UIActions.storeUnsavedLayout(layout))
-  },
-
-  createLayout: (id, tradingEnabled) => {
-    dispatch(UIActions.createLayout(id, tradingEnabled))
-  },
-
-  deleteLayout: (id) => {
-    dispatch(UIActions.deleteLayout(id))
-  },
-})
+const mapDispatchToProps = {
+  saveLayout: UIActions.saveLayout,
+  saveLayoutDef: UIActions.storeUnsavedLayout,
+  createLayout: UIActions.createLayout,
+  deleteLayout: UIActions.deleteLayout,
+  setLayoutID: UIActions.setLayoutID,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps, null, { forwardRef: true })(GridLayoutPage)
