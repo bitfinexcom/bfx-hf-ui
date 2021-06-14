@@ -4,6 +4,7 @@ import { Ticker, TickerList } from '@ufx-ui/core'
 import Panel from '../../ui/Panel'
 
 import './style.css'
+import { MAIN_MODE } from '../../redux/reducers/ui'
 
 const ExchangeInfoBar = ({
   onChangeMarket,
@@ -18,6 +19,7 @@ const ExchangeInfoBar = ({
   onRemove,
 }) => {
   const [showFavorites, setShowingFavorites] = useState(false)
+  const isMainMode = currentMode === MAIN_MODE
 
   const _updateFavorites = (object) => {
     const arrayWithPairs = Object.keys(object)
@@ -36,6 +38,7 @@ const ExchangeInfoBar = ({
     lastPrice,
     change,
     changePerc,
+    volumeConverted,
   } = activeMarketTicker
   const { base, quote } = activeMarket
 
@@ -58,11 +61,12 @@ const ExchangeInfoBar = ({
               lastPrice,
               change,
               changePerc,
-              volume,
+              volume: volumeConverted || volume,
               low,
               high,
             }}
             className='hfui-exchangeinfobar__ticker'
+            volumeUnit={volumeConverted ? 'USD' : base}
           />
           <TickerList
             data={allTickersArray}
@@ -72,6 +76,11 @@ const ExchangeInfoBar = ({
             setShowOnlyFavs={setShowingFavorites}
             onRowClick={onChangeMarketHandler}
             className='hfui-exchangeinfobar__tickerlist'
+            volumeUnit='USD'
+            volumeUnitList={{
+              USD: 'USD',
+            }}
+            showVolumeUnit={isMainMode}
           />
         </div>
       </div>
@@ -92,6 +101,7 @@ ExchangeInfoBar.propTypes = {
     lastPrice: PropTypes.number,
     change: PropTypes.number,
     changePerc: PropTypes.number,
+    volumeConverted: PropTypes.number,
   }).isRequired,
   markets: PropTypes.arrayOf(PropTypes.object),
   allTickersArray: PropTypes.arrayOf(PropTypes.object).isRequired,

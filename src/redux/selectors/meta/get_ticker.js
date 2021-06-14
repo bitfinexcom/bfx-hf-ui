@@ -1,8 +1,19 @@
-import _get from 'lodash/get'
-import { UFX_REDUCER_PATHS } from '../../config'
+import { prepareTickers, reduxSelectors } from '@ufx-ui/bfx-containers'
+import _isEmpty from 'lodash/isEmpty'
+import { createSelector } from 'reselect'
 
-const path = `ufx.${UFX_REDUCER_PATHS.TICKER}`
+const tickersSelector = (state) => reduxSelectors.getTickers(state)
+const getCurrencySymbol = state => reduxSelectors.getCurrencySymbolMemo(state)
 
-export default (state, market) => {
-  return _get(state, `${path}.${market.restID}`, {})
-}
+const getTicker = createSelector(
+  [tickersSelector, getCurrencySymbol, (_, market) => market],
+  (tickers, _getCurrencySymbol, market) => {
+    if (_isEmpty(tickers)) {
+      return {}
+    }
+    const [preparedTicker] = prepareTickers([market.restID], tickers, 'USD', _getCurrencySymbol)
+    return preparedTicker || {}
+  },
+)
+
+export default getTicker
