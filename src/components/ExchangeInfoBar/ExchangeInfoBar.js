@@ -6,6 +6,10 @@ import Panel from '../../ui/Panel'
 import './style.css'
 import { MAIN_MODE } from '../../redux/reducers/ui'
 
+const volumeUnitsList = {
+  USD: 'USD',
+}
+
 const ExchangeInfoBar = ({
   onChangeMarket,
   activeMarket,
@@ -76,9 +80,7 @@ const ExchangeInfoBar = ({
             onRowClick={onChangeMarketHandler}
             className='hfui-exchangeinfobar__tickerlist'
             volumeUnit='USD'
-            volumeUnitList={{
-              USD: 'USD',
-            }}
+            volumeUnitList={volumeUnitsList}
             // showing volume in USD only in main mode
             showVolumeUnit={currentMode === MAIN_MODE}
           />
