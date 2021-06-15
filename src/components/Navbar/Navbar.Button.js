@@ -18,7 +18,7 @@ export default function NavbarButton({
 }
 
 NavbarButton.propTypes = {
-  icon: PropTypes.oneOf([PropTypes.string, PropTypes.object]).isRequired,
+  icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
   alt: PropTypes.string,
   className: PropTypes.string,
 }

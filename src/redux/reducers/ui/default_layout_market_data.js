@@ -1,5 +1,7 @@
+import { marketData } from '../../../constants/routes'
+
 export default {
-  type: 'data',
+  routePath: marketData.path,
   canDelete: false,
   layout: [{
     w: 53, h: 10, minW: 30, minH: 8, x: 0, y: 0, i: '1563115202169', moved: false, static: false, c: 'CHART',

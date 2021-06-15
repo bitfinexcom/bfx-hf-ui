@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import cx from 'classnames'
-import _filter from 'lodash/filter'
-import _values from 'lodash/values'
+import _entries from 'lodash/entries'
 import _map from 'lodash/map'
 
 import OutsideClickHandler from 'react-outside-click-handler'
 import UIActions from '../../redux/actions/ui'
 import { getLayouts, getActiveMarket, getCurrentUnsavedLayout } from '../../redux/selectors/ui'
 import { getLocation } from '../../redux/selectors/router'
+import { useLayout } from '../GridLayout/GridLayout.helpers'
 
 import { ReactComponent as LayoutIcon } from './layout-icon.svg'
 import NavbarButton from './Navbar.Button'
@@ -30,18 +30,11 @@ function Item({
   )
 }
 
-const layoutTypeMapping = {
-  [Routes.tradingTerminal.path]: 'trading',
-  [Routes.marketData.path]: 'data',
-}
-
 export default function LayoutSettings() {
   const [isOpen, setIsOpen] = useState(false)
+  const { layoutID } = useLayout()
   const layouts = useSelector(getLayouts)
   const { pathname } = useSelector(getLocation)
-  const currentLayout = useSelector(getCurrentUnsavedLayout)
-
-  const layoutId = 'Default Market Data'
 
   if (![
     Routes.tradingTerminal.path,
@@ -50,8 +43,16 @@ export default function LayoutSettings() {
     return null
   }
 
-  const layoutType = layoutTypeMapping[pathname]
-  const layoutNames = _filter(_values(layouts), layout => layout.type === layoutType)
+  const selectableLayouts = _entries(layouts).reduce((nextLayouts, [id, layout]) => {
+    if (layout.routePath === pathname) {
+      nextLayouts.push({
+        id,
+        ...layout,
+      })
+    }
+
+    return nextLayouts
+  }, [])
 
   return (
     <div className='hfui-navbar__layout-settings'>
@@ -77,9 +78,9 @@ export default function LayoutSettings() {
                 Create New Layout
               </Item>
               <div className='hfui-navbar__layout-settings__separator' />
-              {_map(layoutNames, layoutName => (
-                <Item isLayout isSelected={layoutName === layoutId}>
-                  {layoutName}
+              {_map(selectableLayouts, layout => (
+                <Item key={layout.id} isLayout isSelected={layout.id === layoutID}>
+                  {layout.id}
                   <div className='hfui-navbar__layout-settings__delete'>
                     <i className='icon-clear' onClick={() => {}} />
                   </div>

@@ -1,5 +1,7 @@
+import { tradingTerminal } from '../../../constants/routes'
+
 export default {
-  type: 'trading',
+  routePath: tradingTerminal.path,
   canDelete: false,
   layout: [
     {

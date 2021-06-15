@@ -1,4 +1,7 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+import _isEmpty from 'lodash/isEmpty'
+import _get from 'lodash/get'
 
 import OrderForm from '../OrderForm'
 import OrderBookPanel from '../OrderBookPanel'
@@ -13,6 +16,12 @@ import TradingStatePanel from '../TradingStatePanel'
 import ExchangeInfoBar from '../ExchangeInfoBar'
 
 import * as Routes from '../../constants/routes'
+
+import {
+  getLayouts,
+  getCurrentUnsavedLayout,
+} from '../../redux/selectors/ui'
+import { getLocation } from '../../redux/selectors/router'
 
 export const COMPONENT_TYPES = {
   CHART: 'CHART',
@@ -81,6 +90,19 @@ export const COMPONENT_DIMENSIONS = {
 export const DEFAULT_LAYOUTS_ID_MAPPING = {
   [Routes.tradingTerminal.path]: 'Default Trading',
   [Routes.marketData.path]: 'Default Market Data',
+}
+
+export const useLayout = () => {
+  const { pathname } = useSelector(getLocation)
+  const layouts = useSelector(getLayouts)
+  const unsavedLayoutDef = useSelector(getCurrentUnsavedLayout)
+  const layoutID = _get(DEFAULT_LAYOUTS_ID_MAPPING, pathname, '')
+  const defaultLayoutDef = _get(layouts, layoutID, {})
+  const layoutDef = _get(unsavedLayoutDef, 'routePath', null) === pathname
+    ? unsavedLayoutDef
+    : defaultLayoutDef
+
+  return { layoutDef, layoutID }
 }
 
 const componentForType = (c) => {

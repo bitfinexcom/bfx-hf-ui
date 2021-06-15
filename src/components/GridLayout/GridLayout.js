@@ -21,6 +21,7 @@ import {
   layoutDefToGridLayout,
   gridLayoutToLayoutDef,
   DEFAULT_LAYOUTS_ID_MAPPING,
+  useLayout,
 } from './GridLayout.helpers'
 import './style.css'
 
@@ -47,17 +48,8 @@ const GridLayout = (props) => {
   } = props
 
   const dispatch = useDispatch()
-  const { pathname } = useSelector(getLocation)
-  const layouts = useSelector(getLayouts)
+  const { layoutDef, layoutID } = useLayout()
   const activeMarket = useSelector(getActiveMarket)
-  const layoutDef = useSelector(getCurrentUnsavedLayout)
-  const layoutID = DEFAULT_LAYOUTS_ID_MAPPING[pathname]
-
-  useEffect(() => {
-    // if (_isEmpty(layoutDef)) {
-    dispatch(storeUnsavedLayout(layouts[layoutID]))
-    // }
-  }, [pathname])
 
   const componentProps = {
     orderForm: orderFormProps,
@@ -99,11 +91,6 @@ const GridLayout = (props) => {
 }
 
 GridLayout.propTypes = {
-  layoutDef: PropTypes.shape({
-    layout: PropTypes.arrayOf(PropTypes.shape({
-      i: PropTypes.string.isRequired,
-    })),
-  }).isRequired,
   chartProps: PropTypes.shape({
     disableToolbar: PropTypes.bool,
     activeMarket: PropTypes.objectOf(
@@ -130,7 +117,6 @@ GridLayout.propTypes = {
       ]),
     ),
   }),
-  defaultLayoutID: PropTypes.string.isRequired,
   sharedProps: PropTypes.objectOf(PropTypes.oneOfType(
     [PropTypes.bool, PropTypes.string],
   )),
