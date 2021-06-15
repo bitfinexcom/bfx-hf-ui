@@ -34,6 +34,7 @@
     "react/prop-types": "warn",
     "react/state-in-constructor": "off",
     "react/static-property-placement": "off",
+    "react/no-unused-prop-types": "warn",
     "semi": [ "warn", "never" ]
   },
   "settings": {

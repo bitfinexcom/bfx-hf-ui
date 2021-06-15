@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import _isEqual from 'lodash/isEqual'
+import _isEmpty from 'lodash/isEmpty'
 import _min from 'lodash/min'
 import _max from 'lodash/max'
 import PropTypes from 'prop-types'
@@ -54,39 +54,11 @@ export default function GridLayoutPage(props) {
   const activeMarket = useSelector(getActiveMarket)
   const layoutDef = useSelector(getCurrentUnsavedLayout)
 
-  const [isDirty, setIsDirty] = useState(false)
-
-  const tradingEnabled = false
-
   useEffect(() => {
-    dispatch(storeUnsavedLayout(layouts[layoutID]))
+    if (_isEmpty(layoutDef)) {
+      dispatch(storeUnsavedLayout(layouts[defaultLayoutID]))
+    }
   }, [])
-
-  const onLayoutChange = (incomingLayout) => {
-    const currentLayout = layoutDefToGridLayout(layoutDef)
-    const newLayout = layoutDefToGridLayout({ layout: incomingLayout })
-
-    if (!_isEqual(currentLayout, newLayout)) {
-      setIsDirty(true)
-    }
-
-    dispatch(storeUnsavedLayout((gridLayoutToLayoutDef({
-      canDelete: layoutDef.canDelete,
-      type: tradingEnabled ? 'trading' : 'data',
-      layout: incomingLayout,
-    }, layoutDef))))
-  }
-
-  const onRemoveComponentFromLayout = (i) => {
-    const index = layoutDef.layout.findIndex(l => l.i === i)
-    const newLayoutDef = { ...layoutDef }
-
-    if (index >= 0) {
-      newLayoutDef.layout.splice(index, 1)
-    }
-
-    dispatch(storeUnsavedLayout(newLayoutDef))
-  }
 
   return (
     <div className='hfui-gridlayoutpage__wrapper'>
@@ -98,7 +70,10 @@ export default function GridLayoutPage(props) {
           disableToolbar: true,
           ...chartProps,
         })}
-        bookProps={{ canChangeStacked: true, ...bookProps }}
+        bookProps={{
+          canChangeStacked: true,
+          ...bookProps,
+        }}
         tradesProps={{ ...tradesProps }}
         ordersProps={({
           market: activeMarket,
@@ -109,8 +84,6 @@ export default function GridLayoutPage(props) {
           orders,
           ...orderFormProps,
         })}
-        onLayoutChange={onLayoutChange}
-        onRemoveComponent={onRemoveComponentFromLayout}
       />
     </div>
   )

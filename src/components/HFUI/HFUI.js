@@ -13,6 +13,8 @@ import BadConnectionModal from '../BadConnectionModal'
 
 import NotificationsSidebar from '../NotificationsSidebar'
 
+import * as Routes from '../../constants/routes'
+
 import './style.css'
 
 const HFUI = ({
@@ -60,10 +62,10 @@ const HFUI = ({
         <>
           <Switch>
             <Redirect from='/index.html' to='/' exact />
-            <Route path='/' render={() => <TradingPage />} exact />
-            <Route path='/strategy-editor' render={() => <StrategyEditorPage />} />
-            <Route path='/data' render={() => <MarketDataPage />} />
-            <Route path='/settings' render={() => <SettingsPage />} />
+            <Route path={Routes.tradingTerminal.path} render={() => <TradingPage />} exact />
+            <Route path={Routes.strategyEditor.path} render={() => <StrategyEditorPage />} />
+            <Route path={Routes.marketData.path} render={() => <MarketDataPage />} />
+            <Route path={Routes.settings.path} render={() => <SettingsPage />} />
           </Switch>
           <TradingModeModal />
           <BadConnectionModal />

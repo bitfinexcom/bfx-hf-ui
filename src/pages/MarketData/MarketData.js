@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import Joyride, { STATUS } from 'react-joyride'
 import Layout from '../../components/Layout'
-import GridLayoutPage, { LayoutIDs } from '../../components/GridLayoutPage'
+import GridLayoutPage from '../../components/GridLayout'
 import './style.css'
 
 const STEPS = [
@@ -51,7 +51,6 @@ const MarketData = ({ isGuideActive, isFirstLogin, finishGuide }) => {
           />
         )}
         <GridLayoutPage
-          defaultLayoutID={LayoutIDs.defaultMarketData}
           tradesProps={commonComponentProps}
           bookProps={commonComponentProps}
           chartProps={commonComponentProps}

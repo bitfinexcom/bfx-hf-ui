@@ -78,13 +78,6 @@ export const updateComponentState = ({
   },
 })
 
-export const setRoute = route => ({
-  type: types.SET_ROUTE,
-  payload: {
-    route,
-  },
-})
-
 export const closeNotificationPanel = () => ({
   type: types.CLOSE_NOTIFICATIONS,
 })
@@ -182,8 +175,17 @@ export const setLayoutID = layoutID => ({
   payload: { layoutID },
 })
 
+export const removeComponent = (i) => ({
+  type: types.REMOVE_COMPONENT,
+  payload: { i },
+})
+
+export const changeLayout = (incomingLayout) => ({
+  type: types.CHANGE_LAYOUT,
+  payload: { incomingLayout },
+})
+
 export default {
-  setRoute,
   saveLayout,
   storeUnsavedLayout,
   createLayout,

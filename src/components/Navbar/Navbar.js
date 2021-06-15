@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
 
 import HFIcon from '../../ui/HFIcon'
 import UIActions from '../../redux/actions/ui'
-import NavbarLink from '../NavbarButton'
+import NavbarLink from './Navbar.Link'
 import NavbarButton from './Navbar.Button'
 import SwitchMode from '../SwitchMode'
 
 import LayoutSettings from './Navbar.LayoutSettings'
-import { Routes } from './Navbar.constants'
+import * as Routes from '../../constants/routes'
 
 import './style.css'
 
@@ -19,10 +19,10 @@ const Navbar = () => {
     <div className='hfui-navbar__wrapper'>
       <HFIcon className='hfui-navbar__logo' />
       <ul className='hfui-navbar__main-links'>
-        {Object.values(Routes).map(({ pathname, label }) => (
-          <li key={pathname}>
+        {Object.values(Routes).map(({ path, label }) => (
+          <li key={path}>
             <NavbarLink
-              route={pathname}
+              route={path}
               label={label}
             />
           </li>

@@ -1,4 +1,5 @@
 import _get from 'lodash/get'
+import _isEqual from 'lodash/isEqual'
 
 import types from '../../constants/ui'
 import DEFAULT_TRADING_LAYOUT from './default_layout_trading'
@@ -6,6 +7,12 @@ import DEFAULT_MARKET_DATA_LAYOUT from './default_layout_market_data'
 import DEFAULT_TRADING_COMPONENT_STATE from './default_component_state_trading'
 import DEFAULT_MARKET_DATA_COMPONENT_STATE from './default_component_state_market_data'
 import DEFAULT_ACTIVE_MARKET_STATE from './default_active_market_state'
+
+import {
+  // getLayouts,
+  // getActiveMarket,
+  getCurrentUnsavedLayout,
+} from '../../selectors/ui'
 
 const LAYOUTS_KEY = 'HF_UI_LAYOUTS'
 const LAYOUTS_STATE_KEY = 'HF_UI_LAYOUTS_STATE'
@@ -15,7 +22,6 @@ const IS_PAPER_TRADING = 'IS_PAPER_TRADING'
 export const PAPER_MODE = 'paper'
 export const MAIN_MODE = 'main'
 
-const DEFAULT_ROUTE = '/'
 const DEFAULT_MARKET = {
   contexts: ['e', 'm'],
   restID: 'tBTCUSD',
@@ -28,9 +34,28 @@ const DEFAULT_MARKET = {
 export const DEFAULT_TRADING_KEY = 'Default Trading'
 export const DEFAULT_MARKET_KEY = 'Default Market Data'
 
+export const layoutDefToGridLayout = layoutDef => layoutDef.layout.map(l => ({
+  i: l.i,
+  x: l.x,
+  y: l.y,
+  w: l.w,
+  h: l.h,
+}))
+
+export const gridLayoutToLayoutDef = (layoutDef, parentLayoutDef) => {
+  parentLayoutDef.layout.forEach((l) => {
+    const elm = layoutDef.layout.find(lElm => lElm.i === l.i)
+
+    if (elm) {
+      elm.c = l.c
+    }
+  })
+
+  return layoutDef
+}
+
 function getInitialState() {
   const defaultState = {
-    route: DEFAULT_ROUTE,
     activeMarket: DEFAULT_MARKET,
     notificationsVisible: false,
     previousMarket: null,
@@ -247,14 +272,6 @@ function reducer(state = getInitialState(), action = {}) {
       }
     }
 
-    case types.SET_ROUTE: {
-      const { route } = payload
-
-      return {
-        ...state,
-        route,
-      }
-    }
     case types.FIRST_LOGIN: {
       return {
         ...state,
@@ -331,6 +348,39 @@ function reducer(state = getInitialState(), action = {}) {
       return {
         ...state,
         isRefillBalanceModalVisible: isVisible,
+      }
+    }
+    case types.REMOVE_COMPONENT: {
+      const { i } = payload
+      const layoutDef = state.unsavedLayout
+      const index = layoutDef.layout.findIndex(l => l.i === i)
+      const newLayoutDef = { ...layoutDef }
+
+      if (index >= 0) {
+        newLayoutDef.layout.splice(index, 1)
+      }
+
+      return {
+        ...state,
+        unsavedLayout: newLayoutDef,
+      }
+    }
+    case types.CHANGE_LAYOUT: {
+      const { incomingLayout } = payload
+      const layoutDef = state.unsavedLayout
+      const currentLayout = layoutDefToGridLayout(layoutDef)
+      const newLayout = layoutDefToGridLayout({ layout: incomingLayout })
+
+      const setIsDirty = !_isEqual(currentLayout, newLayout)
+
+      return {
+        ...state,
+        ...setIsDirty && { layoutIsDirty: true },
+        unsavedLayout: gridLayoutToLayoutDef({
+          canDelete: layoutDef.canDelete,
+          route: state.route,
+          layout: incomingLayout,
+        }, layoutDef),
       }
     }
     default: {

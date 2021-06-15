@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Joyride, { STATUS } from 'react-joyride'
 
 import Layout from '../../components/Layout'
-import GridLayoutPage, { LayoutIDs } from '../../components/GridLayoutPage'
+import GridLayoutPage from '../../components/GridLayout'
 import ActiveAlgoOrdersModal from '../../components/ActiveAlgoOrdersModal'
 import RefillBalanceModal from '../../components/RefillBalanceModal'
 
@@ -84,7 +84,6 @@ const Trading = ({
 
         <div className='hfui-tradingpage__column center'>
           <GridLayoutPage
-            defaultLayoutID={LayoutIDs.defaultTrading}
             sharedProps={commonComponentProps}
           />
         </div>
