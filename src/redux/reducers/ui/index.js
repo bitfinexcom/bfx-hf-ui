@@ -1,5 +1,8 @@
 import _get from 'lodash/get'
 import _isEqual from 'lodash/isEqual'
+import _min from 'lodash/min'
+import _max from 'lodash/max'
+import { nonce } from 'bfx-api-node-util'
 
 import types from '../../constants/ui'
 import DEFAULT_TRADING_LAYOUT from './default_layout_trading'
@@ -7,6 +10,8 @@ import DEFAULT_MARKET_DATA_LAYOUT from './default_layout_market_data'
 import DEFAULT_TRADING_COMPONENT_STATE from './default_component_state_trading'
 import DEFAULT_MARKET_DATA_COMPONENT_STATE from './default_component_state_market_data'
 import DEFAULT_ACTIVE_MARKET_STATE from './default_active_market_state'
+
+import { COMPONENT_DIMENSIONS, layoutDefToGridLayout, gridLayoutToLayoutDef } from '../../../components/GridLayout/GridLayout.helpers'
 
 const LAYOUTS_KEY = 'HF_UI_LAYOUTS'
 const LAYOUTS_STATE_KEY = 'HF_UI_LAYOUTS_STATE'
@@ -25,28 +30,8 @@ const DEFAULT_MARKET = {
   uiID: 'BTC/USD',
 }
 
-export const DEFAULT_TRADING_KEY = 'Default Trading'
-export const DEFAULT_MARKET_KEY = 'Default Market Data'
-
-export const layoutDefToGridLayout = layoutDef => layoutDef.layout.map(l => ({
-  i: l.i,
-  x: l.x,
-  y: l.y,
-  w: l.w,
-  h: l.h,
-}))
-
-export const gridLayoutToLayoutDef = (layoutDef, parentLayoutDef) => {
-  parentLayoutDef.layout.forEach((l) => {
-    const elm = layoutDef.layout.find(lElm => lElm.i === l.i)
-
-    if (elm) {
-      elm.c = l.c
-    }
-  })
-
-  return layoutDef
-}
+export const DEFAULT_TRADING_KEY = 'Default Trading Layout'
+export const DEFAULT_MARKET_KEY = 'Default Market Data Layout'
 
 function getInitialState() {
   const defaultState = {
@@ -170,7 +155,7 @@ function reducer(state = getInitialState(), action = {}) {
     }
 
     case types.CREATE_LAYOUT: {
-      const { id, tradingEnabled } = payload
+      const { id, routePath } = payload
 
       return {
         ...state,
@@ -179,7 +164,7 @@ function reducer(state = getInitialState(), action = {}) {
           ...state.layouts,
           [id]: {
             canDelete: true,
-            type: tradingEnabled ? 'trading' : 'data',
+            routePath,
             layout: [],
           },
         },
@@ -344,9 +329,30 @@ function reducer(state = getInitialState(), action = {}) {
         isRefillBalanceModalVisible: isVisible,
       }
     }
+    case types.ADD_COMPONENT: {
+      const { component, layoutDef } = payload
+
+      return {
+        ...state,
+        unsavedLayout: {
+          ...layoutDef,
+          layout: [
+            ...layoutDef.layout,
+            {
+              i: `${nonce()}`,
+              c: component,
+              x: _min(layoutDef.layout.map(l => l.x)) || 0,
+              y: _max(layoutDef.layout.map(l => l.y)) || 0,
+              ...COMPONENT_DIMENSIONS[component],
+            },
+          ],
+        },
+      }
+    }
     case types.REMOVE_COMPONENT: {
-      const { i } = payload
-      const layoutDef = state.unsavedLayout
+      const { i, layoutDef } = payload
+      // console.log('TCL: reducer -> rpayload', payload)
+      // console.log('TCL: reducer -> rstate', state)
       const index = layoutDef.layout.findIndex(l => l.i === i)
       const newLayoutDef = { ...layoutDef }
 
@@ -360,8 +366,7 @@ function reducer(state = getInitialState(), action = {}) {
       }
     }
     case types.CHANGE_LAYOUT: {
-      const { incomingLayout } = payload
-      const layoutDef = state.unsavedLayout
+      const { incomingLayout, layoutDef } = payload
       const currentLayout = layoutDefToGridLayout(layoutDef)
       const newLayout = layoutDefToGridLayout({ layout: incomingLayout })
 

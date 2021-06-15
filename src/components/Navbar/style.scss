@@ -179,6 +179,10 @@
     font-family: "untitled-font-4";
     content: 'S'; // check
   }
+
+  .hfui-navbar__layout-settings__item-unsaved {
+    color: $light-color-300;
+  }
 }
 
 .hfui-exchangeinfobar__buttons {

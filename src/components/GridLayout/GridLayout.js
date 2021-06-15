@@ -62,7 +62,7 @@ const GridLayout = (props) => {
   }
 
   const currentLayouts = _get(layoutDef, 'layout', [])
-  const onRemoveComponent = (i) => dispatch(removeComponent(i))
+  const onRemoveComponent = (i) => dispatch(removeComponent({ i, layoutDef }))
 
   return (
     <div className='hfui-gridlayoutpage__wrapper'>
@@ -78,7 +78,7 @@ const GridLayout = (props) => {
         breakpoints={{
           lg: 1000, md: 996, sm: 768, xs: 480, xxs: 0,
         }}
-        onLayoutChange={(incomingLayout) => dispatch(changeLayout(incomingLayout))}
+        onLayoutChange={(incomingLayout) => dispatch(changeLayout({ incomingLayout, layoutDef }))}
       >
         {_map(currentLayouts, def => (
           <div key={def.i}>

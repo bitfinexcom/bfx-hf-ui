@@ -22,11 +22,11 @@ export const storeUnsavedLayout = (layout) => ({
   },
 })
 
-export const createLayout = (id, tradingEnabled) => ({
+export const createLayout = ({ id, routePath }) => ({
   type: types.CREATE_LAYOUT,
   payload: {
     id,
-    tradingEnabled,
+    routePath,
   },
 })
 
@@ -175,14 +175,19 @@ export const setLayoutID = layoutID => ({
   payload: { layoutID },
 })
 
-export const removeComponent = (i) => ({
-  type: types.REMOVE_COMPONENT,
-  payload: { i },
+export const addComponent = ({ component }) => ({
+  type: types.ADD_COMPONENT,
+  payload: { component },
 })
 
-export const changeLayout = (incomingLayout) => ({
+export const removeComponent = ({ i, layoutDef }) => ({
+  type: types.REMOVE_COMPONENT,
+  payload: { i, layoutDef },
+})
+
+export const changeLayout = ({ incomingLayout, layoutDef }) => ({
   type: types.CHANGE_LAYOUT,
-  payload: { incomingLayout },
+  payload: { incomingLayout, layoutDef },
 })
 
 export default {

@@ -102,7 +102,7 @@ export const useLayout = () => {
     ? unsavedLayoutDef
     : defaultLayoutDef
 
-  return { layoutDef, layoutID }
+  return { layoutDef, layoutID, unsaved: !_isEmpty(unsavedLayoutDef) }
 }
 
 const componentForType = (c) => {
