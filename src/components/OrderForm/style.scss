@@ -696,3 +696,20 @@
     cursor: pointer;
   }
 }
+
+.hfui-orderform__ticker-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  & .ticker-section {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 16px;
+
+    &:last-child{
+      margin-right: 0;
+    }
+  }
+}
