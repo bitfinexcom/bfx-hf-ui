@@ -9,7 +9,7 @@ export const tickerDataMapping = {
       const { isPerp, perpUI } = data
 
       return (
-        isPerp ? <div className='quote-ccy'>{perpUI}</div> : (
+        isPerp ? <div className='highlight'>{perpUI}</div> : (
           <>
             <div className='highlight'>{baseCcy}</div>
             /
@@ -31,10 +31,10 @@ export const rowMapping = {
       return (
         <>
           {isPerp ? <span>{perpUI}</span> : (
-            <span>
+            <span className='price-unit'>
               {baseCcy}
               /
-              <span className='price-unit'>{quoteCcy}</span>
+              {quoteCcy}
             </span>
           )}
         </>

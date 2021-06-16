@@ -7,9 +7,6 @@
   height: 100%;
   width: 100%;
 
-  .hfui-exchangeinfobar__ticker-wrapper {
-  }
-
   .hfui-exchangeinfobar__ticker {
     width: 100%;
     padding-bottom: spacing();
@@ -35,155 +32,155 @@
       color: $primary-color-900;
     }
 
-    .label {
-      font-size: 12px;
-      font-weight: 500;
-      color: $light-color-400;
-    }
-
-    .value {
-      color: $light-color-800;
-    }
-  }
-
-  .hfui-exchangeinfobar__tickerlist-wrapper {
-    position: relative;
-  }
-
-  .hfui-exchangeinfobar__tickerlist {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-
-    .ufx-virtual-table--container {
+    .hfui-exchangeinfobar__tickerlist {
       width: 100%;
-      top: 40px;
-    }
+      background-color: $darker-background-color;
 
-    th {
-      font-weight: 600;
-    }
-
-    .fav-col .ufx-button {
-      padding: spacing(0.25);
-      min-width: auto;
-      min-height: auto;
-
-      svg {
-        width: 12px;
-        height: 12px;
-      }
-    }
-
-    .input-field-container {
-      border: $light-color-400 !important;
-
-      input {
+      .label {
+        font-size: 12px;
         font-weight: 500;
-      }
-
-      input::placeholder {
         color: $light-color-400;
       }
+
+      .value {
+        color: $light-color-800;
+      }
     }
 
-    .ufx-table-wrapper {
-      height: auto;
-      max-height: none;
-      flex-grow: 1;
+    .hfui-exchangeinfobar__tickerlist-wrapper {
+      position: relative;
+    }
+
+    .hfui-exchangeinfobar__tickerlist {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+
+      th {
+        font-weight: 600;
+      }
+
+      .fav-col .ufx-button {
+        padding: spacing(0.25);
+        min-width: auto;
+        min-height: auto;
+
+        svg {
+          width: 12px;
+          height: 12px;
+        }
+      }
+
+      .input-field-container {
+        border: $light-color-400 !important;
+
+        input {
+          font-weight: 500;
+        }
+
+        input::placeholder {
+          color: $light-color-400;
+        }
+      }
+
+      .ufx-table-wrapper {
+        height: auto;
+        max-height: none;
+        flex-grow: 1;
+      }
     }
   }
-}
 
-.hfui-exchangeinfobar__item.vertical {
-  display: block;
-  padding: 0;
-  margin-right: 24px;
+  .hfui-exchangeinfobar__item.vertical {
+    display: block;
+    padding: 0;
+    margin-right: 24px;
 
-  &:last-child {
-    margin-right: 0;
+    &:last-child {
+      margin-right: 0;
+    }
+
+    .hfui-exchangeinfobar__item-label,
+    .hfui-exchangeinfobar__item-data {
+      display: block;
+      width: 100%;
+      line-height: inherit;
+    }
   }
 
   .hfui-exchangeinfobar__item-label,
   .hfui-exchangeinfobar__item-data {
-    display: block;
-    width: 100%;
-    line-height: inherit;
-  }
-}
-
-.hfui-exchangeinfobar__item-label,
-.hfui-exchangeinfobar__item-data {
-  display: inline-block;
-  vertical-align: middle;
-  font-size: 13px;
-}
-
-.hfui-exchangeinfobar__item-label {
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 1;
-  margin-bottom: 2px;
-  color: $light-color-500;
-  user-select: none;
-  margin-right: spacing(0.5);
-}
-
-.hfui-exchangeinfobar__currency-selector {
-  font-size: 13px;
-}
-
-.hfui-exchangeinfobar__item-data {
-  color: $light-color-800;
-  font-weight: 700;
-  font-size: 14px;
-
-  &.hover:hover {
-    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 13px;
   }
 
-  &.hfui-green {
-    color: $primary-color-900;
+  .hfui-exchangeinfobar__item-label {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1;
+    margin-bottom: 2px;
+    color: $light-color-500;
+    user-select: none;
+    margin-right: spacing(0.5);
   }
 
-  .hfui-select {
-    margin-top: -2px;
-    min-width: 100px;
+  .hfui-exchangeinfobar__currency-selector {
+    font-size: 13px;
   }
 
-  .hfui-select__control {
-    padding: 0 4px;
-  }
+  .hfui-exchangeinfobar__item-data {
+    color: $light-color-800;
+    font-weight: 700;
+    font-size: 14px;
 
-  .hfui-select__single-value {
-    color: $green-color !important;
-  }
-}
-
-.hfui-exchangeinfobar__item:first-child .hfui-exchangeinfobar__item-data {
-  color: $light-color-900;
-}
-
-.react-switch-bg svg * {
-  display: none;
-}
-
-.hfui-tradingpaper__control {
-  display: flex;
-  border-right: 1px solid $panel-background-color;
-  flex-direction: row;
-
-  .hfui-tradingpaper__control-toggle {
-    p {
-      font-size: 13px;
-      padding-right: 10px;
+    &.hover:hover {
+      cursor: pointer;
     }
+
+    &.hfui-green {
+      color: $primary-color-900;
+    }
+
+    .hfui-select {
+      margin-top: -2px;
+      min-width: 100px;
+    }
+
+    .hfui-select__control {
+      padding: 0 4px;
+    }
+
+    .hfui-select__single-value {
+      color: $green-color !important;
+    }
+  }
+
+  .hfui-exchangeinfobar__item:first-child .hfui-exchangeinfobar__item-data {
+    color: $light-color-900;
+  }
+
+  .react-switch-bg svg * {
+    display: none;
+  }
+
+  .hfui-tradingpaper__control {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    border-right: 1px solid $panel-background-color;
+    flex-direction: row;
+
+    .hfui-tradingpaper__control-toggle {
+      p {
+        font-size: 13px;
+        padding-right: 10px;
+      }
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 }
