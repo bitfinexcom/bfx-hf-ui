@@ -42,6 +42,10 @@
   background-color: $darker-background-color;
   padding: 10px 0;
 
+  .ufx-virtual-table--container {
+    width: 100%;
+  }
+
   .input-field-container {
     border: 1px solid #243d50 !important;
 
