@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import _isEmpty from 'lodash/isEmpty'
 import PropTypes from 'prop-types'
 
@@ -8,7 +8,6 @@ import Modal from '../../ui/Modal'
 
 import './style.css'
 import { createLayout } from '../../redux/actions/ui'
-import { getLocation } from '../../redux/selectors/router'
 
 const CreateNewLayoutModal = ({ onClose, isOpen }) => {
   const dispatch = useDispatch()
@@ -23,24 +22,6 @@ const CreateNewLayoutModal = ({ onClose, isOpen }) => {
 
     dispatch(createLayout(label))
     setLabel('')
-    //   onCreateNewLayout = (layoutName) => {
-    //     const { createLayout, tradingEnabled } = this.props
-
-    //     createLayout(layoutName, tradingEnabled)
-
-    //     setTimeout(() => {
-    //       const { layouts, saveLayoutDef } = this.props
-
-    //       this.setState(() => ({
-    //         addLayoutModalOpen: false,
-    //         layoutID: layoutName,
-    //       }))
-
-    //       saveLayoutDef(layouts[layoutName])
-    //     }, 500)
-    //   }
-
-    // onSubmit(label)
     onClose()
   }
 

@@ -55,7 +55,7 @@ function getInitialState() {
     isBadInternetConnection: false,
     isOrderExecuting: false,
     content: {},
-    unsavedLayout: {},
+    unsavedLayout: null,
     layoutID: null,
   }
 
@@ -381,6 +381,12 @@ function reducer(state = getInitialState(), action = {}) {
     case types.CHANGE_LAYOUT: {
       const { incomingLayout } = payload
       const layoutDef = getActiveLayoutDef(state)
+
+      // happens on deletion before we set the next layout
+      if (_isEmpty(layoutDef)) {
+        return state
+      }
+
       const currentLayout = layoutDefToGridLayout(layoutDef)
       const newLayout = layoutDefToGridLayout({ layout: incomingLayout })
       const setIsDirty = !_isEqual(currentLayout, newLayout)
@@ -407,7 +413,7 @@ function reducer(state = getInitialState(), action = {}) {
 
       return {
         ...state,
-        unsavedLayout: {},
+        unsavedLayout: null,
         layoutID: id,
       }
     }

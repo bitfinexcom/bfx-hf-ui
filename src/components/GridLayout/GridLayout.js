@@ -4,41 +4,22 @@ import PropTypes from 'prop-types'
 import _map from 'lodash/map'
 import _get from 'lodash/get'
 import _last from 'lodash/last'
-import _findLast from 'lodash/findLast'
 import _entries from 'lodash/entries'
-import _isEmpty from 'lodash/isEmpty'
 import { Responsive as RGL, WidthProvider } from 'react-grid-layout'
 import { getLocation } from '../../redux/selectors/router'
 import {
-  removeComponent, changeLayout,
-  saveLayout,
-  storeUnsavedLayout,
-  createLayout,
-  deleteLayout,
-  // setLayoutID,
-  setLayoutID,
+  removeComponent, changeLayout, setLayoutID, storeUnsavedLayout,
 } from '../../redux/actions/ui'
-
-import {
-  renderLayoutElement,
-  COMPONENT_DIMENSIONS,
-  layoutDefToGridLayout,
-  gridLayoutToLayoutDef,
-} from './GridLayout.helpers'
+import { renderLayoutElement } from './GridLayout.helpers'
 import './style.css'
 
 import {
   getLayouts,
   getLayoutID,
-  getActiveMarket,
   getCurrentUnsavedLayout,
 } from '../../redux/selectors/ui'
 
-import ordersList from '../../orders'
-
 const ReactGridLayout = WidthProvider(RGL)
-
-const orders = Object.values(ordersList).map(uiDef => uiDef())
 
 const GridLayout = (props) => {
   const {
@@ -54,25 +35,35 @@ const GridLayout = (props) => {
   const { pathname } = useSelector(getLocation)
   const layouts = useSelector(getLayouts)
   const layoutID = useSelector(getLayoutID)
-  console.log('TCL: GridLayout -> layoutID', layoutID)
+  const currentSavedLayout = _get(layouts, layoutID, {})
   const unsavedLayoutDef = useSelector(getCurrentUnsavedLayout)
   const isValidUnsavedLayout = _get(unsavedLayoutDef, 'routePath', null) === pathname
+  const isValidSavedLayout = currentSavedLayout.routePath === pathname
   const [lastLayoutID, lastLayoutDef] = _last(_entries(layouts)
     .filter(([, layout]) => layout.routePath === pathname)
-    .sort((a, b) => b[1].savedAt - a[1].savedAt))
+    .sort((a, b) => a[1].savedAt - b[1].savedAt))
 
+  // should use unsaved one first, then saved one (if selected) else last saved one
   const layoutDef = isValidUnsavedLayout
     ? unsavedLayoutDef
-    : lastLayoutDef
-
-  // const activeMarket = useSelector(getActiveMarket)
+    : isValidSavedLayout
+      ? currentSavedLayout
+      : lastLayoutDef
 
   useEffect(() => {
-    const currentSavedLayout = _get(layouts, layoutID, {})
-    if (!layoutID || currentSavedLayout.routePath !== pathname) {
+    // set active layout id when there’s none selected (on initial load)
+    // or when switching routes
+    if (!layoutID || !isValidSavedLayout) {
       dispatch(setLayoutID(lastLayoutID))
     }
-  }, [pathname, layoutID, layoutDef])
+  }, [pathname, layoutID, lastLayoutID, isValidSavedLayout])
+
+  useEffect(() => {
+    // discard unsaved layout changes
+    if (!isValidUnsavedLayout) {
+      dispatch(storeUnsavedLayout(null))
+    }
+  }, [pathname])
 
   const componentProps = {
     orderForm: orderFormProps,
@@ -101,10 +92,7 @@ const GridLayout = (props) => {
         breakpoints={{
           lg: 1000, md: 996, sm: 768, xs: 480, xxs: 0,
         }}
-        onLayoutChange={(incomingLayout) => {
-          console.log('TCL: GridLayout -> incomingLayout', incomingLayout)
-          dispatch(changeLayout(incomingLayout))
-        }}
+        onLayoutChange={(incomingLayout) => dispatch(changeLayout(incomingLayout))}
       >
         {_map(currentLayouts, def => (
           <div key={def.i}>
