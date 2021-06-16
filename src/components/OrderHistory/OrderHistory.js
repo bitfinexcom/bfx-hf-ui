@@ -6,6 +6,7 @@ import {
   OrderHistory as UfxOrderHistory, ORDER_HISTORY_KEYS, PrettyValue, FullDate,
 } from '@ufx-ui/core'
 import Panel from '../../ui/Panel'
+import useSize from '../../hooks/useSize'
 import { symbolToLabel, getPriceFromStatus, getFormatedStatus } from './OrderHistory.helpers'
 import './style.css'
 
@@ -24,7 +25,7 @@ const {
   STATUS,
 } = ORDER_HISTORY_KEYS
 
-export const ROW_MAPPING = {
+export const rowMapper = ({ width }) => ({
   [ID]: {
     hidden: true,
   },
@@ -40,6 +41,9 @@ export const ROW_MAPPING = {
   [ICON]: {
     index: 0,
     truncate: true,
+    renderer: ({ data = {} }) => ( // eslint-disable-line
+      <div className={`row-marker ${data.originalAmount < 0 ? 'red' : 'green'} ${width < 700 ? 'stick stick2' : ''}`} />
+    ),
   },
   [PAIR]: {
     index: 1,
@@ -92,28 +96,33 @@ export const ROW_MAPPING = {
       return <FullDate ts={_get(data, 'created')} />
     },
   },
-}
+})
 
 const OrderHistory = ({
   onRemove, dark, orders,
-}) => (
-  <Panel
-    label='Order History'
-    onRemove={onRemove}
-    dark={dark}
-    darkHeader={dark}
-  >
-    {_isEmpty(orders) ? (
-      <p className='empty'>Order history is empty</p>
-    ) : (
-      <UfxOrderHistory
-        orders={orders}
-        rowMapping={ROW_MAPPING}
-        isMobileLayout={false}
-      />
-    )}
-  </Panel>
-)
+}) => {
+  const [ref, size] = useSize()
+
+  return (
+    <Panel
+      label='Order History'
+      onRemove={onRemove}
+      dark={dark}
+      darkHeader={dark}
+      innerRef={ref}
+    >
+      {_isEmpty(orders) ? (
+        <p className='empty'>Order history is empty</p>
+      ) : (
+        <UfxOrderHistory
+          orders={orders}
+          rowMapping={rowMapper(size)}
+          isMobileLayout={false}
+        />
+      )}
+    </Panel>
+  )
+}
 
 OrderHistory.propTypes = {
   orders: PropTypes.arrayOf(PropTypes.object),
@@ -122,7 +131,7 @@ OrderHistory.propTypes = {
 }
 
 OrderHistory.defaultProps = {
-  onRemove: () => {},
+  onRemove: () => { },
   dark: true,
   orders: [],
 }
