@@ -1,5 +1,6 @@
 import _get from 'lodash/get'
 import _isEqual from 'lodash/isEqual'
+import _isEmpty from 'lodash/isEmpty'
 import _min from 'lodash/min'
 import _max from 'lodash/max'
 import { nonce } from 'bfx-api-node-util'
@@ -11,7 +12,13 @@ import DEFAULT_TRADING_COMPONENT_STATE from './default_component_state_trading'
 import DEFAULT_MARKET_DATA_COMPONENT_STATE from './default_component_state_market_data'
 import DEFAULT_ACTIVE_MARKET_STATE from './default_active_market_state'
 
-import { COMPONENT_DIMENSIONS, layoutDefToGridLayout, gridLayoutToLayoutDef } from '../../../components/GridLayout/GridLayout.helpers'
+import {
+  COMPONENT_DIMENSIONS,
+  DEFAULT_TRADING_KEY,
+  DEFAULT_MARKET_KEY,
+  layoutDefToGridLayout,
+  gridLayoutToLayoutDef,
+} from '../../../components/GridLayout/GridLayout.helpers'
 
 const LAYOUTS_KEY = 'HF_UI_LAYOUTS'
 const LAYOUTS_STATE_KEY = 'HF_UI_LAYOUTS_STATE'
@@ -30,8 +37,9 @@ const DEFAULT_MARKET = {
   uiID: 'BTC/USD',
 }
 
-export const DEFAULT_TRADING_KEY = 'Default Trading Layout'
-export const DEFAULT_MARKET_KEY = 'Default Market Data Layout'
+const getActiveLayoutDef = state => (!_isEmpty(state.unsavedLayout)
+  ? state.unsavedLayout
+  : _get(state, `layouts.${state.layoutID}`, {}))
 
 function getInitialState() {
   const defaultState = {
@@ -48,6 +56,7 @@ function getInitialState() {
     isOrderExecuting: false,
     content: {},
     unsavedLayout: {},
+    layoutID: null,
   }
 
   if (!localStorage) {
@@ -105,14 +114,15 @@ function reducer(state = getInitialState(), action = {}) {
     }
 
     case types.SAVE_LAYOUT: {
-      const { layout, id } = payload
-
       return {
         ...state,
-
+        layoutIsDirty: false,
         layouts: {
           ...state.layouts,
-          [id]: layout,
+          [state.layoutID]: {
+            ...state.unsavedLayout,
+            savedAt: Date.now(),
+          },
         },
       }
     }
@@ -155,19 +165,22 @@ function reducer(state = getInitialState(), action = {}) {
     }
 
     case types.CREATE_LAYOUT: {
-      const { id, routePath } = payload
+      const { id } = payload
+      const layoutDef = getActiveLayoutDef(state)
 
       return {
         ...state,
-
+        layoutIsDirty: false,
         layouts: {
           ...state.layouts,
           [id]: {
+            ...layoutDef,
+            isDefault: false,
             canDelete: true,
-            routePath,
-            layout: [],
+            savedAt: Date.now(),
           },
         },
+        layoutID: id,
       }
     }
 
@@ -330,7 +343,8 @@ function reducer(state = getInitialState(), action = {}) {
       }
     }
     case types.ADD_COMPONENT: {
-      const { component, layoutDef } = payload
+      const { component } = payload
+      const layoutDef = getActiveLayoutDef(state)
 
       return {
         ...state,
@@ -350,9 +364,8 @@ function reducer(state = getInitialState(), action = {}) {
       }
     }
     case types.REMOVE_COMPONENT: {
-      const { i, layoutDef } = payload
-      // console.log('TCL: reducer -> rpayload', payload)
-      // console.log('TCL: reducer -> rstate', state)
+      const { i } = payload
+      const layoutDef = getActiveLayoutDef(state)
       const index = layoutDef.layout.findIndex(l => l.i === i)
       const newLayoutDef = { ...layoutDef }
 
@@ -366,20 +379,36 @@ function reducer(state = getInitialState(), action = {}) {
       }
     }
     case types.CHANGE_LAYOUT: {
-      const { incomingLayout, layoutDef } = payload
+      const { incomingLayout } = payload
+      const layoutDef = getActiveLayoutDef(state)
       const currentLayout = layoutDefToGridLayout(layoutDef)
       const newLayout = layoutDefToGridLayout({ layout: incomingLayout })
-
       const setIsDirty = !_isEqual(currentLayout, newLayout)
 
       return {
         ...state,
         ...setIsDirty && { layoutIsDirty: true },
         unsavedLayout: gridLayoutToLayoutDef({
-          canDelete: layoutDef.canDelete,
-          route: state.route,
+          ...layoutDef,
           layout: incomingLayout,
         }, layoutDef),
+      }
+    }
+    case types.SET_LAYOUT_ID: {
+      const { layoutID } = payload
+
+      return {
+        ...state,
+        layoutID,
+      }
+    }
+    case types.SELECT_LAYOUT: {
+      const { id } = payload
+
+      return {
+        ...state,
+        unsavedLayout: {},
+        layoutID: id,
       }
     }
     default: {

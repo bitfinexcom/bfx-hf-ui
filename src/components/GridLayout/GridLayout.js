@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import _map from 'lodash/map'
 import _get from 'lodash/get'
+import _last from 'lodash/last'
+import _findLast from 'lodash/findLast'
+import _entries from 'lodash/entries'
 import _isEmpty from 'lodash/isEmpty'
 import { Responsive as RGL, WidthProvider } from 'react-grid-layout'
 import { getLocation } from '../../redux/selectors/router'
@@ -13,6 +16,7 @@ import {
   createLayout,
   deleteLayout,
   // setLayoutID,
+  setLayoutID,
 } from '../../redux/actions/ui'
 
 import {
@@ -20,13 +24,12 @@ import {
   COMPONENT_DIMENSIONS,
   layoutDefToGridLayout,
   gridLayoutToLayoutDef,
-  DEFAULT_LAYOUTS_ID_MAPPING,
-  useLayout,
 } from './GridLayout.helpers'
 import './style.css'
 
 import {
   getLayouts,
+  getLayoutID,
   getActiveMarket,
   getCurrentUnsavedLayout,
 } from '../../redux/selectors/ui'
@@ -48,8 +51,28 @@ const GridLayout = (props) => {
   } = props
 
   const dispatch = useDispatch()
-  const { layoutDef, layoutID } = useLayout()
-  const activeMarket = useSelector(getActiveMarket)
+  const { pathname } = useSelector(getLocation)
+  const layouts = useSelector(getLayouts)
+  const layoutID = useSelector(getLayoutID)
+  console.log('TCL: GridLayout -> layoutID', layoutID)
+  const unsavedLayoutDef = useSelector(getCurrentUnsavedLayout)
+  const isValidUnsavedLayout = _get(unsavedLayoutDef, 'routePath', null) === pathname
+  const [lastLayoutID, lastLayoutDef] = _last(_entries(layouts)
+    .filter(([, layout]) => layout.routePath === pathname)
+    .sort((a, b) => b[1].savedAt - a[1].savedAt))
+
+  const layoutDef = isValidUnsavedLayout
+    ? unsavedLayoutDef
+    : lastLayoutDef
+
+  // const activeMarket = useSelector(getActiveMarket)
+
+  useEffect(() => {
+    const currentSavedLayout = _get(layouts, layoutID, {})
+    if (!layoutID || currentSavedLayout.routePath !== pathname) {
+      dispatch(setLayoutID(lastLayoutID))
+    }
+  }, [pathname, layoutID, layoutDef])
 
   const componentProps = {
     orderForm: orderFormProps,
@@ -62,7 +85,7 @@ const GridLayout = (props) => {
   }
 
   const currentLayouts = _get(layoutDef, 'layout', [])
-  const onRemoveComponent = (i) => dispatch(removeComponent({ i, layoutDef }))
+  const onRemoveComponent = (i) => dispatch(removeComponent(i))
 
   return (
     <div className='hfui-gridlayoutpage__wrapper'>
@@ -78,7 +101,10 @@ const GridLayout = (props) => {
         breakpoints={{
           lg: 1000, md: 996, sm: 768, xs: 480, xxs: 0,
         }}
-        onLayoutChange={(incomingLayout) => dispatch(changeLayout({ incomingLayout, layoutDef }))}
+        onLayoutChange={(incomingLayout) => {
+          console.log('TCL: GridLayout -> incomingLayout', incomingLayout)
+          dispatch(changeLayout(incomingLayout))
+        }}
       >
         {_map(currentLayouts, def => (
           <div key={def.i}>
@@ -88,38 +114,6 @@ const GridLayout = (props) => {
       </ReactGridLayout>
     </div>
   )
-}
-
-GridLayout.propTypes = {
-  chartProps: PropTypes.shape({
-    disableToolbar: PropTypes.bool,
-    activeMarket: PropTypes.objectOf(
-      PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.array,
-        PropTypes.number,
-      ]),
-    ),
-  }),
-  bookProps: PropTypes.shape({
-    canChangeStacked: PropTypes.bool,
-  }),
-  tradesProps: PropTypes.objectOf(PropTypes.bool),
-  orderFormProps: PropTypes.shape({
-    orders: PropTypes.arrayOf(PropTypes.object),
-  }),
-  ordersProps: PropTypes.shape({
-    market: PropTypes.objectOf(
-      PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.array,
-        PropTypes.number,
-      ]),
-    ),
-  }),
-  sharedProps: PropTypes.objectOf(PropTypes.oneOfType(
-    [PropTypes.bool, PropTypes.string],
-  )),
 }
 
 GridLayout.defaultProps = {

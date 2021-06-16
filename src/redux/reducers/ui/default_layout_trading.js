@@ -3,6 +3,8 @@ import { tradingTerminal } from '../../../constants/routes'
 export default {
   routePath: tradingTerminal.path,
   canDelete: false,
+  isDefault: true,
+  savedAt: 0,
   layout: [
     {
       w: 24,

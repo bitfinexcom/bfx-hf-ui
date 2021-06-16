@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import {
   getActiveMarket, getComponentState, getMarketComponents,
 } from '../../redux/selectors/ui'
-import { DEFAULT_TRADING_KEY } from '../../redux/reducers/ui'
+import { DEFAULT_TRADING_KEY } from '../GridLayout/GridLayout.helpers'
 import { getMarkets } from '../../redux/selectors/meta'
 import UIActions from '../../redux/actions/ui'
 

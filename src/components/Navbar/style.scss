@@ -104,7 +104,7 @@
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  min-width: 240px;
+  min-width: 256px;
   padding: spacing(0.5) 0;
   background: $lighter-background-color;
   border-radius: $border-radius;
@@ -132,7 +132,12 @@
   cursor: pointer;
   transition: all .2s;
 
-  &:hover {
+  &.is-disabled {
+    cursor: default;
+    color: $light-color-200;
+  }
+
+  &:hover:not(.is-disabled) {
     background: $light-color-100;
     color: $light-color-900;
   }

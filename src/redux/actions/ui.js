@@ -7,12 +7,8 @@ export const saveRemoteVersion = version => ({
   },
 })
 
-export const saveLayout = (layout, id) => ({
+export const saveLayout = () => ({
   type: types.SAVE_LAYOUT,
-  payload: {
-    layout,
-    id,
-  },
 })
 
 export const storeUnsavedLayout = (layout) => ({
@@ -22,11 +18,17 @@ export const storeUnsavedLayout = (layout) => ({
   },
 })
 
-export const createLayout = ({ id, routePath }) => ({
+export const selectLayout = (id) => ({
+  type: types.SELECT_LAYOUT,
+  payload: {
+    id,
+  },
+})
+
+export const createLayout = (id) => ({
   type: types.CREATE_LAYOUT,
   payload: {
     id,
-    routePath,
   },
 })
 
@@ -175,19 +177,19 @@ export const setLayoutID = layoutID => ({
   payload: { layoutID },
 })
 
-export const addComponent = ({ component }) => ({
+export const addComponent = (component) => ({
   type: types.ADD_COMPONENT,
   payload: { component },
 })
 
-export const removeComponent = ({ i, layoutDef }) => ({
+export const removeComponent = (i) => ({
   type: types.REMOVE_COMPONENT,
-  payload: { i, layoutDef },
+  payload: { i },
 })
 
-export const changeLayout = ({ incomingLayout, layoutDef }) => ({
+export const changeLayout = (incomingLayout) => ({
   type: types.CHANGE_LAYOUT,
-  payload: { incomingLayout, layoutDef },
+  payload: { incomingLayout },
 })
 
 export default {

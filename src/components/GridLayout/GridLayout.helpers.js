@@ -87,23 +87,8 @@ export const COMPONENT_DIMENSIONS = {
   },
 }
 
-export const DEFAULT_LAYOUTS_ID_MAPPING = {
-  [Routes.tradingTerminal.path]: 'Default Trading',
-  [Routes.marketData.path]: 'Default Market Data',
-}
-
-export const useLayout = () => {
-  const { pathname } = useSelector(getLocation)
-  const layouts = useSelector(getLayouts)
-  const unsavedLayoutDef = useSelector(getCurrentUnsavedLayout)
-  const layoutID = _get(DEFAULT_LAYOUTS_ID_MAPPING, pathname, '')
-  const defaultLayoutDef = _get(layouts, layoutID, {})
-  const layoutDef = _get(unsavedLayoutDef, 'routePath', null) === pathname
-    ? unsavedLayoutDef
-    : defaultLayoutDef
-
-  return { layoutDef, layoutID, unsaved: !_isEmpty(unsavedLayoutDef) }
-}
+export const DEFAULT_TRADING_KEY = 'Default Trading Layout'
+export const DEFAULT_MARKET_KEY = 'Default Market Data Layout'
 
 const componentForType = (c) => {
   switch (c) {

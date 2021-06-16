@@ -17,8 +17,3 @@ export const gridLayoutToLayoutDef = (layoutDef, parentLayoutDef) => {
 
   return layoutDef
 }
-
-export const LayoutIDs = {
-  defaultMarketData: 'Default Market Data',
-  defaultTrading: 'Default Trading',
-}

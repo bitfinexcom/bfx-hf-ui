@@ -3,12 +3,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import cx from 'classnames'
 import _entries from 'lodash/entries'
 import _map from 'lodash/map'
+import _get from 'lodash/get'
 
 import OutsideClickHandler from 'react-outside-click-handler'
-import { storeUnsavedLayout } from '../../redux/actions/ui'
-import { getLayouts, getActiveMarket, getCurrentUnsavedLayout } from '../../redux/selectors/ui'
+import { selectLayout, deleteLayout } from '../../redux/actions/ui'
+import { getLayouts, getLayoutID } from '../../redux/selectors/ui'
 import { getLocation } from '../../redux/selectors/router'
-import { useLayout } from '../GridLayout/GridLayout.helpers'
 
 import { ReactComponent as LayoutIcon } from './layout-icon.svg'
 import NavbarButton from './Navbar.Button'
@@ -17,29 +17,35 @@ import * as Routes from '../../constants/routes'
 import AddLayoutComponentModal from '../AddLayoutComponentModal'
 import CreateNewLayoutModal from '../CreateNewLayoutModal'
 
-function Item({
-  children, isLayout, isSelected, ...props
-}) {
-  return (
-    <div
-      className={cx('hfui-navbar__layout-settings__item', {
-        'is-layout': isLayout,
-        'is-selected': isSelected,
-      })}
-      {...props}
-    >
-      {children}
-    </div>
-  )
-}
+const Item = ({
+  isLayout,
+  isSelected,
+  isDisabled,
+  children,
+  ...props
+}) => (
+  <div
+    className={cx('hfui-navbar__layout-settings__item', {
+      'is-layout': isLayout,
+      'is-selected': isSelected,
+      'is-disabled': isDisabled,
+    })}
+    {...props}
+  >
+    {children}
+  </div>
+)
 
 export default function LayoutSettings() {
   const dispatch = useDispatch()
   const [isOpen, setIsOpen] = useState(false)
   const [isCreateNewLayoutModalOpen, setIsCreateNewLayoutModalOpen] = useState(false)
   const [isAddLayoutComponentModalOpen, setIsAddLayoutComponentModalOpen] = useState(false)
-  const { layoutID, unsaved } = useLayout()
+  // const { layoutID, layoutDef } = useLayout()
   const layouts = useSelector(getLayouts)
+  const layoutID = useSelector(getLayoutID)
+  const layoutIsDirty = useSelector(state => state.ui.layoutIsDirty)
+  const layout = _get(layouts, layoutID, {})
   const { pathname } = useSelector(getLocation)
 
   if (![
@@ -49,16 +55,12 @@ export default function LayoutSettings() {
     return null
   }
 
-  const selectableLayouts = _entries(layouts).reduce((nextLayouts, [id, layout]) => {
-    if (layout.routePath === pathname) {
-      nextLayouts.push({
-        id,
-        ...layout,
-      })
-    }
-
-    return nextLayouts
-  }, [])
+  const selectableLayouts = _entries(layouts)
+    // eslint-disable-next-line no-shadow
+    .filter(([, layout]) => layout.routePath === pathname)
+    .sort((a, b) => b[1].savedAt - a[1].savedAt)
+    // eslint-disable-next-line no-shadow
+    .map(([id, layout]) => ({ id, ...layout }))
 
   return (
     <div className='hfui-navbar__layout-settings'>
@@ -77,13 +79,11 @@ export default function LayoutSettings() {
               <Item onClick={() => setIsAddLayoutComponentModalOpen(true)}>
                 Add Component
               </Item>
-              <Item>
+              <Item onClick={() => dispatch(saveLayout())} isDisabled={layout.isDefault || !layoutIsDirty}>
                 Save
-                {' '}
-                {unsaved && <span className='hfui-navbar__layout-settings__item-unsaved'>- You have changes</span>}
               </Item>
               <Item onClick={() => setIsCreateNewLayoutModalOpen(true)}>
-                Create New Layout
+                Save As...
               </Item>
               <div className='hfui-navbar__layout-settings__separator' />
               {_map(selectableLayouts, layout => (
@@ -91,12 +91,12 @@ export default function LayoutSettings() {
                   key={layout.id}
                   isLayout
                   isSelected={layout.id === layoutID}
-                  onClick={() => dispatch(storeUnsavedLayout(layout))}
+                  onClick={() => dispatch(selectLayout(layout.id))}
                 >
                   {layout.id}
                   {layout.canDelete && (
                     <div className='hfui-navbar__layout-settings__delete'>
-                      <i className='icon-clear' onClick={() => {}} />
+                      <i className='icon-clear' onClick={() => dispatch(deleteLayout(layout.id))} />
                     </div>
                   )}
                 </Item>

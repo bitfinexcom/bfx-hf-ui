@@ -10,7 +10,7 @@ import {
 
 import './style.css'
 
-const AddLayoutComponentModal = ({ onSubmit, onClose, isOpen }) => {
+const AddLayoutComponentModal = ({ onClose, isOpen, layoutDef }) => {
   const [error, setError] = useState('')
   const [componentType, setComponentType] = useState(COMPONENT_LABELS.CHART)
 
@@ -20,9 +20,10 @@ const AddLayoutComponentModal = ({ onSubmit, onClose, isOpen }) => {
       return
     }
 
-    onSubmit(componentType)
+    // onSubmit(componentType)
     onClose()
   }
+
   return (
     <Modal
       isOpen={isOpen}

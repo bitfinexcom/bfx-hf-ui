@@ -12,7 +12,6 @@ import { getLocation } from '../../redux/selectors/router'
 
 const CreateNewLayoutModal = ({ onClose, isOpen }) => {
   const dispatch = useDispatch()
-  const { pathname } = useSelector(getLocation)
   const [label, setLabel] = useState('')
   const [error, setError] = useState('')
 
@@ -22,10 +21,7 @@ const CreateNewLayoutModal = ({ onClose, isOpen }) => {
       return
     }
 
-    dispatch(createLayout({
-      id: label,
-      routePath: pathname,
-    }))
+    dispatch(createLayout(label))
     setLabel('')
     //   onCreateNewLayout = (layoutName) => {
     //     const { createLayout, tradingEnabled } = this.props
