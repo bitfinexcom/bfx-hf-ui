@@ -701,15 +701,18 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  flex-wrap: wrap;
 
   & .ticker-section {
-    width: 100%;
+    flex-basis: calc(50% - 8px);
     display: flex;
     justify-content: space-between;
-    margin-right: 16px;
+    &:first-child{
+      margin-right: 16px;
+    }
 
-    &:last-child{
-      margin-right: 0;
+    & .ticker-name{
+      margin-right: 8px;
     }
   }
 }

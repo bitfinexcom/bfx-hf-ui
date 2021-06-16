@@ -14,11 +14,11 @@ const TickerBar = () => {
   return (
     <div className='hfui-orderform__ticker-container'>
       <div className='ticker-section'>
-        <span>BID:</span>
+        <span className='ticker-name'>BID:</span>
         <PLNumber value={bid} prepareFunc={localiseNumber} ccy={quote} isGreen />
       </div>
       <div className='ticker-section'>
-        <span>ASK:</span>
+        <span className='ticker-name'>ASK:</span>
         <PLNumber value={ask} prepareFunc={localiseNumber} ccy={quote} />
       </div>
     </div>
