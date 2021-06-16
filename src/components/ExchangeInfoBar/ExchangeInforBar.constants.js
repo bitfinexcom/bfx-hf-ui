@@ -12,6 +12,7 @@ export const tickerDataMapping = {
         isPerp ? <div className='quote-ccy'>{perpUI}</div> : (
           <>
             <div className='highlight'>{baseCcy}</div>
+            /
             <div className='quote-ccy'>{quoteCcy}</div>
           </>
         )
