@@ -3,7 +3,7 @@ export default {
   canDelete: false,
   layout: [
     {
-      w: 20,
+      w: 24,
       h: 8,
       x: 0,
       y: 0,
@@ -12,7 +12,7 @@ export default {
       static: false,
       c: 'EXCHANGE_INFO_BAR',
     }, {
-      w: 20,
+      w: 24,
       h: 10,
       x: 0,
       y: 8,
@@ -21,9 +21,9 @@ export default {
       static: false,
       c: 'ORDER_FORM',
     }, {
-      w: 55,
+      w: 51,
       h: 11,
-      x: 20,
+      x: 24,
       y: 0,
       i: '1591873294962000',
       moved: false,
@@ -39,9 +39,9 @@ export default {
       static: false,
       c: 'ORDER_BOOK',
     }, {
-      w: 55,
+      w: 51,
       h: 7,
-      x: 20,
+      x: 24,
       y: 11,
       i: '1591873390469000',
       moved: false,
