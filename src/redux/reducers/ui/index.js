@@ -364,9 +364,8 @@ function reducer(state = getInitialState(), action = {}) {
     }
     case types.REMOVE_COMPONENT: {
       const { i } = payload
-      const layoutDef = getActiveLayoutDef(state)
-      const index = layoutDef.layout.findIndex(l => l.i === i)
-      const newLayoutDef = _cloneDeep(layoutDef)
+      const newLayoutDef = _cloneDeep(getActiveLayoutDef(state))
+      const index = newLayoutDef.layout.findIndex(l => l.i === i)
 
       if (index >= 0) {
         newLayoutDef.layout.splice(index, 1)
