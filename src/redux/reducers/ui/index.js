@@ -1,6 +1,7 @@
 import _get from 'lodash/get'
 import _isEqual from 'lodash/isEqual'
 import _isEmpty from 'lodash/isEmpty'
+import _cloneDeep from 'lodash/cloneDeep'
 import _min from 'lodash/min'
 import _max from 'lodash/max'
 import { nonce } from 'bfx-api-node-util'
@@ -365,7 +366,7 @@ function reducer(state = getInitialState(), action = {}) {
       const { i } = payload
       const layoutDef = getActiveLayoutDef(state)
       const index = layoutDef.layout.findIndex(l => l.i === i)
-      const newLayoutDef = { ...layoutDef }
+      const newLayoutDef = _cloneDeep(layoutDef)
 
       if (index >= 0) {
         newLayoutDef.layout.splice(index, 1)
