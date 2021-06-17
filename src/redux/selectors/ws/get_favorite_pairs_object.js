@@ -1,15 +1,14 @@
-import _get from 'lodash/get'
 import _reduce from 'lodash/reduce'
-import { REDUCER_PATHS } from '../../config'
+import { createSelector } from 'reselect'
 
-const path = REDUCER_PATHS.WS
+import getFavoritePairsArray from './get_favorite_pairs'
 
-export default (state) => {
-  const favoritesArray = _get(state, `${path}.favoriteTradingPairs.favoritePairs`, [])
-  const favoritesObject = _reduce(favoritesArray, (acc, pair) => {
+export const getFavoritePairsObject = createSelector(
+  getFavoritePairsArray,
+  (favoritesArray) => _reduce(favoritesArray, (acc, pair) => {
     acc[pair] = true
     return acc
-  }, {})
+  }, {}),
+)
 
-  return favoritesObject
-}
+export default getFavoritePairsObject
