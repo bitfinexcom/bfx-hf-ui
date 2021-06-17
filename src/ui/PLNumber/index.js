@@ -1,6 +1,7 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo } from 'react'
 import _isFunction from 'lodash/isFunction'
 import PropTypes from 'prop-types'
+import { usePrevious } from '@ufx-ui/core'
 
 const textStyle = {
   verticalAlign: 'text-top',
@@ -10,18 +11,12 @@ const PLNumber = ({
   value, prepareFunc, ccy, isGreen,
 }) => {
   const text = _isFunction(prepareFunc) ? prepareFunc(value) : value
-  const [prevValue, setPrevValue] = useState(0)
-  const [currentValue, setCurrentValue] = useState(prevValue)
-
-  useEffect(() => {
-    setPrevValue(currentValue)
-    setCurrentValue(value)
-  }, [value])
+  const prevValue = usePrevious(value)
 
   return (
     <span className={isGreen ? 'hfui-green' : 'hfui-red'}>
       <span>
-        {currentValue > prevValue ? <span>&#9650;</span> : <span>&#9660;</span>}
+        {value > prevValue ? <span>&#9650;</span> : <span>&#9660;</span>}
         &nbsp;
         <span style={textStyle}>
           {text}
