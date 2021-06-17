@@ -9,17 +9,13 @@ import {
 
 import TradesTablePanel from './TradesTablePanel'
 
-const mapStateToProps = (state = {}, ownProps = {}) => {
-  const { layoutID, layoutI: id } = ownProps
-  const allMarketTrades = getMarketTrades(state)
-  return {
-    allMarketTrades,
-    markets: getMarkets(state),
-    authToken: getAuthToken(state),
-    activeMarket: getActiveMarket(state),
-    savedState: getComponentState(state, layoutID, 'trades', id),
-  }
-}
+const mapStateToProps = (state = {}, { layoutID, layoutI: id } = {}) => ({
+  allMarketTrades: getMarketTrades(state),
+  markets: getMarkets(state),
+  authToken: getAuthToken(state),
+  activeMarket: getActiveMarket(state),
+  savedState: getComponentState(state, layoutID, 'trades', id),
+})
 
 const mapDispatchToProps = dispatch => ({
   updateState: (layoutID, componentID, state) => {

@@ -7,14 +7,14 @@ const path = REDUCER_PATHS.UI
 
 const EMPTY_OBJ = {}
 
-const getState = (state) => _get(state, [path, 'layoutComponentState'], EMPTY_OBJ)
+const getLayoutsState = (state) => _get(state, [path, 'layoutComponentState'], EMPTY_OBJ)
 
-const getLayoutState = createSelector(
+export const getLayoutState = createSelector(
   [
-    getState,
+    getLayoutsState,
     (_, layoutID) => layoutID,
   ],
-  (state, layoutID) => _get(state, layoutID, EMPTY_OBJ),
+  (layoutsState, layoutID) => _get(layoutsState, layoutID, EMPTY_OBJ),
 )
 
 const getComponentState = createSelector(
