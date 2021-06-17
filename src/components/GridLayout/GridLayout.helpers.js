@@ -1,7 +1,4 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import _isEmpty from 'lodash/isEmpty'
-import _get from 'lodash/get'
 
 import OrderForm from '../OrderForm'
 import OrderBookPanel from '../OrderBookPanel'
@@ -14,14 +11,6 @@ import PositionsTablePanel from '../PositionsTablePanel'
 import BalancesTablePanel from '../BalancesTablePanel'
 import TradingStatePanel from '../TradingStatePanel'
 import ExchangeInfoBar from '../ExchangeInfoBar'
-
-import * as Routes from '../../constants/routes'
-
-import {
-  getLayouts,
-  getCurrentUnsavedLayout,
-} from '../../redux/selectors/ui'
-import { getLocation } from '../../redux/selectors/router'
 
 export const COMPONENT_TYPES = {
   CHART: 'CHART',

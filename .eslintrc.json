@@ -26,8 +26,6 @@
     "no-nested-ternary": "off",
     "no-plusplus": "off",
     "no-underscore-dangle": "off",
-    "no-unused-vars": "warn",
-    "no-shadow": "warn",
     "react/display-name": "warn",
     "react/jsx-filename-extension": [ "warn", { "extensions": [".js", ".jsx"] } ],
     "react/jsx-props-no-spreading": "off",
@@ -35,7 +33,6 @@
     "react/prop-types": "warn",
     "react/state-in-constructor": "off",
     "react/static-property-placement": "off",
-    "react/no-unused-prop-types": "warn",
     "semi": [ "warn", "never" ]
   },
   "settings": {

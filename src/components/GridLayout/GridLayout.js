@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import _map from 'lodash/map'
@@ -102,6 +102,38 @@ const GridLayout = (props) => {
       </ReactGridLayout>
     </div>
   )
+}
+
+GridLayout.propTypes = {
+  chartProps: PropTypes.shape({
+    disableToolbar: PropTypes.bool,
+    activeMarket: PropTypes.objectOf(
+      PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.array,
+        PropTypes.number,
+      ]),
+    ),
+  }),
+  bookProps: PropTypes.shape({
+    canChangeStacked: PropTypes.bool,
+  }),
+  tradesProps: PropTypes.objectOf(PropTypes.bool),
+  orderFormProps: PropTypes.shape({
+    orders: PropTypes.arrayOf(PropTypes.object),
+  }),
+  ordersProps: PropTypes.shape({
+    market: PropTypes.objectOf(
+      PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.array,
+        PropTypes.number,
+      ]),
+    ),
+  }),
+  sharedProps: PropTypes.objectOf(PropTypes.oneOfType(
+    [PropTypes.bool, PropTypes.string],
+  )),
 }
 
 GridLayout.defaultProps = {

@@ -95,8 +95,6 @@ function getInitialState() {
 
   defaultState.isPaperTrading = isPaperTrading
 
-  defaultState.grid = {}
-
   return defaultState
 }
 
