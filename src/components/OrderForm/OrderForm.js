@@ -8,6 +8,7 @@ import PropTypes from 'prop-types'
 import {
   Iceberg, TWAP, AccumulateDistribute, PingPong, MACrossover, OCOCO,
 } from 'bfx-hf-algo'
+import Debug from 'debug'
 
 import {
   renderLayout,
@@ -28,6 +29,8 @@ import SubmitAPIKeysModal from './Modals/SubmitAPIKeysModal'
 import OrderFormMenu from './OrderFormMenu'
 
 import './style.css'
+
+const debug = Debug('hfui:order-form')
 
 const CONTEXT_LABELS = {
   e: 'Exchange',
@@ -240,10 +243,13 @@ class OrderForm extends React.Component {
   }
 
   onSubmitAlgoOrder() {
-    const { submitAlgoOrder, authToken, gaSubmitAO } = this.props
+    const {
+      submitAlgoOrder, authToken, gaSubmitAO, setIsOrderExecuting,
+    } = this.props
     const {
       currentMarket, currentLayout, fieldData, context,
     } = this.state
+    let errors
 
     const { id } = currentLayout
     const data = processFieldData({
@@ -251,14 +257,55 @@ class OrderForm extends React.Component {
       action: 'submit',
       fieldData,
     })
-    gaSubmitAO()
-    submitAlgoOrder({
-      id,
-      data,
-      context,
-      authToken,
-      market: currentMarket,
-    })
+
+    switch (currentLayout.id) {
+      case Iceberg.id:
+        errors = Iceberg.meta.validateParams(data)
+        break
+
+      case TWAP.id:
+        errors = TWAP.meta.validateParams(data)
+        break
+
+      case AccumulateDistribute.id:
+        errors = AccumulateDistribute.meta.validateParams(data)
+        break
+
+      case PingPong.id:
+        errors = PingPong.meta.validateParams(data)
+        break
+
+      case MACrossover.id:
+        errors = MACrossover.meta.validateParams(data)
+        break
+
+      case OCOCO.id:
+        errors = OCOCO.meta.validateParams(data)
+        break
+
+      default:
+        debug('unknown layout %s', currentLayout.id)
+    }
+
+    if (_isEmpty(errors)) {
+      gaSubmitAO()
+      submitAlgoOrder({
+        id,
+        data,
+        context,
+        authToken,
+        market: currentMarket,
+      })
+    } else {
+      setIsOrderExecuting(false)
+      const { field, message } = errors
+      this.setState(({ validationErrors }) => ({
+        validationErrors: {
+          ...validationErrors,
+          [field]: message,
+        },
+      }))
+    }
   }
 
   deferSaveState() {
@@ -463,7 +510,7 @@ OrderForm.defaultProps = {
   moveable: true,
   removeable: true,
   isOrderExecuting: false,
-  onRemove: () => {},
+  onRemove: () => { },
   authToken: null,
   layoutI: 'orderform',
 }
