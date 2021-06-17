@@ -25,7 +25,7 @@ const {
   STATUS,
 } = ORDER_HISTORY_KEYS
 
-export const rowMapper = ({ width }) => ({
+export const ROW_MAPPING = {
   [ID]: {
     hidden: true,
   },
@@ -41,9 +41,6 @@ export const rowMapper = ({ width }) => ({
   [ICON]: {
     index: 0,
     truncate: true,
-    renderer: ({ data = {} }) => ( // eslint-disable-line
-      <div className={`row-marker ${data.originalAmount < 0 ? 'red' : 'green'} ${width < 700 ? 'stick stick2' : ''}`} />
-    ),
   },
   [PAIR]: {
     index: 1,
@@ -96,12 +93,12 @@ export const rowMapper = ({ width }) => ({
       return <FullDate ts={_get(data, 'created')} />
     },
   },
-})
+}
 
 const OrderHistory = ({
   onRemove, dark, orders,
 }) => {
-  const [ref, size] = useSize()
+  const [ref, { width }] = useSize()
 
   return (
     <Panel
@@ -116,8 +113,8 @@ const OrderHistory = ({
       ) : (
         <UfxOrderHistory
           orders={orders}
-          rowMapping={rowMapper(size)}
-          isMobileLayout={false}
+          rowMapping={ROW_MAPPING}
+          isMobileLayout={width < 700}
         />
       )}
     </Panel>
