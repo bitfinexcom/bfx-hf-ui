@@ -22,7 +22,6 @@ import {
 import timeFrames from '../../util/time_frames'
 
 import Panel from '../../ui/Panel'
-import Dropdown from '../../ui/Dropdown'
 
 import UnconfiguredModal from './Modals/UnconfiguredModal'
 import SubmitAPIKeysModal from './Modals/SubmitAPIKeysModal'
@@ -394,9 +393,9 @@ class OrderForm extends React.Component {
               </div>,
 
               <ul className='hfui-orderform__header' key='of-header'>
-                <li key='item'>
+                <li key='item' className='hfui-orderform__centered-item'>
                   {_map(currentMarket.contexts, value => (
-                    <div key={value} onClick={() => this.onContextChange(value)} className={`hfui__orderform-button ${value === context ? 'active' : ''}`}>
+                    <div key={value} onClick={() => this.onContextChange(value)} className={`hfui__orderform-tab ${value === context ? 'active' : ''}`}>
                       <p>{CONTEXT_LABELS[value]}</p>
                     </div>
                   ))}
