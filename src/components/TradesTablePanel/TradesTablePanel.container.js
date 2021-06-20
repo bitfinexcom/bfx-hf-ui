@@ -4,13 +4,13 @@ import UIActions from '../../redux/actions/ui'
 import { getMarkets } from '../../redux/selectors/meta'
 import { getAuthToken } from '../../redux/selectors/ws'
 import {
-  getActiveMarket, getComponentState, getMarketTrades,
+  getActiveMarket, getComponentState, getMarketComponents,
 } from '../../redux/selectors/ui'
 
 import TradesTablePanel from './TradesTablePanel'
 
 const mapStateToProps = (state = {}, { layoutID, layoutI: id } = {}) => ({
-  allMarketTrades: getMarketTrades(state),
+  allMarketTrades: getMarketComponents(state, 'trades'),
   markets: getMarkets(state),
   authToken: getAuthToken(state),
   activeMarket: getActiveMarket(state),
