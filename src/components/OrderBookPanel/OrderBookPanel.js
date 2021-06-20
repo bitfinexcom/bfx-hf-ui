@@ -75,7 +75,7 @@ const OrderBookPanel = (props) => {
   }, [isWSConnected, symbol, isSubscribedToSymbol, dispatch])
 
   const unSubscribeWSChannel = (s) => {
-    const booksUsingSymbol = _filter(allMarketBooks, ({ currentMarket: cm }) => cm.wsID === s)
+    const booksUsingSymbol = _filter(allMarketBooks, (bookState) => bookState?.currentMarket?.wsID === s)
 
     // do not unsubscribe if more more than one books are subscribed to the symbol
     if (_size(booksUsingSymbol) > 1) {
