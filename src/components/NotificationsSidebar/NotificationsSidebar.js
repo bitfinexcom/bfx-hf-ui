@@ -124,7 +124,7 @@ class NotificationsSidebar extends React.PureComponent {
               <ul>
                 <Scrollbars height='100%'>
                   {notifications.map((n = {}) => (
-                    <Notification key={n.uid} data={n} onClose={this.onClose} />
+                    <Notification key={n?.uid || n?.mts} data={n} onClose={this.onClose} />
                   ))}
                 </Scrollbars>
               </ul>
