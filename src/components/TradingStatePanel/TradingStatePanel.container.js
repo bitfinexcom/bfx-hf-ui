@@ -4,7 +4,6 @@ import UIActions from '../../redux/actions/ui'
 import {
   getAllOrders,
   getAlgoOrders,
-  getAllBalances,
   getAllPositions,
 } from '../../redux/selectors/ws'
 import { getMarkets } from '../../redux/selectors/meta'
@@ -20,7 +19,6 @@ const mapStateToProps = (state = {}) => ({
   algoOrders: getAlgoOrders(state),
   atomicOrders: getAllOrders(state),
   positions: getAllPositions(state),
-  balances: getAllBalances(state),
   algoOrdersCount: getAlgoOrdersCount(state),
   atomicOrdersCount: getAtomicOrdersCount(state),
   positionsCount: getPositionsCount(state),

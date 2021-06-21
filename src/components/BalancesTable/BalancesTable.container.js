@@ -5,9 +5,9 @@ import { getFilteredBalances } from '../../redux/selectors/ui'
 
 import BalancesTable from './BalancesTable'
 
-const mapStateToProps = (state = {}) => ({
+const mapStateToProps = (state = {}, { activeFilter }) => ({
   balances: getAllBalances(state),
-  filteredBalances: getFilteredBalances(state),
+  filteredBalances: getFilteredBalances(state, activeFilter),
 })
 
 export default connect(mapStateToProps)(BalancesTable)

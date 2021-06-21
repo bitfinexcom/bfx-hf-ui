@@ -1,8 +1,22 @@
-import _get from 'lodash/get'
-import { REDUCER_PATHS } from '../../config'
+import _isEmpty from 'lodash/isEmpty'
+import _filter from 'lodash/filter'
+import { createSelector } from 'reselect'
 
-const path = REDUCER_PATHS.UI
+import { getAllBalances } from '../ws'
 
-export default (state) => {
-  return _get(state, `${path}.filteredBalances`, [])
-}
+const getFilteredBalances = createSelector(
+  getAllBalances,
+  (_, activeFilter) => activeFilter,
+  (balances, activeFilter) => {
+    if (_isEmpty(activeFilter)) {
+      return balances
+    }
+
+    const { base, quote } = activeFilter
+    const filteredBalances = _filter(balances, ({ currency }) => currency === base || currency === quote)
+
+    return filteredBalances
+  },
+)
+
+export default getFilteredBalances
