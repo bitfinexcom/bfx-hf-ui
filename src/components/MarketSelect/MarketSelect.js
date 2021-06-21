@@ -1,5 +1,12 @@
-import React, { useMemo, useCallback, memo } from 'react'
-import _reduce from 'lodash/reduce'
+import React, {
+  useMemo, useCallback, memo, useState,
+} from 'react'
+import _filter from 'lodash/filter'
+import _toLower from 'lodash/toLower'
+import _join from 'lodash/join'
+import _includes from 'lodash/includes'
+import _map from 'lodash/map'
+import _sortBy from 'lodash/sortBy'
 import ClassNames from 'classnames'
 import PropTypes from 'prop-types'
 import Dropdown from '../../ui/Dropdown'
@@ -19,6 +26,7 @@ const MarketSelect = ({
   renderWithFavorites,
   ...otherProps
 }) => {
+  const [searchTerm, setSearchTerm] = useState('')
   const favoriteSelect = useCallback((pair, isPairSelected) => {
     if (isPairSelected) {
       savePairs([...favoritePairs, pair], authToken, currentMode)
@@ -28,16 +36,20 @@ const MarketSelect = ({
     }
   }, [savePairs, favoritePairs])
 
-  const options = markets.map(m => ({
-    label: m.uiID || `${m.base}/${m.quote}`,
-    value: m.uiID,
-  }))
-  const searchValues = useMemo(() => _reduce(markets, (acc, market) => {
-    acc[market.uiID] = market.ccyLabels
-    return acc
-  }, {}),
-  [markets])
-  const sortedOptions = options.sort((a, b) => favoritePairs.includes(b.value) - favoritePairs.includes(a.value))
+  const sortedOptions = useMemo(() => {
+    const filtered = searchTerm ? _filter(markets,
+      (market) => {
+        const { quote, base, ccyLabels } = market
+        const defaultLabels = [base, quote, base + quote, `${base}/${quote}`]
+        const matches = _toLower(_join([...ccyLabels, ...defaultLabels]))
+        return _includes(matches, _toLower(searchTerm))
+      }, []) : markets
+    const options = _map(filtered, (m => ({
+      label: m.uiID || `${m.base}/${m.quote}`,
+      value: m.uiID,
+    })), [])
+    return options.sort((a, b) => favoritePairs.includes(b.value) - favoritePairs.includes(a.value))
+  }, [searchTerm, favoritePairs])
 
   return (
     <Dropdown
@@ -49,7 +61,7 @@ const MarketSelect = ({
       }}
       value={value.uiID}
       options={sortedOptions}
-      searchValues={searchValues}
+      onSearchTermChange={setSearchTerm}
       optionRenderer={renderWithFavorites ? (optionValue, optionLabel) => {
         const isSelected = favoritePairs.includes(optionValue)
         return (
