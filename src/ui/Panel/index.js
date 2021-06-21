@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Scrollbars from 'react-custom-scrollbars'
 import ClassNames from 'classnames'
 import PropTypes from 'prop-types'
