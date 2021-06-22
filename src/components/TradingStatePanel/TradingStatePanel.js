@@ -9,21 +9,15 @@ import AtomicOrdersTable from '../AtomicOrdersTable'
 import AlgoOrdersTable from '../AlgoOrdersTable'
 import BalancesTable from '../BalancesTable'
 import MarketSelect from '../MarketSelect'
+import TabTitle from './TabTitle'
 import './style.css'
 
-const renderCounter = (num) => {
-  if (num <= 0) {
-    return ''
-  }
-
-  return <span className='hfui-tspanel-counter'>{num}</span>
-}
-
 const TradingStatePanel = ({
-  dark, onRemove, moveable, removeable, positionsCount, algoOrdersCount, atomicOrdersCount, markets,
-  setFilteredValueWithKey, atomicOrders, algoOrders, positions, balances,
+  dark, onRemove, moveable, removeable, getPositionsCount, algoOrdersCount, atomicOrdersCount, markets,
+  setFilteredValueWithKey, atomicOrders, algoOrders, balances,
 }) => {
   const [activeFilter, setActiveFilter] = useState({})
+  const positionsCount = getPositionsCount(activeFilter)
 
   const getFilteredAtomicOrders = () => {
     const filteredAtomicOrders = _isEmpty(activeFilter)
@@ -41,14 +35,6 @@ const TradingStatePanel = ({
     setFilteredValueWithKey('filteredAO', filteredAO)
   }
 
-  const getFilteredPositions = () => {
-    const filteredPositions = _isEmpty(activeFilter)
-      ? positions
-      : _filter(positions, p => p.symbol === activeFilter.wsID)
-
-    setFilteredValueWithKey('filteredPositions', filteredPositions)
-  }
-
   const getFilteredBalances = () => {
     let filteredBalances = balances
 
@@ -60,7 +46,6 @@ const TradingStatePanel = ({
     setFilteredValueWithKey('filteredBalances', filteredBalances)
   }
 
-  useEffect(getFilteredPositions, [activeFilter, positions])
   useEffect(getFilteredBalances, [activeFilter, balances])
   useEffect(getFilteredAtomicOrders, [activeFilter, atomicOrders])
   useEffect(getFilteredAlgoOrders, [activeFilter, algoOrders])
@@ -104,30 +89,16 @@ const TradingStatePanel = ({
         <PositionsTable
           renderedInTradingState
           htmlKey='Positions'
-          tabtitle={(
-            <span>
-              Positions
-              {renderCounter(positionsCount)}
-            </span>
-          )}
+          tabtitle={<TabTitle heading='Positions' count={positionsCount} />}
+          activeFilter={activeFilter}
         />
         <AtomicOrdersTable
           htmlKey='Atomics'
-          tabtitle={(
-            <span>
-              Atomics
-              {renderCounter(atomicOrdersCount)}
-            </span>
-          )}
+          tabtitle={<TabTitle heading='Atomics' count={atomicOrdersCount} />}
         />
         <AlgoOrdersTable
           htmlKey='Algos'
-          tabtitle={(
-            <span>
-              Algos
-              {renderCounter(algoOrdersCount)}
-            </span>
-          )}
+          tabtitle={<TabTitle heading='Algos' count={algoOrdersCount} />}
         />
         <BalancesTable
           renderedInTradingState
@@ -145,12 +116,11 @@ TradingStatePanel.propTypes = {
   moveable: PropTypes.bool,
   onRemove: PropTypes.func,
   removeable: PropTypes.bool,
-  positionsCount: PropTypes.number,
+  getPositionsCount: PropTypes.func,
   algoOrdersCount: PropTypes.number,
   atomicOrdersCount: PropTypes.number,
   setFilteredValueWithKey: PropTypes.func.isRequired,
   balances: PropTypes.arrayOf(PropTypes.object).isRequired,
-  positions: PropTypes.arrayOf(PropTypes.object).isRequired,
   algoOrders: PropTypes.arrayOf(PropTypes.object).isRequired,
   atomicOrders: PropTypes.arrayOf(PropTypes.object).isRequired,
   markets: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -160,7 +130,7 @@ TradingStatePanel.defaultProps = {
   dark: true,
   moveable: false,
   removeable: false,
-  positionsCount: 0,
+  getPositionsCount: () => { },
   onRemove: () => { },
   algoOrdersCount: 0,
   atomicOrdersCount: 0,
