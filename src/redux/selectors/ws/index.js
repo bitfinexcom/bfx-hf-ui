@@ -16,6 +16,7 @@ import getStrategies from './get_strategies'
 import getPositions from './get_positions'
 import getAllPositions from './get_all_positions'
 import getAllBalances from './get_all_balances'
+import getFilteredBalances from './get_filtered_balances'
 import getBalances from './get_balances'
 import getAllOrders from './get_all_orders'
 import getAlgoOrders from './get_algo_orders'
@@ -61,6 +62,7 @@ export {
   getAllPositions,
   getPositions,
   getAllBalances,
+  getFilteredBalances,
   getBalances,
   getAllOrders,
   getAlgoOrders,

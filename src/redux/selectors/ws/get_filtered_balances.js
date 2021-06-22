@@ -2,7 +2,7 @@ import _isEmpty from 'lodash/isEmpty'
 import _filter from 'lodash/filter'
 import { createSelector } from 'reselect'
 
-import { getAllBalances } from '../ws'
+import getAllBalances from './get_all_balances'
 
 const getFilteredBalances = createSelector(
   getAllBalances,
