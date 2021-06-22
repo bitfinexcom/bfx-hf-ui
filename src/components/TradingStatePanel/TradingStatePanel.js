@@ -14,7 +14,7 @@ import './style.css'
 
 const TradingStatePanel = ({
   dark, onRemove, moveable, removeable, getPositionsCount, algoOrdersCount, atomicOrdersCount, markets,
-  setFilteredValueWithKey, atomicOrders, algoOrders, balances,
+  setFilteredValueWithKey, atomicOrders, algoOrders,
 }) => {
   const [activeFilter, setActiveFilter] = useState({})
   const positionsCount = getPositionsCount(activeFilter)
@@ -35,18 +35,6 @@ const TradingStatePanel = ({
     setFilteredValueWithKey('filteredAO', filteredAO)
   }
 
-  const getFilteredBalances = () => {
-    let filteredBalances = balances
-
-    if (!_isEmpty(activeFilter)) {
-      const { base, quote } = activeFilter
-      filteredBalances = _filter(balances, ({ currency }) => currency === base || currency === quote)
-    }
-
-    setFilteredValueWithKey('filteredBalances', filteredBalances)
-  }
-
-  useEffect(getFilteredBalances, [activeFilter, balances])
   useEffect(getFilteredAtomicOrders, [activeFilter, atomicOrders])
   useEffect(getFilteredAlgoOrders, [activeFilter, algoOrders])
 
@@ -105,6 +93,7 @@ const TradingStatePanel = ({
           htmlKey='Balances'
           tabtitle='Balances'
           hideZeroBalances
+          activeFilter={activeFilter}
         />
       </Panel>
     </Panel>
@@ -120,7 +109,6 @@ TradingStatePanel.propTypes = {
   algoOrdersCount: PropTypes.number,
   atomicOrdersCount: PropTypes.number,
   setFilteredValueWithKey: PropTypes.func.isRequired,
-  balances: PropTypes.arrayOf(PropTypes.object).isRequired,
   algoOrders: PropTypes.arrayOf(PropTypes.object).isRequired,
   atomicOrders: PropTypes.arrayOf(PropTypes.object).isRequired,
   markets: PropTypes.arrayOf(PropTypes.object).isRequired,

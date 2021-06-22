@@ -17,6 +17,7 @@ import getAllPositions from './get_all_positions'
 import getFilteredPositions from './get_filtered_positions'
 import getPositionsCount from './get_filtered_positions_count'
 import getAllBalances from './get_all_balances'
+import getFilteredBalances from './get_filtered_balances'
 import getBalances from './get_balances'
 import getAllOrders from './get_all_orders'
 import getAlgoOrders from './get_algo_orders'
@@ -63,6 +64,7 @@ export {
   getFilteredPositions,
   getPositionsCount,
   getAllBalances,
+  getFilteredBalances,
   getBalances,
   getAllOrders,
   getAlgoOrders,
