@@ -32,7 +32,7 @@ import './style.css'
 const CONTEXT_LABELS = {
   e: 'Exchange',
   m: 'Margin',
-  f: 'Futures',
+  f: 'Derivatives',
 }
 
 class OrderForm extends React.Component {
