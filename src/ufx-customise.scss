@@ -36,3 +36,9 @@ $ufx-dialog-padding-mobile: spacing(1.5);
 $ufx-dialog-title: 14px;
 
 @import "../node_modules/@ufx-ui/core/dist/css/ufx-core.bundle.scss";
+
+.#{$ns}-virtual-table {
+  .ReactVirtualized__Table__headerTruncatedText {
+    font-weight: 600 !important;
+  }
+}

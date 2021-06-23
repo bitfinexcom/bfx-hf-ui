@@ -1,38 +1,4 @@
-@import '../../variables.scss';
-
-.ReactVirtualized__Table__headerRow {
-  border-bottom: none;
-  padding-right: 0 !important;
-  height: 48px;
-}
-
-.ReactVirtualized__Table__headerColumn {
-  font-weight: normal;
-
-  > * {
-    font-size: 13px !important;
-  }
-}
-
-.ReactVirtualized__Table__headerTruncatedText {
-  margin-right: 4px;
-  font-weight: bold;
-  font-size: 13px;
-  text-transform: none;
-}
-
-.ReactVirtualized__Table__row {
-  color: $white-color;
-
-  > * {
-    font-size: 13px;
-    line-height: 20px !important;
-  }
-
-  &:hover {
-    cursor: pointer;
-  }
-}
+@import "../../variables.scss";
 
 .hfui-table {
   height: 100%;
@@ -47,6 +13,40 @@
     &:hover {
       cursor: pointer;
       color: $yellow-color;
+    }
+  }
+
+  .ReactVirtualized__Table__headerRow {
+    border-bottom: none;
+    padding-right: 0 !important;
+    height: 48px;
+  }
+
+  .ReactVirtualized__Table__headerColumn {
+    font-weight: normal;
+
+    > * {
+      font-size: 13px !important;
+    }
+  }
+
+  .ReactVirtualized__Table__headerTruncatedText {
+    margin-right: 4px;
+    font-weight: bold;
+    font-size: 13px;
+    text-transform: none;
+  }
+
+  .ReactVirtualized__Table__row {
+    color: $white-color;
+
+    > * {
+      font-size: 13px;
+      line-height: 20px !important;
+    }
+
+    &:hover {
+      cursor: pointer;
     }
   }
 }

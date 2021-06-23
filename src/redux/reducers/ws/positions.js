@@ -1,5 +1,8 @@
 import _filter from 'lodash/filter'
 import _map from 'lodash/map'
+import _isEqual from 'lodash/isEqual'
+import _find from 'lodash/find'
+
 import types from '../../constants/ws'
 import { positionAdapter } from '../../adapters/ws'
 
@@ -20,6 +23,12 @@ function reducer(state = getInitialState(), action = {}) {
     case types.DATA_POSITION: {
       const { position = [] } = payload
       const adaptedPosition = positionAdapter(position)
+
+      const prevPosition = _find(state, ({ id }) => id === adaptedPosition.id)
+      if (_isEqual(adaptedPosition, prevPosition)) {
+        return state
+      }
+
       const filtered = _filter(state, ({ id }) => id !== adaptedPosition.id)
 
       return [

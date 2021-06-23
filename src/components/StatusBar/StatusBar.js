@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useState, useEffect } from 'react'
 import ClassNames from 'classnames'
 import PropTypes from 'prop-types'
 
@@ -7,11 +7,18 @@ import MANIFEST from '../../../package.json'
 import './style.css'
 
 const StatusBar = ({
-  wsConnected, remoteVersion, apiClientState,
+  wsConnected, remoteVersion, apiClientState, wsInterrupted,
 }) => {
+  const [wsConnInterrupted, setWsConnInterrupted] = useState(false)
   const apiClientConnected = apiClientState === 2
   const apiClientConnecting = apiClientState === 1
   const apiClientDisconnected = !apiClientState
+
+  useEffect(() => {
+    if (wsInterrupted && !wsConnInterrupted) {
+      setWsConnInterrupted(true)
+    }
+  }, [wsInterrupted])
 
   return (
     <div className='hfui-statusbar__wrapper'>
@@ -47,11 +54,11 @@ const StatusBar = ({
         })}
         />
 
-        <p>{wsConnected ? 'WS Connected' : 'WS Disconnected'}</p>
+        <p>{(wsConnected && !wsConnInterrupted) ? 'WS Connected' : 'WS Disconnected'}</p>
 
         <span className={ClassNames('hfui-statusbar__statuscircle', {
-          green: wsConnected,
-          red: !wsConnected,
+          green: wsConnected && !wsConnInterrupted,
+          red: !wsConnected || wsConnInterrupted,
         })}
         />
       </div>

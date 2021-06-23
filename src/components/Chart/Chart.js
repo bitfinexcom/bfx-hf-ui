@@ -1,23 +1,16 @@
 import React from 'react'
-
 import PropTypes from 'prop-types'
+import './style.css'
 
 const CHART_URL = 'https://bitfinexcom.github.io/bfx-hf-tradingview'
-function Chart(props) {
-  const { market } = props
-  const { wsID, base, quote } = market
-  return (
-    <iframe
-      src={`${CHART_URL}/?wsID=${wsID}&base=${base}&quote=${quote}`}
-      title='thumbnails'
-      frameBorder='0'
-      style={{
-        width: '100%',
-        height: '100%',
-      }}
-    />
-  )
-}
+
+const Chart = ({ market: { wsID, base, quote } }) => (
+  <iframe
+    className='hfui-chart-iframe'
+    src={`${CHART_URL}/?wsID=${wsID}&base=${base}&quote=${quote}`}
+    title='thumbnails'
+  />
+)
 
 Chart.propTypes = {
   market: PropTypes.shape({

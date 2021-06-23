@@ -8,7 +8,6 @@
   width: 100%;
 
   .hfui-exchangeinfobar__ticker-wrapper {
-    
   }
 
   .hfui-exchangeinfobar__ticker {
@@ -46,7 +45,7 @@
       color: $light-color-800;
     }
   }
-  
+
   .hfui-exchangeinfobar__tickerlist-wrapper {
     position: relative;
   }
@@ -60,12 +59,17 @@
     display: flex;
     flex-direction: column;
 
+    .ufx-virtual-table--container {
+      width: 100%;
+      top: 40px;
+    }
+
     th {
       font-weight: 600;
     }
 
     .fav-col .ufx-button {
-      padding: spacing(.25);
+      padding: spacing(0.25);
       min-width: auto;
       min-height: auto;
 
@@ -81,7 +85,7 @@
       input {
         font-weight: 500;
       }
-  
+
       input::placeholder {
         color: $light-color-400;
       }
@@ -126,7 +130,7 @@
   margin-bottom: 2px;
   color: $light-color-500;
   user-select: none;
-  margin-right: spacing(.5);
+  margin-right: spacing(0.5);
 }
 
 .hfui-exchangeinfobar__currency-selector {
