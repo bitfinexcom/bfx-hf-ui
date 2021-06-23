@@ -1,8 +1,8 @@
 import React from 'react'
-import StrategyTradesTableColumns from './StrategyTradesTable.columns'
+import { VirtualTable } from '@ufx-ui/core'
 
+import StrategyTradesTableColumns from './StrategyTradesTable.columns'
 import Panel from '../../ui/Panel'
-import Table from '../../ui/Table'
 import { propTypes, defaultProps } from './StrategyTradesTable.props'
 import './style.css'
 
@@ -27,7 +27,7 @@ export default class StrategyTradesTable extends React.PureComponent {
       >
         {hasTrades
           ? (
-            <Table
+            <VirtualTable
               data={trades}
               columns={StrategyTradesTableColumns}
               defaultSortBy='mts'
