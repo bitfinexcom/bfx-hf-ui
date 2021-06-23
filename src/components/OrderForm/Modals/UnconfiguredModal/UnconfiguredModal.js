@@ -6,16 +6,16 @@ import OrderFormModal from '../../OrderFormModal'
 const UnconfiguredModal = ({ onClick, isPaperTrading }) => (
   <OrderFormModal
     title='NOT CONFIGURED'
-    titleColor='#f05359'
     icon='icon-api'
     onClick={onClick}
-    content={[
-      <p key='a' className='underline'>
+    content={(
+      // eslint-disable-next-line jsx-a11y/anchor-is-valid
+      <a className='submit-keys'>
         Submit
         {isPaperTrading ? ' Paper Trading ' : ' '}
         API keys
-      </p>,
-    ]}
+      </a>
+    )}
   />
 )
 
