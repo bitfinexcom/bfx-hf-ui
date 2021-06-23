@@ -1,47 +1,52 @@
-import React from 'react'
-import StrategyTradesTableColumns from './StrategyTradesTable.columns'
+import React, { memo } from 'react'
+import { VirtualTable } from '@ufx-ui/core'
+import _isEmpty from 'lodash/isEmpty'
+import PropTypes from 'prop-types'
 
 import Panel from '../../ui/Panel'
-import Table from '../../ui/Table'
-import { propTypes, defaultProps } from './StrategyTradesTable.props'
+import StrategyTradesTableColumns from './StrategyTradesTable.columns'
 import './style.css'
 
-export default class StrategyTradesTable extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+const StrategyTradesTable = ({
+  label, trades, onTradeClick, dark,
+}) => (
+  <Panel
+    dark={dark}
+    darkHeader={dark}
+    label={label}
+    removeable={false}
+    moveable={false}
+    className='hfui-strategytradestable__wrapper'
+  >
+    {_isEmpty(trades)
+      ? (
+        <div className='no-trades__wrapper'>
+          <span className='no-trades__notification'>
+            There were no trades in this timeframe
+          </span>
+        </div>
+      ) : (
+        <VirtualTable
+          data={trades}
+          columns={StrategyTradesTableColumns}
+          defaultSortBy='mts'
+          defaultSortDirection='DESC'
+          onRowClick={({ rowData }) => onTradeClick(rowData)}
+        />
+      )}
+  </Panel>
+)
 
-  render() {
-    const {
-      label, trades, onTradeClick, dark,
-    } = this.props
-    const hasTrades = trades.length !== 0
-
-    return (
-      <Panel
-        dark={dark}
-        darkHeader={dark}
-        label={label}
-        removeable={false}
-        moveable={false}
-        className='hfui-strategytradestable__wrapper'
-      >
-        {hasTrades
-          ? (
-            <Table
-              data={trades}
-              columns={StrategyTradesTableColumns}
-              defaultSortBy='mts'
-              defaultSortDirection='DESC'
-              onRowClick={({ rowData }) => onTradeClick(rowData)}
-            />
-          ) : (
-            <div className='no-trades__wrapper'>
-              <span className='no-trades__notification'>
-                There were no trades in this timeframe
-              </span>
-            </div>
-          )}
-      </Panel>
-    )
-  }
+StrategyTradesTable.propTypes = {
+  trades: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onTradeClick: PropTypes.func.isRequired,
+  label: PropTypes.string,
+  dark: PropTypes.bool,
 }
+
+StrategyTradesTable.defaultProps = {
+  label: 'Strategy Trades',
+  dark: true,
+}
+
+export default memo(StrategyTradesTable)
