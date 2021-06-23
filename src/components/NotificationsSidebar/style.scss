@@ -5,7 +5,7 @@
   top: 0;
   right: 0;
   bottom: 0;
-  z-index: 1000;
+  z-index: 100;
   width: 30%;
   margin-right: 0;
 
@@ -19,7 +19,7 @@
     transition: transform 700ms cubic-bezier(.77,0,.175,1);
   }
 
-  ul {
+  .hfui-notificationssidebar__external {
     height: 100%;
   }
 
@@ -34,33 +34,42 @@
 }
 
 .hfui-notificationssidebar__external {
-  position: absolute;
-  top: 0;
-  right: 32px;
+  padding-bottom: 30px;
   width: 400px;
+  pointer-events: none;
+  max-height: 100% !important;
 
   display: flex;
   flex-direction: column-reverse;
   height: calc(100% - 8px) !important;
-  pointer-events: none;
 }
 
-.fa-check, .fa-times, .fa-lock, .fa-trash{
-  float: left;
-  margin: 10px;
-  margin-top: 12px;
-}
-
-.hfui-notification-data {
+.hfui-sidebar-notifications {
+  position: inherit !important;
   width: 100%;
-  display: flex; 
-  flex-direction: column;
-  padding-right: spacing(0.75);
+  bottom: auto !important;
+  right: auto !important;
 }
 
-.hfui-notification__close {
+.message {
+  font-size: 14px;
+  line-height: 20px;
+  margin-bottom: spacing(.5);
+}
+
+.expand-button {
+  border: none !important;
+  justify-content: center;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.ufx-notifications .message {
+  width: 95% !important;
+}
+
+.ufx-notifications .close-button {
   position: absolute;
-  z-index: 1;
   top: spacing(0.375);
   right: spacing(0.375);
   text-align: center;
@@ -86,63 +95,19 @@
   }
 }
 
-.hfui-notification__ts {
-  font-size: 13px;
-  color: $text-color;
-}
-
-.hfui-notification-msg {
-  font-size: 14px;
-  line-height: 20px;
-  margin-bottom: spacing(.5);
-}
-
-.hfui-notification {
+.ufx-notifications__level {
   position: relative;
-  z-index: 9999999;
+  filter: brightness(85%);
+  z-index: 100;
   margin: 0 spacing(.75) spacing(1) spacing(.75);
   border-radius: $border-radius;
-  padding: spacing();
+  padding-top: spacing() * 0.625;
   font-size: 13px;
   background: $lighter-background-color;
   text-align: left;
   display: flex;
+  flex-direction: column;
   pointer-events: all !important;
-
-  > p:first-child {
-    line-height: 1.3;
-  }
-
-  &.success {
-    color: $green-color;
-    border-color: 1px solid $green-color;
-  }
-
-  &.warning {
-    color: $yellow-color;
-    border-color: $yellow-color;
-  }
-
-  &.error {
-    color: $red-color;
-    border-color: 1px solid $red-color;
-  }
-
-  &.info {
-    color: $notifications-info-color;
-    border-color: 1px solid $notifications-info-color;
-  }
-
-  &.closed {
-    display: none;
-  }
-}
-
-.hfui-notification-icon { 
-  width: 32px;
-  height: 22px;
-  display: flex;
-  align-items: center;
 }
 
 .hfui-notificationssidebar__header-btn {

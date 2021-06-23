@@ -55,7 +55,7 @@ const TradesTablePanel = (props) => {
   }, [isWSConnected, symbol, dispatch])
 
   const unSubscribeWSChannel = (s) => {
-    const tradesUsingSymbol = _filter(allMarketTrades, ({ currentMarket: cm }) => cm.wsID === s)
+    const tradesUsingSymbol = _filter(allMarketTrades, (tradesState) => tradesState?.currentMarket?.wsID === s)
 
     // do not unsubscribe if more than one trades comp are subscribed to the symbol
     if (_size(tradesUsingSymbol) > 1) {

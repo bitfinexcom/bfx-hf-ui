@@ -3,8 +3,10 @@ export default {
   canDelete: false,
   layout: [
     {
-      w: 20,
+      w: 24,
       h: 8,
+      minW: 20,
+      minH: 4,
       x: 0,
       y: 0,
       i: '1591873294960000',
@@ -12,8 +14,10 @@ export default {
       static: false,
       c: 'EXCHANGE_INFO_BAR',
     }, {
-      w: 20,
+      w: 24,
       h: 10,
+      minW: 16,
+      minH: 6,
       x: 0,
       y: 8,
       i: '1591873294961000',
@@ -21,9 +25,11 @@ export default {
       static: false,
       c: 'ORDER_FORM',
     }, {
-      w: 55,
+      w: 51,
       h: 11,
-      x: 20,
+      minW: 30,
+      minH: 8,
+      x: 24,
       y: 0,
       i: '1591873294962000',
       moved: false,
@@ -32,6 +38,8 @@ export default {
     }, {
       w: 25,
       h: 6,
+      minW: 21,
+      minH: 5,
       x: 75,
       y: 0,
       i: '1591873324466000',
@@ -39,9 +47,11 @@ export default {
       static: false,
       c: 'ORDER_BOOK',
     }, {
-      w: 55,
+      w: 51,
       h: 7,
-      x: 20,
+      minW: 32,
+      minH: 5,
+      x: 24,
       y: 11,
       i: '1591873390469000',
       moved: false,
@@ -50,6 +60,8 @@ export default {
     }, {
       w: 25,
       h: 6,
+      minW: 18,
+      minH: 4,
       x: 75,
       y: 6,
       i: '1591961760845000',
@@ -59,6 +71,8 @@ export default {
     }, {
       w: 25,
       h: 6,
+      minW: 21,
+      minH: 5,
       x: 75,
       y: 12,
       i: '1591961781970000',
