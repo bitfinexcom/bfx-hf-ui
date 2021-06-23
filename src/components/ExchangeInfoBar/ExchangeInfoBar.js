@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Ticker, TickerList } from '@ufx-ui/core'
+import { TickerList, Ticker } from '@ufx-ui/core'
+
 import Panel from '../../ui/Panel'
 import useSize from '../../hooks/useSize'
+import { tickerDataMapping, rowMapping } from './ExchangeInforBar.constants'
 
 import './style.css'
 import { MAIN_MODE } from '../../redux/reducers/ui'
@@ -38,7 +40,6 @@ const ExchangeInfoBar = ({
     }
     onChangeMarket(newMarket, activeMarket)
   }
-
   const {
     low,
     high,
@@ -48,7 +49,9 @@ const ExchangeInfoBar = ({
     changePerc,
     volumeConverted,
   } = activeMarketTicker
-  const { base, quote } = activeMarket
+  const {
+    base, quote, uiID, isPerp,
+  } = activeMarket
 
   return (
     <Panel
@@ -72,7 +75,10 @@ const ExchangeInfoBar = ({
               volume: volumeConverted || volume,
               low,
               high,
+              isPerp,
+              perpUI: isPerp ? uiID : null,
             }}
+            dataMapping={tickerDataMapping}
             className='hfui-exchangeinfobar__ticker'
             volumeUnit={volumeConverted ? 'USD' : base}
           />
@@ -93,6 +99,7 @@ const ExchangeInfoBar = ({
             volumeUnitList={volumeUnitsList}
             // showing volume in USD only in main mode
             showVolumeUnit={currentMode === MAIN_MODE}
+            rowMapping={rowMapping}
           />
         </div>
       </div>
@@ -104,6 +111,8 @@ ExchangeInfoBar.propTypes = {
   activeMarket: PropTypes.shape({
     base: PropTypes.string,
     quote: PropTypes.string,
+    uiID: PropTypes.string,
+    isPerp: PropTypes.bool,
   }).isRequired,
   onChangeMarket: PropTypes.func.isRequired,
   activeMarketTicker: PropTypes.shape({
