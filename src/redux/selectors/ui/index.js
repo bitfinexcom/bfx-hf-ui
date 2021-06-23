@@ -7,7 +7,6 @@ import getLayout from './get_layout'
 import getRemoteVersion from './get_remote_version'
 import getAlgoOrdersCount from './get_filtered_algo_orders_count'
 import getAtomicOrdersCount from './get_filtered_atomic_orders_count'
-import getPositionsCount from './get_filtered_positions_count'
 import getIsTradingModeModalVisible from './get_is_trading_mode_modal_visible'
 import getIsInternetConnection from './get_is_bad_internet_connection'
 import getIsRefillBalanceModalVisible from './get_is_refill_balance_modal_visible'
@@ -16,7 +15,6 @@ import getIsOrderExecuting from './get_is_order_executing'
 import getFirstLogin from './get_first_login'
 import getCurrentMode from './get_current_mode'
 import getGuideStatusForPage from './get_guide_status_for_page'
-import getFilteredBalances from './get_filtered_balances'
 import getStrategyId from './get_strategy_id'
 import getMarketComponents from './get_market_components'
 import getCurrentUnsavedLayout from './get_current_unsaved_layout'
@@ -31,7 +29,6 @@ export {
   getLayout,
   getAlgoOrdersCount,
   getAtomicOrdersCount,
-  getPositionsCount,
   getIsTradingModeModalVisible,
   getIsInternetConnection,
   getIsRefillBalanceModalVisible,
@@ -39,7 +36,6 @@ export {
   getFirstLogin,
   getCurrentMode,
   getGuideStatusForPage,
-  getFilteredBalances,
   getStrategyId,
   getMarketComponents,
   getIsOrderExecuting,

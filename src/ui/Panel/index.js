@@ -1,171 +1,162 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Scrollbars from 'react-custom-scrollbars'
 import ClassNames from 'classnames'
 import PropTypes from 'prop-types'
 
 import './style.css'
 
-export default class Panel extends React.Component {
-  state = {}
-  getTabTitle(tab) { // eslint-disable-line
-    const { htmlKey, tabtitle } = tab.props
-    if (typeof tabtitle === 'string') {
-      return tabtitle
-    }
-    if (!htmlKey) console.trace('htmlKey missing')
-    return htmlKey
+const getTabTitle = (tab) => { // eslint-disable-line
+  const { htmlKey, tabtitle } = tab.props
+  if (typeof tabtitle === 'string') {
+    return tabtitle
   }
-  getForcedTab(forcedTab, tabs) { // eslint-disable-line
-    for (let i = 0; i < tabs.length; i++) {
-      if (tabs[i].props.tabtitle === forcedTab) {
-        return tabs[i]
-      }
-    }
-  }
-  render() {
-    const {
-      label,
-      className,
-      onRemove,
-      hideIcons,
-      children,
-      headerComponents,
-      extraIcons,
-      moveable,
-      removeable,
-      modal,
-      footer,
-      settingsOpen,
-      onToggleSettings,
-      darkHeader,
-      dark,
-      showChartMarket,
-      chartMarketSelect,
-      secondaryHeaderComponents,
-      closePanel,
-      preHeaderComponents,
-      dropdown,
-      forcedTab,
-      innerRef,
-    } = this.props
-    const tabs = React.Children.toArray(children).filter(c => c && c.props.tabtitle)
-    const { selectedTab = forcedTab.length ? this.getForcedTab(forcedTab, tabs) : tabs[0] } = this.state
+  if (!htmlKey) console.trace('htmlKey missing')
+  return htmlKey
+}
 
-    return (
+const getForcedTab = (forcedTab, tabs) => { // eslint-disable-line
+  for (let i = 0; i < tabs.length; i++) {
+    if (tabs[i].props.tabtitle === forcedTab) {
+      return i
+    }
+  }
+}
+
+const Panel = (props) => {
+  const {
+    label,
+    className,
+    onRemove,
+    hideIcons,
+    children,
+    headerComponents,
+    extraIcons,
+    moveable,
+    removeable,
+    modal,
+    footer,
+    settingsOpen,
+    onToggleSettings,
+    darkHeader,
+    dark,
+    showChartMarket,
+    chartMarketSelect,
+    secondaryHeaderComponents,
+    closePanel,
+    preHeaderComponents,
+    dropdown,
+    forcedTab,
+    innerRef,
+  } = props
+  const tabs = React.Children.toArray(children).filter(c => c && c.props.tabtitle)
+  const initTab = forcedTab.length ? getForcedTab(forcedTab, tabs) : 0
+  const [selectedTab, setSelectedTab] = useState(initTab)
+
+  return (
+    <div
+      className={ClassNames('hfui-panel', className, {
+        'dark-header': darkHeader,
+        dark,
+      })}
+    >
       <div
-        className={ClassNames('hfui-panel', className, {
-          'dark-header': darkHeader,
-          dark,
+        className={ClassNames('hfui-panel__header', {
+          'has-secondary-header': !!secondaryHeaderComponents,
         })}
         ref={innerRef}
       >
-        <div
-          className={ClassNames('hfui-panel__header', {
-            'has-secondary-header': !!secondaryHeaderComponents,
-          })}
-        >
-          <div className='hfui-panel__left-container'>
-            {label && <p className='hfui-panel__label'>{label}</p>}
-            {headerComponents && (
+        <div className='hfui-panel__left-container'>
+          {label && <p className='hfui-panel__label'>{label}</p>}
+          {headerComponents && (
             <div className='hfui-panel__header-components'>
               {headerComponents}
             </div>
-            )}
-          </div>
-          <div className='hfui-panel__buttons-section'>
-            {preHeaderComponents && (
-              <div className='hfui-panel__preheader'>
-                {preHeaderComponents}
-              </div>
-            )}
-            {closePanel && (
-              <p className='hfui-panel__close' onClick={closePanel}>&#10005;</p>
-            )}
-          </div>
-          {tabs.length > 0 && (
-            <ul className='hfui-panel__header-tabs'>
-              {tabs.map(tab => (
-                <li
-                  key={tab.props.htmlKey || tab.props.tabtitle}
-                  className={ClassNames({ active: this.getTabTitle(tab) === this.getTabTitle(selectedTab) })}
-                  onClick={() => this.setState(() => ({ selectedTab: tab }))}
-                >
-                  <p className='hfui-panel__label'>
-                    {tab.props.tabtitle}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          )}
-
-          {!hideIcons && (
-            <div className='hfui-panel__header-icons'>
-              {removeable && (
-                <i onClick={onRemove} className='icon-cancel' />
-              )}
-
-              {moveable && <i className='icon-move' />}
-
-              {showChartMarket && (
-                <div className='hfui-panel__chart-market-select'>
-                  {chartMarketSelect}
-                </div>
-              )}
-
-              {onToggleSettings && (
-                <i
-                  onClick={onToggleSettings}
-                  className={ClassNames('icon-settings-icon', {
-                    yellow: settingsOpen,
-                  })}
-                />
-              )}
-
-              {extraIcons}
-
-              {dropdown}
-            </div>
           )}
         </div>
-
-        {secondaryHeaderComponents && (
-          <div
-            className='hfui-panel__secondaryheader__wrapper'
-          >
-            {secondaryHeaderComponents}
+        <div className='hfui-panel__buttons-section'>
+          {preHeaderComponents && (
+          <div className='hfui-panel__preheader'>
+            {preHeaderComponents}
           </div>
+          )}
+          {closePanel && (
+          <p className='hfui-panel__close' onClick={closePanel}>&#10005;</p>
+          )}
+        </div>
+        {tabs.length > 0 && (
+        <ul className='hfui-panel__header-tabs'>
+          {tabs.map((tab, index) => (
+            <li
+              key={tab.props.htmlKey || tab.props.tabtitle}
+              className={ClassNames({ active: getTabTitle(tab) === getTabTitle(tabs[selectedTab]) })}
+              onClick={() => setSelectedTab(index)}
+            >
+              <p className='hfui-panel__label'>
+                {tab.props.tabtitle}
+              </p>
+            </li>
+          ))}
+        </ul>
         )}
 
-        <div className='hfui-panel__content'>
-          {modal}
+        {!hideIcons && (
+        <div className='hfui-panel__header-icons'>
+          {removeable && (
+          <i onClick={onRemove} className='icon-cancel' />
+          )}
 
-          <Scrollbars
-            renderTrackVertical={props => (
-              <div {...props} className='hfui-scrollbars-track-vertical' />
-            )}
-            renderThumbVertical={props => (
-              <div {...props} className='hfui-scrollbars-thumb-vertical' />
-            )}
-          >
-            {
-              (tabs.length > 0) && (
-                selectedTab
-              )
-            }
-            {
-              (tabs.length === 0) && (
-                children
-              )
-            }
-          </Scrollbars>
+          {moveable && <i className='icon-move' />}
+
+          {showChartMarket && (
+          <div className='hfui-panel__chart-market-select'>
+            {chartMarketSelect}
+          </div>
+          )}
+
+          {onToggleSettings && (
+          <i
+            onClick={onToggleSettings}
+            className={ClassNames('icon-settings-icon', {
+              yellow: settingsOpen,
+            })}
+          />
+          )}
+
+          {extraIcons}
+
+          {dropdown}
         </div>
-
-        {footer && (
-          <div className='hfui-panel__footer'>{footer}</div>
         )}
       </div>
-    )
-  }
+
+      {secondaryHeaderComponents && (
+      <div
+        className='hfui-panel__secondaryheader__wrapper'
+      >
+        {secondaryHeaderComponents}
+      </div>
+      )}
+
+      <div className='hfui-panel__content'>
+        {modal}
+
+        <Scrollbars
+          renderTrackVertical={compProps => (
+            <div {...compProps} className='hfui-scrollbars-track-vertical' />
+          )}
+          renderThumbVertical={compProps => (
+            <div {...compProps} className='hfui-scrollbars-thumb-vertical' />
+          )}
+        >
+          {tabs.length > 0 ? tabs[selectedTab] : children}
+        </Scrollbars>
+      </div>
+
+      {footer && (
+      <div className='hfui-panel__footer'>{footer}</div>
+      )}
+    </div>
+  )
 }
 
 Panel.propTypes = {
@@ -224,3 +215,5 @@ Panel.defaultProps = {
   dropdown: null,
   innerRef: null,
 }
+
+export default Panel
