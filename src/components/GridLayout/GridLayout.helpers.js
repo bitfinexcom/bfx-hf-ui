@@ -41,17 +41,39 @@ const COMPONENT_LABELS = {
 }
 
 const COMPONENT_DIMENSIONS = {
-  [COMPONENT_TYPES.CHART]: { w: 33, h: 10 },
-  [COMPONENT_TYPES.ORDER_BOOK]: { w: 24, h: 20 },
-  [COMPONENT_TYPES.ORDER_FORM]: { w: 20, h: 10 },
-  [COMPONENT_TYPES.TRADES_TABLE]: { w: 24, h: 10 },
-  [COMPONENT_TYPES.BALANCES_TABLE]: { w: 20, h: 6 },
-  [COMPONENT_TYPES.POSITIONS_TABLE]: { w: 40, h: 6 },
-  [COMPONENT_TYPES.ALGO_ORDERS_TABLE]: { w: 40, h: 6 },
-  [COMPONENT_TYPES.ATOMIC_ORDERS_TABLE]: { w: 40, h: 6 },
-  [COMPONENT_TYPES.ORDER_HISTORY_TABLE]: { w: 40, h: 6 },
-  [COMPONENT_TYPES.TRADING_STATE_PANEL]: { w: 40, h: 6 },
-  [COMPONENT_TYPES.EXCHANGE_INFO_BAR]: { w: 20, h: 8 },
+  [COMPONENT_TYPES.CHART]: {
+    w: 33, h: 10, minW: 30, minH: 8,
+  },
+  [COMPONENT_TYPES.ORDER_BOOK]: {
+    w: 24, h: 20, minW: 21, minH: 5,
+  },
+  [COMPONENT_TYPES.ORDER_FORM]: {
+    w: 20, h: 10, minW: 16, minH: 6,
+  },
+  [COMPONENT_TYPES.TRADES_TABLE]: {
+    w: 24, h: 10, minW: 18, minH: 4,
+  },
+  [COMPONENT_TYPES.BALANCES_TABLE]: {
+    w: 20, h: 6, minW: 18, minH: 5,
+  },
+  [COMPONENT_TYPES.POSITIONS_TABLE]: {
+    w: 40, h: 6, minW: 32, minH: 5,
+  },
+  [COMPONENT_TYPES.ALGO_ORDERS_TABLE]: {
+    w: 40, h: 6, minW: 32, minH: 5,
+  },
+  [COMPONENT_TYPES.ATOMIC_ORDERS_TABLE]: {
+    w: 40, h: 6, minW: 32, minH: 5,
+  },
+  [COMPONENT_TYPES.ORDER_HISTORY_TABLE]: {
+    w: 40, h: 6, minW: 21, minH: 5,
+  },
+  [COMPONENT_TYPES.TRADING_STATE_PANEL]: {
+    w: 40, h: 6, minW: 32, minH: 5,
+  },
+  [COMPONENT_TYPES.EXCHANGE_INFO_BAR]: {
+    w: 20, h: 8, minW: 20, minH: 4,
+  },
 }
 
 const componentForType = (c) => {

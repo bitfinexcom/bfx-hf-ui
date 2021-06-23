@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Icon } from 'react-fa'
+import { useDispatch } from 'react-redux'
+import { useLocation } from 'react-router'
 
 import HFIcon from '../../ui/HFIcon'
-import NavbarButton from '../NavbarButton'
+import UIActions from '../../redux/actions/ui'
+import NavbarLink from '../NavbarButton'
+import NavbarButton from './Navbar.Button'
+import SwitchMode from '../SwitchMode'
+
+import LayoutSettings from './Navbar.LayoutSettings'
 
 import './style.css'
 
@@ -25,20 +32,41 @@ const items = [
   },
 ]
 
-const Navbar = () => (
-  <div className='hfui-navbar__wrapper'>
-    <HFIcon />
-    <ul className='hfui-navbar__main-links'>
-      {items.map(val => (
-        <li key={val.route}>
+const Navbar = () => {
+  const dispatch = useDispatch()
+  const location = useLocation()
+  const isTradingPage = location.pathname === '/'
+
+  return (
+    <div className='hfui-navbar__wrapper'>
+      <HFIcon className='hfui-navbar__logo' />
+      <ul className='hfui-navbar__main-links'>
+        {items.map(val => (
+          <li key={val.route}>
+            <NavbarLink
+              route={val.route}
+              label={val.label}
+            />
+          </li>
+        ))}
+      </ul>
+      <div className='hfui-tradingpage__menu'>
+        <div className='hfui-exchangeinfobar__buttons'>
+          <LayoutSettings />
           <NavbarButton
-            route={val.route}
-            label={val.label}
+            icon='notifications'
+            onClick={() => dispatch(UIActions.switchNotifcationPanel())}
           />
-        </li>
-      ))}
-    </ul>
-  </div>
-)
+        </div>
+        <div className='hfui-tradingpaper__control'>
+          <div className='hfui-tradingpaper__control-toggle'>
+            <p>Paper Trading</p>
+            <SwitchMode />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export default Navbar

@@ -1,16 +1,19 @@
 import React from 'react'
+import { Notifications } from '@ufx-ui/core'
 import ClassNames from 'classnames'
 import PropTypes from 'prop-types'
 import Scrollbars from 'react-custom-scrollbars'
 import _isEmpty from 'lodash/isEmpty'
+import _map from 'lodash/map'
+import _includes from 'lodash/includes'
+import _filter from 'lodash/filter'
 import { nonce } from 'bfx-api-node-util'
 
-import Notification from './Notification'
 import Panel from '../../ui/Panel'
 import Button from '../../ui/Button'
 import './style.css'
 
-const LIVE_NOTIFICATION_LIFETIME_MS = 4000
+const LIVE_NOTIFICATION_LIFETIME_MS = 5000
 
 class NotificationsSidebar extends React.PureComponent {
   state = {
@@ -40,7 +43,11 @@ class NotificationsSidebar extends React.PureComponent {
       lastShownMTS: showMTS,
       liveNotifications: [
         ...notifications.filter(({ uid }) => !shownNotifications.includes(uid)).map(n => ({
-          n,
+          n: {
+            message: n.text,
+            level: n.status,
+            ...n,
+          },
           showMTS,
           id: nonce(),
         })),
@@ -64,13 +71,20 @@ class NotificationsSidebar extends React.PureComponent {
     )
   }
 
-  onClose(uid) {
-    const { removeNotification } = this.props
-    removeNotification(uid)
+  onClose({ uid, group }) {
+    const { removeNotifications } = this.props
+    let uids = []
+
+    if (!_isEmpty(group)) {
+      uids = _map(group, el => el.uid)
+    } else if (!_isEmpty(uid)) {
+      uids = [uid]
+    }
 
     this.setState(({ shownNotifications }) => ({
-      shownNotifications: shownNotifications.filter(n => n.uid !== uid),
+      shownNotifications: _filter(shownNotifications, n => !_includes(uids, n.uid)),
     }))
+    removeNotifications(uids)
   }
 
   onClearNotifications() {
@@ -86,7 +100,7 @@ class NotificationsSidebar extends React.PureComponent {
 
   timeoutLiveNotifications(shownMTS) {
     this.setState(({ liveNotifications }) => ({
-      liveNotifications: liveNotifications.filter(({ showMTS }) => showMTS !== shownMTS),
+      liveNotifications: _filter(liveNotifications, ({ showMTS }) => showMTS !== shownMTS),
     }))
   }
 
@@ -121,21 +135,21 @@ class NotificationsSidebar extends React.PureComponent {
             {_isEmpty(notifications) ? (
               <p className='hfui-notificationssidebar__empty'>There are no new notifications yet!</p>
             ) : (
-              <ul>
-                <Scrollbars height='100%'>
-                  {notifications.map((n = {}) => (
-                    <Notification key={n?.uid || n?.mts} data={n} onClose={this.onClose} />
-                  ))}
-                </Scrollbars>
-              </ul>
+              <Scrollbars height='100%'>
+                <Notifications
+                  className='hfui-sidebar-notifications'
+                  notifications={_map(notifications, item => ({
+                    ...item,
+                    level: item.status,
+                    message: item.text,
+                  }))}
+                  onClose={this.onClose}
+                />
+              </Scrollbars>
             )}
           </Panel>
         </div>
-        <ul className='hfui-notificationssidebar__external'>
-          {liveNotifications.map((item = {}) => (
-            <Notification key={item.id} data={item.n} />
-          ))}
-        </ul>
+        <Notifications className='hfui-notificationssidebar__external' notifications={_map(liveNotifications, item => item.n)} />
       </>
     )
   }
@@ -143,7 +157,7 @@ class NotificationsSidebar extends React.PureComponent {
 
 NotificationsSidebar.propTypes = {
   notifications: PropTypes.arrayOf(PropTypes.object).isRequired,
-  removeNotification: PropTypes.func.isRequired,
+  removeNotifications: PropTypes.func.isRequired,
   clearNotifications: PropTypes.func.isRequired,
   closeNotificationPanel: PropTypes.func.isRequired,
   notificationsVisible: PropTypes.bool,
