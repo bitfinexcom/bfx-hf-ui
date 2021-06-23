@@ -96,6 +96,13 @@ const removeNotification = (uid) => ({
   },
 })
 
+const removeNotifications = (uids) => ({
+  type: types.REMOVE_NOTIFICATIONS,
+  payload: {
+    uids,
+  },
+})
+
 const clearNotifications = () => ({
   type: types.CLEAR_NOTIFICATIONS,
 })
@@ -182,6 +189,7 @@ export default {
   saveRemoteVersion,
   closeNotificationPanel,
   removeNotification,
+  removeNotifications,
   clearNotifications,
   openNotifcationPanel,
   firstLogin,
