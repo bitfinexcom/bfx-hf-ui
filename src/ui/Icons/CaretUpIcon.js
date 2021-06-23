@@ -1,21 +1,18 @@
-import React from 'react'
-import { propTypes, defaultProps } from './CaretUpIcon.props'
+import React, { memo } from 'react'
+import PropTypes from 'prop-types'
 
-export default class CaretUpIcon extends React.PureComponent {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+const CaretUpIcon = ({ x, y, ...props }) => (
+  <path
+    {...props}
+    d='M15.76 12.37l.01-.01-5-6-.01.01C10.57 6.15 10.31 6 10 6s-.57.15-.76.37l-.01-.01-5 6 .01.01c-.14.17-.24.39-.24.63 0 .55.45 1 1 1h10c.55 0 1-.45 1-1 0-.24-.1-.46-.24-.63z'
+    transform={`translate(${x}, ${y})`}
+    fillRule='evenodd'
+  />
+)
 
-  render() {
-    const { x, y } = this.props
-
-    return (
-      <path
-        {...this.props}
-
-        d='M15.76 12.37l.01-.01-5-6-.01.01C10.57 6.15 10.31 6 10 6s-.57.15-.76.37l-.01-.01-5 6 .01.01c-.14.17-.24.39-.24.63 0 .55.45 1 1 1h10c.55 0 1-.45 1-1 0-.24-.1-.46-.24-.63z'
-        transform={`translate(${x}, ${y})`}
-        fillRule='evenodd'
-      />
-    )
-  }
+CaretUpIcon.propTypes = {
+  x: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired,
 }
+
+export default memo(CaretUpIcon)

@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { memo } from 'react'
+import PropTypes from 'prop-types'
 import Scrollbars from 'react-custom-scrollbars'
 import { Remarkable } from 'remarkable'
 import { linkify } from 'remarkable/linkify'
 import hljs from 'highlight.js'
 import sanitizeHtml from 'sanitize-html'
 
-import { propTypes, defaultProps } from './Markdown.props'
 import './style.css'
 
 const md = new Remarkable({
@@ -33,27 +33,29 @@ const md = new Remarkable({
   },
 }).use(linkify)
 
-export default class Panel extends React.Component {
-  static propTypes = propTypes
-  static defaultProps = defaultProps
+const Panel = ({ text }) => (
+  <Scrollbars
+    renderTrackVertical={props => (
+      <div {...props} className='hfui-scrollbars-track-vertical' />
+    )}
+    renderThumbVertical={props => (
+      <div {...props} className='hfui-scrollbars-thumb-vertical' />
+    )}
+  >
+    <div
+      className='hfui-markdown__wrapper'
+      // eslint-disable-next-line react/no-danger
+      dangerouslySetInnerHTML={{ __html: md.render(sanitizeHtml(text)) }}
+    />
+  </Scrollbars>
+)
 
-  render() {
-    const { text } = this.props
-    return (
-      <Scrollbars
-        renderTrackVertical={props => (
-          <div {...props} className='hfui-scrollbars-track-vertical' />
-        )}
-        renderThumbVertical={props => (
-          <div {...props} className='hfui-scrollbars-thumb-vertical' />
-        )}
-      >
-        <div
-          className='hfui-markdown__wrapper'
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: md.render(sanitizeHtml(text)) }}
-        />
-      </Scrollbars>
-    )
-  }
+Panel.propTypes = {
+  text: PropTypes.string,
 }
+
+Panel.defaultProps = {
+  text: '',
+}
+
+export default memo(Panel)
