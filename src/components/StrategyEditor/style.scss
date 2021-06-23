@@ -153,19 +153,6 @@
   width: calc(100% - 182px); // width of hfui-strategyeditor__func-select + margin-right
 }
 
-.hfui-strategyeditor__results-outer {
-  display: flex;
-  flex-direction: row;
-  height: 42%;
-}
-
-.hfui-strategyeditor__header-label {
-  border: none !important;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-}
-
 .hfui-strategyeditor__panel {
   .notch-icon {
     font-size: 18px;
