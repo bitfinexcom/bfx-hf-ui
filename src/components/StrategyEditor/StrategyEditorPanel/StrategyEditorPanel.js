@@ -1,29 +1,21 @@
 import React, { memo } from 'react'
+import { Icon } from 'react-fa'
 import PropTypes from 'prop-types'
 import _isEmpty from 'lodash/isEmpty'
 
 import Panel from '../../../ui/Panel'
 import Button from '../../../ui/Button'
 
+import '../style.css'
+
 const StrategyEditorPanel = ({
-  dark,
-  strategy,
-  onRemove,
-  moveable,
-  children,
-  strategyId,
-  removeable,
-  execRunning,
-  strategyDirty,
-  onSaveStrategy,
-  onOpenSelectModal,
-  onOpenCreateModal,
-  onOpenRemoveModal,
-  strategies,
+  dark, strategy, onRemove, moveable, children, strategyId, removeable, execRunning, strategyDirty,
+  onSaveStrategy, onOpenSelectModal, onOpenCreateModal, onOpenRemoveModal, strategies,
 }) => {
   const { id = strategyId, label: strategyName } = strategy || {}
   const strategyDisplayName = strategyDirty ? 'Unsaved strategy' : strategyName
   const strategyDisplayLabel = strategyDisplayName ? `- ${strategyDisplayName}` : ''
+
   return (
     <Panel
       label={`Strategy Editor ${strategyDisplayLabel}`}
@@ -34,7 +26,9 @@ const StrategyEditorPanel = ({
       moveable={moveable}
       removeable={removeable}
       extraIcons={[
-        execRunning && (<i key='running' className='fas fa-circle-notch' />),
+        execRunning && (
+          <Icon key='running' name='circle-o-notch' className='notch-icon' spin />
+        ),
       ]}
       headerComponents={(
         <div className='hfui-strategyeditor__header'>
@@ -48,7 +42,6 @@ const StrategyEditorPanel = ({
                 <p key='text'>Open</p>,
               ]}
             />
-
             <Button
               green
               className='hfui-create-strategy__btn'
@@ -58,7 +51,6 @@ const StrategyEditorPanel = ({
                 <p key='text'>New Strategy</p>,
               ]}
             />
-
             {!_isEmpty(strategy) && (
               <Button
                 onClick={onSaveStrategy}
@@ -69,7 +61,6 @@ const StrategyEditorPanel = ({
                 ]}
               />
             )}
-
             {!_isEmpty(strategy) && (
               <Button
                 className='hfui-remove-strategy__btn'
