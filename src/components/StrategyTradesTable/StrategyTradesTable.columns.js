@@ -1,5 +1,6 @@
 import React from 'react'
 import { preparePrice, prepareAmount } from 'bfx-api-node-util'
+import { processBalance } from '../../util/ui'
 
 export default [{
   label: 'Price',
@@ -10,17 +11,19 @@ export default [{
   label: 'Amount',
   dataKey: 'amount',
   width: 120,
-  cellRenderer: ({ rowData = {} }) => (rowData.amount < 0 // eslint-disable-line
-    ? <span className='hfui-red'>{prepareAmount(rowData.amount)}</span>
-    : <span className='hfui-green'>{prepareAmount(rowData.amount)}</span>
+  cellRenderer: ({ rowData = {} }) => ( // eslint-disable-line
+    <span className={rowData.amount < 0 ? 'hfui-red' : 'hfui-green'}>
+      {processBalance(prepareAmount(rowData.amount))}
+    </span>
   ),
 }, {
   label: 'P/L',
   dataKey: 'pl',
   width: 120,
-  cellRenderer: ({ rowData = {} }) => (rowData.pl < 0 // eslint-disable-line
-    ? <span className='hfui-red'>{prepareAmount(rowData.pl)}</span>
-    : <span className='hfui-green'>{prepareAmount(rowData.pl)}</span>
+  cellRenderer: ({ rowData = {} }) => ( // eslint-disable-line
+    <span className={rowData.pl < 0 ? 'hfui-red' : 'hfui-green'}>
+      {processBalance(prepareAmount(rowData.pl))}
+    </span>
   ),
 }, {
   label: 'Label',

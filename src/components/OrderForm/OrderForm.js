@@ -370,7 +370,6 @@ class OrderForm extends React.Component {
             !helpOpen && apiClientConnected && currentLayout && currentLayout.customHelp && (
               <Icon
                 name='question'
-                className='hfui-orderform__question-btn'
                 onClick={this.onToggleHelp}
               />
             )
