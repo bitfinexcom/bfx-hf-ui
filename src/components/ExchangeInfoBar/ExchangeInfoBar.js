@@ -5,6 +5,11 @@ import Panel from '../../ui/Panel'
 import useSize from '../../hooks/useSize'
 
 import './style.css'
+import { MAIN_MODE } from '../../redux/reducers/ui'
+
+const volumeUnitsList = {
+  USD: 'USD',
+}
 
 const ExchangeInfoBar = ({
   onChangeMarket,
@@ -26,8 +31,11 @@ const ExchangeInfoBar = ({
     const arrayWithFavorites = arrayWithPairs.filter(pair => object[pair])
     updateFavorites(authToken, arrayWithFavorites, currentMode)
   }
-  const onChangeMarketHandler = (uiID) => {
-    const newMarket = markets.find(market => market.uiID === uiID)
+  const onChangeMarketHandler = ({ rowData: { id } }) => {
+    const newMarket = markets.find(market => market.uiID === id)
+    if (!newMarket) {
+      return
+    }
     onChangeMarket(newMarket, activeMarket)
   }
 
@@ -38,6 +46,7 @@ const ExchangeInfoBar = ({
     lastPrice,
     change,
     changePerc,
+    volumeConverted,
   } = activeMarketTicker
   const { base, quote } = activeMarket
 
@@ -60,11 +69,12 @@ const ExchangeInfoBar = ({
               lastPrice,
               change,
               changePerc,
-              volume,
+              volume: volumeConverted || volume,
               low,
               high,
             }}
             className='hfui-exchangeinfobar__ticker'
+            volumeUnit={volumeConverted ? 'USD' : base}
           />
         </div>
         <div
@@ -79,6 +89,10 @@ const ExchangeInfoBar = ({
             setShowOnlyFavs={setShowingFavorites}
             onRowClick={onChangeMarketHandler}
             className='hfui-exchangeinfobar__tickerlist'
+            volumeUnit='USD'
+            volumeUnitList={volumeUnitsList}
+            // showing volume in USD only in main mode
+            showVolumeUnit={currentMode === MAIN_MODE}
           />
         </div>
       </div>
@@ -99,6 +113,7 @@ ExchangeInfoBar.propTypes = {
     lastPrice: PropTypes.number,
     change: PropTypes.number,
     changePerc: PropTypes.number,
+    volumeConverted: PropTypes.number,
   }).isRequired,
   markets: PropTypes.arrayOf(PropTypes.object),
   allTickersArray: PropTypes.arrayOf(PropTypes.object).isRequired,

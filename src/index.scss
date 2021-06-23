@@ -256,6 +256,33 @@ a:visited {
   text-align: center;
 }
 
+// OrderHistory & Atomic Orders table marker icon
+.row-marker {
+  background: transparent;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+
+  &.stick {
+    width: 2px;
+    height: 12px;
+    border-radius: 0;
+    margin-left: 5px;
+  }
+
+  &.stick2 {
+    margin-left: 0;
+  }
+
+  &.green {
+    background-color: $green-color;
+  }
+
+  &.red {
+    background-color: $red-color;
+  }
+}
+
 [class*="icon-"]:before {
   font-weight: 600 !important;
 }
