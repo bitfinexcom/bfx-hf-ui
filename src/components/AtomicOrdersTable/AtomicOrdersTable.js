@@ -3,25 +3,30 @@ import PropTypes from 'prop-types'
 import _isEmpty from 'lodash/isEmpty'
 import { VirtualTable } from '@ufx-ui/core'
 
+import useSize from '../../hooks/useSize'
 import AtomicOrdersTableColumns from './AtomicOrdersTable.columns'
 import './style.css'
 
 const AtomicOrdersTable = ({
   filteredAtomicOrders: orders, cancelOrder, authToken, gaCancelOrder,
-}) => (
-  <div className='hfui-orderstable__wrapper'>
-    {_isEmpty(orders) ? (
-      <p className='empty'>No active atomic orders</p>
-    ) : (
-      <VirtualTable
-        data={orders}
-        columns={AtomicOrdersTableColumns(authToken, cancelOrder, gaCancelOrder)}
-        defaultSortBy='id'
-        defaultSortDirection='ASC'
-      />
-    )}
-  </div>
-)
+}) => {
+  const [ref, size] = useSize()
+
+  return (
+    <div ref={ref} className='hfui-orderstable__wrapper'>
+      {_isEmpty(orders) ? (
+        <p className='empty'>No active atomic orders</p>
+      ) : (
+        <VirtualTable
+          data={orders}
+          columns={AtomicOrdersTableColumns(authToken, cancelOrder, gaCancelOrder, size)}
+          defaultSortBy='id'
+          defaultSortDirection='ASC'
+        />
+      )}
+    </div>
+  )
+}
 
 AtomicOrdersTable.propTypes = {
   authToken: PropTypes.string.isRequired,

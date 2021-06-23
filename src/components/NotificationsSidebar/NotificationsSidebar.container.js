@@ -12,8 +12,8 @@ const mapDispatchToProps = dispatch => ({
   closeNotificationPanel: () => {
     dispatch(UIActions.closeNotificationPanel())
   },
-  removeNotification: (uid) => {
-    dispatch(UIActions.removeNotification(uid))
+  removeNotifications: (uids) => {
+    dispatch(UIActions.removeNotifications(uids))
   },
   clearNotifications: () => {
     dispatch(UIActions.clearNotifications())
