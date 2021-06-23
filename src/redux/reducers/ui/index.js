@@ -384,7 +384,6 @@ function reducer(state = getInitialState(), action = {}) {
 
       // happens on deletion before we set the next layout
       if (_isEmpty(layoutDef) || _isEmpty(layoutDef.layout)) {
-        console.log('happened', layoutDef)
         return state
       }
 
