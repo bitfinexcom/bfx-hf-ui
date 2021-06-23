@@ -730,3 +730,23 @@
     cursor: pointer;
   }
 }
+
+.hfui-orderform__ticker-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+
+  & .ticker-section {
+    flex-basis: calc(50% - 8px);
+    display: flex;
+    justify-content: space-between;
+    &:first-child{
+      margin-right: 16px;
+    }
+
+    & .ticker-name{
+      margin-right: 8px;
+    }
+  }
+}

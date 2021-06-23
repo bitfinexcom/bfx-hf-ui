@@ -45,6 +45,13 @@ export default () => ({
     visible: {
       _context: { eq: 'f' },
     },
+  }, {
+    title: '',
+    name: 'ticker',
+    fullWidth: true,
+    rows: [
+      ['ticker'],
+    ],
   }],
 
   fields: {
@@ -63,6 +70,9 @@ export default () => ({
     amount: {
       component: 'input.amount',
       label: 'Amount $BASE',
+    },
+    ticker: {
+      component: 'ui.ticker',
     },
 
     lev: {
