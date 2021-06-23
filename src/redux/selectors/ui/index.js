@@ -18,8 +18,7 @@ import getCurrentMode from './get_current_mode'
 import getGuideStatusForPage from './get_guide_status_for_page'
 import getFilteredBalances from './get_filtered_balances'
 import getStrategyId from './get_strategy_id'
-import getMarketBooks from './get_market_books'
-import getMarketTrades from './get_market_trades'
+import getMarketComponents from './get_market_components'
 import getCurrentUnsavedLayout from './get_current_unsaved_layout'
 
 export {
@@ -42,8 +41,7 @@ export {
   getGuideStatusForPage,
   getFilteredBalances,
   getStrategyId,
-  getMarketBooks,
-  getMarketTrades,
+  getMarketComponents,
   getIsOrderExecuting,
   getCurrentUnsavedLayout,
 }

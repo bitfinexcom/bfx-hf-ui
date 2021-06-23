@@ -46,6 +46,7 @@ export default class Panel extends React.Component {
       preHeaderComponents,
       dropdown,
       forcedTab,
+      innerRef,
     } = this.props
     const tabs = React.Children.toArray(children).filter(c => c && c.props.tabtitle)
     const { selectedTab = forcedTab.length ? this.getForcedTab(forcedTab, tabs) : tabs[0] } = this.state
@@ -56,6 +57,7 @@ export default class Panel extends React.Component {
           'dark-header': darkHeader,
           dark,
         })}
+        ref={innerRef}
       >
         <div
           className={ClassNames('hfui-panel__header', {
@@ -190,6 +192,10 @@ Panel.propTypes = {
   preHeaderComponents: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   forcedTab: PropTypes.string,
   dropdown: PropTypes.node,
+  innerRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.any }),
+  ]),
 }
 
 Panel.defaultProps = {
@@ -216,4 +222,5 @@ Panel.defaultProps = {
   preHeaderComponents: null,
   forcedTab: '',
   dropdown: null,
+  innerRef: null,
 }
