@@ -3,10 +3,9 @@ import _map from 'lodash/map'
 import _get from 'lodash/get'
 import { createSelector } from 'reselect'
 
-import { COMPONENT_TYPES } from '../../../components/GridLayout/GridLayout.helpers'
+import { COMPONENT_TYPES, DEFAULT_MARKET_KEY } from '../../../components/GridLayout/GridLayout.helpers'
 import getCurrUnsavedLayout from './get_current_unsaved_layout'
 import { getLayoutState } from './get_component_state'
-import { DEFAULT_MARKET_KEY } from '../../reducers/ui'
 import getDefaultStateForComponentType from './default_state_for_component_type'
 
 const EMPTY_ARR = []
