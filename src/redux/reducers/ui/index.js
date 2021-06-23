@@ -120,6 +120,8 @@ function reducer(state = getInitialState(), action = {}) {
           ...state.layouts,
           [state.layoutID]: {
             ...state.unsavedLayout,
+            isDefault: false,
+            canDelete: true,
             savedAt: Date.now(),
           },
         },
@@ -381,7 +383,8 @@ function reducer(state = getInitialState(), action = {}) {
       const layoutDef = getActiveLayoutDef(state)
 
       // happens on deletion before we set the next layout
-      if (_isEmpty(layoutDef)) {
+      if (_isEmpty(layoutDef) || _isEmpty(layoutDef.layout)) {
+        console.log('happened', layoutDef)
         return state
       }
 
