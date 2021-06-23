@@ -3,6 +3,7 @@ import { Icon } from 'react-fa'
 import _isEqual from 'lodash/isEqual'
 import _isEmpty from 'lodash/isEmpty'
 import _isString from 'lodash/isString'
+import _map from 'lodash/map'
 import _trim from 'lodash/trim'
 import PropTypes from 'prop-types'
 import {
@@ -21,7 +22,6 @@ import {
 import timeFrames from '../../util/time_frames'
 
 import Panel from '../../ui/Panel'
-import Dropdown from '../../ui/Dropdown'
 
 import UnconfiguredModal from './Modals/UnconfiguredModal'
 import SubmitAPIKeysModal from './Modals/SubmitAPIKeysModal'
@@ -32,7 +32,7 @@ import './style.css'
 const CONTEXT_LABELS = {
   e: 'Exchange',
   m: 'Margin',
-  f: 'Futures',
+  f: 'Derivatives',
 }
 
 class OrderForm extends React.Component {
@@ -393,16 +393,12 @@ class OrderForm extends React.Component {
               </div>,
 
               <ul className='hfui-orderform__header' key='of-header'>
-                <li key='item'>
-                  <Dropdown
-                    value={context}
-                    key='dropdown-orderform'
-                    onChange={this.onContextChange}
-                    options={currentMarket.contexts.map(ctx => ({
-                      label: CONTEXT_LABELS[ctx],
-                      value: ctx,
-                    }))}
-                  />
+                <li key='item' className='hfui-orderform__centered-item'>
+                  {_map(currentMarket.contexts, value => (
+                    <div key={value} onClick={() => this.onContextChange(value)} className={`hfui__orderform-tab ${value === context ? 'active' : ''}`}>
+                      <p>{CONTEXT_LABELS[value]}</p>
+                    </div>
+                  ))}
                 </li>
               </ul>,
 

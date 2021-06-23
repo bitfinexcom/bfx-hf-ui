@@ -1,96 +1,97 @@
 @import "../../variables.scss";
 
-@media only screen and (min-width: 1170px) {
-  .hfui-exchangeinfobar__wrapper {
-    justify-content: space-between;
-  }
-}
-
 .hfui-exchangeinfobar__wrapper {
-  display: flex;
-  background: $background-color;
-  align-items: center;
-  flex-wrap: wrap;
-  flex-direction: column;
-  margin-bottom: 20px;
-
-  ul {
-    display: flex;
-    flex-direction: row;
-    flex: 1;
-    height: 100%;
-    align-items: center;
-  }
-
-  li {
-    min-width: fit-content;
-
-    &:first-child {
-      margin-right: spacing();
-    }
-  }
-}
-
-.hfui-exchangeinfobar__ticker {
-  width: 100%;
-  background-color: $darker-background-color;
-  padding: 10px;
-}
-
-.hfui-exchangeinfobar__tickerlist {
-  width: 100%;
-  background-color: $darker-background-color;
-  padding: 10px;
-
-  .input-field-container {
-    border: 1px solid #243d50 !important;
-
-    input::placeholder {
-      color: #e2e5e7 !important;
-      opacity: .6 !important;
-    }
-  }
-}
-
-.hfui-exchangeinfobar__left {
-  display: flex;
-  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 100%;
-  align-items: center;
   width: 100%;
-}
 
-.hfui-exchangeinfobar__buttons {
-  display: flex;
-  margin-right: spacing();
-}
-
-.hfui-exchangeinfobar__button {
-  cursor: pointer;
-  border-radius: 6px;
-  width: 34px;
-  height: 34px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: background-color 0.2s;
-  background-color: transparent;
-  opacity: 1 !important;
-
-  i,
-  i:before {
-    display: block;
-    font-size: 16px;
+  .hfui-exchangeinfobar__ticker-wrapper {
+    
   }
 
-  &:hover,
-  &:focus {
-    background: $light-color-50 !important;
-    color: $light-color-900;
+  .hfui-exchangeinfobar__ticker {
+    width: 100%;
+    padding-bottom: spacing();
+
+    .highlight {
+      font-size: 18px;
+      line-height: 18px;
+      font-weight: 700;
+      color: $light-color-900;
+    }
+
+    .info {
+      .quote-ccy {
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 18px;
+        margin-left: 4px;
+        color: $light-color-400;
+      }
+    }
+
+    .price-change.ufx-green-text {
+      color: $primary-color-900;
+    }
+
+    .label {
+      font-size: 12px;
+      font-weight: 500;
+      color: $light-color-400;
+    }
+
+    .value {
+      color: $light-color-800;
+    }
+  }
+  
+  .hfui-exchangeinfobar__tickerlist-wrapper {
+    position: relative;
   }
 
-  &:active {
-    background: rgba(0, 0, 0, 0.2) !important;
+  .hfui-exchangeinfobar__tickerlist {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    th {
+      font-weight: 600;
+    }
+
+    .fav-col .ufx-button {
+      padding: spacing(.25);
+      min-width: auto;
+      min-height: auto;
+
+      svg {
+        width: 12px;
+        height: 12px;
+      }
+    }
+
+    .input-field-container {
+      border: $light-color-400 !important;
+
+      input {
+        font-weight: 500;
+      }
+  
+      input::placeholder {
+        color: $light-color-400;
+      }
+    }
+
+    .ufx-table-wrapper {
+      height: auto;
+      max-height: none;
+      flex-grow: 1;
+    }
   }
 }
 

@@ -134,6 +134,40 @@
   }
 }
 
+.hfui__orderform-tab {
+  display: flex;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 32px;
+  padding: 0 spacing(0.5);
+  color: $text-color;
+  height: 32px;
+  cursor: pointer;
+  transition: all .2s;
+  margin-right: 10px;
+  opacity: 0.75;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:hover {
+    opacity: 1;
+    border-bottom: 1px solid $text-color;
+  }
+
+  &.active {
+    opacity: 1;
+    border-bottom: 1px solid $primary-color-800;
+    color: $primary-color-800;
+  }
+}
+
+.hfui-orderform__centered-item {
+  display: flex;
+  justify-content: center;
+}
+
 .hfui-orderform__label {
   width: 100%;
   display: block;
