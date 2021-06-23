@@ -23,10 +23,12 @@ export const tickerDataMapping = {
 
 export const rowMapping = {
   [TICKERLIST_KEYS.BASE_CCY]: {
-    renderer: ({
-      baseCcy, quoteCcy, data,
-    }) => {
-      const { isPerp, perpUI } = data
+    renderer: (
+      { rowData },
+    ) => {
+      const {
+        baseCcy, quoteCcy, isPerp, perpUI,
+      } = rowData
 
       return (
         <>
