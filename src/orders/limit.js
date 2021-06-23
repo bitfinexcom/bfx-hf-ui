@@ -53,6 +53,13 @@ export default () => ({
     ],
   }, {
     title: '',
+    name: 'ticker',
+    fullWidth: true,
+    rows: [
+      ['ticker'],
+    ],
+  }, {
+    title: '',
     name: 'tif',
     fullWidth: true,
     rows: [
@@ -145,6 +152,10 @@ export default () => ({
       min: 1,
       max: 100,
       default: 10,
+    },
+
+    ticker: {
+      component: 'ui.ticker',
     },
   },
 

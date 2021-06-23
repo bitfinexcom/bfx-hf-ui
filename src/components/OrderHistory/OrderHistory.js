@@ -6,6 +6,7 @@ import {
   OrderHistory as UfxOrderHistory, ORDER_HISTORY_KEYS, PrettyValue, FullDate,
 } from '@ufx-ui/core'
 import Panel from '../../ui/Panel'
+import useSize from '../../hooks/useSize'
 import { symbolToLabel, getPriceFromStatus, getFormatedStatus } from './OrderHistory.helpers'
 import './style.css'
 
@@ -96,24 +97,29 @@ export const ROW_MAPPING = {
 
 const OrderHistory = ({
   onRemove, dark, orders,
-}) => (
-  <Panel
-    label='Order History'
-    onRemove={onRemove}
-    dark={dark}
-    darkHeader={dark}
-  >
-    {_isEmpty(orders) ? (
-      <p className='empty'>Order history is empty</p>
-    ) : (
-      <UfxOrderHistory
-        orders={orders}
-        rowMapping={ROW_MAPPING}
-        isMobileLayout={false}
-      />
-    )}
-  </Panel>
-)
+}) => {
+  const [ref, { width }] = useSize()
+
+  return (
+    <Panel
+      label='Order History'
+      onRemove={onRemove}
+      dark={dark}
+      darkHeader={dark}
+      innerRef={ref}
+    >
+      {_isEmpty(orders) ? (
+        <p className='empty'>Order history is empty</p>
+      ) : (
+        <UfxOrderHistory
+          orders={orders}
+          rowMapping={ROW_MAPPING}
+          isMobileLayout={width < 700}
+        />
+      )}
+    </Panel>
+  )
+}
 
 OrderHistory.propTypes = {
   orders: PropTypes.arrayOf(PropTypes.object),
@@ -122,7 +128,7 @@ OrderHistory.propTypes = {
 }
 
 OrderHistory.defaultProps = {
-  onRemove: () => {},
+  onRemove: () => { },
   dark: true,
   orders: [],
 }

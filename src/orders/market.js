@@ -41,6 +41,13 @@ export default () => ({
     visible: {
       _context: { eq: 'f' },
     },
+  }, {
+    title: '',
+    name: 'ticker',
+    fullWidth: true,
+    rows: [
+      ['ticker'],
+    ],
   }],
 
   fields: {
@@ -69,6 +76,10 @@ export default () => ({
       min: 1,
       max: 100,
       default: 10,
+    },
+
+    ticker: {
+      component: 'ui.ticker',
     },
   },
 
