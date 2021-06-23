@@ -16,4 +16,15 @@ const setCCYFullNames = names => ({
   payload: { names },
 })
 
-export default { changeSubscriptions, setCCYFullNames, getCCYFullNames }
+const getPerpsNames = () => ({
+  type: types.GET_PERPS_NAMES,
+})
+
+const setPerpsNames = names => ({
+  type: types.SET_PERPS_NAMES,
+  payload: { names },
+})
+
+export default {
+  changeSubscriptions, setCCYFullNames, getCCYFullNames, getPerpsNames, setPerpsNames,
+}

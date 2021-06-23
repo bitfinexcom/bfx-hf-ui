@@ -1,5 +1,6 @@
 import _map from 'lodash/map'
 import _filter from 'lodash/filter'
+import _find from 'lodash/find'
 import types from '../../constants/ws'
 import marketTypes from '../../constants/market'
 
@@ -20,14 +21,16 @@ export default (state = getInitialState(), action = {}) => {
     case marketTypes.SET_CCY_FULL_NAMES: {
       const { names: [namesArr] } = payload
       const newState = _map(state, (market) => {
-        const { quote, base } = market
-        const defaultArray = [quote, base]
+        const {
+          quote, base, uiID,
+        } = market
+        const defaultArray = [quote, base, uiID]
         const fullNamesArray = _filter(namesArr, (pair) => {
           const [shortName] = pair
           return shortName === quote || shortName === base
         }, defaultArray)
 
-        let labels
+        let labels = []
         if (fullNamesArray.length === 0) {
           labels = [...defaultArray]
         }
@@ -39,6 +42,7 @@ export default (state = getInitialState(), action = {}) => {
           const [firstPair, secondPair] = fullNamesArray
           labels = [...firstPair, ...secondPair]
         }
+
         // eslint-disable-next-line no-param-reassign
         const newMarketObject = {
           ...market,
@@ -47,6 +51,23 @@ export default (state = getInitialState(), action = {}) => {
 
         return newMarketObject
       })
+      return newState
+    }
+    case marketTypes.SET_PERPS_NAMES: {
+      const { names: [namesArr] } = payload
+      const newState = _map(state, (market) => {
+        const perpPair = _find(namesArr, (pair) => {
+          const [wsID] = pair
+          const combinedPair = `${market.base}:${market.quote}`
+          return combinedPair === wsID
+        }, null)
+        if (!perpPair) {
+          return { ...market, isPerp: false }
+        }
+        const [, perpID] = perpPair
+
+        return { ...market, uiID: perpID, isPerp: true }
+      }, state)
       return newState
     }
 

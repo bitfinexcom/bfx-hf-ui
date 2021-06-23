@@ -16,7 +16,7 @@ const currentMode = state => getCurrentMode(state)
 const getTickersArray = createSelector([tickersSelector, getMarkets], (tickers, markets) => {
   const fullTickersData = _reduce(markets, (acc, market) => {
     const {
-      wsID, base, quote, uiID, ccyLabels,
+      wsID, base, quote, uiID, ccyLabels, isPerp,
     } = market
     const newTickerObject = {
       id: uiID,
@@ -27,6 +27,8 @@ const getTickersArray = createSelector([tickersSelector, getMarkets], (tickers, 
       volume: _get(tickers, `${wsID}.volume`, 0),
       ccyLabels,
       wsID,
+      isPerp,
+      perpUI: isPerp ? uiID : null,
     }
     acc.push(newTickerObject)
     return acc

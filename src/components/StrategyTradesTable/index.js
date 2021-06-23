@@ -1,11 +1,10 @@
 import React, { memo } from 'react'
+import { VirtualTable } from '@ufx-ui/core'
 import _isEmpty from 'lodash/isEmpty'
 import PropTypes from 'prop-types'
 
-import StrategyTradesTableColumns from './StrategyTradesTable.columns'
-
 import Panel from '../../ui/Panel'
-import Table from '../../ui/Table'
+import StrategyTradesTableColumns from './StrategyTradesTable.columns'
 import './style.css'
 
 const StrategyTradesTable = ({
@@ -27,7 +26,7 @@ const StrategyTradesTable = ({
           </span>
         </div>
       ) : (
-        <Table
+        <VirtualTable
           data={trades}
           columns={StrategyTradesTableColumns}
           defaultSortBy='mts'
