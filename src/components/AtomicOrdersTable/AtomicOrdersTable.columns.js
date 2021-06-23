@@ -1,11 +1,11 @@
 import React from 'react'
 
-export default (authToken, cancelOrder, gaCancelOrder) => [{
+export default (authToken, cancelOrder, gaCancelOrder, { width }) => [{
   label: '',
   dataKey: '',
   width: 15,
   cellRenderer: ({ rowData = {} }) => ( // eslint-disable-line
-    <div className={`row-marker ${rowData.amount < 0 ? 'red' : 'green'}`} />
+    <div className={`row-marker ${rowData.amount < 0 ? 'red' : 'green'} ${width < 700 ? 'stick' : ''} ${width < 450 ? 'stick2' : ''}`} />
   ),
   disableSort: true,
 }, {
