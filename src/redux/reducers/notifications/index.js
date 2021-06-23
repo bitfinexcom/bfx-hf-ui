@@ -1,4 +1,5 @@
 import _filter from 'lodash/filter'
+import _includes from 'lodash/includes'
 
 import WSTypes from '../../constants/ws'
 import UITypes from '../../constants/ui'
@@ -24,6 +25,11 @@ function reducer(state = getInitialState(), action = {}) {
     case UITypes.REMOVE_NOTIFICATION: {
       const { uid } = payload
       return _filter(state, n => n.uid !== uid)
+    }
+
+    case UITypes.REMOVE_NOTIFICATIONS: {
+      const { uids } = payload
+      return _filter(state, n => !_includes(uids, n.uid))
     }
 
     case UITypes.CLEAR_NOTIFICATIONS: {

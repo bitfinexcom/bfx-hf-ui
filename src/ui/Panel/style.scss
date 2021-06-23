@@ -1,4 +1,4 @@
-@import '../../variables.scss';
+@import "../../variables.scss";
 
 .hfui-panel {
   display: flex;
@@ -11,7 +11,7 @@
   border-radius: $border-radius;
 
   &.monokai {
-    background: rgb(39, 40, 34)
+    background: rgb(39, 40, 34);
   }
 
   &.dark {
@@ -26,6 +26,10 @@
   &.dark-header .hfui-panel__header {
     background: $panel-background-color;
   }
+  &__left-container {
+    display: flex;
+    align-items: flex-end;
+  }
 }
 
 .hfui-panel__secondaryheader__wrapper,
@@ -34,8 +38,8 @@
     .dropdown-field {
       background: none !important;
       border: none !important;
-      transition: all .2s;
-  
+      transition: all 0.2s;
+
       &:hover {
         color: $light-color-900;
       }
@@ -47,7 +51,7 @@
   display: flex;
   justify-content: center;
   flex-direction: row;
-  margin: 0 0 spacing(.75) 0;
+  margin: 0 0 spacing(0.75) 0;
   padding: 0 spacing(1);
 
   &.reverse {
@@ -75,7 +79,7 @@
   flex-direction: row;
   background: $background-color;
   justify-content: space-between;
-  padding: spacing(.5) spacing(.5) spacing(.5) spacing(1);
+  padding: spacing(0.5) spacing(0.5) spacing(0.5) spacing(1);
 
   &.has-secondary-header {
     border-bottom: none;
@@ -112,10 +116,10 @@
     padding: 0 12px;
     cursor: pointer;
     border-radius: $border-radius;
-    transition: all .2s;
+    transition: all 0.2s;
 
     .hfui-panel__label {
-      transition: all .2s;
+      transition: all 0.2s;
       color: $light-color-500;
 
       &:hover {
@@ -125,7 +129,7 @@
 
     &.active {
       background: $primary-color-50;
-      
+
       .hfui-panel__label {
         color: $primary-color-800;
       }
@@ -155,7 +159,6 @@
   display: flex;
   flex-direction: row;
   flex-shrink: 0;
-  flex-grow: 1;
   justify-content: center;
   flex-direction: column;
   align-items: flex-end;
@@ -211,7 +214,7 @@
     height: 32px;
     font-size: 20px;
     color: $light-color-500;
-    transition: all .2s;
+    transition: all 0.2s;
     cursor: pointer;
     border-radius: $border-radius;
 
@@ -270,15 +273,16 @@
   justify-self: center;
   align-self: center;
   color: transparentize($white-color, 0.3);
-  transition: all .2s;
+  transition: all 0.2s;
 
-  &:hover, &:focus {
-    background: rgba(255, 255, 255, .1);
+  &:hover,
+  &:focus {
+    background: rgba(255, 255, 255, 0.1);
     color: $white-color;
   }
 
   &:active {
-    background: rgba(0, 0, 0, .1)
+    background: rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -291,7 +295,8 @@
 @keyframes hfui-panel-spinner-rotate {
   0% {
     transform: rotate(0);
-  } 100% {
+  }
+  100% {
     transform: rotate(360deg);
   }
 }

@@ -44,6 +44,8 @@ const DateInput = memo(({
   )
 })
 
+DateInput.displayName = 'DateInput'
+
 DateInput.processValue = v => +v
 
 DateInput.validateValue = v => {

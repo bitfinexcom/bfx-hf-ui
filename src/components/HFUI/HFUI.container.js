@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import { reduxActions } from '@ufx-ui/bfx-containers'
 
 import WSActions from '../../redux/actions/ws'
 import GAActions from '../../redux/actions/google_analytics'
@@ -33,6 +34,9 @@ const mapDispatchToProps = dispatch => ({
   },
   onUnload: (authToken, mode) => {
     dispatch(WSActions.onUnload(authToken, mode))
+  },
+  subscribeAllTickers: () => {
+    dispatch(reduxActions.fetchAllTickersPeriodically())
   },
 })
 

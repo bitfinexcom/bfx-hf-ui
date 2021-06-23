@@ -1,5 +1,7 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
+import _map from 'lodash/map'
+import _get from 'lodash/get'
 import { Responsive as RGL, WidthProvider } from 'react-grid-layout'
 
 import { renderLayoutElement } from './GridLayout.helpers'
@@ -20,6 +22,7 @@ const GridLayout = ({
     dark: darkPanels,
     sharedProps,
   }
+  const layouts = _get(layoutDef, 'layout', [])
 
   return (
     <GridLayoutP
@@ -30,13 +33,13 @@ const GridLayout = ({
       }}
       rowHeight={32}
       margin={[20, 20]}
-      layouts={{ lg: layoutDef.layout }}
+      layouts={{ lg: layouts }}
       breakpoints={{
         lg: 1000, md: 996, sm: 768, xs: 480, xxs: 0,
       }}
       onLayoutChange={onLayoutChange}
     >
-      {layoutDef.layout.map(def => (
+      {_map(layouts, def => (
         <div key={def.i}>
           {renderLayoutElement(layoutID, def, componentProps, onRemoveComponent)}
         </div>
@@ -54,7 +57,13 @@ GridLayout.propTypes = {
   }).isRequired,
   chartProps: PropTypes.shape({
     disableToolbar: PropTypes.bool,
-    activeMarket: PropTypes.object,
+    activeMarket: PropTypes.objectOf(
+      PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.array,
+        PropTypes.number,
+      ]),
+    ),
   }),
   bookProps: PropTypes.shape({
     canChangeStacked: PropTypes.bool,
@@ -64,7 +73,13 @@ GridLayout.propTypes = {
     orders: PropTypes.arrayOf(PropTypes.object),
   }),
   ordersProps: PropTypes.shape({
-    market: PropTypes.object,
+    market: PropTypes.objectOf(
+      PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.array,
+        PropTypes.number,
+      ]),
+    ),
   }),
   onRemoveComponent: PropTypes.func.isRequired,
   layoutID: PropTypes.string.isRequired,

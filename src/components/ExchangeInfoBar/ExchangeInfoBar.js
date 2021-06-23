@@ -1,9 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Ticker, TickerList } from '@ufx-ui/core'
 import Panel from '../../ui/Panel'
+import useSize from '../../hooks/useSize'
 
 import './style.css'
+import { MAIN_MODE } from '../../redux/reducers/ui'
+
+const volumeUnitsList = {
+  USD: 'USD',
+}
 
 const ExchangeInfoBar = ({
   onChangeMarket,
@@ -12,25 +18,24 @@ const ExchangeInfoBar = ({
   markets,
   allTickersArray,
   favoritePairs,
-  subscribeAllMarkets,
   updateFavorites,
   authToken,
   currentMode,
   onRemove,
 }) => {
   const [showFavorites, setShowingFavorites] = useState(false)
-
-  useEffect(() => {
-    subscribeAllMarkets(markets)
-  }, [])
+  const [tickerRef, size] = useSize()
 
   const _updateFavorites = (object) => {
     const arrayWithPairs = Object.keys(object)
     const arrayWithFavorites = arrayWithPairs.filter(pair => object[pair])
     updateFavorites(authToken, arrayWithFavorites, currentMode)
   }
-  const onChangeMarketHandler = (uiID) => {
-    const newMarket = markets.find(market => market.uiID === uiID)
+  const onChangeMarketHandler = ({ rowData: { id } }) => {
+    const newMarket = markets.find(market => market.uiID === id)
+    if (!newMarket) {
+      return
+    }
     onChangeMarket(newMarket, activeMarket)
   }
 
@@ -39,8 +44,9 @@ const ExchangeInfoBar = ({
     high,
     volume,
     lastPrice,
-    dailyChange,
-    dailyChangePerc,
+    change,
+    changePerc,
+    volumeConverted,
   } = activeMarketTicker
   const { base, quote } = activeMarket
 
@@ -55,20 +61,26 @@ const ExchangeInfoBar = ({
       removeable
     >
       <div className='hfui-exchangeinfobar__wrapper'>
-        <div className='hfui-exchangeinfobar__left'>
+        <div ref={tickerRef} className='hfui-exchangeinfobar__ticker-wrapper'>
           <Ticker
             data={{
               baseCcy: base,
               quoteCcy: quote,
               lastPrice,
-              change: dailyChange,
-              changePerc: dailyChangePerc,
-              volume,
+              change,
+              changePerc,
+              volume: volumeConverted || volume,
               low,
               high,
             }}
             className='hfui-exchangeinfobar__ticker'
+            volumeUnit={volumeConverted ? 'USD' : base}
           />
+        </div>
+        <div
+          className='hfui-exchangeinfobar__tickerlist-wrapper'
+          style={size.height ? { height: `calc(100% - ${size.height}px)` } : undefined}
+        >
           <TickerList
             data={allTickersArray}
             favs={favoritePairs}
@@ -77,6 +89,10 @@ const ExchangeInfoBar = ({
             setShowOnlyFavs={setShowingFavorites}
             onRowClick={onChangeMarketHandler}
             className='hfui-exchangeinfobar__tickerlist'
+            volumeUnit='USD'
+            volumeUnitList={volumeUnitsList}
+            // showing volume in USD only in main mode
+            showVolumeUnit={currentMode === MAIN_MODE}
           />
         </div>
       </div>
@@ -95,11 +111,11 @@ ExchangeInfoBar.propTypes = {
     high: PropTypes.number,
     volume: PropTypes.number,
     lastPrice: PropTypes.number,
-    dailyChange: PropTypes.number,
-    dailyChangePerc: PropTypes.number,
+    change: PropTypes.number,
+    changePerc: PropTypes.number,
+    volumeConverted: PropTypes.number,
   }).isRequired,
   markets: PropTypes.arrayOf(PropTypes.object),
-  subscribeAllMarkets: PropTypes.func.isRequired,
   allTickersArray: PropTypes.arrayOf(PropTypes.object).isRequired,
   favoritePairs: PropTypes.objectOf(PropTypes.bool).isRequired,
   updateFavorites: PropTypes.func.isRequired,

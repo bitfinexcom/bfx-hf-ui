@@ -1,12 +1,10 @@
-import React, { memo, useCallback, useRef } from 'react'
+import React, { memo, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import Joyride, { STATUS } from 'react-joyride'
 
 import Layout from '../../components/Layout'
-import ExchangeInfoBarButton from '../../components/ExchangeInfoBar/ExchangeInfoBar.Button'
 import GridLayoutPage from '../../components/GridLayoutPage'
 import ActiveAlgoOrdersModal from '../../components/ActiveAlgoOrdersModal'
-import SwitchMode from '../../components/SwitchMode'
 import RefillBalanceModal from '../../components/RefillBalanceModal'
 
 import './style.css'
@@ -41,7 +39,7 @@ const commonComponentProps = {
   dark: true,
   moveable: true,
   removeable: true,
-  showMarket: false,
+  showMarket: true,
   layoutID: LAYOUT_ID,
   showChartMarket: false,
   canChangeMarket: false,
@@ -54,10 +52,7 @@ const Trading = ({
   apiClientConnected,
   hasActiveAlgoOrders,
   finishGuide,
-  openNotifications,
 }) => {
-  const grid = useRef()
-
   const onGuideFinish = useCallback((data) => {
     const { status } = data
     const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED]
@@ -88,22 +83,13 @@ const Trading = ({
         )}
 
         <div className='hfui-tradingpage__column center'>
-          <div className='hfui-tradingpage__menu'>
-            <div className='hfui-exchangeinfobar__buttons'>
-              <ExchangeInfoBarButton icon='save' onClick={() => grid.current.onSaveLayout()} />
-              <ExchangeInfoBarButton icon='plus' onClick={() => grid.current.onToggleAddComponentModal()} />
-              <ExchangeInfoBarButton icon='notifications' onClick={openNotifications} />
-            </div>
-            <div className='hfui-tradingpaper__control'>
-              <div className='hfui-tradingpaper__control-toggle'>
-                <p>Paper Trading</p>
-                <SwitchMode />
-              </div>
-            </div>
-          </div>
           <GridLayoutPage
             showToolbar={false}
-            ref={grid}
+            ref={(grid) => {
+              // temporary assignment to window
+              // to be replaced into a redux slice
+              window.grid = grid
+            }}
             defaultLayoutID='Default Trading'
             sharedProps={commonComponentProps}
           />
@@ -124,7 +110,6 @@ Trading.propTypes = {
   apiClientConnected: PropTypes.bool,
   hasActiveAlgoOrders: PropTypes.bool,
   finishGuide: PropTypes.func.isRequired,
-  openNotifications: PropTypes.func.isRequired,
 }
 
 Trading.defaultProps = {

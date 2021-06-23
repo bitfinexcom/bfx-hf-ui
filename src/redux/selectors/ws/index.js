@@ -10,15 +10,14 @@ import getSyncRanges from './get_sync_ranges'
 import isSyncingCandles from './is_syncing_candles'
 import getSocket from './get_socket'
 import getSockets from './get_sockets'
-import getTicker from './get_ticker'
-import getTickers from './get_tickers'
-import getTickersArray from './get_tickers_array'
 import getAuthToken from './get_auth_token'
 import getAuthConfigured from './get_auth_configured'
 import getStrategies from './get_strategies'
-import getPositions from './get_positions'
 import getAllPositions from './get_all_positions'
+import getFilteredPositions from './get_filtered_positions'
+import getPositionsCount from './get_filtered_positions_count'
 import getAllBalances from './get_all_balances'
+import getFilteredBalances from './get_filtered_balances'
 import getBalances from './get_balances'
 import getAllOrders from './get_all_orders'
 import getAlgoOrders from './get_algo_orders'
@@ -48,9 +47,6 @@ export {
   getChannelRequirements,
   getAllChannelRequirements,
 
-  getTicker,
-  getTickers,
-  getTickersArray,
   getSyncRanges,
   isSyncingCandles,
   getStrategies,
@@ -65,8 +61,10 @@ export {
   apiClientDisconnected,
 
   getAllPositions,
-  getPositions,
+  getFilteredPositions,
+  getPositionsCount,
   getAllBalances,
+  getFilteredBalances,
   getBalances,
   getAllOrders,
   getAlgoOrders,

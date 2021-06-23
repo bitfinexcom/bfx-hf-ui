@@ -49,7 +49,6 @@ export default (alias, store) => (e = {}) => {
 
       case 'info.markets': {
         const [,, markets] = payload
-        console.log('match')
         store.dispatch(WSActions.recvDataMarkets(markets))
         store.dispatch(marketActions.getCCYFullNames())
         break
