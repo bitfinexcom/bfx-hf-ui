@@ -59,6 +59,11 @@
     display: flex;
     flex-direction: column;
 
+    .ufx-virtual-table--container {
+      width: 100%;
+      top: 40px;
+    }
+
     th {
       font-weight: 600;
     }
