@@ -45,7 +45,7 @@ const ChartPanel = ({
   return (
     <Panel
       dark={dark}
-      label={label || `Chart - ${currentMarket.uiID}`}
+      label={label || 'Chart'}
       darkHeader={dark}
       onRemove={onRemove}
       moveable={moveable}
