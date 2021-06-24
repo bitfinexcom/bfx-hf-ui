@@ -81,7 +81,6 @@ function getInitialState() {
       _values(storedLayouts),
       layout => !_isUndefined(layout.savedAt),
     )
-    console.log('TCL: getInitialState -> isNewFormat', isNewFormat)
 
     // transform old format to new format for compatibility
     const nextFormatLayouts = isNewFormat ? storedLayouts : _reduce(
