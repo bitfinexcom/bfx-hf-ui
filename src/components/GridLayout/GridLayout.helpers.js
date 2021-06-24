@@ -12,7 +12,7 @@ import BalancesTablePanel from '../BalancesTablePanel'
 import TradingStatePanel from '../TradingStatePanel'
 import ExchangeInfoBar from '../ExchangeInfoBar'
 
-const COMPONENT_TYPES = {
+export const COMPONENT_TYPES = {
   CHART: 'CHART',
   ORDER_BOOK: 'ORDER_BOOK',
   ORDER_FORM: 'ORDER_FORM',
@@ -26,7 +26,7 @@ const COMPONENT_TYPES = {
   EXCHANGE_INFO_BAR: 'EXCHANGE_INFO_BAR',
 }
 
-const COMPONENT_LABELS = {
+export const COMPONENT_LABELS = {
   [COMPONENT_TYPES.CHART]: 'Chart',
   [COMPONENT_TYPES.ORDER_BOOK]: 'Order Book',
   [COMPONENT_TYPES.ORDER_FORM]: 'Order Form',
@@ -37,10 +37,10 @@ const COMPONENT_LABELS = {
   [COMPONENT_TYPES.ATOMIC_ORDERS_TABLE]: 'Atomic Orders Table',
   [COMPONENT_TYPES.ORDER_HISTORY_TABLE]: 'Order History Table',
   [COMPONENT_TYPES.TRADING_STATE_PANEL]: 'Trading State Panel',
-  [COMPONENT_TYPES.EXCHANGE_INFO_BAR]: 'Exchange Info Bar',
+  [COMPONENT_TYPES.EXCHANGE_INFO_BAR]: 'Ticker Panel',
 }
 
-const COMPONENT_DIMENSIONS = {
+export const COMPONENT_DIMENSIONS = {
   [COMPONENT_TYPES.CHART]: {
     w: 33, h: 10, minW: 30, minH: 8,
   },
@@ -75,6 +75,9 @@ const COMPONENT_DIMENSIONS = {
     w: 20, h: 8, minW: 20, minH: 4,
   },
 }
+
+export const DEFAULT_TRADING_KEY = 'Default Trading Layout'
+export const DEFAULT_MARKET_KEY = 'Default Market Data Layout'
 
 const componentForType = (c) => {
   switch (c) {
@@ -116,7 +119,7 @@ const componentForType = (c) => {
   }
 }
 
-const renderLayoutElement = (layoutID, def = {}, componentProps = {}, onRemoveComponent) => {
+export const renderLayoutElement = (layoutID, def = {}, componentProps = {}, onRemoveComponent) => {
   const { i, c, props = {} } = def
   const C = componentForType(c)
   const cProps = {
@@ -150,10 +153,22 @@ const renderLayoutElement = (layoutID, def = {}, componentProps = {}, onRemoveCo
   return <C {...cProps} />
 }
 
-export {
-  COMPONENT_TYPES,
-  COMPONENT_DIMENSIONS,
-  COMPONENT_LABELS,
-  renderLayoutElement,
-  componentForType,
+export const layoutDefToGridLayout = layoutDef => layoutDef.layout.map(l => ({
+  i: l.i,
+  x: l.x,
+  y: l.y,
+  w: l.w,
+  h: l.h,
+}))
+
+export const gridLayoutToLayoutDef = (layoutDef, parentLayoutDef) => {
+  parentLayoutDef.layout.forEach((l) => {
+    const elm = layoutDef.layout.find(lElm => lElm.i === l.i)
+
+    if (elm) {
+      elm.c = l.c
+    }
+  })
+
+  return layoutDef
 }

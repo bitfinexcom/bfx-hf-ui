@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import NavbarButton from '../../components/NavbarButton/NavbarButton'
+import NavbarButton from '../../components/Navbar/Navbar.Link'
 import Input from '../../ui/Input'
 
 const APIKeysSection = ({

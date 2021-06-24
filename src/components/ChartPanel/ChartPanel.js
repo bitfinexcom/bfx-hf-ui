@@ -75,7 +75,7 @@ ChartPanel.propTypes = {
   canChangeMarket: PropTypes.bool,
   showChartMarket: PropTypes.bool,
   layoutI: PropTypes.string.isRequired,
-  layoutID: PropTypes.string.isRequired,
+  layoutID: PropTypes.string,
   savedState: PropTypes.shape({
     currentMarket: PropTypes.shape({
       base: PropTypes.string,
@@ -102,6 +102,7 @@ ChartPanel.defaultProps = {
   saveState: () => { },
   showChartMarket: false,
   canChangeMarket: false,
+  layoutID: '',
 }
 
 export default memo(ChartPanel)

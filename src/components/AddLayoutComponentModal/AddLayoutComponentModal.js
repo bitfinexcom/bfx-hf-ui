@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import _isEmpty from 'lodash/isEmpty'
 import PropTypes from 'prop-types'
 
@@ -8,9 +9,12 @@ import {
   COMPONENT_TYPES, COMPONENT_LABELS,
 } from '../GridLayout/GridLayout.helpers'
 
+import { addComponent } from '../../redux/actions/ui'
+
 import './style.css'
 
-const AddLayoutComponentModal = ({ onSubmit, onClose, isOpen }) => {
+const AddLayoutComponentModal = ({ onClose, isOpen }) => {
+  const dispatch = useDispatch()
   const [error, setError] = useState('')
   const [componentType, setComponentType] = useState(COMPONENT_LABELS.CHART)
 
@@ -20,9 +24,10 @@ const AddLayoutComponentModal = ({ onSubmit, onClose, isOpen }) => {
       return
     }
 
-    onSubmit(componentType)
+    dispatch(addComponent(componentType))
     onClose()
   }
+
   return (
     <Modal
       isOpen={isOpen}
@@ -56,7 +61,6 @@ const AddLayoutComponentModal = ({ onSubmit, onClose, isOpen }) => {
 }
 
 AddLayoutComponentModal.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
 }

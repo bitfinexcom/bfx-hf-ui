@@ -2,7 +2,7 @@ import React, { memo, useState, useEffect } from 'react'
 import ClassNames from 'classnames'
 import PropTypes from 'prop-types'
 
-import NavbarButton from '../NavbarButton'
+import NavbarButton from '../Navbar/Navbar.Link'
 import MANIFEST from '../../../package.json'
 import './style.css'
 

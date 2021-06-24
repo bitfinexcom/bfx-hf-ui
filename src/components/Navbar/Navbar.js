@@ -1,51 +1,29 @@
-import React, { useState } from 'react'
-import { Icon } from 'react-fa'
+import React from 'react'
 import { useDispatch } from 'react-redux'
-import { useLocation } from 'react-router'
 
 import HFIcon from '../../ui/HFIcon'
 import UIActions from '../../redux/actions/ui'
-import NavbarLink from '../NavbarButton'
+import NavbarLink from './Navbar.Link'
 import NavbarButton from './Navbar.Button'
 import SwitchMode from '../SwitchMode'
 
 import LayoutSettings from './Navbar.LayoutSettings'
+import * as Routes from '../../constants/routes'
 
 import './style.css'
 
-const items = [
-  {
-    route: '/',
-    label: 'Trading Terminal',
-  },
-  {
-    route: '/data',
-    label: 'Market Data',
-  },
-  {
-    route: '/strategy-editor',
-    label: 'Strategy Editor',
-  },
-  {
-    route: '/settings',
-    label: [<Icon name='cog' key='cog' />, <p key='label'>Settings</p>],
-  },
-]
-
 const Navbar = () => {
   const dispatch = useDispatch()
-  const location = useLocation()
-  const isTradingPage = location.pathname === '/'
 
   return (
     <div className='hfui-navbar__wrapper'>
       <HFIcon className='hfui-navbar__logo' />
       <ul className='hfui-navbar__main-links'>
-        {items.map(val => (
-          <li key={val.route}>
+        {Object.values(Routes).map(({ path, label }) => (
+          <li key={path}>
             <NavbarLink
-              route={val.route}
-              label={val.label}
+              route={path}
+              label={label}
             />
           </li>
         ))}

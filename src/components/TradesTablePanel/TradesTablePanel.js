@@ -139,7 +139,7 @@ TradesTablePanel.propTypes = {
   allMarketTrades: PropTypes.arrayOf(PropTypes.object),
   onRemove: PropTypes.func.isRequired,
   layoutI: PropTypes.string.isRequired,
-  layoutID: PropTypes.string.isRequired,
+  layoutID: PropTypes.string,
   updateState: PropTypes.func.isRequired,
   markets: PropTypes.arrayOf(PropTypes.object).isRequired,
   activeMarket: PropTypes.shape({
@@ -155,6 +155,7 @@ TradesTablePanel.defaultProps = {
   showMarket: false,
   allMarketTrades: [],
   canChangeMarket: true,
+  layoutID: '',
 }
 
 export default memo(TradesTablePanel)

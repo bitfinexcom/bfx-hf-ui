@@ -207,7 +207,7 @@ OrderBookPanel.propTypes = {
   }),
   markets: PropTypes.array.isRequired,
   canChangeMarket: PropTypes.bool.isRequired,
-  layoutID: PropTypes.string.isRequired,
+  layoutID: PropTypes.string,
   layoutI: PropTypes.string.isRequired,
   updateState: PropTypes.func.isRequired,
   isTradingTerminal: PropTypes.bool,
@@ -228,6 +228,7 @@ OrderBookPanel.defaultProps = {
   savedState: {},
   isTradingTerminal: true,
   allMarketBooks: [],
+  layoutID: '',
 }
 
 export default memo(OrderBookPanel)

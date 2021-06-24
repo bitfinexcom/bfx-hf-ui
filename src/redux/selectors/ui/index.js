@@ -4,6 +4,7 @@ import getComponentState from './get_component_state'
 import getActiveMarket from './get_active_market'
 import getLayouts from './get_layouts'
 import getLayout from './get_layout'
+import getLayoutID from './get_layout_id'
 import getRemoteVersion from './get_remote_version'
 import getAlgoOrdersCount from './get_filtered_algo_orders_count'
 import getAtomicOrdersCount from './get_filtered_atomic_orders_count'
@@ -27,6 +28,7 @@ export {
   getActiveMarket,
   getLayouts,
   getLayout,
+  getLayoutID,
   getAlgoOrdersCount,
   getAtomicOrdersCount,
   getIsTradingModeModalVisible,

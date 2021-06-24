@@ -1,4 +1,10 @@
 import _get from 'lodash/get'
+import _isEqual from 'lodash/isEqual'
+import _isEmpty from 'lodash/isEmpty'
+import _cloneDeep from 'lodash/cloneDeep'
+import _min from 'lodash/min'
+import _max from 'lodash/max'
+import { nonce } from 'bfx-api-node-util'
 
 import types from '../../constants/ui'
 import DEFAULT_TRADING_LAYOUT from './default_layout_trading'
@@ -6,6 +12,14 @@ import DEFAULT_MARKET_DATA_LAYOUT from './default_layout_market_data'
 import DEFAULT_TRADING_COMPONENT_STATE from './default_component_state_trading'
 import DEFAULT_MARKET_DATA_COMPONENT_STATE from './default_component_state_market_data'
 import DEFAULT_ACTIVE_MARKET_STATE from './default_active_market_state'
+
+import {
+  COMPONENT_DIMENSIONS,
+  DEFAULT_TRADING_KEY,
+  DEFAULT_MARKET_KEY,
+  layoutDefToGridLayout,
+  gridLayoutToLayoutDef,
+} from '../../../components/GridLayout/GridLayout.helpers'
 
 const LAYOUTS_KEY = 'HF_UI_LAYOUTS'
 const LAYOUTS_STATE_KEY = 'HF_UI_LAYOUTS_STATE'
@@ -15,7 +29,6 @@ const IS_PAPER_TRADING = 'IS_PAPER_TRADING'
 export const PAPER_MODE = 'paper'
 export const MAIN_MODE = 'main'
 
-const DEFAULT_ROUTE = '/'
 const DEFAULT_MARKET = {
   contexts: ['e', 'm'],
   restID: 'tBTCUSD',
@@ -25,12 +38,12 @@ const DEFAULT_MARKET = {
   uiID: 'BTC/USD',
 }
 
-export const DEFAULT_TRADING_KEY = 'Default Trading'
-export const DEFAULT_MARKET_KEY = 'Default Market Data'
+const getActiveLayoutDef = state => (!_isEmpty(state.unsavedLayout)
+  ? state.unsavedLayout
+  : _get(state, `layouts.${state.layoutID}`, {}))
 
 function getInitialState() {
   const defaultState = {
-    route: DEFAULT_ROUTE,
     activeMarket: DEFAULT_MARKET,
     notificationsVisible: false,
     previousMarket: null,
@@ -43,7 +56,8 @@ function getInitialState() {
     isBadInternetConnection: false,
     isOrderExecuting: false,
     content: {},
-    unsavedLayout: {},
+    unsavedLayout: null,
+    layoutID: null,
   }
 
   if (!localStorage) {
@@ -99,14 +113,17 @@ function reducer(state = getInitialState(), action = {}) {
     }
 
     case types.SAVE_LAYOUT: {
-      const { layout, id } = payload
-
       return {
         ...state,
-
+        layoutIsDirty: false,
         layouts: {
           ...state.layouts,
-          [id]: layout,
+          [state.layoutID]: {
+            ...state.unsavedLayout,
+            isDefault: false,
+            canDelete: true,
+            savedAt: Date.now(),
+          },
         },
       }
     }
@@ -149,19 +166,22 @@ function reducer(state = getInitialState(), action = {}) {
     }
 
     case types.CREATE_LAYOUT: {
-      const { id, tradingEnabled } = payload
+      const { id } = payload
+      const layoutDef = getActiveLayoutDef(state)
 
       return {
         ...state,
-
+        layoutIsDirty: false,
         layouts: {
           ...state.layouts,
           [id]: {
+            ...layoutDef,
+            isDefault: false,
             canDelete: true,
-            type: tradingEnabled ? 'trading' : 'data',
-            layout: [],
+            savedAt: Date.now(),
           },
         },
+        layoutID: id,
       }
     }
 
@@ -245,14 +265,6 @@ function reducer(state = getInitialState(), action = {}) {
       }
     }
 
-    case types.SET_ROUTE: {
-      const { route } = payload
-
-      return {
-        ...state,
-        route,
-      }
-    }
     case types.FIRST_LOGIN: {
       return {
         ...state,
@@ -329,6 +341,80 @@ function reducer(state = getInitialState(), action = {}) {
       return {
         ...state,
         isRefillBalanceModalVisible: isVisible,
+      }
+    }
+    case types.ADD_COMPONENT: {
+      const { component } = payload
+      const layoutDef = getActiveLayoutDef(state)
+
+      return {
+        ...state,
+        unsavedLayout: {
+          ...layoutDef,
+          layout: [
+            ...layoutDef.layout,
+            {
+              i: `${nonce()}`,
+              c: component,
+              x: _min(layoutDef.layout.map(l => l.x)) || 0,
+              y: _max(layoutDef.layout.map(l => l.y)) || 0,
+              ...COMPONENT_DIMENSIONS[component],
+            },
+          ],
+        },
+      }
+    }
+    case types.REMOVE_COMPONENT: {
+      const { i } = payload
+      const newLayoutDef = _cloneDeep(getActiveLayoutDef(state))
+      const index = newLayoutDef.layout.findIndex(l => l.i === i)
+
+      if (index >= 0) {
+        newLayoutDef.layout.splice(index, 1)
+      }
+
+      return {
+        ...state,
+        unsavedLayout: newLayoutDef,
+      }
+    }
+    case types.CHANGE_LAYOUT: {
+      const { incomingLayout } = payload
+      const layoutDef = getActiveLayoutDef(state)
+
+      // happens on deletion before we set the next layout
+      if (_isEmpty(layoutDef) || _isEmpty(layoutDef.layout)) {
+        return state
+      }
+
+      const currentLayout = layoutDefToGridLayout(layoutDef)
+      const newLayout = layoutDefToGridLayout({ layout: incomingLayout })
+      const setIsDirty = !_isEqual(currentLayout, newLayout)
+
+      return {
+        ...state,
+        ...setIsDirty && { layoutIsDirty: true },
+        unsavedLayout: gridLayoutToLayoutDef({
+          ...layoutDef,
+          layout: incomingLayout,
+        }, layoutDef),
+      }
+    }
+    case types.SET_LAYOUT_ID: {
+      const { layoutID } = payload
+
+      return {
+        ...state,
+        layoutID,
+      }
+    }
+    case types.SELECT_LAYOUT: {
+      const { id } = payload
+
+      return {
+        ...state,
+        unsavedLayout: null,
+        layoutID: id,
       }
     }
     default: {

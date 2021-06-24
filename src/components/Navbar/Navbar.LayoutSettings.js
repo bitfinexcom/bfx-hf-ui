@@ -1,154 +1,64 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import cx from 'classnames'
-import _filter from 'lodash/filter'
-import _keys from 'lodash/keys'
+import _entries from 'lodash/entries'
+import _map from 'lodash/map'
+import _get from 'lodash/get'
 
 import OutsideClickHandler from 'react-outside-click-handler'
-import UIActions from '../../redux/actions/ui'
-import { getLayouts, getActiveMarket, getCurrentUnsavedLayout } from '../../redux/selectors/ui'
+import { selectLayout, deleteLayout, saveLayout } from '../../redux/actions/ui'
+import { getLayouts, getLayoutID } from '../../redux/selectors/ui'
+import { getLocation } from '../../redux/selectors/router'
 
 import { ReactComponent as LayoutIcon } from './layout-icon.svg'
 import NavbarButton from './Navbar.Button'
+import * as Routes from '../../constants/routes'
+
+import AddLayoutComponentModal from '../AddLayoutComponentModal'
+import CreateNewLayoutModal from '../CreateNewLayoutModal'
+
+const Item = ({
+  /* eslint-disable react/prop-types */
+  isLayout,
+  isSelected,
+  isDisabled,
+  children,
+  ...props
+}) => (
+  <div
+    className={cx('hfui-navbar__layout-settings__item', {
+      'is-layout': isLayout,
+      'is-selected': isSelected,
+      'is-disabled': isDisabled,
+    })}
+    {...props}
+  >
+    {children}
+  </div>
+)
 
 export default function LayoutSettings() {
+  const dispatch = useDispatch()
   const [isOpen, setIsOpen] = useState(false)
+  const [isCreateNewLayoutModalOpen, setIsCreateNewLayoutModalOpen] = useState(false)
+  const [isAddLayoutComponentModalOpen, setIsAddLayoutComponentModalOpen] = useState(false)
   const layouts = useSelector(getLayouts)
-  // activeMarket: getActiveMarket(state),
-  const currentLayout = useSelector(getCurrentUnsavedLayout)
-  console.log('TCL: LayoutSettings -> currentLayout', currentLayout)
+  const layoutID = useSelector(getLayoutID)
+  const layoutIsDirty = useSelector(state => state.ui.layoutIsDirty)
+  const layout = _get(layouts, layoutID, {})
+  const { pathname } = useSelector(getLocation)
 
-  const layoutId = 'Default Market Data'
+  if (![
+    Routes.tradingTerminal.path,
+    Routes.marketData.path,
+  ].includes(pathname)) {
+    return null
+  }
 
-  // tradingEnabled={tradingEnabled}
-  // activeLayout={layoutDef}
-  // activeLayoutID={layoutID}
-  // layoutDirty={layoutDirty}
-  // layouts={layouts}
-  // onDeleteLayout={this.onDeleteLayout}
-  // onSaveLayout={this.onSaveLayout}
-  // onAddLayout={this.onToggleCreateNewLayoutModal}
-  // onAddComponent={this.onToggleAddComponentModal}
-  // onChangeLayout={this.onChangeLayout}
-
-  // onLayoutChange(incomingLayout) {
-  //   const { tradingEnabled, layoutDef, saveLayoutDef } = this.props
-
-  //   const currentLayout = layoutDefToGridLayout(layoutDef)
-  //   const newLayout = layoutDefToGridLayout({ layout: incomingLayout })
-
-  //   if (!_isEqual(currentLayout, newLayout)) {
-  //     this.setState(() => ({ layoutDirty: true }))
-  //   }
-
-  //   saveLayoutDef(gridLayoutToLayoutDef({
-  //     canDelete: layoutDef.canDelete,
-  //     type: tradingEnabled ? 'trading' : 'data',
-  //     layout: incomingLayout,
-  //   }, layoutDef))
-  // }
-
-  // onSaveLayout() {
-  //   const { saveLayout, layoutDef } = this.props
-  //   const { layoutID } = this.state
-
-  //   saveLayout(layoutDef, layoutID)
-
-  //   this.setState(() => ({ layoutDirty: false }))
-  // }
-
-  // onAddComponentToLayout(component) {
-  //   const { layoutDef, saveLayoutDef } = this.props
-  //   const newLayout = {
-  //     ...layoutDef,
-
-  //     layout: [
-  //       ...layoutDef.layout,
-
-  //       {
-  //         i: `${nonce()}`,
-  //         c: component,
-  //         x: _min(layoutDef.layout.map(l => l.x)) || 0,
-  //         y: _max(layoutDef.layout.map(l => l.y)) || 0,
-  //         ...COMPONENT_DIMENSIONS[component],
-  //       },
-  //     ],
-  //   }
-  //   saveLayoutDef(newLayout)
-  // }
-
-  // onRemoveComponentFromLayout(i) {
-  //   const { layoutDef, saveLayoutDef } = this.props
-  //   const index = layoutDef.layout.findIndex(l => l.i === i)
-  //   const newLayoutDef = { ...layoutDef }
-
-  //   if (index >= 0) {
-  //     newLayoutDef.layout.splice(index, 1)
-  //   }
-
-  //   saveLayoutDef(newLayoutDef)
-  // }
-
-  // onCreateNewLayout(layoutName) {
-  //   const { createLayout, tradingEnabled } = this.props
-
-  //   createLayout(layoutName, tradingEnabled)
-
-  //   setTimeout(() => {
-  //     const { layouts, saveLayoutDef } = this.props
-
-  //     this.setState(() => ({
-  //       addLayoutModalOpen: false,
-  //       layoutID: layoutName,
-  //     }))
-
-  //     saveLayoutDef(layouts[layoutName])
-  //   }, 500)
-  // }
-
-  // onToggleCreateNewLayoutModal() {
-  //   this.setState(({ addLayoutModalOpen }) => ({
-  //     addLayoutModalOpen: !addLayoutModalOpen,
-  //   }))
-  // }
-
-  // onToggleAddComponentModal() {
-  //   this.setState(({ addComponentModalOpen }) => ({
-  //     addComponentModalOpen: !addComponentModalOpen,
-  //   }))
-  // }
-
-  // onChangeLayout(id) {
-  //   const { layouts, saveLayoutDef } = this.props
-
-  //   this.setState(() => ({
-  //     layoutID: id,
-  //   }))
-  //   saveLayoutDef(layouts[id])
-  // }
-
-  // onDeleteLayout() {
-  //   const { layoutID } = this.state
-  //   const {
-  //     deleteLayout, layouts, defaultLayoutID, saveLayoutDef,
-  //   } = this.props
-  //   deleteLayout(layoutID)
-
-  //   this.setState(() => ({
-  //     layoutID: defaultLayoutID,
-  //   }))
-  //   saveLayoutDef(layouts[defaultLayoutID])
-  // }
-
-  console.log('TCL: LayoutSettings -> layouts', layouts)
-
-  const tradingEnabled = false
-
-  const layoutNames = _filter(_keys(layouts), id => (
-    (layouts[id].type === 'trading' && tradingEnabled) || (layouts[id].type === 'data' && !tradingEnabled)
-  ))
-
-  console.log('TCL: LayoutSettings -> layoutNames', layoutNames)
+  const selectableLayouts = _entries(layouts)
+    // eslint-disable-next-line no-shadow
+    .filter(([, layout]) => layout.routePath === pathname)
+    .sort((a, b) => a[1].savedAt - b[1].savedAt)
 
   return (
     <div className='hfui-navbar__layout-settings'>
@@ -163,32 +73,44 @@ export default function LayoutSettings() {
             <div className='hfui-navbar__layout-settings__title'>
               Layout settings
             </div>
-            <div className='hfui-navbar__layout-settings__item' onClick={() => window.grid.onToggleAddComponentModal()}>
-              Add Component
+            <div className='hfui-navbar__layout-settings__menu-buttons' onClick={() => setIsOpen(false)}>
+              <Item onClick={() => setIsAddLayoutComponentModalOpen(true)}>
+                Add Component
+              </Item>
+              <Item onClick={() => dispatch(saveLayout())} isDisabled={layout.isDefault || !layoutIsDirty}>
+                Save
+              </Item>
+              <Item onClick={() => setIsCreateNewLayoutModalOpen(true)}>
+                Save As...
+              </Item>
+              <div className='hfui-navbar__layout-settings__separator' />
+              {_map(selectableLayouts, ([id, layoutDef]) => (
+                <Item
+                  key={id}
+                  isLayout
+                  isSelected={id === layoutID}
+                  onClick={() => dispatch(selectLayout(id))}
+                >
+                  {id}
+                  {layoutDef.canDelete && (
+                    <div className='hfui-navbar__layout-settings__delete'>
+                      <i className='icon-clear' onClick={() => dispatch(deleteLayout(id))} />
+                    </div>
+                  )}
+                </Item>
+              ))}
             </div>
-            <div className='hfui-navbar__layout-settings__item' onClick={() => window.grid.onSaveLayout()}>
-              Save
-            </div>
-            <div className='hfui-navbar__layout-settings__item'>
-              Create New Layout
-            </div>
-            <div className='hfui-navbar__layout-settings__separator' />
-            {layoutNames.map(layoutName => (
-              <div
-                key={layoutName}
-                className={cx('hfui-navbar__layout-settings__item', 'is-layout', {
-                  'is-selected': layoutName === layoutId,
-                })}
-              >
-                {layoutName}
-                <div className='hfui-navbar__layout-settings__delete'>
-                  <i className='icon-clear' onClick={() => {}} />
-                </div>
-              </div>
-            ))}
           </div>
         </OutsideClickHandler>
       )}
+      <CreateNewLayoutModal
+        isOpen={isCreateNewLayoutModalOpen}
+        onClose={() => setIsCreateNewLayoutModalOpen(false)}
+      />
+      <AddLayoutComponentModal
+        isOpen={isAddLayoutComponentModalOpen}
+        onClose={() => setIsAddLayoutComponentModalOpen(false)}
+      />
     </div>
   )
 }
