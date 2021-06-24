@@ -1,3 +1,4 @@
+import { v4 } from 'uuid'
 import UIActions from '../../actions/ui'
 import UITypes from '../../constants/ui'
 
@@ -11,6 +12,7 @@ export default () => {
           mts: Date.now(),
           status: 'success',
           text: 'Successfully saved layout',
+          cid: v4(),
         }))
         next(action)
         break

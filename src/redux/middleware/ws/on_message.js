@@ -124,7 +124,7 @@ export default (alias, store) => (e = {}) => {
           status: 'error',
           text: message,
           mts: Date.now(),
-          uid: v4(),
+          cid: v4(),
         }))
         break
       }
@@ -135,7 +135,7 @@ export default (alias, store) => (e = {}) => {
           status,
           text: message,
           mts: Date.now(),
-          uid: v4(),
+          cid: v4(),
         }))
         break
       }

@@ -15,7 +15,7 @@ export default function* () {
     mts: Date.now(),
     status: 'success',
     text: 'Successfully connected to websocket server',
-    uid: v4(),
+    cid: v4(),
   }))
 
   wasConnected = true
