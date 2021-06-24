@@ -249,7 +249,6 @@ class OrderForm extends React.Component {
     const {
       currentMarket, currentLayout, fieldData, context,
     } = this.state
-    let errors
 
     const { id } = currentLayout
     const data = processFieldData({
@@ -257,35 +256,7 @@ class OrderForm extends React.Component {
       action: 'submit',
       fieldData,
     })
-
-    switch (currentLayout.id) {
-      case Iceberg.id:
-        errors = Iceberg.meta.validateParams(data)
-        break
-
-      case TWAP.id:
-        errors = TWAP.meta.validateParams(data)
-        break
-
-      case AccumulateDistribute.id:
-        errors = AccumulateDistribute.meta.validateParams(data)
-        break
-
-      case PingPong.id:
-        errors = PingPong.meta.validateParams(data)
-        break
-
-      case MACrossover.id:
-        errors = MACrossover.meta.validateParams(data)
-        break
-
-      case OCOCO.id:
-        errors = OCOCO.meta.validateParams(data)
-        break
-
-      default:
-        debug('unknown layout %s', currentLayout.id)
-    }
+    const errors = this.validateAOData(data)
 
     if (_isEmpty(errors)) {
       gaSubmitAO()
@@ -306,6 +277,54 @@ class OrderForm extends React.Component {
         },
       }))
     }
+  }
+
+  validateAOData(data) {
+    const { currentLayout } = this.state
+    let errors = {}
+
+    switch (currentLayout.id) {
+      case Iceberg.id: {
+        const processedData = Iceberg.meta.processParams(data)
+        errors = Iceberg.meta.validateParams(processedData)
+        break
+      }
+
+      case TWAP.id: {
+        const processedData = TWAP.meta.processParams(data)
+        errors = TWAP.meta.validateParams(processedData)
+        break
+      }
+
+      case AccumulateDistribute.id: {
+        const processedData = AccumulateDistribute.meta.processParams(data)
+        errors = AccumulateDistribute.meta.validateParams(processedData)
+        break
+      }
+
+      case PingPong.id: {
+        const processedData = PingPong.meta.processParams(data)
+        errors = PingPong.meta.validateParams(processedData)
+        break
+      }
+
+      case MACrossover.id: {
+        const processedData = MACrossover.meta.processParams(data)
+        errors = MACrossover.meta.validateParams(processedData)
+        break
+      }
+
+      case OCOCO.id: {
+        const processedData = OCOCO.meta.processParams(data)
+        errors = OCOCO.meta.validateParams(processedData)
+        break
+      }
+
+      default:
+        debug('unknown layout %s', currentLayout.id)
+    }
+
+    return errors
   }
 
   deferSaveState() {
