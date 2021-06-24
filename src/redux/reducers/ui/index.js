@@ -4,9 +4,15 @@ import _isEmpty from 'lodash/isEmpty'
 import _cloneDeep from 'lodash/cloneDeep'
 import _min from 'lodash/min'
 import _max from 'lodash/max'
+import _reduce from 'lodash/reduce'
+import _entries from 'lodash/entries'
+import _values from 'lodash/values'
+import _some from 'lodash/some'
+import _isUndefined from 'lodash/isUndefined'
 import { nonce } from 'bfx-api-node-util'
 
 import types from '../../constants/ui'
+import * as Routes from '../../../constants/routes'
 import DEFAULT_TRADING_LAYOUT from './default_layout_trading'
 import DEFAULT_MARKET_DATA_LAYOUT from './default_layout_market_data'
 import DEFAULT_TRADING_COMPONENT_STATE from './default_component_state_trading'
@@ -69,7 +75,43 @@ function getInitialState() {
   const layoutsComponentStateJSON = localStorage.getItem(LAYOUTS_STATE_KEY)
 
   try {
-    defaultState.layouts = JSON.parse(layoutsJSON)
+    const storedLayouts = JSON.parse(layoutsJSON)
+
+    const isNewFormat = _some(
+      _values(storedLayouts),
+      layout => !_isUndefined(layout.savedAt),
+    )
+    console.log('TCL: getInitialState -> isNewFormat', isNewFormat)
+
+    // transform old format to new format for compatibility
+    const nextFormatLayouts = isNewFormat ? storedLayouts : _reduce(
+      _entries(storedLayouts),
+      (nextLayouts, [key, layout]) => {
+        const routePath = layout.type === 'data'
+          ? Routes.marketData.path
+          : Routes.tradingTerminal.path
+
+        return {
+          ...nextLayouts,
+          // Previously stored default layout could have been edited
+          // so store them without newly added ' Layout' suffix key
+          // and set isDefault false and canDelete true
+          [key]: {
+            ...layout,
+            routePath,
+            isDefault: false,
+            canDelete: true,
+            savedAt: Date.now(),
+          },
+        }
+      },
+      {
+        [DEFAULT_TRADING_KEY]: DEFAULT_TRADING_LAYOUT,
+        [DEFAULT_MARKET_KEY]: DEFAULT_MARKET_DATA_LAYOUT,
+      },
+    )
+
+    defaultState.layouts = nextFormatLayouts
   } catch (e) {
     console.error(`err load layouts, check storage ${LAYOUTS_KEY}`)
   }

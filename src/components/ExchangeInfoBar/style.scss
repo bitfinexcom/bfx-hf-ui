@@ -168,6 +168,10 @@
   color: $light-color-900;
 }
 
+.react-switch-bg {
+  opacity: .3;
+}
+
 .react-switch-bg svg * {
   display: none;
 }
