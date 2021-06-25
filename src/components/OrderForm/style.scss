@@ -108,7 +108,7 @@
         display: inline-block;
         vertical-align: middle;
       }
-      
+
       p {
         margin-right: 20px;
       }
@@ -141,7 +141,7 @@
   color: $text-color;
   height: 32px;
   cursor: pointer;
-  transition: all .2s;
+  transition: all 0.2s;
   margin-right: 10px;
   opacity: 0.75;
 
@@ -291,7 +291,8 @@
       font-size: 13px;
     }
 
-    button, i {
+    button,
+    i {
       color: $white-color;
     }
 
@@ -517,7 +518,8 @@
         font-size: 13px;
       }
 
-      button, i {
+      button,
+      i {
         color: $white-color;
       }
     }
@@ -630,7 +632,8 @@
         font-size: 13px;
       }
 
-      button, i {
+      button,
+      i {
         color: $white-color;
       }
     }
@@ -693,7 +696,7 @@
     }
 
     &:active {
-      background: rgba(0, 0, 0, .1);
+      background: rgba(0, 0, 0, 0.1);
     }
   }
 
@@ -702,14 +705,15 @@
     align-items: center;
     color: $primary-color-900;
 
-    i, p {
+    i,
+    p {
       display: block;
     }
 
     i {
       position: relative;
       top: 2px;
-      margin-right: spacing(.5);
+      margin-right: spacing(0.5);
     }
 
     p {
@@ -736,14 +740,15 @@
   flex-wrap: wrap;
 
   & .ticker-section {
+    cursor: pointer;
     flex-basis: calc(50% - 8px);
     display: flex;
     justify-content: space-between;
-    &:first-child{
+    &:first-child {
       margin-right: 16px;
     }
 
-    & .ticker-name{
+    & .ticker-name {
       margin-right: 8px;
     }
   }
