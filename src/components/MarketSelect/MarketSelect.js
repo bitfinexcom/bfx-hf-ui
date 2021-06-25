@@ -1,8 +1,12 @@
-import React, { useCallback, memo, useMemo } from 'react'
+import React, {
+  useMemo, useCallback, memo, useState,
+} from 'react'
 import _filter from 'lodash/filter'
-import _find from 'lodash/find'
-import _map from 'lodash/map'
+import _toLower from 'lodash/toLower'
+import _join from 'lodash/join'
 import _includes from 'lodash/includes'
+import _map from 'lodash/map'
+import _sortBy from 'lodash/sortBy'
 import ClassNames from 'classnames'
 import PropTypes from 'prop-types'
 import Dropdown from '../../ui/Dropdown'
@@ -22,22 +26,30 @@ const MarketSelect = ({
   renderWithFavorites,
   ...otherProps
 }) => {
+  const [searchTerm, setSearchTerm] = useState('')
   const favoriteSelect = useCallback((pair, isPairSelected) => {
     if (isPairSelected) {
       savePairs([...favoritePairs, pair], authToken, currentMode)
     } else {
-      const filteredPairs = _filter(favoritePairs, p => p !== pair)
+      const filteredPairs = favoritePairs.filter(p => p !== pair)
       savePairs(filteredPairs, authToken, currentMode)
     }
   }, [savePairs, favoritePairs])
 
   const sortedOptions = useMemo(() => {
-    const options = _map(markets, m => ({
+    const filtered = searchTerm ? _filter(markets,
+      (market) => {
+        const { quote, base, ccyLabels } = market
+        const defaultLabels = [base, quote, base + quote, `${base}/${quote}`]
+        const matches = _toLower(_join([...ccyLabels, ...defaultLabels]))
+        return _includes(matches, _toLower(searchTerm))
+      }, []) : markets
+    const options = _map(filtered, (m => ({
       label: m.uiID || `${m.base}/${m.quote}`,
       value: m.uiID,
-    }), [])
-    return options.sort((a, b) => _includes(favoritePairs, b.value) - _includes(favoritePairs, a.value))
-  }, [favoritePairs])
+    })), [])
+    return options.sort((a, b) => favoritePairs.includes(b.value) - favoritePairs.includes(a.value))
+  }, [searchTerm, favoritePairs])
 
   return (
     <Dropdown
@@ -45,10 +57,11 @@ const MarketSelect = ({
       searchable
       className={ClassNames('hfui-marketselect', className)}
       onChange={(val) => {
-        onChange(_find(markets, m => m.uiID === val))
+        onChange(markets.find(m => m.uiID === val))
       }}
       value={value.uiID}
       options={sortedOptions}
+      onSearchTermChange={setSearchTerm}
       optionRenderer={renderWithFavorites ? (optionValue, optionLabel) => {
         const isSelected = favoritePairs.includes(optionValue)
         return (
