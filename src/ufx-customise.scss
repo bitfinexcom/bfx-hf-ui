@@ -11,13 +11,14 @@ $ufx-border-radius: $border-radius;
 
 $ufx-table-even-row-background-color: $panel-background-color;
 $ufx-table-odd-row-background-color: $panel-background-color;
-$ufx-table-hover-row-background-color: $panel-background-color;
+$ufx-table-hover-row-background-color: $light-color-50;
+$ufx-table-hover-row-color: $light-color-900;
 $ufx-table-active-row-background-color: $panel-background-color;
 
 $ufx-font-family: $font-family;
 $ufx-font-size: 13px;
-$ufx-text-color: $text-color;
-$ufx-heading-color: $text-color;
+$ufx-text-color: $light-color-600;
+$ufx-heading-color: $light-color-800;
 $ufx-background-color: $background-color;
 
 $ufx-dropdown-height: 32px;
@@ -35,7 +36,7 @@ $ufx-dialog-padding-desktop: spacing(1.5);
 $ufx-dialog-padding-mobile: spacing(1.5);
 $ufx-dialog-title: 14px;
 
-@import "../node_modules/@ufx-ui/core/dist/css/ufx-core.bundle.scss";
+@import "@ufx-ui/core/dist/css/ufx-core.bundle.scss";
 
 .#{$ns}-virtual-table {
   .ReactVirtualized__Table__headerTruncatedText {

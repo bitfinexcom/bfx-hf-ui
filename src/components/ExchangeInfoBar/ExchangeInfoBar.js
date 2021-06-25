@@ -55,6 +55,7 @@ const ExchangeInfoBar = ({
     <Panel
       key='ticker-symbols'
       label='Ticker symbols'
+      className='hfui-panel--tickerlist'
       onRemove={onRemove}
       darkHeader
       dark

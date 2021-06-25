@@ -191,3 +191,34 @@
     align-items: center;
   }
 }
+
+.hfui-panel--tickerlist {
+  .hfui-panel__content {
+    padding: 0;
+  }
+
+  .hfui-exchangeinfobar__ticker-wrapper {
+    padding: 0 spacing();
+  }
+
+  .hfui-exchangeinfobar__tickerlist {
+    .ufx-input {
+      padding: 0 spacing();
+    }
+
+    .ufx-virtual-table--container {
+      .ReactVirtualized__Table__headerColumn,
+      .ReactVirtualized__Table__rowColumn {
+        padding: 0 spacing(0.5);
+      }
+
+      .ReactVirtualized__Table__headerColumn:first-of-type {
+        padding: 0 spacing(0.5);
+
+        &:hover {
+          background: none;
+        }
+      }
+    }
+  }
+}

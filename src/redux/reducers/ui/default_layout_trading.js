@@ -7,7 +7,7 @@ export default {
   savedAt: 0,
   layout: [
     {
-      w: 24,
+      w: 26,
       h: 8,
       minW: 20,
       minH: 4,
@@ -18,7 +18,7 @@ export default {
       static: false,
       c: 'EXCHANGE_INFO_BAR',
     }, {
-      w: 24,
+      w: 26,
       h: 10,
       minW: 16,
       minH: 6,
@@ -29,11 +29,11 @@ export default {
       static: false,
       c: 'ORDER_FORM',
     }, {
-      w: 51,
+      w: 49,
       h: 11,
       minW: 30,
       minH: 8,
-      x: 24,
+      x: 26,
       y: 0,
       i: '1591873294962000',
       moved: false,
@@ -51,11 +51,11 @@ export default {
       static: false,
       c: 'ORDER_BOOK',
     }, {
-      w: 51,
+      w: 49,
       h: 7,
       minW: 32,
       minH: 5,
-      x: 24,
+      x: 26,
       y: 11,
       i: '1591873390469000',
       moved: false,
