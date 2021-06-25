@@ -1,6 +1,9 @@
 import { connect } from 'react-redux'
 import { push } from 'connected-react-router'
 import Debug from 'debug'
+import _toArray from 'lodash/toArray'
+import _values from 'lodash/values'
+import _map from 'lodash/map'
 
 import OrderForm from './OrderForm'
 import UIActions from '../../redux/actions/ui'
@@ -13,7 +16,9 @@ import {
 import {
   getComponentState, getActiveMarket, getCurrentMode, getIsPaperTrading, getIsOrderExecuting,
 } from '../../redux/selectors/ui'
+import rawOrders from '../../orders'
 
+const orders = _map(_values(rawOrders), uiDef => uiDef())
 const debug = Debug('hfui:c:order-form')
 
 const mapStateToProps = (state = {}, ownProps = {}) => {
@@ -32,6 +37,7 @@ const mapStateToProps = (state = {}, ownProps = {}) => {
     mode: getCurrentMode(state),
     isPaperTrading: getIsPaperTrading(state),
     isOrderExecuting: getIsOrderExecuting(state),
+    orders,
   }
 }
 
