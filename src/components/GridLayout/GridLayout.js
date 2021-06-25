@@ -21,16 +21,9 @@ import {
 
 const ReactGridLayout = WidthProvider(RGL)
 
-const GridLayout = (props) => {
-  const {
-    sharedProps,
-    tradesProps,
-    bookProps,
-    chartProps,
-    ordersProps,
-    orderFormProps,
-  } = props
-
+const GridLayout = ({
+  sharedProps, tradesProps, bookProps, chartProps, orderFormProps,
+}) => {
   const dispatch = useDispatch()
   const { pathname } = useSelector(getLocation)
   const layouts = useSelector(getLayouts)
@@ -69,7 +62,6 @@ const GridLayout = (props) => {
     orderForm: orderFormProps,
     trades: tradesProps,
     chart: chartProps,
-    orders: ordersProps,
     book: bookProps,
     dark: true,
     sharedProps,
@@ -123,16 +115,6 @@ GridLayout.propTypes = {
   orderFormProps: PropTypes.shape({
     orders: PropTypes.arrayOf(PropTypes.object),
   }),
-  ordersProps: PropTypes.shape({
-    market: PropTypes.objectOf(
-      PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.array,
-        PropTypes.number,
-        PropTypes.bool,
-      ]),
-    ),
-  }),
   sharedProps: PropTypes.objectOf(PropTypes.oneOfType(
     [PropTypes.bool, PropTypes.string],
   )),
@@ -144,9 +126,6 @@ GridLayout.defaultProps = {
   },
   bookProps: { canChangeStacked: true },
   tradesProps: {},
-  ordersProps: {
-    market: {},
-  },
   orderFormProps: { orders: [] },
   sharedProps: {},
 }
