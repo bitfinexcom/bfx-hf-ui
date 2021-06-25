@@ -6,16 +6,18 @@ import { getActiveMarket } from '../../../redux/selectors/ui'
 import PLNumber from '../../../ui/PLNumber'
 import { localiseNumber } from '../../../util/ui'
 
-const FIELD_TO_CHANGE = 'price'
-
-const TickerBar = ({ onFieldChange }) => {
+const TickerBar = (props) => {
+  const { onFieldChange, layout: { fields } } = props
   const activeMarket = useSelector(getActiveMarket)
   const activeMarketTicker = useSelector((state) => getTicker(state, activeMarket))
 
   const { bid, ask } = activeMarketTicker
   const { quote } = activeMarket
 
-  const setInputPrice = (value) => onFieldChange(FIELD_TO_CHANGE, value)
+  const fieldToChange = Object.prototype.hasOwnProperty.call(fields, 'price') ? 'price' : 'distance'
+
+  const setInputPrice = (value) => onFieldChange(fieldToChange, value)
+
   return (
     <div className='hfui-orderform__ticker-container'>
       <div
@@ -47,6 +49,9 @@ const TickerBar = ({ onFieldChange }) => {
 
 TickerBar.propTypes = {
   onFieldChange: PropTypes.func.isRequired,
+  layout: PropTypes.shape({
+    fields: PropTypes.objectOf(PropTypes.object),
+  }).isRequired,
 }
 
 export default memo(TickerBar)
