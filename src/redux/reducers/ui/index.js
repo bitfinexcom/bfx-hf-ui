@@ -10,6 +10,7 @@ import _values from 'lodash/values'
 import _some from 'lodash/some'
 import _isUndefined from 'lodash/isUndefined'
 import { nonce } from 'bfx-api-node-util'
+import { VOLUME_UNIT, VOLUME_UNIT_PAPER } from '@ufx-ui/bfx-containers'
 
 import types from '../../constants/ui'
 import * as Routes from '../../../constants/routes'
@@ -111,6 +112,7 @@ function getInitialState() {
     )
 
     defaultState.layouts = nextFormatLayouts
+    defaultState.tickersVolumeUnit = isPaperTrading ? VOLUME_UNIT_PAPER.TESTUSD : VOLUME_UNIT.USD
   } catch (e) {
     console.error(`err load layouts, check storage ${LAYOUTS_KEY}`)
   }
@@ -457,6 +459,13 @@ function reducer(state = getInitialState(), action = {}) {
         unsavedLayout: null,
         layoutID: id,
       }
+    }
+    case types.CHANGE_TICKERS_VOLUME_UNIT: {
+      const { key } = payload
+      const { isPaperTrading } = state
+      const unit = isPaperTrading ? VOLUME_UNIT_PAPER[key] : VOLUME_UNIT[key]
+
+      return { ...state, tickersVolumeUnit: unit || 'SELF' }
     }
     default: {
       return state

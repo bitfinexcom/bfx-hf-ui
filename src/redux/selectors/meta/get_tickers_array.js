@@ -6,12 +6,11 @@ import _isEmpty from 'lodash/isEmpty'
 import { createSelector } from 'reselect'
 import { reduxSelectors, prepareTickers } from '@ufx-ui/bfx-containers'
 import { getMarkets, getMarketTickersKeys } from '.'
-import { getCurrentMode } from '../ui'
-import { PAPER_MODE } from '../../reducers/ui'
+import { getTickersVolumeUnit } from '../ui'
 
 const tickersSelector = state => reduxSelectors.getTickers(state)
 const getCurrencySymbol = state => reduxSelectors.getCurrencySymbolMemo(state)
-const currentMode = state => getCurrentMode(state)
+const tickersVolumeUnit = state => getTickersVolumeUnit(state)
 
 const getTickersArray = createSelector([tickersSelector, getMarkets], (tickers, markets) => {
   const fullTickersData = _reduce(markets, (acc, market) => {
@@ -43,16 +42,13 @@ const preparedTickersArray = createSelector(
     getMarketTickersKeys,
     tickersSelector,
     getCurrencySymbol,
-    currentMode,
+    tickersVolumeUnit,
   ],
-  (tickersArray, tickersKeys, tickers, _getCurrencySymbol, _currentMode) => {
+  (tickersArray, tickersKeys, tickers, _getCurrencySymbol, _tickersVolumeUnit) => {
     if (_isEmpty(tickersArray)) {
       return []
     }
-    if (_currentMode === PAPER_MODE) {
-      return tickersArray
-    }
-    const prepared = prepareTickers(tickersKeys, tickers, 'UST', _getCurrencySymbol)
+    const prepared = prepareTickers(tickersKeys, tickers, _tickersVolumeUnit, _getCurrencySymbol)
 
     return _map(tickersArray, (ticker) => {
       const preparedTicker = _find(prepared, (_ticker) => {
