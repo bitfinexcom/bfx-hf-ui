@@ -46,7 +46,7 @@ const Panel = (props) => {
     preHeaderComponents,
     dropdown,
     forcedTab,
-    innerRef,
+    headerRef,
   } = props
   const tabs = React.Children.toArray(children).filter(c => c && c.props.tabtitle)
   const initTab = forcedTab.length ? getForcedTab(forcedTab, tabs) : 0
@@ -63,7 +63,7 @@ const Panel = (props) => {
         className={ClassNames('hfui-panel__header', {
           'has-secondary-header': !!secondaryHeaderComponents,
         })}
-        ref={innerRef}
+        ref={headerRef}
       >
         <div className='hfui-panel__left-container'>
           {label && <p className='hfui-panel__label'>{label}</p>}
@@ -183,9 +183,9 @@ Panel.propTypes = {
   preHeaderComponents: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   forcedTab: PropTypes.string,
   dropdown: PropTypes.node,
-  innerRef: PropTypes.oneOfType([
+  headerRef: PropTypes.oneOfType([
     PropTypes.func,
-    PropTypes.shape({ current: PropTypes.any }),
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   ]),
 }
 
@@ -213,7 +213,7 @@ Panel.defaultProps = {
   preHeaderComponents: null,
   forcedTab: '',
   dropdown: null,
-  innerRef: null,
+  headerRef: null,
 }
 
 export default Panel
