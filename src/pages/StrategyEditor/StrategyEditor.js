@@ -1,8 +1,8 @@
 import React from 'react'
 import randomColor from 'randomcolor'
-import Joyride, { STATUS } from 'react-joyride'
 import PropTypes from 'prop-types'
 import _remove from 'lodash/remove'
+import Joyride, { STEPS, STATUS } from '../../components/Joyride'
 
 import Layout from '../../components/Layout'
 
@@ -15,22 +15,6 @@ import StrategyEditor from '../../components/StrategyEditor'
 import './style.css'
 
 const DocsPath = require('bfx-hf-strategy/docs/api.md')
-
-const STEPS = [
-  {
-    target: '.hfui-create-strategy__btn',
-    content: 'Create your own strategies',
-  },
-  {
-    target: '.hfui-open-strategy__btn',
-    content: 'Or open an existing one',
-  },
-  {
-    locale: { last: 'Finish' },
-    target: '.hfui-markdown__wrapper',
-    content: 'In this section you find the available function declarations to code your own strategies',
-  },
-]
 
 export default class StrategyEditorPage extends React.Component {
   state = {
@@ -128,17 +112,9 @@ export default class StrategyEditorPage extends React.Component {
             />
             {firstLogin && (
               <Joyride
-                steps={STEPS}
+                steps={STEPS.STRATEGY_EDITOR}
                 callback={this.onGuideFinish}
                 run={isGuideActive}
-                continuous
-                showProgress
-                showSkipButton
-                styles={{
-                  options: {
-                    zIndex: 10000,
-                  },
-                }}
               />
             )}
             <div
