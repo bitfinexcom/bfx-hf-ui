@@ -1,17 +1,9 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import Joyride, { STATUS } from 'react-joyride'
+import Joyride, { STEPS, STATUS } from '../../components/Joyride'
 import Layout from '../../components/Layout'
 import GridLayout from '../../components/GridLayout'
 import './style.css'
-
-const STEPS = [
-  {
-    locale: { last: 'Finish' },
-    target: '.hfui-button.green',
-    content: 'To customize your layout, you can add components to it',
-  },
-]
 
 const commonComponentProps = {
   dark: true,
@@ -38,16 +30,8 @@ const MarketData = ({ isGuideActive, isFirstLogin, finishGuide }) => {
         {isFirstLogin && (
           <Joyride
             callback={onGuideFinish}
-            steps={STEPS}
+            steps={STEPS.MARKET_DATA}
             run={isGuideActive}
-            continuous
-            showProgress
-            showSkipButton
-            styles={{
-              options: {
-                zIndex: 10000,
-              },
-            }}
           />
         )}
         <GridLayout
