@@ -106,7 +106,7 @@ const OrderHistory = ({
       onRemove={onRemove}
       dark={dark}
       darkHeader={dark}
-      innerRef={ref}
+      headerRef={ref}
     >
       {_isEmpty(orders) ? (
         <p className='empty'>Order history is empty</p>
