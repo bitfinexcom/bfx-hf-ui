@@ -60,6 +60,12 @@ export default function LayoutSettings() {
     .filter(([, layout]) => layout.routePath === pathname)
     .sort((a, b) => a[1].savedAt - b[1].savedAt)
 
+  const onSave = () => {
+    if (!layout.isDefault && layoutIsDirty) {
+      dispatch(saveLayout())
+    }
+  }
+
   return (
     <div className='hfui-navbar__layout-settings'>
       <NavbarButton
@@ -77,7 +83,7 @@ export default function LayoutSettings() {
               <Item onClick={() => setIsAddLayoutComponentModalOpen(true)}>
                 Add Component
               </Item>
-              <Item onClick={() => dispatch(saveLayout())} isDisabled={layout.isDefault || !layoutIsDirty}>
+              <Item onClick={onSave} isDisabled={layout.isDefault || !layoutIsDirty}>
                 Save
               </Item>
               <Item onClick={() => setIsCreateNewLayoutModalOpen(true)}>
