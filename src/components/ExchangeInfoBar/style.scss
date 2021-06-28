@@ -79,6 +79,10 @@
       }
     }
 
+    .price-unit span:last-child {
+      display: inline-block;
+    }
+
     .input-field-container {
       border: $light-color-400 !important;
 

@@ -19,7 +19,7 @@ export default {
       c: 'EXCHANGE_INFO_BAR',
     }, {
       w: 26,
-      h: 10,
+      h: 13,
       minW: 16,
       minH: 6,
       x: 0,
@@ -41,7 +41,7 @@ export default {
       c: 'CHART',
     }, {
       w: 25,
-      h: 6,
+      h: 7,
       minW: 21,
       minH: 5,
       x: 75,
@@ -52,7 +52,7 @@ export default {
       c: 'ORDER_BOOK',
     }, {
       w: 49,
-      h: 7,
+      h: 10,
       minW: 32,
       minH: 5,
       x: 26,
@@ -63,7 +63,7 @@ export default {
       c: 'TRADING_STATE_PANEL',
     }, {
       w: 25,
-      h: 6,
+      h: 7,
       minW: 18,
       minH: 4,
       x: 75,
@@ -74,7 +74,7 @@ export default {
       c: 'TRADES_TABLE',
     }, {
       w: 25,
-      h: 6,
+      h: 7,
       minW: 21,
       minH: 5,
       x: 75,
