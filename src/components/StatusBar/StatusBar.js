@@ -70,6 +70,7 @@ StatusBar.propTypes = {
   wsConnected: PropTypes.bool.isRequired,
   remoteVersion: PropTypes.string,
   apiClientState: PropTypes.number.isRequired,
+  wsInterrupted: PropTypes.bool.isRequired,
 }
 
 StatusBar.defaultProps = {
