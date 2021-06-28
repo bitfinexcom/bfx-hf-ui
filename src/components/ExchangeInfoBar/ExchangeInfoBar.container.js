@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import _isEqual from 'lodash/isEqual'
 
 import WSActions from '../../redux/actions/ws'
-import UIActions, { changeTickersVolumeUnit } from '../../redux/actions/ui'
+import UIActions from '../../redux/actions/ui'
 import { getActiveMarket, getCurrentMode, getTickersVolumeUnit } from '../../redux/selectors/ui'
 import {
   getAuthToken, getFavoritePairsObject,
@@ -42,7 +42,7 @@ const mapDispatchToProps = (dispatch) => ({
       currentMode,
     ]))
   },
-  setVolumeUnit: (key) => dispatch(changeTickersVolumeUnit(key)),
+  setVolumeUnit: (key) => dispatch(UIActions.changeTickersVolumeUnit(key)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExchangeInfoBar)

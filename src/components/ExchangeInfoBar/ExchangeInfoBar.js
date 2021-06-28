@@ -42,7 +42,6 @@ const ExchangeInfoBar = ({
   const {
     low,
     high,
-    volume,
     lastPrice,
     change,
     changePerc,

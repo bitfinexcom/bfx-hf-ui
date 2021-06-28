@@ -227,4 +227,5 @@ export default {
   clearStrategies,
   switchNotifcationPanel,
   setLayoutID,
+  changeTickersVolumeUnit,
 }
