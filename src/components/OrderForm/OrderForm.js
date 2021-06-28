@@ -174,9 +174,6 @@ class OrderForm extends React.Component {
     }) => {
       const { fields = {} } = currentLayout
       const field = fields[fieldName] || {}
-      if (field.disabled) {
-        return null
-      }
       const { component } = field
       const C = COMPONENTS_FOR_ID[component]
       let processedValue = value
