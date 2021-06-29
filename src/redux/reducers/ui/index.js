@@ -59,6 +59,7 @@ function getInitialState() {
     TRADING_PAGE_IS_GUIDE_ACTIVE: true,
     isTradingModeModalVisible: false,
     isRefillBalanceModalVisible: false,
+    isOldFormatModalVisible: false,
     isBadInternetConnection: false,
     isOrderExecuting: false,
     content: {},
@@ -81,6 +82,10 @@ function getInitialState() {
       _values(storedLayouts),
       layout => !_isUndefined(layout.savedAt),
     )
+
+    if (!isNewFormat && !_isEmpty(storedLayouts)) {
+      defaultState.isOldFormatModalVisible = true
+    }
 
     // transform old format to new format for compatibility
     const nextFormatLayouts = isNewFormat ? storedLayouts : _reduce(
@@ -382,6 +387,14 @@ function reducer(state = getInitialState(), action = {}) {
       return {
         ...state,
         isRefillBalanceModalVisible: isVisible,
+      }
+    }
+    case types.CHANGE_OLD_FORMAT_MODAL_STATE: {
+      const { isVisible } = payload
+
+      return {
+        ...state,
+        isOldFormatModalVisible: isVisible,
       }
     }
     case types.ADD_COMPONENT: {
