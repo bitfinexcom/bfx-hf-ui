@@ -3,11 +3,21 @@ import { isValidDate } from '../util/date'
 export default () => ({
   label: 'Limit',
   uiIcon: 'limit-active',
-  customHelp: 'A Limit order submits a buy or sell order at the specified price. If the price is above or below the current best ask/bid (respectively for buy/sell orders) it will execute immediately as a TAKER order. Otherwise, it will be inserted into the order book and execute as a MAKER order when the market reaches the order\'s price.\n\nIf the \'hidden\' option is enabled, the order will be inserted in the order book but will not be visible to other users, and will execute as a TAKER.\n\nThe OCO (one-cancels-the-other) option may be used to submit a pair of orders; once one of the orders fills, the other is automatically cancelled.\n\nThe \'post-only\' option ensures the order is inserted into the order book instead of being immediately filled, and cancels it otherwise.\n\nA Time-In-Force date may be specified, after which the order will be automatically cancelled.',
+  customHelp:
+    "A Limit order submits a buy or sell order at the specified price. If the price is above or below the current best ask/bid (respectively for buy/sell orders) it will execute immediately as a TAKER order. Otherwise, it will be inserted into the order book and execute as a MAKER order when the market reaches the order's price.\n\nIf the 'hidden' option is enabled, the order will be inserted in the order book but will not be visible to other users, and will execute as a TAKER.\n\nThe OCO (one-cancels-the-other) option may be used to submit a pair of orders; once one of the orders fills, the other is automatically cancelled.\n\nThe 'post-only' option ensures the order is inserted into the order book instead of being immediately filled, and cancels it otherwise.\n\nA Time-In-Force date may be specified, after which the order will be automatically cancelled.",
 
   generateOrder: (data = {}, symbol, context) => {
     const {
-      oco, hidden, postonly, tif, reduceonly, tifDate, ocoStop, price, amount, lev,
+      oco,
+      hidden,
+      postonly,
+      tif,
+      reduceonly,
+      tifDate,
+      ocoStop,
+      price,
+      amount,
+      lev,
     } = data
 
     if (tif && (!isValidDate(tifDate) || tifDate === 0)) {
@@ -45,52 +55,48 @@ export default () => ({
     fields: ['oco', 'hidden', 'postonly', 'tif', 'reduceonly'],
   },
 
-  sections: [{
-    title: '',
-    name: 'general',
-    rows: [
-      ['price', 'amount'],
-    ],
-  }, {
-    title: '',
-    name: 'ticker',
-    fullWidth: true,
-    rows: [
-      ['ticker'],
-    ],
-  }, {
-    title: '',
-    name: 'tif',
-    fullWidth: true,
-    rows: [
-      ['tifDate'],
-    ],
-
-    visible: {
-      tif: { eq: true },
+  sections: [
+    {
+      title: '',
+      name: 'general',
+      rows: [['price', 'amount']],
     },
-  }, {
-    title: '',
-    name: 'oco',
-    rows: [
-      ['ocoStop', null],
-    ],
+    {
+      title: '',
+      name: 'tif',
+      fullWidth: true,
+      rows: [['tifDate']],
 
-    visible: {
-      oco: { eq: true },
+      visible: {
+        tif: { eq: true },
+      },
     },
-  }, {
-    title: '',
-    name: 'lev',
-    fullWidth: true,
-    rows: [
-      ['lev'],
-    ],
+    {
+      title: '',
+      name: 'oco',
+      rows: [['ocoStop', null]],
 
-    visible: {
-      _context: { eq: 'f' },
+      visible: {
+        oco: { eq: true },
+      },
     },
-  }],
+    {
+      title: '',
+      name: 'lev',
+      fullWidth: true,
+      rows: [['lev']],
+
+      visible: {
+        _context: { eq: 'f' },
+      },
+    },
+    {
+      title: '',
+      name: 'ticker',
+      fullWidth: true,
+      rows: [['ticker']],
+    },
+  ],
 
   fields: {
     reduceonly: {

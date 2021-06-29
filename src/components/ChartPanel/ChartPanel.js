@@ -19,6 +19,12 @@ const ChartPanel = ({
     }
   }, [activeMarket])
 
+  useEffect(() => {
+    if (!_isEmpty(_currentMarket)) {
+      setCurrentMarket(_currentMarket)
+    }
+  }, [_currentMarket])
+
   const onChangeMarket = (market) => {
     if (market.restID === currentMarket.restID) {
       return
@@ -74,14 +80,13 @@ ChartPanel.propTypes = {
   saveState: PropTypes.func,
   canChangeMarket: PropTypes.bool,
   showChartMarket: PropTypes.bool,
+  showMarket: PropTypes.bool,
   layoutI: PropTypes.string.isRequired,
   layoutID: PropTypes.string,
   savedState: PropTypes.shape({
-    currentMarket: PropTypes.shape({
-      base: PropTypes.string,
-      quote: PropTypes.string,
-      restID: PropTypes.string,
-    }),
+    currentMarket: PropTypes.objectOf(PropTypes.oneOfType([
+      PropTypes.array, PropTypes.string, PropTypes.bool, PropTypes.number,
+    ])),
   }),
   markets: PropTypes.arrayOf(PropTypes.object),
 }
@@ -102,6 +107,7 @@ ChartPanel.defaultProps = {
   saveState: () => { },
   showChartMarket: false,
   canChangeMarket: false,
+  showMarket: false,
   layoutID: '',
 }
 

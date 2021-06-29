@@ -1,8 +1,8 @@
 import React, { memo, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import Joyride, { STATUS } from 'react-joyride'
 
 import Layout from '../../components/Layout'
+import Joyride, { STEPS, STATUS } from '../../components/Joyride'
 import GridLayout from '../../components/GridLayout'
 import ActiveAlgoOrdersModal from '../../components/ActiveAlgoOrdersModal'
 import RefillBalanceModal from '../../components/RefillBalanceModal'
@@ -10,30 +10,6 @@ import RefillBalanceModal from '../../components/RefillBalanceModal'
 import './style.css'
 
 const LAYOUT_ID = '__hfui_trading_page'
-
-const STEPS = [
-  {
-    target: '.icon-plus',
-    content: 'You can easily add new components with this button',
-  },
-  {
-    target: '.icon-save',
-    content: 'Customized layouts can be saved here',
-  },
-  {
-    target: '.icon-notifications',
-    content: 'You can find your notifications here',
-  },
-  {
-    target: '.hfui-orderform__panel',
-    content: 'If you want to create an order, this menu contains all orders available',
-  },
-  {
-    locale: { last: 'Finish' },
-    target: '.hfui-statusbar__left',
-    content: 'Here you can find the current version of your app. In case there is an update, there will be an update button',
-  },
-]
 
 const commonComponentProps = {
   dark: true,
@@ -69,16 +45,8 @@ const Trading = ({
         {firstLogin && (
           <Joyride
             callback={onGuideFinish}
-            steps={STEPS}
+            steps={STEPS.TRADING}
             run={isGuideActive}
-            continuous
-            showProgress
-            showSkipButton
-            styles={{
-              options: {
-                zIndex: 10000,
-              },
-            }}
           />
         )}
 

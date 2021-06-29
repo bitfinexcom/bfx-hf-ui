@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
 import { push } from 'connected-react-router'
 import Debug from 'debug'
-import _toArray from 'lodash/toArray'
 import _values from 'lodash/values'
 import _map from 'lodash/map'
 

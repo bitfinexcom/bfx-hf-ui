@@ -3,6 +3,7 @@ import { Icon } from 'react-fa'
 import _isEqual from 'lodash/isEqual'
 import _isEmpty from 'lodash/isEmpty'
 import _isString from 'lodash/isString'
+import _isBoolean from 'lodash/isBoolean'
 import _map from 'lodash/map'
 import _trim from 'lodash/trim'
 import PropTypes from 'prop-types'
@@ -174,6 +175,12 @@ class OrderForm extends React.Component {
     }) => {
       const { fields = {} } = currentLayout
       const field = fields[fieldName] || {}
+      const { disabled } = field
+
+      if (_isBoolean(disabled) && disabled) {
+        return null
+      }
+
       const { component } = field
       const C = COMPONENTS_FOR_ID[component]
       let processedValue = value
