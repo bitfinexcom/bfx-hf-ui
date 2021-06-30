@@ -20,6 +20,7 @@ import getGuideStatusForPage from './get_guide_status_for_page'
 import getStrategyId from './get_strategy_id'
 import getMarketComponents from './get_market_components'
 import getCurrentUnsavedLayout from './get_current_unsaved_layout'
+import getTickersVolumeUnit from './get_tickers_volume_unit'
 
 export {
   getRemoteVersion,
@@ -43,5 +44,6 @@ export {
   getMarketComponents,
   getIsOrderExecuting,
   getCurrentUnsavedLayout,
+  getTickersVolumeUnit,
   getOldFormatModalState,
 }

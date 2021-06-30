@@ -3,7 +3,7 @@ import _isEqual from 'lodash/isEqual'
 
 import WSActions from '../../redux/actions/ws'
 import UIActions from '../../redux/actions/ui'
-import { getActiveMarket, getCurrentMode } from '../../redux/selectors/ui'
+import { getActiveMarket, getCurrentMode, getTickersVolumeUnit } from '../../redux/selectors/ui'
 import {
   getAuthToken, getFavoritePairsObject,
 } from '../../redux/selectors/ws'
@@ -22,6 +22,7 @@ const mapStateToProps = (state = {}) => {
     markets: getMarkets(state),
     authToken: getAuthToken(state),
     currentMode: getCurrentMode(state),
+    tickersVolumeUnit: getTickersVolumeUnit(state),
   }
 }
 
@@ -41,6 +42,7 @@ const mapDispatchToProps = (dispatch) => ({
       currentMode,
     ]))
   },
+  setVolumeUnit: (key) => dispatch(UIActions.changeTickersVolumeUnit(key)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExchangeInfoBar)

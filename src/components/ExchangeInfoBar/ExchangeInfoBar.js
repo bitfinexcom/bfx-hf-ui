@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import { VOLUME_UNIT, VOLUME_UNIT_PAPER } from '@ufx-ui/bfx-containers'
 import { TickerList, Ticker } from '@ufx-ui/core'
 
 import Panel from '../../ui/Panel'
@@ -8,10 +9,6 @@ import { tickerDataMapping, rowMapping } from './ExchangeInforBar.constants'
 
 import './style.css'
 import { MAIN_MODE } from '../../redux/reducers/ui'
-
-const volumeUnitsList = {
-  USD: 'USD',
-}
 
 const ExchangeInfoBar = ({
   onChangeMarket,
@@ -24,6 +21,8 @@ const ExchangeInfoBar = ({
   authToken,
   currentMode,
   onRemove,
+  tickersVolumeUnit,
+  setVolumeUnit,
 }) => {
   const [showFavorites, setShowingFavorites] = useState(false)
   const [tickerRef, size] = useSize()
@@ -43,7 +42,6 @@ const ExchangeInfoBar = ({
   const {
     low,
     high,
-    volume,
     lastPrice,
     change,
     changePerc,
@@ -72,7 +70,7 @@ const ExchangeInfoBar = ({
               lastPrice,
               change,
               changePerc,
-              volume: volumeConverted || volume,
+              volume: volumeConverted,
               low,
               high,
               isPerp,
@@ -80,7 +78,7 @@ const ExchangeInfoBar = ({
             }}
             dataMapping={tickerDataMapping}
             className='hfui-exchangeinfobar__ticker'
-            volumeUnit={volumeConverted ? 'USD' : base}
+            volumeUnit={tickersVolumeUnit !== 'SELF' ? tickersVolumeUnit : quote}
           />
         </div>
         <div
@@ -95,11 +93,11 @@ const ExchangeInfoBar = ({
             setShowOnlyFavs={setShowingFavorites}
             onRowClick={onChangeMarketHandler}
             className='hfui-exchangeinfobar__tickerlist'
-            volumeUnit='USD'
-            volumeUnitList={volumeUnitsList}
-            // showing volume in USD only in main mode
-            showVolumeUnit={currentMode === MAIN_MODE}
+            volumeUnit={tickersVolumeUnit}
+            volumeUnitList={currentMode === MAIN_MODE ? VOLUME_UNIT : VOLUME_UNIT_PAPER}
             rowMapping={rowMapping}
+            setVolumeUnit={setVolumeUnit}
+            showVolumeUnit
           />
         </div>
       </div>
@@ -131,6 +129,8 @@ ExchangeInfoBar.propTypes = {
   authToken: PropTypes.string.isRequired,
   currentMode: PropTypes.string.isRequired,
   onRemove: PropTypes.func,
+  tickersVolumeUnit: PropTypes.string.isRequired,
+  setVolumeUnit: PropTypes.func.isRequired,
 }
 
 ExchangeInfoBar.defaultProps = {

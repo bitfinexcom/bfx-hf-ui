@@ -197,6 +197,11 @@ export const changeLayout = (incomingLayout) => ({
   payload: { incomingLayout },
 })
 
+export const changeTickersVolumeUnit = key => ({
+  type: types.CHANGE_TICKERS_VOLUME_UNIT,
+  payload: { key },
+})
+
 export default {
   saveLayout,
   storeUnsavedLayout,
@@ -227,5 +232,6 @@ export default {
   clearStrategies,
   switchNotifcationPanel,
   setLayoutID,
+  changeTickersVolumeUnit,
   changeOldFormatModalState,
 }
