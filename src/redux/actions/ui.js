@@ -84,17 +84,17 @@ export const closeNotificationPanel = () => ({
   type: types.CLOSE_NOTIFICATIONS,
 })
 
-export const removeNotification = (uid) => ({
+export const removeNotification = (cid) => ({
   type: types.REMOVE_NOTIFICATION,
   payload: {
-    uid,
+    cid,
   },
 })
 
-export const removeNotifications = (uids) => ({
+export const removeNotifications = (cids) => ({
   type: types.REMOVE_NOTIFICATIONS,
   payload: {
-    uids,
+    cids,
   },
 })
 

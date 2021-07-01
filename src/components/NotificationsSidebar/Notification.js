@@ -36,10 +36,10 @@ const Notification = memo(({ data, onClose }) => {
   const [state, setState] = useState('OPENED')
 
   const close = () => {
-    const { uid } = data
+    const { cid } = data
 
     if (state === 'OPENED') {
-      onClose(uid)
+      onClose(cid)
       setState('CLOSED')
     }
   }

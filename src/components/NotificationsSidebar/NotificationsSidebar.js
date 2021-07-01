@@ -42,7 +42,7 @@ class NotificationsSidebar extends React.PureComponent {
     return {
       lastShownMTS: showMTS,
       liveNotifications: [
-        ...notifications.filter(({ uid }) => !shownNotifications.includes(uid)).map(n => ({
+        ...notifications.filter(({ cid }) => !shownNotifications.includes(cid)).map(n => ({
           n: {
             message: n.text,
             level: n.status,
@@ -54,7 +54,7 @@ class NotificationsSidebar extends React.PureComponent {
 
         ...prevState.liveNotifications,
       ],
-      shownNotifications: notifications.map(({ uid }) => uid),
+      shownNotifications: notifications.map(({ cid }) => cid),
     }
   }
 
@@ -71,20 +71,20 @@ class NotificationsSidebar extends React.PureComponent {
     )
   }
 
-  onClose({ uid, group }) {
+  onClose({ cid, group }) {
     const { removeNotifications } = this.props
-    let uids = []
+    let cids = []
 
     if (!_isEmpty(group)) {
-      uids = _map(group, el => el.uid)
-    } else if (!_isEmpty(uid)) {
-      uids = [uid]
+      cids = _map(group, el => el.cid)
+    } else if (!_isEmpty(cid)) {
+      cids = [cid]
     }
 
     this.setState(({ shownNotifications }) => ({
-      shownNotifications: _filter(shownNotifications, n => !_includes(uids, n.uid)),
+      shownNotifications: _filter(shownNotifications, n => !_includes(cids, n.cid)),
     }))
-    removeNotifications(uids)
+    removeNotifications(cids)
   }
 
   onClearNotifications() {
