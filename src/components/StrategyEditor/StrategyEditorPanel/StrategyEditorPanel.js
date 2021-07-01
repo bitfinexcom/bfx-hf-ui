@@ -74,7 +74,7 @@ const StrategyEditorPanel = ({
             )}
           </div>
         </div>
-        )}
+      )}
     >
       {children}
     </Panel>
