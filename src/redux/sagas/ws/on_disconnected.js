@@ -8,6 +8,6 @@ export default function* () {
     mts: Date.now(),
     status: 'error',
     text: 'Disconnected from websocket server',
-    uid: v4(),
+    cid: v4(),
   }))
 }
