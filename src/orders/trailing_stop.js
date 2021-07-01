@@ -1,3 +1,4 @@
+import checkboxesHelpMessages from '../constants/AtomicOrdersCheckboxHelpText'
 import { isValidDate } from '../util/date'
 
 export default () => ({
@@ -79,6 +80,7 @@ export default () => ({
     reduceonly: {
       component: 'input.checkbox',
       label: 'REDUCE-ONLY',
+      customHelp: checkboxesHelpMessages['REDUCE-ONLY'],
       trading: ['m'],
       default: false,
     },
@@ -86,6 +88,7 @@ export default () => ({
     tif: {
       component: 'input.checkbox',
       label: 'TIF',
+      customHelp: checkboxesHelpMessages.TIF,
       default: false,
     },
 

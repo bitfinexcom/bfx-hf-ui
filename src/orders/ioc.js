@@ -1,3 +1,5 @@
+import checkboxesHelpMessages from '../constants/AtomicOrdersCheckboxHelpText'
+
 export default () => ({
   label: 'Immediate or Cancel',
   customHelp: 'An IOC order is a limit order that must fill immediately, with any unfilled portion cancelled.',
@@ -58,6 +60,7 @@ export default () => ({
     reduceonly: {
       component: 'input.checkbox',
       label: 'REDUCE-ONLY',
+      customHelp: checkboxesHelpMessages['REDUCE-ONLY'],
       trading: ['m'],
       default: false,
     },
