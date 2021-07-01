@@ -34,9 +34,11 @@ export const rowMapping = {
         <>
           {isPerp ? <span>{perpUI}</span> : (
             <span className='price-unit'>
-              {baseCcy}
-              /
-              {quoteCcy}
+              <span>{baseCcy}</span>
+              <span>
+                /
+                {quoteCcy}
+              </span>
             </span>
           )}
         </>
