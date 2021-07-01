@@ -66,6 +66,8 @@ export default function LayoutSettings() {
     }
   }
 
+  const saveIsDisabled = layout.isDefault || !layoutIsDirty
+
   return (
     <div className='hfui-navbar__layout-settings'>
       <NavbarButton
@@ -83,7 +85,7 @@ export default function LayoutSettings() {
               <Item onClick={() => setIsAddLayoutComponentModalOpen(true)}>
                 Add Component
               </Item>
-              <Item onClick={onSave} isDisabled={layout.isDefault || !layoutIsDirty}>
+              <Item onClick={saveIsDisabled ? undefined : onSave} isDisabled={saveIsDisabled}>
                 Save
               </Item>
               <Item onClick={() => setIsCreateNewLayoutModalOpen(true)}>
