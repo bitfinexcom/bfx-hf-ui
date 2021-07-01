@@ -27,6 +27,12 @@
     height: 100%;
   }
 
+  &.exec-error {
+    .react-codemirror2, .CodeMirror {
+      height: calc(100% - 22px);
+    }
+  }
+
   .react-codemirror2, .CodeMirror {
     height: 100%;
   }
@@ -43,16 +49,6 @@
   .cm-s-monokai .CodeMirror-gutters {
     background-color: $background-color;
   }
-
-  &.maximised {
-    position: fixed;
-    left: 150px;
-    top: 99px;
-    width: calc(100% - 152px);
-    z-index: 99;
-    height: calc(100% - 134px);
-    border: 1px solid $black-color;
-  }
 }
 
 .hfui-strategyeditor__editor-error-output {
@@ -63,24 +59,19 @@
   font-size: 13px;
   position: absolute;
   bottom: 0;
-  left: 0px;
-  width: calc(100% - 32px);
-  z-index: 9999;
-  border-top: 1px solid $dark-grey-color;
+  width: 100%;
+  z-index: 3;
 
-  .fas.fa-times-circle {
+  .strategyeditor__close-icon {
     position: absolute;
-    top: 12px;
-    right: 8px;
-
-    &:hover {
-      color: $yellow-color;
-      cursor: pointer;
-    }
+    top: 8px;
+    right: 5px;
+    padding-top: 6px;
   }
 
   pre {
     white-space: pre-wrap;
+    width: calc(100% - 25px);
   }
 }
 
@@ -162,15 +153,10 @@
   width: calc(100% - 182px); // width of hfui-strategyeditor__func-select + margin-right
 }
 
-.hfui-strategyeditor__results-outer {
-  display: flex;
-  flex-direction: row;
-  height: 42%;
-}
-
-.hfui-strategyeditor__header-label {
-  border: none !important;
-  margin: 0;
-  padding: 0;
-  text-align: center;
+.hfui-strategyeditor__panel {
+  .notch-icon {
+    font-size: 18px;
+    color: $text-color !important;
+    padding: 3px 7px;
+  }
 }
