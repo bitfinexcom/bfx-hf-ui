@@ -23,13 +23,13 @@ function reducer(state = getInitialState(), action = {}) {
     }
 
     case UITypes.REMOVE_NOTIFICATION: {
-      const { uid } = payload
-      return _filter(state, n => n.uid !== uid)
+      const { cid } = payload
+      return _filter(state, n => n.cid !== cid)
     }
 
     case UITypes.REMOVE_NOTIFICATIONS: {
-      const { uids } = payload
-      return _filter(state, n => !_includes(uids, n.uid))
+      const { cids } = payload
+      return _filter(state, n => !_includes(cids, n.cid))
     }
 
     case UITypes.CLEAR_NOTIFICATIONS: {
