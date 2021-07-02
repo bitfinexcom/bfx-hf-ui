@@ -405,6 +405,7 @@ function reducer(state = getInitialState(), action = {}) {
 
       return {
         ...state,
+        layoutIsDirty: true,
         unsavedLayout: {
           ...layoutDef,
           layout: [
@@ -431,6 +432,7 @@ function reducer(state = getInitialState(), action = {}) {
 
       return {
         ...state,
+        layoutIsDirty: true,
         unsavedLayout: newLayoutDef,
       }
     }
