@@ -2,6 +2,9 @@ import React, { memo } from 'react'
 import { Icon } from 'react-fa'
 import PropTypes from 'prop-types'
 import _isEmpty from 'lodash/isEmpty'
+import _size from 'lodash/size'
+import _truncate from 'lodash/truncate'
+import { Tooltip } from '@ufx-ui/core'
 
 import Panel from '../../../ui/Panel'
 import Button from '../../../ui/Button'
@@ -18,7 +21,21 @@ const StrategyEditorPanel = ({
 
   return (
     <Panel
-      label={`Strategy Editor ${strategyDisplayLabel}`}
+      label={(
+        <>
+          Strategy Editor&nbsp;
+          {_size(strategyDisplayLabel) > 35 ? (
+            <Tooltip className='__react-tooltip __react_component_tooltip wide' content={strategyDisplayName}>
+              {_truncate(strategyDisplayLabel, {
+                length: 35,
+                omission: '...',
+              })}
+            </Tooltip>
+          ) : (
+            strategyDisplayLabel
+          )}
+        </>
+      )}
       className='hfui-strategyeditor__panel'
       dark={dark}
       darkHeader={dark}
