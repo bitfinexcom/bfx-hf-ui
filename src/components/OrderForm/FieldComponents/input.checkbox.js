@@ -16,7 +16,7 @@ const CheckboxInput = memo(({
       onChange={onChange}
       disabled={disabled}
       helpMessage={customHelp}
-      helpMessageClassname='__react-tooltip __react_component_tooltip'
+      helpMessageClassName='__react-tooltip __react_component_tooltip'
       label={_toUpper(renderString(label, renderData))}
     />
   </div>
