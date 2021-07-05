@@ -11,6 +11,8 @@ import Button from '../../../ui/Button'
 
 import '../style.css'
 
+const MAX_STRATEGY_LABEL_LENGTH = 35
+
 const StrategyEditorPanel = ({
   dark, strategy, onRemove, moveable, children, strategyId, removeable, execRunning, strategyDirty,
   onSaveStrategy, onOpenSelectModal, onOpenCreateModal, onOpenRemoveModal, strategies,
@@ -24,10 +26,10 @@ const StrategyEditorPanel = ({
       label={(
         <>
           Strategy Editor&nbsp;
-          {_size(strategyDisplayLabel) > 35 ? (
+          {_size(strategyDisplayLabel) > MAX_STRATEGY_LABEL_LENGTH ? (
             <Tooltip className='__react-tooltip __react_component_tooltip wide' content={strategyDisplayName}>
               {_truncate(strategyDisplayLabel, {
-                length: 35,
+                length: MAX_STRATEGY_LABEL_LENGTH,
                 omission: '...',
               })}
             </Tooltip>
