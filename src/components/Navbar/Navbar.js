@@ -8,6 +8,7 @@ import NavbarButton from './Navbar.Button'
 import SwitchMode from '../SwitchMode'
 
 import LayoutSettings from './Navbar.LayoutSettings'
+import AppSettings from './Navbar.AppSettings'
 import * as Routes from '../../constants/routes'
 
 import './style.css'
@@ -35,6 +36,7 @@ const Navbar = () => {
             icon='notifications'
             onClick={() => dispatch(UIActions.switchNotifcationPanel())}
           />
+          <AppSettings />
         </div>
         <div className='hfui-tradingpaper__control'>
           <div className='hfui-tradingpaper__control-toggle'>

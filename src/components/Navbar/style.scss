@@ -94,8 +94,14 @@
   height: 100%;
 }
 
+.hfui-navbar__app-settings,
 .hfui-navbar__layout-settings {
   position: relative;
+}
+
+.hfui-navbar__app-settings__icon i:before {
+  font-size: 19px !important;
+  font-weight: 500;
 }
 
 .hfui-navbar__layout-settings__menu {
