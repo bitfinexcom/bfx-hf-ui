@@ -8,7 +8,12 @@ const appMenuTemplate = require('./app_menu_template')
 
 module.exports = class HFUIApplication {
   static createWindow() {
-    const win = new BrowserWindow({ width: 1500, height: 850 })
+    const win = new BrowserWindow({
+      width: 1500,
+      height: 850,
+      icon: path.resolve(__dirname, '../icon.png'),
+      show: true,
+    })
 
     win.loadURL(url.format({
       pathname: 'index.html',
@@ -30,7 +35,7 @@ module.exports = class HFUIApplication {
     this.onMainWindowClosed = this.onMainWindowClosed.bind(this)
 
     // increase memory size
-    app.commandLine.appendSwitch('js-flags', '--max-old-space-size=2048');
+    app.commandLine.appendSwitch('js-flags', '--max-old-space-size=2048')
     app.on('ready', this.onReady)
     app.on('window-all-closed', this.onAllWindowsClosed)
     app.on('activate', this.onActivate)
