@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react'
+/* eslint-disable react/prop-types */
+import React, { useState } from 'react'
 import _values from 'lodash/values'
 import cx from 'classnames'
 
 import Modal from '../../ui/Modal'
-import APIKeysSection from '../../pages/Settings/APIKeysSection'
-import DeadMenSwitch from '../../pages/Settings/DeadMenSwitch'
-import CheckboxesSections from '../../pages/Settings/CheckboxesSections'
-
 import GeneralTab from './AppSettingsModal.General'
 import ApiKeysTab from './AppSettingsModal.ApiKeys'
 import TradingModeTab from './AppSettingsModal.TradingMode'
@@ -19,19 +16,23 @@ const Tabs = {
   TradingMode: 'Trading mode',
 }
 
+const defaultTab = Tabs.General
+
 const AppSettingsModal = ({
   isOpen,
   onClose,
 }) => {
-  const [activeTab, setActiveTab] = useState(Tabs.General)
-
-  const [stateDMS, setStateDMS] = useState(null)
-  const [stateGA, setStateGA] = useState(null)
+  const [activeTab, setActiveTab] = useState(defaultTab)
 
   return (
     <Modal
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={() => {
+        onClose()
+
+        // reset to default tab, but wait for transition out
+        setTimeout(() => setActiveTab(defaultTab), 500)
+      }}
       label='Settings'
       className='appsettings-modal'
       width={640}

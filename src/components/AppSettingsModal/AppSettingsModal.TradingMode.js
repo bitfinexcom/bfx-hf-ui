@@ -4,14 +4,10 @@ import _get from 'lodash/get'
 import PropTypes from 'prop-types'
 import { Checkbox, Button } from '@ufx-ui/core'
 
-import { getAuthToken } from '../../redux/selectors/ws'
-import { getCurrentMode } from '../../redux/selectors/ui'
-import { isDevEnv as devEnv } from '../../util/autologin'
-
-// import NavbarButton from '../../Navbar/Navbar.Link'
-import Input from '../../ui/Input'
-
-const isDevEnv = devEnv()
+import {
+  PAPER_MODE,
+  MAIN_MODE,
+} from '../../redux/reducers/ui'
 
 const TradingMode = ({ checked, onOptionChange }) => {
   const [isPaperTrading, setIsPaperTrading] = useState(true)

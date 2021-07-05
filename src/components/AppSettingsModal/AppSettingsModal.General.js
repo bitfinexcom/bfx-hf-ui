@@ -1,35 +1,28 @@
 import React, { memo, useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import _get from 'lodash/get'
-import PropTypes from 'prop-types'
-import { Checkbox, Button, Intent } from '@ufx-ui/core'
+import { Checkbox } from '@ufx-ui/core'
 
 import { getAuthToken } from '../../redux/selectors/ws'
-import { getCurrentMode } from '../../redux/selectors/ui'
-import { isDevEnv as devEnv } from '../../util/autologin'
+import WSActions from '../../redux/actions/ws'
+import GAActions from '../../redux/actions/google_analytics'
+import {
+  isDevEnv,
+  getAutoLoginState,
+  updateAutoLoginState,
+} from '../../util/autologin'
 
-const isDevEnv = devEnv()
+const INITIAL_AUTO_LOGIN = getAutoLoginState()
 
-const General = ({ checked, onOptionChange }) => {
+const General = () => {
   const dispatch = useDispatch()
-  const settingsDms = useSelector(state => _get(state, 'settings.dms', null))
-  const settingsGa = useSelector(state => _get(state, 'settings.ga', null))
+  const settingsDms = useSelector(state => _get(state, 'ui.settings.dms', null))
+  const settingsGa = useSelector(state => _get(state, 'ui.settings.ga', null))
   const authToken = useSelector(getAuthToken)
-  const currentMode = useSelector(getCurrentMode)
 
+  const [isAutoLoginChecked, setIsAutoLoginChecked] = useState(INITIAL_AUTO_LOGIN)
   const [isDmsChecked, setIsDmsChecked] = useState(settingsDms)
   const [isGaChecked, setIsGaChecked] = useState(settingsGa)
-
-  // updateSettings: ({
-  //   authToken, dms, ga,
-  // }) => {
-  //   dispatch(WSActions.send([
-  //     'settings.update',
-  //     authToken,
-  //     dms,
-  //     ga,
-  //   ]))
-  // },
 
   useEffect(() => {
     setIsDmsChecked(settingsDms)
@@ -39,6 +32,28 @@ const General = ({ checked, onOptionChange }) => {
     setIsGaChecked(settingsGa)
   }, [settingsGa])
 
+  const updateDms = (nextDms) => {
+    setIsDmsChecked(nextDms)
+    dispatch(WSActions.send([
+      'settings.update',
+      authToken,
+      nextDms,
+      settingsGa,
+    ]))
+    dispatch(GAActions.updateSettings())
+  }
+
+  const updateGa = (nextGa) => {
+    setIsGaChecked(nextGa)
+    dispatch(WSActions.send([
+      'settings.update',
+      authToken,
+      settingsDms,
+      nextGa,
+    ]))
+    dispatch(GAActions.updateSettings())
+  }
+
   return (
     <div>
       <div className='appsettings-modal__title'>
@@ -46,7 +61,7 @@ const General = ({ checked, onOptionChange }) => {
       </div>
       <div className='appsettings-modal__setting'>
         <Checkbox
-          onChange={() => setIsDmsChecked(!isDmsChecked)}
+          onChange={updateDms}
           label='Dead Man Switch'
           checked={isDmsChecked}
           className='appsettings-modal__checkbox'
@@ -69,34 +84,31 @@ const General = ({ checked, onOptionChange }) => {
       </div>
       <div className='appsettings-modal__setting'>
         <Checkbox
-          onChange={() => setIsGaChecked(!isGaChecked)}
+          onChange={updateGa}
           label='Usage reporting'
           checked={isGaChecked}
           className='appsettings-modal__checkbox'
         />
       </div>
-      <div className='appsettings-modal__setting'>
-        <Checkbox
-          label='Auto-login in development mode'
-          checked
-          onChange={() => {}}
-          className='appsettings-modal__checkbox'
-        />
-        <div className='appsettings-modal__description'>
-          It’s not required to press the `Save` button to update the auto-login state.
-          The state will be updated and saved right after you click on the checkbox.
+      {isDevEnv() && (
+        <div className='appsettings-modal__setting'>
+          <Checkbox
+            label='Auto-login in development mode'
+            checked={isAutoLoginChecked}
+            onChange={(value) => {
+              setIsAutoLoginChecked(value)
+              updateAutoLoginState(value)
+            }}
+            className='appsettings-modal__checkbox'
+          />
+          <div className='appsettings-modal__description'>
+            It’s not required to press the `Save` button to update the auto-login state.
+            The state will be updated and saved right after you click on the checkbox.
+          </div>
         </div>
-      </div>
-      <Button intent={Intent.PRIMARY} small>
-        Save
-      </Button>
+      )}
     </div>
   )
-}
-
-General.propTypes = {
-  checked: PropTypes.bool.isRequired,
-  onOptionChange: PropTypes.func.isRequired,
 }
 
 export default memo(General)
