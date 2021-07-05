@@ -11,6 +11,8 @@ import Dropdown from '../../ui/Dropdown'
 
 import './style.css'
 
+const MAX_LABEL_LENGTH = 150
+
 const CreateNewStrategyModal = ({
   onSubmit, onClose, gaCreateStrategy, isOpen,
 }) => {
@@ -26,8 +28,8 @@ const CreateNewStrategyModal = ({
       return
     }
 
-    if (labelSize > 150) {
-      setError(`Strategy name is too long (${labelSize}/150 characters)`)
+    if (labelSize > MAX_LABEL_LENGTH) {
+      setError(`Strategy name is too long (${labelSize}/${MAX_LABEL_LENGTH} characters)`)
       return
     }
 
