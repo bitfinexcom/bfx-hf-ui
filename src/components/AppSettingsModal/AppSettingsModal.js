@@ -7,12 +7,16 @@ import APIKeysSection from '../../pages/Settings/APIKeysSection'
 import DeadMenSwitch from '../../pages/Settings/DeadMenSwitch'
 import CheckboxesSections from '../../pages/Settings/CheckboxesSections'
 
+import GeneralTab from './AppSettingsModal.General'
+import ApiKeysTab from './AppSettingsModal.ApiKeys'
+import TradingModeTab from './AppSettingsModal.TradingMode'
+
 import './style.css'
 
 const Tabs = {
   General: 'General',
   Keys: 'API keys',
-  Trading: 'Trading mode',
+  TradingMode: 'Trading mode',
 }
 
 const AppSettingsModal = ({
@@ -29,7 +33,7 @@ const AppSettingsModal = ({
       isOpen={isOpen}
       onClose={onClose}
       label='Settings'
-      className='appsettings-modal hfui-settingspage2__wrapper'
+      className='appsettings-modal'
       width={640}
       textAlign='center'
     >
@@ -46,45 +50,10 @@ const AppSettingsModal = ({
           </div>
         ))}
       </div>
-      <div className='appsettings-modal__content hfui-settings2__content'>
-        {activeTab === Tabs.General && (
-          <>
-            <DeadMenSwitch
-              onOptionChange={setStateDMS}
-              checked={Boolean(stateDMS)}
-            />
-
-            <CheckboxesSections
-              onOptionChange={setStateGA}
-              gaChecked={Boolean(stateGA)}
-              autologinChecked={false}
-              updateAutoLoginState={() => {}}
-            />
-
-            <div className='hfui-settings__option'>
-              <Modal.Button>
-                Save
-              </Modal.Button>
-            </div>
-          </>
-        )}
-        {activeTab === Tabs.Keys && (
-          <>
-            <APIKeysSection
-              setApiKey={() => {}}
-              apiKey=''
-              setApiSecret={() => {}}
-              apiSecret=''
-              setPaperApiKey={() => {}}
-              paperApiKey=''
-              setPaperApiSecret={() => {}}
-              paperApiSecret=''
-            />
-            <Modal.Button>
-              Save
-            </Modal.Button>
-          </>
-        )}
+      <div className='appsettings-modal__content'>
+        {activeTab === Tabs.General && <GeneralTab />}
+        {activeTab === Tabs.Keys && <ApiKeysTab />}
+        {activeTab === Tabs.TradingMode && <TradingModeTab />}
       </div>
     </Modal>
   )

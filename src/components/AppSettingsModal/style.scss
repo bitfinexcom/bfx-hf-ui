@@ -1,12 +1,25 @@
 @import '../../variables.scss';
 
 .appsettings-modal {
+  min-height: 336px;
+
   .modal__body {
     display: flex;
     width: 100%;
-    margin: 0 (0 - spacing(0.75)) (0 - spacing(0.75));
+    margin: 0 (0 - spacing(0.25)) (0 - spacing(0.25));
     text-align: left;
     padding-top: spacing(0.25) !important;
+  }
+
+  &__title {
+    font-weight: 600;
+    font-size: 14px;
+    color: $light-color-900;
+    margin-bottom: spacing();
+  }
+
+  p {
+    margin-bottom: spacing();
   }
 
   &__tabs {
@@ -41,117 +54,44 @@
   }
 
   &__content {
+    flex-grow: 1;
     padding: spacing(0.75) spacing(1.5);
   }
-}
 
+  &__setting {
+    // padding: spacing(0.75) spacing(1.5);
+    margin-bottom: spacing(1.5);
 
-.hfui-settingspage2__wrapper {
-  // display: flex;
-  // flex-direction: column;
-  // align-items: stretch;
-  // padding: spacing();
-  // height: 100%;
-
-  .hfui-settings2__content {
-    // width: 100%;
-    // height: 100%;
-    // color: $light-color-600;
-
-    .hfui-settings__option-label {
-      color: $light-color-800;
-      font-weight: 600;
-      margin-bottom: spacing(.5);
-      font-size: 14px;
-    }
-
-    .hfui-settings__option-check {
-      margin-bottom: spacing(1);
-
-      .hfui-checkbox {
-        font-size: 16px;
-      }
-    }
-
-    > div {
-      // margin-bottom: spacing(2);
-      // width: 100%;
-
-      
-    }
-
-    .hfui-settings__option {
-      // width: 40%;
-      margin-bottom: 30px;
-
-      .settings-save {
-        padding: 10px 30px 10px 30px;
-      }
-    }
-
-    .hfui-settings__option * {
-      font-size: 1.2em;
-
-      .field-icon {
-        font-size: 0.8em !important;
-        margin-top: -35px;
-      }
-
-      .hfui-settings__item-list {
-        margin-bottom: 7px;
-        font-size: 0.8em;
-      }
-    }
-
-    .hfui-setting__select {
-      min-width: 125px !important;
-      background: $panel-background-color;
-      color: $white-color;
-      width: 40%;
-      padding: 7px;
-    }
-
-    .hfui-settings__option-description {
-      font-size: 13px;
-
-      > * {
-        margin-bottom: 16px;
-        line-height: 1.5;
-      }
-
-      .important {
-        opacity: 1;
-        background: rgba(0, 0, 0, 0.2);
-        padding: 8px;
-        text-align: center;
-
-        em {
-          font-weight: 600;
-          color: $light-color-900;
-          font-style: normal;
-        }
-      }
+    &:last-child {
+      margin-bottom: 0;
     }
   }
 
-  .hfui-settings__title {
-    font-size: 1.5em;
+  &__description {
+    padding-left: 25px; // match ufx checkbox
+    color: $light-color-500;
+  }
+
+  &__warning {
+    display: inline-block;
+    background: mix($red-color, $background-color, 10%);
+    border-radius: $border-radius;
+    color: $red-color;
+    padding: spacing(0.5) spacing();
+  }
+
+  &__checkbox {
     font-weight: 600;
-    color: $light-color-900;
-    margin-bottom: spacing();
+    color: $light-color-800;
+    margin-bottom: spacing(0.5);
   }
-}
 
-.hfui-settings__control-toggle {
-  display: flex;
-  border-bottom: 1.5px solid $panel-background-color;
-  flex-direction: row;
-  justify-content: flex-end;
-  padding: 25px;
-  align-items: flex-end;
-  p {
-    font-size: 13px;
-    padding-right: 13px;
-    padding-bottom: 4px;
+  &__input {
+    margin-bottom: spacing(0.5);
+
+    .field-icon {
+      margin-top: -32px;
+      padding: 6px;
+    }
   }
 }
