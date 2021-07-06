@@ -26,21 +26,32 @@ const TradingMode = ({ onClose }) => {
       <div className='appsettings-modal__setting'>
         <Checkbox
           onChange={() => setIsPaperTrading(!isPaperTrading)}
+          label='Production Trading'
+          checked={!isPaperTrading}
+          className='appsettings-modal__checkbox'
+        />
+        <div className='appsettings-modal__description'>
+          Live trading with real money.
+        </div>
+      </div>
+      <div className='appsettings-modal__setting'>
+        <Checkbox
+          onChange={() => setIsPaperTrading(!isPaperTrading)}
           label='Paper Trading'
           checked={isPaperTrading}
           className='appsettings-modal__checkbox'
         />
         <div className='appsettings-modal__description'>
           Practice trading without risking real money.
+          <br />
+          <a
+            href='https://support.bitfinex.com/hc/en-us/articles/900001525006-Paper-Trading-test-learn-and-simulate-trading-strategies-'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            Learn More
+          </a>
         </div>
-      </div>
-      <div className='appsettings-modal__setting'>
-        <Checkbox
-          onChange={() => setIsPaperTrading(!isPaperTrading)}
-          label='Live Trading'
-          checked={!isPaperTrading}
-          className='appsettings-modal__checkbox'
-        />
       </div>
       <Button
         intent={Intent.PRIMARY}

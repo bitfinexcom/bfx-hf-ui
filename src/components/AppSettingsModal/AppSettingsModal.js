@@ -13,20 +13,20 @@ import './style.css'
 
 const Tabs = {
   General: 'General',
-  Keys: 'API keys',
   TradingMode: 'Trading mode',
+  Keys: 'API keys',
 }
 
 const defaultTab = Tabs.General
 
 const AppSettingsModal = ({
   isOpen,
-  onClose,
+  onClose: onModalClose,
 }) => {
   const [activeTab, setActiveTab] = useState(defaultTab)
 
-  const onSettingsClose = (callback) => {
-    onClose()
+  const onClose = (callback) => {
+    onModalClose()
 
     // reset to default tab, but wait for transition out
     setTimeout(() => {
@@ -41,7 +41,7 @@ const AppSettingsModal = ({
   return (
     <Modal
       isOpen={isOpen}
-      onClose={onSettingsClose}
+      onClose={onClose}
       label='Settings'
       className='appsettings-modal'
       width={640}
@@ -63,7 +63,7 @@ const AppSettingsModal = ({
       <div className='appsettings-modal__content'>
         {activeTab === Tabs.General && <GeneralTab />}
         {activeTab === Tabs.Keys && <ApiKeysTab />}
-        {activeTab === Tabs.TradingMode && <TradingModeTab onClose={onSettingsClose} />}
+        {activeTab === Tabs.TradingMode && <TradingModeTab onClose={onClose} />}
       </div>
     </Modal>
   )

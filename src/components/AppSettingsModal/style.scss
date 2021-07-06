@@ -65,6 +65,10 @@
     &:last-child {
       margin-bottom: 0;
     }
+
+    a {
+      text-decoration: none;
+    }
   }
 
   &__description {
@@ -92,6 +96,29 @@
     .field-icon {
       margin-top: -32px;
       padding: 6px;
+    }
+  }
+
+  &__api-configuration-message {
+    display: flex;
+    padding: spacing();
+    border-radius: $border-radius;
+    margin-bottom: spacing(1.5);
+
+    &.is-success {
+      color: $primary-color-900;
+      background: $primary-color-50;
+    }
+
+    &.is-error {
+      color: $red-color;
+      background: mix($red-color, $background-color, 10%);
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+      margin-right: spacing(0.5);
     }
   }
 }
