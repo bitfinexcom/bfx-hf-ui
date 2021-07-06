@@ -158,7 +158,7 @@
     "@ufx-ui/core": "0.8.7",
     "axios": "^0.21.1",
     "bfx-api-node-models": "^1.2.4",
-    "bfx-api-node-util": "^1.0.8",
+    "bfx-api-node-util": "^1.0.10",
     "bfx-hf-algo": "^4.3.1",
     "bfx-hf-chart": "^1.0.6",
     "bfx-hf-data-server": "^3.0.3",
