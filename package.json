@@ -78,7 +78,7 @@
     "build": "GENERATE_SOURCEMAP=false cross-env npm run build-css &&  cross-env REACT_APP_TV_URL=http://localhost:9999 REACT_APP_WSS_URL=ws://localhost:45000 REACT_APP_DS_URL=ws://localhost:23521 REACT_APP_WS_API_URL=wss://api-pub.bitfinex.com/ws/2 REACT_APP_UFX_PUBLIC_API_URL=http://localhost:45001 node scripts/build.js",
     "dev": "cross-env concurrently --kill-others \"npm run start-server\" \"npm run start\"",
     "test": "cross-env npm run lint",
-    "lint": "cross-env eslint src/**/*.js",
+    "lint": "cross-env eslint src",
     "electron-dev": "cross-env concurrently \"BROWSER=none npm run start-server\"  & electron .",
     "electron": "cross-env electron .",
     "pack": "cross-env ./node_modules/.bin/electron-builder --dir",
