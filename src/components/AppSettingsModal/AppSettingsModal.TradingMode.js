@@ -1,16 +1,22 @@
-import React, { memo, useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import _get from 'lodash/get'
-import PropTypes from 'prop-types'
-import { Checkbox, Button } from '@ufx-ui/core'
+import { Checkbox, Button, Intent } from '@ufx-ui/core'
 
-import {
-  PAPER_MODE,
-  MAIN_MODE,
-} from '../../redux/reducers/ui'
+import UIActions from '../../redux/actions/ui'
+import { getIsPaperTrading } from '../../redux/selectors/ui'
 
-const TradingMode = ({ checked, onOptionChange }) => {
-  const [isPaperTrading, setIsPaperTrading] = useState(true)
+// eslint-disable-next-line react/prop-types
+const TradingMode = ({ onClose }) => {
+  const dispatch = useDispatch()
+  const isPaperTradingMode = useSelector(getIsPaperTrading)
+  const [isPaperTrading, setIsPaperTrading] = useState(isPaperTradingMode)
+
+  const isChanged = isPaperTradingMode !== isPaperTrading
+
+  const onSave = () => {
+    // open change trading mode modal after this modal closes
+    onClose(() => dispatch(UIActions.changeTradingModeModalState(true)))
+  }
 
   return (
     <div>
@@ -36,13 +42,16 @@ const TradingMode = ({ checked, onOptionChange }) => {
           className='appsettings-modal__checkbox'
         />
       </div>
+      <Button
+        intent={Intent.PRIMARY}
+        small
+        onClick={onSave}
+        disabled={!isChanged}
+      >
+        Save
+      </Button>
     </div>
   )
 }
 
-TradingMode.propTypes = {
-  checked: PropTypes.bool.isRequired,
-  onOptionChange: PropTypes.func.isRequired,
-}
-
-export default memo(TradingMode)
+export default TradingMode

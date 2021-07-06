@@ -1,43 +1,54 @@
-import React, { memo, useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import _get from 'lodash/get'
-import PropTypes from 'prop-types'
-import { Checkbox, Button, Intent } from '@ufx-ui/core'
+import _size from 'lodash/size'
+import _trim from 'lodash/trim'
+import { Button, Intent } from '@ufx-ui/core'
 
 import { getAuthToken } from '../../redux/selectors/ws'
 import { getCurrentMode } from '../../redux/selectors/ui'
-import { isDevEnv as devEnv } from '../../util/autologin'
-
-// import NavbarButton from '../../Navbar/Navbar.Link'
+import WSActions from '../../redux/actions/ws'
 import Input from '../../ui/Input'
+import {
+  PAPER_MODE,
+  MAIN_MODE,
+} from '../../redux/reducers/ui'
 
-const isDevEnv = devEnv()
-
-const ApiKeys = ({ checked, onOptionChange }) => {
+const ApiKeys = () => {
   const dispatch = useDispatch()
-  // const settingsDms = useSelector(state => _get(state, 'settings.dms', null))
-  // const settingsGa = useSelector(state => _get(state, 'settings.ga', null))
-  // const authToken = useSelector(getAuthToken)
-  // const currentMode = useSelector(getCurrentMode)
-
-  // const [isDmsChecked, setIsDmsChecked] = useState(settingsDms)
-  // const [isGaChecked, setIsGaChecked] = useState(settingsGa)
+  const authToken = useSelector(getAuthToken)
+  const currentMode = useSelector(getCurrentMode)
 
   const [apiKey, setApiKey] = useState('')
   const [apiSecret, setApiSecret] = useState('')
   const [paperApiKey, setPaperApiKey] = useState('')
   const [paperApiSecret, setPaperApiSecret] = useState('')
 
-  // updateSettings: ({
-  //   authToken, dms, ga,
-  // }) => {
-  //   dispatch(WSActions.send([
-  //     'settings.update',
-  //     authToken,
-  //     dms,
-  //     ga,
-  //   ]))
-  // },
+  const isProductionKeysTouched = _size(_trim(apiKey)) && _size(_trim(apiSecret))
+  const isPaperKeysTouched = _size(_trim(paperApiKey)) && _size(_trim(paperApiSecret))
+
+  const onSave = () => {
+    if (isProductionKeysTouched) {
+      dispatch(WSActions.send([
+        'api_credentials.save',
+        authToken,
+        apiKey,
+        apiSecret,
+        MAIN_MODE,
+        currentMode,
+      ]))
+    }
+
+    if (isPaperKeysTouched) {
+      dispatch(WSActions.send([
+        'api_credentials.save',
+        authToken,
+        paperApiKey,
+        paperApiSecret,
+        PAPER_MODE,
+        currentMode,
+      ]))
+    }
+  }
 
   return (
     <div>
@@ -86,16 +97,16 @@ const ApiKeys = ({ checked, onOptionChange }) => {
           />
         </div>
       </div>
-      <Button intent={Intent.PRIMARY} small>
+      <Button
+        intent={Intent.PRIMARY}
+        small
+        onClick={onSave}
+        disabled={!(isProductionKeysTouched || isPaperKeysTouched)}
+      >
         Save
       </Button>
     </div>
   )
 }
 
-ApiKeys.propTypes = {
-  checked: PropTypes.bool.isRequired,
-  onOptionChange: PropTypes.func.isRequired,
-}
-
-export default memo(ApiKeys)
+export default ApiKeys

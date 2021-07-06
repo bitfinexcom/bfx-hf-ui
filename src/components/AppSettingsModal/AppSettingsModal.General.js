@@ -6,6 +6,7 @@ import { Checkbox } from '@ufx-ui/core'
 import { getAuthToken } from '../../redux/selectors/ws'
 import WSActions from '../../redux/actions/ws'
 import GAActions from '../../redux/actions/google_analytics'
+import { getActiveAlgoOrders } from '../../redux/actions/ao'
 import {
   isDevEnv,
   getAutoLoginState,
@@ -40,6 +41,7 @@ const General = () => {
       nextDms,
       settingsGa,
     ]))
+    dispatch(getActiveAlgoOrders())
     dispatch(GAActions.updateSettings())
   }
 

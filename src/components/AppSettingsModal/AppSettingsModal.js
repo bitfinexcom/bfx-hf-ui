@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 import _values from 'lodash/values'
+import _isFunction from 'lodash/isFunction'
 import cx from 'classnames'
 
 import Modal from '../../ui/Modal'
@@ -24,15 +25,23 @@ const AppSettingsModal = ({
 }) => {
   const [activeTab, setActiveTab] = useState(defaultTab)
 
+  const onSettingsClose = (callback) => {
+    onClose()
+
+    // reset to default tab, but wait for transition out
+    setTimeout(() => {
+      setActiveTab(defaultTab)
+
+      if (_isFunction(callback)) {
+        callback()
+      }
+    }, 200)
+  }
+
   return (
     <Modal
       isOpen={isOpen}
-      onClose={() => {
-        onClose()
-
-        // reset to default tab, but wait for transition out
-        setTimeout(() => setActiveTab(defaultTab), 500)
-      }}
+      onClose={onSettingsClose}
       label='Settings'
       className='appsettings-modal'
       width={640}
@@ -54,7 +63,7 @@ const AppSettingsModal = ({
       <div className='appsettings-modal__content'>
         {activeTab === Tabs.General && <GeneralTab />}
         {activeTab === Tabs.Keys && <ApiKeysTab />}
-        {activeTab === Tabs.TradingMode && <TradingModeTab />}
+        {activeTab === Tabs.TradingMode && <TradingModeTab onClose={onSettingsClose} />}
       </div>
     </Modal>
   )
