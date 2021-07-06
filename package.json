@@ -113,6 +113,7 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-named-asset-import": "^0.3.2",
     "babel-preset-react-app": "^9.0.0",
+    "browserslist": "^4.16.6",
     "case-sensitive-paths-webpack-plugin": "^2.3.0",
     "css-loader": "^3.4.2",
     "electron": "^13.0.1",
