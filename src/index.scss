@@ -140,6 +140,11 @@ body button:focus {
   font-size: 13px;
   padding: 4px 12px;
   text-align: center;
+  
+  &.wide {
+    word-break: break-all;
+    max-width: 650px;
+  }
 }
 
 .__react_component_tooltip {

@@ -2,11 +2,16 @@ import React, { memo } from 'react'
 import { Icon } from 'react-fa'
 import PropTypes from 'prop-types'
 import _isEmpty from 'lodash/isEmpty'
+import _size from 'lodash/size'
+import _truncate from 'lodash/truncate'
+import { Tooltip } from '@ufx-ui/core'
 
 import Panel from '../../../ui/Panel'
 import Button from '../../../ui/Button'
 
 import '../style.css'
+
+const MAX_STRATEGY_LABEL_LENGTH = 35
 
 const StrategyEditorPanel = ({
   dark, strategy, onRemove, moveable, children, strategyId, removeable, execRunning, strategyDirty,
@@ -18,7 +23,21 @@ const StrategyEditorPanel = ({
 
   return (
     <Panel
-      label={`Strategy Editor ${strategyDisplayLabel}`}
+      label={(
+        <>
+          Strategy Editor&nbsp;
+          {_size(strategyDisplayLabel) > MAX_STRATEGY_LABEL_LENGTH ? (
+            <Tooltip className='__react-tooltip __react_component_tooltip wide' content={strategyDisplayName}>
+              {_truncate(strategyDisplayLabel, {
+                length: MAX_STRATEGY_LABEL_LENGTH,
+                omission: '...',
+              })}
+            </Tooltip>
+          ) : (
+            strategyDisplayLabel
+          )}
+        </>
+      )}
       className='hfui-strategyeditor__panel'
       dark={dark}
       darkHeader={dark}

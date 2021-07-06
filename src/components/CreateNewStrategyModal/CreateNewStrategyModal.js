@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import _isEmpty from 'lodash/isEmpty'
+import _size from 'lodash/size'
 import PropTypes from 'prop-types'
 
 import Templates from '../StrategyEditor/templates'
@@ -10,6 +11,8 @@ import Dropdown from '../../ui/Dropdown'
 
 import './style.css'
 
+const MAX_LABEL_LENGTH = 150
+
 const CreateNewStrategyModal = ({
   onSubmit, onClose, gaCreateStrategy, isOpen,
 }) => {
@@ -18,10 +21,18 @@ const CreateNewStrategyModal = ({
   const [template, setTemplate] = useState('Blank')
 
   const onSubmitHandler = () => {
+    const labelSize = _size(label)
+
     if (_isEmpty(label)) {
-      setError('Label empty')
+      setError('Label is empty')
       return
     }
+
+    if (labelSize > MAX_LABEL_LENGTH) {
+      setError(`Strategy name is too long (${labelSize}/${MAX_LABEL_LENGTH} characters)`)
+      return
+    }
+
     gaCreateStrategy()
 
     onSubmit(label, template)
