@@ -1,3 +1,4 @@
+import Debug from 'debug'
 import _get from 'lodash/get'
 import _isEqual from 'lodash/isEqual'
 import _isEmpty from 'lodash/isEmpty'
@@ -28,6 +29,7 @@ import {
   gridLayoutToLayoutDef,
 } from '../../../components/GridLayout/GridLayout.helpers'
 
+const debug = Debug('hfui:rx:r:ui')
 const LAYOUTS_KEY = 'HF_UI_LAYOUTS'
 const LAYOUTS_STATE_KEY = 'HF_UI_LAYOUTS_STATE'
 const ACTIVE_MARKET_KEY = 'HF_UI_ACTIVE_MARKET'
@@ -35,6 +37,7 @@ const ACTIVE_MARKET_PAPER_KEY = 'HF_UI_PAPER_ACTIVE_MARKET'
 const IS_PAPER_TRADING = 'IS_PAPER_TRADING'
 export const PAPER_MODE = 'paper'
 export const MAIN_MODE = 'main'
+let shownOldFormatModal = false
 
 const DEFAULT_MARKET = {
   contexts: ['e', 'm'],
@@ -79,14 +82,10 @@ function getInitialState() {
   try {
     const storedLayouts = JSON.parse(layoutsJSON)
 
-    const isNewFormat = _some(
+    const isNewFormat = !_some(
       _values(storedLayouts),
-      layout => !_isUndefined(layout.savedAt),
+      layout => _isUndefined(layout.savedAt),
     )
-
-    if (!isNewFormat && !_isEmpty(storedLayouts)) {
-      defaultState.isOldFormatModalVisible = true
-    }
 
     // transform old format to new format for compatibility
     const nextFormatLayouts = isNewFormat ? storedLayouts : _reduce(
@@ -116,16 +115,23 @@ function getInitialState() {
       },
     )
 
+    // saving reformatted layouts into the local storage
+    if ((!isNewFormat && !_isEmpty(storedLayouts)) || shownOldFormatModal) {
+      shownOldFormatModal = true
+      defaultState.isOldFormatModalVisible = true
+      localStorage.setItem(LAYOUTS_KEY, JSON.stringify(nextFormatLayouts))
+    }
+
     defaultState.layouts = nextFormatLayouts
     defaultState.tickersVolumeUnit = isPaperTrading ? VOLUME_UNIT_PAPER.TESTUSD : VOLUME_UNIT.USD
   } catch (e) {
-    console.error(`err load layouts, check storage ${LAYOUTS_KEY}`)
+    debug('Loading layouts error, check localStorage: %s', LAYOUTS_KEY)
   }
 
   try {
     defaultState.layoutComponentState = JSON.parse(layoutsComponentStateJSON)
   } catch (e) {
-    console.error(`err load layouts state, check storage ${LAYOUTS_STATE_KEY}`)
+    debug('Loading layouts state error, check localStorage: %s', LAYOUTS_STATE_KEY)
   }
 
   if (!defaultState.layouts) {
