@@ -61,6 +61,7 @@ function getInitialState() {
     isTradingModeModalVisible: false,
     isRefillBalanceModalVisible: false,
     isOldFormatModalVisible: false,
+    isAOPauseModalVisible: false,
     isBadInternetConnection: false,
     isOrderExecuting: false,
     content: {},
@@ -397,6 +398,14 @@ function reducer(state = getInitialState(), action = {}) {
       return {
         ...state,
         isOldFormatModalVisible: isVisible,
+      }
+    }
+    case types.CHANGE_AO_PAUSE_MODAL_STATE: {
+      const { isVisible } = payload
+
+      return {
+        ...state,
+        isAOPauseModalVisible: isVisible,
       }
     }
     case types.ADD_COMPONENT: {

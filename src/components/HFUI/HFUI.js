@@ -10,6 +10,7 @@ import AuthenticationPage from '../../pages/Authentication'
 import TradingModeModal from '../TradingModeModal'
 import BadConnectionModal from '../BadConnectionModal'
 import OldFormatModal from '../OldFormatModal'
+import AOPauseModal from '../AOPauseModal'
 
 import NotificationsSidebar from '../NotificationsSidebar'
 
@@ -69,6 +70,7 @@ const HFUI = ({
           <TradingModeModal />
           <BadConnectionModal />
           <OldFormatModal />
+          <AOPauseModal />
         </>
       )}
       <NotificationsSidebar notificationsVisible={notificationsVisible} />
