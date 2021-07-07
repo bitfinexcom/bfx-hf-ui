@@ -19,11 +19,13 @@ const General = () => {
   const dispatch = useDispatch()
   const settingsDms = useSelector(state => _get(state, 'ui.settings.dms', null))
   const settingsGa = useSelector(state => _get(state, 'ui.settings.ga', null))
+  const settingsShowAlgoPauseInfo = useSelector(state => _get(state, 'ui.settings.showAlgoPauseInfo', null))
   const authToken = useSelector(getAuthToken)
 
   const [isAutoLoginChecked, setIsAutoLoginChecked] = useState(INITIAL_AUTO_LOGIN)
   const [isDmsChecked, setIsDmsChecked] = useState(settingsDms)
   const [isGaChecked, setIsGaChecked] = useState(settingsGa)
+  const [isShowAlgoPauseInfoChecked, setIsShowAlgoPauseInfoChecked] = useState(settingsShowAlgoPauseInfo)
 
   useEffect(() => {
     setIsDmsChecked(settingsDms)
@@ -33,6 +35,10 @@ const General = () => {
     setIsGaChecked(settingsGa)
   }, [settingsGa])
 
+  useEffect(() => {
+    setIsShowAlgoPauseInfoChecked(settingsShowAlgoPauseInfo)
+  }, [settingsShowAlgoPauseInfo])
+
   const updateDms = (nextDms) => {
     setIsDmsChecked(nextDms)
     dispatch(WSActions.send([
@@ -40,6 +46,7 @@ const General = () => {
       authToken,
       nextDms,
       settingsGa,
+      isShowAlgoPauseInfoChecked,
     ]))
     dispatch(getActiveAlgoOrders())
     dispatch(GAActions.updateSettings())
@@ -52,6 +59,19 @@ const General = () => {
       authToken,
       settingsDms,
       nextGa,
+      isShowAlgoPauseInfoChecked,
+    ]))
+    dispatch(GAActions.updateSettings())
+  }
+
+  const updateAOPause = (nextAOPause) => {
+    setIsShowAlgoPauseInfoChecked(nextAOPause)
+    dispatch(WSActions.send([
+      'settings.update',
+      authToken,
+      settingsDms,
+      settingsGa,
+      nextAOPause,
     ]))
     dispatch(GAActions.updateSettings())
   }
@@ -92,6 +112,17 @@ const General = () => {
           className='appsettings-modal__checkbox'
         />
       </div>
+      <div className='appsettings-modal__setting'>
+        <Checkbox
+          onChange={updateAOPause}
+          label='Show Algo Orders pause info'
+          checked={isShowAlgoPauseInfoChecked}
+          className='appsettings-modal__checkbox'
+        />
+        <div className='appsettings-modal__description'>
+          If checked, the modal with explanations will be displayed when you close the app with active Algo Orders.
+        </div>
+      </div>
       {isDevEnv() && (
         <div className='appsettings-modal__setting'>
           <Checkbox
@@ -103,10 +134,6 @@ const General = () => {
             }}
             className='appsettings-modal__checkbox'
           />
-          <div className='appsettings-modal__description'>
-            It’s not required to press the `Save` button to update the auto-login state.
-            The state will be updated and saved right after you click on the checkbox.
-          </div>
         </div>
       )}
     </div>
