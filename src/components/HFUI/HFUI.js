@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { Route, Switch, Redirect } from 'react-router'
 import PropTypes from 'prop-types'
+import _isFunction from 'lodash/isFunction'
 
 import TradingPage from '../../pages/Trading'
 import StrategyEditorPage from '../../pages/StrategyEditor'
@@ -19,15 +20,8 @@ import * as Routes from '../../constants/routes'
 import './style.css'
 
 const HFUI = ({
-  authToken,
-  getSettings,
-  notificationsVisible,
-  getFavoritePairs,
-  currentMode,
-  GAPageview,
-  currentPage,
-  onUnload,
-  subscribeAllTickers,
+  authToken, getSettings, notificationsVisible, getFavoritePairs, currentMode, GAPageview,
+  currentPage, onUnload, subscribeAllTickers, shouldShowAOPauseModalState,
 }) => {
   const unloadHandler = () => {
     if (authToken !== null) {
@@ -42,6 +36,15 @@ const HFUI = ({
       window.removeEventListener('beforeunload', unloadHandler)
     }
   }, [authToken, currentMode])
+
+  useEffect(() => {
+    // if running in the electron environment
+    if (_isFunction(window.require)) {
+      const electron = window.require('electron')
+      const { ipcRenderer } = electron
+      ipcRenderer.on('app-close', shouldShowAOPauseModalState)
+    }
+  }, [])
 
   useEffect(() => {
     GAPageview(currentPage)
@@ -88,6 +91,7 @@ HFUI.propTypes = {
   notificationsVisible: PropTypes.bool.isRequired,
   GAPageview: PropTypes.func.isRequired,
   subscribeAllTickers: PropTypes.func.isRequired,
+  shouldShowAOPauseModalState: PropTypes.func.isRequired,
 }
 
 HFUI.defaultProps = {

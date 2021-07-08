@@ -2,17 +2,19 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 
 import Modal from '../../ui/Modal'
+import closeElectronApp from '../../redux/helpers/close_electron_app'
 
 const AOPauseModal = ({
   changeAOPauseModalState, visible, onDontShowAgain: _onDontShowAgain, authToken, dms, ga,
 }) => {
   const onClose = () => {
     changeAOPauseModalState(false)
+    closeElectronApp()
   }
 
   const onDontShowAgain = () => {
     _onDontShowAgain(authToken, dms, ga)
-    changeAOPauseModalState(false)
+    onClose()
   }
 
   return (

@@ -8,6 +8,7 @@ import UIActions from '../../actions/ui'
 import WSActions from '../../actions/ws'
 import AOActions from '../../actions/ao'
 import marketActions from '../../actions/market'
+import closeElectronApp from '../../helpers/close_electron_app'
 
 const debug = Debug('hfui:rx:m:ws-hfui-server:msg')
 
@@ -137,6 +138,18 @@ export default (alias, store) => (e = {}) => {
           mts: Date.now(),
           cid: v4(),
         }))
+        break
+      }
+
+      case 'data.show_algo_pause_info': {
+        const [, visible] = payload
+
+        if (!visible) {
+          closeElectronApp()
+        } else {
+          store.dispatch(UIActions.changeAOPauseModalState(visible))
+        }
+
         break
       }
 

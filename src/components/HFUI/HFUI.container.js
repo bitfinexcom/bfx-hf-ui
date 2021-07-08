@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import { reduxActions } from '@ufx-ui/bfx-containers'
 
 import WSActions from '../../redux/actions/ws'
+import UIActions from '../../redux/actions/ui'
 import GAActions from '../../redux/actions/google_analytics'
 import { getCurrentMode } from '../../redux/selectors/ui'
 import { getAuthToken } from '../../redux/selectors/ws'
@@ -37,6 +38,9 @@ const mapDispatchToProps = dispatch => ({
   },
   subscribeAllTickers: () => {
     dispatch(reduxActions.fetchAllTickersPeriodically())
+  },
+  shouldShowAOPauseModalState: () => {
+    dispatch(WSActions.send(['get.show_algo_pause_info']))
   },
 })
 
