@@ -144,10 +144,10 @@ export default (alias, store) => (e = {}) => {
       case 'data.show_algo_pause_info': {
         const [, visible] = payload
 
-        if (!visible) {
-          closeElectronApp()
-        } else {
+        if (visible) {
           store.dispatch(UIActions.changeAOPauseModalState(visible))
+        } else {
+          closeElectronApp()
         }
 
         break

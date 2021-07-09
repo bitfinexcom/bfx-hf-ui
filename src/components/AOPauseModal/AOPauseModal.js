@@ -7,9 +7,13 @@ import closeElectronApp from '../../redux/helpers/close_electron_app'
 const AOPauseModal = ({
   changeAOPauseModalState, visible, onDontShowAgain: _onDontShowAgain, authToken, dms, ga,
 }) => {
+  const onCancel = () => {
+    changeAOPauseModalState(false)
+  }
+
   const onClose = () => {
     changeAOPauseModalState(false)
-    closeElectronApp()
+    setTimeout(closeElectronApp, 100)
   }
 
   const onDontShowAgain = () => {
@@ -32,6 +36,11 @@ const AOPauseModal = ({
       <br />
       <p>Note: Atomic orders will remain active if DMS option is disabled.</p>
       <Modal.Footer>
+        <Modal.Button
+          onClick={onCancel}
+        >
+          Cancel
+        </Modal.Button>
         <Modal.Button
           onClick={onDontShowAgain}
         >

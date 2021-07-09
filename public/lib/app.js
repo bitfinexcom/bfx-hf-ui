@@ -59,10 +59,10 @@ module.exports = class HFUIApplication {
       }
     })
     this.mainWindow.webContents.on('new-window', this.handleURLRedirect)
-
+    
     ipcMain.on('app-closed', () => {
-      this.onAllWindowsClosed()
-      this.onMainWindowClosed()
+      this.mainWindow.removeAllListeners('close')
+      this.mainWindow.close()
     })
   }
 

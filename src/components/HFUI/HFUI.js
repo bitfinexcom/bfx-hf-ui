@@ -1,8 +1,10 @@
+/* eslint-disable consistent-return */
 import React, { useEffect } from 'react'
 import { Route, Switch, Redirect } from 'react-router'
 import PropTypes from 'prop-types'
 import _isFunction from 'lodash/isFunction'
 
+import closeElectronApp from '../../redux/helpers/close_electron_app'
 import TradingPage from '../../pages/Trading'
 import StrategyEditorPage from '../../pages/StrategyEditor'
 import MarketDataPage from '../../pages/MarketData'
@@ -23,9 +25,17 @@ const HFUI = ({
   authToken, getSettings, notificationsVisible, getFavoritePairs, currentMode, GAPageview,
   currentPage, onUnload, subscribeAllTickers, shouldShowAOPauseModalState,
 }) => {
-  const unloadHandler = () => {
+  function unloadHandler() {
     if (authToken !== null) {
       onUnload(authToken, currentMode)
+    }
+  }
+
+  function onElectronAppClose() {
+    if (!authToken) {
+      closeElectronApp()
+    } else {
+      shouldShowAOPauseModalState()
     }
   }
 
@@ -42,9 +52,13 @@ const HFUI = ({
     if (_isFunction(window.require)) {
       const electron = window.require('electron')
       const { ipcRenderer } = electron
-      ipcRenderer.on('app-close', shouldShowAOPauseModalState)
+      ipcRenderer.on('app-close', onElectronAppClose)
+
+      return () => {
+        ipcRenderer.removeListener('app-close', onElectronAppClose)
+      }
     }
-  }, [])
+  }, [authToken])
 
   useEffect(() => {
     GAPageview(currentPage)
