@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import { reduxActions } from '@ufx-ui/bfx-containers'
+import _get from 'lodash/get'
 
 import WSActions from '../../redux/actions/ws'
 import GAActions from '../../redux/actions/google_analytics'
@@ -15,6 +16,7 @@ const mapStateToProps = (state = {}) => {
     authToken: getAuthToken(state),
     notificationsVisible,
     currentMode: getCurrentMode(state),
+    settingsShowAlgoPauseInfo: _get(ui, 'settings.showAlgoPauseInfo', null),
   }
 }
 

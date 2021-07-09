@@ -23,7 +23,7 @@ import './style.css'
 
 const HFUI = ({
   authToken, getSettings, notificationsVisible, getFavoritePairs, currentMode, GAPageview,
-  currentPage, onUnload, subscribeAllTickers, shouldShowAOPauseModalState,
+  currentPage, onUnload, subscribeAllTickers, shouldShowAOPauseModalState, settingsShowAlgoPauseInfo,
 }) => {
   function unloadHandler() {
     if (authToken !== null) {
@@ -32,7 +32,7 @@ const HFUI = ({
   }
 
   function onElectronAppClose() {
-    if (!authToken) {
+    if (!authToken || !settingsShowAlgoPauseInfo) {
       closeElectronApp()
     } else {
       shouldShowAOPauseModalState()
@@ -58,7 +58,7 @@ const HFUI = ({
         ipcRenderer.removeListener('app-close', onElectronAppClose)
       }
     }
-  }, [authToken])
+  }, [authToken, settingsShowAlgoPauseInfo])
 
   useEffect(() => {
     GAPageview(currentPage)
@@ -106,11 +106,13 @@ HFUI.propTypes = {
   GAPageview: PropTypes.func.isRequired,
   subscribeAllTickers: PropTypes.func.isRequired,
   shouldShowAOPauseModalState: PropTypes.func.isRequired,
+  settingsShowAlgoPauseInfo: PropTypes.bool,
 }
 
 HFUI.defaultProps = {
   authToken: '',
   currentPage: '',
+  settingsShowAlgoPauseInfo: true,
 }
 
 export default HFUI
