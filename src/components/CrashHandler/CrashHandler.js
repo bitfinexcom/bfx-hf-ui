@@ -1,6 +1,6 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import Debug from 'debug'
-import _map from 'lodash/map'
 import _isError from 'lodash/isError'
 import _toString from 'lodash/toString'
 import './style.css'
