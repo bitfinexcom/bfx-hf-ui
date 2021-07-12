@@ -15,7 +15,8 @@ function reducer(state = getInitialState(), action = {}) {
   switch (type) {
     case UITypes.DATA_NOTIFICATION:
     case WSTypes.DATA_NOTIFICATION: {
-      const { notification = [] } = payload
+      const { notification = {} } = payload
+
       return [
         notificationAdapter(notification),
         ...state,

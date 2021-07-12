@@ -7,12 +7,12 @@ import MANIFEST from '../../../package.json'
 import './style.css'
 
 const StatusBar = ({
-  wsConnected, remoteVersion, apiClientState, wsInterrupted,
+  wsConnected, remoteVersion, apiClientState, wsInterrupted, isWrongAPIKeys,
 }) => {
   const [wsConnInterrupted, setWsConnInterrupted] = useState(false)
   const apiClientConnected = apiClientState === 2
-  const apiClientConnecting = apiClientState === 1
-  const apiClientDisconnected = !apiClientState
+  const apiClientConnecting = !isWrongAPIKeys && apiClientState === 1
+  const apiClientDisconnected = isWrongAPIKeys || !apiClientState
 
   useEffect(() => {
     if (wsInterrupted && !wsConnInterrupted) {
@@ -71,6 +71,7 @@ StatusBar.propTypes = {
   remoteVersion: PropTypes.string,
   apiClientState: PropTypes.number.isRequired,
   wsInterrupted: PropTypes.bool.isRequired,
+  isWrongAPIKeys: PropTypes.bool.isRequired,
 }
 
 StatusBar.defaultProps = {
