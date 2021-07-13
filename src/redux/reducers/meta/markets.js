@@ -8,6 +8,13 @@ const getInitialState = () => {
   return []
 }
 
+const transformTestMarket = (market) => ({
+  ...market,
+  quote: market.quote.replace(/test/gi, ''),
+  base: market.base.replace(/test/gi, ''),
+  uiID: market.uiID.replace(/test/gi, ''),
+})
+
 export default (state = getInitialState(), action = {}) => {
   const { type, payload = {} } = action
 
@@ -15,12 +22,13 @@ export default (state = getInitialState(), action = {}) => {
     case types.DATA_MARKETS: {
       const { markets = [] } = payload
 
-      return markets
+      return _map(markets, transformTestMarket)
     }
 
     case marketTypes.SET_CCY_FULL_NAMES: {
       const { names: [namesArr] } = payload
-      const newState = _map(state, (market) => {
+      const newState = _map(state, (rawMarket) => {
+        const market = transformTestMarket(rawMarket)
         const {
           quote, base, uiID,
         } = market
@@ -55,7 +63,8 @@ export default (state = getInitialState(), action = {}) => {
     }
     case marketTypes.SET_PERPS_NAMES: {
       const { names: [namesArr] } = payload
-      const newState = _map(state, (market) => {
+      const newState = _map(state, (rawMarket) => {
+        const market = transformTestMarket(rawMarket)
         const perpPair = _find(namesArr, (pair) => {
           const [wsID] = pair
           const combinedPair = `${market.base}:${market.quote}`

@@ -66,8 +66,8 @@ const ExchangeInfoBar = ({
         <div ref={tickerRef} className='hfui-exchangeinfobar__ticker-wrapper'>
           <Ticker
             data={{
-              baseCcy: base,
-              quoteCcy: quote,
+              baseCcy: base.replace(/test/i, ''),
+              quoteCcy: quote.replace(/test/i, ''),
               lastPrice,
               change,
               changePerc,
@@ -79,7 +79,9 @@ const ExchangeInfoBar = ({
             }}
             dataMapping={tickerDataMapping}
             className='hfui-exchangeinfobar__ticker'
-            volumeUnit={tickersVolumeUnit !== 'SELF' ? tickersVolumeUnit : quote}
+            volumeUnit={(tickersVolumeUnit !== 'SELF'
+              ? tickersVolumeUnit
+              : quote).replace(/test/i, '')}
           />
         </div>
         <div
