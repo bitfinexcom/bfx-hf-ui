@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import StatusBar from './StatusBar'
 import { getRemoteVersion, getIsInternetConnection } from '../../redux/selectors/ui'
-import { getSocket, getAPIClientState } from '../../redux/selectors/ws'
+import { getSocket, getAPIClientState, isWrongAPIKeys } from '../../redux/selectors/ws'
 
 const mapStateToProps = (state = {}) => {
   const socket = getSocket()(state)
@@ -13,6 +13,7 @@ const mapStateToProps = (state = {}) => {
     remoteVersion: getRemoteVersion(state),
     apiClientState: getAPIClientState(state),
     wsInterrupted: getIsInternetConnection(state),
+    isWrongAPIKeys: isWrongAPIKeys(state),
   }
 }
 

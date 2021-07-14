@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import _size from 'lodash/size'
 import _trim from 'lodash/trim'
@@ -7,8 +7,11 @@ import { Button, Intent } from '@ufx-ui/core'
 
 import { ReactComponent as CheckIcon } from './check.svg'
 import { ReactComponent as ErrorIcon } from './error.svg'
+import { ReactComponent as ClockIcon } from './clock.svg'
 
-import { getAuthToken, getAPIClientState, getAPICredentials } from '../../redux/selectors/ws'
+import {
+  getAuthToken, getAPIClientState, getAPICredentials, isWrongAPIKeys, isValidatingAPIKeys,
+} from '../../redux/selectors/ws'
 import { getCurrentMode } from '../../redux/selectors/ui'
 import WSActions from '../../redux/actions/ws'
 import Input from '../../ui/Input'
@@ -23,6 +26,9 @@ const ApiKeys = () => {
   const currentMode = useSelector(getCurrentMode)
   const apiClientState = useSelector(getAPIClientState)
   const apiCredentials = useSelector(getAPICredentials)
+  const wrongAPIKeys = useSelector(isWrongAPIKeys)
+  const validatingAPIKeys = useSelector(isValidatingAPIKeys)
+  const apiClientConnected = apiClientState === 2
 
   const [apiKey, setApiKey] = useState('')
   const [apiSecret, setApiSecret] = useState('')
@@ -32,7 +38,6 @@ const ApiKeys = () => {
   const isProductionKeysTouched = _size(_trim(apiKey)) && _size(_trim(apiSecret))
   const isPaperKeysTouched = _size(_trim(paperApiKey)) && _size(_trim(paperApiSecret))
 
-  const apiClientConnected = apiClientState === 2
   const apiClientConfigured = !_isEmpty(apiCredentials)
   const isNotConfigured = !apiClientConnected && !apiClientConfigured
 
@@ -58,6 +63,8 @@ const ApiKeys = () => {
         currentMode,
       ]))
     }
+
+    dispatch(WSActions.authAPIValidating(true))
   }
 
   return (
@@ -65,17 +72,29 @@ const ApiKeys = () => {
       <div className='appsettings-modal__title'>
         API Keys
       </div>
-      {isNotConfigured ? (
+      {wrongAPIKeys ? (
+        <div className='appsettings-modal__api-configuration-message is-error'>
+          <ErrorIcon />
+          {' '}
+          Invalid API Keys entered
+        </div>
+      ) : !validatingAPIKeys && (isNotConfigured || !apiClientState) ? (
         <div className='appsettings-modal__api-configuration-message is-error'>
           <ErrorIcon />
           {' '}
           Not Configured
         </div>
-      ) : (
+      ) : apiClientConfigured && apiClientConnected ? (
         <div className='appsettings-modal__api-configuration-message is-success'>
           <CheckIcon />
           {' '}
           Configured
+        </div>
+      ) : (
+        <div className='appsettings-modal__api-configuration-message is-warning'>
+          <ClockIcon />
+          {' '}
+          Validating...
         </div>
       )}
       <div className='appsettings-modal__setting'>
@@ -152,4 +171,4 @@ const ApiKeys = () => {
   )
 }
 
-export default ApiKeys
+export default memo(ApiKeys)

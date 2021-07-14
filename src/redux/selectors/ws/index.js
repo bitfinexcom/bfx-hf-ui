@@ -24,6 +24,8 @@ import getAlgoOrders from './get_algo_orders'
 import getNotifications from './get_notifications'
 import getAPICredentials from './get_api_credentials'
 import getAllSyncRanges from './get_all_sync_ranges'
+import isWrongAPIKeys from './is_wrong_api_keys'
+import isValidatingAPIKeys from './is_validating_api_keys'
 
 import getBacktestState from './get_backtest_state'
 import getBacktestData from './get_backtest_data'
@@ -49,6 +51,8 @@ export {
 
   getSyncRanges,
   isSyncingCandles,
+  isWrongAPIKeys,
+  isValidatingAPIKeys,
   getStrategies,
 
   getBacktestState,

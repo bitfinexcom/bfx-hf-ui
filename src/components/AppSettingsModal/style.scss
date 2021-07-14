@@ -114,6 +114,11 @@
       background: mix($red-color, $background-color, 10%);
     }
 
+    &.is-warning {
+      color: $yellow-color;
+      background: mix($yellow-color, $background-color, 10%);
+    }
+
     svg {
       width: 16px;
       height: 16px;
