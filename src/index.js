@@ -8,6 +8,7 @@ import Debug from 'debug'
 import Manifest from '../package.json'
 
 import HFUI from './components/HFUI'
+import CrashHandler from './components/CrashHandler'
 import StoreWrapper from './StoreWrapper'
 
 import './passive_listener_fix'
@@ -41,7 +42,11 @@ const config = {
 const HFUIWrapper = () => {
   useInjectBfxData()
 
-  return <HFUI />
+  return (
+    <CrashHandler>
+      <HFUI />
+    </CrashHandler>
+  )
 }
 
 ReactDOM.render((
