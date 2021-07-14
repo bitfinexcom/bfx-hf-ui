@@ -1,3 +1,5 @@
+import checkboxesHelpMessages from '../constants/AtomicOrdersCheckboxHelpText'
+
 export default () => ({
   label: 'Fill or Kill',
   customHelp: 'An FOK order is a limit order that must fully fill immediately or it is canceled (killed).',
@@ -59,6 +61,7 @@ export default () => ({
     reduceonly: {
       component: 'input.checkbox',
       label: 'REDUCE-ONLY',
+      customHelp: checkboxesHelpMessages['REDUCE-ONLY'],
       trading: ['m'],
       default: false,
     },
