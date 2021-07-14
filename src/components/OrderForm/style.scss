@@ -1,8 +1,8 @@
 @import '../../variables.scss';
 
 .hfui-orderform__wrapper {
-  height: 100%;
-  padding-right: 7px;
+  // height: 100%;
+  // padding-right: 7px;
 
   .react-datepicker-popper {
     left: -2px;
@@ -412,7 +412,6 @@
 }
 
 .hfui-orderform__overlay-wrapper {
-  height: 100%;
   line-height: 1.5;
   white-space: pre-line;
   user-select: none;

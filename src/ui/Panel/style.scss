@@ -289,6 +289,10 @@
 .hfui-panel__content {
   position: relative;
   flex-grow: 1;
+}
+
+.hfui-panel__inner {
+  height: 100%;
   padding: 0 spacing();
 }
 

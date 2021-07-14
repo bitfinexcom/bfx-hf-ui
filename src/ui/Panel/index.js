@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import Scrollbars from 'react-custom-scrollbars'
 import ClassNames from 'classnames'
 import PropTypes from 'prop-types'
+
+import Scrollbars from '../Scrollbars'
 
 import './style.css'
 
@@ -139,16 +140,10 @@ const Panel = (props) => {
 
       <div className='hfui-panel__content'>
         {modal}
-
-        <Scrollbars
-          renderTrackVertical={compProps => (
-            <div {...compProps} className='hfui-scrollbars-track-vertical' />
-          )}
-          renderThumbVertical={compProps => (
-            <div {...compProps} className='hfui-scrollbars-thumb-vertical' />
-          )}
-        >
-          {tabs.length > 0 ? tabs[selectedTab] : children}
+        <Scrollbars>
+          <div className='hfui-panel__inner'>
+            {tabs.length > 0 ? tabs[selectedTab] : children}
+          </div>
         </Scrollbars>
       </div>
 
@@ -172,7 +167,7 @@ Panel.propTypes = {
   modal: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   darkHeader: PropTypes.bool,
   dark: PropTypes.bool,
-  htmlKey: PropTypes.string,
+  // htmlKey: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   footer: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   settingsOpen: PropTypes.bool,
@@ -204,7 +199,7 @@ Panel.defaultProps = {
   children: [],
   modal: null,
   footer: null,
-  htmlKey: '',
+  // htmlKey: '',
   settingsOpen: false,
   onToggleSettings: null,
   showChartMarket: false,

@@ -1,20 +1,19 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import CustomScrollbars from 'react-custom-scrollbars'
+import cx from 'classnames'
+import { Scrollbars as CustomScrollbars } from 'react-custom-scrollbars'
+
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import 'react-perfect-scrollbar/dist/css/styles.css'
 
 import './style.css'
 
-const Scrollbars = ({ children }) => (
-  <CustomScrollbars
-    renderTrackVertical={props => (
-      <div {...props} className='hfui-scrollbars-track-vertical' />
-    )}
-    renderThumbVertical={props => (
-      <div {...props} className='hfui-scrollbars-thumb-vertical' />
-    )}
+const Scrollbars = ({ children, ...rest }) => (
+  <PerfectScrollbar
+    {...rest}
   >
     {children}
-  </CustomScrollbars>
+  </PerfectScrollbar>
 )
 
 Scrollbars.propTypes = {

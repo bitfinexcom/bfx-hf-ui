@@ -1,11 +1,22 @@
 @import '../../variables.scss';
 
-.hfui-scrollbars-track-vertical {
-  background: transparent;
-  height: 100%;
-  right: 0;
-}
+.ps.ps {
+  .ps__thumb-y,
+  .ps__thumb-x {
+    background: $light-color-200;
+  }
 
-.hfui-scrollbars-thumb-vertical {
-  background: $white-color;
+  .ps__rail-x:hover,
+  .ps__rail-y:hover,
+  .ps__rail-x:focus,
+  .ps__rail-y:focus,
+  .ps__rail-x.ps--clicking,
+  .ps__rail-y.ps--clicking {
+    background: none;
+
+    > .ps__thumb-y,
+    > .ps__thumb-x {
+      background: $light-color-600;
+    }
+  }
 }

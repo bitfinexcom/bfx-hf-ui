@@ -315,3 +315,18 @@ a:visited {
   color: $light-color-300;
   -webkit-font-smoothing: antialiased;
 }
+
+// scrollbar
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-track-piece {
+  background: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $light-color-100 !important;
+  border: 0 !important;
+
+  &:hover {
+    background: $light-color-300 !important;
+  }
+}
