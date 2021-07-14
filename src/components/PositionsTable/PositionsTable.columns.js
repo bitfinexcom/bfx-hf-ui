@@ -70,4 +70,5 @@ export default ({ authToken, closePosition }) => [{
       />
     </div>
   ),
+  disableSort: true,
 }]
