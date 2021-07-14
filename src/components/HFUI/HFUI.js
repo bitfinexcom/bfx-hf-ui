@@ -1,7 +1,10 @@
+/* eslint-disable consistent-return */
 import React, { useEffect } from 'react'
 import { Route, Switch, Redirect } from 'react-router'
 import PropTypes from 'prop-types'
+import _isFunction from 'lodash/isFunction'
 
+import closeElectronApp from '../../redux/helpers/close_electron_app'
 import TradingPage from '../../pages/Trading'
 import StrategyEditorPage from '../../pages/StrategyEditor'
 import MarketDataPage from '../../pages/MarketData'
@@ -10,6 +13,7 @@ import AuthenticationPage from '../../pages/Authentication'
 import TradingModeModal from '../TradingModeModal'
 import BadConnectionModal from '../BadConnectionModal'
 import OldFormatModal from '../OldFormatModal'
+import AOPauseModal from '../AOPauseModal'
 
 import NotificationsSidebar from '../NotificationsSidebar'
 
@@ -18,19 +22,20 @@ import * as Routes from '../../constants/routes'
 import './style.css'
 
 const HFUI = ({
-  authToken,
-  getSettings,
-  notificationsVisible,
-  getFavoritePairs,
-  currentMode,
-  GAPageview,
-  currentPage,
-  onUnload,
-  subscribeAllTickers,
+  authToken, getSettings, notificationsVisible, getFavoritePairs, currentMode, GAPageview,
+  currentPage, onUnload, subscribeAllTickers, shouldShowAOPauseModalState, settingsShowAlgoPauseInfo,
 }) => {
-  const unloadHandler = () => {
+  function unloadHandler() {
     if (authToken !== null) {
       onUnload(authToken, currentMode)
+    }
+  }
+
+  function onElectronAppClose() {
+    if (!authToken || !settingsShowAlgoPauseInfo) {
+      closeElectronApp()
+    } else {
+      shouldShowAOPauseModalState()
     }
   }
 
@@ -41,6 +46,19 @@ const HFUI = ({
       window.removeEventListener('beforeunload', unloadHandler)
     }
   }, [authToken, currentMode])
+
+  useEffect(() => {
+    // if running in the electron environment
+    if (_isFunction(window.require)) {
+      const electron = window.require('electron')
+      const { ipcRenderer } = electron
+      ipcRenderer.on('app-close', onElectronAppClose)
+
+      return () => {
+        ipcRenderer.removeListener('app-close', onElectronAppClose)
+      }
+    }
+  }, [authToken, settingsShowAlgoPauseInfo])
 
   useEffect(() => {
     GAPageview(currentPage)
@@ -69,6 +87,7 @@ const HFUI = ({
           <TradingModeModal />
           <BadConnectionModal />
           <OldFormatModal />
+          <AOPauseModal />
         </>
       )}
       <NotificationsSidebar notificationsVisible={notificationsVisible} />
@@ -86,11 +105,14 @@ HFUI.propTypes = {
   notificationsVisible: PropTypes.bool.isRequired,
   GAPageview: PropTypes.func.isRequired,
   subscribeAllTickers: PropTypes.func.isRequired,
+  shouldShowAOPauseModalState: PropTypes.func.isRequired,
+  settingsShowAlgoPauseInfo: PropTypes.bool,
 }
 
 HFUI.defaultProps = {
   authToken: '',
   currentPage: '',
+  settingsShowAlgoPauseInfo: true,
 }
 
 export default HFUI

@@ -1,7 +1,7 @@
 const url = require('url')
 const path = require('path')
 const {
-  BrowserWindow, protocol, Menu, shell,
+  BrowserWindow, protocol, Menu, shell, ipcMain,
 } = require('electron') // eslint-disable-line
 
 const appMenuTemplate = require('./app_menu_template')
@@ -13,6 +13,10 @@ module.exports = class HFUIApplication {
       height: 850,
       icon: path.resolve(__dirname, '../icon.png'),
       show: true,
+      webPreferences: {
+        nodeIntegration: true,
+        contextIsolation: false,
+      },
     })
 
     win.loadURL(url.format({
@@ -48,7 +52,18 @@ module.exports = class HFUIApplication {
 
     this.mainWindow = HFUIApplication.createWindow()
     this.mainWindow.on('closed', this.onMainWindowClosed)
+    this.mainWindow.on('close', (e) => {
+      if (this.mainWindow !== null) {
+        e.preventDefault()
+        this.mainWindow.webContents.send('app-close')
+      }
+    })
     this.mainWindow.webContents.on('new-window', this.handleURLRedirect)
+    
+    ipcMain.on('app-closed', () => {
+      this.mainWindow.removeAllListeners('close')
+      this.mainWindow.close()
+    })
   }
 
   handleURLRedirect(event, url) {
@@ -81,7 +96,6 @@ module.exports = class HFUIApplication {
 
   onAllWindowsClosed() {
     this.onExitCB()
-
     this.app.quit()
   }
 }
