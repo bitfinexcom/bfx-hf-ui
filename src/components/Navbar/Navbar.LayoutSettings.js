@@ -4,7 +4,6 @@ import cx from 'classnames'
 import _entries from 'lodash/entries'
 import _map from 'lodash/map'
 import _get from 'lodash/get'
-import _truncate from 'lodash/truncate'
 
 import OutsideClickHandler from 'react-outside-click-handler'
 import { selectLayout, deleteLayout, saveLayout } from '../../redux/actions/ui'
@@ -17,6 +16,7 @@ import * as Routes from '../../constants/routes'
 
 import AddLayoutComponentModal from '../AddLayoutComponentModal'
 import CreateNewLayoutModal from '../CreateNewLayoutModal'
+import { makeShorterLongName } from '../../util/ui'
 
 const MAX_ID_LENGTH = 30
 
@@ -100,10 +100,7 @@ export default function LayoutSettings() {
                   isSelected={id === layoutID}
                   onClick={() => dispatch(selectLayout(id))}
                 >
-                  {_truncate(id, {
-                    length: MAX_ID_LENGTH,
-                    omission: '...',
-                  })}
+                  {makeShorterLongName(id, MAX_ID_LENGTH)}
                   {layoutDef.canDelete && (
                     <div className='hfui-navbar__layout-settings__delete'>
                       <i className='icon-clear' onClick={() => dispatch(deleteLayout(id))} />

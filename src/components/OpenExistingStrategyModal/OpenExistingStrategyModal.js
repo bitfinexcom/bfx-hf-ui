@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import Debug from 'debug'
 import _isEmpty from 'lodash/isEmpty'
 import _find from 'lodash/find'
-import _truncate from 'lodash/truncate'
 
 import Modal from '../../ui/Modal'
+import { makeShorterLongName } from '../../util/ui'
 import Dropdown from '../../ui/Dropdown'
 
 import './style.css'
@@ -47,10 +47,7 @@ const OpenExistingStrategyModal = ({
         value={strategyID}
         onChange={setStrategyID}
         options={strategies.map(({ label, id }) => ({
-          label: _truncate(label, {
-            length: MAX_STRATEGY_LABEL_LENGTH,
-            omission: '...',
-          }),
+          label: makeShorterLongName(label, MAX_STRATEGY_LABEL_LENGTH),
           value: id,
         }))}
       />

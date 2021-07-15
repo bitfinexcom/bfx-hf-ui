@@ -5,6 +5,7 @@ import _split from 'lodash/split'
 import _toArray from 'lodash/toArray'
 import _toString from 'lodash/toString'
 import _reverse from 'lodash/reverse'
+import _truncate from 'lodash/truncate'
 
 // takes a number as input and returns a localised version with semicolons in it
 // e.g. 123456789.445566 -> '123,456,789.445566'
@@ -33,3 +34,9 @@ export const processBalance = (value, localise = true) => {
     </>
   )
 }
+
+// if name is longer than a limit - the rest of letters are replaced with '...'
+export const makeShorterLongName = (name, limit) => _truncate(name, {
+  length: limit,
+  omission: '...',
+})
