@@ -7,7 +7,6 @@ import Debug from 'debug'
 import Manifest from '../package.json'
 
 import HFUI from './components/HFUI'
-import Scrollbars from './ui/Scrollbars'
 import StoreWrapper from './StoreWrapper'
 
 import './passive_listener_fix'
