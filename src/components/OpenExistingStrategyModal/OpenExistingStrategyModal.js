@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Debug from 'debug'
 import _isEmpty from 'lodash/isEmpty'
 import _find from 'lodash/find'
+import _truncate from 'lodash/truncate'
 
 import Modal from '../../ui/Modal'
 import Dropdown from '../../ui/Dropdown'
@@ -10,6 +11,8 @@ import Dropdown from '../../ui/Dropdown'
 import './style.css'
 
 const debug = Debug('hfui:c:open-existing-strategy-modal')
+
+const MAX_STRATEGY_LABEL_LENGTH = 60
 
 const OpenExistingStrategyModal = ({
   onClose, strategies, isOpen, onOpen,
@@ -44,7 +47,11 @@ const OpenExistingStrategyModal = ({
         value={strategyID}
         onChange={setStrategyID}
         options={strategies.map(({ label, id }) => ({
-          label, value: id,
+          label: _truncate(label, {
+            length: MAX_STRATEGY_LABEL_LENGTH,
+            omission: '...',
+          }),
+          value: id,
         }))}
       />
 
