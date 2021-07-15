@@ -10,6 +10,10 @@ import './style.css'
 
 const Scrollbars = ({ children, ...rest }) => (
   <PerfectScrollbar
+    options={{
+      minScrollbarLength: 60,
+      maxScrollbarLength: 100,
+    }}
     {...rest}
   >
     {children}
