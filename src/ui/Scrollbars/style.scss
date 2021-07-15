@@ -3,7 +3,11 @@
 .ps.ps {
   .ps__thumb-y,
   .ps__thumb-x {
+    width: 5px;
     background: $light-color-100;
+    transition-duration: .05s !important;
+    transition-timing-function: ease !important;
+    opacity: 1 !important;
   }
 
   .ps__rail-x:hover,
@@ -16,7 +20,8 @@
 
     > .ps__thumb-y,
     > .ps__thumb-x {
-      background: $light-color-600;
+      width: 5px;
+      background: $light-color-300;
     }
   }
 }

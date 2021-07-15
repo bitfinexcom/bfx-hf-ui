@@ -1,7 +1,5 @@
-import React, { memo } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import cx from 'classnames'
-import { Scrollbars as CustomScrollbars } from 'react-custom-scrollbars'
 
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import 'react-perfect-scrollbar/dist/css/styles.css'
@@ -11,7 +9,7 @@ import './style.css'
 const Scrollbars = ({ children, ...rest }) => (
   <PerfectScrollbar
     options={{
-      minScrollbarLength: 60,
+      minScrollbarLength: 25,
       maxScrollbarLength: 100,
     }}
     {...rest}
@@ -21,10 +19,7 @@ const Scrollbars = ({ children, ...rest }) => (
 )
 
 Scrollbars.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
+  children: PropTypes.node.isRequired,
 }
 
-export default memo(Scrollbars)
+export default Scrollbars

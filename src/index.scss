@@ -257,7 +257,7 @@ a:visited {
 }
 
 .empty {
-  margin-top: 10px;
+  padding-top: 10px;
   text-align: center;
 }
 
@@ -325,6 +325,7 @@ a:visited {
 ::-webkit-scrollbar-thumb {
   background: $light-color-100 !important;
   border: 0 !important;
+  transition: background-color .1s;
 
   &:hover {
     background: $light-color-300 !important;
