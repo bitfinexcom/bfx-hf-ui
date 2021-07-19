@@ -52,7 +52,7 @@ const TradesTablePanel = (props) => {
         symbol,
       }))
     }
-  }, [isWSConnected, symbol, dispatch])
+  }, [isWSConnected, symbol, isSubscribedToSymbol, dispatch])
 
   const unSubscribeWSChannel = (s) => {
     const tradesUsingSymbol = _filter(allMarketTrades, (tradesState) => tradesState?.currentMarket?.wsID === s)
