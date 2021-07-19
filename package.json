@@ -69,6 +69,7 @@
     }
   },
   "scripts": {
+    "preinstall": "cd ./bfx-hf-hosted-ui && npm install",
     "build-css": "cd ./bfx-hf-hosted-ui && npm run build-css",
     "watch-css": "cd ./bfx-hf-hosted-ui && npm run watch-css",
     "start-server": "cross-env concurrently --kill-others \"npm run start-api-server\" \"npm run start-ds-bitfinex\"",
@@ -76,6 +77,7 @@
     "start-ds-bitfinex": "cross-env node scripts/start-ds-bitfinex.js",
     "start": "cd ./bfx-hf-hosted-ui && npm run start",
     "build": "cd ./bfx-hf-hosted-ui && npm run build",
+    "postbuild": "rm -rf ./build && mv ./bfx-hf-hosted-ui/build ./build && cp -r ./public/* ./build/",
     "dev": "cross-env concurrently --kill-others \"npm run start-server\" \"npm run start\"",
     "electron-dev": "cross-env concurrently \"BROWSER=none npm run start-server\"  & electron .",
     "electron": "cross-env electron .",
