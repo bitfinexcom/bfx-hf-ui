@@ -19,7 +19,8 @@ function Modal(props) {
     // focus on the first interactable element
     if (isOpen) {
       const el = document.querySelector(['input', 'button', '[role=button'].map(element => `.modal__body ${element}`).join(','))
-      if (el && !document.querySelector('.modal__footer').contains(el)) {
+      const footer = document.querySelector('.modal__footer')
+      if (el && footer && !footer.contains(el)) {
         el.focus()
       }
     }

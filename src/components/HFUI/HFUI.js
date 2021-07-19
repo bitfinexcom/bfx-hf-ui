@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { Route, Switch, Redirect } from 'react-router'
 import PropTypes from 'prop-types'
 
-import SettingsPage from '../../pages/Settings'
 import TradingPage from '../../pages/Trading'
 import StrategyEditorPage from '../../pages/StrategyEditor'
 import MarketDataPage from '../../pages/MarketData'
@@ -66,7 +65,6 @@ const HFUI = ({
             <Route path={Routes.tradingTerminal.path} render={() => <TradingPage />} exact />
             <Route path={Routes.strategyEditor.path} render={() => <StrategyEditorPage />} />
             <Route path={Routes.marketData.path} render={() => <MarketDataPage />} />
-            <Route path={Routes.settings.path} render={() => <SettingsPage />} />
           </Switch>
           <TradingModeModal />
           <BadConnectionModal />

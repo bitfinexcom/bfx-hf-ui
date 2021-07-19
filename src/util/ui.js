@@ -7,10 +7,8 @@ import _toString from 'lodash/toString'
 import _reverse from 'lodash/reverse'
 
 // takes a number as input and returns a localised version with semicolons in it
-// e.g. '123456789.445566' -> '123,456,789.445566'
-export const localiseNumber = (x) => {
-  return _toString(x).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
-}
+// e.g. 123456789.445566 -> '123,456,789.445566'
+export const localiseNumber = (x = 'N/A') => x.toLocaleString('en-US')
 
 export const processBalance = (value, localise = true) => {
   let str = _toString(value)

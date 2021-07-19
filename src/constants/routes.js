@@ -12,8 +12,3 @@ export const strategyEditor = {
   path: '/strategy-editor',
   label: 'Strategy Editor',
 }
-
-export const settings = {
-  path: '/settings',
-  label: 'Settings',
-}
