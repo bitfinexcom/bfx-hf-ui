@@ -24,6 +24,7 @@ import getAlgoOrders from './get_algo_orders'
 import getNotifications from './get_notifications'
 import getAPICredentials from './get_api_credentials'
 import getAllSyncRanges from './get_all_sync_ranges'
+import getLayouts from './get_layouts'
 
 import getBacktestState from './get_backtest_state'
 import getBacktestData from './get_backtest_data'
@@ -70,6 +71,7 @@ export {
   getAlgoOrders,
   getFavoritePairs,
   getFavoritePairsObject,
+  getLayouts,
 
   getNotifications,
   getAPICredentials,

@@ -112,6 +112,11 @@ export default (alias, store) => (e = {}) => {
         store.dispatch(WSActions.recvUpdatedFavoritePairs(pairs))
         break
       }
+      case 'data.layouts.saved': {
+        const [, layouts] = payload
+        store.dispatch(WSActions.recvUpdatedLayouts(layouts))
+        break
+      }
 
       case 'data.algo_order.submit_status':
       case 'data.order.submit_status':

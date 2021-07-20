@@ -268,6 +268,11 @@ export default {
     payload: pairs,
   }),
 
+  recvUpdatedLayouts: layouts => ({
+    type: t.UPDATE_LAYOUTS,
+    payload: layouts,
+  }),
+
   purgeDataBook: (channel) => ({
     type: t.PURGE_DATA_BOOK,
     payload: { channel },
