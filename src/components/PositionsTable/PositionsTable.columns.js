@@ -56,7 +56,7 @@ export default ({ authToken, closePosition }) => [{
   flexGrow: 1,
   cellRenderer: ({ rowData = {} }) => processBalance(preparePrice(rowData.marginFunding)),
 }, {
-  dataKey: 'id',
+  dataKey: 'order_cid',
   width: 100,
   flexGrow: 1,
   cellRenderer: ({ rowData = {} }) => ( // eslint-disable-line

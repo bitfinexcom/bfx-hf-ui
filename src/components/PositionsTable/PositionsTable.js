@@ -19,7 +19,7 @@ const PositionsTable = (props) => {
     <VirtualTable
       data={data}
       columns={PositionsTableColumns({ authToken, closePosition })}
-      defaultSortBy='symbol'
+      defaultSortBy='id'
       defaultSortDirection='ASC'
     />
   )
