@@ -56,7 +56,6 @@ export default ({ authToken, closePosition }) => [{
   flexGrow: 1,
   cellRenderer: ({ rowData = {} }) => processBalance(preparePrice(rowData.marginFunding)),
 }, {
-  label: 'Actions',
   dataKey: 'id',
   width: 100,
   flexGrow: 1,
@@ -70,4 +69,5 @@ export default ({ authToken, closePosition }) => [{
       />
     </div>
   ),
+  disableSort: true,
 }]

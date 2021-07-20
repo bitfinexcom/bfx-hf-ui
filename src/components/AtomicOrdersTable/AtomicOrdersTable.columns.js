@@ -48,7 +48,6 @@ export default (authToken, cancelOrder, gaCancelOrder, { width }) => [{
   flexGrow: 1,
   cellRenderer: ({ rowData = {} }) => rowData.status,
 }, {
-  label: '',
   dataKey: 'cid',
   width: 40,
   flexGrow: 0.4,
