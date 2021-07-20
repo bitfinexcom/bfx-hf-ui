@@ -3,10 +3,11 @@ import _map from 'lodash/map'
 import _get from 'lodash/get'
 import { createSelector } from 'reselect'
 
-import { COMPONENT_TYPES, DEFAULT_MARKET_KEY } from '../../../components/GridLayout/GridLayout.helpers'
+import { COMPONENT_TYPES } from '../../../components/GridLayout/GridLayout.helpers'
 import getCurrUnsavedLayout from './get_current_unsaved_layout'
 import { getLayoutState } from './get_component_state'
 import getDefaultStateForComponentType from './default_state_for_component_type'
+import getLayoutID from './get_layout_id'
 
 const EMPTY_ARR = []
 
@@ -19,7 +20,7 @@ const getMarketComponents = createSelector(
   [
     getCurrUnsavedLayout,
     (state, componentType) => getDefaultStateForComponentType(state, componentType),
-    (state) => getLayoutState(state, DEFAULT_MARKET_KEY),
+    (state) => getLayoutState(state, getLayoutID(state)),
     (_, componentType) => componentType,
   ],
   (currUnsavedLayout, defComponentState, layoutState, componentType) => {
