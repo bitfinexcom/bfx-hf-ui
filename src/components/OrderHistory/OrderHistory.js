@@ -11,14 +11,11 @@ import { symbolToLabel, getPriceFromStatus, getFormatedStatus } from './OrderHis
 import './style.css'
 
 const {
-  ICON,
   ID,
   PAIR,
   TYPE,
   BASE_CCY,
-  QUOTE_CCY,
   AMOUNT,
-  ORIGINAL_AMOUNT,
   PRICE,
   PRICE_AVERAGE,
   PLACED,
@@ -27,47 +24,35 @@ const {
 
 export const ROW_MAPPING = {
   [ID]: {
-    hidden: true,
+    index: 0,
   },
   [BASE_CCY]: {
     hidden: true,
   },
-  [QUOTE_CCY]: {
-    hidden: true,
-  },
-  [ORIGINAL_AMOUNT]: {
-    hidden: true,
-  },
-  [ICON]: {
-    index: 0,
-    truncate: true,
-  },
   [PAIR]: {
     index: 1,
-    truncate: true,
     format: (value, _, data) => {
       return symbolToLabel(_get(data, 'symbol'))
     },
   },
   [AMOUNT]: {
     index: 2,
-    truncate: true,
-    format: (value, _, data) => {
-      return _get(data, 'originalAmount')
-    },
+    selector: 'originalAmount',
     // eslint-disable-next-line react/prop-types, react/display-name
-    renderer: ({ formattedValue }) => (formattedValue < 0
-      ? <span className='hfui-red'>{formattedValue}</span>
-      : <span className='hfui-green'>{formattedValue}</span>
-    ),
+    renderer: ({ rowData }) => {
+      const amount = _get(rowData, 'originalAmount')
+
+      return (amount < 0
+        ? <span className='hfui-red'>{amount}</span>
+        : <span className='hfui-green'>{amount}</span>
+      )
+    },
   },
   [PRICE]: {
     index: 3,
-    truncate: true,
   },
   [PRICE_AVERAGE]: {
     index: 4,
-    truncate: true,
     // eslint-disable-next-line react/display-name
     format: (_value, _, data) => {
       const value = getPriceFromStatus(_get(data, 'status'))
@@ -76,18 +61,17 @@ export const ROW_MAPPING = {
   },
   [TYPE]: {
     index: 5,
-    truncate: true,
     cellStyle: { width: '20%' },
   },
   [STATUS]: {
     index: 6,
-    truncate: true,
     format: (value, _, data) => {
       return getFormatedStatus(_get(data, 'status'))
     },
   },
   [PLACED]: {
     index: 7,
+    selector: 'created',
     // eslint-disable-next-line react/display-name
     format: (value, _, data) => {
       return <FullDate ts={_get(data, 'created')} />
