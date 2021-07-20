@@ -5,6 +5,7 @@ import getActiveMarket from './get_active_market'
 import getLayouts from './get_layouts'
 import getLayout from './get_layout'
 import getLayoutID from './get_layout_id'
+import getIsWsLayoutsSet from './get_is_ws_layouts_set'
 import getRemoteVersion from './get_remote_version'
 import getAlgoOrdersCount from './get_filtered_algo_orders_count'
 import getAtomicOrdersCount from './get_filtered_atomic_orders_count'
@@ -31,6 +32,7 @@ export {
   getLayouts,
   getLayout,
   getLayoutID,
+  getIsWsLayoutsSet,
   getAlgoOrdersCount,
   getAtomicOrdersCount,
   getIsTradingModeModalVisible,

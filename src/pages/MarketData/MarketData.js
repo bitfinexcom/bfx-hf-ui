@@ -13,7 +13,9 @@ const commonComponentProps = {
   showChartMarket: true,
 }
 
-const MarketData = ({ isGuideActive, isFirstLogin, finishGuide }) => {
+const MarketData = ({
+  isGuideActive, isFirstLogin, finishGuide,
+}) => {
   const onGuideFinish = (data) => {
     const { status } = data
     const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED]

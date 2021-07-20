@@ -3,7 +3,7 @@ import types from '../../constants/ws'
 function getInitialState() {
   return {
     isLoaded: false,
-    layouts: {}
+    layouts: {},
   }
 }
 

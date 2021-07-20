@@ -8,9 +8,7 @@ import _truncate from 'lodash/truncate'
 
 import OutsideClickHandler from 'react-outside-click-handler'
 import { selectLayout, deleteLayout, saveLayout } from '../../redux/actions/ui'
-import WSActions from '../../redux/actions/ws'
 import { getLayouts, getLayoutID } from '../../redux/selectors/ui'
-import { getAuthToken, getLayouts as getWsLayouts } from '../../redux/selectors/ws'
 import { getLocation } from '../../redux/selectors/router'
 
 import { ReactComponent as LayoutIcon } from './layout-icon.svg'
@@ -48,13 +46,10 @@ export default function LayoutSettings() {
   const [isCreateNewLayoutModalOpen, setIsCreateNewLayoutModalOpen] = useState(false)
   const [isAddLayoutComponentModalOpen, setIsAddLayoutComponentModalOpen] = useState(false)
   const layouts = useSelector(getLayouts)
-  const wsLayouts = useSelector(getWsLayouts)
-  console.log('TCL: LayoutSettings -> wsLayouts', wsLayouts)
   const layoutID = useSelector(getLayoutID)
   const layoutIsDirty = useSelector(state => state.ui.layoutIsDirty)
   const layout = _get(layouts, layoutID, {})
   const { pathname } = useSelector(getLocation)
-  const authToken = useSelector(getAuthToken)
 
   if (![
     Routes.tradingTerminal.path,
@@ -73,46 +68,6 @@ export default function LayoutSettings() {
       dispatch(saveLayout())
     }
   }
-
-  useEffect(() => {
-    if (layouts) {
-      // _entries(layouts).forEach(([name, { routePath, ...layoutProps }]) => {
-      //   const id = `${routePath}:${name}`
-      //   const layoutToSave = {
-      //     ...layoutProps,
-      //     id,
-      //     name,
-      //     routePath,
-      //   }
-
-      //   dispatch(WSActions.send([
-      //     'layouts.save',
-      //     authToken,
-      //     layoutToSave,
-      //   ]))
-      // })
-
-      console.log('TCL: LayoutSettings -> layouts', layouts)
-
-      dispatch(WSActions.send([
-        'layouts.save',
-        authToken,
-        _entries(layouts).reduce((nextLayout, [name, { routePath, ...layoutProps }]) => {
-          const id = `${routePath}:${name}`
-
-          return {
-            ...nextLayout,
-            [id]: {
-              ...layoutProps,
-              name,
-              routePath,
-              id,
-            },
-          }
-        }, {}),
-      ]))
-    }
-  }, [layouts])
 
   return (
     <div className='hfui-navbar__layout-settings'>
@@ -145,7 +100,7 @@ export default function LayoutSettings() {
                   isSelected={id === layoutID}
                   onClick={() => dispatch(selectLayout(id))}
                 >
-                  {_truncate(id, {
+                  {_truncate(layoutDef.name, {
                     length: MAX_ID_LENGTH,
                     omission: '...',
                   })}

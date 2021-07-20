@@ -7,6 +7,13 @@ export const saveRemoteVersion = version => ({
   },
 })
 
+export const setLayouts = (layouts) => ({
+  type: types.SET_LAYOUTS,
+  payload: {
+    layouts,
+  },
+})
+
 export const saveLayout = () => ({
   type: types.SAVE_LAYOUT,
 })
@@ -232,6 +239,7 @@ export default {
   clearStrategies,
   switchNotifcationPanel,
   setLayoutID,
+  setLayouts,
   changeTickersVolumeUnit,
   changeOldFormatModalState,
 }

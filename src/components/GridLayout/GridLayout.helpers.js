@@ -11,6 +11,7 @@ import PositionsTablePanel from '../PositionsTablePanel'
 import BalancesTablePanel from '../BalancesTablePanel'
 import TradingStatePanel from '../TradingStatePanel'
 import ExchangeInfoBar from '../ExchangeInfoBar'
+import LoadingPanel from '../LoadingPanel'
 
 export const COMPONENT_TYPES = {
   CHART: 'CHART',
@@ -24,6 +25,7 @@ export const COMPONENT_TYPES = {
   ORDER_HISTORY_TABLE: 'ORDER_HISTORY_TABLE',
   TRADING_STATE_PANEL: 'TRADING_STATE_PANEL',
   EXCHANGE_INFO_BAR: 'EXCHANGE_INFO_BAR',
+  LOADING_PANEL: 'LOADING_PANEL',
 }
 
 export const COMPONENT_LABELS = {
@@ -113,6 +115,9 @@ const componentForType = (c) => {
 
     case COMPONENT_TYPES.EXCHANGE_INFO_BAR:
       return ExchangeInfoBar
+
+    case COMPONENT_TYPES.LOADING_PANEL:
+      return LoadingPanel
 
     default:
       return null

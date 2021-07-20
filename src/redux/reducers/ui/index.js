@@ -15,8 +15,7 @@ import { VOLUME_UNIT, VOLUME_UNIT_PAPER } from '@ufx-ui/bfx-containers'
 
 import types from '../../constants/ui'
 import * as Routes from '../../../constants/routes'
-import DEFAULT_TRADING_LAYOUT from './default_layout_trading'
-import DEFAULT_MARKET_DATA_LAYOUT from './default_layout_market_data'
+import { DEFAULT_TRADING_LAYOUT, DEFAULT_MARKET_DATA_LAYOUT } from '../../../constants/layouts'
 import DEFAULT_TRADING_COMPONENT_STATE from './default_component_state_trading'
 import DEFAULT_MARKET_DATA_COMPONENT_STATE from './default_component_state_market_data'
 import DEFAULT_ACTIVE_MARKET_STATE from './default_active_market_state'
@@ -37,7 +36,7 @@ const ACTIVE_MARKET_PAPER_KEY = 'HF_UI_PAPER_ACTIVE_MARKET'
 const IS_PAPER_TRADING = 'IS_PAPER_TRADING'
 export const PAPER_MODE = 'paper'
 export const MAIN_MODE = 'main'
-let shownOldFormatModal = false
+const shownOldFormatModal = false
 
 const DEFAULT_MARKET = {
   contexts: ['e', 'm'],
@@ -69,6 +68,8 @@ function getInitialState() {
     content: {},
     unsavedLayout: null,
     layoutID: null,
+    layouts: {},
+    isWsLayoutsSet: false,
   }
 
   if (!localStorage) {
@@ -76,57 +77,57 @@ function getInitialState() {
   }
 
   const isPaperTrading = localStorage.getItem(IS_PAPER_TRADING) === 'true'
-  const layoutsJSON = localStorage.getItem(LAYOUTS_KEY)
+  // const layoutsJSON = localStorage.getItem(LAYOUTS_KEY)
   const layoutsComponentStateJSON = localStorage.getItem(LAYOUTS_STATE_KEY)
 
-  try {
-    const storedLayouts = JSON.parse(layoutsJSON)
+  // try {
+  //   const storedLayouts = JSON.parse(layoutsJSON)
 
-    const isNewFormat = !_some(
-      _values(storedLayouts),
-      layout => _isUndefined(layout.savedAt),
-    )
+  //   const isNewFormat = !_some(
+  //     _values(storedLayouts),
+  //     layout => _isUndefined(layout.savedAt),
+  //   )
 
-    // transform old format to new format for compatibility
-    const nextFormatLayouts = isNewFormat ? storedLayouts : _reduce(
-      _entries(storedLayouts),
-      (nextLayouts, [key, layout]) => {
-        const routePath = layout.type === 'data'
-          ? Routes.marketData.path
-          : Routes.tradingTerminal.path
+  //   // transform old format to new format for compatibility
+  //   const nextFormatLayouts = isNewFormat ? storedLayouts : _reduce(
+  //     _entries(storedLayouts),
+  //     (nextLayouts, [key, layout]) => {
+  //       const routePath = layout.type === 'data'
+  //         ? Routes.marketData.path
+  //         : Routes.tradingTerminal.path
 
-        return {
-          ...nextLayouts,
-          // Previously stored default layout could have been edited
-          // so store them without newly added ' Layout' suffix key
-          // and set isDefault false and canDelete true
-          [key]: {
-            ...layout,
-            routePath,
-            isDefault: false,
-            canDelete: true,
-            savedAt: Date.now(),
-          },
-        }
-      },
-      {
-        [DEFAULT_TRADING_KEY]: DEFAULT_TRADING_LAYOUT,
-        [DEFAULT_MARKET_KEY]: DEFAULT_MARKET_DATA_LAYOUT,
-      },
-    )
+  //       return {
+  //         ...nextLayouts,
+  //         // Previously stored default layout could have been edited
+  //         // so store them without newly added ' Layout' suffix key
+  //         // and set isDefault false and canDelete true
+  //         [key]: {
+  //           ...layout,
+  //           routePath,
+  //           isDefault: false,
+  //           canDelete: true,
+  //           savedAt: Date.now(),
+  //         },
+  //       }
+  //     },
+  //     {
+  //       [DEFAULT_TRADING_KEY]: DEFAULT_TRADING_LAYOUT,
+  //       [DEFAULT_MARKET_KEY]: DEFAULT_MARKET_DATA_LAYOUT,
+  //     },
+  //   )
 
-    // saving reformatted layouts into the local storage
-    if ((!isNewFormat && !_isEmpty(storedLayouts)) || shownOldFormatModal) {
-      shownOldFormatModal = true
-      defaultState.isOldFormatModalVisible = true
-      localStorage.setItem(LAYOUTS_KEY, JSON.stringify(nextFormatLayouts))
-    }
+  //   // saving reformatted layouts into the local storage
+  //   if ((!isNewFormat && !_isEmpty(storedLayouts)) || shownOldFormatModal) {
+  //     shownOldFormatModal = true
+  //     defaultState.isOldFormatModalVisible = true
+  //     localStorage.setItem(LAYOUTS_KEY, JSON.stringify(nextFormatLayouts))
+  //   }
 
-    defaultState.layouts = nextFormatLayouts
-    defaultState.tickersVolumeUnit = isPaperTrading ? VOLUME_UNIT_PAPER.TESTUSD : VOLUME_UNIT.USD
-  } catch (e) {
-    debug('Loading layouts error, check localStorage: %s', LAYOUTS_KEY)
-  }
+  //   defaultState.layouts = nextFormatLayouts
+  //   defaultState.tickersVolumeUnit = isPaperTrading ? VOLUME_UNIT_PAPER.TESTUSD : VOLUME_UNIT.USD
+  // } catch (e) {
+  //   debug('Loading layouts error, check localStorage: %s', LAYOUTS_KEY)
+  // }
 
   try {
     defaultState.layoutComponentState = JSON.parse(layoutsComponentStateJSON)
@@ -134,12 +135,12 @@ function getInitialState() {
     debug('Loading layouts state error, check localStorage: %s', LAYOUTS_STATE_KEY)
   }
 
-  if (!defaultState.layouts) {
-    defaultState.layouts = {
-      [DEFAULT_TRADING_KEY]: DEFAULT_TRADING_LAYOUT,
-      [DEFAULT_MARKET_KEY]: DEFAULT_MARKET_DATA_LAYOUT,
-    }
-  }
+  // if (!defaultState.layouts) {
+  //   defaultState.layouts = {
+  //     [DEFAULT_TRADING_KEY]: DEFAULT_TRADING_LAYOUT,
+  //     [DEFAULT_MARKET_KEY]: DEFAULT_MARKET_DATA_LAYOUT,
+  //   }
+  // }
 
   if (!defaultState.layoutComponentState) {
     defaultState.layoutComponentState = {
@@ -462,6 +463,18 @@ function reducer(state = getInitialState(), action = {}) {
           ...layoutDef,
           layout: incomingLayout,
         }, layoutDef),
+      }
+    }
+    case types.SET_LAYOUTS: {
+      const { layouts } = payload
+      return {
+        ...state,
+        layouts: {
+          [DEFAULT_TRADING_LAYOUT.id]: DEFAULT_TRADING_LAYOUT,
+          [DEFAULT_MARKET_DATA_LAYOUT.id]: DEFAULT_MARKET_DATA_LAYOUT,
+          ...layouts,
+        },
+        isWsLayoutsSet: true,
       }
     }
     case types.SET_LAYOUT_ID: {
