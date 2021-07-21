@@ -3,10 +3,10 @@ import { Icon } from 'react-fa'
 import PropTypes from 'prop-types'
 import _isEmpty from 'lodash/isEmpty'
 import _size from 'lodash/size'
-import _truncate from 'lodash/truncate'
 import { Tooltip } from '@ufx-ui/core'
 
 import Panel from '../../../ui/Panel'
+import { makeShorterLongName } from '../../../util/ui'
 import Button from '../../../ui/Button'
 
 import '../style.css'
@@ -28,10 +28,7 @@ const StrategyEditorPanel = ({
           Strategy Editor&nbsp;
           {_size(strategyDisplayLabel) > MAX_STRATEGY_LABEL_LENGTH ? (
             <Tooltip className='__react-tooltip __react_component_tooltip wide' content={strategyDisplayName}>
-              {_truncate(strategyDisplayLabel, {
-                length: MAX_STRATEGY_LABEL_LENGTH,
-                omission: '...',
-              })}
+              {makeShorterLongName(strategyDisplayLabel, MAX_STRATEGY_LABEL_LENGTH)}
             </Tooltip>
           ) : (
             strategyDisplayLabel

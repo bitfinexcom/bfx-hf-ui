@@ -5,11 +5,14 @@ import _isEmpty from 'lodash/isEmpty'
 import _find from 'lodash/find'
 
 import Modal from '../../ui/Modal'
+import { makeShorterLongName } from '../../util/ui'
 import Dropdown from '../../ui/Dropdown'
 
 import './style.css'
 
 const debug = Debug('hfui:c:open-existing-strategy-modal')
+
+const MAX_STRATEGY_LABEL_LENGTH = 60
 
 const OpenExistingStrategyModal = ({
   onClose, strategies, isOpen, onOpen,
@@ -44,7 +47,8 @@ const OpenExistingStrategyModal = ({
         value={strategyID}
         onChange={setStrategyID}
         options={strategies.map(({ label, id }) => ({
-          label, value: id,
+          label: makeShorterLongName(label, MAX_STRATEGY_LABEL_LENGTH),
+          value: id,
         }))}
       />
 

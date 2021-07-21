@@ -158,7 +158,7 @@ const Panel = (props) => {
 
 Panel.propTypes = {
   className: PropTypes.string,
-  label: PropTypes.string,
+  label: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   onRemove: PropTypes.func,
   headerComponents: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   secondaryHeaderComponents: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
