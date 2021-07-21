@@ -1,3 +1,5 @@
+import checkboxesHelpMessages from '../constants/AtomicOrdersCheckboxHelpText'
+
 export default () => ({
   label: 'Market',
   uiIcon: 'market-active',
@@ -54,6 +56,7 @@ export default () => ({
     reduceonly: {
       component: 'input.checkbox',
       label: 'REDUCE-ONLY',
+      customHelp: checkboxesHelpMessages['REDUCE-ONLY'],
       trading: ['m'], // margin
       default: false,
     },
