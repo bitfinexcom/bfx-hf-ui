@@ -56,8 +56,7 @@ export default ({ authToken, closePosition }) => [{
   flexGrow: 1,
   cellRenderer: ({ rowData = {} }) => processBalance(preparePrice(rowData.marginFunding)),
 }, {
-  label: 'Actions',
-  dataKey: 'id',
+  dataKey: 'order_cid',
   width: 100,
   flexGrow: 1,
   cellRenderer: ({ rowData = {} }) => ( // eslint-disable-line
@@ -70,4 +69,5 @@ export default ({ authToken, closePosition }) => [{
       />
     </div>
   ),
+  disableSort: true,
 }]
