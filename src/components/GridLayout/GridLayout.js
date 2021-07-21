@@ -28,7 +28,6 @@ import {
   getIsWsLayoutsSet,
 } from '../../redux/selectors/ui'
 import {
-  getLayoutsLoaded,
   getLayouts as getWsLayouts,
   getAuthToken,
 } from '../../redux/selectors/ws'
@@ -45,7 +44,6 @@ const GridLayout = ({
   console.log('TCL: layouts', layouts)
   const wsLayouts = useSelector(getWsLayouts)
   console.log('TCL: wsLayouts', wsLayouts)
-  const isLayoutsLoaded = useSelector(getLayoutsLoaded)
   const isWsLayoutsSet = useSelector(getIsWsLayoutsSet)
   const layoutID = useSelector(getLayoutID)
   const currentSavedLayout = _get(layouts, layoutID, {})
@@ -66,6 +64,40 @@ const GridLayout = ({
       : lastLayoutDef
 
   useEffect(() => {
+    // once the saved layouts are fetched from the websocket
+    // store it in the redux under ui.layouts
+    // once this happens we only reference ui.layouts
+    if (!isWsLayoutsSet && wsLayouts) {
+      dispatch(setLayouts(wsLayouts))
+    }
+  }, [isWsLayoutsSet, wsLayouts])
+
+  useEffect(() => {
+    // push every layout updates to websocket
+    if (isWsLayoutsSet) {
+      dispatch(WSActions.send([
+        'layouts.save',
+        authToken,
+        _reduce(
+          _entries(layouts),
+          (nextLayout, [id, layout]) => {
+            // don't save default layouts in db
+            if (layout.isDefault) {
+              return nextLayout
+            }
+
+            return {
+              ...nextLayout,
+              [id]: layout,
+            }
+          },
+          {},
+        ),
+      ]))
+    }
+  }, [isWsLayoutsSet, layouts])
+
+  useEffect(() => {
     // set active layout id when there’s none selected (on initial load)
     // or when switching routes
     if (!layoutID || !isValidSavedLayout) {
@@ -81,41 +113,30 @@ const GridLayout = ({
   }, [isValidUnsavedLayout, layoutDef])
 
   useEffect(() => {
-    if (!isWsLayoutsSet) {
-      dispatch(setLayouts(wsLayouts))
-    }
-  }, [isWsLayoutsSet, wsLayouts])
+    // migrate localStorage to ws
+    // _reduce(
+    //   _entries(layouts),
+    //   (nextLayout, [name, { routePath, ...layoutProps }]) => {
+    //     // don't save default layouts in db
+    //     if (layoutProps.isDefault) {
+    //       return nextLayout
+    //     }
 
-  useEffect(() => {
-    if (isWsLayoutsSet) {
-      dispatch(WSActions.send([
-        'layouts.save',
-        authToken,
-        _reduce(
-          _entries(layouts),
-          (nextLayout, [name, { routePath, ...layoutProps }]) => {
-            // don't save default layouts in db
-            if (layoutProps.isDefault) {
-              return nextLayout
-            }
+    //     const id = `${routePath}:${name}`
 
-            const id = `${routePath}:${name}`
-
-            return {
-              ...nextLayout,
-              [id]: {
-                ...layoutProps,
-                name,
-                routePath,
-                id,
-              },
-            }
-          },
-          {},
-        ),
-      ]))
-    }
-  }, [isWsLayoutsSet, layouts])
+    //     return {
+    //       ...nextLayout,
+    //       [id]: {
+    //         ...layoutProps,
+    //         name,
+    //         routePath,
+    //         id,
+    //       },
+    //     }
+    //   },
+    //   {},
+    // )
+  }, [])
 
   const componentProps = {
     orderForm: orderFormProps,

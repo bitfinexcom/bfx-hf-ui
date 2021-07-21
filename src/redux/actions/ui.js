@@ -32,10 +32,10 @@ export const selectLayout = (id) => ({
   },
 })
 
-export const createLayout = (id) => ({
+export const createLayout = (name) => ({
   type: types.CREATE_LAYOUT,
   payload: {
-    id,
+    name,
   },
 })
 

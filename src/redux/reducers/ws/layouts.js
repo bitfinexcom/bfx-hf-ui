@@ -2,8 +2,7 @@ import types from '../../constants/ws'
 
 function getInitialState() {
   return {
-    isLoaded: false,
-    layouts: {},
+    layouts: null,
   }
 }
 
@@ -13,7 +12,6 @@ export default function reducer(state = getInitialState(), action = {}) {
   switch (type) {
     case types.UPDATE_LAYOUTS: {
       return {
-        isLoaded: true,
         layouts: payload,
       }
     }

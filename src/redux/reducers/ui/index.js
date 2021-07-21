@@ -167,31 +167,6 @@ function reducer(state = getInitialState(), action = {}) {
       }
     }
 
-    case types.SAVE_LAYOUT: {
-      return {
-        ...state,
-        layoutIsDirty: false,
-        layouts: {
-          ...state.layouts,
-          [state.layoutID]: {
-            ...state.unsavedLayout,
-            isDefault: false,
-            canDelete: true,
-            savedAt: Date.now(),
-          },
-        },
-      }
-    }
-
-    case types.STORE_UNSAVED_LAYOUT: {
-      const { layout } = payload
-
-      return {
-        ...state,
-        unsavedLayout: layout,
-      }
-    }
-
     case types.UPDATE_SETTINGS: {
       return {
         ...state,
@@ -217,38 +192,6 @@ function reducer(state = getInitialState(), action = {}) {
       return {
         ...state,
         notificationsVisible: !state.notificationsVisible,
-      }
-    }
-
-    case types.CREATE_LAYOUT: {
-      const { id } = payload
-      const layoutDef = getActiveLayoutDef(state)
-
-      return {
-        ...state,
-        layoutIsDirty: false,
-        layouts: {
-          ...state.layouts,
-          [id]: {
-            ...layoutDef,
-            isDefault: false,
-            canDelete: true,
-            savedAt: Date.now(),
-          },
-        },
-        layoutID: id,
-      }
-    }
-
-    case types.DELETE_LAYOUT: {
-      const { id } = payload
-      const { [id]: delLayout, ...remainingLayouts } = state.layouts
-      const { [id]: delState, ...remainingStates } = state.layoutComponentState
-
-      return {
-        ...state,
-        layouts: remainingLayouts,
-        layoutComponentState: remainingStates,
       }
     }
 
@@ -406,6 +349,30 @@ function reducer(state = getInitialState(), action = {}) {
         isOldFormatModalVisible: isVisible,
       }
     }
+    case types.CHANGE_TICKERS_VOLUME_UNIT: {
+      const { key } = payload
+      const { isPaperTrading } = state
+      const unit = isPaperTrading ? VOLUME_UNIT_PAPER[key] : VOLUME_UNIT[key]
+
+      return { ...state, tickersVolumeUnit: unit || 'SELF' }
+    }
+
+    /**
+     * Layout cases
+     */
+    case types.SET_LAYOUTS: {
+      const { layouts } = payload
+      return {
+        ...state,
+        layouts: {
+          [DEFAULT_TRADING_LAYOUT.id]: DEFAULT_TRADING_LAYOUT,
+          [DEFAULT_MARKET_DATA_LAYOUT.id]: DEFAULT_MARKET_DATA_LAYOUT,
+          ...layouts,
+        },
+        isWsLayoutsSet: true,
+      }
+    }
+
     case types.ADD_COMPONENT: {
       const { component } = payload
       const layoutDef = getActiveLayoutDef(state)
@@ -428,6 +395,7 @@ function reducer(state = getInitialState(), action = {}) {
         },
       }
     }
+
     case types.REMOVE_COMPONENT: {
       const { i } = payload
       const newLayoutDef = _cloneDeep(getActiveLayoutDef(state))
@@ -443,6 +411,7 @@ function reducer(state = getInitialState(), action = {}) {
         unsavedLayout: newLayoutDef,
       }
     }
+
     case types.CHANGE_LAYOUT: {
       const { incomingLayout } = payload
       const layoutDef = getActiveLayoutDef(state)
@@ -465,18 +434,7 @@ function reducer(state = getInitialState(), action = {}) {
         }, layoutDef),
       }
     }
-    case types.SET_LAYOUTS: {
-      const { layouts } = payload
-      return {
-        ...state,
-        layouts: {
-          [DEFAULT_TRADING_LAYOUT.id]: DEFAULT_TRADING_LAYOUT,
-          [DEFAULT_MARKET_DATA_LAYOUT.id]: DEFAULT_MARKET_DATA_LAYOUT,
-          ...layouts,
-        },
-        isWsLayoutsSet: true,
-      }
-    }
+
     case types.SET_LAYOUT_ID: {
       const { layoutID } = payload
 
@@ -485,6 +443,7 @@ function reducer(state = getInitialState(), action = {}) {
         layoutID,
       }
     }
+
     case types.SELECT_LAYOUT: {
       const { id } = payload
 
@@ -494,13 +453,67 @@ function reducer(state = getInitialState(), action = {}) {
         layoutID: id,
       }
     }
-    case types.CHANGE_TICKERS_VOLUME_UNIT: {
-      const { key } = payload
-      const { isPaperTrading } = state
-      const unit = isPaperTrading ? VOLUME_UNIT_PAPER[key] : VOLUME_UNIT[key]
 
-      return { ...state, tickersVolumeUnit: unit || 'SELF' }
+    case types.CREATE_LAYOUT: {
+      const { name } = payload
+      const layoutDef = getActiveLayoutDef(state)
+      const id = `${layoutDef.routePath}:${name}`
+
+      return {
+        ...state,
+        layoutIsDirty: false,
+        layouts: {
+          ...state.layouts,
+          [id]: {
+            ...layoutDef,
+            id,
+            name,
+            isDefault: false,
+            canDelete: true,
+            savedAt: Date.now(),
+          },
+        },
+        layoutID: id,
+      }
     }
+
+    case types.SAVE_LAYOUT: {
+      return {
+        ...state,
+        layoutIsDirty: false,
+        layouts: {
+          ...state.layouts,
+          [state.layoutID]: {
+            ...state.unsavedLayout,
+            isDefault: false,
+            canDelete: true,
+            savedAt: Date.now(),
+          },
+        },
+      }
+    }
+
+    case types.STORE_UNSAVED_LAYOUT: {
+      const { layout } = payload
+
+      return {
+        ...state,
+        unsavedLayout: layout,
+      }
+    }
+
+    case types.DELETE_LAYOUT: {
+      const { id } = payload
+      const { [id]: delLayout, ...remainingLayouts } = state.layouts
+      const { [id]: delState, ...remainingStates } = state.layoutComponentState
+
+      return {
+        ...state,
+        layouts: remainingLayouts,
+        layoutComponentState: remainingStates,
+      }
+    }
+
     default: {
       return state
     }

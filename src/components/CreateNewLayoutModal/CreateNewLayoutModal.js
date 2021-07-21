@@ -11,17 +11,17 @@ import { createLayout } from '../../redux/actions/ui'
 
 const CreateNewLayoutModal = ({ onClose, isOpen }) => {
   const dispatch = useDispatch()
-  const [label, setLabel] = useState('')
+  const [name, setName] = useState('')
   const [error, setError] = useState('')
 
   const onSubmitHandler = () => {
-    if (_isEmpty(label)) {
-      setError('Label empty')
+    if (_isEmpty(name)) {
+      setError('Name empty')
       return
     }
 
-    dispatch(createLayout(label))
-    setLabel('')
+    dispatch(createLayout(name))
+    setName('')
     onClose()
   }
 
@@ -35,8 +35,8 @@ const CreateNewLayoutModal = ({ onClose, isOpen }) => {
       <Input
         type='text'
         placeholder='Layout Name'
-        value={label}
-        onChange={setLabel}
+        value={name}
+        onChange={setName}
       />
 
       {!_isEmpty(error) && (
