@@ -22,10 +22,16 @@ touch ~/.honeyframework/ui.json
 ## Run Electron version in the browser
 
 ```bash
-npm run update-core
 npm run start-ds-bitfinex
 npm run start-api-server
 npm run start
+```
+
+
+## Fetch latest submodule
+
+```bash
+npm run update-core
 ```
 
 ## Build Electron app manually
@@ -33,7 +39,6 @@ npm run start
 Generates an installable application to run independently from the browser. Once you have ran the below command navigate to the `/dist` folder and select the instillation executable file for the operating system that you are using.
 
 ```bash
-npm run update-core
 npm run build
 npm run dist-win-unpruned # for windows
 npm run dist-mac # for mac
