@@ -8,7 +8,8 @@
 ```bash
 git clone https://github.com/bitfinexcom/bfx-hf-ui
 cd bfx-hf-ui
-npm  install
+npm run fetch-core
+npm install
 ```
 Create folder to store local db
 ```
@@ -18,27 +19,28 @@ touch ~/.honeyframework/hf-bitfinex.json
 touch ~/.honeyframework/ui.json
 ```
 
-## Run in the browser
+## Run Electron version in the browser
 
-```
-npm run build
-npm run start-server
+```bash
+npm run update-core
 npm run start-ds-bitfinex
-npm start
+npm run start-api-server
+npm run start
 ```
 
-## Build electron app manually
+## Build Electron app manually
 
 Generates an installable application to run independently from the browser. Once you have ran the below command navigate to the `/dist` folder and select the instillation executable file for the operating system that you are using.
 
 ```bash
+npm run update-core
 npm run build
 npm run dist-win-unpruned # for windows
 npm run dist-mac # for mac
 npm run dist-linux # for linux
 ```
 
-## Install pre-built electron app
+## Install pre-built Electron app
 
 Head to the latest cut [releases](https://github.com/bitfinexcom/bfx-hf-ui/releases) and locate the most recent release. Once there you will see installers attached for `linux`, `mac` and `windows`. Run the installer for the operating system that you are using.
 

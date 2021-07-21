@@ -34,14 +34,14 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Pull bfx-hf-ui-core
+        run: npm run fetch-core
+
       - name: Install
         run: npm install
 
       - name: Run Build Check
         run: npm run build
-
-      - name: Run Lint Check
-        run: npm run lint
 
       - name: Run dist-win-unpruned Check
         run: npm run dist-win-unpruned
