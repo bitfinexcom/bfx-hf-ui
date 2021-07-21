@@ -93,7 +93,9 @@ const GridLayout = ({
   }, [isWsLayoutsSet, wsLayouts])
 
   useEffect(() => {
-    // push every layout updates to websocket
+    // push every layout update to websocket
+    // on reload we fetch it and use the above useEffect
+    // to sync it to the app’s store
     if (isWsLayoutsSet) {
       saveLayoutsToWs(layouts)
     }
