@@ -17,7 +17,7 @@ import {
   setLayouts,
 } from '../../redux/actions/ui'
 import WSActions from '../../redux/actions/ws'
-import { renderLayoutElement } from './GridLayout.helpers'
+import { renderLayoutElement, migrateLocalStorageToWs } from './GridLayout.helpers'
 import './style.css'
 import { LOADING_LAYOUT } from '../../constants/layouts'
 
@@ -63,6 +63,26 @@ const GridLayout = ({
       ? currentSavedLayout
       : lastLayoutDef
 
+  const saveLayoutsToWs = (nextLayouts) => dispatch(WSActions.send([
+    'layouts.save',
+    authToken,
+    _reduce(
+      _entries(nextLayouts),
+      (nextLayout, [id, layout]) => {
+        // don't save default layouts in db
+        if (layout.isDefault) {
+          return nextLayout
+        }
+
+        return {
+          ...nextLayout,
+          [id]: layout,
+        }
+      },
+      {},
+    ),
+  ]))
+
   useEffect(() => {
     // once the saved layouts are fetched from the websocket
     // store it in the redux under ui.layouts
@@ -75,25 +95,7 @@ const GridLayout = ({
   useEffect(() => {
     // push every layout updates to websocket
     if (isWsLayoutsSet) {
-      dispatch(WSActions.send([
-        'layouts.save',
-        authToken,
-        _reduce(
-          _entries(layouts),
-          (nextLayout, [id, layout]) => {
-            // don't save default layouts in db
-            if (layout.isDefault) {
-              return nextLayout
-            }
-
-            return {
-              ...nextLayout,
-              [id]: layout,
-            }
-          },
-          {},
-        ),
-      ]))
+      saveLayoutsToWs(layouts)
     }
   }, [isWsLayoutsSet, layouts])
 
@@ -114,28 +116,7 @@ const GridLayout = ({
 
   useEffect(() => {
     // migrate localStorage to ws
-    // _reduce(
-    //   _entries(layouts),
-    //   (nextLayout, [name, { routePath, ...layoutProps }]) => {
-    //     // don't save default layouts in db
-    //     if (layoutProps.isDefault) {
-    //       return nextLayout
-    //     }
-
-    //     const id = `${routePath}:${name}`
-
-    //     return {
-    //       ...nextLayout,
-    //       [id]: {
-    //         ...layoutProps,
-    //         name,
-    //         routePath,
-    //         id,
-    //       },
-    //     }
-    //   },
-    //   {},
-    // )
+    migrateLocalStorageToWs(saveLayoutsToWs)
   }, [])
 
   const componentProps = {

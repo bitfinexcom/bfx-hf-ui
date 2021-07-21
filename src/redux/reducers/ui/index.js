@@ -5,16 +5,10 @@ import _isEmpty from 'lodash/isEmpty'
 import _cloneDeep from 'lodash/cloneDeep'
 import _min from 'lodash/min'
 import _max from 'lodash/max'
-import _reduce from 'lodash/reduce'
-import _entries from 'lodash/entries'
-import _values from 'lodash/values'
-import _some from 'lodash/some'
-import _isUndefined from 'lodash/isUndefined'
 import { nonce } from 'bfx-api-node-util'
 import { VOLUME_UNIT, VOLUME_UNIT_PAPER } from '@ufx-ui/bfx-containers'
 
 import types from '../../constants/ui'
-import * as Routes from '../../../constants/routes'
 import { DEFAULT_TRADING_LAYOUT, DEFAULT_MARKET_DATA_LAYOUT } from '../../../constants/layouts'
 import DEFAULT_TRADING_COMPONENT_STATE from './default_component_state_trading'
 import DEFAULT_MARKET_DATA_COMPONENT_STATE from './default_component_state_market_data'
@@ -29,14 +23,12 @@ import {
 } from '../../../components/GridLayout/GridLayout.helpers'
 
 const debug = Debug('hfui:rx:r:ui')
-const LAYOUTS_KEY = 'HF_UI_LAYOUTS'
 const LAYOUTS_STATE_KEY = 'HF_UI_LAYOUTS_STATE'
 const ACTIVE_MARKET_KEY = 'HF_UI_ACTIVE_MARKET'
 const ACTIVE_MARKET_PAPER_KEY = 'HF_UI_PAPER_ACTIVE_MARKET'
 const IS_PAPER_TRADING = 'IS_PAPER_TRADING'
 export const PAPER_MODE = 'paper'
 export const MAIN_MODE = 'main'
-const shownOldFormatModal = false
 
 const DEFAULT_MARKET = {
   contexts: ['e', 'm'],
@@ -77,70 +69,13 @@ function getInitialState() {
   }
 
   const isPaperTrading = localStorage.getItem(IS_PAPER_TRADING) === 'true'
-  // const layoutsJSON = localStorage.getItem(LAYOUTS_KEY)
   const layoutsComponentStateJSON = localStorage.getItem(LAYOUTS_STATE_KEY)
-
-  // try {
-  //   const storedLayouts = JSON.parse(layoutsJSON)
-
-  //   const isNewFormat = !_some(
-  //     _values(storedLayouts),
-  //     layout => _isUndefined(layout.savedAt),
-  //   )
-
-  //   // transform old format to new format for compatibility
-  //   const nextFormatLayouts = isNewFormat ? storedLayouts : _reduce(
-  //     _entries(storedLayouts),
-  //     (nextLayouts, [key, layout]) => {
-  //       const routePath = layout.type === 'data'
-  //         ? Routes.marketData.path
-  //         : Routes.tradingTerminal.path
-
-  //       return {
-  //         ...nextLayouts,
-  //         // Previously stored default layout could have been edited
-  //         // so store them without newly added ' Layout' suffix key
-  //         // and set isDefault false and canDelete true
-  //         [key]: {
-  //           ...layout,
-  //           routePath,
-  //           isDefault: false,
-  //           canDelete: true,
-  //           savedAt: Date.now(),
-  //         },
-  //       }
-  //     },
-  //     {
-  //       [DEFAULT_TRADING_KEY]: DEFAULT_TRADING_LAYOUT,
-  //       [DEFAULT_MARKET_KEY]: DEFAULT_MARKET_DATA_LAYOUT,
-  //     },
-  //   )
-
-  //   // saving reformatted layouts into the local storage
-  //   if ((!isNewFormat && !_isEmpty(storedLayouts)) || shownOldFormatModal) {
-  //     shownOldFormatModal = true
-  //     defaultState.isOldFormatModalVisible = true
-  //     localStorage.setItem(LAYOUTS_KEY, JSON.stringify(nextFormatLayouts))
-  //   }
-
-  //   defaultState.layouts = nextFormatLayouts
-  //   defaultState.tickersVolumeUnit = isPaperTrading ? VOLUME_UNIT_PAPER.TESTUSD : VOLUME_UNIT.USD
-  // } catch (e) {
-  //   debug('Loading layouts error, check localStorage: %s', LAYOUTS_KEY)
-  // }
 
   try {
     defaultState.layoutComponentState = JSON.parse(layoutsComponentStateJSON)
   } catch (e) {
     debug('Loading layouts state error, check localStorage: %s', LAYOUTS_STATE_KEY)
   }
-
-  // if (!defaultState.layouts) {
-  //   defaultState.layouts = {
-  //     [DEFAULT_TRADING_KEY]: DEFAULT_TRADING_LAYOUT,
-  //     [DEFAULT_MARKET_KEY]: DEFAULT_MARKET_DATA_LAYOUT,
-  //   }
-  // }
 
   if (!defaultState.layoutComponentState) {
     defaultState.layoutComponentState = {
@@ -525,14 +460,6 @@ function reducerWithStorage(state = getInitialState(), action = {}) {
 
   if (localStorage) {
     switch (action.type) {
-      case types.SAVE_LAYOUT:
-      case types.CREATE_LAYOUT:
-      case types.DELETE_LAYOUT: {
-        const { layouts } = newState
-        localStorage.setItem(LAYOUTS_KEY, JSON.stringify(layouts))
-        break
-      }
-
       case types.SAVE_COMPONENT_STATE: {
         const { layoutComponentState } = newState
         localStorage.setItem(LAYOUTS_STATE_KEY, JSON.stringify(layoutComponentState))

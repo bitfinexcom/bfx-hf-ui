@@ -1,5 +1,11 @@
 import React from 'react'
 
+import _reduce from 'lodash/reduce'
+import _entries from 'lodash/entries'
+import _values from 'lodash/values'
+import _some from 'lodash/some'
+import _isUndefined from 'lodash/isUndefined'
+
 import OrderForm from '../OrderForm'
 import OrderBookPanel from '../OrderBookPanel'
 import ChartPanel from '../ChartPanel'
@@ -12,6 +18,8 @@ import BalancesTablePanel from '../BalancesTablePanel'
 import TradingStatePanel from '../TradingStatePanel'
 import ExchangeInfoBar from '../ExchangeInfoBar'
 import LoadingPanel from '../LoadingPanel'
+
+import * as Routes from '../../constants/routes'
 
 export const COMPONENT_TYPES = {
   CHART: 'CHART',
@@ -176,4 +184,71 @@ export const gridLayoutToLayoutDef = (layoutDef, parentLayoutDef) => {
   })
 
   return layoutDef
+}
+
+export const migrateLocalStorageToWs = (saveLayoutsToWs) => {
+  if (_isUndefined(localStorage)) {
+    return
+  }
+
+  const LAYOUTS_KEY = 'HF_UI_LAYOUTS'
+  const layoutsJSON = localStorage.getItem(LAYOUTS_KEY)
+  const storedLayouts = JSON.parse(layoutsJSON)
+
+  const isNewFormat = !_some(
+    _values(storedLayouts),
+    layout => _isUndefined(layout.savedAt),
+  )
+
+  // transform old format to new format for compatibility
+  const nextFormatLayouts = isNewFormat ? storedLayouts : _reduce(
+    _entries(storedLayouts),
+    (nextLayouts, [key, layout]) => {
+      const routePath = layout.type === 'data'
+        ? Routes.marketData.path
+        : Routes.tradingTerminal.path
+
+      return {
+        ...nextLayouts,
+        // Previously stored default layout could have been edited
+        // so store them without newly added ' Layout' suffix key
+        // and set isDefault false and canDelete true
+        [key]: {
+          ...layout,
+          routePath,
+          isDefault: false,
+          canDelete: true,
+          savedAt: Date.now(),
+        },
+      }
+    },
+    {},
+  )
+
+  // transform local storage format to ws format (with added unique id and name)
+  const wsLayouts = _reduce(
+    _entries(nextFormatLayouts),
+    (nextLayout, [name, { routePath, ...layoutProps }]) => {
+      // don't save default layouts in db
+      if (layoutProps.isDefault) {
+        return nextLayout
+      }
+
+      const id = `${routePath}:${name}`
+
+      return {
+        ...nextLayout,
+        [id]: {
+          ...layoutProps,
+          name,
+          routePath,
+          id,
+        },
+      }
+    },
+    {},
+  )
+
+  saveLayoutsToWs(wsLayouts)
+  localStorage.removeItem(LAYOUTS_KEY)
 }
