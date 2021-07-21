@@ -162,6 +162,11 @@ export const changeOldFormatModalState = (isVisible) => ({
   payload: { isVisible },
 })
 
+export const changeAOPauseModalState = (isVisible) => ({
+  type: types.CHANGE_AO_PAUSE_MODAL_STATE,
+  payload: { isVisible },
+})
+
 export const changeBadInternetConnectionState = (isVisible) => ({
   type: types.CHANGE_BAD_INTERNET_STATE,
   payload: { isVisible },
@@ -234,4 +239,5 @@ export default {
   setLayoutID,
   changeTickersVolumeUnit,
   changeOldFormatModalState,
+  changeAOPauseModalState,
 }
