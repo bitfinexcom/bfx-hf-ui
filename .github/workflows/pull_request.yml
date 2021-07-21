@@ -40,9 +40,6 @@ jobs:
       - name: Run Build Check
         run: npm run build
 
-      - name: Run Lint Check
-        run: npm run lint
-
       - name: Run dist-win-unpruned Check
         run: npm run dist-win-unpruned
 
