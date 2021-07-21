@@ -34,6 +34,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Pull bfx-hf-ui-core
+        run: npm run update-core
+
       - name: Install
         run: npm install
 
