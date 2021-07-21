@@ -6,6 +6,5 @@ const path = REDUCER_PATHS.META
 const EMPTY_OBJ = {}
 
 export default (state) => {
-  const marketsObject = _get(state, `${path}.markets`, EMPTY_OBJ)
-  return Object.values(marketsObject)
+  return _get(state, `${path}.markets`, EMPTY_OBJ)
 }
