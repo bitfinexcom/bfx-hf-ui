@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Scrollbars } from 'react-custom-scrollbars'
 import { StoreProvider as UfxStoreProvider } from '@ufx-ui/core'
 import { useInjectBfxData } from '@ufx-ui/bfx-containers'
 
@@ -50,11 +49,9 @@ const HFUIWrapper = () => {
 }
 
 ReactDOM.render((
-  <Scrollbars hideTracksWhenNotNeeded>
-    <StoreWrapper>
-      <UfxStoreProvider value={config}>
-        <HFUIWrapper />
-      </UfxStoreProvider>
-    </StoreWrapper>
-  </Scrollbars>
+  <StoreWrapper>
+    <UfxStoreProvider value={config}>
+      <HFUIWrapper />
+    </UfxStoreProvider>
+  </StoreWrapper>
 ), document.getElementById('root'))

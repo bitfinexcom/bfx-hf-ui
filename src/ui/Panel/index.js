@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import Scrollbars from 'react-custom-scrollbars'
 import ClassNames from 'classnames'
 import PropTypes from 'prop-types'
+
+import Scrollbars from '../Scrollbars'
+import useSize from '../../hooks/useSize'
 
 import './style.css'
 
@@ -46,11 +48,12 @@ const Panel = (props) => {
     preHeaderComponents,
     dropdown,
     forcedTab,
-    headerRef,
   } = props
   const tabs = React.Children.toArray(children).filter(c => c && c.props.tabtitle)
   const initTab = forcedTab.length ? getForcedTab(forcedTab, tabs) : 0
   const [selectedTab, setSelectedTab] = useState(initTab)
+  const [panelRef, panelSize] = useSize()
+  const [headerRef, headerSize] = useSize()
 
   return (
     <div
@@ -58,102 +61,96 @@ const Panel = (props) => {
         'dark-header': darkHeader,
         dark,
       })}
+      ref={panelRef}
     >
-      <div
-        className={ClassNames('hfui-panel__header', {
-          'has-secondary-header': !!secondaryHeaderComponents,
-        })}
-        ref={headerRef}
-      >
-        <div className='hfui-panel__left-container'>
-          {label && <p className='hfui-panel__label'>{label}</p>}
-          {headerComponents && (
-            <div className='hfui-panel__header-components'>
-              {headerComponents}
+      <div ref={headerRef}>
+        <div
+          className={ClassNames('hfui-panel__header', {
+            'has-secondary-header': !!secondaryHeaderComponents,
+          })}
+        >
+          <div className='hfui-panel__left-container'>
+            {label && <p className='hfui-panel__label'>{label}</p>}
+            {headerComponents && (
+              <div className='hfui-panel__header-components'>
+                {headerComponents}
+              </div>
+            )}
+          </div>
+          <div className='hfui-panel__buttons-section'>
+            {preHeaderComponents && (
+            <div className='hfui-panel__preheader'>
+              {preHeaderComponents}
             </div>
+            )}
+            {closePanel && (
+            <p className='hfui-panel__close' onClick={closePanel}>&#10005;</p>
+            )}
+          </div>
+          {tabs.length > 0 && (
+          <ul className='hfui-panel__header-tabs'>
+            {tabs.map((tab, index) => (
+              <li
+                key={tab.props.htmlKey || tab.props.tabtitle}
+                className={ClassNames({ active: getTabTitle(tab) === getTabTitle(tabs[selectedTab]) })}
+                onClick={() => setSelectedTab(index)}
+              >
+                <p className='hfui-panel__label'>
+                  {tab.props.tabtitle}
+                </p>
+              </li>
+            ))}
+          </ul>
           )}
-        </div>
-        <div className='hfui-panel__buttons-section'>
-          {preHeaderComponents && (
-          <div className='hfui-panel__preheader'>
-            {preHeaderComponents}
+
+          {!hideIcons && (
+          <div className='hfui-panel__header-icons'>
+            {removeable && (
+            <i onClick={onRemove} className='icon-cancel' />
+            )}
+
+            {moveable && <i className='icon-move' />}
+
+            {showChartMarket && (
+            <div className='hfui-panel__chart-market-select'>
+              {chartMarketSelect}
+            </div>
+            )}
+
+            {onToggleSettings && (
+            <i
+              onClick={onToggleSettings}
+              className={ClassNames('icon-settings-icon', {
+                yellow: settingsOpen,
+              })}
+            />
+            )}
+
+            {extraIcons}
+
+            {dropdown}
           </div>
           )}
-          {closePanel && (
-          <p className='hfui-panel__close' onClick={closePanel}>&#10005;</p>
-          )}
         </div>
-        {tabs.length > 0 && (
-        <ul className='hfui-panel__header-tabs'>
-          {tabs.map((tab, index) => (
-            <li
-              key={tab.props.htmlKey || tab.props.tabtitle}
-              className={ClassNames({ active: getTabTitle(tab) === getTabTitle(tabs[selectedTab]) })}
-              onClick={() => setSelectedTab(index)}
-            >
-              <p className='hfui-panel__label'>
-                {tab.props.tabtitle}
-              </p>
-            </li>
-          ))}
-        </ul>
-        )}
 
-        {!hideIcons && (
-        <div className='hfui-panel__header-icons'>
-          {removeable && (
-          <i onClick={onRemove} className='icon-cancel' />
-          )}
-
-          {moveable && <i className='icon-move' />}
-
-          {showChartMarket && (
-          <div className='hfui-panel__chart-market-select'>
-            {chartMarketSelect}
+        {secondaryHeaderComponents && (
+          <div className='hfui-panel__secondaryheader__wrapper'>
+            {secondaryHeaderComponents}
           </div>
-          )}
-
-          {onToggleSettings && (
-          <i
-            onClick={onToggleSettings}
-            className={ClassNames('icon-settings-icon', {
-              yellow: settingsOpen,
-            })}
-          />
-          )}
-
-          {extraIcons}
-
-          {dropdown}
-        </div>
         )}
       </div>
-
-      {secondaryHeaderComponents && (
-      <div
-        className='hfui-panel__secondaryheader__wrapper'
-      >
-        {secondaryHeaderComponents}
-      </div>
-      )}
 
       <div className='hfui-panel__content'>
         {modal}
-
-        <Scrollbars
-          renderTrackVertical={compProps => (
-            <div {...compProps} className='hfui-scrollbars-track-vertical' />
-          )}
-          renderThumbVertical={compProps => (
-            <div {...compProps} className='hfui-scrollbars-thumb-vertical' />
-          )}
-        >
-          {tabs.length > 0 ? tabs[selectedTab] : children}
+        <Scrollbars style={{ height: panelSize.height - headerSize.height }}>
+          <div className='hfui-panel__inner'>
+            {tabs.length > 0 ? tabs[selectedTab] : children}
+          </div>
         </Scrollbars>
       </div>
 
       {footer && (
-      <div className='hfui-panel__footer'>{footer}</div>
+        <div className='hfui-panel__footer'>{footer}</div>
       )}
     </div>
   )
@@ -172,7 +169,6 @@ Panel.propTypes = {
   modal: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   darkHeader: PropTypes.bool,
   dark: PropTypes.bool,
-  htmlKey: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   footer: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   settingsOpen: PropTypes.bool,
@@ -183,10 +179,6 @@ Panel.propTypes = {
   preHeaderComponents: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   forcedTab: PropTypes.string,
   dropdown: PropTypes.node,
-  headerRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  ]),
 }
 
 Panel.defaultProps = {
@@ -204,7 +196,6 @@ Panel.defaultProps = {
   children: [],
   modal: null,
   footer: null,
-  htmlKey: '',
   settingsOpen: false,
   onToggleSettings: null,
   showChartMarket: false,
@@ -213,7 +204,6 @@ Panel.defaultProps = {
   preHeaderComponents: null,
   forcedTab: '',
   dropdown: null,
-  headerRef: null,
 }
 
 export default Panel

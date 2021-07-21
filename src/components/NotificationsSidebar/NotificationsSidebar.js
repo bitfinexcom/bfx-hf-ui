@@ -2,7 +2,6 @@ import React from 'react'
 import { Notifications } from '@ufx-ui/core'
 import ClassNames from 'classnames'
 import PropTypes from 'prop-types'
-import Scrollbars from 'react-custom-scrollbars'
 import _isEmpty from 'lodash/isEmpty'
 import _map from 'lodash/map'
 import _includes from 'lodash/includes'
@@ -11,6 +10,7 @@ import { nonce } from 'bfx-api-node-util'
 
 import Panel from '../../ui/Panel'
 import Button from '../../ui/Button'
+import Scrollbars from '../../ui/Scrollbars'
 import './style.css'
 
 const LIVE_NOTIFICATION_LIFETIME_MS = 5000
@@ -135,7 +135,7 @@ class NotificationsSidebar extends React.PureComponent {
             {_isEmpty(notifications) ? (
               <p className='hfui-notificationssidebar__empty'>There are no new notifications yet!</p>
             ) : (
-              <Scrollbars height='100%'>
+              <Scrollbars>
                 <Notifications
                   className='hfui-sidebar-notifications'
                   notifications={_map(notifications, item => ({

@@ -1,27 +1,25 @@
-import React, { memo } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import CustomScrollbars from 'react-custom-scrollbars'
+
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import 'react-perfect-scrollbar/dist/css/styles.css'
 
 import './style.css'
 
-const Scrollbars = ({ children }) => (
-  <CustomScrollbars
-    renderTrackVertical={props => (
-      <div {...props} className='hfui-scrollbars-track-vertical' />
-    )}
-    renderThumbVertical={props => (
-      <div {...props} className='hfui-scrollbars-thumb-vertical' />
-    )}
+const Scrollbars = ({ children, ...rest }) => (
+  <PerfectScrollbar
+    options={{
+      minScrollbarLength: 25,
+      maxScrollbarLength: 100,
+    }}
+    {...rest}
   >
     {children}
-  </CustomScrollbars>
+  </PerfectScrollbar>
 )
 
 Scrollbars.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
+  children: PropTypes.node.isRequired,
 }
 
-export default memo(Scrollbars)
+export default Scrollbars
