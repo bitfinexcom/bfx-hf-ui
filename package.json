@@ -120,7 +120,7 @@
     "bfx-hf-ext-plugin-bitfinex": "^1.0.7",
     "bfx-hf-models": "^2.2.0",
     "bfx-hf-models-adapter-lowdb": "^1.0.0",
-    "bfx-hf-server": "^4.0.5",
+    "bfx-hf-server": "github:bitfinexcom/bfx-hf-server#v4.1.0",
     "bfx-hf-util": "^1.0.1",
     "concurrently": "^5.3.0",
     "cross-env": "^7.0.2",
