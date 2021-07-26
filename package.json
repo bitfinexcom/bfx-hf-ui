@@ -116,12 +116,12 @@
     "node-prune": "^1.0.2"
   },
   "dependencies": {
-    "bfx-hf-data-server": "^3.0.3",
-    "bfx-hf-ext-plugin-bitfinex": "^1.0.7",
-    "bfx-hf-models": "^2.2.0",
-    "bfx-hf-models-adapter-lowdb": "^1.0.0",
+    "bfx-hf-data-server": "github:bitfinexcom/bfx-hf-data-server#v3.0.4",
+    "bfx-hf-ext-plugin-bitfinex": "github:bitfinexcom/bfx-hf-ext-plugin-bitfinex#v1.0.9",
+    "bfx-hf-models": "github:bitfinexcom/bfx-hf-models#v2.3.3",
+    "bfx-hf-models-adapter-lowdb": "github:bitfinexcom/bfx-hf-models-adapter-lowdb#v1.0.4",
     "bfx-hf-server": "github:bitfinexcom/bfx-hf-server#v4.1.0",
-    "bfx-hf-util": "^1.0.1",
+    "bfx-hf-util": "github:bitfinexcom/bfx-hf-util#v1.0.12",
     "concurrently": "^5.3.0",
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
