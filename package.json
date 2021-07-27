@@ -116,7 +116,7 @@
     "node-prune": "^1.0.2"
   },
   "dependencies": {
-    "bfx-hf-data-server": "github:bitfinexcom/bfx-hf-data-server#v3.0.4",
+    "bfx-hf-data-server": "github:bitfinexcom/bfx-hf-data-server#v3.0.5",
     "bfx-hf-ext-plugin-bitfinex": "github:bitfinexcom/bfx-hf-ext-plugin-bitfinex#v1.0.10",
     "bfx-hf-models": "github:bitfinexcom/bfx-hf-models#v2.3.3",
     "bfx-hf-models-adapter-lowdb": "github:bitfinexcom/bfx-hf-models-adapter-lowdb#v1.0.4",
