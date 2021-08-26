@@ -1,3 +1,3 @@
-find ./node_modules -type d -name '*babel*' -maxdepth 1 -exec rm -rf {} \;
-find ./node_modules -type d -name '*css*'   -maxdepth 1 -exec rm -rf {} \;
-find ./node_modules -type d -name '*jest*'  -maxdepth 1 -exec rm -rf {} \;
+find ./node_modules -maxdepth 1 -type d -name '*babel*' -exec rm -rf {} \;
+find ./node_modules -maxdepth 1 -type d -name '*css*' -exec rm -rf {} \;
+find ./node_modules -maxdepth 1 -type d -name '*jest*' -exec rm -rf {} \;
