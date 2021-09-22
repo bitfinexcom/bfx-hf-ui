@@ -55,6 +55,17 @@ Starting the HF UI will spawn all of the Honey Framework services that are neede
 
 ![Alt text](res/bfx-hf-ui.png "Title")
 
+## API Key Permissions
+
+To login to the HF application, please use API keys generated from bitfinex platform. Minimum required API key permissions are as following:
+
+- Get orders and statuses.
+- Create and cancel orders.
+- Get wallet balances and addresses.
+
+<img width="1151" alt="hf-api-permissions" src="https://user-images.githubusercontent.com/29878604/134357317-775d7805-5f52-4c85-bfc8-1d7de4e13536.png">
+
+
 ## Contributing
 
 1. Fork it (https://github.com/bitfinexcom/bfx-hf-ui)
