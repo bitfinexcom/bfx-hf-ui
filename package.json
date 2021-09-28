@@ -81,7 +81,7 @@
     "update-core": "git submodule update --remote --merge",
     "fetch-core": "git submodule update --init --recursive",
     "postbuild": "run-script-os",
-    "postbuild:win32": "DEL /S %CD%\\build && mv %CD%\\bfx-hf-ui-core\\build %CD%\\build && COPY %CD%\\public\\* %CD%\\build",
+    "postbuild:win32": "call %CD%\\scripts\\postbuild.bat",
     "postbuild:darwin:linux": "rm -rf ./build && mv ./bfx-hf-ui-core/build ./build && cp -r ./public/* ./build",
     "dev": "cross-env concurrently --kill-others \"npm run start-server\" \"npm run start\"",
     "electron-dev": "cross-env concurrently \"BROWSER=none npm run start-server\"  & electron .",
