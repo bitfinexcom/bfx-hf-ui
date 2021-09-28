@@ -76,10 +76,13 @@
     "start-api-server": "cross-env ALGO_LOG=true ALGO_LOG_DIR=logs node scripts/start-api-server.js",
     "start-ds-bitfinex": "cross-env node scripts/start-ds-bitfinex.js",
     "start": "cd ./bfx-hf-ui-core && cross-env REACT_APP_DEV=1 REACT_APP_WSS_URL=ws://localhost:45000 REACT_APP_DS_URL=ws://localhost:23521 REACT_APP_UFX_PUBLIC_API_URL=http://localhost:45001 REACT_APP_IS_ELECTRON_APP=true node scripts/start.js",
+    "prebuild": "cd ./bfx-hf-ui-core && git checkout -- .",
     "build": "npm run fetch-core && npm run update-core && npm run preinstall && cd bfx-hf-ui-core && cross-env GENERATE_SOURCEMAP=false npm run build-css && cross-env REACT_APP_WSS_URL=ws://localhost:45000 REACT_APP_DS_URL=ws://localhost:23521 REACT_APP_UFX_PUBLIC_API_URL=http://localhost:45001 REACT_APP_IS_ELECTRON_APP=true node scripts/build.js",
     "update-core": "git submodule update --remote --merge",
     "fetch-core": "git submodule update --init --recursive",
-    "postbuild": "rm -rf ./build && mv ./bfx-hf-ui-core/build ./build && cp -r ./public/* ./build/",
+    "postbuild": "run-script-os",
+    "postbuild:win32": "DEL /S %CD%\\build && mv %CD%\\bfx-hf-ui-core\\build %CD%\\build && COPY %CD%\\public\\* %CD%\\build",
+    "postbuild:darwin:linux": "rm -rf ./build && mv ./bfx-hf-ui-core/build ./build && cp -r ./public/* ./build",
     "dev": "cross-env concurrently --kill-others \"npm run start-server\" \"npm run start\"",
     "electron-dev": "cross-env concurrently \"BROWSER=none npm run start-server\"  & electron .",
     "electron": "cross-env electron .",
@@ -113,7 +116,8 @@
     "electron": "13.0.1",
     "electron-builder": "22.11.1",
     "electron-packager": "15.2.0",
-    "node-prune": "^1.0.2"
+    "node-prune": "^1.0.2",
+    "run-script-os": "^1.1.6"
   },
   "dependencies": {
     "bfx-hf-data-server": "git+https://github.com/bitfinexcom/bfx-hf-data-server.git#v3.0.7",
