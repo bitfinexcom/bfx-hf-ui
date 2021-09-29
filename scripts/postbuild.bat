@@ -6,7 +6,7 @@ if exist %CD%\build (
 )
 
 mkdir build
-move %CD%\bfx-hf-ui-core\build %CD%\build
+robocopy %CD%\bfx-hf-ui-core\build %CD%\build /e
 robocopy %CD%\public %CD%\build /e
 
 exit /b 0
