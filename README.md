@@ -1,9 +1,26 @@
 # Honey Framework UI
-* Creates HF services as background processes
-* Enables order types (Accum/Dist, MA Crossover, Ping/Pong, Iceberg, TWAP and OCOCO)
-* Define and backtest trading strategies
+
+- Creates HF services as background processes
+- Enables order types (Accum/Dist, MA Crossover, Ping/Pong, Iceberg, TWAP and OCOCO)
+- Define and backtest trading strategies
 
 ## Installation
+
+Recommended versions:
+
+Node
+
+```bash
+14.18.0
+```
+
+NPM
+
+```bash
+6.14.15
+```
+
+Steps to install
 
 ```bash
 git clone https://github.com/bitfinexcom/bfx-hf-ui
@@ -11,7 +28,9 @@ cd bfx-hf-ui
 npm run fetch-core
 npm install
 ```
+
 Create folder to store local db
+
 ```
 mkdir ~/.honeyframework
 touch ~/.honeyframework/algos.json
@@ -26,7 +45,6 @@ npm run start-ds-bitfinex
 npm run start-api-server
 npm run start
 ```
-
 
 ## Fetch latest submodule
 
@@ -64,7 +82,6 @@ To login to the HF application, please use API keys generated from bitfinex plat
 - Get wallet balances and addresses.
 
 <img width="1151" alt="hf-api-permissions" src="https://user-images.githubusercontent.com/29878604/134357317-775d7805-5f52-4c85-bfc8-1d7de4e13536.png">
-
 
 ## Contributing
 
