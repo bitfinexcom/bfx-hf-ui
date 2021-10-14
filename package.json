@@ -113,7 +113,7 @@
   "devDependencies": {
     "babel-preset-react-app": "^9.0.0",
     "browserslist": "^4.16.6",
-    "electron": "13.3.0",
+    "electron": "^13.0.1",
     "electron-builder": "22.13.1",
     "electron-packager": "15.2.0",
     "node-prune": "^1.0.2",
