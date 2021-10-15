@@ -6,20 +6,6 @@
 
 ## Installation
 
-Recommended versions:
-
-Node
-
-```bash
-14.18.0
-```
-
-NPM
-
-```bash
-6.14.15
-```
-
 Steps to install
 
 ```bash
