@@ -112,9 +112,9 @@
   ],
   "devDependencies": {
     "babel-preset-react-app": "^9.0.0",
-    "browserslist": "^4.16.6",
-    "electron": "^13.0.1",
-    "electron-builder": "^22.11.1",
+    "browserslist": "^4.18.0",
+    "electron": "^15.3.1",
+    "electron-builder": "^22.13.1",
     "electron-packager": "15.2.0",
     "node-prune": "^1.0.2",
     "run-script-os": "^1.1.6"
@@ -122,11 +122,11 @@
   "dependencies": {
     "bfx-hf-data-server": "git+https://github.com/bitfinexcom/bfx-hf-data-server.git#v3.0.9",
     "bfx-hf-ext-plugin-bitfinex": "git+https://github.com/bitfinexcom/bfx-hf-ext-plugin-bitfinex.git#v1.0.11",
-    "bfx-hf-models": "git+https://github.com/bitfinexcom/bfx-hf-models.git#v2.4.0",
+    "bfx-hf-models": "git+https://github.com/bitfinexcom/bfx-hf-models.git#v2.4.1",
     "bfx-hf-models-adapter-lowdb": "git+https://github.com/bitfinexcom/bfx-hf-models-adapter-lowdb.git#v1.0.5",
-    "bfx-hf-server": "git+https://github.com/bitfinexcom/bfx-hf-server.git#v4.11.0",
+    "bfx-hf-server": "git+https://github.com/bitfinexcom/bfx-hf-server.git#v4.14.1",
     "bfx-hf-util": "github:bitfinexcom/bfx-hf-util#v1.0.12",
-    "concurrently": "^6.3.0",
+    "concurrently": "^6.4.0",
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "open": "^7.0.1"
