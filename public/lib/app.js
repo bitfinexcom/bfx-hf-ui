@@ -1,9 +1,7 @@
 const url = require('url')
 const path = require('path')
-const _omit = require('lodash/omit')
-const _includes = require('lodash/includes')
 const {
-  BrowserWindow, protocol, Menu, shell, ipcMain, session,
+  BrowserWindow, protocol, Menu, shell, ipcMain,
 } = require('electron') // eslint-disable-line
 
 const appMenuTemplate = require('./app_menu_template')
@@ -61,7 +59,7 @@ module.exports = class HFUIApplication {
       }
     })
     this.mainWindow.webContents.on('new-window', this.handleURLRedirect)
-
+    
     ipcMain.on('app-closed', () => {
       this.mainWindow.removeAllListeners('close')
       this.mainWindow.close()
@@ -74,21 +72,6 @@ module.exports = class HFUIApplication {
   }
 
   onReady() {
-
-    session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
-      let responseHeaders = { ...details.responseHeaders }
-
-      // for chart-iframe ignore CSP error
-      const chartUrl = 'https://hchart.bitfinex.com'
-      if(details?.url && _includes(details.url, chartUrl)) {
-        responseHeaders = _omit(details.responseHeaders, 'content-security-policy')
-      }
-
-      callback({
-        responseHeaders,
-      })
-    })
-
     protocol.interceptFileProtocol('file', (request, callback) => {
       const fileURL = request.url.substr(7) // all urls start with 'file://'
       callback({ path: path.normalize(`${__dirname}/../${fileURL}`) })
