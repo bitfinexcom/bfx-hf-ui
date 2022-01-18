@@ -1,0 +1,4 @@
+[submodule "bfx-hf-ui-core"]
+	path = bfx-hf-ui-core
+	url = https://github.com/bhoomij/bfx-hf-ui-core.git
+  branch = app-bin
