@@ -62,9 +62,10 @@ module.exports = class HFUIApplication {
     this.mainWindow.webContents.on('new-window', this.handleURLRedirect)
 
     this.mainWindow.once('ready-to-show', () => {
-      if (process.platform !== 'darwin') {
+      console.log('process.platform: ', process.platform);
+      // if (process.platform !== 'darwin') {
         autoUpdater.checkForUpdatesAndNotify();
-      }
+      // }
     });
 
     ipcMain.on('app-closed', () => {

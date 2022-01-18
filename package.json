@@ -1,6 +1,6 @@
 {
   "name": "bfx-hf-ui",
-  "version": "3.25.2",
+  "version": "3.25.3",
   "description": "Official bitfinex honey framework UI - for live trading and executing algorithmic orders/strategies",
   "engines": {
     "node": ">=6"
@@ -20,15 +20,6 @@
     "appId": "com.bitfinex.honey",
     "directories": {
       "buildResources": "public"
-    },
-    "mac": {
-      "icon": "build/icon.png",
-      "hardenedRuntime": true,
-      "artifactName": "${productName}-${version}-${arch}-${os}.${ext}",
-      "category": "public.app-category.productivity",
-      "target": [
-        "mas"
-      ]
     },
     "win": {
       "icon": "build/icon.png",
@@ -89,6 +80,7 @@
     "electron": "cross-env electron .",
     "pack": "cross-env ./node_modules/.bin/electron-builder --dir",
     "deploy": "cross-env electron-builder build -l -c.extraMetadata.main=build/electron.js --publish always",
+    "deploy-m": "cross-env electron-builder build -m --publish never",
     "dist-win-unpruned": "cross-env electron-builder --win -c.extraMetadata.main=build/electron.js --publish never",
     "dist-win": "cross-env npm run dist-win-unpruned && npm run package-win",
     "dist-mac": "cross-env electron-packager --prune . --overwrite --platform=mas --arch=x64 --icon=build/icon.png --out=dist && npm run package-mac",
