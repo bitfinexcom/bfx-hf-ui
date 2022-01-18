@@ -65,14 +65,13 @@ module.exports = class HFUIApplication {
         this.mainWindow.webContents.send('app-close')
       }
     })
+
     // if (process.platform !== 'darwin') {
       setTimeout(() => {
         autoUpdater.checkForUpdatesAndNotify();
       }, CHECK_APP_UPDATES_EVERY_MS);
     // }
 
-    // this.mainWindow.once('ready-to-show', () => {
-    // });
     this.mainWindow.webContents.on('new-window', this.handleURLRedirect)
 
     ipcMain.on('app-closed', () => {
@@ -83,17 +82,13 @@ module.exports = class HFUIApplication {
     ipcMain.on('restart_app', () => {
       autoUpdater.quitAndInstall();
       this.app.exit();
-      // this.app.relaunch()
-      // this.app.quit()
     });
 
     autoUpdater.on('update-available', () => {
-      logger.log('update-available: 1');
       this.mainWindow.webContents.send('update_available');
     });
 
     autoUpdater.on('update-downloaded', () => {
-      logger.log('update-downloaded: 1');
       this.mainWindow.webContents.send('update_downloaded');
     });
   }
