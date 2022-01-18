@@ -3,7 +3,7 @@ const path = require('path')
 const {
   BrowserWindow, protocol, Menu, shell, ipcMain,
 } = require('electron') // eslint-disable-line
-const autoUpdater = require('electron-updater')
+const { autoUpdater } = require('electron-updater')
 
 const appMenuTemplate = require('./app_menu_template')
 
