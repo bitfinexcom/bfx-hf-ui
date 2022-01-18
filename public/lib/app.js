@@ -7,11 +7,12 @@ const { autoUpdater } = require('electron-updater')
 const logger = require("electron-log")
 
 autoUpdater.logger = logger
-console.log = logger.log
 autoUpdater.logger["transports"].file.level = "info"
 
 const appMenuTemplate = require('./app_menu_template')
 
+// TODO: set 15 min
+const CHECK_APP_UPDATES_EVERY_MS = 3 * 60 * 1000 // 3 min
 module.exports = class HFUIApplication {
   static createWindow() {
     const win = new BrowserWindow({
@@ -64,12 +65,14 @@ module.exports = class HFUIApplication {
         this.mainWindow.webContents.send('app-close')
       }
     })
-    this.mainWindow.once('ready-to-show', () => {
-      console.log('process.platform: ', process.platform);
-      // if (process.platform !== 'darwin') {
+    // if (process.platform !== 'darwin') {
+      setTimeout(() => {
         autoUpdater.checkForUpdatesAndNotify();
-      // }
-    });
+      }, CHECK_APP_UPDATES_EVERY_MS);
+    // }
+
+    // this.mainWindow.once('ready-to-show', () => {
+    // });
     this.mainWindow.webContents.on('new-window', this.handleURLRedirect)
 
     ipcMain.on('app-closed', () => {
@@ -85,13 +88,11 @@ module.exports = class HFUIApplication {
     });
 
     autoUpdater.on('update-available', () => {
-      console.log('update-available: ');
       logger.log('update-available: 1');
       this.mainWindow.webContents.send('update_available');
     });
 
     autoUpdater.on('update-downloaded', () => {
-      console.log('update-downloaded: ');
       logger.log('update-downloaded: 1');
       this.mainWindow.webContents.send('update_downloaded');
     });
