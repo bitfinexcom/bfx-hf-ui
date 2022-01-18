@@ -3,6 +3,7 @@ const path = require('path')
 const {
   BrowserWindow, protocol, Menu, shell, ipcMain,
 } = require('electron') // eslint-disable-line
+const autoUpdater = require('electron-updater')
 
 const appMenuTemplate = require('./app_menu_template')
 
@@ -59,7 +60,13 @@ module.exports = class HFUIApplication {
       }
     })
     this.mainWindow.webContents.on('new-window', this.handleURLRedirect)
-    
+
+    this.mainWindow.once('ready-to-show', () => {
+      if (process.platform !== 'darwin') {
+        autoUpdater.checkForUpdatesAndNotify();
+      }
+    });
+
     ipcMain.on('app-closed', () => {
       this.mainWindow.removeAllListeners('close')
       this.mainWindow.close()
