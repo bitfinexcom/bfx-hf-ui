@@ -72,6 +72,21 @@ module.exports = class HFUIApplication {
       this.mainWindow.removeAllListeners('close')
       this.mainWindow.close()
     })
+
+    ipcMain.on('restart_app', () => {
+      autoUpdater.quitAndInstall();
+      // app.relaunch()
+      app.exit();
+      // app.quit()
+    });
+
+    autoUpdater.on('update-available', () => {
+      this.mainWindow.webContents.send('update_available');
+    });
+
+    autoUpdater.on('update-downloaded', () => {
+      this.mainWindow.webContents.send('update_downloaded');
+    });
   }
 
   handleURLRedirect(event, url) {

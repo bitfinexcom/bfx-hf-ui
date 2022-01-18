@@ -1,4 +1,0 @@
-[submodule "bfx-hf-ui-core"]
-	path = bfx-hf-ui-core
-	url = https://github.com/bitfinexcom/bfx-hf-ui-core.git
-	branch = main
