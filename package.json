@@ -1,6 +1,6 @@
 {
   "name": "bfx-hf-ui",
-  "version": "3.25.6",
+  "version": "3.25.7",
   "description": "Official bitfinex honey framework UI - for live trading and executing algorithmic orders/strategies",
   "engines": {
     "node": ">=6"
@@ -78,6 +78,7 @@
     "dev": "cross-env concurrently --kill-others \"npm run start-server\" \"npm run start\"",
     "electron-dev": "cross-env concurrently \"BROWSER=none npm run start-server\"  & electron .",
     "electron": "cross-env electron .",
+    "electrond": "cross-env electron --inspect=9229 --remote-debugging-port=9222 .",
     "pack": "cross-env ./node_modules/.bin/electron-builder --dir",
     "deploy": "cross-env electron-builder build -l -c.extraMetadata.main=build/electron.js --publish always",
     "deploy-m": "cross-env electron-builder build -m --publish never",

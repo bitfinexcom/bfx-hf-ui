@@ -81,10 +81,12 @@ module.exports = class HFUIApplication {
     });
 
     autoUpdater.on('update-available', () => {
+      console.log('update-available: ');
       this.mainWindow.webContents.send('update_available');
     });
 
     autoUpdater.on('update-downloaded', () => {
+      console.log('update-downloaded: ');
       this.mainWindow.webContents.send('update_downloaded');
     });
   }
