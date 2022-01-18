@@ -75,9 +75,9 @@ module.exports = class HFUIApplication {
 
     ipcMain.on('restart_app', () => {
       autoUpdater.quitAndInstall();
-      // app.relaunch()
-      app.exit();
-      // app.quit()
+      // this.app.relaunch()
+      this.app.exit();
+      // this.app.quit()
     });
 
     autoUpdater.on('update-available', () => {
