@@ -7,6 +7,7 @@ const { autoUpdater } = require('electron-updater')
 const logger = require("electron-log")
 
 autoUpdater.logger = logger
+console.log = logger.log
 autoUpdater.logger["transports"].file.level = "info"
 
 const appMenuTemplate = require('./app_menu_template')
@@ -85,11 +86,13 @@ module.exports = class HFUIApplication {
 
     autoUpdater.on('update-available', () => {
       console.log('update-available: ');
+      logger.log('update-available: 1');
       this.mainWindow.webContents.send('update_available');
     });
 
     autoUpdater.on('update-downloaded', () => {
       console.log('update-downloaded: ');
+      logger.log('update-downloaded: 1');
       this.mainWindow.webContents.send('update_downloaded');
     });
   }
