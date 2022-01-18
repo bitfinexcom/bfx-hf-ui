@@ -4,6 +4,10 @@ const {
   BrowserWindow, protocol, Menu, shell, ipcMain,
 } = require('electron') // eslint-disable-line
 const { autoUpdater } = require('electron-updater')
+const logger = require("electron-log")
+
+autoUpdater.logger = logger
+autoUpdater.logger["transports"].file.level = "info"
 
 const appMenuTemplate = require('./app_menu_template')
 
@@ -59,14 +63,13 @@ module.exports = class HFUIApplication {
         this.mainWindow.webContents.send('app-close')
       }
     })
-    this.mainWindow.webContents.on('new-window', this.handleURLRedirect)
-
     this.mainWindow.once('ready-to-show', () => {
       console.log('process.platform: ', process.platform);
       // if (process.platform !== 'darwin') {
         autoUpdater.checkForUpdatesAndNotify();
       // }
     });
+    this.mainWindow.webContents.on('new-window', this.handleURLRedirect)
 
     ipcMain.on('app-closed', () => {
       this.mainWindow.removeAllListeners('close')
