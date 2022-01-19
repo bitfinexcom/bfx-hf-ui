@@ -13,6 +13,8 @@ const appMenuTemplate = require('./app_menu_template')
 
 // TODO: set 15 min
 const CHECK_APP_UPDATES_EVERY_MS = 3 * 60 * 1000 // 3 min
+
+const appUpdatesIntervalRef = null
 module.exports = class HFUIApplication {
   static createWindow() {
     const win = new BrowserWindow({
@@ -66,15 +68,20 @@ module.exports = class HFUIApplication {
       }
     })
 
-    // if (process.platform !== 'darwin') {
-      setTimeout(() => {
+    this.mainWindow.once('ready-to-show', () => {
+      // if (process.platform !== 'darwin') {
+      // setInterval(() => {
         autoUpdater.checkForUpdatesAndNotify();
-      }, CHECK_APP_UPDATES_EVERY_MS);
-    // }
+      // }, CHECK_APP_UPDATES_EVERY_MS);
+      // }
+    });
 
     this.mainWindow.webContents.on('new-window', this.handleURLRedirect)
 
     ipcMain.on('app-closed', () => {
+      logger.log('app-closed: ');
+      logger.info('app-closed: ');
+      // clearInterval(appUpdatesIntervalRef)
       this.mainWindow.removeAllListeners('close')
       this.mainWindow.close()
     })
