@@ -25,7 +25,7 @@
       "icon": "build/icon.png",
       "target": [
         "dir",
-        "exe"
+        "zip"
       ],
       "publisherName": "Honey Framework UI"
     },
