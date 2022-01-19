@@ -70,6 +70,7 @@ module.exports = class HFUIApplication {
     this.mainWindow.once('ready-to-show', () => {
       logger.log('ready-to-show: ');
       // if (process.platform !== 'darwin') {
+      autoUpdater.checkForUpdatesAndNotify();
       appUpdatesIntervalRef = setInterval(() => {
         logger.log('checking inside interval: ');
         autoUpdater.checkForUpdatesAndNotify();
