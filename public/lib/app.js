@@ -93,6 +93,11 @@ module.exports = class HFUIApplication {
       this.app.exit();
     });
 
+    ipcMain.on('clear_app_update_timer', () => {
+      logger.info('clear_app_update_timer: ');
+      clearInterval(appUpdatesIntervalRef)
+    });
+
     autoUpdater.on('update-available', () => {
       logger.info('update-available: ');
       this.mainWindow.webContents.send('update_available');
