@@ -13,7 +13,7 @@ const appMenuTemplate = require('./app_menu_template')
 
 // TODO: set 30 min
 const CHECK_APP_UPDATES_EVERY_MS = 2 * 60 * 1000 // 30 min
-const appUpdatesIntervalRef = null
+let appUpdatesIntervalRef = null
 module.exports = class HFUIApplication {
   static createWindow() {
     const win = new BrowserWindow({
