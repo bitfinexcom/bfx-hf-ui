@@ -11,9 +11,8 @@ autoUpdater.logger["transports"].file.level = "info"
 
 const appMenuTemplate = require('./app_menu_template')
 
-// TODO: set 15 min
-const CHECK_APP_UPDATES_EVERY_MS = 3 * 60 * 1000 // 3 min
-
+// TODO: set 30 min
+const CHECK_APP_UPDATES_EVERY_MS = 2 * 60 * 1000 // 30 min
 const appUpdatesIntervalRef = null
 module.exports = class HFUIApplication {
   static createWindow() {
@@ -70,18 +69,17 @@ module.exports = class HFUIApplication {
 
     this.mainWindow.once('ready-to-show', () => {
       // if (process.platform !== 'darwin') {
-      // setInterval(() => {
+      setInterval(() => {
         autoUpdater.checkForUpdatesAndNotify();
-      // }, CHECK_APP_UPDATES_EVERY_MS);
+      }, CHECK_APP_UPDATES_EVERY_MS);
       // }
     });
 
     this.mainWindow.webContents.on('new-window', this.handleURLRedirect)
 
     ipcMain.on('app-closed', () => {
-      logger.log('app-closed: ');
-      logger.info('app-closed: ');
-      // clearInterval(appUpdatesIntervalRef)
+      logger.info('app-closed: ref: ', appUpdatesIntervalRef);
+      clearInterval(appUpdatesIntervalRef)
       this.mainWindow.removeAllListeners('close')
       this.mainWindow.close()
     })
@@ -92,10 +90,12 @@ module.exports = class HFUIApplication {
     });
 
     autoUpdater.on('update-available', () => {
+      logger.info('update-available: ');
       this.mainWindow.webContents.send('update_available');
     });
 
     autoUpdater.on('update-downloaded', () => {
+      logger.info('update-downloaded: ');
       this.mainWindow.webContents.send('update_downloaded');
     });
   }
