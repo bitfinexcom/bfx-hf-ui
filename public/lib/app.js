@@ -68,10 +68,13 @@ module.exports = class HFUIApplication {
     })
 
     this.mainWindow.once('ready-to-show', () => {
+      logger.log('ready-to-show: ');
       // if (process.platform !== 'darwin') {
-      setInterval(() => {
+      appUpdatesIntervalRef = setInterval(() => {
+        logger.log('checking inside interval: ');
         autoUpdater.checkForUpdatesAndNotify();
       }, CHECK_APP_UPDATES_EVERY_MS);
+      logger.info('appUpdatesIntervalRef: set: ', appUpdatesIntervalRef);
       // }
     });
 
