@@ -91,7 +91,7 @@
     "electron": "cross-env electron .",
     "electron-debug": "cross-env electron --inspect=9229 --remote-debugging-port=9222 .",
     "pack": "cross-env ./node_modules/.bin/electron-builder --dir",
-    "deploy": "cross-env electron-builder build -lwm --publish always",
+    "deploy": "npm run build && cross-env electron-builder build -lwm --publish always",
     "dist-win-unpruned": "cross-env electron-builder --win -c.extraMetadata.main=build/electron.js --publish never",
     "dist-win": "cross-env npm run dist-win-unpruned && npm run package-win",
     "dist-mac": "cross-env electron-packager --prune . --overwrite --platform=mas --arch=x64 --icon=build/icon.png --out=dist && npm run package-mac",
