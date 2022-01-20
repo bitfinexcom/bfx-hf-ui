@@ -5,6 +5,10 @@ const {
 } = require('electron') // eslint-disable-line
 const { autoUpdater } = require('electron-updater')
 const logger = require("electron-log")
+const enforceMacOSAppLocation = require(
+  '../../scripts/enforce-macos-app-location'
+)
+// const {enforceMacOSAppLocation, is} = require('electron-util');
 
 autoUpdater.logger = logger
 autoUpdater.logger["transports"].file.level = "info"
@@ -75,14 +79,14 @@ module.exports = class HFUIApplication {
         logger.log('checking inside interval: ');
         autoUpdater.checkForUpdatesAndNotify();
       }, CHECK_APP_UPDATES_EVERY_MS);
-      logger.info('appUpdatesIntervalRef: set: ', appUpdatesIntervalRef);
+      // logger.info('appUpdatesIntervalRef: set: ', appUpdatesIntervalRef);
       // }
     });
 
     this.mainWindow.webContents.on('new-window', this.handleURLRedirect)
 
     ipcMain.on('app-closed', () => {
-      logger.info('app-closed: ref: ', appUpdatesIntervalRef);
+      // logger.info('app-closed: ref: ', appUpdatesIntervalRef);
       clearInterval(appUpdatesIntervalRef)
       this.mainWindow.removeAllListeners('close')
       this.mainWindow.close()
@@ -114,22 +118,34 @@ module.exports = class HFUIApplication {
     shell.openExternal(url)
   }
 
-  onReady() {
+  async onReady() {
+
     protocol.interceptFileProtocol('file', (request, callback) => {
       const fileURL = request.url.substr(7) // all urls start with 'file://'
-      callback({ path: path.normalize(`${__dirname}/../${fileURL}`) })
+      console.log('fileURL: ', fileURL);
+      const pathfinal = path.normalize(`${__dirname}/../${fileURL}`)
+      console.log('pathfinal: ', pathfinal);
+      callback({ path: pathfinal })
     }, (err) => {
       if (err) {
         console.error('Failed to register protocol')
       }
     })
 
+    logger.log('between spawnMainWindow')
+    await enforceMacOSAppLocation()
+
     Menu.setApplicationMenu(Menu.buildFromTemplate(appMenuTemplate(this.app)))
+
+
 
     this.spawnMainWindow()
   }
 
-  onActivate() {
+  async onActivate() {
+    logger.log('onActivate: ');
+    logger.log('enforceMacOSAppLocation: 123');
+    // await enforceMacOSAppLocation()
     this.spawnMainWindow()
   }
 

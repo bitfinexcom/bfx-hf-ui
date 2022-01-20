@@ -11,6 +11,9 @@ const {
   SCRIPT_PATH_API_SERVER,
   LOCAL_STORE_CWD
 } = require('./constants')
+// const enforceMacOSAppLocation = require(
+//   '../scripts/enforce-macos-app-location'
+// )
 
 const REQUIRED_PATHS = [LOCAL_STORE_CWD, LOG_PATH]
 
@@ -36,6 +39,9 @@ const childAPIProcess = fork(path.resolve(SCRIPT_PATH_API_SERVER), [], {
   ...SCRIPT_SPAWN_OPTS,
   stdio: [null, apiLogStream, apiLogStream, 'ipc'],
 })
+
+// await app.whenReady()
+// await enforceMacOSAppLocation()
 
 new HFUIApplication({ // eslint-disable-line
   app,

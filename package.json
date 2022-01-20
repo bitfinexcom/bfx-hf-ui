@@ -1,6 +1,6 @@
 {
   "name": "bfx-hf-ui",
-  "version": "3.25.38",
+  "version": "3.25.39",
   "description": "Official bitfinex honey framework UI - for live trading and executing algorithmic orders/strategies",
   "engines": {
     "node": ">=6"
@@ -58,7 +58,10 @@
       "window": {
         "width": 500,
         "height": 500
-      }
+      },
+      "target": [
+        "zip"
+      ]
     }
   },
   "scripts": {
@@ -69,8 +72,7 @@
     "start-api-server": "cross-env ALGO_LOG=true ALGO_LOG_DIR=logs node scripts/start-api-server.js",
     "start-ds-bitfinex": "cross-env node scripts/start-ds-bitfinex.js",
     "start": "cd ./bfx-hf-ui-core && cross-env REACT_APP_DEV=1 REACT_APP_WSS_URL=ws://localhost:45000 REACT_APP_DS_URL=ws://localhost:23521 REACT_APP_UFX_API_URL=http://localhost:45001 REACT_APP_UFX_PUBLIC_API_URL=http://localhost:45001 REACT_APP_UFX_WSS_URL=wss://api-pub.bitfinex.com/ws/2 REACT_APP_IS_ELECTRON_APP=true node scripts/start.js",
-    "prebuild": "cd ./bfx-hf-ui-core && git checkout -- .",
-    "build": "npm run fetch-core && npm run update-core && npm run preinstall && cd bfx-hf-ui-core && cross-env GENERATE_SOURCEMAP=false npm run build-css && cross-env REACT_APP_WSS_URL=ws://localhost:45000 REACT_APP_DS_URL=ws://localhost:23521 REACT_APP_UFX_API_URL=http://localhost:45001 REACT_APP_UFX_PUBLIC_API_URL=http://localhost:45001 REACT_APP_UFX_WSS_URL=wss://api-pub.bitfinex.com/ws/2 REACT_APP_IS_ELECTRON_APP=true node scripts/build.js",
+    "build": "cd bfx-hf-ui-core && cross-env GENERATE_SOURCEMAP=false npm run build-css && cross-env REACT_APP_WSS_URL=ws://localhost:45000 REACT_APP_DS_URL=ws://localhost:23521 REACT_APP_UFX_API_URL=http://localhost:45001 REACT_APP_UFX_PUBLIC_API_URL=http://localhost:45001 REACT_APP_UFX_WSS_URL=wss://api-pub.bitfinex.com/ws/2 REACT_APP_IS_ELECTRON_APP=true node scripts/build.js",
     "update-core": "git submodule update --remote --merge",
     "fetch-core": "git submodule update --init --recursive",
     "postbuild": "run-script-os",
@@ -81,8 +83,8 @@
     "electron": "cross-env electron .",
     "electrond": "cross-env electron --inspect=9229 --remote-debugging-port=9222 .",
     "pack": "cross-env ./node_modules/.bin/electron-builder --dir",
-    "deploy": "cross-env electron-builder build -lw --publish always",
-    "build-all": "cross-env electron-builder build -lwm --publish never",
+    "deploy": "cross-env electron-builder build -lwm --publish always",
+    "build-all": "cross-env electron-builder build -m --publish never",
     "deploy-m": "cross-env electron-builder build -m --publish never",
     "dist-win-unpruned": "cross-env electron-builder --win -c.extraMetadata.main=build/electron.js --publish never",
     "dist-win": "cross-env npm run dist-win-unpruned && npm run package-win",
@@ -111,7 +113,7 @@
   "devDependencies": {
     "babel-preset-react-app": "^9.0.0",
     "browserslist": "^4.16.6",
-    "electron": "^13.0.1",
+    "electron": "^13.6.7",
     "electron-builder": "^22.11.1",
     "electron-packager": "15.2.0",
     "node-prune": "^1.0.2",
@@ -128,7 +130,9 @@
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "electron-log": "^4.4.4",
+    "electron-serve": "^1.1.0",
     "electron-updater": "^4.6.1",
+    "electron-util": "^0.17.2",
     "open": "^7.0.1"
   },
   "browserslist": {

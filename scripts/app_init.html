@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- <link rel="shortcut icon" href="../../bfx-report-ui/build/favicon.ico"> -->
+  <!-- <link href="../../bfx-report-ui/build/fonts/roboto.css" rel="stylesheet"> -->
+  <title>Bitfinex Reports</title>
+  <style>
+    html {
+      height: 100%;
+    }
+
+    body {
+      position: relative;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      text-align: center;
+      background-color: #172d3e;
+        font-family: "Roboto", sans-serif;
+    }
+
+    .lds-roller {
+      display: inline-block;
+      position: absolute;
+      width: 128px;
+      height: 128px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity .5s ease-in-out;
+    }
+
+    .show-roller {
+      opacity: 1;
+    }
+
+    .lds-roller div {
+      animation: lds-roller 2.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+      transform-origin: 64px 64px;
+    }
+
+    .lds-roller div:after {
+      content: " ";
+      display: block;
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #f5f8fa;
+      margin: -3px 0 0 -3px;
+    }
+
+    .lds-roller div:nth-child(1) {
+      animation-delay: -0.036s;
+    }
+
+    .lds-roller div:nth-child(1):after {
+      top: 100px;
+      left: 100px;
+    }
+
+    .lds-roller div:nth-child(2) {
+      animation-delay: -0.072s;
+    }
+
+    .lds-roller div:nth-child(2):after {
+      top: 108px;
+      left: 90px;
+    }
+
+    .lds-roller div:nth-child(3) {
+      animation-delay: -0.108s;
+    }
+
+    .lds-roller div:nth-child(3):after {
+      top: 113px;
+      left: 77px;
+    }
+
+    .lds-roller div:nth-child(4) {
+      animation-delay: -0.144s;
+    }
+
+    .lds-roller div:nth-child(4):after {
+      top: 115px;
+      left: 64px;
+    }
+
+    .lds-roller div:nth-child(5) {
+      animation-delay: -0.18s;
+    }
+
+    .lds-roller div:nth-child(5):after {
+      top: 113px;
+      left: 51px;
+    }
+
+    .lds-roller div:nth-child(6) {
+      animation-delay: -0.216s;
+    }
+
+    .lds-roller div:nth-child(6):after {
+      top: 108px;
+      left: 38px;
+    }
+
+    .lds-roller div:nth-child(7) {
+      animation-delay: -0.252s;
+    }
+
+    .lds-roller div:nth-child(7):after {
+      top: 100px;
+      left: 28px;
+    }
+
+    .lds-roller div:nth-child(8) {
+      animation-delay: -0.288s;
+    }
+
+    .lds-roller div:nth-child(8):after {
+      top: 90px;
+      left: 20px;
+    }
+
+    .logo-img {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .logo {
+      display: inline-block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      animation: logo-shower 3s ease-in-out;
+      width: 200px;
+      height: 200px;
+      background-color: #172d3e;
+    }
+
+    .description {
+      display: none;
+      color: #f5f8fa;
+      position: fixed;
+      text-align: center;
+      margin: 0;
+      width: 100%;
+      padding: 20px 0;
+      bottom: 0;
+    }
+
+    @keyframes lds-roller {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes logo-shower {
+      0% {
+        opacity: 0;
+      }
+
+      40% {
+        opacity: 1;
+      }
+
+      60% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body class="body">
+  <div class="lds-roller">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  <div class="logo">
+    <img class="logo-img" src="./loader.png" alt="logo">
+  </div>
+  <div id="description" class="description"></div>
+</body>
+
+<script>
+  window.addEventListener('load', () => {
+    const rollers = document.getElementsByClassName('lds-roller')
+    const descriptionElem = document.getElementById('description')
+
+    setTimeout(() => {
+      for (const roller of rollers) {
+        roller.classList.add("show-roller")
+      }
+    }, 2500)
+
+    const { ipcRenderer } = require('electron')
+
+    ipcRenderer.on('loading:description', (event, description) => {
+      try {
+        if (typeof description !== 'string') {
+          return
+        }
+
+        descriptionElem.innerHTML = description
+
+        descriptionElem.style.display = description
+          ? 'block'
+          : 'none'
+
+        ipcRenderer.send('loading:description-ready')
+      } catch (err) {
+        console.error(err)
+
+        ipcRenderer.send('loading:description-ready', err)
+      }
+    })
+  })
+</script>
+
+</html>
