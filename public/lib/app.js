@@ -23,8 +23,7 @@ module.exports = class HFUIApplication {
       icon: path.resolve(__dirname, '../icon.png'),
       show: true,
       webPreferences: {
-        nodeIntegration: true,
-        contextIsolation: false,
+        preload: path.join(__dirname, 'preload.js'),
       },
     })
 
