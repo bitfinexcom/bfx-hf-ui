@@ -15,6 +15,7 @@ startHFServer({
 
   bfxWSURL: process.env.WS_URL,
   bfxRestURL: 'https://api.bitfinex.com/',
+  bfxHostedWsUrl: process.env.HOSTED_WS_URL,
 
   // Data servers are started by individual scripts
   // hfBitfinexDBPath: `${__dirname}/db/hf-bitfinex.json`,
