@@ -13,6 +13,7 @@ git clone https://github.com/bitfinexcom/bfx-hf-ui
 cd bfx-hf-ui
 npm run fetch-core
 npm install
+npm run build-css
 ```
 
 Create folder to store local db
