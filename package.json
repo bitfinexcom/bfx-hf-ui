@@ -112,10 +112,10 @@
   ],
   "devDependencies": {
     "babel-preset-react-app": "^9.0.0",
-    "browserslist": "^4.16.6",
-    "electron": "^13.0.1",
-    "electron-builder": "^22.11.1",
-    "electron-packager": "15.2.0",
+    "browserslist": "^4.19.1",
+    "electron": "^17.0.0",
+    "electron-builder": "^22.14.13",
+    "electron-packager": "15.4.0",
     "node-prune": "^1.0.2",
     "run-script-os": "^1.1.6"
   },
@@ -126,10 +126,10 @@
     "bfx-hf-models-adapter-lowdb": "git+https://github.com/bitfinexcom/bfx-hf-models-adapter-lowdb.git#v1.0.5",
     "bfx-hf-server": "git+https://github.com/bitfinexcom/bfx-hf-server.git#v4.19.1",
     "bfx-hf-util": "github:bitfinexcom/bfx-hf-util#v1.0.12",
-    "concurrently": "^6.3.0",
-    "cross-env": "^7.0.2",
-    "dotenv": "^8.2.0",
-    "open": "^7.0.1"
+    "concurrently": "^7.0.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^8.6.0",
+    "open": "^8.4.0"
   },
   "browserslist": {
     "production": [
