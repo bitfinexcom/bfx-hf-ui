@@ -10,6 +10,7 @@ const os = require('os')
 const dir = `${os.homedir()}/.honeyframework`
 
 startHFServer({
+  dataDir: dir,
   uiDBPath: `${dir}/ui.json`,
   algoDBPath: `${dir}/algos.json`,
 
