@@ -11,8 +11,7 @@ const { autoUpdater } = require('electron-updater')
 autoUpdater.logger = logger
 autoUpdater.logger["transports"].file.level = "info"
 
-// @TODO: set back 30 min
-const CHECK_APP_UPDATES_EVERY_MS = 2 * 60 * 1000 // 30 min
+const CHECK_APP_UPDATES_EVERY_MS = 30 * 60 * 1000 // 30 min
 let appUpdatesIntervalRef = null
 
 module.exports = class HFUIApplication {
@@ -68,13 +67,13 @@ module.exports = class HFUIApplication {
     })
 
     this.mainWindow.once('ready-to-show', () => {
-      // @TODO: hide updates for mac, until code-signing support is added
-      // if (process.platform !== 'darwin') {
-      autoUpdater.checkForUpdatesAndNotify();
-      appUpdatesIntervalRef = setInterval(() => {
+      // hide updates for mac, until code-signing support is added
+      if (process.platform !== 'darwin') {
         autoUpdater.checkForUpdatesAndNotify();
-      }, CHECK_APP_UPDATES_EVERY_MS);
-      // }
+        appUpdatesIntervalRef = setInterval(() => {
+          autoUpdater.checkForUpdatesAndNotify();
+        }, CHECK_APP_UPDATES_EVERY_MS);
+      }
     });
 
     this.mainWindow.webContents.on('new-window', this.handleURLRedirect)
