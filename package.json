@@ -120,7 +120,7 @@
     "run-script-os": "^1.1.6"
   },
   "dependencies": {
-    "bfx-hf-data-server": "git+https://github.com/bitfinexcom/bfx-hf-data-server.git#v3.1.0",
+    "bfx-hf-data-server": "git+https://github.com/tarcisiozf/bfx-hf-data-server.git#signals",
     "bfx-hf-ext-plugin-bitfinex": "git+https://github.com/bitfinexcom/bfx-hf-ext-plugin-bitfinex.git#v1.0.11",
     "bfx-hf-models": "git+https://github.com/bitfinexcom/bfx-hf-models.git#v2.4.1",
     "bfx-hf-models-adapter-lowdb": "git+https://github.com/bitfinexcom/bfx-hf-models-adapter-lowdb.git#v1.0.5",
