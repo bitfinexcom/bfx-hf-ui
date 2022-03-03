@@ -18,7 +18,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
 
     steps:
       - name: Install sha256sum
@@ -40,17 +40,8 @@ jobs:
       - name: Install
         run: npm install
 
-      - name: Run Build Check
-        run: npm run build
-
-      - name: Run dist-win-unpruned Check
-        run: npm run dist-win-unpruned
-
-      - name: Run dist-mac Check
-        run: npm run dist-mac
-
-      - name: Run dist-linux Check
-        run: npm run dist-linux
+      - name: Build for linux/mac/windows
+        run: npm run build-all
 
       - name: Annotate Checks
         uses: agyemanjp/ci-checks-action@2.0.3

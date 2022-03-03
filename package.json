@@ -3,7 +3,7 @@
   "version": "3.27.0",
   "description": "Official bitfinex honey framework UI - for live trading and executing algorithmic orders/strategies",
   "engines": {
-    "node": ">=6"
+    "node": ">=14"
   },
   "main": "./build/electron.js",
   "homepage": "./",
@@ -17,7 +17,7 @@
       "clear.sh"
     ],
     "asar": false,
-    "appId": "com.bfx-hf-ui",
+    "appId": "com.bitfinex.honey",
     "directories": {
       "buildResources": "public"
     },
@@ -27,15 +27,18 @@
       "artifactName": "${productName}-${version}-${arch}-${os}.${ext}",
       "category": "public.app-category.productivity",
       "target": [
-        "mas"
+        "dir",
+        "zip"
       ]
     },
     "win": {
       "icon": "build/icon.png",
       "target": [
-        "dir"
+        "zip",
+        "nsis"
       ],
-      "publisherName": "Honey Framework UI"
+      "publisherName": "Honey Framework UI",
+      "verifyUpdateCodeSignature": false
     },
     "linux": {
       "icon": "build/icon.png",
@@ -44,7 +47,8 @@
       "maintainer": "<bitfinex.com>",
       "category": "Network",
       "target": [
-        "dir"
+        "zip",
+        "AppImage"
       ]
     },
     "dmg": {
@@ -86,7 +90,10 @@
     "dev": "cross-env concurrently --kill-others \"npm run start-server\" \"npm run start\"",
     "electron-dev": "cross-env concurrently \"BROWSER=none npm run start-server\"  & electron .",
     "electron": "cross-env electron .",
+    "electron-debug": "cross-env electron --inspect=9229 --remote-debugging-port=9222 .",
     "pack": "cross-env ./node_modules/.bin/electron-builder --dir",
+    "deploy": "npm run build && cross-env electron-builder build -c.extraMetadata.main=build/electron.js -lwm --publish always",
+    "build-all": "npm run build && cross-env electron-builder build -c.extraMetadata.main=build/electron.js -lwm --publish never",
     "dist-win-unpruned": "cross-env electron-builder --win -c.extraMetadata.main=build/electron.js --publish never",
     "dist-win": "cross-env npm run dist-win-unpruned && npm run package-win",
     "dist-mac": "cross-env electron-packager --prune . --overwrite --platform=mas --arch=x64 --icon=build/icon.png --out=dist && npm run package-mac",
@@ -99,11 +106,11 @@
   "author": "Bitfinex",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/bitfinexcom/honey-framework-ui/issues"
+    "url": "https://github.com/bitfinexcom/bfx-hf-ui/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bitfinexcom/honey-framework-ui.git"
+    "url": "https://github.com/bitfinexcom/bfx-hf-ui.git"
   },
   "keywords": [
     "bitfinex",
@@ -129,6 +136,8 @@
     "concurrently": "^6.3.0",
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
+    "electron-log": "^4.4.4",
+    "electron-updater": "^4.6.1",
     "open": "^7.0.1"
   },
   "browserslist": {
