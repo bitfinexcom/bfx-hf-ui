@@ -3,17 +3,38 @@ const path = require('path')
 const {
   BrowserWindow, protocol, Menu, shell, ipcMain,
 } = require('electron') // eslint-disable-line
-const logger = require('electron-log')
-
 const appMenuTemplate = require('./app_menu_template')
+const { autoUpdater: _autoUpdater } = require('electron-updater')
+const logger = require('electron-log')
+const enforceMacOSAppLocation = require(
+  '../../scripts/enforce-macos-app-location'
+)
+const BfxMacUpdater = require(
+  '../../scripts/auto-updater/bfx.mac.updater'
+)
+const {
+  showLoadingWindow,
+  hideLoadingWindow,
+} = require('../../scripts/change-loading-win-visibility-state')
 
-const { autoUpdater } = require('electron-updater')
+let autoUpdater = _autoUpdater
+
+if(process.platform === 'darwin') {
+  autoUpdater = new BfxMacUpdater()
+  autoUpdater.addInstallingUpdateEventHandler(() => {
+    return showLoadingWindow({
+      description: 'Updating...',
+      isRequiredToCloseAllWins: true
+    })
+  })
+}
+
 autoUpdater.logger = logger
 autoUpdater.logger["transports"].file.level = "info"
 
-const CHECK_APP_UPDATES_EVERY_MS = 30 * 60 * 1000 // 30 min
+// TODO: set 30 min
+const CHECK_APP_UPDATES_EVERY_MS = 2 * 60 * 1000 // 30 min
 let appUpdatesIntervalRef = null
-
 module.exports = class HFUIApplication {
   static createWindow() {
     const win = new BrowserWindow({
@@ -67,13 +88,10 @@ module.exports = class HFUIApplication {
     })
 
     this.mainWindow.once('ready-to-show', () => {
-      // hide updates for mac, until code-signing support is added
-      if (process.platform !== 'darwin') {
+      autoUpdater.checkForUpdatesAndNotify();
+      appUpdatesIntervalRef = setInterval(() => {
         autoUpdater.checkForUpdatesAndNotify();
-        appUpdatesIntervalRef = setInterval(() => {
-          autoUpdater.checkForUpdatesAndNotify();
-        }, CHECK_APP_UPDATES_EVERY_MS);
-      }
+      }, CHECK_APP_UPDATES_EVERY_MS);
     });
 
     this.mainWindow.webContents.on('new-window', this.handleURLRedirect)
@@ -87,8 +105,7 @@ module.exports = class HFUIApplication {
     })
 
     ipcMain.on('restart_app', () => {
-      autoUpdater.quitAndInstall();
-      this.app.exit();
+      autoUpdater.quitAndInstall(false, true);
     });
 
     ipcMain.on('clear_app_update_timer', () => {
@@ -101,9 +118,31 @@ module.exports = class HFUIApplication {
       this.mainWindow.webContents.send('update_available');
     });
 
-    autoUpdater.on('update-downloaded', () => {
+    autoUpdater.on('update-downloaded', (info) => {
+      const {
+        version,
+        downloadedFile
+      } = { ...info }
+      if (autoUpdater instanceof BfxMacUpdater) {
+        autoUpdater.setDownloadedFilePath(downloadedFile)
+      }
+
       this.mainWindow.webContents.send('update_downloaded');
     });
+
+    autoUpdater.on('error', async (err) => {
+      try {
+        // Skip error when can't get code signature on mac
+        if (/Could not get code signature/gi.test(err.toString())) {
+          return
+        }
+
+        await hideLoadingWindow({ isRequiredToShowMainWin: false })
+
+      } catch (err) {
+        logger.error('autoUpdater error: ', err)
+      }
+    })
   }
 
   handleURLRedirect(event, url) {
@@ -111,22 +150,25 @@ module.exports = class HFUIApplication {
     shell.openExternal(url)
   }
 
-  onReady() {
+  async onReady() {
     protocol.interceptFileProtocol('file', (request, callback) => {
       const fileURL = request.url.substr(7) // all urls start with 'file://'
-      callback({ path: path.normalize(`${__dirname}/../${fileURL}`) })
+      const pathfinal = path.normalize(`${__dirname}/../${fileURL}`)
+      callback({ path: pathfinal })
     }, (err) => {
       if (err) {
-        console.error('Failed to register protocol')
+        logger.error('Failed to register protocol')
       }
     })
+
+    await enforceMacOSAppLocation()
 
     Menu.setApplicationMenu(Menu.buildFromTemplate(appMenuTemplate(this.app)))
 
     this.spawnMainWindow()
   }
 
-  onActivate() {
+  async onActivate() {
     this.spawnMainWindow()
   }
 

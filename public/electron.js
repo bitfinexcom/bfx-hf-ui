@@ -11,6 +11,7 @@ const {
   SCRIPT_PATH_API_SERVER,
   LOCAL_STORE_CWD
 } = require('./constants')
+const logger = require('electron-log')
 
 const REQUIRED_PATHS = [LOCAL_STORE_CWD, LOG_PATH]
 
