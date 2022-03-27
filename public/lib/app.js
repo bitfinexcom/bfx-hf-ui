@@ -32,8 +32,7 @@ if(process.platform === 'darwin') {
 autoUpdater.logger = logger
 autoUpdater.logger["transports"].file.level = "info"
 
-// TODO: set 30 min
-const CHECK_APP_UPDATES_EVERY_MS = 2 * 60 * 1000 // 30 min
+const CHECK_APP_UPDATES_EVERY_MS = 30 * 60 * 1000 // 30 min
 let appUpdatesIntervalRef = null
 module.exports = class HFUIApplication {
   static createWindow() {
