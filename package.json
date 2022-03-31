@@ -22,8 +22,10 @@
       "buildResources": "public"
     },
     "mac": {
+      "type": "development",
       "icon": "build/icon.png",
       "hardenedRuntime": true,
+      "gatekeeperAssess": false,
       "artifactName": "${productName}-${version}-${arch}-${os}.${ext}",
       "category": "public.app-category.productivity",
       "target": [
@@ -138,8 +140,12 @@
     "concurrently": "^6.3.0",
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
-    "electron-log": "^4.4.4",
+    "electron-log": "^4.4.6",
+    "electron-root-path": "^1.0.16",
+    "electron-serve": "^1.1.0",
     "electron-updater": "^4.6.1",
+    "electron-util": "^0.17.2",
+    "extract-zip": "^2.0.1",
     "open": "^7.0.1"
   },
   "browserslist": {

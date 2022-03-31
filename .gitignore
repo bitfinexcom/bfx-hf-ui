@@ -24,3 +24,7 @@ logs/*
 Session.vim
 
 .vscode
+
+
+electron-builder.yml
+crowdin.yml
