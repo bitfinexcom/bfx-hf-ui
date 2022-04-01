@@ -7,7 +7,6 @@ const url = require('url')
 const logger = require('electron-log')
 
 const { BrowserWindow } = electron
-const isDevEnv = process.env.NODE_ENV === 'development'
 
 const wins = require('./windows')
 const ipcs = require('./ipcs')
