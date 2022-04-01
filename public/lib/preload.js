@@ -1,13 +1,13 @@
 const { contextBridge, ipcRenderer } = require('electron')
-const Store = require('electron-store')
-const store = new Store()
 
 contextBridge.exposeInMainWorld(
     'electronService',
     {
-        saveKeyToEStore: (key, value) => store.set(key, value),
-        getKeyFromEStore: (key) => store.get(key),
-        deleteKeyFromEStore: (key) => store.delete(key),
+        saveKeyToEStore: (key, value) => ipcRenderer.send('save_store_data', key, value),
+        getKeyFromEStore: (key) => ipcRenderer.send('get_store_data', key),
+        deleteKeyFromEStore: (key) => ipcRenderer.send('delete_store_data', key),
+        addReceievedStoreDataListener: (cb) => ipcRenderer.on('receieved_store_data', cb),
+        sendCheckSafeStorageAvl: () => ipcRenderer.send('check_safe_storage'),
         sendAppClosedEvent: () => ipcRenderer.send('app-closed'),
         sendRestartAppEvent: () => ipcRenderer.send('restart_app'),
         sendClearAppUpdateTimerEvent: () => ipcRenderer.send('clear_app_update_timer'),

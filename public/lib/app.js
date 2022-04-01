@@ -1,11 +1,14 @@
 const url = require('url')
 const path = require('path')
 const {
-  BrowserWindow, protocol, Menu, shell, ipcMain,
+  BrowserWindow, protocol, Menu, shell, ipcMain, safeStorage
 } = require('electron') // eslint-disable-line
 const appMenuTemplate = require('./app_menu_template')
 const { autoUpdater: _autoUpdater } = require('electron-updater')
 const logger = require('electron-log')
+const Store = require('electron-store')
+const store = new Store()
+const _isEmpty = require('lodash/isEmpty')
 const enforceMacOSAppLocation = require(
   '../../scripts/enforce-macos-app-location'
 )
@@ -105,6 +108,24 @@ module.exports = class HFUIApplication {
 
     ipcMain.on('restart_app', () => {
       autoUpdater.quitAndInstall(false, true);
+    });
+
+    ipcMain.on('save_store_data', (event, key, value) => {
+      const encrypted = safeStorage.encryptString(value)
+      store.set(key, encrypted)
+    });
+
+    ipcMain.on('get_store_data', (event, key) => {
+      const encrypted = store.get(key)
+      if(!_isEmpty(encrypted?.data)) {
+        const buff = Buffer.from(encrypted?.data)
+        const decrypted = safeStorage.decryptString(buff)
+        this.mainWindow.webContents.send('receieved_store_data', decrypted);
+      }
+    });
+
+    ipcMain.on('delete_store_data', (event, key) => {
+      store.delete(key)
     });
 
     ipcMain.on('clear_app_update_timer', () => {
