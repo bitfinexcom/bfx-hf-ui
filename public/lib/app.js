@@ -111,13 +111,13 @@ module.exports = class HFUIApplication {
     });
 
     ipcMain.on('save_store_data', (event, key, value) => {
-      const encrypted = safeStorage.encryptString(value)
+      const encrypted = safeStorage.isEncryptionAvailable() ? safeStorage.encryptString(value) : value
       store.set(key, encrypted)
     });
 
     ipcMain.on('get_store_data', (event, key) => {
       const encrypted = store.get(key)
-      if(!_isEmpty(encrypted?.data)) {
+      if(safeStorage.isEncryptionAvailable() && !_isEmpty(encrypted?.data)) {
         const buff = Buffer.from(encrypted?.data)
         const decrypted = safeStorage.decryptString(buff)
         this.mainWindow.webContents.send('receieved_store_data', decrypted);
