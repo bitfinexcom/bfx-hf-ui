@@ -8,7 +8,7 @@ const {
 
 module.exports = async () => {
   if (
-    process.env.NODE_ENV === 'development1'
+    process.env.NODE_ENV === 'development'
     || process.platform !== 'darwin'
   ) {
     return
