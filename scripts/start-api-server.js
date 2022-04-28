@@ -13,6 +13,7 @@ startHFServer({
   dataDir: dir,
   uiDBPath: `${dir}/ui.json`,
   algoDBPath: `${dir}/algos.json`,
+  strategyExecutionPath: `${dir}/strategy-executions.json`,
 
   bfxWSURL: process.env.WS_URL,
   bfxRestURL: 'https://api.bitfinex.com/',
