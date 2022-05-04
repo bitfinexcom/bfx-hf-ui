@@ -1,6 +1,6 @@
 const { app, dialog } = require('electron')
 
-const productName = 'The Honey Framework'
+const productName = 'HoneyFramework'
 const {
   showLoadingWindow,
   hideLoadingWindow,

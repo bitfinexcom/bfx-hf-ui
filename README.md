@@ -1,4 +1,4 @@
-# Honey Framework UI
+# HoneyFramework UI
 
 - Creates HF services as background processes
 - Enables order types (Accum/Dist, MA Crossover, Ping/Pong, Iceberg, TWAP and OCOCO)
@@ -55,7 +55,7 @@ Head to the latest cut [releases](https://github.com/bitfinexcom/bfx-hf-ui/relea
 
 ## The UI
 
-Starting the HF UI will spawn all of the Honey Framework services that are needed to register custom algo-order definitions in the background. Currently (as of release 1.0.0) the UI will register the built in default order types which will be instantly available for use in the bitfinex.com UI. For more info on how to use algo orders once the UI is running head [here](https://medium.com/bitfinex/announcing-the-honey-framework-algorithmic-orders-8065fb70c65c).
+Starting the HF UI will spawn all of the HoneyFramework services that are needed to register custom algo-order definitions in the background. Currently (as of release 1.0.0) the UI will register the built in default order types which will be instantly available for use in the bitfinex.com UI. For more info on how to use algo orders once the UI is running head [here](https://medium.com/bitfinex/announcing-the-honey-framework-algorithmic-orders-8065fb70c65c).
 
 ![Alt text](res/bfx-hf-ui.png "Title")
 
