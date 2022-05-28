@@ -94,7 +94,7 @@
     "dev": "cross-env concurrently --kill-others \"npm run start-server\" \"npm run start\"",
     "electron-dev": "cross-env concurrently \"BROWSER=none npm run start-server\"  & electron .",
     "electron": "cross-env electron .",
-    "electron-debug": "cross-env electron --inspect=9229 --remote-debugging-port=9222 .",
+    "electron-debug": "cross-env REACT_APP_ELECTRON_DEBUG='true' electron --inspect=9229 --remote-debugging-port=9222 .",
     "pack": "cross-env ./node_modules/.bin/electron-builder --dir",
     "deploy": "npm run build && cross-env electron-builder build -c.extraMetadata.main=build/electron.js -lwm --publish always",
     "build-all": "npm run build && cross-env electron-builder build -c.extraMetadata.main=build/electron.js -lwm --publish never",
