@@ -17,6 +17,8 @@ const {
   hideLoadingWindow,
 } = require('../../scripts/change-loading-win-visibility-state')
 
+const isElectronDebugMode = process.env.REACT_APP_ELECTRON_DEBUG === 'true'
+
 let autoUpdater = _autoUpdater
 
 if(process.platform === 'darwin') {
@@ -160,7 +162,10 @@ module.exports = class HFUIApplication {
       }
     })
 
-    await enforceMacOSAppLocation()
+
+    if (!isElectronDebugMode) {
+      await enforceMacOSAppLocation()
+    }
 
     Menu.setApplicationMenu(Menu.buildFromTemplate(appMenuTemplate(this.app)))
 
