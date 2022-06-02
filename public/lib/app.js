@@ -31,6 +31,7 @@ if(process.platform === 'darwin') {
   })
 }
 
+autoUpdater.allowPrerelease = false
 autoUpdater.logger = logger
 autoUpdater.logger["transports"].file.level = "info"
 
