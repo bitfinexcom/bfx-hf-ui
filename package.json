@@ -1,6 +1,6 @@
 {
   "name": "bfx-hf-ui",
-  "version": "3.29.0-rc.9",
+  "version": "3.29.0-rc.10",
   "description": "Official Bitfinex HoneyFramework UI - for live trading and executing algorithmic orders/strategies",
   "engines": {
     "node": ">=14"
@@ -129,11 +129,11 @@
     "run-script-os": "^1.1.6"
   },
   "dependencies": {
-    "bfx-hf-data-server": "git+https://github.com/bitfinexcom/bfx-hf-data-server.git#v3.3.0",
+    "bfx-hf-data-server": "git+https://github.com/bitfinexcom/bfx-hf-data-server.git#v4.0.3",
     "bfx-hf-ext-plugin-bitfinex": "git+https://github.com/bitfinexcom/bfx-hf-ext-plugin-bitfinex.git#v1.0.11",
-    "bfx-hf-models": "git+https://github.com/bitfinexcom/bfx-hf-models.git#v2.6.0",
+    "bfx-hf-models": "git+https://github.com/bitfinexcom/bfx-hf-models.git#v3.0.0",
     "bfx-hf-models-adapter-lowdb": "git+https://github.com/bitfinexcom/bfx-hf-models-adapter-lowdb.git#v1.0.5",
-    "bfx-hf-server": "git+https://github.com/bitfinexcom/bfx-hf-server.git#v5.1.0",
+    "bfx-hf-server": "git+https://github.com/bitfinexcom/bfx-hf-server.git#v6.0.1",
     "bfx-hf-util": "github:bitfinexcom/bfx-hf-util#v1.0.12",
     "concurrently": "^6.3.0",
     "cross-env": "^7.0.2",
