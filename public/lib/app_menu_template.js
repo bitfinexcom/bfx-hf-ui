@@ -1,12 +1,50 @@
 const open = require('open')
 const os = require('os')
+const url = require('url')
+
 const {
   LOG_PATH,
   LOG_PATH_DS_BITFINEX,
   LOG_PATH_API_SERVER,
 } = require('../constants')
 
-module.exports = app => ([{
+const RC_KEYWORD = '-rc'
+const appVersion = process.env.npm_package_version
+const isRCMode = appVersion.includes(RC_KEYWORD)
+
+const RC_MENUS = [
+  {
+    label: 'Toggle Developer Tools',
+    accelerator: (function() {
+      const platform = os.platform()
+      if (platform == 'darwin') {
+        return 'Alt+Command+I';
+      }
+      return 'Ctrl+Shift+I';
+    })(),
+    click: function(item, focusedWindow) {
+      if (focusedWindow) {
+        focusedWindow.toggleDevTools();
+      }
+    }
+  },
+  {
+    label: 'Reload',
+    accelerator: 'Command+R',
+    click: (item, focusedWindow) => {
+      if (focusedWindow) {
+        focusedWindow.webContents.loadURL(url.format({
+          pathname: 'index.html',
+          protocol: 'file',
+          slashes: true,
+        }))
+      }
+    }
+  }
+]
+
+module.exports = (app, mainWindow) => ([
+{
   label: 'Application',
   submenu: [{
     label: 'Quit',
@@ -29,25 +67,27 @@ module.exports = app => ([{
 }, {
   label: 'Diagnostics',
   submenu: [{
-    label: 'Open Logs Folder',
-    click: () => {
-      open(LOG_PATH).catch((e) => {
-        console.error(`failed to open logs folder: ${e.message}`)
-      })
+      label: 'Open Logs Folder',
+      click: () => {
+        open(LOG_PATH).catch((e) => {
+          console.error(`failed to open logs folder: ${e.message}`)
+        })
+      },
+    }, {
+      label: 'Open Data Server Log',
+      click: () => {
+        open(LOG_PATH_DS_BITFINEX).catch((e) => {
+          console.error(`failed to open data server log file: ${e.message}`)
+        })
+      },
+    }, {
+      label: 'Open API Server Log',
+      click: () => {
+        open(LOG_PATH_API_SERVER).catch((e) => {
+          console.error(`failed to open api server log file: ${e.message}`)
+        })
+      },
     },
-  }, {
-    label: 'Open Data Server Log',
-    click: () => {
-      open(LOG_PATH_DS_BITFINEX).catch((e) => {
-        console.error(`failed to open data server log file: ${e.message}`)
-      })
-    },
-  }, {
-    label: 'Open API Server Log',
-    click: () => {
-      open(LOG_PATH_API_SERVER).catch((e) => {
-        console.error(`failed to open api server log file: ${e.message}`)
-      })
-    },
-  }],
+    ...(isRCMode ? RC_MENUS : []),
+  ]
 }])

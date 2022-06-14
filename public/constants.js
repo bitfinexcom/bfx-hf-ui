@@ -8,7 +8,7 @@ const SCRIPT_PATH = `${__dirname}/../scripts`
 const SCRIPT_PATH_DS_BITFINEX = `${SCRIPT_PATH}/start-ds-bitfinex.js`
 const SCRIPT_PATH_API_SERVER = `${SCRIPT_PATH}/start-api-server.js`
 
-const LOCAL_STORE_CWD = `${os.homedir()}/.honeyframework`
+const LOCAL_STORE_CWD = `${os.homedir()}/.bitfinexhoney`
 
 module.exports = {
   LOG_PATH,

@@ -49,7 +49,7 @@ class BfxMacUpdater extends MacUpdater {
 
       const root = path.join(appDir, '../../..')
       const dist = path.join(root, '..')
-      const productName = 'HoneyFramework'
+      const productName = 'Bitfinex Honey'
       const exec = path.join(root, 'Contents/MacOS/' + productName)
 
       await fs.promises.rmdir(root, { recursive: true, force: true })
