@@ -11,7 +11,6 @@ const {
 const RC_KEYWORD = '-rc'
 const appVersion = process.env.npm_package_version
 const isRCMode = appVersion.includes(RC_KEYWORD)
-console.log('isRCMode: ', isRCMode);
 
 const RC_MENUS = [
   {
