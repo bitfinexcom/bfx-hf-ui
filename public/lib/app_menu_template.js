@@ -15,7 +15,7 @@ console.log('isRCMode: ', isRCMode);
 
 const RC_MENUS = [
   {
-    label: 'Toggle Developer Tools 2',
+    label: 'Toggle Developer Tools',
     accelerator: (function() {
       const platform = os.platform()
       if (platform == 'darwin') {
@@ -87,23 +87,6 @@ module.exports = (app, mainWindow) => ([
         open(LOG_PATH_API_SERVER).catch((e) => {
           console.error(`failed to open api server log file: ${e.message}`)
         })
-      },
-    }, {
-      label: 'Open Devtools',
-      click: () => {
-        open(LOG_PATH_API_SERVER).catch((e) => {
-          console.error(`failed to open api server log file: ${e.message}`)
-        })
-      },
-    },
-    {
-      label: 'Toggle &Developer Tools',
-      accelerator: 'Alt+Ctrl+I',
-      click: () => {
-        console.log('mainWindow: ', mainWindow);
-        if(mainWindow) {
-          mainWindow.toggleDevTools();
-        }
       },
     },
     ...(isRCMode ? RC_MENUS : []),
