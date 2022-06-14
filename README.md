@@ -22,6 +22,7 @@ mkdir ~/.bitfinexhoney
 touch ~/.bitfinexhoney/algos.json
 touch ~/.bitfinexhoney/hf-bitfinex.json
 touch ~/.bitfinexhoney/ui.json
+touch ~/.bitfinexhoney/strategy-executions.json
 ```
 
 ## Run Electron version in the browser
