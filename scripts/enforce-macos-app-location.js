@@ -1,6 +1,6 @@
 const { app, dialog } = require('electron')
 
-const productName = 'HoneyFramework'
+const productName = 'Bitfinex Honey'
 const {
   showLoadingWindow,
   hideLoadingWindow,

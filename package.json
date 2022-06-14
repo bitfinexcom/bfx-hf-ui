@@ -1,14 +1,14 @@
 {
   "name": "bfx-hf-ui",
   "version": "3.29.0-rc.10",
-  "description": "Official Bitfinex HoneyFramework UI - for live trading and executing algorithmic orders/strategies",
+  "description": "Official Bitfinex Honey UI - for live trading and executing algorithmic orders/strategies",
   "engines": {
     "node": ">=14"
   },
   "main": "./build/electron.js",
   "homepage": "./",
   "build": {
-    "productName": "HoneyFramework",
+    "productName": "Bitfinex Honey",
     "files": [
       "build/**/*",
       "node_modules/**/*",
@@ -39,13 +39,13 @@
         "zip",
         "nsis"
       ],
-      "publisherName": "HoneyFramework UI",
+      "publisherName": "Bitfinex Honey UI",
       "verifyUpdateCodeSignature": false
     },
     "linux": {
       "icon": "build/icon.png",
       "artifactName": "${productName}-${version}-${arch}-${os}.${ext}",
-      "description": "HoneyFramework UI",
+      "description": "Bitfinex Honey UI",
       "maintainer": "<bitfinex.com>",
       "category": "Network",
       "target": [

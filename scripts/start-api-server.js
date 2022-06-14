@@ -7,7 +7,7 @@ require('bfx-hf-util/lib/catch_uncaught_errors')
 const startHFServer = require('bfx-hf-server')
 const os = require('os')
 
-const dir = `${os.homedir()}/.honeyframework`
+const dir = `${os.homedir()}/.bitfinexhoney`
 
 startHFServer({
   dataDir: dir,

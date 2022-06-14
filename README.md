@@ -1,4 +1,4 @@
-# HoneyFramework UI
+# Bitfinex Honey UI
 
 - Creates HF services as background processes
 - Enables order types (Accum/Dist, MA Crossover, Ping/Pong, Iceberg, TWAP and OCOCO)
@@ -18,10 +18,10 @@ npm install
 Create folder to store local db
 
 ```
-mkdir ~/.honeyframework
-touch ~/.honeyframework/algos.json
-touch ~/.honeyframework/hf-bitfinex.json
-touch ~/.honeyframework/ui.json
+mkdir ~/.bitfinexhoney
+touch ~/.bitfinexhoney/algos.json
+touch ~/.bitfinexhoney/hf-bitfinex.json
+touch ~/.bitfinexhoney/ui.json
 ```
 
 ## Run Electron version in the browser
@@ -55,7 +55,7 @@ Head to the latest cut [releases](https://github.com/bitfinexcom/bfx-hf-ui/relea
 
 ## The UI
 
-Starting the HF UI will spawn all of the HoneyFramework services that are needed to register custom algo-order definitions in the background. Currently (as of release 1.0.0) the UI will register the built in default order types which will be instantly available for use in the bitfinex.com UI. For more info on how to use algo orders once the UI is running head [here](https://medium.com/bitfinex/announcing-the-honey-framework-algorithmic-orders-8065fb70c65c).
+Starting the Bitfinex Honey UI will spawn all of the Bitfinex Honey services that are needed to register custom algo-order definitions in the background. Currently (as of release 1.0.0) the UI will register the built in default order types which will be instantly available for use in the bitfinex.com UI. For more info on how to use algo orders once the UI is running head [here](https://medium.com/bitfinex/announcing-the-honey-framework-algorithmic-orders-8065fb70c65c).
 
 ![Alt text](res/bfx-hf-ui.png "Title")
 
