@@ -1,6 +1,7 @@
 const open = require('open')
 const os = require('os')
 const url = require('url')
+const { app } = require("electron");
 
 const {
   LOG_PATH,
@@ -42,7 +43,7 @@ const RC_MENUS = [
 ]
 
 module.exports = (app) => {
-  const appVersion = process.env.npm_package_version
+  const appVersion = app.getVersion()
   const isRCMode = appVersion && appVersion.includes(RC_KEYWORD)
 
   return [
