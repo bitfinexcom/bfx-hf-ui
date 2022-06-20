@@ -102,8 +102,10 @@ module.exports = class HFUIApplication {
       if(appUpdatesIntervalRef) {
         clearInterval(appUpdatesIntervalRef)
       }
-      this.mainWindow.removeAllListeners('close')
-      this.mainWindow.close()
+      if(this.mainWindow) {
+        this.mainWindow.removeAllListeners('close')
+        this.mainWindow.close()
+      }
     })
 
     ipcMain.on('restart_app', () => {
