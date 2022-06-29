@@ -1,7 +1,7 @@
 # Bitfinex Honey UI
 
 - Creates HF services as background processes
-- Enables order types (Accum/Dist, MA Crossover, Ping/Pong, Iceberg, TWAP and OCOCO)
+- Enables order types (Accum/Dist, Ping/Pong, Iceberg, TWAP and OCOCO)
 - Define and backtest trading strategies
 
 ## Installation
