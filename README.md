@@ -30,6 +30,7 @@ touch ~/.bitfinexhoney/strategy-executions.json
 ```bash
 npm run start-ds-bitfinex
 npm run start-api-server
+npm run build-css
 npm run start
 ```
 
