@@ -7,6 +7,7 @@
   },
   "main": "./build/electron.js",
   "homepage": "./",
+  "productName": "Bitfinex Honey",
   "build": {
     "productName": "Bitfinex Honey",
     "files": [
