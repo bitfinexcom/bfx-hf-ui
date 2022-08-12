@@ -2,15 +2,15 @@ const url = require('url')
 const path = require('path')
 const {
   BrowserWindow, protocol, Menu, shell, ipcMain,
-} = require('electron') // eslint-disable-line
-const appMenuTemplate = require('./app_menu_template')
+} = require('electron')
 const { autoUpdater: _autoUpdater } = require('electron-updater')
 const logger = require('electron-log')
+const appMenuTemplate = require('./app_menu_template')
 const enforceMacOSAppLocation = require(
-  '../../scripts/enforce-macos-app-location'
+  '../../scripts/enforce-macos-app-location',
 )
 const BfxMacUpdater = require(
-  '../../scripts/auto-updater/bfx.mac.updater'
+  '../../scripts/auto-updater/bfx.mac.updater',
 )
 const {
   showLoadingWindow,
@@ -21,19 +21,19 @@ const isElectronDebugMode = process.env.REACT_APP_ELECTRON_DEBUG === 'true'
 
 let autoUpdater = _autoUpdater
 
-if(process.platform === 'darwin') {
+if (process.platform === 'darwin') {
   autoUpdater = new BfxMacUpdater()
   autoUpdater.addInstallingUpdateEventHandler(() => {
     return showLoadingWindow({
       description: 'Updating...',
-      isRequiredToCloseAllWins: true
+      isRequiredToCloseAllWins: true,
     })
   })
 }
 
 autoUpdater.allowPrerelease = false
 autoUpdater.logger = logger
-autoUpdater.logger["transports"].file.level = "info"
+autoUpdater.logger.transports.file.level = 'info'
 
 const CHECK_APP_UPDATES_EVERY_MS = 30 * 60 * 1000 // 30 min
 let appUpdatesIntervalRef = null
@@ -56,6 +56,11 @@ module.exports = class HFUIApplication {
     }))
 
     return win
+  }
+
+  static handleURLRedirect(event, _url) {
+    event.preventDefault()
+    shell.openExternal(_url)
   }
 
   constructor({ app, onExit }) {
@@ -90,49 +95,48 @@ module.exports = class HFUIApplication {
     })
 
     this.mainWindow.once('ready-to-show', () => {
-      autoUpdater.checkForUpdatesAndNotify();
+      autoUpdater.checkForUpdatesAndNotify()
       appUpdatesIntervalRef = setInterval(() => {
-        autoUpdater.checkForUpdatesAndNotify();
-      }, CHECK_APP_UPDATES_EVERY_MS);
-    });
+        autoUpdater.checkForUpdatesAndNotify()
+      }, CHECK_APP_UPDATES_EVERY_MS)
+    })
 
-    this.mainWindow.webContents.on('new-window', this.handleURLRedirect)
+    this.mainWindow.webContents.on('new-window', HFUIApplication.handleURLRedirect)
 
     ipcMain.on('app-closed', () => {
-      if(appUpdatesIntervalRef) {
+      if (appUpdatesIntervalRef) {
         clearInterval(appUpdatesIntervalRef)
       }
-      if(this.mainWindow) {
+      if (this.mainWindow) {
         this.mainWindow.removeAllListeners('close')
         this.mainWindow.close()
       }
     })
 
     ipcMain.on('restart_app', () => {
-      autoUpdater.quitAndInstall(false, true);
-    });
+      autoUpdater.quitAndInstall(false, true)
+    })
 
     ipcMain.on('clear_app_update_timer', () => {
-      if(appUpdatesIntervalRef) {
+      if (appUpdatesIntervalRef) {
         clearInterval(appUpdatesIntervalRef)
       }
-    });
+    })
 
     autoUpdater.on('update-available', () => {
-      this.mainWindow.webContents.send('update_available');
-    });
+      this.mainWindow.webContents.send('update_available')
+    })
 
     autoUpdater.on('update-downloaded', (info) => {
       const {
-        version,
-        downloadedFile
+        downloadedFile,
       } = { ...info }
       if (autoUpdater instanceof BfxMacUpdater) {
         autoUpdater.setDownloadedFilePath(downloadedFile)
       }
 
-      this.mainWindow.webContents.send('update_downloaded');
-    });
+      this.mainWindow.webContents.send('update_downloaded')
+    })
 
     autoUpdater.on('error', async (err) => {
       try {
@@ -142,16 +146,10 @@ module.exports = class HFUIApplication {
         }
 
         await hideLoadingWindow({ isRequiredToShowMainWin: false })
-
-      } catch (err) {
-        logger.error('autoUpdater error: ', err)
+      } catch (_err) {
+        logger.error('autoUpdater error: ', _err)
       }
     })
-  }
-
-  handleURLRedirect(event, url) {
-    event.preventDefault()
-    shell.openExternal(url)
   }
 
   async onReady() {
@@ -164,7 +162,6 @@ module.exports = class HFUIApplication {
         logger.error('Failed to register protocol')
       }
     })
-
 
     if (!isElectronDebugMode) {
       await enforceMacOSAppLocation()

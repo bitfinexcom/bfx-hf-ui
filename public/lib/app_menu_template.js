@@ -1,7 +1,7 @@
 const open = require('open')
 const os = require('os')
 const url = require('url')
-const { app } = require("electron");
+// const { app } = require('electron')
 
 const {
   LOG_PATH,
@@ -14,18 +14,18 @@ const RC_KEYWORD = '-rc'
 const RC_MENUS = [
   {
     label: 'Toggle Developer Tools',
-    accelerator: (function () {
+    accelerator: (function getKeys() {
       const platform = os.platform()
       if (platform === 'darwin') {
-        return 'Alt+Command+I';
+        return 'Alt+Command+I'
       }
-      return 'Ctrl+Shift+I';
-    })(),
-    click: function (item, focusedWindow) {
+      return 'Ctrl+Shift+I'
+    }()),
+    click(item, focusedWindow) {
       if (focusedWindow) {
-        focusedWindow.toggleDevTools();
+        focusedWindow.toggleDevTools()
       }
-    }
+    },
   },
   {
     label: 'Reload',
@@ -38,8 +38,8 @@ const RC_MENUS = [
           slashes: true,
         }))
       }
-    }
-  }
+    },
+  },
 ]
 
 module.exports = (app) => {
@@ -59,13 +59,13 @@ module.exports = (app) => {
     }, {
       label: 'Edit',
       submenu: [
-        {label: 'Undo', accelerator: 'CmdOrCtrl+Z', selector: 'undo:'},
-        {label: 'Redo', accelerator: 'Shift+CmdOrCtrl+Z', selector: 'redo:'},
-        {type: 'separator'},
-        {label: 'Cut', accelerator: 'CmdOrCtrl+X', selector: 'cut:'},
-        {label: 'Copy', accelerator: 'CmdOrCtrl+C', selector: 'copy:'},
-        {label: 'Paste', accelerator: 'CmdOrCtrl+V', selector: 'paste:'},
-        {label: 'Select All', accelerator: 'CmdOrCtrl+A', selector: 'selectAll:'},
+        { label: 'Undo', accelerator: 'CmdOrCtrl+Z', selector: 'undo:' },
+        { label: 'Redo', accelerator: 'Shift+CmdOrCtrl+Z', selector: 'redo:' },
+        { type: 'separator' },
+        { label: 'Cut', accelerator: 'CmdOrCtrl+X', selector: 'cut:' },
+        { label: 'Copy', accelerator: 'CmdOrCtrl+C', selector: 'copy:' },
+        { label: 'Paste', accelerator: 'CmdOrCtrl+V', selector: 'paste:' },
+        { label: 'Select All', accelerator: 'CmdOrCtrl+A', selector: 'selectAll:' },
       ],
     }, {
       label: 'Diagnostics',
@@ -91,8 +91,8 @@ module.exports = (app) => {
           })
         },
       },
-        ...(isRCMode ? RC_MENUS : []),
-      ]
-    }
+      ...(isRCMode ? RC_MENUS : []),
+      ],
+    },
   ]
 }

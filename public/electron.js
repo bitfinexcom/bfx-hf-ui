@@ -2,6 +2,7 @@ const { app } = require('electron') // eslint-disable-line
 const fs = require('fs')
 const path = require('path')
 const { fork } = require('child_process')
+// const logger = require('electron-log')
 const HFUIApplication = require('./lib/app')
 const {
   LOG_PATH,
@@ -9,9 +10,8 @@ const {
   LOG_PATH_API_SERVER,
   SCRIPT_PATH_DS_BITFINEX,
   SCRIPT_PATH_API_SERVER,
-  LOCAL_STORE_CWD
+  LOCAL_STORE_CWD,
 } = require('./constants')
-const logger = require('electron-log')
 
 const REQUIRED_PATHS = [LOCAL_STORE_CWD, LOG_PATH]
 

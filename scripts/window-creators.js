@@ -1,43 +1,31 @@
 'use strict'
 
 const electron = require('electron')
-const serve = require('electron-serve')
+// const serve = require('electron-serve')
 const path = require('path')
 const url = require('url')
-const logger = require('electron-log')
+// const logger = require('electron-log')
 
 const { BrowserWindow } = electron
-const isDevEnv = process.env.NODE_ENV === 'development'
+// const isDevEnv = process.env.NODE_ENV === 'development'
 
 const wins = require('./windows')
 const ipcs = require('./ipcs')
 const {
   showLoadingWindow,
-  hideLoadingWindow
+  // hideLoadingWindow,
 } = require('./change-loading-win-visibility-state')
-const {
-  showWindow,
-  centerWindow
-} = require('./helpers/manage-window')
+const { showWindow, centerWindow } = require('./helpers/manage-window')
 
 const pathToLayoutAppInit = path.join('', 'app_init.html')
 
 const _createWindow = async (
-  {
-    pathname = null,
-    winName = 'mainWindow'
-  } = {},
-  props = {}
+  { pathname = null, winName = 'mainWindow' } = {},
+  props = {},
 ) => {
   const point = electron.screen.getCursorScreenPoint()
-  const {
-    bounds,
-    workAreaSize
-  } = electron.screen.getDisplayNearestPoint(point)
-  const {
-    width: defaultWidth,
-    height: defaultHeight
-  } = workAreaSize
+  const { bounds, workAreaSize } = electron.screen.getDisplayNearestPoint(point)
+  const { width: defaultWidth, height: defaultHeight } = workAreaSize
   const isMainWindow = winName === 'mainWindow'
   const {
     width = defaultWidth,
@@ -45,7 +33,7 @@ const _createWindow = async (
     x,
     y,
     isMaximized,
-    manage
+    manage,
   } = {}
   const _props = {
     autoHideMenuBar: true,
@@ -53,42 +41,36 @@ const _createWindow = async (
     height,
     minWidth: 1000,
     minHeight: 650,
-    x: !x
-      ? bounds.x
-      : x,
-    y: !y
-      ? bounds.y
-      : y,
+    x: !x ? bounds.x : x,
+    y: !y ? bounds.y : y,
     icon: path.join(__dirname, '../build/icon.png'),
     backgroundColor: '#172d3e',
     show: true,
     // webPreferences: {
     //   preload: path.join(__dirname, '../build/preload.js'),
     // },
-    ...props
+    ...props,
   }
 
   wins[winName] = new BrowserWindow(_props)
 
   const startUrl = pathname
-  ? url.format({
-    pathname,
-    protocol: 'file:',
-    slashes: true
-  })
-  : 'app://-'
+    ? url.format({
+      pathname,
+      protocol: 'file:',
+      slashes: true,
+    })
+    : 'app://-'
 
   if (!pathname) {
+    // eslint-disable-next-line no-undef
     await loadURL(wins[winName])
   }
 
   wins[winName].on('closed', () => {
     wins[winName] = null
 
-    if (
-      ipcs.serverIpc &&
-      typeof ipcs.serverIpc === 'object'
-    ) {
+    if (ipcs.serverIpc && typeof ipcs.serverIpc === 'object') {
       ipcs.serverIpc.kill('SIGINT')
     }
   })
@@ -99,10 +81,11 @@ const _createWindow = async (
     isMaximized,
     isMainWindow,
     manage,
-    win: wins[winName]
+    win: wins[winName],
   }
 
   if (!pathname) {
+    // eslint-disable-next-line no-use-before-define
     await createLoadingWindow()
 
     return res
@@ -116,25 +99,18 @@ const _createWindow = async (
   return res
 }
 
-const _createChildWindow = async (
-  pathname,
-  winName,
-  opts = {}
-) => {
-  const {
-    width = 500,
-    height = 500
-  } = { ...opts }
+const _createChildWindow = async (pathname, winName, opts = {}) => {
+  const { width = 500, height = 500 } = { ...opts }
 
   const point = electron.screen.getCursorScreenPoint()
   const { bounds } = electron.screen.getDisplayNearestPoint(point)
-  const x = Math.ceil(bounds.x + ((bounds.width - width) / 2))
-  const y = Math.ceil(bounds.y + ((bounds.height - height) / 2))
+  const x = Math.ceil(bounds.x + (bounds.width - width) / 2)
+  const y = Math.ceil(bounds.y + (bounds.height - height) / 2)
 
   const winProps = await _createWindow(
     {
       pathname,
-      winName
+      winName,
     },
     {
       minWidth: width,
@@ -145,8 +121,8 @@ const _createChildWindow = async (
       center: true,
       parent: wins.mainWindow,
       frame: false,
-      ...opts
-    }
+      ...opts,
+    },
   )
 
   winProps.win.on('closed', () => {
@@ -162,10 +138,10 @@ const _createChildWindow = async (
 
 const createLoadingWindow = async () => {
   if (
-    wins.loadingWindow &&
-    typeof wins.loadingWindow === 'object' &&
-    !wins.loadingWindow.isDestroyed() &&
-    !wins.loadingWindow.isVisible()
+    wins.loadingWindow
+    && typeof wins.loadingWindow === 'object'
+    && !wins.loadingWindow.isDestroyed()
+    && !wins.loadingWindow.isVisible()
   ) {
     await showLoadingWindow()
 
@@ -180,14 +156,13 @@ const createLoadingWindow = async () => {
       height: 350,
       webPreferences: {
         nodeIntegration: true,
-        contextIsolation: false
-      }
-    }
+        contextIsolation: false,
+      },
+    },
   )
 
   return winProps
 }
-
 module.exports = {
-  createLoadingWindow
+  createLoadingWindow,
 }
