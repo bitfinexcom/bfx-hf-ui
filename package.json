@@ -125,7 +125,7 @@
   "devDependencies": {
     "babel-preset-react-app": "^9.0.0",
     "browserslist": "^4.16.6",
-    "electron": "^13.0.1",
+    "electron": "^15.5.5",
     "electron-builder": "^22.11.1",
     "electron-packager": "15.2.0",
     "eslint": "^8.21.0",
