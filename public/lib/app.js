@@ -178,15 +178,15 @@ module.exports = class HFUIApplication {
 
     createAppMenu({
       app: this.app,
-      win: this.mainWindow,
-      sendOpenSettingsModalMessage: this.sendOpenSettingsModalMessage,
-    })
-    createAppTray({
-      win: this.mainWindow,
       sendOpenSettingsModalMessage: this.sendOpenSettingsModalMessage,
     })
 
     this.spawnMainWindow()
+
+    createAppTray({
+      win: this.mainWindow,
+      sendOpenSettingsModalMessage: this.sendOpenSettingsModalMessage,
+    })
   }
 
   async onActivate() {
