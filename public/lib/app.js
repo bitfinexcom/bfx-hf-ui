@@ -1,11 +1,12 @@
 const url = require('url')
 const path = require('path')
 const {
-  BrowserWindow, protocol, Menu, shell, ipcMain,
+  BrowserWindow, protocol, Menu, shell, ipcMain, Tray, nativeImage,
 } = require('electron')
 const { autoUpdater: _autoUpdater } = require('electron-updater')
 const logger = require('electron-log')
 const appMenuTemplate = require('./app_menu_template')
+const trayMenuTemplate = require('./tray_menu_template')
 const enforceMacOSAppLocation = require(
   '../../scripts/enforce-macos-app-location',
 )
@@ -54,6 +55,10 @@ module.exports = class HFUIApplication {
       protocol: 'file',
       slashes: true,
     }))
+
+    const img = nativeImage.createFromPath(path.resolve(__dirname, '../icon.png'))
+    const tray = new Tray(img)
+    tray.setContextMenu(Menu.buildFromTemplate(trayMenuTemplate(win)))
 
     return win
   }
