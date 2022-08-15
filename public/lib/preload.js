@@ -13,5 +13,7 @@ contextBridge.exposeInMainWorld(
     addAppUpdateDownloadedEventListener: (cb) => ipcRenderer.on('update_downloaded', cb),
     removeAppUpdateDownloadedEventListener: (cb) => ipcRenderer.removeListener('update_downloaded', cb),
     getAllEvents: () => ipcRenderer.eventNames(),
+    addOpenSettingsModalListener: (cb) => ipcRenderer.on('open_settings', cb),
+    removeOpenSettingsModalListener: (cb) => ipcRenderer.removeListener('open_settings', cb),
   },
 )

@@ -1,24 +1,18 @@
 const url = require('url')
 const path = require('path')
 const {
-  BrowserWindow,
-  protocol,
-  Menu,
-  shell,
-  ipcMain,
-  Tray,
-  nativeImage,
+  BrowserWindow, protocol, shell, ipcMain,
 } = require('electron')
 const { autoUpdater: _autoUpdater } = require('electron-updater')
 const logger = require('electron-log')
-const appMenuTemplate = require('./app_menu_template')
-const trayMenuTemplate = require('./tray_menu_template')
 const enforceMacOSAppLocation = require('../../scripts/enforce-macos-app-location')
 const BfxMacUpdater = require('../../scripts/auto-updater/bfx.mac.updater')
 const {
   showLoadingWindow,
   hideLoadingWindow,
 } = require('../../scripts/change-loading-win-visibility-state')
+const { createAppMenu } = require('../utils/appMenu')
+const { createAppTray } = require('../utils/tray')
 
 const isElectronDebugMode = process.env.REACT_APP_ELECTRON_DEBUG === 'true'
 
@@ -60,12 +54,6 @@ module.exports = class HFUIApplication {
       }),
     )
 
-    const img = nativeImage.createFromPath(
-      path.resolve(__dirname, '../trayIcon.png'),
-    )
-    const tray = new Tray(img)
-    tray.setContextMenu(Menu.buildFromTemplate(trayMenuTemplate(win)))
-
     return win
   }
 
@@ -83,6 +71,7 @@ module.exports = class HFUIApplication {
     this.onActivate = this.onActivate.bind(this)
     this.onAllWindowsClosed = this.onAllWindowsClosed.bind(this)
     this.onMainWindowClosed = this.onMainWindowClosed.bind(this)
+    this.sendOpenSettingsModalMessage = this.sendOpenSettingsModalMessage.bind(this)
 
     // increase memory size
     app.commandLine.appendSwitch('js-flags', '--max-old-space-size=2048')
@@ -164,6 +153,10 @@ module.exports = class HFUIApplication {
     })
   }
 
+  sendOpenSettingsModalMessage() {
+    this.mainWindow.webContents.send('open_settings')
+  }
+
   async onReady() {
     protocol.interceptFileProtocol(
       'file',
@@ -183,7 +176,15 @@ module.exports = class HFUIApplication {
       await enforceMacOSAppLocation()
     }
 
-    Menu.setApplicationMenu(Menu.buildFromTemplate(appMenuTemplate(this.app)))
+    createAppMenu({
+      app: this.app,
+      win: this.mainWindow,
+      sendOpenSettingsModalMessage: this.sendOpenSettingsModalMessage,
+    })
+    createAppTray({
+      win: this.mainWindow,
+      sendOpenSettingsModalMessage: this.sendOpenSettingsModalMessage,
+    })
 
     this.spawnMainWindow()
   }
