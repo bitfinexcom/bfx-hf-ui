@@ -94,6 +94,9 @@ module.exports = class HFUIApplication {
       }
     })
 
+    this.mainWindow.on('hide', () => this.mainWindow.webContents.send('app_hidden'))
+    this.mainWindow.on('restore', () => this.mainWindow.webContents.send('app_restored'))
+
     this.mainWindow.once('ready-to-show', () => {
       autoUpdater.checkForUpdatesAndNotify()
       appUpdatesIntervalRef = setInterval(() => {
@@ -105,6 +108,10 @@ module.exports = class HFUIApplication {
       'new-window',
       HFUIApplication.handleURLRedirect,
     )
+
+    ipcMain.on('app_should_restored', () => {
+      this.mainWindow.show()
+    })
 
     ipcMain.on('app-closed', () => {
       if (appUpdatesIntervalRef) {
