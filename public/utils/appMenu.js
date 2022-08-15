@@ -11,8 +11,9 @@ const {
 } = require('../constants')
 
 const RC_KEYWORD = '-rc'
+const isElectronDebugMode = process.env.REACT_APP_ELECTRON_DEBUG === 'true'
 
-const RC_MENUS = [
+const DEBUG_MENU = [
   {
     label: 'Toggle Developer Tools',
     accelerator: (function getKeys() {
@@ -111,7 +112,7 @@ const getTemplate = ({ app, sendOpenSettingsModalMessage }) => {
             })
           },
         },
-        ...(isRCMode ? RC_MENUS : []),
+        ...(isRCMode || isElectronDebugMode ? DEBUG_MENU : []),
       ],
     },
   ]
