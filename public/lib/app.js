@@ -1,18 +1,20 @@
 const url = require('url')
 const path = require('path')
 const {
-  BrowserWindow, protocol, Menu, shell, ipcMain, Tray, nativeImage,
+  BrowserWindow,
+  protocol,
+  Menu,
+  shell,
+  ipcMain,
+  Tray,
+  nativeImage,
 } = require('electron')
 const { autoUpdater: _autoUpdater } = require('electron-updater')
 const logger = require('electron-log')
 const appMenuTemplate = require('./app_menu_template')
 const trayMenuTemplate = require('./tray_menu_template')
-const enforceMacOSAppLocation = require(
-  '../../scripts/enforce-macos-app-location',
-)
-const BfxMacUpdater = require(
-  '../../scripts/auto-updater/bfx.mac.updater',
-)
+const enforceMacOSAppLocation = require('../../scripts/enforce-macos-app-location')
+const BfxMacUpdater = require('../../scripts/auto-updater/bfx.mac.updater')
 const {
   showLoadingWindow,
   hideLoadingWindow,
@@ -50,13 +52,17 @@ module.exports = class HFUIApplication {
       },
     })
 
-    win.loadURL(url.format({
-      pathname: 'index.html',
-      protocol: 'file',
-      slashes: true,
-    }))
+    win.loadURL(
+      url.format({
+        pathname: 'index.html',
+        protocol: 'file',
+        slashes: true,
+      }),
+    )
 
-    const img = nativeImage.createFromPath(path.resolve(__dirname, '../icon.png'))
+    const img = nativeImage.createFromPath(
+      path.resolve(__dirname, '../trayIcon.png'),
+    )
     const tray = new Tray(img)
     tray.setContextMenu(Menu.buildFromTemplate(trayMenuTemplate(win)))
 
@@ -106,7 +112,10 @@ module.exports = class HFUIApplication {
       }, CHECK_APP_UPDATES_EVERY_MS)
     })
 
-    this.mainWindow.webContents.on('new-window', HFUIApplication.handleURLRedirect)
+    this.mainWindow.webContents.on(
+      'new-window',
+      HFUIApplication.handleURLRedirect,
+    )
 
     ipcMain.on('app-closed', () => {
       if (appUpdatesIntervalRef) {
@@ -133,9 +142,7 @@ module.exports = class HFUIApplication {
     })
 
     autoUpdater.on('update-downloaded', (info) => {
-      const {
-        downloadedFile,
-      } = { ...info }
+      const { downloadedFile } = { ...info }
       if (autoUpdater instanceof BfxMacUpdater) {
         autoUpdater.setDownloadedFilePath(downloadedFile)
       }
@@ -158,15 +165,19 @@ module.exports = class HFUIApplication {
   }
 
   async onReady() {
-    protocol.interceptFileProtocol('file', (request, callback) => {
-      const fileURL = request.url.substr(7) // all urls start with 'file://'
-      const pathfinal = path.normalize(`${__dirname}/../${fileURL}`)
-      callback({ path: pathfinal })
-    }, (err) => {
-      if (err) {
-        logger.error('Failed to register protocol')
-      }
-    })
+    protocol.interceptFileProtocol(
+      'file',
+      (request, callback) => {
+        const fileURL = request.url.substr(7) // all urls start with 'file://'
+        const pathfinal = path.normalize(`${__dirname}/../${fileURL}`)
+        callback({ path: pathfinal })
+      },
+      (err) => {
+        if (err) {
+          logger.error('Failed to register protocol')
+        }
+      },
+    )
 
     if (!isElectronDebugMode) {
       await enforceMacOSAppLocation()
