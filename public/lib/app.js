@@ -101,8 +101,10 @@ module.exports = class HFUIApplication {
       }
     })
 
-    this.mainWindow.on('hide', () => this.mainWindow.webContents.send('app_hidden'))
-    this.mainWindow.on('restore', () => this.mainWindow.webContents.send('app_restored'))
+    this.mainWindow.on('hide', () => {
+      this.mainWindow.webContents.send('app_hidden')
+      this.mainWindow.once('show', () => this.mainWindow.webContents.send('app_restored'))
+    })
 
     this.mainWindow.once('ready-to-show', () => {
       autoUpdater.checkForUpdatesAndNotify()
