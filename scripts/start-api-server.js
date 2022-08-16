@@ -20,7 +20,7 @@ startHFServer({
   bfxHostedWsUrl: process.env.HOSTED_WS_URL,
   strategyExecutionPath: `${dir}/strategy-executions.json`,
 
-  bfxMetricsWsUrl: 'ws://localhost:9090',
+  bfxMetricsWsUrl: process.env.METRICS_SERVER_URL,
   os: process.platform,
   releaseVersion: version,
   isRC: version.includes('rc'),
