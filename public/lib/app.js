@@ -85,7 +85,7 @@ module.exports = class HFUIApplication {
           this.mainWindow.focus()
           dialog.showErrorBox(
             'Bitfinex Honey',
-            'Application has been launched already',
+            'Application has been already launched',
           )
         }
       })
