@@ -2,7 +2,7 @@ const { nativeImage, Tray, Menu } = require('electron')
 const path = require('path')
 
 const getTemplate = ({ win, sendOpenSettingsModalMessage }) => [
-  { label: 'Honey Bitfinex', enabled: false },
+  { label: 'Bitfinex Honey', enabled: false },
   { type: 'separator' },
   {
     label: 'Hide/show application',

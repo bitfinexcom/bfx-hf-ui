@@ -1,7 +1,7 @@
 const url = require('url')
 const path = require('path')
 const {
-  BrowserWindow, protocol, shell, ipcMain,
+  BrowserWindow, protocol, shell, ipcMain, dialog,
 } = require('electron')
 const { autoUpdater: _autoUpdater } = require('electron-updater')
 const logger = require('electron-log')
@@ -79,6 +79,12 @@ module.exports = class HFUIApplication {
     app.on('ready', this.onReady)
     app.on('window-all-closed', this.onAllWindowsClosed)
     app.on('activate', this.onActivate)
+    app.on('before-quit', () => {
+      if (this.mainWindow) {
+        this.mainWindow.removeAllListeners('close')
+        this.mainWindow.close()
+      }
+    })
   }
 
   spawnMainWindow() {
