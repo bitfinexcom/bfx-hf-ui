@@ -74,6 +74,23 @@ module.exports = class HFUIApplication {
     this.onMainWindowClosed = this.onMainWindowClosed.bind(this)
     this.sendOpenSettingsModalMessage = this.sendOpenSettingsModalMessage.bind(this)
 
+    const isLocked = app.requestSingleInstanceLock()
+
+    if (!isLocked) {
+      app.quit()
+    } else {
+      app.on('second-instance', () => {
+        if (this.mainWindow) {
+          this.mainWindow.show()
+          this.mainWindow.focus()
+          dialog.showErrorBox(
+            'Bitfinex Honey',
+            'Application has been launched already',
+          )
+        }
+      })
+    }
+
     // increase memory size
     app.commandLine.appendSwitch('js-flags', '--max-old-space-size=2048')
     app.on('ready', this.onReady)
