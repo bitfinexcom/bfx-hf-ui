@@ -85,6 +85,7 @@
     "start": "cd ./bfx-hf-ui-core && cross-env REACT_APP_DEV=1 REACT_APP_WSS_URL=ws://localhost:45000 REACT_APP_DS_URL=ws://localhost:23521 REACT_APP_UFX_API_URL=http://localhost:45001 REACT_APP_UFX_PUBLIC_API_URL=http://localhost:45001 REACT_APP_UFX_WSS_URL=wss://api-pub.bitfinex.com/ws/2 REACT_APP_IS_ELECTRON_APP=true node scripts/start.js",
     "prebuild": "cd ./bfx-hf-ui-core && git checkout -- .",
     "build": "npm run fetch-core && npm run update-core && npm run preinstall && cd bfx-hf-ui-core && cross-env GENERATE_SOURCEMAP=false npm run build-css && cross-env REACT_APP_WSS_URL=ws://localhost:45000 REACT_APP_DS_URL=ws://localhost:23521 REACT_APP_UFX_API_URL=http://localhost:45001 REACT_APP_UFX_PUBLIC_API_URL=http://localhost:45001 REACT_APP_UFX_WSS_URL=wss://api-pub.bitfinex.com/ws/2 REACT_APP_IS_ELECTRON_APP=true node scripts/build.js",
+    "build:not-fetch-core": "cd bfx-hf-ui-core && cross-env GENERATE_SOURCEMAP=false npm run build-css && cross-env REACT_APP_WSS_URL=ws://localhost:45000 REACT_APP_DS_URL=ws://localhost:23521 REACT_APP_UFX_API_URL=http://localhost:45001 REACT_APP_UFX_PUBLIC_API_URL=http://localhost:45001 REACT_APP_UFX_WSS_URL=wss://api-pub.bitfinex.com/ws/2 REACT_APP_IS_ELECTRON_APP=true node scripts/build.js",
     "update-core": "git submodule update --remote --merge",
     "fetch-core": "git submodule update --init --recursive",
     "postbuild": "run-script-os",
@@ -104,7 +105,8 @@
     "package-mac": "cd dist/bfx-hf-ui-mas-x64/bfx-hf-ui.app/Contents/Resources/app && sh clear.sh && node-prune && cd ../../../../../../ && zip --symlinks -r ./dist/bfx-hf-ui-mac-x64.zip ./dist/bfx-hf-ui-mas-x64 && cd ./dist/ && sha256sum bfx-hf-ui-mac-x64.zip >> sha256sums.asc && cd ..",
     "package-win": "cd dist/win-unpacked/resources/app && sh clear.sh && node-prune && cd ../../../../ && zip --symlinks -r ./dist/The.Honey.Framework-win.zip ./dist/win-unpacked && cd ./dist/ && sha256sum The.Honey.Framework-win.zip >> sha256sums.asc && cd ..",
     "package-linux": "cd dist/linux-unpacked/resources/app && sh clear.sh && node-prune && cd ../../../.. && zip --symlinks -r ./dist/The.Honey.Framework-x64-linux.zip ./dist/linux-unpacked && cd ./dist/ && sha256sum The.Honey.Framework-x64-linux.zip >> sha256sums.asc && cd ..",
-    "release": "electron-builder -p always"
+    "release": "electron-builder -p always",
+    "lint": "cross-env eslint --fix public && eslint --fix scripts"
   },
   "author": "Bitfinex",
   "license": "Apache-2.0",
@@ -123,9 +125,12 @@
   "devDependencies": {
     "babel-preset-react-app": "^9.0.0",
     "browserslist": "^4.16.6",
-    "electron": "^13.0.1",
+    "electron": "^15.5.5",
     "electron-builder": "^22.11.1",
     "electron-packager": "15.2.0",
+    "eslint": "^8.21.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
     "node-prune": "^1.0.2",
     "run-script-os": "^1.1.6"
   },

@@ -3,5 +3,5 @@
 module.exports = {
   mainWindow: null,
   loadingWindow: null,
-  errorWindow: null
+  errorWindow: null,
 }

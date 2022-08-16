@@ -7,6 +7,7 @@ const {
   showWindow,
   centerWindow,
 } = require('./helpers/manage-window')
+const windowCreators = require('./window-creators')
 
 let intervalMarker
 
@@ -137,7 +138,6 @@ const _setLoadingDescription = (win, description) => {
 }
 
 const showLoadingWindow = async (opts = {}) => {
-
   try {
     const {
       description = '',
@@ -156,8 +156,7 @@ const showLoadingWindow = async (opts = {}) => {
       || typeof wins.loadingWindow !== 'object'
       || wins.loadingWindow.isDestroyed()
     ) {
-      await require('./window-creators')
-      .createLoadingWindow()
+      await windowCreators.createLoadingWindow()
     }
 
     _setParentWindow(isRequiredToCloseAllWins || noParent)
@@ -178,7 +177,6 @@ const showLoadingWindow = async (opts = {}) => {
     centerWindow(wins.loadingWindow)
 
     return showWindow(wins.loadingWindow)
-
   } catch (err) {
     logger.error('showLoadingWindow error: ', err)
   }

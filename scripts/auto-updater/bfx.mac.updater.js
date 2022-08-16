@@ -8,8 +8,9 @@ const extract = require('extract-zip')
 
 const { rootPath: appDir } = require('electron-root-path')
 const logger = require('electron-log')
+
 class BfxMacUpdater extends MacUpdater {
-  constructor (...args) {
+  constructor(...args) {
     super(...args)
 
     this.quitAndInstallCalled = false
@@ -18,22 +19,23 @@ class BfxMacUpdater extends MacUpdater {
     this.EVENT_INSTALLING_UPDATE = 'EVENT_INSTALLING_UPDATE'
 
     this.installingUpdateEventHandlers = []
+    // eslint-disable-next-line no-unused-expressions
     this._logger === logger
   }
 
-  setDownloadedFilePath (downloadedFilePath) {
+  setDownloadedFilePath(downloadedFilePath) {
     this.downloadedFilePath = downloadedFilePath
   }
 
-  getDownloadedFilePath () {
+  getDownloadedFilePath() {
     return this.downloadedFilePath
   }
 
-  addInstallingUpdateEventHandler (handler) {
+  addInstallingUpdateEventHandler(handler) {
     this.installingUpdateEventHandlers.push(handler)
   }
 
-  async install (isSilent, isForceRunAfter) {
+  async install(isSilent, isForceRunAfter) {
     try {
       if (this.quitAndInstallCalled) {
         return false
@@ -50,18 +52,17 @@ class BfxMacUpdater extends MacUpdater {
       const root = path.join(appDir, '../../..')
       const dist = path.join(root, '..')
       const productName = 'Bitfinex Honey'
-      const exec = path.join(root, 'Contents/MacOS/' + productName)
+      const exec = path.join(root, `Contents/MacOS/${productName}`)
 
       await fs.promises.rmdir(root, { recursive: true, force: true })
-
 
       await extract(
         downloadedFilePath,
         {
           dir: dist,
           defaultDirMode: '0o777',
-          defaultFileMode: '0o777'
-        }
+          defaultFileMode: '0o777',
+        },
       )
 
       if (!isForceRunAfter) {
@@ -72,8 +73,8 @@ class BfxMacUpdater extends MacUpdater {
         detached: true,
         stdio: 'ignore',
         env: {
-          ...process.env
-        }
+          ...process.env,
+        },
       }).unref()
       return true
     } catch (err) {
@@ -83,12 +84,12 @@ class BfxMacUpdater extends MacUpdater {
     }
   }
 
-  async asyncQuitAndInstall (isSilent, isForceRunAfter) {
+  async asyncQuitAndInstall(isSilent, isForceRunAfter) {
     const isInstalled = await this.install(
       isSilent,
       isSilent
         ? isForceRunAfter
-        : true
+        : true,
     )
 
     if (isInstalled) {
@@ -100,7 +101,7 @@ class BfxMacUpdater extends MacUpdater {
     this.quitAndInstallCalled = false
   }
 
-  quitAndInstall (...args) {
+  quitAndInstall(...args) {
     const downloadedFilePath = this.getDownloadedFilePath()
 
     if (!fs.existsSync(downloadedFilePath)) {
@@ -113,40 +114,41 @@ class BfxMacUpdater extends MacUpdater {
     return this.asyncQuitAndInstall(...args)
   }
 
-  async dispatchInstallingUpdate () {
+  async dispatchInstallingUpdate() {
     this.emit(this.EVENT_INSTALLING_UPDATE)
 
+    // eslint-disable-next-line no-restricted-syntax
     for (const handler of this.installingUpdateEventHandlers) {
       if (typeof handler !== 'function') {
         return
       }
 
+      // eslint-disable-next-line no-await-in-loop
       await handler()
     }
   }
 
-  dispatchUpdateDownloaded (...args) {
+  dispatchUpdateDownloaded(...args) {
     super.dispatchUpdateDownloaded(...args)
 
     this.addQuitHandler()
   }
 
-  addQuitHandler () {
+  addQuitHandler() {
     if (
-      this.quitHandlerAdded ||
-      !this.autoInstallOnAppQuit
+      this.quitHandlerAdded
+      || !this.autoInstallOnAppQuit
     ) {
       return
     }
 
     this.quitHandlerAdded = true
 
-    this.app.onQuit((exitCode) => {
-      if (exitCode === 0) {
-        return
-      }
+    // this.app.onQuit((exitCode) => {
+    //   if (exitCode === 0) {
 
-    })
+    //   }
+    // })
 
     // Need to use this.app.app prop due this.app is ElectronAppAdapter
     this.app.app.once('will-quit', (e) => {
