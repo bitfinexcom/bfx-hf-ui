@@ -168,6 +168,10 @@ module.exports = class HFUIApplication {
   }
 
   sendOpenSettingsModalMessage() {
+    const isVisible = this.mainWindow.isVisible()
+    if (!isVisible) {
+      this.mainWindow.show()
+    }
     this.mainWindow.webContents.send('open_settings')
   }
 
