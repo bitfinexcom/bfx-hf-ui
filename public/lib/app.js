@@ -13,6 +13,7 @@ const {
 } = require('../../scripts/change-loading-win-visibility-state')
 const { createAppMenu } = require('../utils/appMenu')
 const { createAppTray } = require('../utils/tray')
+const syncReadUserSettings = require('../utils/syncReadUserSettings')
 
 const isElectronDebugMode = process.env.REACT_APP_ELECTRON_DEBUG === 'true'
 
@@ -90,7 +91,13 @@ module.exports = class HFUIApplication {
     this.mainWindow.on('close', (e) => {
       if (this.mainWindow !== null) {
         e.preventDefault()
-        this.mainWindow.webContents.send('app-close')
+
+        const shouldHideOnClose = syncReadUserSettings(this.app)?.hideOnClose
+        if (shouldHideOnClose) {
+          this.mainWindow.hide()
+        } else {
+          this.mainWindow.webContents.send('app-close')
+        }
       }
     })
 
