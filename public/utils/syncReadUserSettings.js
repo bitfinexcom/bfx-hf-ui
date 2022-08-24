@@ -1,9 +1,10 @@
 const fs = require('fs')
+const os = require('os')
 const path = require('path')
 
-module.exports = (app) => {
+module.exports = () => {
   const filePath = path.resolve(
-    app.getPath('home'),
+    os.homedir(),
     '.bitfinexhoney',
     'ui.json',
   )
