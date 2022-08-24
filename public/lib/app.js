@@ -146,6 +146,14 @@ module.exports = class HFUIApplication {
       HFUIApplication.handleURLRedirect,
     )
 
+    this.mainWindow.webContents.once('did-finish-load', () => {
+      const isFullscreen = this.mainWindow.isFullScreen()
+
+      if (isFullscreen) {
+        this.mainWindow.webContents.send('app_fullscreen_changed', { fullscreen: true })
+      }
+    })
+
     this.mainWindow.on('enter-full-screen', () => {
       this.mainWindow.webContents.send('app_fullscreen_changed', { fullscreen: true })
     })
