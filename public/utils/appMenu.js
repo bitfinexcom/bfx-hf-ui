@@ -59,6 +59,11 @@ const getTemplate = ({ app, sendOpenSettingsModalMessage }) => {
           click: sendOpenSettingsModalMessage,
         },
         {
+          label: 'Toggle fullscreen',
+          role: 'togglefullscreen',
+          accelerator: 'F11',
+        },
+        {
           label: 'Quit',
           accelerator: 'CmdOrCtrl+Q',
           click: () => {
@@ -119,9 +124,7 @@ const getTemplate = ({ app, sendOpenSettingsModalMessage }) => {
 }
 
 const createAppMenu = (params) => {
-  Menu.setApplicationMenu(
-    Menu.buildFromTemplate(getTemplate(params)),
-  )
+  Menu.setApplicationMenu(Menu.buildFromTemplate(getTemplate(params)))
 }
 
 module.exports = {

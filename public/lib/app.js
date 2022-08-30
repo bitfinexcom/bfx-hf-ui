@@ -37,14 +37,19 @@ const CHECK_APP_UPDATES_EVERY_MS = 30 * 60 * 1000 // 30 min
 let appUpdatesIntervalRef = null
 module.exports = class HFUIApplication {
   static createWindow() {
+    const fullscreen = syncReadUserSettings()?.fullScreen
+
     const win = new BrowserWindow({
       width: 1500,
       height: 850,
+      minHeight: 600,
+      minWidth: 1200,
       icon: path.resolve(__dirname, '../icon.png'),
       show: true,
       webPreferences: {
         preload: path.join(__dirname, 'preload.js'),
       },
+      fullscreen,
     })
 
     win.loadURL(
@@ -115,7 +120,7 @@ module.exports = class HFUIApplication {
       if (this.mainWindow !== null) {
         e.preventDefault()
 
-        const shouldHideOnClose = syncReadUserSettings(this.app)?.hideOnClose
+        const shouldHideOnClose = syncReadUserSettings()?.hideOnClose
         if (shouldHideOnClose) {
           this.mainWindow.hide()
         } else {
@@ -141,6 +146,22 @@ module.exports = class HFUIApplication {
       HFUIApplication.handleURLRedirect,
     )
 
+    this.mainWindow.webContents.once('did-finish-load', () => {
+      const isFullscreen = this.mainWindow.isFullScreen()
+
+      if (isFullscreen) {
+        this.mainWindow.webContents.send('app_fullscreen_changed', { fullscreen: true })
+      }
+    })
+
+    this.mainWindow.on('enter-full-screen', () => {
+      this.mainWindow.webContents.send('app_fullscreen_changed', { fullscreen: true })
+    })
+
+    this.mainWindow.on('leave-full-screen', () => {
+      this.mainWindow.webContents.send('app_fullscreen_changed', { fullscreen: false })
+    })
+
     ipcMain.on('app_should_restored', () => {
       this.mainWindow.show()
     })
@@ -163,6 +184,10 @@ module.exports = class HFUIApplication {
       if (appUpdatesIntervalRef) {
         clearInterval(appUpdatesIntervalRef)
       }
+    })
+
+    ipcMain.on('app_change_fullscreen', (_, { fullscreen }) => {
+      this.mainWindow.setFullScreen(fullscreen)
     })
 
     autoUpdater.on('update-available', () => {
