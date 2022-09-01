@@ -23,6 +23,7 @@ const createAppTray = (params) => {
   )
   const tray = new Tray(img)
   tray.setContextMenu(Menu.buildFromTemplate(getTemplate(params)))
+  return tray
 }
 
 module.exports = {
