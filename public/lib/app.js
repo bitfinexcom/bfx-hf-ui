@@ -70,6 +70,7 @@ module.exports = class HFUIApplication {
 
   constructor({ app, onExit }) {
     this.mainWindow = null
+    this.tray = null
     this.onExitCB = onExit
     this.app = app
 
@@ -251,7 +252,7 @@ module.exports = class HFUIApplication {
 
     this.spawnMainWindow()
 
-    createAppTray({
+    this.tray = createAppTray({
       win: this.mainWindow,
       sendOpenSettingsModalMessage: this.sendOpenSettingsModalMessage,
     })
