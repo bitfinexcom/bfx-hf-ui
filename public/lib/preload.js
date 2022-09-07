@@ -6,14 +6,21 @@ contextBridge.exposeInMainWorld(
     sendAppClosedEvent: () => ipcRenderer.send('app-closed'),
     sendRestartAppEvent: () => ipcRenderer.send('restart_app'),
     sendClearAppUpdateTimerEvent: () => ipcRenderer.send('clear_app_update_timer'),
+    sendDownloadUpdateEvent: () => ipcRenderer.send('download_update'),
     sendRestoreAppMessage: () => ipcRenderer.send('app_should_restored'),
     sendChangeFullscreenEvent: (fullscreen) => ipcRenderer.send('app_change_fullscreen', { fullscreen }),
 
     addAppUpdateAvailableEventListener: (cb) => ipcRenderer.on('update_available', cb),
-    removeAppUpdateAvailableEventListener: (cb) => ipcRenderer.removeListener('update_available', cb),
-
+    addAppUpdateDownloadProgressListener: (cb) => ipcRenderer.on('update_in_progress', cb),
     addAppUpdateDownloadedEventListener: (cb) => ipcRenderer.on('update_downloaded', cb),
-    removeAppUpdateDownloadedEventListener: (cb) => ipcRenderer.removeListener('update_downloaded', cb),
+    addAppUpdateErrorListener: (cb) => ipcRenderer.on('update_error', cb),
+
+    removeAllAppUpdateEventListeners: () => {
+      ipcRenderer.removeAllListeners('update_available')
+      ipcRenderer.removeAllListeners('update_in_progress')
+      ipcRenderer.removeAllListeners('update_downloaded')
+      ipcRenderer.removeAllListeners('update_error')
+    },
 
     getAllEvents: () => ipcRenderer.eventNames(),
 
