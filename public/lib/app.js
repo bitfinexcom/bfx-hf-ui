@@ -32,6 +32,7 @@ if (process.platform === 'darwin') {
 autoUpdater.allowPrerelease = false
 autoUpdater.logger = logger
 autoUpdater.logger.transports.file.level = 'info'
+autoUpdater.autoDownload = false
 
 const CHECK_APP_UPDATES_EVERY_MS = 30 * 60 * 1000 // 30 min
 let appUpdatesIntervalRef = null
@@ -136,9 +137,10 @@ module.exports = class HFUIApplication {
     })
 
     this.mainWindow.once('ready-to-show', () => {
-      autoUpdater.checkForUpdatesAndNotify()
+      autoUpdater.checkForUpdates()
+
       appUpdatesIntervalRef = setInterval(() => {
-        autoUpdater.checkForUpdatesAndNotify()
+        autoUpdater.checkForUpdates()
       }, CHECK_APP_UPDATES_EVERY_MS)
     })
 
@@ -191,8 +193,16 @@ module.exports = class HFUIApplication {
       this.mainWindow.setFullScreen(fullscreen)
     })
 
-    autoUpdater.on('update-available', () => {
-      this.mainWindow.webContents.send('update_available')
+    ipcMain.on('download_update', () => {
+      autoUpdater.downloadUpdate()
+    })
+
+    autoUpdater.on('update-available', (args) => {
+      this.mainWindow.webContents.send('update_available', args)
+    })
+
+    autoUpdater.on('download-progress', (args) => {
+      this.mainWindow.webContents.send('update_in_progress', args)
     })
 
     autoUpdater.on('update-downloaded', (info) => {
@@ -201,7 +211,7 @@ module.exports = class HFUIApplication {
         autoUpdater.setDownloadedFilePath(downloadedFile)
       }
 
-      this.mainWindow.webContents.send('update_downloaded')
+      this.mainWindow.webContents.send('update_downloaded', info)
     })
 
     autoUpdater.on('error', async (err) => {
@@ -211,6 +221,7 @@ module.exports = class HFUIApplication {
           return
         }
 
+        this.mainWindow.webContents.send('update_error')
         await hideLoadingWindow({ isRequiredToShowMainWin: false })
       } catch (_err) {
         logger.error('autoUpdater error: ', _err)
