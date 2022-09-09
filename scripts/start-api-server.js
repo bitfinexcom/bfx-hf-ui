@@ -20,7 +20,7 @@ startHFServer({
   bfxHostedWsUrl: process.env.HOSTED_WS_URL,
   strategyExecutionPath: `${dir}/strategy-executions.json`,
 
-  bfxMetricsWsUrl: process.env.METRICS_SERVER_URL,
+  bfxMetricsWsUrl: process.env.METRICS_SERVER_URL || 'wss://h.bitfinex.com/ws/metrics/',
   os: process.platform,
   releaseVersion: version,
   isRC: version.includes('rc'),
