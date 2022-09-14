@@ -3,10 +3,7 @@ const path = require('path')
 const {
   BrowserWindow, protocol, shell, ipcMain, dialog,
 } = require('electron')
-const {
-  NsisUpdater,
-  AppImageUpdater
-} = require('electron-updater')
+const { autoUpdater: _autoUpdater } = require('electron-updater')
 const logger = require('electron-log')
 const enforceMacOSAppLocation = require('../../scripts/enforce-macos-app-location')
 const BfxMacUpdater = require('../../scripts/auto-updater/bfx.mac.updater')
@@ -20,33 +17,16 @@ const syncReadUserSettings = require('../utils/syncReadUserSettings')
 
 const isElectronDebugMode = process.env.REACT_APP_ELECTRON_DEBUG === 'true'
 
-const updaterOptions = {
-  provider: 'github',
-  owner: 'tarcisiozf',
-  repo: 'bfx-hf-ui',
-}
+let autoUpdater = _autoUpdater
 
-let autoUpdater
-
-switch (process.platform) {
-  case 'darwin': {
-    autoUpdater = new BfxMacUpdater(updaterOptions)
-    autoUpdater.addInstallingUpdateEventHandler(() => {
-      return showLoadingWindow({
-        description: 'Updating...',
-        isRequiredToCloseAllWins: true,
-      })
+if (process.platform === 'darwin') {
+  autoUpdater = new BfxMacUpdater()
+  autoUpdater.addInstallingUpdateEventHandler(() => {
+    return showLoadingWindow({
+      description: 'Updating...',
+      isRequiredToCloseAllWins: true,
     })
-    break
-  }
-  case 'win32': {
-    autoUpdater = new NsisUpdater(updaterOptions)
-    break
-  }
-  default: {
-    autoUpdater = new AppImageUpdater(updaterOptions)
-    break
-  }
+  })
 }
 
 autoUpdater.allowPrerelease = false
