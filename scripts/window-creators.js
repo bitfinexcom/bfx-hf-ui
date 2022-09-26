@@ -47,7 +47,7 @@ const _createWindow = async (
     backgroundColor: '#172d3e',
     show: true,
     webPreferences: {
-      preload: path.join(__dirname, '../build/preload.js'),
+      preload: path.join(__dirname, '../build/lib/preload.js'),
     },
     ...props,
   }
