@@ -51,6 +51,7 @@ module.exports = class HFUIApplication {
         preload: path.join(__dirname, 'preload.js'),
       },
       fullscreen,
+      fullscreenable: true,
     })
 
     win.loadURL(
