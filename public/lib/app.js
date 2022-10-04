@@ -5,6 +5,8 @@ const {
 } = require('electron')
 const { autoUpdater: _autoUpdater } = require('electron-updater')
 const logger = require('electron-log')
+const windowStateKeeper = require('electron-window-state')
+const os = require('os')
 const enforceMacOSAppLocation = require('../../scripts/enforce-macos-app-location')
 const BfxMacUpdater = require('../../scripts/auto-updater/bfx.mac.updater')
 const {
@@ -40,18 +42,32 @@ module.exports = class HFUIApplication {
   static createWindow() {
     const fullscreen = syncReadUserSettings()?.fullScreen
 
+    const mainWindowState = windowStateKeeper({
+      defaultWidth: 1500,
+      defaultHeight: 850,
+      path: path.resolve(
+        os.homedir(),
+        '.bitfinexhoney',
+      ),
+    })
+
     const win = new BrowserWindow({
-      width: 1500,
-      height: 850,
+      width: mainWindowState.width,
+      height: mainWindowState.height,
       minHeight: 600,
       minWidth: 1200,
+      x: mainWindowState.x,
+      y: mainWindowState.y,
       icon: path.resolve(__dirname, '../icon.png'),
       show: true,
       webPreferences: {
         preload: path.join(__dirname, 'preload.js'),
       },
       fullscreen,
+      fullscreenable: true,
     })
+
+    mainWindowState.manage(win)
 
     win.loadURL(
       url.format({

@@ -61,7 +61,13 @@ const getTemplate = ({ app, sendOpenSettingsModalMessage }) => {
         {
           label: 'Toggle fullscreen',
           role: 'togglefullscreen',
-          accelerator: 'F11',
+          accelerator: (function getKeys() {
+            const platform = os.platform()
+            if (platform === 'darwin') {
+              return 'Command+F11'
+            }
+            return 'F11'
+          }()),
         },
         {
           label: 'Quit',
