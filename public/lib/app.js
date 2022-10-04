@@ -220,6 +220,10 @@ module.exports = class HFUIApplication {
         if (/Could not get code signature/gi.test(err.toString())) {
           return
         }
+        // Skip error when can't find app-update.yml. The error appears in zip packages
+        if (/app-update.yml/gi.test(err.toString())) {
+          return
+        }
 
         this.mainWindow.webContents.send('update_error')
         await hideLoadingWindow({ isRequiredToShowMainWin: false })
