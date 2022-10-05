@@ -64,7 +64,7 @@ const getTemplate = ({ app, sendOpenSettingsModalMessage }) => {
           accelerator: (function getKeys() {
             const platform = os.platform()
             if (platform === 'darwin') {
-              return 'Command+F11'
+              return 'Cmd+F11'
             }
             return 'F11'
           }()),
