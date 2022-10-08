@@ -30,6 +30,10 @@ contextBridge.exposeInMainWorld(
     addAppRestoredListener: (cb) => ipcRenderer.on('app_restored', cb),
     addFullscreenChangeListener: (cb) => ipcRenderer.on('app_fullscreen_changed', cb),
 
+    sendSaveAllStrategiesEvent: (strategies) => ipcRenderer.send('app_save_all_strategies.request', { strategies }),
+    addSaveAllStrategiesResultListner: (cb) => ipcRenderer.on('app_save_all_strategies.result', cb),
+    removeSaveAllStrategiesResultListener: () => ipcRenderer.removeAllListeners('app_save_all_strategies.result'),
+
     removeAllGlobalListeners: () => {
       ipcRenderer.removeAllListeners('app-close')
       ipcRenderer.removeAllListeners('open_settings')
