@@ -16,6 +16,7 @@ const {
 const { createAppMenu } = require('../utils/appMenu')
 const { createAppTray } = require('../utils/tray')
 const syncReadUserSettings = require('../utils/syncReadUserSettings')
+const saveStrategiesToZIP = require('../utils/saveStrategiesToZIP')
 
 const isElectronDebugMode = process.env.REACT_APP_ELECTRON_DEBUG === 'true'
 
@@ -211,6 +212,10 @@ module.exports = class HFUIApplication {
 
     ipcMain.on('download_update', () => {
       autoUpdater.downloadUpdate()
+    })
+
+    ipcMain.on('app_save_all_strategies.request', (_, { strategies }) => {
+      saveStrategiesToZIP(this.app, this.mainWindow, strategies)
     })
 
     autoUpdater.on('update-available', (args) => {
