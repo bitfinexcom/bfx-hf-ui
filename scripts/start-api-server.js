@@ -9,6 +9,7 @@ const os = require('os')
 const { version } = require('../package.json')
 
 const dir = `${os.homedir()}/.bitfinexhoney`
+const { locale } = Intl.DateTimeFormat().resolvedOptions()
 
 startHFServer({
   dataDir: dir,
@@ -24,6 +25,7 @@ startHFServer({
   os: process.platform,
   releaseVersion: version,
   isRC: version.includes('rc'),
+  locale,
 
   // Data servers are started by individual scripts
   // hfBitfinexDBPath: `${__dirname}/db/hf-bitfinex.json`,
