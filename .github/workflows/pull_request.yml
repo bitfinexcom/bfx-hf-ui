@@ -42,6 +42,19 @@ jobs:
 
       - name: Build for linux/mac/windows
         run: npm run build-all
+        
+      - name: Results
+        run: ls -l dist
+
+      - name: Upload builds
+        uses: actions/upload-artifact@v3
+        with:
+          name: artifacts
+          retention-days: 1
+          path: |
+            dist/*-linux.AppImage
+            dist/*.exe
+            dist/*-mac.zip
 
       - name: Annotate Checks
         uses: agyemanjp/ci-checks-action@2.0.3
