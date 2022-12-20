@@ -50,6 +50,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: artifacts
+          retention-days: 1
           path: |
             dist/*-linux.AppImage
             dist/*.exe
