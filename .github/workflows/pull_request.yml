@@ -44,7 +44,7 @@ jobs:
         run: npm run build-all
         
       - name: Results
-        run: ls -l
+        run: ls -l dist
 
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v3
