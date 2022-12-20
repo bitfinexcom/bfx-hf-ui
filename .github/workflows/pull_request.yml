@@ -49,7 +49,7 @@ jobs:
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v3
         with:
-          path: dist/*
+          path: dist
 
       - name: Annotate Checks
         uses: agyemanjp/ci-checks-action@2.0.3
