@@ -44,6 +44,16 @@ const DEBUG_MENU = [
       }
     },
   },
+  {
+    label: 'Pendo Visual Design Studio',
+    click: async (_, focusedWindow) => {
+      if (focusedWindow) {
+        await focusedWindow.webContents.executeJavaScript(
+          'window.pendo?.designerv2.launchInAppDesigner()',
+        )
+      }
+    },
+  },
 ]
 
 const getTemplate = ({ app, sendOpenSettingsModalMessage }) => {
