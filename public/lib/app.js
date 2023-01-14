@@ -17,6 +17,7 @@ const { createAppMenu } = require('../utils/appMenu')
 const { createAppTray } = require('../utils/tray')
 const syncReadUserSettings = require('../utils/syncReadUserSettings')
 const saveStrategiesToZIP = require('../utils/saveStrategiesToZIP')
+const { ELECTRON_CONTEXT_ALLOWED_URLS } = require('../constants')
 
 const isElectronDebugMode = process.env.REACT_APP_ELECTRON_DEBUG === 'true'
 
@@ -46,10 +47,7 @@ module.exports = class HFUIApplication {
     const mainWindowState = windowStateKeeper({
       defaultWidth: 1500,
       defaultHeight: 850,
-      path: path.resolve(
-        os.homedir(),
-        '.bitfinexhoney',
-      ),
+      path: path.resolve(os.homedir(), '.bitfinexhoney'),
     })
 
     const win = new BrowserWindow({
@@ -81,9 +79,15 @@ module.exports = class HFUIApplication {
     return win
   }
 
-  static handleURLRedirect(event, _url) {
-    event.preventDefault()
+  static handleURLRedirect({ url: _url }) {
+    if (ELECTRON_CONTEXT_ALLOWED_URLS.find((extUrl) => _url.includes(extUrl))) {
+      return {
+        action: 'allow',
+      }
+    }
+
     shell.openExternal(_url)
+    return { action: 'deny' }
   }
 
   constructor({ app, onExit }) {
@@ -161,8 +165,7 @@ module.exports = class HFUIApplication {
       }, CHECK_APP_UPDATES_EVERY_MS)
     })
 
-    this.mainWindow.webContents.on(
-      'new-window',
+    this.mainWindow.webContents.setWindowOpenHandler(
       HFUIApplication.handleURLRedirect,
     )
 
@@ -170,16 +173,22 @@ module.exports = class HFUIApplication {
       const isFullscreen = this.mainWindow.isFullScreen()
 
       if (isFullscreen) {
-        this.mainWindow.webContents.send('app_fullscreen_changed', { fullscreen: true })
+        this.mainWindow.webContents.send('app_fullscreen_changed', {
+          fullscreen: true,
+        })
       }
     })
 
     this.mainWindow.on('enter-full-screen', () => {
-      this.mainWindow.webContents.send('app_fullscreen_changed', { fullscreen: true })
+      this.mainWindow.webContents.send('app_fullscreen_changed', {
+        fullscreen: true,
+      })
     })
 
     this.mainWindow.on('leave-full-screen', () => {
-      this.mainWindow.webContents.send('app_fullscreen_changed', { fullscreen: false })
+      this.mainWindow.webContents.send('app_fullscreen_changed', {
+        fullscreen: false,
+      })
     })
 
     ipcMain.on('app_should_restored', () => {

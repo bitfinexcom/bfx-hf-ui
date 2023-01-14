@@ -10,6 +10,8 @@ const SCRIPT_PATH_API_SERVER = `${SCRIPT_PATH}/start-api-server.js`
 
 const LOCAL_STORE_CWD = `${os.homedir()}/.bitfinexhoney`
 
+const ELECTRON_CONTEXT_ALLOWED_URLS = ['https://app.eu.pendo.io']
+
 module.exports = {
   LOG_PATH,
   LOG_PATH_DS_BITFINEX,
@@ -18,4 +20,5 @@ module.exports = {
   SCRIPT_PATH_DS_BITFINEX,
   SCRIPT_PATH_API_SERVER,
   LOCAL_STORE_CWD,
+  ELECTRON_CONTEXT_ALLOWED_URLS,
 }
