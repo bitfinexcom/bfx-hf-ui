@@ -80,7 +80,8 @@ module.exports = class HFUIApplication {
   }
 
   static handleURLRedirect({ url: _url }) {
-    if (ELECTRON_CONTEXT_ALLOWED_URLS.find((extUrl) => _url.includes(extUrl))) {
+    const isURLAllowed = ELECTRON_CONTEXT_ALLOWED_URLS.some((extUrl) => _url?.includes(extUrl))
+    if (isURLAllowed) {
       return {
         action: 'allow',
       }
