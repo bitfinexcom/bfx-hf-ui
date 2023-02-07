@@ -57,7 +57,7 @@ jobs:
             dist/*-mac.zip
 
       - name: Annotate Checks
-        uses: tarcisiozf/ci-checks-action
+        uses: tarcisiozf/ci-checks-action@master
         with:
           ghToken: ${{ secrets.GITHUB_TOKEN }}
           checks: '[
