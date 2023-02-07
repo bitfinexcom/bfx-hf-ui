@@ -42,6 +42,7 @@ let appUpdatesIntervalRef = null
 module.exports = class HFUIApplication {
   static createWindow() {
     const fullscreen = syncReadUserSettings()?.fullScreen
+    console.log('temp')
 
     const mainWindowState = windowStateKeeper({
       defaultWidth: 1500,
