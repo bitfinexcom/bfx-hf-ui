@@ -7,6 +7,8 @@ const { autoUpdater: _autoUpdater } = require('electron-updater')
 const logger = require('electron-log')
 const windowStateKeeper = require('electron-window-state')
 const os = require('os')
+const { appendFile, mkdir } = require('fs/promises')
+const { existsSync } = require('fs')
 const enforceMacOSAppLocation = require('../../scripts/enforce-macos-app-location')
 const BfxMacUpdater = require('../../scripts/auto-updater/bfx.mac.updater')
 const {
@@ -18,6 +20,9 @@ const { createAppTray } = require('../utils/tray')
 const syncReadUserSettings = require('../utils/syncReadUserSettings')
 const saveStrategiesToZIP = require('../utils/saveStrategiesToZIP')
 const { ELECTRON_CONTEXT_ALLOWED_URLS } = require('../constants')
+
+const LOG_DIR_PATH = `${os.tmpdir()}/bfx-hf-ui-logs`
+const APP_LOG_PATH = `${LOG_DIR_PATH}/app.log`
 
 const isElectronDebugMode = process.env.REACT_APP_ELECTRON_DEBUG === 'true'
 
@@ -218,6 +223,18 @@ module.exports = class HFUIApplication {
 
     ipcMain.on('app_change_fullscreen', (_, { fullscreen }) => {
       this.mainWindow.setFullScreen(fullscreen)
+    })
+
+    ipcMain.on('dump_log_data', async (_, data) => {
+      try {
+        if (!existsSync(LOG_DIR_PATH)) {
+          await mkdir(LOG_DIR_PATH)
+        }
+
+        await appendFile(APP_LOG_PATH, `${data}${os.EOL}`)
+      } catch (e) {
+        console.error('[dump_log_data] (electron) Error:', e)
+      }
     })
 
     ipcMain.on('download_update', () => {
