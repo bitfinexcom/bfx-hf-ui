@@ -15,6 +15,8 @@ contextBridge.exposeInMainWorld(
     addAppUpdateDownloadedEventListener: (cb) => ipcRenderer.on('update_downloaded', cb),
     addAppUpdateErrorListener: (cb) => ipcRenderer.on('update_error', cb),
 
+    dumpLogData: (data) => ipcRenderer.send('dump_log_data', data),
+
     removeAllAppUpdateEventListeners: () => {
       ipcRenderer.removeAllListeners('update_available')
       ipcRenderer.removeAllListeners('update_in_progress')
