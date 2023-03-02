@@ -124,9 +124,9 @@
   "devDependencies": {
     "babel-preset-react-app": "^9.0.0",
     "browserslist": "^4.16.6",
-    "electron": "^13.0.1",
-    "electron-builder": "^22.11.1",
-    "electron-packager": "15.2.0",
+    "electron": "^23.1.1",
+    "electron-builder": "^23.6.0",
+    "electron-packager": "17.1.1",
     "eslint": "^8.21.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
