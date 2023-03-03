@@ -55,8 +55,8 @@ module.exports = class HFUIApplication {
     const fullscreen = syncReadUserSettings()?.fullScreen
 
     const { width: monitorWidth, height: monitorHeight } = screen.getPrimaryDisplay().workAreaSize
-    const minWidth = monitorWidth >= 1200 ? 1200 : monitorWidth
-    const minHeight = monitorHeight >= 600 ? 600 : monitorHeight
+    const minWidth = Math.min(1200, monitorWidth)
+    const minHeight = Math.min(600, monitorHeight)
 
     const mainWindowState = windowStateKeeper({
       defaultWidth: 1500,
