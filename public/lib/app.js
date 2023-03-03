@@ -1,7 +1,12 @@
 const url = require('url')
 const path = require('path')
 const {
-  BrowserWindow, protocol, shell, ipcMain, dialog,
+  BrowserWindow,
+  protocol,
+  shell,
+  ipcMain,
+  dialog,
+  screen,
 } = require('electron')
 const { autoUpdater: _autoUpdater } = require('electron-updater')
 const logger = require('electron-log')
@@ -49,6 +54,10 @@ module.exports = class HFUIApplication {
   static createWindow() {
     const fullscreen = syncReadUserSettings()?.fullScreen
 
+    const { width: monitorWidth, height: monitorHeight } = screen.getPrimaryDisplay().workAreaSize
+    const minWidth = monitorWidth >= 1200 ? 1200 : monitorWidth
+    const minHeight = monitorHeight >= 600 ? 600 : monitorHeight
+
     const mainWindowState = windowStateKeeper({
       defaultWidth: 1500,
       defaultHeight: 850,
@@ -58,8 +67,8 @@ module.exports = class HFUIApplication {
     const win = new BrowserWindow({
       width: mainWindowState.width,
       height: mainWindowState.height,
-      minHeight: 600,
-      minWidth: 1200,
+      minHeight,
+      minWidth,
       x: mainWindowState.x,
       y: mainWindowState.y,
       icon: path.resolve(__dirname, '../icon.png'),
