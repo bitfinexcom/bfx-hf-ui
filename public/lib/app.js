@@ -234,10 +234,16 @@ module.exports = class HFUIApplication {
       this.mainWindow.setFullScreen(fullscreen)
     })
 
-    ipcMain.on('dump_log_data', async (_, data) => {
+    ipcMain.on('dump_log_data', async (_, _data) => {
       try {
         if (!existsSync(LOG_DIR_PATH)) {
           await mkdir(LOG_DIR_PATH)
+        }
+        let data
+        if (_data instanceof Object) {
+          data = JSON.stringify(_data)
+        } else {
+          data = _data
         }
 
         await appendFile(APP_LOG_PATH, `${data}${os.EOL}`)
