@@ -127,7 +127,7 @@
     "electron": "^13.0.1",
     "electron-builder": "^22.11.1",
     "electron-packager": "15.2.0",
-    "eslint": "^8.21.0",
+    "eslint": "^7.11.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
     "node-prune": "^1.0.2",
