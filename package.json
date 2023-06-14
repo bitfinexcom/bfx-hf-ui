@@ -139,7 +139,7 @@
     "bfx-hf-ext-plugin-bitfinex": "git+https://github.com/bitfinexcom/bfx-hf-ext-plugin-bitfinex.git#v1.0.13",
     "bfx-hf-models": "git+https://github.com/bitfinexcom/bfx-hf-models.git#v4.0.0",
     "bfx-hf-models-adapter-lowdb": "git+https://github.com/bitfinexcom/bfx-hf-models-adapter-lowdb.git#v1.0.5",
-    "bfx-hf-server": "git+https://github.com/bitfinexcom/bfx-hf-server.git#v9.6.0",
+    "bfx-hf-server": "git+https://github.com/bitfinexcom/bfx-hf-server.git#v9.7.0",
     "bfx-hf-util": "git+https://github.com/bitfinexcom/bfx-hf-util#v1.0.12",
     "concurrently": "^6.3.0",
     "cross-env": "^7.0.2",
