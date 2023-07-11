@@ -3,7 +3,7 @@
   "version": "3.31.5-rc.1",
   "description": "Official Bitfinex Honey UI - for live trading and executing algorithmic orders/strategies",
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "main": "./build/electron.js",
   "homepage": "./",
