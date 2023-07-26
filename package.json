@@ -3,7 +3,7 @@
   "version": "3.31.5-rc.2",
   "description": "Official Bitfinex Honey UI - for live trading and executing algorithmic orders/strategies",
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "main": "./build/electron.js",
   "homepage": "./",
@@ -76,7 +76,7 @@
     }
   },
   "scripts": {
-    "preinstall": "cd ./bfx-hf-ui-core && npm install",
+    "preinstall": "cd ./bfx-hf-ui-core && npm install --omit='optional'",
     "build-css": "cd ./bfx-hf-ui-core && npm run build-css",
     "watch-css": "cd ./bfx-hf-ui-core && npm run watch-css",
     "start-server": "cross-env concurrently --kill-others \"npm run start-api-server\" \"npm run start-ds-bitfinex\"",
@@ -135,11 +135,11 @@
   },
   "dependencies": {
     "adm-zip": "^0.5.9",
-    "bfx-hf-data-server": "git+https://github.com/bitfinexcom/bfx-hf-data-server.git#v4.3.0",
+    "bfx-hf-data-server": "git+https://github.com/bitfinexcom/bfx-hf-data-server.git#v4.3.1",
     "bfx-hf-ext-plugin-bitfinex": "git+https://github.com/bitfinexcom/bfx-hf-ext-plugin-bitfinex.git#v1.0.13",
     "bfx-hf-models": "git+https://github.com/bitfinexcom/bfx-hf-models.git#v4.0.0",
     "bfx-hf-models-adapter-lowdb": "git+https://github.com/bitfinexcom/bfx-hf-models-adapter-lowdb.git#v1.0.5",
-    "bfx-hf-server": "git+https://github.com/bitfinexcom/bfx-hf-server.git#v9.8.0",
+    "bfx-hf-server": "git+https://github.com/bitfinexcom/bfx-hf-server.git#v9.8.3",
     "bfx-hf-util": "git+https://github.com/bitfinexcom/bfx-hf-util#v1.0.12",
     "concurrently": "^6.3.0",
     "cross-env": "^7.0.2",
