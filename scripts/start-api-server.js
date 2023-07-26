@@ -10,7 +10,7 @@ const { version } = require('../package.json')
 
 const dir = `${os.homedir()}/.bitfinexhoney`
 const { locale } = Intl.DateTimeFormat().resolvedOptions()
-
+console.log()
 startHFServer({
   dataDir: dir,
   uiDBPath: `${dir}/ui.json`,
