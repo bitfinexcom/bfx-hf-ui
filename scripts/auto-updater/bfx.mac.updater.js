@@ -60,8 +60,8 @@ class BfxMacUpdater extends MacUpdater {
         downloadedFilePath,
         {
           dir: dist,
-          defaultDirMode: '0o777',
-          defaultFileMode: '0o777',
+          defaultDirMode: '0o744',
+          defaultFileMode: '0o744',
         },
       )
 
