@@ -79,6 +79,7 @@ class BfxMacUpdater extends MacUpdater {
       return true
     } catch (err) {
       // this.dispatchError(err)
+      this._logger.error(err)
 
       return false
     }
