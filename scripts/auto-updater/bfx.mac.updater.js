@@ -4,10 +4,10 @@ const path = require('path')
 const fs = require('fs')
 const { spawn } = require('child_process')
 const { MacUpdater } = require('electron-updater')
+const extract = require('extract-zip')
 
 const { rootPath: appDir } = require('electron-root-path')
 const logger = require('electron-log')
-const AdmZip = require('adm-zip')
 
 class BfxMacUpdater extends MacUpdater {
   constructor(...args) {
@@ -56,8 +56,14 @@ class BfxMacUpdater extends MacUpdater {
 
       await fs.promises.rmdir(root, { recursive: true, force: true })
 
-      const downloadedZIPFile = new AdmZip(downloadedFilePath)
-      await downloadedZIPFile.extractAllToAsync(dist, true)
+      await extract(
+        downloadedFilePath,
+        {
+          dir: dist,
+          defaultDirMode: '0o744',
+          defaultFileMode: '0o744',
+        },
+      )
 
       if (!isForceRunAfter) {
         return true
@@ -73,6 +79,7 @@ class BfxMacUpdater extends MacUpdater {
       return true
     } catch (err) {
       // this.dispatchError(err)
+      this._logger.error(err)
 
       return false
     }
