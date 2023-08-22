@@ -25,3 +25,6 @@ const dsBitfinex = new DataServer({
 })
 
 dsBitfinex.open()
+  .catch(err => {
+    console.error(err)
+  })
