@@ -21,6 +21,10 @@ const dbBitfinex = new HFDB({
 const dsBitfinex = new DataServer({
   port: 23521,
   db: dbBitfinex,
+  sqlitePath: `${os.homedir()}/.bitfinexhoney`,
 })
 
 dsBitfinex.open()
+  .catch(err => {
+    console.error(err)
+  })
