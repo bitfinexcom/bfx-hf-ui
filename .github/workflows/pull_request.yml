@@ -18,19 +18,19 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [16.20.x]
 
     steps:
       - name: Install sha256sum
         run:  brew install coreutils
 
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           persist-credentials: false
 
       - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -57,7 +57,7 @@ jobs:
             dist/*-mac.zip
 
       - name: Annotate Checks
-        uses: tarcisiozf/ci-checks-action@master
+        uses: agyemanjp/ci-checks-action@2.0.3
         with:
           ghToken: ${{ secrets.GITHUB_TOKEN }}
           checks: '[
