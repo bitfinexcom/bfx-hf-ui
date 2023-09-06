@@ -76,7 +76,7 @@
     }
   },
   "scripts": {
-    "preinstall": "cd ./bfx-hf-ui-core && npm install",
+    "preinstall": "cd ./bfx-hf-ui-core && npm install --omit='optional'",
     "build-css": "cd ./bfx-hf-ui-core && npm run build-css",
     "watch-css": "cd ./bfx-hf-ui-core && npm run watch-css",
     "start-server": "cross-env concurrently --kill-others \"npm run start-api-server\" \"npm run start-ds-bitfinex\"",
