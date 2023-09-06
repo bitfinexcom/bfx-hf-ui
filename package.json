@@ -76,7 +76,7 @@
     }
   },
   "scripts": {
-    "preinstall": "cd ./bfx-hf-ui-core && npm install --omit='optional'",
+    "preinstall": "cd ./bfx-hf-ui-core && npm install",
     "build-css": "cd ./bfx-hf-ui-core && npm run build-css",
     "watch-css": "cd ./bfx-hf-ui-core && npm run watch-css",
     "start-server": "cross-env concurrently --kill-others \"npm run start-api-server\" \"npm run start-ds-bitfinex\"",
@@ -145,7 +145,7 @@
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "electron-log": "^4.4.6",
-    "electron-root-path": "^1.0.16",
+    "electron-root-path": "git+https://github.com/dmytroshch/npm-electron-root-path.git#update-deps",
     "electron-serve": "^1.1.0",
     "electron-updater": "^4.6.1",
     "electron-util": "^0.17.2",
