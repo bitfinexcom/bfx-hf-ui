@@ -5,7 +5,8 @@
   "engines": {
     "node": ">=18"
   },
-  "main": "./build/electron.js",
+  "type": "commonjs",
+  "main": "./build/electron.cjs",
   "homepage": "./",
   "productName": "Bitfinex Honey",
   "build": {
@@ -122,37 +123,36 @@
     "BTC"
   ],
   "devDependencies": {
-    "babel-preset-react-app": "^9.0.0",
-    "browserslist": "^4.16.6",
-    "electron": "^13.0.1",
-    "electron-builder": "^22.11.1",
-    "electron-packager": "15.2.0",
-    "eslint": "^7.11.0",
+    "babel-preset-react-app": "^10.0.1",
+    "browserslist": "^4.22.0",
+    "electron": "^26.2.3",
+    "electron-builder": "^24.6.4",
+    "electron-packager": "17.1.2",
+    "eslint": "^8.50.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-import": "^2.28.1",
     "node-prune": "^1.0.2",
     "run-script-os": "^1.1.6"
   },
   "dependencies": {
-    "adm-zip": "^0.5.9",
+    "adm-zip": "^0.5.10",
     "bfx-hf-data-server": "git+https://github.com/bitfinexcom/bfx-hf-data-server.git#v4.4.0",
     "bfx-hf-ext-plugin-bitfinex": "git+https://github.com/bitfinexcom/bfx-hf-ext-plugin-bitfinex.git#v1.0.13",
-    "bfx-hf-models": "git+https://github.com/bitfinexcom/bfx-hf-models.git#v4.0.0",
-    "bfx-hf-models-adapter-lowdb": "git+https://github.com/bitfinexcom/bfx-hf-models-adapter-lowdb.git#v1.0.5",
+    "bfx-hf-models": "git+https://github.com/bitfinexcom/bfx-hf-models.git#v4.0.1",
+    "bfx-hf-models-adapter-lowdb": "git+https://github.com/bitfinexcom/bfx-hf-models-adapter-lowdb.git#v1.0.6",
     "bfx-hf-server": "git+https://github.com/bitfinexcom/bfx-hf-server.git#v9.9.3",
     "bfx-hf-util": "git+https://github.com/bitfinexcom/bfx-hf-util#v1.0.12",
-    "concurrently": "^6.3.0",
-    "cross-env": "^7.0.2",
-    "dotenv": "^8.2.0",
-    "electron-log": "^4.4.6",
+    "concurrently": "^8.2.1",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.3.1",
+    "electron-log": "^4.4.8",
     "electron-root-path": "git+https://github.com/dmytroshch/npm-electron-root-path.git#update-deps",
     "electron-serve": "^1.1.0",
-    "electron-updater": "^4.6.1",
+    "electron-updater": "^6.1.4",
     "electron-util": "^0.17.2",
     "electron-window-state": "^5.0.3",
     "env-cmd": "^10.1.0",
-    "extract-zip": "^2.0.1",
-    "open": "^7.0.1"
+    "extract-zip": "^2.0.1"
   },
   "browserslist": {
     "production": [
