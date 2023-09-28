@@ -6,7 +6,7 @@
     "node": ">=18"
   },
   "type": "commonjs",
-  "main": "./build/electron.cjs",
+  "main": "./build/electron.js",
   "homepage": "./",
   "productName": "Bitfinex Honey",
   "build": {
