@@ -1,5 +1,4 @@
-const { Menu } = require('electron')
-const open = require('open')
+const { Menu, shell } = require('electron')
 const os = require('os')
 const url = require('url')
 // const { app } = require('electron')
@@ -110,7 +109,7 @@ const getTemplate = ({ app, sendOpenSettingsModalMessage }) => {
         {
           label: 'Open Logs Folder',
           click: () => {
-            open(LOG_PATH).catch((e) => {
+            shell.openPath(LOG_PATH).catch((e) => {
               console.error(`failed to open logs folder: ${e.message}`)
             })
           },
@@ -118,7 +117,7 @@ const getTemplate = ({ app, sendOpenSettingsModalMessage }) => {
         {
           label: 'Open Data Server Log',
           click: () => {
-            open(LOG_PATH_DS_BITFINEX).catch((e) => {
+            shell.openPath(LOG_PATH_DS_BITFINEX).catch((e) => {
               console.error(
                 `failed to open data server log file: ${e.message}`,
               )
@@ -128,7 +127,7 @@ const getTemplate = ({ app, sendOpenSettingsModalMessage }) => {
         {
           label: 'Open API Server Log',
           click: () => {
-            open(LOG_PATH_API_SERVER).catch((e) => {
+            shell.openPath(LOG_PATH_API_SERVER).catch((e) => {
               console.error(`failed to open api server log file: ${e.message}`)
             })
           },
