@@ -1,0 +1,71 @@
+name: Pull request verify workflow
+
+jobs:
+  checks:
+    runs-on: macos-latest
+    env:
+      # dont treat warning as error
+      CI: false
+
+    strategy:
+      matrix:
+        node-version: [18.18.x]
+
+    steps:
+      - name: Install sha256sum
+        run:  brew install coreutils
+
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Pull bfx-hf-ui-core
+        run: npm run fetch-core
+
+      - name: Install
+        run: npm install
+
+      - name: Build for linux/mac/windows
+        env:
+          CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+          CSC_LINK: ${{ secrets.CSC_LINK }}
+          APPLEID: ${{ secrets.APPLEID }}
+          APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
+        run: npm run build-all
+
+      - name: Results
+        run: ls -l dist
+
+      - name: Upload builds
+        uses: actions/upload-artifact@v3
+        with:
+          name: artifacts
+          retention-days: 1
+          path: |
+            dist/*-linux.AppImage
+            dist/*.exe
+            dist/*-mac.zip
+            dist/*-mac.dmg
+
+      - name: Annotate Checks
+        uses: tarcisiozf/ci-checks-action@master
+        with:
+          ghToken: ${{ secrets.GITHUB_TOKEN }}
+          checks: '[
+            {
+              "name": "build",
+              "fileName": ".build-report.json",
+              "prChangesOnly": true
+            },
+            {
+              "name": "lint",
+              "fileName": ".lint-report.json",
+              "prChangesOnly": true
+            }
+          ]'
