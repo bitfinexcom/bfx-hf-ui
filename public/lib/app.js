@@ -14,12 +14,6 @@ const windowStateKeeper = require('electron-window-state')
 const os = require('os')
 const { appendFile, mkdir } = require('fs/promises')
 const { existsSync } = require('fs')
-const enforceMacOSAppLocation = require('../../scripts/enforce-macos-app-location')
-const BfxMacUpdater = require('../../scripts/auto-updater/bfx.mac.updater')
-const {
-  showLoadingWindow,
-  hideLoadingWindow,
-} = require('../../scripts/change-loading-win-visibility-state')
 const { createAppMenu } = require('../utils/appMenu')
 const { createAppTray } = require('../utils/tray')
 const syncReadUserSettings = require('../utils/syncReadUserSettings')
@@ -29,19 +23,7 @@ const { ELECTRON_CONTEXT_ALLOWED_URLS } = require('../constants')
 const LOG_DIR_PATH = `${os.tmpdir()}/bfx-hf-ui-logs`
 const APP_LOG_PATH = `${LOG_DIR_PATH}/app.log`
 
-const isElectronDebugMode = process.env.REACT_APP_ELECTRON_DEBUG === 'true'
-
-let autoUpdater = _autoUpdater
-
-if (process.platform === 'darwin') {
-  autoUpdater = new BfxMacUpdater()
-  autoUpdater.addInstallingUpdateEventHandler(() => {
-    return showLoadingWindow({
-      description: 'Updating...',
-      isRequiredToCloseAllWins: true,
-    })
-  })
-}
+const autoUpdater = _autoUpdater
 
 autoUpdater.allowPrerelease = false
 autoUpdater.logger = logger
@@ -269,11 +251,6 @@ module.exports = class HFUIApplication {
     })
 
     autoUpdater.on('update-downloaded', (info) => {
-      const { downloadedFile } = { ...info }
-      if (autoUpdater instanceof BfxMacUpdater) {
-        autoUpdater.setDownloadedFilePath(downloadedFile)
-      }
-
       this.mainWindow.webContents.send('update_downloaded', info)
     })
 
@@ -289,7 +266,6 @@ module.exports = class HFUIApplication {
         }
 
         this.mainWindow.webContents.send('update_error')
-        await hideLoadingWindow({ isRequiredToShowMainWin: false })
       } catch (_err) {
         logger.error('autoUpdater error: ', _err)
       }
@@ -318,10 +294,6 @@ module.exports = class HFUIApplication {
         }
       },
     )
-
-    if (!isElectronDebugMode) {
-      await enforceMacOSAppLocation()
-    }
 
     createAppMenu({
       app: this.app,
