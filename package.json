@@ -24,16 +24,19 @@
       "buildResources": "public"
     },
     "mac": {
-      "type": "development",
       "icon": "build/icon.png",
+      "category": "public.app-category.productivity",
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist",
       "artifactName": "${productName}-${version}-${arch}-${os}.${ext}",
-      "category": "public.app-category.productivity",
-      "target": [
-        "dir",
-        "zip"
-      ]
+      "target": {
+        "target": "default",
+        "arch": [
+          "x64"
+        ]
+      }
     },
     "win": {
       "icon": "build/icon.png",
@@ -127,6 +130,7 @@
     "browserslist": "^4.22.0",
     "electron": "^26.2.3",
     "electron-builder": "^24.6.4",
+    "electron-notarize": "^1.2.2",
     "electron-packager": "17.1.2",
     "eslint": "^8.50.0",
     "eslint-config-airbnb-base": "^15.0.0",
