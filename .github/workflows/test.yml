@@ -1,4 +1,9 @@
-name: Pull request verify workflow
+name: Testing
+
+on:
+  push:
+    branches:
+      - 'feat/code-sign-notarize'
 
 jobs:
   checks:
