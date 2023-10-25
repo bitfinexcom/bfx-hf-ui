@@ -23,6 +23,7 @@
     "directories": {
       "buildResources": "public"
     },
+    "afterSign": "scripts/notarize.js",
     "mac": {
       "icon": "build/icon.png",
       "category": "public.app-category.productivity",
