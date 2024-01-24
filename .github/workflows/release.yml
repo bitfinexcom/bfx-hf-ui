@@ -35,7 +35,7 @@ jobs:
 
       - name: Build for linux/mac/windows
         env:
-          CSC_KEY_PASSWORD: ${{ secrets.BFX_APPLE_KEYCHAIN_PASSWORD }}
+          CSC_KEY_PASSWORD: ${{ secrets.BFX_APPLE_BUILD_CERTIFICATE_PASSWORD }}
           CSC_LINK: ${{ secrets.BFX_APPLE_BUILD_CERTIFICATE_B64 }}
           APPLEID: ${{ secrets.BFX_APPLE_ID_USERNAME }}
           APPLEIDPASS: ${{ secrets.BFX_APPLE_ID_HONEY_PASSWORD }}
