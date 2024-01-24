@@ -35,10 +35,14 @@ jobs:
 
       - name: Release+Build for linux/mac/windows
         env:
+          APPLE_TEAM_ID: ${{ secrets.BFX_APPLE_TEAM_ID }}
+          APPLE_ID: ${{ secrets.BFX_APPLE_ID_USERNAME }}
+          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.BFX_APPLE_ID_HONEY_PASSWORD }}
           APPLEID: ${{ secrets.BFX_APPLE_ID_USERNAME }}
           APPLEIDPASS: ${{ secrets.BFX_APPLE_ID_HONEY_PASSWORD }}
           CSC_LINK: ${{ secrets.BFX_APPLE_BUILD_CERTIFICATE_B64 }}
           CSC_KEY_PASSWORD: ${{ secrets.BFX_APPLE_BUILD_CERTIFICATE_PASSWORD }}
+
 
         run: npm run deploy
 
