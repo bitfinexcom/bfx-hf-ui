@@ -1,0 +1,45 @@
+name: Github release workflow
+
+on: workflow_dispatch
+
+jobs:
+  checks:
+    runs-on: macos-latest
+    env:
+      # dont treat warning as error
+      CI: false
+
+    strategy:
+      matrix:
+        node-version: [18.18.x]
+
+    steps:
+      - name: Install sha256sum
+        run:  brew install coreutils
+
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Pull bfx-hf-ui-core
+        run: npm run fetch-core
+
+      - name: Install
+        run: npm install
+
+      - name: Build for linux/mac/windows
+        env:
+          CSC_KEY_PASSWORD: ${{ secrets.BFX_APPLE_KEYCHAIN_PASSWORD }}
+          CSC_LINK: ${{ secrets.BFX_APPLE_BUILD_CERTIFICATE_B64 }}
+          APPLEID: ${{ secrets.BFX_APPLE_ID_USERNAME }}
+          APPLEIDPASS: ${{ secrets.BFX_APPLE_ID_HONEY_PASSWORD }}
+        run: npm run deploy
+
+      - name: Results
+        run: ls -l dist
