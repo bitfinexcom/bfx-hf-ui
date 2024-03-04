@@ -126,7 +126,7 @@
     "babel-preset-react-app": "^10.0.1",
     "browserslist": "^4.22.0",
     "electron": "^26.2.3",
-    "electron-builder": "^24.6.4",
+    "electron-builder": "^24.13.3",
     "electron-packager": "17.1.2",
     "eslint": "^8.50.0",
     "eslint-config-airbnb-base": "^15.0.0",
