@@ -1,3 +1,6 @@
+### IMPORTANT NOTICE
+On November 6th 2024 the feature 'dead-man switch' ('DMS' for short) will no longer be supported in all versions of Bitfinex Honey, including past versions, independently of the version number and/or release date. After this date, if you stop your local environment, the orders you created using any version of this software will continue running unless you manually cancel them. This can lead to unexpected results in your trading experience.
+
 # Bitfinex Honey UI
 
 - Creates HF services as background processes
