@@ -4,7 +4,7 @@ This change will mean that the orders you created using any version of Bitfinex 
 Please plan accordingly for this change.
 
 ### Deprecation notice
-As of March 25, 2025 this repository and other associated repositories, as well as the associated releases are no longer maintained. This repository is made available for historical, archival and other informational purposes. The use of any information in this repository could lead to unexpected results, including unexpected trading behaviors. The contents of this repository are made available pursuant to the [Apache-2.0 License](https://xml.apache.org/xindice/license.html), including Section 7 (Disclaimer of Warranty) and 8 (Limitation of Liability).
+As of March 25, 2025 this repository and other associated repositories, as well as the associated releases are no longer maintained. This repository is made available for historical, archival and other informational purposes. The use of any information in this repository could lead to unexpected results, including unexpected trading behaviors. The contents of this repository are made available pursuant to the [Apache-2.0 License](https://github.com/bitfinexcom/bfx-hf-ui/blob/master/LICENSE), including Section 7 (Disclaimer of Warranty) and 8 (Limitation of Liability).
 
 # Bitfinex Honey UI
 
