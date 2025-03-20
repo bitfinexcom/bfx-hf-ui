@@ -47,7 +47,7 @@ jobs:
         run: ls -l dist
 
       - name: Upload builds
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: artifacts
           retention-days: 1
