@@ -148,7 +148,7 @@
     "electron-log": "^4.4.8",
     "electron-root-path": "git+https://github.com/dmytroshch/npm-electron-root-path.git#update-deps",
     "electron-serve": "^1.1.0",
-    "electron-updater": "^6.1.4",
+    "electron-updater": "^6.3.0",
     "electron-util": "^0.17.2",
     "electron-window-state": "^5.0.3",
     "env-cmd": "^10.1.0",
