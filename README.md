@@ -1,10 +1,12 @@
-### IMPORTANT NOTICE
+## IMPORTANT NOTICES
+
+### REPOSITORY DEPRECATION NOTICE
+As of March 25, 2025 this repository and other associated repositories, as well as the associated releases are no longer maintained. This repository is made available for historical, archival and other informational purposes. The use of any information in this repository could lead to unexpected results, including unexpected trading behaviors. The contents of this repository are made available pursuant to the [Apache-2.0 License](https://github.com/bitfinexcom/bfx-hf-ui/blob/master/LICENSE), including Section 7 (Disclaimer of Warranty) and 8 (Limitation of Liability).
+
+### DMS DEPRECATION NOTICE
 As [announced](https://www.bitfinex.com/posts/1072/), on November 6, 2024 Bitfinex Honey will no longer support the 'dead-man switch' or 'DMS' feature. This will apply to all versions of Bitfinex Honey. Your version of Bitfinex Honey will be affected. 
 This change will mean that the orders you created using any version of Bitfinex Honey will continue running even if you turn off the machine running Bitfinex Honey. Previously, the DMS feature would have stopped those orders when you disconnected. If you do not want those orders to continue, you can close open orders before you disconnect Bitfinex Honey, or close them manually by logging into Bitfinex. 
 Please plan accordingly for this change.
-
-### Deprecation notice
-As of March 25, 2025 this repository and other associated repositories, as well as the associated releases are no longer maintained. This repository is made available for historical, archival and other informational purposes. The use of any information in this repository could lead to unexpected results, including unexpected trading behaviors. The contents of this repository are made available pursuant to the [Apache-2.0 License](https://github.com/bitfinexcom/bfx-hf-ui/blob/master/LICENSE), including Section 7 (Disclaimer of Warranty) and 8 (Limitation of Liability).
 
 # Bitfinex Honey UI
 
